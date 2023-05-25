@@ -1,4 +1,5 @@
-import { type ICreateUserEntity, type ISmallUserEntity } from './user-model';
+import { type ICreateUserEntity } from '../entities/create-user-entity';
+import { type ISmallUserEntity } from '../entities/small-user-entity';
 
 interface IUserRepositoryWriter {
   createUser: (user: ICreateUserEntity) => Promise<ISmallUserEntity>

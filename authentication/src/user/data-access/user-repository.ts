@@ -1,5 +1,5 @@
-import { type ICreateUserEntity, type ISmallUserEntity } from '../domain/user-model';
-import { type IUserRepository } from '../domain/user-repository';
+import { type ICreateUserEntity, type ISmallUserEntity } from '../domain/entities/user-entity';
+import { type IUserRepository } from '../domain/repository/user-repository';
 import { UserModel } from './models/user-model';
 
 export class UserRepository implements IUserRepository {

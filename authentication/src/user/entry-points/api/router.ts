@@ -1,7 +1,7 @@
 import express, { type Router } from 'express';
 import { V1UserController } from './v1/user.controller';
 import { apiConfig } from '../../../common/config/api-config';
-import { type IUserUsecase } from '../../domain/user-usecase';
+import { type IUserUsecase } from '../../domain/usecase/user-usecase';
 import { validateCreateUserHandler } from './v1/validators/create-user-validator';
 import { validateBodyHandler } from './middlewares/validate-request';
 

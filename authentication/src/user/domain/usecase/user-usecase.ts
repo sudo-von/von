@@ -1,5 +1,6 @@
-import { type ISmallUserEntity, type ICreateUserEntity } from './user-model';
-import { type IUserRepository } from './user-repository';
+import { type ICreateUserEntity } from '../entities/create-user-entity';
+import { type ISmallUserEntity } from '../entities/small-user-entity';
+import { type IUserRepository } from '../repository/user-repository';
 
 interface IUserUsecaseWriter {
   createUser: (user: ICreateUserEntity) => Promise<ISmallUserEntity>
