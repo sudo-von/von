@@ -1,13 +1,6 @@
 import { body } from "express-validator";
 
-export type CreateUser = {
-  name: string;
-  email: string;
-  password: string;
-  confirm_password: string;
-  profile_picture: string;
-};
-
+/* 📋 Constants. */
 const MIN_NAME_LENGTH = 8;
 const MIN_PASSWORD_LENGTH = 10;
 
