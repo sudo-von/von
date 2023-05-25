@@ -2,6 +2,7 @@ import { body } from "express-validator";
 
 export type CreateUser = {
   name: string;
+  email: string;
   password: string;
   confirm_password: string;
   profile_picture: string;
@@ -17,6 +18,11 @@ const validateName = body("name")
     `name field must contain at least ${MIN_NAME_LENGTH} characters.`
   );
 
+const validateEmail = body("email")
+  .trim()
+  .isEmail()
+  .withMessage(`email field must contain a valid email.`);
+
 const validatePassword = body("password")
   .trim()
   .isLength({
@@ -28,10 +34,12 @@ const validatePassword = body("password")
 
 const validateConfirmPassword = body("confirm_password")
   .trim()
+  .notEmpty()
+  .withMessage("confirm_password field is required.")
   .custom((value, { req }) => {
     if (value !== req.body.password)
       throw new Error("passwords must be the same.");
-    return value;
+    return true;
   });
 
 const validateProfilePicture = body("profile_picture")
@@ -41,6 +49,7 @@ const validateProfilePicture = body("profile_picture")
 
 export const validateCreateUserHandler = [
   validateName,
+  validateEmail,
   validatePassword,
   validateConfirmPassword,
   validateProfilePicture,
