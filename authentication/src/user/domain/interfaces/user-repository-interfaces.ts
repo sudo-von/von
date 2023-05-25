@@ -6,8 +6,8 @@ interface IUserRepositoryWriter {
 }
 
 interface IUserRepositoryReader {
-  findByID: (id: number) => Promise<ISmallUserEntity>
-  findByEmail: (email: string) => Promise<ISmallUserEntity>
+  findByID: (id: number) => Promise<ISmallUserEntity | null>
+  findByEmail: (email: string) => Promise<ISmallUserEntity | null>
 }
 
 export interface IUserRepository extends IUserRepositoryWriter, IUserRepositoryReader {}

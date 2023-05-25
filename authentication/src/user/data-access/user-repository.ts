@@ -1,27 +1,23 @@
-import { type ICreateUserEntity, type ISmallUserEntity } from '../domain/entities/user-entity';
-import { type IUserRepository } from '../domain/repository/user-repository';
+import { type ICreateUserEntity } from '../domain/entities/create-user-entity';
+import { type ISmallUserEntity } from '../domain/entities/small-user-entity';
+import { type IUserRepository } from '../domain/interfaces/user-repository-interfaces';
 import { UserModel } from './models/user-model';
 
 export class UserRepository implements IUserRepository {
-  async findByID (id: number): Promise<ISmallUserEntity> {
-    const user = await UserModel.findByPk(id);
-    if (!user) throw new Error('user not found');
-    return user;
-  }
+  findByID = async (id: number): Promise<ISmallUserEntity | null> => {
+    return await UserModel.findByPk(id);
+  };
 
-  async findByEmail (email: string): Promise<ISmallUserEntity> {
-    const user = await UserModel.findOne({
+  findByEmail = async (email: string): Promise<ISmallUserEntity | null> => {
+    return await UserModel.findOne({
       where: {
         email
       }
     });
-    if (!user) throw new Error('user not found');
-    return user;
-  }
+  };
 
-  async createUser (payload: ICreateUserEntity): Promise<ISmallUserEntity> {
+  createUser = async (payload: ICreateUserEntity): Promise<ISmallUserEntity> => {
     const user = await UserModel.create(payload);
-
     return user;
   };
 }

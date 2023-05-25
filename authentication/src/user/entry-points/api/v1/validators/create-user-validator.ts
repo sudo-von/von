@@ -30,7 +30,7 @@ const validateConfirmPassword = body('confirm_password')
   .notEmpty()
   .withMessage('confirm_password field is required.')
   .custom((value, { req }) => {
-    if (value !== req.body.password) { throw new Error('passwords must be the same.'); }
+    if (value !== req.body.password) throw new Error('passwords must be the same.');
     return true;
   });
 

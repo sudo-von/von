@@ -5,15 +5,13 @@ import { type IUserUsecase } from '../../domain/usecase/user-usecase';
 import { validateCreateUserHandler } from './v1/validators/create-user-validator';
 import { validateBodyHandler } from './middlewares/validate-request';
 
-const API_BASE = apiConfig.endpoints.v1;
-
-export const createUserControllerRouter = (userUsecase: IUserUsecase): Router => {
+export const createUserController = (userUsecase: IUserUsecase): Router => {
   const router = express.Router();
 
   const controller = new V1UserController(userUsecase);
 
   /* 📡 Routes. */
-  router.post(`${API_BASE}/signup`,
+  router.post(`${apiConfig.endpoints.v1}/signup`,
     validateCreateUserHandler,
     validateBodyHandler,
     controller.createUser
