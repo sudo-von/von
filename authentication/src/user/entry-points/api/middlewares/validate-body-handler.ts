@@ -1,19 +1,15 @@
 import { type Request, type Response, type NextFunction } from 'express';
 import { validationResult } from 'express-validator';
+import { RequestBodyError } from '../errors/request-body-error';
 
 export const validateBodyHandler = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction
 ): void => {
   const errors = validationResult(req);
 
-  if (!errors.isEmpty()) {
-    /* TO-DO: Create custom class. */
-    const serializedErrors = errors.array().map((error) => error.msg);
-    res.status(400).send({ errors: serializedErrors });
-    return;
-  }
+  if (!errors.isEmpty()) throw new RequestBodyError(errors.array());
 
   next();
 };

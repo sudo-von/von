@@ -4,6 +4,7 @@ import { UserRepository } from './user/data-access/user-repository';
 import { UserUsecase } from './user/domain/usecase/user-usecase';
 import { serverConfig } from './common/config/server-config';
 import { createUserController } from './user/entry-points/api/router';
+import { errorHandler } from './user/entry-points/api/middlewares/error-handler';
 
 void (async () => {
   try {
@@ -30,6 +31,7 @@ void (async () => {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(v1UserControllerRouter);
+    app.use(errorHandler);
 
     console.log('📃 Starting application...');
     app.listen(serverConfig.port, () => {
