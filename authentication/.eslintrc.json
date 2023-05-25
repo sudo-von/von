@@ -10,5 +10,10 @@
     "sourceType": "module",
     "project": "**/tsconfig.json"
   },
-  "rules": {}
+  "rules": {
+    "semi": [1, "always"],
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-misused-promises": "off"
+  }
 }
