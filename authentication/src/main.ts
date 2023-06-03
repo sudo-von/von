@@ -1,5 +1,5 @@
 import express from 'express';
-import UserUsecaseImpl from './user/application/user-repository';
+import UserUsecaseImpl from './user/application/user-usecase-impl';
 import InMemoryRepositoryImpl from './user/infrastructure/repositories/in-memory-impl';
 import HashServiceImpl from './user/infrastructure/services/hash-service-impl';
 import createUserRouter from './user/infrastructure/routers/user-router';
