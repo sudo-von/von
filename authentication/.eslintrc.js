@@ -13,7 +13,8 @@ module.exports = {
     "tsconfigRootDir": __dirname,
   },
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "import/no-extraneous-dependencies": "off"
   },
-  "ignorePatterns": [".eslintrc.js"]
+  "ignorePatterns": [".eslintrc.js"],
 }
