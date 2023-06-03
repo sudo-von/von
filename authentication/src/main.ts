@@ -3,6 +3,7 @@ import UserUsecaseImpl from './user/application/user-repository';
 import InMemoryRepositoryImpl from './user/infrastructure/repositories/in-memory-impl';
 import HashServiceImpl from './user/infrastructure/services/hash-service-impl';
 import createUserRouter from './user/infrastructure/routers/user-router';
+import apiConfig from './user/infrastructure/config/api-config';
 
 (() => {
   /* 💽 Repositories. */
@@ -21,7 +22,7 @@ import createUserRouter from './user/infrastructure/routers/user-router';
   const app = express();
   app.use(express.json());
   app.use('/user', userRouter);
-  app.listen(3002, () => {
-    console.log(`[APP] - Starting application on port ${3002}`);
+  app.listen(apiConfig.port, () => {
+    console.log(`[APP] - Starting application on port ${apiConfig.port}`);
   });
 })();
