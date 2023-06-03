@@ -6,7 +6,9 @@
   "scripts": {
     "start:dev": "nodemon"
   },
-  "keywords": ["microservice, authentication, von"],
+  "keywords": [
+    "microservice, authentication, von"
+  ],
   "author": "Jesús 'VoN' Rodríguez",
   "license": "ISC",
   "dependencies": {
@@ -20,6 +22,8 @@
     "@types/node": "^20.2.3",
     "@types/validator": "^13.7.17",
     "eslint": "^8.41.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4"
