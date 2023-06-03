@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon src/app.ts",
-    "lint": "eslint src/*",
-    "lint:fix": "npm run lint --fix"
+    "start:dev": "nodemon"
   },
   "keywords": ["microservice, authentication, von"],
   "author": "Jesús 'VoN' Rodríguez",
