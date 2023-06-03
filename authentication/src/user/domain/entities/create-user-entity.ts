@@ -1,4 +1,3 @@
-import { type IUserEntity } from './user-entity';
+import { UserEntity } from './user-entity';
 
-export interface ICreateUserEntity extends Omit<IUserEntity, 'id'> {
-};
+export type CreateUserEntity = Readonly<Omit<UserEntity, 'id'>>;

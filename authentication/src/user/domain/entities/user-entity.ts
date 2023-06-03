@@ -1,8 +1,8 @@
-export interface IUserEntity {
-  id: number
-  name: string
-  email: string
-  password: string
-  confirm_password: string
-  profile_picture: string
-}
+export type UserEntity = Readonly<{
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  password: string;
+  birthDate: Date;
+}>;
