@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import UserUsecaseImpl from './user/application/user-usecase-impl';
 import InMemoryRepositoryImpl from './user/infrastructure/repositories/in-memory-impl';
 import HashServiceImpl from './user/infrastructure/services/hash-service-impl';
