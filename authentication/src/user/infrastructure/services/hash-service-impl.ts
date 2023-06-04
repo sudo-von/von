@@ -4,12 +4,13 @@ import { HashService } from '../../domain/services/hash-service';
 class HashServiceImpl implements HashService {
   private saltRounds = 10;
 
-  hashSensitiveData = async (password: string): Promise<string> => {
+  hashSensitiveData = async (data: string): Promise<string> => {
     try {
-      const hashedPassword = await bcrypt.hash(password, this.saltRounds);
-      return hashedPassword;
+      const hashedData = await bcrypt.hash(data, this.saltRounds);
+      return hashedData;
     } catch (e) {
-      throw new Error('⚠️ there was an error when trying to hash the password');
+      console.warn(`👻 [HashServiceImpl][hashSensitiveData] error: ${(e as Error).message}.`);
+      throw new Error('there was an error when trying to hash the password');
     }
   };
 }

@@ -1,5 +1,4 @@
-import { Request } from 'express';
-import { CustomValidator, Meta, checkSchema } from 'express-validator';
+import { checkSchema } from 'express-validator';
 
 const createUserValidator = checkSchema({
   name: {

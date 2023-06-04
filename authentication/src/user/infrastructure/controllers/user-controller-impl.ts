@@ -8,25 +8,28 @@ import EmailAlreadyExistsRequestError from './errors/EmailAlreadyExistsRequestEr
 import EmailAlreadyExists from '../../domain/errors/EmailAlreadyExists';
 import UserCouldntBeCreated from '../../domain/errors/UserCouldntBeCreated';
 import UserCouldntBeCreatedRequestError from './errors/UserCouldntBeCreatedRequestError';
+import statusCodes from './errors/status-codes';
+
+type GetUserByIdRequest = Request<{ id: string }>;
+type CreateUserRequest = Request<{}, {}, CreateUserEntity>;
 
 class UserControllerImpl extends AbstractUserController {
-  getUserById = async (req: Request<{ id?: string }>, res: Response) => {
+  getUserById = async (req: GetUserByIdRequest, res: Response) => {
     try {
       const { id } = req.params;
-      if (!id) return res.status(400).send({ message: 'missing param id' });
       const user = await this.userUsecase.getUserById(id);
-      return res.status(200).send({ user });
+      return res.status(statusCodes.success.ok).send({ user });
     } catch (e) {
       if (e instanceof UserNotFoundError) throw new UserNotFoundRequestError();
       throw new InternalRequestError();
     }
   };
 
-  createUser = async (req: Request<object, object, CreateUserEntity>, res: Response) => {
+  createUser = async (req: CreateUserRequest, res: Response) => {
     try {
       const payload = req.body;
       const createdUser = await this.userUsecase.createUser(payload);
-      return res.status(201).send({ createdUser });
+      return res.status(statusCodes.success.created).send({ createdUser });
     } catch (e) {
       if (e instanceof EmailAlreadyExists) throw new EmailAlreadyExistsRequestError();
       if (e instanceof UserCouldntBeCreated) throw new UserCouldntBeCreatedRequestError();

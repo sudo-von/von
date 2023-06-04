@@ -9,13 +9,12 @@ class APIServiceImpl extends AbstractApplication {
   start = (): void => {
     /* 📡 Routers. */
     const userRouter = createUserRouter(this.userUsecase);
-
-    /* 📡 Middlewares. */
+    /* 🖥️ Middlewares. */
     const app = express();
     app.use(express.json());
     app.use('/user', userRouter);
     app.listen(this.port, () => {
-      console.log(`[APP] - Starting application on port ${this.port}`);
+      console.log(`💻 [APIServiceImpl][start]: Starting application on port ${this.port}.`);
     });
   };
 }
