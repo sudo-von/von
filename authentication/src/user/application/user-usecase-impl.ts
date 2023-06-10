@@ -1,4 +1,5 @@
 import { CreateUserEntity } from '../domain/entities/create-user-entity';
+import { SmallUserEntity } from '../domain/entities/small-user-entity';
 import { UserEntity } from '../domain/entities/user-entity';
 import { validatePosition, validateInterest, validateQuote } from '../domain/entities/validations/create-about-validations';
 import {
@@ -26,7 +27,7 @@ class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
     return user as UserEntity;
   };
 
-  createUser = async (userPayload: CreateUserEntity): Promise<UserEntity> => {
+  createUser = async (userPayload: CreateUserEntity): Promise<SmallUserEntity> => {
     const isNameValid = validateName(userPayload.name);
     if (!isNameValid) throw new InvalidNameError();
 
@@ -61,7 +62,16 @@ class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
     const createdUser = await this.userRepository.createUser(payload);
     if (!createdUser) throw new UserCouldntBeCreatedError();
 
-    return createdUser;
+    const smallUser: SmallUserEntity = {
+      id: createdUser.id,
+      name: createdUser.name,
+      username: createdUser.username,
+      email: createdUser.email,
+      profile_picture: createdUser.profile_picture,
+      about: createdUser.about,
+    };
+
+    return smallUser;
   };
 }
 

@@ -1,3 +1,5 @@
+import { AboutEntity } from './about-entity';
+
 export type UserEntity = Readonly<{
   id: string;
   name: string;
@@ -5,4 +7,5 @@ export type UserEntity = Readonly<{
   username: string;
   password: string;
   profile_picture: string;
+  about: AboutEntity;
 }>;
