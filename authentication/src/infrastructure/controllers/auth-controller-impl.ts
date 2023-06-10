@@ -12,11 +12,11 @@ import {
   InvalidUsernameRequestError,
   SingleUserOnlyRequestError,
   UserCouldntBeCreatedRequestError,
-} from './errors';
-import { ErrorName } from '../../domain/errors';
+} from './errors/request-error-factories';
 import UserCredentialsDTO from './dtos/user-credentials-dto';
 import CreateUserDto from './dtos/create-user-dto';
 import AuthController from './auth-controller';
+import { ErrorNames } from '../../domain/errors/errors';
 
 class AuthControllerImpl extends AuthController {
   auth = async (
@@ -28,7 +28,7 @@ class AuthControllerImpl extends AuthController {
       const user = await this.authUsecase.authenticate(email, password);
       return res.status(statusCodes.success.ok).send({ user });
     } catch (e) {
-      const message = (e as Error).name as ErrorName;
+      const message = (e as Error).name as ErrorNames;
       if (message === 'InvalidCredentialsError') throw new InvalidCredentialsRequestError();
       throw new InternalServerRequestError();
     }
@@ -54,7 +54,7 @@ class AuthControllerImpl extends AuthController {
       const createdUser = await this.authUsecase.signup(userPayload);
       return res.status(statusCodes.success.created).send({ createdUser });
     } catch (e) {
-      const message = (e as Error).name as ErrorName;
+      const message = (e as Error).name as ErrorNames;
       if (message === 'InvalidNameError') throw new InvalidNameRequestError();
       if (message === 'InvalidUsernameError') throw new InvalidUsernameRequestError();
       if (message === 'InvalidPasswordError') throw new InvalidPasswordRequestError();

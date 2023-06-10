@@ -10,22 +10,9 @@ import {
   MIN_POSITION_LENGTH,
   MIN_QUOTE_LENGTH,
   MIN_USERNAME_LENGTH,
-} from './constants';
+} from '../entities/constants';
 
-export type ErrorFactory = {
-  name: string;
-  message: string;
-};
-
-const createErrorFactory = ({ name, message }: ErrorFactory) => class ErrorFactory extends Error {
-  constructor() {
-    super(message);
-    this.name = name;
-    Object.setPrototypeOf(this, ErrorFactory.prototype);
-  }
-};
-
-export const errors = {
+const errors = {
   invalidCredentials: {
     name: 'InvalidCredentialsError',
     message: 'invalid credentials',
@@ -72,16 +59,6 @@ export const errors = {
   },
 } as const;
 
-export type ErrorName = typeof errors[keyof typeof errors]['name'];
+export type ErrorNames = typeof errors[keyof typeof errors]['name'];
 
-export const InvalidCredentialsError = createErrorFactory(errors.invalidCredentials);
-export const InvalidInterestError = createErrorFactory(errors.invalidInterest);
-export const InvalidEmailError = createErrorFactory(errors.invalidEmail);
-export const InvalidNameError = createErrorFactory(errors.invalidName);
-export const InvalidPasswordError = createErrorFactory(errors.invalidPassword);
-export const InvalidPositionError = createErrorFactory(errors.invalidPosition);
-export const InvalidQuoteError = createErrorFactory(errors.invalidQuote);
-export const InvalidUsernameError = createErrorFactory(errors.invalidUsername);
-export const UserCouldntBeCreatedError = createErrorFactory(errors.userCouldntBeCreated);
-export const UserNotFoundError = createErrorFactory(errors.userNotFound);
-export const SingleUserOnlyError = createErrorFactory(errors.singleUserOnly);
+export default errors;

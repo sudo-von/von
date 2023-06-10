@@ -1,26 +1,7 @@
-import { ErrorFactory, errors } from '../../domain/errors';
-import statusCodes from './status-codes';
+import statusCodes from '../status-codes';
+import errors from '../../../domain/errors/errors';
 
-export type RequestErrorFactory = ErrorFactory & {
-  statusCode: number;
-};
-
-const createRequestErrorFactory = ({
-  name,
-  message,
-  statusCode,
-}: RequestErrorFactory) => class RequestErrorFactory extends Error {
-  statusCode: number;
-
-  constructor() {
-    super(message);
-    this.name = name;
-    this.statusCode = statusCode;
-    Object.setPrototypeOf(this, RequestErrorFactory.prototype);
-  }
-};
-
-export const requestErrors = {
+const requestErrors = {
   invalidCredentials: {
     statusCode: statusCodes.clientSide.unauthorized,
     name: 'InvalidCredentialsRequestError',
@@ -83,52 +64,4 @@ export const requestErrors = {
   },
 } as const;
 
-export type ErrorNames = typeof requestErrors[keyof typeof requestErrors]['name'];
-
-export const InvalidCredentialsRequestError = createRequestErrorFactory(
-  requestErrors.invalidCredentials,
-);
-
-export const InvalidInterestRequestError = createRequestErrorFactory(
-  requestErrors.invalidInterest,
-);
-
-export const InvalidEmailRequestError = createRequestErrorFactory(
-  requestErrors.invalidEmail,
-);
-
-export const InvalidNameRequestError = createRequestErrorFactory(
-  requestErrors.invalidName,
-);
-
-export const InvalidPasswordRequestError = createRequestErrorFactory(
-  requestErrors.invalidPassword,
-);
-
-export const InvalidPositionRequestError = createRequestErrorFactory(
-  requestErrors.invalidPosition,
-);
-
-export const InvalidQuoteRequestError = createRequestErrorFactory(
-  requestErrors.invalidQuote,
-);
-
-export const InvalidUsernameRequestError = createRequestErrorFactory(
-  requestErrors.invalidUsername,
-);
-
-export const UserCouldntBeCreatedRequestError = createRequestErrorFactory(
-  requestErrors.userCouldntBeCreated,
-);
-
-export const UserNotFoundRequestError = createRequestErrorFactory(
-  requestErrors.userNotFound,
-);
-
-export const SingleUserOnlyRequestError = createRequestErrorFactory(
-  requestErrors.singleUserOnly,
-);
-
-export const InternalServerRequestError = createRequestErrorFactory(
-  requestErrors.internalServer,
-);
+export default requestErrors;

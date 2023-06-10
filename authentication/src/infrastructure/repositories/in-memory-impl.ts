@@ -6,7 +6,7 @@ import IUserRepository from '../../domain/repositories/user-repository';
 class InMemoryRepositoryImpl implements IUserRepository {
   private usersInMemory: UserEntity[] = [];
 
-  getUsers = (): Promise<UserEntity[] | null> => new Promise(
+  getUsers = (): Promise<UserEntity[]> => new Promise(
     (resolve) => {
       resolve(this.usersInMemory);
     },

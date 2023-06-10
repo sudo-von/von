@@ -15,9 +15,9 @@ class CryptographyServiceImpl implements CryptographyService {
     }
   };
 
-  hash = async (data: string): Promise<string> => {
+  hash = async (plainData: string): Promise<string> => {
     try {
-      const hashedData = await bcrypt.hash(data, this.saltRounds);
+      const hashedData = await bcrypt.hash(plainData, this.saltRounds);
       return hashedData;
     } catch (e) {
       console.warn(`👻 [CryptographyServiceImpl][hashSensitiveData] error: ${(e as Error).message}.`);

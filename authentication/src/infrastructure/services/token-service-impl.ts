@@ -3,9 +3,11 @@ import { SmallUserEntity } from '../../domain/entities/small-user-entity';
 import TokenService from '../../domain/services/token-service';
 
 class TokenServiceImpl extends TokenService {
+  private expiresIn = 60 * 60;
+
   generate = (payload: SmallUserEntity): string => {
     try {
-      const token = jwt.sign(payload, this.secret, { algorithm: 'HS256', expiresIn: 60 * 60 });
+      const token = jwt.sign(payload, this.secret, { algorithm: 'HS256', expiresIn: this.expiresIn });
       return token;
     } catch (e) {
       console.warn(`👻 [TokenServiceImpl][generateToken] error: ${(e as Error).message}.`);

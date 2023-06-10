@@ -4,7 +4,7 @@ import {
   MIN_USERNAME_LENGTH,
   MAX_USERNAME_LENGTH,
   MIN_PASSWORD_LENGTH,
-} from '../../constants';
+} from '../constants';
 
 export const validateName = (name: string) => {
   const nameLength = name.trim().length;

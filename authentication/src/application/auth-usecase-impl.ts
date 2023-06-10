@@ -18,8 +18,8 @@ import {
   InvalidUsernameError,
   SingleUserOnlyError,
   UserCouldntBeCreatedError,
-} from '../domain/errors';
-import AuthUsecase from '../domain/usecase/auth-usecase';
+} from '../domain/errors/error-factories';
+import AuthUsecase from '../domain/usecases/auth-usecase';
 
 class UserUsecaseImpl extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {

@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import 'express-async-errors';
 import UserUsecaseImpl from './application/auth-usecase-impl';
 import InMemoryRepositoryImpl from './infrastructure/repositories/in-memory-impl';
-import ExpressAPIServiceImpl from './infrastructure/services/api-service-impl';
+import APIServiceImpl from './infrastructure/services/api-service-impl';
 import TokenServiceImpl from './infrastructure/services/token-service-impl';
 import CryptographyServiceImpl from './infrastructure/services/cryptography-service-impl';
 
@@ -28,9 +28,7 @@ import CryptographyServiceImpl from './infrastructure/services/cryptography-serv
     inMemoryRepositoryImpl,
   );
 
-  /* 📡 Apps. */
-  const applications = [
-    new ExpressAPIServiceImpl(userUseCaseImpl, SERVER_PORT),
-  ];
-  applications.forEach((app) => app.start());
+  /* 📡 APIs. */
+  const apiServiceImpl = new APIServiceImpl(userUseCaseImpl, SERVER_PORT);
+  apiServiceImpl.start();
 })();

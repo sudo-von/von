@@ -1,4 +1,4 @@
-import AuthUsecase from '../../domain/usecase/auth-usecase';
+import AuthUsecase from '../../domain/usecases/auth-usecase';
 
 abstract class AuthController {
   constructor(

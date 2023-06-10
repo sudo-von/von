@@ -1,10 +1,9 @@
 import express from 'express';
-import ApplicationService from '../application-service';
-import AuthUsecase from '../../domain/usecase/auth-usecase';
+import AuthUsecase from '../../domain/usecases/auth-usecase';
 import AuthControllerImpl from '../controllers/auth-controller-impl';
 import errorHandler from '../controllers/middlewares/error-handler';
 
-class APIServiceImpl extends ApplicationService {
+class APIServiceImpl {
   private app = express();
 
   private router = express.Router();
@@ -12,9 +11,7 @@ class APIServiceImpl extends ApplicationService {
   constructor(
     protected authUsecase: AuthUsecase,
     private port: number,
-  ) {
-    super(authUsecase);
-  }
+  ) {}
 
   start = () => {
     this.setupHandlers();
