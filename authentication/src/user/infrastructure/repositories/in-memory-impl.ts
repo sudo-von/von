@@ -6,6 +6,12 @@ import { UserRepository } from '../../domain/repositories/user-repository';
 class InMemoryRepositoryImpl implements UserRepository {
   private usersInMemory: UserEntity[] = [];
 
+  getUsers = (): Promise<UserEntity[] | null> => new Promise(
+    (resolve) => {
+      resolve(this.usersInMemory);
+    },
+  );
+
   getUserById = (id: string): Promise<UserEntity | null> => new Promise(
     (resolve) => {
       const user = this.usersInMemory.find((userInMemory) => userInMemory.id === id) || null;

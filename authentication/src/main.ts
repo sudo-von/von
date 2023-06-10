@@ -2,7 +2,7 @@ import 'express-async-errors';
 import UserUsecaseImpl from './user/application/user-usecase-impl';
 import InMemoryRepositoryImpl from './user/infrastructure/repositories/in-memory-impl';
 import HashServiceImpl from './user/infrastructure/services/hash-service-impl';
-import APIServiceImpl from './user/infrastructure/services/api-service-impl';
+import ExpressAPIServiceImpl from './user/infrastructure/services/express-api-service-impl';
 
 (() => {
   /* 💽 Repositories. */
@@ -16,7 +16,7 @@ import APIServiceImpl from './user/infrastructure/services/api-service-impl';
 
   /* 📡 Apps. */
   const applications = [
-    new APIServiceImpl(userUseCaseImpl),
+    new ExpressAPIServiceImpl(userUseCaseImpl),
   ];
   applications.forEach((app) => app.start());
 })();

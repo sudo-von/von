@@ -1,9 +1,9 @@
 import express from 'express';
-import createUserRouter from '../routers/user-router';
 import apiConfig from '../config/api-config';
 import AbstractApplication from '../../domain/services/application-service';
+import createUserRouter from '../controllers/express/routers/user-router';
 
-class APIServiceImpl extends AbstractApplication {
+class ExpressAPIServiceImpl extends AbstractApplication {
   private port = apiConfig.port;
 
   start = (): void => {
@@ -14,9 +14,9 @@ class APIServiceImpl extends AbstractApplication {
     app.use(express.json());
     app.use('/user', userRouter);
     app.listen(this.port, () => {
-      console.log(`💻 [APIServiceImpl][start]: Starting application on port ${this.port}.`);
+      console.log(`💻 [ExpressAPIServiceImpl][start]: Starting application on port ${this.port}.`);
     });
   };
 }
 
-export default APIServiceImpl;
+export default ExpressAPIServiceImpl;
