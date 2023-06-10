@@ -46,7 +46,7 @@ class ExpressUserControllerImpl extends AbstractUserController {
       const createdUser = await this.userUsecase.createUser(userPayload);
       return res.status(statusCodes.success.created).send({ createdUser });
     } catch (e) {
-      const message = (e as Error).message as ErrorName;
+      const message = (e as Error).name as ErrorName;
       if (message === 'InvalidNameError') throw new InvalidNameRequestError();
       if (message === 'InvalidUsernameError') throw new InvalidUsernameRequestError();
       if (message === 'InvalidPasswordError') throw new InvalidPasswordRequestError();

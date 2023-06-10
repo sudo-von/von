@@ -9,15 +9,15 @@ import {
 
 export const validatePosition = (position: string) => {
   const positionLength = position.trim().length;
-  return positionLength >= MIN_POSITION_LENGTH || positionLength <= MAX_POSITION_LENGTH;
+  return positionLength >= MIN_POSITION_LENGTH && positionLength <= MAX_POSITION_LENGTH;
 };
 
 export const validateInterest = (interest: string) => {
   const interestLength = interest.trim().length;
-  return interestLength >= MIN_INTEREST_LENGTH || interestLength <= MAX_INTEREST_LENGTH;
+  return interestLength >= MIN_INTEREST_LENGTH && interestLength <= MAX_INTEREST_LENGTH;
 };
 
 export const validateQuote = (quote: string) => {
   const quoteLength = quote.trim().length;
-  return quoteLength >= MIN_QUOTE_LENGTH || quoteLength <= MAX_QUOTE_LENGTH;
+  return quoteLength >= MIN_QUOTE_LENGTH && quoteLength <= MAX_QUOTE_LENGTH;
 };

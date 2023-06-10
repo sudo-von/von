@@ -8,12 +8,12 @@ import {
 
 export const validateName = (name: string) => {
   const nameLength = name.trim().length;
-  return nameLength >= MIN_NAME_LENGTH || nameLength <= MAX_NAME_LENGTH;
+  return nameLength >= MIN_NAME_LENGTH && nameLength <= MAX_NAME_LENGTH;
 };
 
 export const validateUsername = (username: string) => {
   const usernameLength = username.trim().length;
-  return usernameLength >= MIN_USERNAME_LENGTH || usernameLength <= MAX_USERNAME_LENGTH;
+  return usernameLength >= MIN_USERNAME_LENGTH && usernameLength <= MAX_USERNAME_LENGTH;
 };
 
 export const validateEmail = (email: string) => email.toLowerCase()
