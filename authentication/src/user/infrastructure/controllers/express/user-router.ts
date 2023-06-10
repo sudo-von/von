@@ -8,7 +8,7 @@ const createUserRouter = (userUsecase: UserUsecase) => {
 
   const userControllerImpl = new ExpressUserControllerImpl(userUsecase);
 
-  userRouter.get('/:id', userControllerImpl.getUserById);
+  userRouter.post('/login', userControllerImpl.login);
   userRouter.post('/signup', userControllerImpl.signup);
   userRouter.use(errorHandler);
 

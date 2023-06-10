@@ -26,6 +26,10 @@ const createErrorFactory = ({ name, message }: ErrorFactory) => class ErrorFacto
 };
 
 export const errors = {
+  invalidCredentials: {
+    name: 'InvalidCredentialsError',
+    message: 'invalid credentials',
+  },
   invalidInterest: {
     name: 'InvalidInterestError',
     message: `interest must contain ${MIN_INTEREST_LENGTH} to ${MAX_INTEREST_LENGTH} characters`,
@@ -70,6 +74,7 @@ export const errors = {
 
 export type ErrorName = typeof errors[keyof typeof errors]['name'];
 
+export const InvalidCredentialsError = createErrorFactory(errors.invalidCredentials);
 export const InvalidInterestError = createErrorFactory(errors.invalidInterest);
 export const InvalidEmailError = createErrorFactory(errors.invalidEmail);
 export const InvalidNameError = createErrorFactory(errors.invalidName);

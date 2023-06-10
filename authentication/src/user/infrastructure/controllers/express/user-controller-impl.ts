@@ -4,6 +4,7 @@ import AbstractUserController from '../user-controller';
 import statusCodes from '../status-codes';
 import {
   InternalServerRequestError,
+  InvalidCredentialsRequestError,
   InvalidInterestRequestError,
   InvalidNameRequestError,
   InvalidPasswordRequestError,
@@ -14,22 +15,25 @@ import {
   UserCouldntBeCreatedRequestError,
 } from '../errors';
 import { ErrorName } from '../../../domain/errors';
+import { UserCredentials } from '../entities/user-credentials';
 
-type GetUserByIdRequest = (req: Request<{ id: string }>, res: Response) => Promise<Response>;
-type SignupRequest = (req: Request<{}, {}, CreateUserEntity>, res: Response) => Promise<Response>;
+type LoginHandler = (req: Request<{}, {}, UserCredentials>, res: Response) => Promise<Response>;
+type SignupHandler = (req: Request<{}, {}, CreateUserEntity>, res: Response) => Promise<Response>;
 
 class ExpressUserControllerImpl extends AbstractUserController {
-  getUserById: GetUserByIdRequest = async (req, res) => {
+  login: LoginHandler = async (req, res) => {
     try {
-      const { id } = req.params;
-      const user = await this.userUsecase.getUserByUsername(id);
+      const { email, password } = req.body;
+      const user = await this.userUsecase.authenticate(email, password);
       return res.status(statusCodes.success.ok).send({ user });
     } catch (e) {
+      const message = (e as Error).name as ErrorName;
+      if (message === 'InvalidCredentialsError') throw new InvalidCredentialsRequestError();
       throw new InternalServerRequestError();
     }
   };
 
-  signup: SignupRequest = async (req, res) => {
+  signup: SignupHandler = async (req, res) => {
     try {
       const userPayload: CreateUserEntity = {
         name: req.body.name,
@@ -43,7 +47,7 @@ class ExpressUserControllerImpl extends AbstractUserController {
           quote: req.body.about.quote,
         },
       };
-      const createdUser = await this.userUsecase.createUser(userPayload);
+      const createdUser = await this.userUsecase.signup(userPayload);
       return res.status(statusCodes.success.created).send({ createdUser });
     } catch (e) {
       const message = (e as Error).name as ErrorName;

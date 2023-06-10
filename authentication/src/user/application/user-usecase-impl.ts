@@ -1,6 +1,5 @@
 import { CreateUserEntity } from '../domain/entities/create-user-entity';
 import { SmallUserEntity } from '../domain/entities/small-user-entity';
-import { UserEntity } from '../domain/entities/user-entity';
 import { validatePosition, validateInterest, validateQuote } from '../domain/entities/validations/create-about-validations';
 import {
   validateEmail,
@@ -9,6 +8,7 @@ import {
   validateUsername,
 } from '../domain/entities/validations/create-user-validations';
 import {
+  InvalidCredentialsError,
   InvalidEmailError,
   InvalidInterestError,
   InvalidNameError,
@@ -22,12 +22,27 @@ import {
 import { AbstractUserUsecase, UserUsecase } from '../domain/usecase/user-usecase';
 
 class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
-  getUserByUsername = async (username: string): Promise<UserEntity> => {
-    const user = await this.userRepository.getUserById(username);
-    return user as UserEntity;
+  authenticate = async (email: string, password: string): Promise<string> => {
+    const user = await this.userRepository.getUserByEmail(email);
+    if (!user) throw new InvalidCredentialsError();
+
+    const areCredentialsValid = await this.hashService.compare(password, user.password);
+    if (!areCredentialsValid) throw new InvalidCredentialsError();
+
+    const smallUser: SmallUserEntity = {
+      id: user.id,
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      profile_picture: user.profile_picture,
+      about: user.about,
+    };
+
+    const token = await this.authService.generateToken(smallUser);
+    return token;
   };
 
-  createUser = async (userPayload: CreateUserEntity): Promise<SmallUserEntity> => {
+  signup = async (userPayload: CreateUserEntity): Promise<SmallUserEntity> => {
     const isNameValid = validateName(userPayload.name);
     if (!isNameValid) throw new InvalidNameError();
 
@@ -52,11 +67,11 @@ class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
     const users = await this.userRepository.getUsers();
     if (users && users.length) throw new SingleUserOnlyError();
 
-    const password = await this.hashService.hashSensitiveData(userPayload.password);
+    const hashedPassword = await this.hashService.hashSensitiveData(userPayload.password);
 
     const payload: CreateUserEntity = {
       ...userPayload,
-      password,
+      password: hashedPassword,
     };
 
     const createdUser = await this.userRepository.createUser(payload);

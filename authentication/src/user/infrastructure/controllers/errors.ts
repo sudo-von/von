@@ -21,6 +21,11 @@ const createRequestErrorFactory = ({
 };
 
 export const requestErrors = {
+  invalidCredentials: {
+    statusCode: statusCodes.clientSide.unauthorized,
+    name: 'InvalidCredentialsRequestError',
+    message: errors.invalidCredentials.message,
+  },
   invalidInterest: {
     statusCode: statusCodes.clientSide.unprocessableEntity,
     name: 'InvalidInterestRequestError',
@@ -79,6 +84,10 @@ export const requestErrors = {
 } as const;
 
 export type ErrorNames = typeof requestErrors[keyof typeof requestErrors]['name'];
+
+export const InvalidCredentialsRequestError = createRequestErrorFactory(
+  requestErrors.invalidCredentials,
+);
 
 export const InvalidInterestRequestError = createRequestErrorFactory(
   requestErrors.invalidInterest,
