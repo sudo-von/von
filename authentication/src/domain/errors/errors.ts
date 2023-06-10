@@ -10,7 +10,7 @@ import {
   MIN_POSITION_LENGTH,
   MIN_QUOTE_LENGTH,
   MIN_USERNAME_LENGTH,
-} from '../entities/constants';
+} from '../entities/validations/constants';
 
 const errors = {
   invalidCredentials: {

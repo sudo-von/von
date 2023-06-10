@@ -1,4 +1,4 @@
-import { AboutEntity } from './about-entity';
+import { AboutEntity, CreateAboutEntity } from './about-entity';
 
 export type UserEntity = Readonly<{
   id: string;
@@ -8,4 +8,11 @@ export type UserEntity = Readonly<{
   password: string;
   profile_picture: string;
   about: AboutEntity;
+}>;
+
+export type SmallUserEntity = Pick<UserEntity, 'id' | 'name' | 'username' | 'email' | 'profile_picture' | 'about'>;
+
+export type CreateUserEntity = Readonly<
+Omit<UserEntity, 'id'> & {
+  about: CreateAboutEntity;
 }>;

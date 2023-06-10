@@ -1,4 +1,4 @@
-import { SmallUserEntity } from '../entities/small-user-entity';
+import { SmallUserEntity } from '../entities/user-entity';
 
 abstract class TokenService {
   constructor(protected secret: string) {}

@@ -1,4 +1,4 @@
-import { CreateAboutEntity } from '../../../domain/entities/create-about-entity';
+import { CreateAboutEntity } from '../../../domain/entities/about-entity';
 import { UserEntity } from '../../../domain/entities/user-entity';
 
 type CreateUserDto = Readonly<

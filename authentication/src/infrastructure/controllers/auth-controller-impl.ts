@@ -1,16 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserEntity } from '../../domain/entities/create-user-entity';
 import statusCodes from './status-codes';
 import UserCredentialsDTO from './dtos/user-credentials-dto';
 import CreateUserDto from './dtos/create-user-dto';
 import AuthController from './auth-controller';
+import { CreateUserEntity } from '../../domain/entities/user-entity';
 
 class AuthControllerImpl extends AuthController {
   auth = async (
     req: Request<{}, {}, UserCredentialsDTO>,
     res: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ) => {
     try {
       const { email, password } = req.body;
       const token = await this.authUsecase.authenticate(email, password);
@@ -24,7 +24,7 @@ class AuthControllerImpl extends AuthController {
     req: Request<{}, {}, CreateUserDto>,
     res: Response,
     next: NextFunction,
-  ): Promise<Response | void> => {
+  ) => {
     try {
       const userPayload: CreateUserEntity = {
         name: req.body.name,
@@ -38,8 +38,8 @@ class AuthControllerImpl extends AuthController {
           quote: req.body.about.quote,
         },
       };
-      const createdUser = await this.authUsecase.signup(userPayload);
-      return res.status(statusCodes.success.created).send({ createdUser });
+      const user = await this.authUsecase.signup(userPayload);
+      return res.status(statusCodes.success.created).send({ user });
     } catch (e) {
       return next(e);
     }

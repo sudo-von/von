@@ -1,5 +1,4 @@
-import { CreateUserEntity } from '../domain/entities/create-user-entity';
-import { SmallUserEntity } from '../domain/entities/small-user-entity';
+import { SmallUserEntity, CreateUserEntity } from '../domain/entities/user-entity';
 import { validatePosition, validateInterest, validateQuote } from '../domain/entities/validations/create-about-validations';
 import {
   validateEmail,
@@ -38,7 +37,7 @@ class UserUsecaseImpl extends AuthUsecase {
       about: user.about,
     };
 
-    const token = await this.tokenService.generate(smallUser);
+    const token = this.tokenService.generate(smallUser);
     return token;
   };
 

@@ -5,7 +5,7 @@ import {
   MAX_INTEREST_LENGTH,
   MIN_QUOTE_LENGTH,
   MAX_QUOTE_LENGTH,
-} from '../constants';
+} from './constants';
 
 export const validatePosition = (position: string) => {
   const positionLength = position.trim().length;

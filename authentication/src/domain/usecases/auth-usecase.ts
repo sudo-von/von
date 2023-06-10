@@ -1,10 +1,9 @@
-import { CreateUserEntity } from '../entities/create-user-entity';
-import { SmallUserEntity } from '../entities/small-user-entity';
 import IAuthUsecaseReader from './auth-usecase-reader';
 import IAuthUsecaseWriter from './auth-usecase-writer';
 import CryptographyService from '../services/cryptography-service';
 import TokenService from '../services/token-service';
 import IUserRepository from '../repositories/user-repository';
+import { CreateUserEntity, SmallUserEntity } from '../entities/user-entity';
 
 interface IAuthUsecase extends IAuthUsecaseReader, IAuthUsecaseWriter {}
 

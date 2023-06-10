@@ -1,6 +1,5 @@
 import { v4 } from 'uuid';
-import { CreateUserEntity } from '../../domain/entities/create-user-entity';
-import { UserEntity } from '../../domain/entities/user-entity';
+import { CreateUserEntity, UserEntity } from '../../domain/entities/user-entity';
 import IUserRepository from '../../domain/repositories/user-repository';
 
 class InMemoryRepositoryImpl implements IUserRepository {

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { SmallUserEntity } from '../../domain/entities/small-user-entity';
 import TokenService from '../../domain/services/token-service';
+import { SmallUserEntity } from '../../domain/entities/user-entity';
 
 class TokenServiceImpl extends TokenService {
   private expiresIn = 60 * 60;
