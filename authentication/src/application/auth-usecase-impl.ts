@@ -20,7 +20,7 @@ import {
 } from '../domain/errors/error-factories';
 import AuthUsecase from '../domain/usecases/auth-usecase';
 
-class UserUsecaseImpl extends AuthUsecase {
+class AuthUsecaseImpl extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) throw new InvalidCredentialsError();
@@ -37,7 +37,7 @@ class UserUsecaseImpl extends AuthUsecase {
       about: user.about,
     };
 
-    const token = this.tokenService.generate(smallUser);
+    const token = this.tokenService.generateToken(smallUser);
     return token;
   };
 
@@ -89,4 +89,4 @@ class UserUsecaseImpl extends AuthUsecase {
   };
 }
 
-export default UserUsecaseImpl;
+export default AuthUsecaseImpl;

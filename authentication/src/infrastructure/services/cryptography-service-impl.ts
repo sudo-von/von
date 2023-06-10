@@ -1,8 +1,9 @@
 /* eslint-disable class-methods-use-this */
 import bcrypt from 'bcrypt';
 import CryptographyService from '../../domain/services/cryptography-service';
+import LoggerService from '../../domain/services/logger-service';
 
-class CryptographyServiceImpl implements CryptographyService {
+class CryptographyServiceImpl extends CryptographyService {
   private saltRounds = 10;
 
   areEqual = async (plainData: string, hashedData: string): Promise<boolean> => {

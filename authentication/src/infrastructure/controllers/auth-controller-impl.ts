@@ -16,6 +16,7 @@ class AuthControllerImpl extends AuthController {
       const token = await this.authUsecase.authenticate(email, password);
       return res.status(statusCodes.success.ok).send({ token });
     } catch (e) {
+      this.logger.log('warn', (e as Error).message);
       return next(e);
     }
   };
@@ -41,6 +42,7 @@ class AuthControllerImpl extends AuthController {
       const user = await this.authUsecase.signup(userPayload);
       return res.status(statusCodes.success.created).send({ user });
     } catch (e) {
+      this.logger.log('warn', (e as Error).message);
       return next(e);
     }
   };
