@@ -1,7 +1,10 @@
 import { UserEntity } from '../entities/user-entity';
 
-export interface UserRepositoryReader {
+interface IUserRepositoryReader {
   getUsers: () => Promise<UserEntity[] | null>;
   getUserById: (id: string) => Promise<UserEntity | null>;
   getUserByEmail: (email: string) => Promise<UserEntity | null>;
+  getUserByUsername: (username: string) => Promise<UserEntity | null>;
 }
+
+export default IUserRepositoryReader;

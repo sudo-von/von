@@ -1,30 +1,36 @@
 import dotenv from 'dotenv';
 import 'express-async-errors';
-import UserUsecaseImpl from './application/user-usecase-impl';
+import UserUsecaseImpl from './application/auth-usecase-impl';
 import InMemoryRepositoryImpl from './infrastructure/repositories/in-memory-impl';
-import HashServiceImpl from './infrastructure/services/hash-service-impl';
-import ExpressAPIServiceImpl from './infrastructure/services/express-api-service-impl';
-import AuthServiceImpl from './infrastructure/services/auth-service-impl';
+import ExpressAPIServiceImpl from './infrastructure/services/api-service-impl';
+import TokenServiceImpl from './infrastructure/services/token-service-impl';
+import CryptographyServiceImpl from './infrastructure/services/cryptography-service-impl';
 
 (() => {
   /* 🔐 Environment variables. */
   dotenv.config({ path: `${__dirname}/../.env` });
-  const { SECRET_KEY } = process.env;
+  const { SECRET_KEY, PORT } = process.env;
   if (!SECRET_KEY) throw new Error('SECRET_KEY is not defined');
+  if (!PORT) throw new Error('PORT is not defined');
+  const SERVER_PORT = parseInt(PORT, 10);
 
   /* 💽 Repositories. */
   const inMemoryRepositoryImpl = new InMemoryRepositoryImpl();
 
   /* ⚙️ Services. */
-  const authService = new AuthServiceImpl(SECRET_KEY);
-  const hashServiceImpl = new HashServiceImpl();
+  const tokenServiceImpl = new TokenServiceImpl(SECRET_KEY);
+  const cryptographyServiceImpl = new CryptographyServiceImpl();
 
   /* 📖 Usecases. */
-  const userUseCaseImpl = new UserUsecaseImpl(authService, hashServiceImpl, inMemoryRepositoryImpl);
+  const userUseCaseImpl = new UserUsecaseImpl(
+    tokenServiceImpl,
+    cryptographyServiceImpl,
+    inMemoryRepositoryImpl,
+  );
 
   /* 📡 Apps. */
   const applications = [
-    new ExpressAPIServiceImpl(userUseCaseImpl),
+    new ExpressAPIServiceImpl(userUseCaseImpl, SERVER_PORT),
   ];
   applications.forEach((app) => app.start());
 })();

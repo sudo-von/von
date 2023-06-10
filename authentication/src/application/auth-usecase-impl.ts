@@ -19,14 +19,14 @@ import {
   SingleUserOnlyError,
   UserCouldntBeCreatedError,
 } from '../domain/errors';
-import { AbstractUserUsecase, UserUsecase } from '../domain/usecase/user-usecase';
+import AuthUsecase from '../domain/usecase/auth-usecase';
 
-class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
+class UserUsecaseImpl extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) throw new InvalidCredentialsError();
 
-    const areCredentialsValid = await this.hashService.compare(password, user.password);
+    const areCredentialsValid = await this.cryptographyService.areEqual(password, user.password);
     if (!areCredentialsValid) throw new InvalidCredentialsError();
 
     const smallUser: SmallUserEntity = {
@@ -38,7 +38,7 @@ class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
       about: user.about,
     };
 
-    const token = await this.authService.generateToken(smallUser);
+    const token = await this.tokenService.generate(smallUser);
     return token;
   };
 
@@ -67,7 +67,7 @@ class UserUsecaseImpl extends AbstractUserUsecase implements UserUsecase {
     const users = await this.userRepository.getUsers();
     if (users && users.length) throw new SingleUserOnlyError();
 
-    const hashedPassword = await this.hashService.hashSensitiveData(userPayload.password);
+    const hashedPassword = await this.cryptographyService.hash(userPayload.password);
 
     const payload: CreateUserEntity = {
       ...userPayload,

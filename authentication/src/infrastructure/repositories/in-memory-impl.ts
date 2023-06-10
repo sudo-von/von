@@ -1,9 +1,9 @@
 import { v4 } from 'uuid';
 import { CreateUserEntity } from '../../domain/entities/create-user-entity';
 import { UserEntity } from '../../domain/entities/user-entity';
-import { UserRepository } from '../../domain/repositories/user-repository';
+import IUserRepository from '../../domain/repositories/user-repository';
 
-class InMemoryRepositoryImpl implements UserRepository {
+class InMemoryRepositoryImpl implements IUserRepository {
   private usersInMemory: UserEntity[] = [];
 
   getUsers = (): Promise<UserEntity[] | null> => new Promise(
@@ -14,14 +14,21 @@ class InMemoryRepositoryImpl implements UserRepository {
 
   getUserById = (id: string): Promise<UserEntity | null> => new Promise(
     (resolve) => {
-      const user = this.usersInMemory.find((userInMemory) => userInMemory.id === id) || null;
+      const user = this.usersInMemory.find((u) => u.id === id) || null;
       resolve(user);
     },
   );
 
   getUserByEmail = (email: string): Promise<UserEntity | null> => new Promise(
     (resolve) => {
-      const user = this.usersInMemory.find((userInMemory) => userInMemory.email === email) || null;
+      const user = this.usersInMemory.find((u) => u.email === email) || null;
+      resolve(user);
+    },
+  );
+
+  getUserByUsername = (username: string): Promise<UserEntity | null> => new Promise(
+    (resolve) => {
+      const user = this.usersInMemory.find((u) => u.username === username) || null;
       resolve(user);
     },
   );

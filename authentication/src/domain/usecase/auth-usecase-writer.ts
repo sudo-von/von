@@ -1,6 +1,8 @@
 import { CreateUserEntity } from '../entities/create-user-entity';
 import { SmallUserEntity } from '../entities/small-user-entity';
 
-export interface UserUsecaseWriter {
+interface IAuthUsecaseWriter {
   signup: (userPayload: CreateUserEntity) => Promise<SmallUserEntity>;
 }
+
+export default IAuthUsecaseWriter;

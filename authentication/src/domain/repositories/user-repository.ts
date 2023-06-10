@@ -1,4 +1,6 @@
-import { UserRepositoryReader } from './user-repository-reader';
-import { UserRepositoryWriter } from './user-repository-writer';
+import IUserRepositoryReader from './user-repository-reader';
+import IUserRepositoryWriter from './user-repository-writer';
 
-export interface UserRepository extends UserRepositoryReader, UserRepositoryWriter {}
+interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}
+
+export default IUserRepository;

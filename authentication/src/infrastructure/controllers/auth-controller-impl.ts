@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
-import { CreateUserEntity } from '../../../domain/entities/create-user-entity';
-import AbstractUserController from '../user-controller';
-import statusCodes from '../status-codes';
+import { CreateUserEntity } from '../../domain/entities/create-user-entity';
+import statusCodes from './status-codes';
 import {
   InternalServerRequestError,
   InvalidCredentialsRequestError,
@@ -13,18 +12,20 @@ import {
   InvalidUsernameRequestError,
   SingleUserOnlyRequestError,
   UserCouldntBeCreatedRequestError,
-} from '../errors';
-import { ErrorName } from '../../../domain/errors';
-import { UserCredentials } from '../entities/user-credentials';
+} from './errors';
+import { ErrorName } from '../../domain/errors';
+import UserCredentialsDTO from './dtos/user-credentials-dto';
+import CreateUserDto from './dtos/create-user-dto';
+import AuthController from './auth-controller';
 
-type LoginHandler = (req: Request<{}, {}, UserCredentials>, res: Response) => Promise<Response>;
-type SignupHandler = (req: Request<{}, {}, CreateUserEntity>, res: Response) => Promise<Response>;
-
-class ExpressUserControllerImpl extends AbstractUserController {
-  login: LoginHandler = async (req, res) => {
+class AuthControllerImpl extends AuthController {
+  auth = async (
+    req: Request<{}, {}, UserCredentialsDTO>,
+    res: Response,
+  ): Promise<Response> => {
     try {
       const { email, password } = req.body;
-      const user = await this.userUsecase.authenticate(email, password);
+      const user = await this.authUsecase.authenticate(email, password);
       return res.status(statusCodes.success.ok).send({ user });
     } catch (e) {
       const message = (e as Error).name as ErrorName;
@@ -33,7 +34,10 @@ class ExpressUserControllerImpl extends AbstractUserController {
     }
   };
 
-  signup: SignupHandler = async (req, res) => {
+  signup = async (
+    req: Request<{}, {}, CreateUserDto>,
+    res: Response,
+  ): Promise<Response> => {
     try {
       const userPayload: CreateUserEntity = {
         name: req.body.name,
@@ -47,7 +51,7 @@ class ExpressUserControllerImpl extends AbstractUserController {
           quote: req.body.about.quote,
         },
       };
-      const createdUser = await this.userUsecase.signup(userPayload);
+      const createdUser = await this.authUsecase.signup(userPayload);
       return res.status(statusCodes.success.created).send({ createdUser });
     } catch (e) {
       const message = (e as Error).name as ErrorName;
@@ -64,4 +68,4 @@ class ExpressUserControllerImpl extends AbstractUserController {
   };
 }
 
-export default ExpressUserControllerImpl;
+export default AuthControllerImpl;
