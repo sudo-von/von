@@ -1,7 +1,7 @@
 import express from 'express';
-import ExpressUserControllerImpl from '../user-controller-impl';
-import errorHandler from '../middlewares/error-handler';
-import { UserUsecase } from '../../../../domain/usecase/user-usecase';
+import ExpressUserControllerImpl from './user-controller-impl';
+import errorHandler from './middlewares/error-handler';
+import { UserUsecase } from '../../../domain/usecase/user-usecase';
 
 const createUserRouter = (userUsecase: UserUsecase) => {
   const userRouter = express.Router();

@@ -66,7 +66,9 @@ export const errors = {
     name: 'SingleUserOnlyError',
     message: 'only a single user is allowed',
   },
-} satisfies Record<string, ErrorFactory>;
+} as const;
+
+export type ErrorName = typeof errors[keyof typeof errors]['name'];
 
 export const InvalidInterestError = createErrorFactory(errors.invalidInterest);
 export const InvalidEmailError = createErrorFactory(errors.invalidEmail);

@@ -1,7 +1,7 @@
 import express from 'express';
 import apiConfig from '../config/api-config';
 import AbstractApplication from '../../domain/services/application-service';
-import createUserRouter from '../controllers/express/routers/user-router';
+import createUserRouter from '../controllers/express/user-router';
 
 class ExpressAPIServiceImpl extends AbstractApplication {
   private port = apiConfig.port;
