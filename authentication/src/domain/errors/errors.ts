@@ -59,6 +59,6 @@ const errors = {
   },
 } as const;
 
-export type ErrorNames = typeof errors[keyof typeof errors]['name'];
+export type ErrorName = typeof errors[keyof typeof errors]['name'];
 
 export default errors;

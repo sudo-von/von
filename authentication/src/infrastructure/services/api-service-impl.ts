@@ -2,6 +2,7 @@ import express from 'express';
 import AuthUsecase from '../../domain/usecases/auth-usecase';
 import AuthControllerImpl from '../controllers/auth-controller-impl';
 import errorHandler from '../controllers/middlewares/error-handler';
+import exceptionHandler from '../controllers/middlewares/exception-handler';
 
 class APIServiceImpl {
   private app = express();
@@ -22,6 +23,7 @@ class APIServiceImpl {
     const userControllerImpl = new AuthControllerImpl(this.authUsecase);
     this.router.post('/authenticate', userControllerImpl.auth);
     this.router.post('/signup', userControllerImpl.signup);
+    this.router.use(exceptionHandler);
     this.router.use(errorHandler);
   };
 

@@ -7,11 +7,8 @@ const errorHandler = (
   res: Response,
   _next: NextFunction,
 ) => {
-  const e = error as RequestErrorFactory;
-  console.warn(`👻 [errorHandler] name: ${e.name}, error: ${e.message}`);
-  return res.status(e.statusCode).json({
-    message: e.message,
-  });
+  const { message, statusCode } = error as RequestErrorFactory;
+  return res.status(statusCode).json({ error: message });
 };
 
 export default errorHandler;
