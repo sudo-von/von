@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
 import 'express-async-errors';
-import UserUsecaseImpl from './user/application/user-usecase-impl';
-import InMemoryRepositoryImpl from './user/infrastructure/repositories/in-memory-impl';
-import HashServiceImpl from './user/infrastructure/services/hash-service-impl';
-import ExpressAPIServiceImpl from './user/infrastructure/services/express-api-service-impl';
-import AuthServiceImpl from './user/infrastructure/services/auth-service-impl';
+import UserUsecaseImpl from './application/user-usecase-impl';
+import InMemoryRepositoryImpl from './infrastructure/repositories/in-memory-impl';
+import HashServiceImpl from './infrastructure/services/hash-service-impl';
+import ExpressAPIServiceImpl from './infrastructure/services/express-api-service-impl';
+import AuthServiceImpl from './infrastructure/services/auth-service-impl';
 
 (() => {
   /* 🔐 Environment variables. */
