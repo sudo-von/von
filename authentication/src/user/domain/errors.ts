@@ -1,0 +1,80 @@
+import {
+  MIN_INTEREST_LENGTH,
+  MAX_INTEREST_LENGTH,
+  MAX_NAME_LENGTH,
+  MAX_POSITION_LENGTH,
+  MAX_QUOTE_LENGTH,
+  MAX_USERNAME_LENGTH,
+  MIN_NAME_LENGTH,
+  MIN_PASSWORD_LENGTH,
+  MIN_POSITION_LENGTH,
+  MIN_QUOTE_LENGTH,
+  MIN_USERNAME_LENGTH,
+} from './constants';
+
+export type ErrorFactory = {
+  name: string;
+  message: string;
+};
+
+const createErrorFactory = ({ name, message }: ErrorFactory) => class ErrorFactory extends Error {
+  constructor() {
+    super(message);
+    this.name = name;
+    Object.setPrototypeOf(this, ErrorFactory.prototype);
+  }
+};
+
+export const errors = {
+  invalidInterest: {
+    name: 'InvalidInterestError',
+    message: `interest must contain ${MIN_INTEREST_LENGTH} to ${MAX_INTEREST_LENGTH} characters`,
+  },
+  invalidEmail: {
+    name: 'InvalidEmailError',
+    message: 'email already exists',
+  },
+  invalidName: {
+    name: 'InvalidNameError',
+    message: `name field must contain ${MIN_NAME_LENGTH} to ${MAX_NAME_LENGTH} characters`,
+  },
+  invalidPassword: {
+    name: 'InvalidPasswordError',
+    message: `password must contain at least ${MIN_PASSWORD_LENGTH} characters`,
+  },
+  invalidPosition: {
+    name: 'InvalidPositionError',
+    message: `position must contain ${MIN_POSITION_LENGTH} to ${MAX_POSITION_LENGTH} characters`,
+  },
+  invalidQuote: {
+    name: 'InvalidQuoteError',
+    message: `quote must contain ${MIN_QUOTE_LENGTH} to ${MAX_QUOTE_LENGTH} characters`,
+  },
+  invalidUsername: {
+    name: 'InvalidUsernameError',
+    message: `username field must contain ${MIN_USERNAME_LENGTH} to ${MAX_USERNAME_LENGTH} characters`,
+  },
+  userCouldntBeCreated: {
+    name: 'UserCouldntBeCreatedError',
+    message: "user couldn't be created",
+  },
+  userNotFound: {
+    name: 'UserNotFoundError',
+    message: 'user not found',
+  },
+  singleUserOnly: {
+    name: 'SingleUserOnlyError',
+    message: 'only a single user is allowed',
+  },
+} satisfies Record<string, ErrorFactory>;
+
+export const InvalidInterestError = createErrorFactory(errors.invalidInterest);
+export const InvalidEmailError = createErrorFactory(errors.invalidEmail);
+export const InvalidNameError = createErrorFactory(errors.invalidName);
+export const InvalidPasswordError = createErrorFactory(errors.invalidPassword);
+export const InvalidPositionError = createErrorFactory(errors.invalidPosition);
+export const InvalidQuoteError = createErrorFactory(errors.invalidQuote);
+export const InvalidUsernameError = createErrorFactory(errors.invalidUsername);
+export const UserCouldntBeCreatedError = createErrorFactory(errors.userCouldntBeCreated);
+export const UserNotFoundError = createErrorFactory(errors.userNotFound);
+export const SingleUserOnlyError = createErrorFactory(errors.singleUserOnly);

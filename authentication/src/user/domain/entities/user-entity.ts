@@ -4,5 +4,5 @@ export type UserEntity = Readonly<{
   email: string;
   username: string;
   password: string;
-  birthDate: Date;
+  profile_picture: string;
 }>;

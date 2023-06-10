@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import statusCodes from '../errors/status-codes';
+import statusCodes from '../../errors/status-codes';
 
 const validatorHandler = (
   req: Request,
@@ -11,7 +11,7 @@ const validatorHandler = (
 
   if (!errors.isEmpty()) {
     return res.status(statusCodes.clientSide.badRequest).json({
-      message: errors.array().map((e) => e.msg),
+      message: errors.array({ onlyFirstError: true }).map((e) => e.msg),
     });
   }
 

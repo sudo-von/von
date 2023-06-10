@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import AbstractRequestError from '../errors/AbstractRequestError';
-import statusCodes from '../errors/status-codes';
+import AbstractRequestError from '../../errors/AbstractRequestError';
+import statusCodes from '../../errors/status-codes';
 
 const errorHandler = (
   error: Error,
