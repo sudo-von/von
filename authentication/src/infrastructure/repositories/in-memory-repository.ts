@@ -5,43 +5,31 @@ import IUserRepository from '../../domain/repositories/user-repository';
 class InMemoryRepository implements IUserRepository {
   private usersInMemory: UserEntity[] = [];
 
-  getUsers = (): Promise<UserEntity[]> => new Promise(
-    (resolve) => {
-      resolve(this.usersInMemory);
-    },
-  );
+  getUsers = async (): Promise<UserEntity[]> => this.usersInMemory;
 
-  getUserById = (id: string): Promise<UserEntity | null> => new Promise(
-    (resolve) => {
-      const user = this.usersInMemory.find((u) => u.id === id) || null;
-      resolve(user);
-    },
-  );
+  getUserById = async (id: string): Promise<UserEntity | null> => {
+    const user = this.usersInMemory.find((u) => u.id === id) || null;
+    return user;
+  };
 
-  getUserByEmail = (email: string): Promise<UserEntity | null> => new Promise(
-    (resolve) => {
-      const user = this.usersInMemory.find((u) => u.email === email) || null;
-      resolve(user);
-    },
-  );
+  getUserByEmail = async (email: string): Promise<UserEntity | null> => {
+    const user = this.usersInMemory.find((u) => u.email === email) || null;
+    return user;
+  };
 
-  getUserByUsername = (username: string): Promise<UserEntity | null> => new Promise(
-    (resolve) => {
-      const user = this.usersInMemory.find((u) => u.username === username) || null;
-      resolve(user);
-    },
-  );
+  getUserByUsername = async (username: string): Promise<UserEntity | null> => {
+    const user = this.usersInMemory.find((u) => u.username === username) || null;
+    return user;
+  };
 
-  createUser = (userPayload: CreateUserEntity): Promise<UserEntity | null> => new Promise(
-    (resolve) => {
-      const user: UserEntity = {
-        ...userPayload,
-        id: v4(),
-      };
-      this.usersInMemory.push(user);
-      resolve(user);
-    },
-  );
+  createUser = async (userPayload: CreateUserEntity): Promise<UserEntity | null> => {
+    const user: UserEntity = {
+      ...userPayload,
+      id: v4(),
+    };
+    this.usersInMemory.push(user);
+    return user;
+  };
 }
 
 export default InMemoryRepository;
