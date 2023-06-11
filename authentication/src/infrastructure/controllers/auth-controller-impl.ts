@@ -21,6 +21,21 @@ class AuthControllerImpl extends AuthController {
     }
   };
 
+  refresh = async (
+    req: Request<{ token: string }>,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { token } = req.params;
+      const refresh = await this.authUsecase.refresh(token);
+      return res.status(statusCodes.success.ok).send({ refresh });
+    } catch (e) {
+      this.logger.log('warn', (e as Error).message);
+      return next(e);
+    }
+  };
+
   signup = async (
     req: Request<{}, {}, CreateUserDto>,
     res: Response,

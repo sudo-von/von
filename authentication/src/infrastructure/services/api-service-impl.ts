@@ -24,6 +24,7 @@ class APIServiceImpl {
 
   private setupHandlers = () => {
     const authController = new AuthControllerImpl(this.authUsecase, this.logger);
+    this.router.post('/refresh/:token', authController.refresh);
     this.router.post('/authenticate', authController.auth);
     this.router.post('/signup', authController.signup);
     this.router.use(exceptionHandler);

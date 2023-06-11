@@ -9,7 +9,7 @@ abstract class TokenService {
 
   abstract generateToken: (payload: SmallUserEntity) => string;
 
-  abstract verifyToken: (token: string) => SmallUserEntity;
+  abstract decodeToken: (token: string) => SmallUserEntity;
 }
 
 export default TokenService;

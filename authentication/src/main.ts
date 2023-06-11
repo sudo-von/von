@@ -3,8 +3,8 @@ import winston from 'winston';
 import AuthUsecaseImpl from './application/auth-usecase-impl';
 import InMemoryRepositoryImpl from './infrastructure/repositories/in-memory-impl';
 import APIServiceImpl from './infrastructure/services/api-service-impl';
-import TokenServiceImpl from './infrastructure/services/token-service-impl';
-import CryptographyServiceImpl from './infrastructure/services/cryptography-service-impl';
+import JSONWebTokenImpl from './infrastructure/services/jsonwebtoken-service/jsonwebtoken-service-impl';
+import BcryptServiceImpl from './infrastructure/services/bcrypt-service/bcrypt-service-impl';
 import WinstonLoggerImpl from './infrastructure/loggers/winston-logger-impl';
 import configureEnvironmentVariables from './setup';
 
@@ -25,14 +25,14 @@ import configureEnvironmentVariables from './setup';
   const inMemoryRepositoryImpl = new InMemoryRepositoryImpl();
 
   /* ⚙️ Services. */
-  const tokenServiceImpl = new TokenServiceImpl(SECRET_KEY, winstonLoggerImpl);
-  const cryptographyServiceImpl = new CryptographyServiceImpl(winstonLoggerImpl);
+  const jsonWebTokenImpl = new JSONWebTokenImpl(SECRET_KEY, winstonLoggerImpl);
+  const bcryptServiceImpl = new BcryptServiceImpl(winstonLoggerImpl);
 
   /* 📖 Usecases. */
   const authUsecaseImpl = new AuthUsecaseImpl(
-    tokenServiceImpl,
+    jsonWebTokenImpl,
     winstonLoggerImpl,
-    cryptographyServiceImpl,
+    bcryptServiceImpl,
     inMemoryRepositoryImpl,
   );
 

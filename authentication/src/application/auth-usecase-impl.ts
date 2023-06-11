@@ -43,6 +43,12 @@ class AuthUsecaseImpl extends AuthUsecase {
     return token;
   };
 
+  refresh = async (token: string): Promise<string> => {
+    const decodedToken = this.tokenService.decodeToken(token);
+    const refreshToken = this.tokenService.generateToken(decodedToken);
+    return refreshToken;
+  };
+
   signup = async (userPayload: CreateUserEntity): Promise<MediumUserEntity> => {
     const isNameValid = validateName(userPayload.name);
     if (!isNameValid) throw new InvalidNameError();
