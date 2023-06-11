@@ -1,5 +1,5 @@
 import winston from 'winston';
-import LoggerService from '../../domain/services/logger-service';
+import LoggerService, { LogType } from '../../domain/services/logger-service';
 
 class WinstonLoggerImpl extends LoggerService {
   private logger: winston.Logger;
@@ -9,8 +9,8 @@ class WinstonLoggerImpl extends LoggerService {
     this.logger = logger;
   }
 
-  log = (level: string, message: string): void => {
-    this.logger.log(level, message);
+  log = (logType: LogType, message: string): void => {
+    this.logger.log(logType, message);
   };
 }
 

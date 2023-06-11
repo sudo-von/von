@@ -12,11 +12,11 @@ import configureEnvironmentVariables from './setup';
   /* 🔐 Environment variables. */
   const { SECRET_KEY, SERVER_PORT } = configureEnvironmentVariables();
 
-  /* Loggers. */
+  /* 📝 Loggers. */
   const winstonLoggerImpl = new WinstonLoggerImpl(winston.createLogger({
     format: winston.format.combine(
       winston.format.timestamp(),
-      winston.format.printf((info) => `${info.timestamp} - ${info.level}: ${info.message}`),
+      winston.format.printf(({ timestamp, level, message }) => `📸 ${timestamp} - ${level}: ${message}`),
     ),
     transports: [new winston.transports.Console()],
   }));

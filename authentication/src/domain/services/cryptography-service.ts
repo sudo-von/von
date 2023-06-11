@@ -5,7 +5,7 @@ abstract class CryptographyService {
     protected logger: LoggerService,
   ) {}
 
-  abstract areEqual: (plainData: string, hashedData: string) => Promise<boolean>;
+  abstract comparePlainAndHash: (plainData: string, hashedData: string) => Promise<boolean>;
 
   abstract hash: (plainData: string) => Promise<string>;
 }

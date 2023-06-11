@@ -1,17 +1,15 @@
-/* eslint-disable class-methods-use-this */
 import bcrypt from 'bcrypt';
 import CryptographyService from '../../domain/services/cryptography-service';
-import LoggerService from '../../domain/services/logger-service';
 
 class CryptographyServiceImpl extends CryptographyService {
   private saltRounds = 10;
 
-  areEqual = async (plainData: string, hashedData: string): Promise<boolean> => {
+  comparePlainAndHash = async (plainData: string, hashedData: string): Promise<boolean> => {
     try {
       const result = await bcrypt.compare(plainData, hashedData);
       return result;
     } catch (e) {
-      console.warn(`👻 [CryptographyServiceImpl][compare] error: ${(e as Error).message}.`);
+      this.logger.log('warn', `👻 [CryptographyServiceImpl][compare] error: ${(e as Error).message}.`);
       throw new Error('there was an error when trying to compare both hashes');
     }
   };
@@ -21,7 +19,7 @@ class CryptographyServiceImpl extends CryptographyService {
       const hashedData = await bcrypt.hash(plainData, this.saltRounds);
       return hashedData;
     } catch (e) {
-      console.warn(`👻 [CryptographyServiceImpl][hashSensitiveData] error: ${(e as Error).message}.`);
+      this.logger.log('warn', `👻 [CryptographyServiceImpl][hashSensitiveData] error: ${(e as Error).message}.`);
       throw new Error('there was an error when trying to hash the password');
     }
   };

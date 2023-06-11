@@ -1,4 +1,4 @@
-import { SmallUserEntity, CreateUserEntity } from '../domain/entities/user-entity';
+import { SmallUserEntity, CreateUserEntity, MediumUserEntity } from '../domain/entities/user-entity';
 import { validatePosition, validateInterest, validateQuote } from '../domain/entities/validations/create-about-validations';
 import {
   validateEmail,
@@ -25,7 +25,10 @@ class AuthUsecaseImpl extends AuthUsecase {
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) throw new InvalidCredentialsError();
 
-    const areCredentialsValid = await this.cryptographyService.areEqual(password, user.password);
+    const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
+      password,
+      user.password,
+    );
     if (!areCredentialsValid) throw new InvalidCredentialsError();
 
     const smallUser: SmallUserEntity = {
@@ -34,14 +37,13 @@ class AuthUsecaseImpl extends AuthUsecase {
       username: user.username,
       email: user.email,
       profile_picture: user.profile_picture,
-      about: user.about,
     };
 
     const token = this.tokenService.generateToken(smallUser);
     return token;
   };
 
-  signup = async (userPayload: CreateUserEntity): Promise<SmallUserEntity> => {
+  signup = async (userPayload: CreateUserEntity): Promise<MediumUserEntity> => {
     const isNameValid = validateName(userPayload.name);
     if (!isNameValid) throw new InvalidNameError();
 
@@ -76,7 +78,7 @@ class AuthUsecaseImpl extends AuthUsecase {
     const createdUser = await this.userRepository.createUser(payload);
     if (!createdUser) throw new UserCouldntBeCreatedError();
 
-    const smallUser: SmallUserEntity = {
+    const smallUser: MediumUserEntity = {
       id: createdUser.id,
       name: createdUser.name,
       username: createdUser.username,
