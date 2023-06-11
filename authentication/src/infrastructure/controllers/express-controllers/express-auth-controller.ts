@@ -1,18 +1,21 @@
-import { NextFunction, Request, Response } from 'express';
-import statusCodes from './status-codes';
-import UserCredentialsDTO from './dtos/user-credentials-dto';
-import CreateUserDto from './dtos/create-user-dto';
-import AuthController from './auth-controller';
-import { CreateUserEntity } from '../../domain/entities/user-entity';
+import { Request, Response, NextFunction } from 'express';
+import { CreateUserEntity } from '../../../domain/entities/user-entity';
+import AuthController from '../auth-controller';
+import CreateUserDto from '../dtos/create-user-dto';
+import RefreshTokenDto from '../dtos/refresh-token-dto';
+import statusCodes from '../status-codes';
+import { userCredentialsDto } from '../dtos/auth-dtos/user-credentials-dto';
 
-class AuthControllerImpl extends AuthController {
+class ExpressAuthController extends AuthController {
   auth = async (
-    req: Request<{}, {}, UserCredentialsDTO>,
+    req: Request,
     res: Response,
     next: NextFunction,
   ) => {
     try {
-      const { email, password } = req.body;
+      const { email, password } = userCredentialsDto.parse(req.body);
+      console.log(email);
+      console.log(password);
       const token = await this.authUsecase.authenticate(email, password);
       return res.status(statusCodes.success.ok).send({ token });
     } catch (e) {
@@ -22,14 +25,14 @@ class AuthControllerImpl extends AuthController {
   };
 
   refresh = async (
-    req: Request<{ token: string }>,
+    req: Request<{}, {}, RefreshTokenDto>,
     res: Response,
     next: NextFunction,
   ) => {
     try {
-      const { token } = req.params;
-      const refresh = await this.authUsecase.refresh(token);
-      return res.status(statusCodes.success.ok).send({ refresh });
+      const { refreshToken } = req.body;
+      const token = await this.authUsecase.refresh(refreshToken);
+      return res.status(statusCodes.success.ok).send({ result: token });
     } catch (e) {
       this.logger.log('warn', (e as Error).message);
       return next(e);
@@ -63,4 +66,4 @@ class AuthControllerImpl extends AuthController {
   };
 }
 
-export default AuthControllerImpl;
+export default ExpressAuthController;

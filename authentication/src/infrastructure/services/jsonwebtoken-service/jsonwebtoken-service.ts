@@ -1,17 +1,12 @@
 import jwt from 'jsonwebtoken';
 import TokenService from '../../../domain/services/token-service';
-import LoggerService from '../../../domain/services/logger-service';
 import { SmallUserEntity } from '../../../domain/entities/user-entity';
 import JSONWebTokenEntity from './jsonwebtoken-entities';
 
-class JSONWebTokenImpl extends TokenService {
+class JSONWebTokenService extends TokenService {
   private readonly expiresIn = 60 * 60;
 
   private readonly algorithm = 'HS256';
-
-  constructor(protected secret: string, protected logger: LoggerService) {
-    super(secret, logger);
-  }
 
   generateToken = (payload: SmallUserEntity): string => {
     try {
@@ -22,7 +17,7 @@ class JSONWebTokenImpl extends TokenService {
       );
       return token;
     } catch (e) {
-      this.logger.log('warn', `👻 [JSONWebTokenImpl][generateToken] error: ${(e as Error).message}.`);
+      this.logger.log('warn', `👻 [JSONWebTokenService][generateToken] error: ${(e as Error).message}.`);
       throw new Error('there was an error when trying generate the token');
     }
   };
@@ -41,10 +36,10 @@ class JSONWebTokenImpl extends TokenService {
 
       return smallUserEntity;
     } catch (e) {
-      this.logger.log('warn', `👻 [JSONWebTokenImpl][generateToken] error: ${(e as Error).message}.`);
+      this.logger.log('warn', `👻 [JSONWebTokenService][generateToken] error: ${(e as Error).message}.`);
       throw new Error('there was an error when trying generate the token');
     }
   };
 }
 
-export default JSONWebTokenImpl;
+export default JSONWebTokenService;

@@ -2,7 +2,7 @@ import { v4 } from 'uuid';
 import { CreateUserEntity, UserEntity } from '../../domain/entities/user-entity';
 import IUserRepository from '../../domain/repositories/user-repository';
 
-class InMemoryRepositoryImpl implements IUserRepository {
+class InMemoryRepository implements IUserRepository {
   private usersInMemory: UserEntity[] = [];
 
   getUsers = (): Promise<UserEntity[]> => new Promise(
@@ -44,4 +44,4 @@ class InMemoryRepositoryImpl implements IUserRepository {
   );
 }
 
-export default InMemoryRepositoryImpl;
+export default InMemoryRepository;

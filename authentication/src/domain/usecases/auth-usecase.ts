@@ -3,8 +3,8 @@ import IAuthUsecaseWriter from './auth-usecase-writer';
 import CryptographyService from '../services/cryptography-service';
 import TokenService from '../services/token-service';
 import IUserRepository from '../repositories/user-repository';
-import { CreateUserEntity, MediumUserEntity } from '../entities/user-entity';
 import LoggerService from '../services/logger-service';
+import { CreateUserEntity, MediumUserEntity } from '../entities/user-entity';
 
 interface IAuthUsecase extends IAuthUsecaseReader, IAuthUsecaseWriter {}
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { RequestErrorFactory } from '../errors/request-error-factory';
+import { RequestErrorFactory } from '../../errors/request-error-factory';
 
 const errorHandler = (
   error: Error,

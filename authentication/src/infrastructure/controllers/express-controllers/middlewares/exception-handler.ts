@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ErrorName } from '../../../domain/errors/errors';
+import { ErrorName } from '../../../../domain/errors/errors';
 import {
   InvalidNameRequestError,
   InvalidUsernameRequestError,
@@ -11,7 +11,7 @@ import {
   UserCouldntBeCreatedRequestError,
   InternalServerRequestError,
   InvalidCredentialsRequestError,
-} from '../errors/request-error-factories';
+} from '../../errors/request-error-factories';
 
 const exceptionHandler = (
   error: Error,

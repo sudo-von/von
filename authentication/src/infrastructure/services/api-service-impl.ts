@@ -1,46 +1,46 @@
-import express from 'express';
+import express, { Router } from 'express';
 import AuthUsecase from '../../domain/usecases/auth-usecase';
-import AuthControllerImpl from '../controllers/auth-controller-impl';
-import errorHandler from '../controllers/middlewares/error-handler';
-import exceptionHandler from '../controllers/middlewares/exception-handler';
+import errorHandler from '../controllers/express-controllers/middlewares/error-handler';
+import exceptionHandler from '../controllers/express-controllers/middlewares/exception-handler';
+import jwtAuthHandler from '../controllers/express-controllers/middlewares/jwt-auth-handler';
+import TokenService from '../../domain/services/token-service';
 import LoggerService from '../../domain/services/logger-service';
+import ExpressAuthControllerImpl from '../controllers/express-controllers/express-auth-controller';
+import bodyHandler from '../controllers/express-controllers/middlewares/body-handler';
 
-class APIServiceImpl {
-  private app = express();
+const createAuthRouter = (
+  tokenService: TokenService,
+  authController: ExpressAuthControllerImpl,
+) => {
+  const router = express.Router();
+  router.post('/refresh/:token', jwtAuthHandler(tokenService), authController.refresh);
+  router.post('/authenticate', authController.auth);
+  router.post('/signup', authController.signup);
+  router.use(bodyHandler);
+  router.use(exceptionHandler);
+  router.use(errorHandler);
+  return router;
+};
 
-  private router = express.Router();
+const createApp = (router: Router) => {
+  const app = express();
+  app.use(express.json());
+  app.use('/v1/auth', router);
+  return app;
+};
 
-  constructor(
-    protected authUsecase: AuthUsecase,
-    protected logger: LoggerService,
-    private port: number,
-  ) {}
+const createAuthController = (
+  tokenService: TokenService,
+  loggerService: LoggerService,
+  authUsecase: AuthUsecase,
+  port: number,
+) => {
+  const authController = new ExpressAuthControllerImpl(authUsecase, loggerService);
+  const router = createAuthRouter(tokenService, authController);
+  const app = createApp(router);
+  app.listen(port, () => {
+    loggerService.log('info', `💻 [APIServiceImpl][start]: Starting application on port ${port}.`);
+  });
+};
 
-  start = () => {
-    this.setupHandlers();
-    this.setupAPI();
-    this.listen();
-  };
-
-  private setupHandlers = () => {
-    const authController = new AuthControllerImpl(this.authUsecase, this.logger);
-    this.router.post('/refresh/:token', authController.refresh);
-    this.router.post('/authenticate', authController.auth);
-    this.router.post('/signup', authController.signup);
-    this.router.use(exceptionHandler);
-    this.router.use(errorHandler);
-  };
-
-  private setupAPI = () => {
-    this.app.use(express.json());
-    this.app.use('/v1/auth', this.router);
-  };
-
-  private listen = () => {
-    this.app.listen(this.port, () => {
-      this.logger.log('info', `💻 [APIServiceImpl][start]: Starting application on port ${this.port}.`);
-    });
-  };
-}
-
-export default APIServiceImpl;
+export default createAuthController;

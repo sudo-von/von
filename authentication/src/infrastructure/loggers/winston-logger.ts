@@ -1,7 +1,7 @@
 import winston from 'winston';
 import LoggerService, { LogType } from '../../domain/services/logger-service';
 
-class WinstonLoggerImpl extends LoggerService {
+class WinstonLogger extends LoggerService {
   private logger: winston.Logger;
 
   constructor(logger: winston.Logger) {
@@ -14,4 +14,4 @@ class WinstonLoggerImpl extends LoggerService {
   };
 }
 
-export default WinstonLoggerImpl;
+export default WinstonLogger;

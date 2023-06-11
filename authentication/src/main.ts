@@ -1,46 +1,39 @@
 import 'express-async-errors';
-import winston from 'winston';
 import AuthUsecaseImpl from './application/auth-usecase-impl';
-import InMemoryRepositoryImpl from './infrastructure/repositories/in-memory-impl';
-import APIServiceImpl from './infrastructure/services/api-service-impl';
-import JSONWebTokenImpl from './infrastructure/services/jsonwebtoken-service/jsonwebtoken-service-impl';
-import BcryptServiceImpl from './infrastructure/services/bcrypt-service/bcrypt-service-impl';
-import WinstonLoggerImpl from './infrastructure/loggers/winston-logger-impl';
-import configureEnvironmentVariables from './setup';
+import createAuthController from './infrastructure/services/api-service-impl';
+import {
+  configureLoggers,
+  configureServices,
+  configureRepositories,
+  configureEnvironmentVariables,
+} from './setup';
 
 (() => {
   /* 🔐 Environment variables. */
   const { SECRET_KEY, SERVER_PORT } = configureEnvironmentVariables();
 
   /* 📝 Loggers. */
-  const winstonLoggerImpl = new WinstonLoggerImpl(winston.createLogger({
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.printf(({ timestamp, level, message }) => `📸 ${timestamp} - ${level}: ${message}`),
-    ),
-    transports: [new winston.transports.Console()],
-  }));
+  const { winstonLogger } = configureLoggers();
 
   /* 💽 Repositories. */
-  const inMemoryRepositoryImpl = new InMemoryRepositoryImpl();
+  const { inMemoryRepository } = configureRepositories();
 
   /* ⚙️ Services. */
-  const jsonWebTokenImpl = new JSONWebTokenImpl(SECRET_KEY, winstonLoggerImpl);
-  const bcryptServiceImpl = new BcryptServiceImpl(winstonLoggerImpl);
+  const { jsonWebTokenService, bcryptService } = configureServices(SECRET_KEY, winstonLogger);
 
   /* 📖 Usecases. */
   const authUsecaseImpl = new AuthUsecaseImpl(
-    jsonWebTokenImpl,
-    winstonLoggerImpl,
-    bcryptServiceImpl,
-    inMemoryRepositoryImpl,
+    jsonWebTokenService,
+    winstonLogger,
+    bcryptService,
+    inMemoryRepository,
   );
 
   /* 📡 APIs. */
-  const apiServiceImpl = new APIServiceImpl(
+  createAuthController(
+    jsonWebTokenService,
+    winstonLogger,
     authUsecaseImpl,
-    winstonLoggerImpl,
     SERVER_PORT,
   );
-  apiServiceImpl.start();
 })();
