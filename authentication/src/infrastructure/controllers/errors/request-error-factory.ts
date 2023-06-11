@@ -1,22 +1,19 @@
-import { ErrorFactory } from '../../../domain/errors/error-factory';
+import { AllStatusCodes } from '../status-codes';
+import { RequestError, RequestErrorCode } from './request-errors';
 
-export type RequestErrorFactory = ErrorFactory & {
-  statusCode: number;
-};
+export class RequestErrorFactory extends Error implements RequestError {
+  constructor(
+    public code: RequestErrorCode,
+    public message: string,
+    public statusCode: AllStatusCodes,
+  ) {
+    super(message);
+    Object.setPrototypeOf(this, RequestErrorFactory.prototype);
+  }
+}
 
-const createRequestErrorFactory = ({
-  name,
+export const createRequestErrorFactory = ({
+  code,
   message,
   statusCode,
-}: RequestErrorFactory) => class RequestCustomError extends Error {
-  statusCode: number;
-
-  constructor() {
-    super(message);
-    this.name = name;
-    this.statusCode = statusCode;
-    Object.setPrototypeOf(this, RequestCustomError.prototype);
-  }
-};
-
-export default createRequestErrorFactory;
+}: RequestError) => new RequestErrorFactory(code, message, statusCode);

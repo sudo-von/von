@@ -10,9 +10,9 @@ export type UserEntity = Readonly<{
   about: AboutEntity;
 }>;
 
-export type SmallUserEntity = Pick<UserEntity, 'id' | 'name' | 'username' | 'email' | 'profile_picture' >;
+export type SmallUserEntity = Omit<UserEntity, 'about' | 'password' >;
 
-export type MediumUserEntity = Pick<UserEntity, 'id' | 'name' | 'username' | 'email' | 'profile_picture' | 'about' >;
+export type MediumUserEntity = Omit<UserEntity, 'password' >;
 
 export type CreateUserEntity = Readonly<
 Omit<UserEntity, 'id'> & {

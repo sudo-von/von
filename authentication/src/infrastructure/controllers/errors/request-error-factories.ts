@@ -1,50 +1,62 @@
-import createRequestErrorFactory from './request-error-factory';
-import requestErrors from './request-errors';
+import { createRequestErrorFactory } from './request-error-factory';
+import {
+  EMAIL_ALREADY_EXISTS_REQUEST,
+  INVALID_CREDENTIALS_REQUEST,
+  INVALID_INTEREST_LENGTH_REQUEST,
+  INVALID_NAME_LENGTH_REQUEST,
+  INVALID_PASSWORD_LENGTH_REQUEST,
+  INVALID_POSITION_LENGTH_REQUEST,
+  INVALID_QUOTE_LENGTH_REQUEST,
+  INVALID_USERNAME_LENGTH_REQUEST,
+  SINGLE_USER_ONLY_REQUEST,
+  USER_CREATION_FAILED_REQUEST,
+  USER_NOT_FOUND_REQUEST,
+} from './request-errors';
 
 export const InvalidCredentialsRequestError = createRequestErrorFactory(
-  requestErrors.invalidCredentials,
+  INVALID_CREDENTIALS_REQUEST,
 );
 
 export const InvalidInterestRequestError = createRequestErrorFactory(
-  requestErrors.invalidInterest,
-);
-
-export const InvalidEmailRequestError = createRequestErrorFactory(
-  requestErrors.invalidEmail,
+  INVALID_INTEREST_LENGTH_REQUEST,
 );
 
 export const InvalidNameRequestError = createRequestErrorFactory(
-  requestErrors.invalidName,
+  INVALID_NAME_LENGTH_REQUEST,
 );
 
 export const InvalidPasswordRequestError = createRequestErrorFactory(
-  requestErrors.invalidPassword,
+  INVALID_PASSWORD_LENGTH_REQUEST,
 );
 
 export const InvalidPositionRequestError = createRequestErrorFactory(
-  requestErrors.invalidPosition,
+  INVALID_POSITION_LENGTH_REQUEST,
 );
 
 export const InvalidQuoteRequestError = createRequestErrorFactory(
-  requestErrors.invalidQuote,
+  INVALID_QUOTE_LENGTH_REQUEST,
 );
 
 export const InvalidUsernameRequestError = createRequestErrorFactory(
-  requestErrors.invalidUsername,
+  INVALID_USERNAME_LENGTH_REQUEST,
 );
 
-export const UserCouldntBeCreatedRequestError = createRequestErrorFactory(
-  requestErrors.userCouldntBeCreated,
+export const UserCreationFailedRequestError = createRequestErrorFactory(
+  USER_CREATION_FAILED_REQUEST,
+);
+
+export const EmailAlreadyExistsRequestError = createRequestErrorFactory(
+  EMAIL_ALREADY_EXISTS_REQUEST,
 );
 
 export const UserNotFoundRequestError = createRequestErrorFactory(
-  requestErrors.userNotFound,
+  USER_NOT_FOUND_REQUEST,
 );
 
 export const SingleUserOnlyRequestError = createRequestErrorFactory(
-  requestErrors.singleUserOnly,
+  SINGLE_USER_ONLY_REQUEST,
 );
 
 export const InternalServerRequestError = createRequestErrorFactory(
-  requestErrors.internalServer,
+  SINGLE_USER_ONLY_REQUEST,
 );

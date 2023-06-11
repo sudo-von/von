@@ -1,17 +1,13 @@
-export type ErrorFactory = {
-  name: string;
-  message: string;
-};
+import { DomainError, DomainErrorCode } from './errors';
 
-const createErrorFactory = ({
-  name,
-  message,
-}: ErrorFactory) => class CustomError extends Error {
-  constructor() {
+export class DomainErrorFactory extends Error implements DomainError {
+  constructor(public code: DomainErrorCode, public message: string) {
     super(message);
-    this.name = name;
-    Object.setPrototypeOf(this, CustomError.prototype);
+    Object.setPrototypeOf(this, DomainErrorFactory.prototype);
   }
-};
+}
 
-export default createErrorFactory;
+export const createDomainErrorFactory = ({
+  code,
+  message,
+}: DomainError) => new DomainErrorFactory(code, message);

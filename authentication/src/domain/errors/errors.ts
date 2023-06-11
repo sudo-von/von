@@ -1,64 +1,75 @@
-import {
-  MIN_INTEREST_LENGTH,
-  MAX_INTEREST_LENGTH,
-  MAX_NAME_LENGTH,
-  MAX_POSITION_LENGTH,
-  MAX_QUOTE_LENGTH,
-  MAX_USERNAME_LENGTH,
-  MIN_NAME_LENGTH,
-  MIN_PASSWORD_LENGTH,
-  MIN_POSITION_LENGTH,
-  MIN_QUOTE_LENGTH,
-  MIN_USERNAME_LENGTH,
-} from '../entities/validations/constants';
+import { createAboutRules } from '../entities/validations/create-about-validations';
+import { createUserRules } from '../entities/validations/create-user-validations';
 
-const errors = {
-  invalidCredentials: {
-    name: 'InvalidCredentialsError',
-    message: 'invalid credentials',
-  },
-  invalidInterest: {
-    name: 'InvalidInterestError',
-    message: `interest must contain ${MIN_INTEREST_LENGTH} to ${MAX_INTEREST_LENGTH} characters`,
-  },
-  invalidEmail: {
-    name: 'InvalidEmailError',
-    message: 'email already exists',
-  },
-  invalidName: {
-    name: 'InvalidNameError',
-    message: `name field must contain ${MIN_NAME_LENGTH} to ${MAX_NAME_LENGTH} characters`,
-  },
-  invalidPassword: {
-    name: 'InvalidPasswordError',
-    message: `password must contain at least ${MIN_PASSWORD_LENGTH} characters`,
-  },
-  invalidPosition: {
-    name: 'InvalidPositionError',
-    message: `position must contain ${MIN_POSITION_LENGTH} to ${MAX_POSITION_LENGTH} characters`,
-  },
-  invalidQuote: {
-    name: 'InvalidQuoteError',
-    message: `quote must contain ${MIN_QUOTE_LENGTH} to ${MAX_QUOTE_LENGTH} characters`,
-  },
-  invalidUsername: {
-    name: 'InvalidUsernameError',
-    message: `username field must contain ${MIN_USERNAME_LENGTH} to ${MAX_USERNAME_LENGTH} characters`,
-  },
-  userCouldntBeCreated: {
-    name: 'UserCouldntBeCreatedError',
-    message: "user couldn't be created",
-  },
-  userNotFound: {
-    name: 'UserNotFoundError',
-    message: 'user not found',
-  },
-  singleUserOnly: {
-    name: 'SingleUserOnlyError',
-    message: 'only a single user is allowed',
-  },
-} as const;
+export type DomainErrorCode =
+  | 'INVALID_CREDENTIALS_DOMAIN_ERROR'
+  | 'INVALID_INTEREST_LENGTH_DOMAIN_ERROR'
+  | 'INVALID_NAME_LENGTH_DOMAIN_ERROR'
+  | 'INVALID_PASSWORD_LENGTH_DOMAIN_ERROR'
+  | 'INVALID_POSITION_LENGTH_DOMAIN_ERROR'
+  | 'INVALID_QUOTE_LENGTH_DOMAIN_ERROR'
+  | 'INVALID_USERNAME_LENGTH_DOMAIN_ERROR'
+  | 'EMAIL_ALREADY_EXISTS_DOMAIN_ERROR'
+  | 'USER_CREATION_FAILED_DOMAIN_ERROR'
+  | 'USER_NOT_FOUND_DOMAIN_ERROR'
+  | 'SINGLE_USER_ONLY_DOMAIN_ERROR';
 
-export type ErrorName = typeof errors[keyof typeof errors]['name'];
+export type DomainError = {
+  code: DomainErrorCode;
+  message: string;
+};
 
-export default errors;
+export const INVALID_CREDENTIALS: DomainError = {
+  code: 'INVALID_CREDENTIALS_DOMAIN_ERROR',
+  message: 'Invalid credentials. Please verify your username and password and try again.',
+};
+
+export const EMAIL_ALREADY_EXISTS: DomainError = {
+  code: 'EMAIL_ALREADY_EXISTS_DOMAIN_ERROR',
+  message: 'Email already exists. Please choose a different email address.',
+};
+
+export const INVALID_INTEREST_LENGTH: DomainError = {
+  code: 'INVALID_INTEREST_LENGTH_DOMAIN_ERROR',
+  message: `Please provide an interest that consists of ${createAboutRules.interest.MIN_LENGTH} to ${createAboutRules.interest.MAX_LENGTH} characters.`,
+};
+
+export const INVALID_NAME_LENGTH: DomainError = {
+  code: 'INVALID_NAME_LENGTH_DOMAIN_ERROR',
+  message: `Please provide a name that consists of ${createUserRules.name.MIN_LENGTH} to ${createUserRules.name.MAX_LENGTH} characters.`,
+};
+
+export const INVALID_PASSWORD_LENGTH: DomainError = {
+  code: 'INVALID_PASSWORD_LENGTH_DOMAIN_ERROR',
+  message: `Password must contain a minimum of ${createUserRules.password.MIN_LENGTH} characters.`,
+};
+
+export const INVALID_POSITION_LENGTH: DomainError = {
+  code: 'INVALID_POSITION_LENGTH_DOMAIN_ERROR',
+  message: `Please provide a position that consists of ${createAboutRules.position.MIN_LENGTH} to ${createAboutRules.position.MAX_LENGTH} characters.`,
+};
+
+export const INVALID_QUOTE_LENGTH: DomainError = {
+  code: 'INVALID_QUOTE_LENGTH_DOMAIN_ERROR',
+  message: `Please provide a quote that consists of ${createAboutRules.quote.MIN_LENGTH} to ${createAboutRules.quote.MAX_LENGTH} characters.`,
+};
+
+export const INVALID_USERNAME_LENGTH: DomainError = {
+  code: 'INVALID_USERNAME_LENGTH_DOMAIN_ERROR',
+  message: `Please provide a quote that consists of ${createUserRules.username.MIN_LENGTH} to ${createUserRules.username.MAX_LENGTH} characters.`,
+};
+
+export const USER_CREATION_FAILED: DomainError = {
+  code: 'USER_CREATION_FAILED_DOMAIN_ERROR',
+  message: 'User creation failed.',
+};
+
+export const USER_NOT_FOUND: DomainError = {
+  code: 'USER_NOT_FOUND_DOMAIN_ERROR',
+  message: 'User not found.',
+};
+
+export const SINGLE_USER_ONLY: DomainError = {
+  code: 'USER_NOT_FOUND_DOMAIN_ERROR',
+  message: 'Single user only. Only one user is allowed.',
+};

@@ -23,13 +23,13 @@ import AuthUsecase from '../domain/usecases/auth-usecase';
 class AuthUsecaseImpl extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
     const user = await this.userRepository.getUserByEmail(email);
-    if (!user) throw new InvalidCredentialsError();
+    if (!user) throw InvalidCredentialsError;
 
     const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
       password,
       user.password,
     );
-    if (!areCredentialsValid) throw new InvalidCredentialsError();
+    if (!areCredentialsValid) throw InvalidCredentialsError;
 
     const smallUser: SmallUserEntity = {
       id: user.id,
@@ -51,28 +51,28 @@ class AuthUsecaseImpl extends AuthUsecase {
 
   signup = async (userPayload: CreateUserEntity): Promise<MediumUserEntity> => {
     const isNameValid = validateName(userPayload.name);
-    if (!isNameValid) throw new InvalidNameError();
+    if (!isNameValid) throw InvalidNameError;
 
     const isUsernameValid = validateUsername(userPayload.username);
-    if (!isUsernameValid) throw new InvalidUsernameError();
+    if (!isUsernameValid) throw InvalidUsernameError;
 
     const isEmailValid = validateEmail(userPayload.email);
-    if (!isEmailValid) throw new InvalidEmailError();
+    if (!isEmailValid) throw InvalidEmailError;
 
     const isPasswordValid = validatePassword(userPayload.password);
-    if (!isPasswordValid) throw new InvalidPasswordError();
+    if (!isPasswordValid) throw InvalidPasswordError;
 
     const isPositionValid = validatePosition(userPayload.about.position);
-    if (!isPositionValid) throw new InvalidPositionError();
+    if (!isPositionValid) throw InvalidPositionError;
 
     const isInterestValid = validateInterest(userPayload.about.interest);
-    if (!isInterestValid) throw new InvalidInterestError();
+    if (!isInterestValid) throw InvalidInterestError;
 
     const isQuoteValid = validateQuote(userPayload.about.quote);
-    if (!isQuoteValid) throw new InvalidQuoteError();
+    if (!isQuoteValid) throw InvalidQuoteError;
 
     const users = await this.userRepository.getUsers();
-    if (users && users.length) throw new SingleUserOnlyError();
+    if (users && users.length) throw SingleUserOnlyError;
 
     const hashedPassword = await this.cryptographyService.hash(userPayload.password);
 
@@ -82,7 +82,7 @@ class AuthUsecaseImpl extends AuthUsecase {
     };
 
     const createdUser = await this.userRepository.createUser(payload);
-    if (!createdUser) throw new UserCouldntBeCreatedError();
+    if (!createdUser) throw UserCouldntBeCreatedError;
 
     const smallUser: MediumUserEntity = {
       id: createdUser.id,

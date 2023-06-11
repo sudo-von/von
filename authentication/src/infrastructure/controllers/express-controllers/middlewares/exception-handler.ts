@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { ErrorName } from '../../../../domain/errors/errors';
+import { DomainErrorCode } from '../../../../domain/errors/errors';
+import { DomainErrorFactory } from '../../../../domain/errors/error-factory';
+import { RequestErrorFactory } from '../../errors/request-error-factory';
 import {
   InvalidNameRequestError,
   InvalidUsernameRequestError,
@@ -8,10 +10,26 @@ import {
   InvalidInterestRequestError,
   InvalidQuoteRequestError,
   SingleUserOnlyRequestError,
-  UserCouldntBeCreatedRequestError,
   InternalServerRequestError,
   InvalidCredentialsRequestError,
+  EmailAlreadyExistsRequestError,
+  UserNotFoundRequestError,
+  UserCreationFailedRequestError,
 } from '../../errors/request-error-factories';
+
+const errors: Record<DomainErrorCode, RequestErrorFactory> = {
+  INVALID_CREDENTIALS_DOMAIN_ERROR: InvalidCredentialsRequestError,
+  INVALID_INTEREST_LENGTH_DOMAIN_ERROR: InvalidInterestRequestError,
+  INVALID_NAME_LENGTH_DOMAIN_ERROR: InvalidNameRequestError,
+  INVALID_PASSWORD_LENGTH_DOMAIN_ERROR: InvalidPasswordRequestError,
+  INVALID_POSITION_LENGTH_DOMAIN_ERROR: InvalidPositionRequestError,
+  INVALID_QUOTE_LENGTH_DOMAIN_ERROR: InvalidQuoteRequestError,
+  INVALID_USERNAME_LENGTH_DOMAIN_ERROR: InvalidUsernameRequestError,
+  EMAIL_ALREADY_EXISTS_DOMAIN_ERROR: EmailAlreadyExistsRequestError,
+  SINGLE_USER_ONLY_DOMAIN_ERROR: SingleUserOnlyRequestError,
+  USER_NOT_FOUND_DOMAIN_ERROR: UserNotFoundRequestError,
+  USER_CREATION_FAILED_DOMAIN_ERROR: UserCreationFailedRequestError,
+};
 
 const exceptionHandler = (
   error: Error,
@@ -19,17 +37,9 @@ const exceptionHandler = (
   _res: Response,
   _next: NextFunction,
 ) => {
-  const name = error.name as ErrorName;
-  if (name === 'InvalidNameError') throw new InvalidNameRequestError();
-  if (name === 'InvalidUsernameError') throw new InvalidUsernameRequestError();
-  if (name === 'InvalidPasswordError') throw new InvalidPasswordRequestError();
-  if (name === 'InvalidPositionError') throw new InvalidPositionRequestError();
-  if (name === 'InvalidInterestError') throw new InvalidInterestRequestError();
-  if (name === 'InvalidQuoteError') throw new InvalidQuoteRequestError();
-  if (name === 'SingleUserOnlyError') throw new SingleUserOnlyRequestError();
-  if (name === 'UserCouldntBeCreatedError') throw new UserCouldntBeCreatedRequestError();
-  if (name === 'InvalidCredentialsError') throw new InvalidCredentialsRequestError();
-  throw new InternalServerRequestError();
+  const { code } = error as DomainErrorFactory;
+  if (errors[code]) throw errors[code];
+  throw InternalServerRequestError;
 };
 
 export default exceptionHandler;

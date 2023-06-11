@@ -1,23 +1,32 @@
-import {
-  MIN_POSITION_LENGTH,
-  MAX_POSITION_LENGTH,
-  MIN_INTEREST_LENGTH,
-  MAX_INTEREST_LENGTH,
-  MIN_QUOTE_LENGTH,
-  MAX_QUOTE_LENGTH,
-} from './constants';
+export const createAboutRules = {
+  position: {
+    MIN_LENGTH: 10,
+    MAX_LENGTH: 24,
+  },
+  interest: {
+    MIN_LENGTH: 12,
+    MAX_LENGTH: 34,
+  },
+  quote: {
+    MIN_LENGTH: 14,
+    MAX_LENGTH: 100,
+  },
+} as const;
 
 export const validatePosition = (position: string) => {
   const positionLength = position.trim().length;
-  return positionLength >= MIN_POSITION_LENGTH && positionLength <= MAX_POSITION_LENGTH;
+  const { MIN_LENGTH, MAX_LENGTH } = createAboutRules.position;
+  return positionLength >= MIN_LENGTH && positionLength <= MAX_LENGTH;
 };
 
 export const validateInterest = (interest: string) => {
   const interestLength = interest.trim().length;
-  return interestLength >= MIN_INTEREST_LENGTH && interestLength <= MAX_INTEREST_LENGTH;
+  const { MIN_LENGTH, MAX_LENGTH } = createAboutRules.interest;
+  return interestLength >= MIN_LENGTH && interestLength <= MAX_LENGTH;
 };
 
 export const validateQuote = (quote: string) => {
   const quoteLength = quote.trim().length;
-  return quoteLength >= MIN_QUOTE_LENGTH && quoteLength <= MAX_QUOTE_LENGTH;
+  const { MIN_LENGTH, MAX_LENGTH } = createAboutRules.quote;
+  return quoteLength >= MIN_LENGTH && quoteLength <= MAX_LENGTH;
 };
