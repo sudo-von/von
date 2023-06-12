@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import statusCodes from '../../status-codes';
-import TokenService from '../../../../domain/services/token-service';
+import statusCodes from '../../../status-codes';
+import TokenService from '../../../../../domain/services/token-service';
 
 const jwtAuthHandler = (tokenService: TokenService) => (
   req: Request,

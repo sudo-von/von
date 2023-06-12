@@ -1,12 +1,13 @@
 import 'express-async-errors';
 import AuthUsecaseImpl from './application/auth-usecase-impl';
-import createAuthController from './infrastructure/services/api-service-impl';
+
 import {
   configureLoggers,
   configureServices,
   configureRepositories,
   configureEnvironmentVariables,
 } from './setup';
+import createAuthRouter from './infrastructure/controllers/auth-controller/express-controllers/express-auth-router';
 
 (() => {
   /* 🔐 Environment variables. */
@@ -29,11 +30,10 @@ import {
     inMemoryRepository,
   );
 
-  /* 📡 APIs. */
-  createAuthController(
-    jsonWebTokenService,
-    winstonLogger,
+  /* 📡 Routers. */
+  createAuthRouter(
     authUsecaseImpl,
+    winstonLogger,
     SERVER_PORT,
   );
 })();

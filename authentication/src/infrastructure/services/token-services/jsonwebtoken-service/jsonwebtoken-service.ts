@@ -1,11 +1,8 @@
 import jwt from 'jsonwebtoken';
-import TokenService from '../../../domain/services/token-service';
-import { SmallUserEntity } from '../../../domain/entities/user-entity';
-import JSONWebTokenEntity from './jsonwebtoken-entities';
-import {
-  TokenServiceExpiredTokenError,
-  TokenServiceInvalidTokenError,
-} from '../errors/server-error-factories';
+import JSONWebTokenDto from './dtos/jsonwebtoken-dto';
+import TokenService from '../../../../domain/services/token-service';
+import { SmallUserEntity } from '../../../../domain/entities/user-entity';
+import { TokenServiceExpiredTokenError, TokenServiceInvalidTokenError } from '../../errors/server-error-factories';
 
 class JSONWebTokenService extends TokenService {
   private readonly expiresIn = 60 * 30;
@@ -23,7 +20,7 @@ class JSONWebTokenService extends TokenService {
 
   decodeToken = (token: string): SmallUserEntity => {
     try {
-      const payload = jwt.verify(token, this.secret) as JSONWebTokenEntity;
+      const payload = jwt.verify(token, this.secret) as JSONWebTokenDto;
 
       const smallUserEntity: SmallUserEntity = {
         id: payload.id,

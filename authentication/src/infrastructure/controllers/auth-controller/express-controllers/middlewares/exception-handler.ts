@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { DomainErrorCode } from '../../../../domain/errors/errors';
-import { DomainErrorFactory } from '../../../../domain/errors/error-factory';
-import { RequestErrorFactory } from '../../errors/request-error-factory';
+import { DomainErrorCode } from '../../../../../domain/errors/errors';
+import { DomainErrorFactory } from '../../../../../domain/errors/error-factory';
+import { RequestErrorFactory } from '../../../errors/request-error-factory';
 import {
   InvalidNameRequestError,
   InvalidUsernameRequestError,
@@ -17,9 +17,9 @@ import {
   UserCreationFailedRequestError,
   InvalidTokenRequestError,
   ExpiredTokenRequestError,
-} from '../../errors/request-error-factories';
-import { ServiceErrorCode } from '../../../services/errors/service-errors';
-import { ServiceErrorFactory } from '../../../services/errors/service-error-factory';
+} from '../../../errors/request-error-factories';
+import { ServiceErrorCode } from '../../../../services/errors/service-errors';
+import { ServiceErrorFactory } from '../../../../services/errors/service-error-factory';
 
 const domainErrors: Record<DomainErrorCode, RequestErrorFactory> = {
   INVALID_CREDENTIALS_DOMAIN_ERROR: InvalidCredentialsRequestError,

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import AuthController from '../auth-controller';
-import statusCodes from '../status-codes';
-import { createUserDto } from '../dtos/auth-dtos/create-user-dto';
-import { userCredentialsDto } from '../dtos/auth-dtos/user-credentials-dto';
+import { createUserDto } from '../../dtos/auth-dtos/create-user-dto';
+import { userCredentialsDto } from '../../dtos/auth-dtos/user-credentials-dto';
+import statusCodes from '../../status-codes';
 
 class ExpressAuthController extends AuthController {
   auth = async (req: Request, res: Response, next: NextFunction) => {

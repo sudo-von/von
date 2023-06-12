@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import ICryptographyService from '../../../domain/services/cryptography-service';
-import { CryptographyServiceInvalidCompareError, CryptographyServiceInvalidHashDataError } from '../errors/server-error-factories';
+import ICryptographyService from '../../../../domain/services/cryptography-service';
+import { CryptographyServiceInvalidCompareError, CryptographyServiceInvalidHashDataError } from '../../errors/server-error-factories';
 
 class BcryptService implements ICryptographyService {
   private saltRounds = 10;

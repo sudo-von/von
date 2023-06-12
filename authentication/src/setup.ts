@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import winston from 'winston';
-import WinstonLogger from './infrastructure/loggers/winston-logger';
 import LoggerService from './domain/services/logger-service';
-import InMemoryRepository from './infrastructure/repositories/in-memory-repository';
-import BcryptService from './infrastructure/services/bcrypt-service/bcrypt-service';
-import JSONWebTokenService from './infrastructure/services/jsonwebtoken-service/jsonwebtoken-service';
+import InMemoryRepository from './infrastructure/repositories/user-repositories/in-memory-repository';
+import IUserRepository from './domain/repositories/user-repository';
 import TokenService from './domain/services/token-service';
 import CryptographyService from './domain/services/cryptography-service';
-import IUserRepository from './domain/repositories/user-repository';
+import BcryptService from './infrastructure/services/cryptography-services/bcrypt-service/bcrypt-service';
+import WinstonLogger from './infrastructure/services/logger-services/winston-logger/winston-logger';
+import JSONWebTokenService from './infrastructure/services/token-services/jsonwebtoken-service/jsonwebtoken-service';
 
 export const configureEnvironmentVariables = () => {
   dotenv.config({ path: `${__dirname}/../.env` });

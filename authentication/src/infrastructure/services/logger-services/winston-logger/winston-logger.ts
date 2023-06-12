@@ -1,5 +1,5 @@
 import winston from 'winston';
-import LoggerService, { LogType } from '../../domain/services/logger-service';
+import LoggerService, { LogType } from '../../../../domain/services/logger-service';
 
 class WinstonLogger extends LoggerService {
   private logger: winston.Logger;

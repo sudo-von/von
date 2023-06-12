@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { RequestErrorFactory } from '../../errors/request-error-factory';
-import { INTERNAL_SERVER_REQUEST } from '../../errors/request-errors';
+import { RequestErrorFactory } from '../../../errors/request-error-factory';
+import { INTERNAL_SERVER_REQUEST } from '../../../errors/request-errors';
 
 const errorHandler = (
   error: Error,

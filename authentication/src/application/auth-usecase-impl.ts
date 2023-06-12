@@ -22,25 +22,30 @@ import AuthUsecase from '../domain/usecases/auth-usecase';
 
 class AuthUsecaseImpl extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
-    const user = await this.userRepository.getUserByEmail(email);
-    if (!user) throw InvalidCredentialsError;
+    try {
+      const user = await this.userRepository.getUserByEmail(email);
+      if (!user) throw InvalidCredentialsError;
 
-    const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
-      password,
-      user.password,
-    );
-    if (!areCredentialsValid) throw InvalidCredentialsError;
+      const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
+        password,
+        user.password,
+      );
+      if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const smallUser: SmallUserEntity = {
-      id: user.id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      profile_picture: user.profile_picture,
-    };
+      const smallUser: SmallUserEntity = {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        profile_picture: user.profile_picture,
+      };
 
-    const token = this.tokenService.generateToken(smallUser);
-    return token;
+      const token = this.tokenService.generateToken(smallUser);
+      return token;
+    } catch (e) {
+      this.loggerService.log('warn', (e as Error).message);
+      throw e;
+    }
   };
 
   refresh = async (token: string): Promise<string> => {
