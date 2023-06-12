@@ -40,7 +40,7 @@ import createAuthRouter from './infrastructure/controllers/auth-controller/expre
   createAuthRouter(
     authUsecaseImpl,
     winstonLogger,
-    SERVER_PORT,
     rabbitMQMessageBroker,
+    SERVER_PORT,
   );
 })();

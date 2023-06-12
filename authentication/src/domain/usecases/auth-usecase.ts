@@ -1,10 +1,16 @@
-import IAuthUsecaseReader from './auth-usecase-reader';
-import IAuthUsecaseWriter from './auth-usecase-writer';
-import CryptographyService from '../services/cryptography-service';
 import TokenService from '../services/token-service';
-import IUserRepository from '../repositories/user-repository';
 import LoggerService from '../services/logger-service';
-import { CreateUserEntity, MediumUserEntity } from '../entities/user-entity';
+import IUserRepository from '../repositories/user-repository';
+import CryptographyService from '../services/cryptography-service';
+import { CreateUserEntity, MediumUserEntity, SmallUserEntity } from '../entities/user-entity';
+
+interface IAuthUsecaseReader {
+  authenticate: (email: string, password: string) => Promise<string>;
+}
+
+interface IAuthUsecaseWriter {
+  signup: (userPayload: CreateUserEntity) => Promise<SmallUserEntity>;
+}
 
 interface IAuthUsecase extends IAuthUsecaseReader, IAuthUsecaseWriter {}
 

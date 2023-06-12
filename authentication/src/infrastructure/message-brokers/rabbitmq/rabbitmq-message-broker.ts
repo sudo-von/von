@@ -10,8 +10,6 @@ import {
 } from '../errors/message-broker-error-factories';
 
 class RabbitMQMessageBroker extends MessageBroker {
-  readonly BROKER_URL = 'amqp://localhost:5672';
-
   protected connection?: Connection;
 
   protected channel?: Channel;
@@ -22,7 +20,7 @@ class RabbitMQMessageBroker extends MessageBroker {
       const message = JSON.stringify(data);
       const buffer = Buffer.from(message);
       await this.channel.assertQueue(queue);
-      await this.channel.sendToQueue(queue, buffer);
+      this.channel.sendToQueue(queue, buffer);
     } catch (e) {
       this.logger.log('warn', (e as Error).message);
       throw MessageBrokerFailedToSendMessageError;
@@ -36,7 +34,7 @@ class RabbitMQMessageBroker extends MessageBroker {
       const message = await this.channel.get(queue);
       if (!message) throw MessageBrokerNoMessageAvailableError;
       const data = JSON.parse(message.content.toString());
-      await this.channel.ack(message);
+      this.channel.ack(message);
       return data;
     } catch (e) {
       this.logger.log('warn', (e as Error).message);

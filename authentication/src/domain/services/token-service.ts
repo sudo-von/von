@@ -1,9 +1,7 @@
 import { SmallUserEntity } from '../entities/user-entity';
 
 abstract class TokenService {
-  constructor(
-    protected secret: string,
-  ) {}
+  constructor(protected secret: string) {}
 
   abstract generateToken: (payload: SmallUserEntity) => string;
 

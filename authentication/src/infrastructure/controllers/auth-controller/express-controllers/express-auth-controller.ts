@@ -21,7 +21,7 @@ class ExpressAuthController extends AuthController {
       const payload = createUserDto.parse(req.body);
       const user = await this.authUsecase.signup(payload);
       res.status(statusCodes.success.created).send({ result: user });
-      await this.broker.produceMessage<MediumUserEntity>(user);
+      await this.messageBroker.produceMessage<MediumUserEntity>('Profile:CreateProfile', user);
     } catch (e) {
       next(e);
     }

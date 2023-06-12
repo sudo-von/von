@@ -5,8 +5,8 @@ import MessageBroker from '../../message-brokers/message-broker';
 abstract class AuthController {
   constructor(
     protected authUsecase: AuthUsecase,
-    protected logger: LoggerService,
-    protected broker: MessageBroker,
+    protected loggerService: LoggerService,
+    protected messageBroker: MessageBroker,
   ) {}
 }
 

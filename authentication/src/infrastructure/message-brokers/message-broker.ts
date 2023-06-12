@@ -3,9 +3,10 @@ import LoggerService from '../../domain/services/logger-service';
 export type Queues = 'Profile:CreateProfile';
 
 abstract class MessageBroker {
-  abstract readonly BROKER_URL: string;
-
-  constructor(protected logger: LoggerService) {}
+  constructor(
+    protected logger: LoggerService,
+    protected readonly BROKER_URL: string,
+  ) {}
 
   public abstract produceMessage: <T>(queue: Queues, data: T) => Promise<void>;
 

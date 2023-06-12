@@ -42,7 +42,7 @@ const serviceErrors: Record<ServiceErrorCode, RequestErrorFactory> = {
   TOKEN_SERVICE_EXPIRED_TOKEN_ERROR: ExpiredTokenRequestError,
 };
 
-const exceptionHandler = (
+const serviceExceptionHandler = (
   error: Error,
   _req: Request,
   _res: Response,
@@ -57,4 +57,4 @@ const exceptionHandler = (
   throw InternalServerRequestError;
 };
 
-export default exceptionHandler;
+export default serviceExceptionHandler;

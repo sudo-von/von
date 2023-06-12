@@ -8,7 +8,7 @@ import CryptographyService from './domain/services/cryptography-service';
 import BcryptService from './infrastructure/services/cryptography-services/bcrypt-service/bcrypt-service';
 import WinstonLogger from './infrastructure/services/logger-services/winston-logger/winston-logger';
 import JSONWebTokenService from './infrastructure/services/token-services/jsonwebtoken-service/jsonwebtoken-service';
-import RabbitMQMessageBroker from './infrastructure/message-brokers/rabbitmq/producer-rabbitmq-event';
+import RabbitMQMessageBroker from './infrastructure/message-brokers/rabbitmq/rabbitmq-message-broker';
 import MessageBroker from './infrastructure/message-brokers/message-broker';
 
 export const configureEnvironmentVariables = () => {
@@ -51,7 +51,7 @@ export const configureServices = (secret_key: string) => {
 };
 
 export const configureMessageBrokers = (logger: LoggerService) => {
-  const rabbitMQMessageBroker = new RabbitMQMessageBroker(logger);
+  const rabbitMQMessageBroker = new RabbitMQMessageBroker(logger, 'amqp://localhost:5672');
   return { rabbitMQMessageBroker };
 };
 
