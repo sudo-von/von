@@ -9,7 +9,7 @@ import {
   MessageBrokerNoMessageAvailableError,
 } from '../errors/message-broker-error-factories';
 
-class RabbitMQMessageBroker extends MessageBroker {
+abstract class RabbitMQMessageBroker extends MessageBroker {
   protected connection?: Connection;
 
   protected channel?: Channel;
@@ -26,15 +26,17 @@ class RabbitMQMessageBroker extends MessageBroker {
     }
   };
 
-  consumeMessage = async <T>(queue: Queues): Promise<T> => {
+  consumeMessage = async <T>(queue: Queues): Promise<void> => {
     try {
       if (!this.channel) throw MessageBrokerChannelIsClosedError;
       await this.channel.assertQueue(queue);
-      const message = await this.channel.get(queue);
-      if (!message) throw MessageBrokerNoMessageAvailableError;
-      const data = JSON.parse(message.content.toString());
-      this.channel.ack(message);
-      return data;
+      this.channel.consume(queue, (message) => {
+        if (!message) throw MessageBrokerNoMessageAvailableError;
+        const data = JSON.parse(message.content.toString()) as T;
+        this.onMessage(data);
+        if (!this.channel) throw MessageBrokerChannelIsClosedError;
+        this.channel.ack(message);
+      });
     } catch (e) {
       throw MessageBrokerFailedToConsumeMessageError;
     }

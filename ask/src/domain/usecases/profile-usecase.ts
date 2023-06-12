@@ -10,9 +10,7 @@ interface IProfileUsecaseWriter {
 interface IProfileUsecase extends IProfileUsecaseReader, IProfileUsecaseWriter {}
 
 abstract class ProfileUsecase implements IProfileUsecase {
-  constructor(
-    protected profileRepository: IProfileRepository,
-  ) {}
+  constructor(protected profileRepository: IProfileRepository) {}
 
   abstract createProfile: (profilePayload: CreateProfileEntity) => Promise<ProfileEntity>;
 }
