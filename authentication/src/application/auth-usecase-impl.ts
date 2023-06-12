@@ -72,7 +72,7 @@ class AuthUsecaseImpl extends AuthUsecase {
     if (!isQuoteValid) throw InvalidQuoteError;
 
     const users = await this.userRepository.getUsers();
-    if (users && users.length) throw SingleUserOnlyError;
+    if (users.length) throw SingleUserOnlyError;
 
     const hashedPassword = await this.cryptographyService.hash(userPayload.password);
 
@@ -84,7 +84,7 @@ class AuthUsecaseImpl extends AuthUsecase {
     const createdUser = await this.userRepository.createUser(payload);
     if (!createdUser) throw UserCouldntBeCreatedError;
 
-    const smallUser: MediumUserEntity = {
+    const mediumUserEntity: MediumUserEntity = {
       id: createdUser.id,
       name: createdUser.name,
       username: createdUser.username,
@@ -93,7 +93,7 @@ class AuthUsecaseImpl extends AuthUsecase {
       about: createdUser.about,
     };
 
-    return smallUser;
+    return mediumUserEntity;
   };
 }
 

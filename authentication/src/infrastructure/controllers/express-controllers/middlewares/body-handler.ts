@@ -9,8 +9,8 @@ const bodyHandler = (
   next: NextFunction,
 ) => {
   if (error instanceof ZodError && !error.isEmpty) {
-    const firstError = error.errors[0];
-    return res.status(statusCodes.clientSide.badRequest).json({ error: firstError.message });
+    const errors = error.errors.map((e) => e.message);
+    return res.status(statusCodes.clientSide.badRequest).json({ errors });
   }
   return next(error);
 };

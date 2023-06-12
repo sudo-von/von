@@ -70,6 +70,6 @@ export const USER_NOT_FOUND: DomainError = {
 };
 
 export const SINGLE_USER_ONLY: DomainError = {
-  code: 'USER_NOT_FOUND_DOMAIN_ERROR',
+  code: 'SINGLE_USER_ONLY_DOMAIN_ERROR',
   message: 'Single user only. Only one user is allowed.',
 };
