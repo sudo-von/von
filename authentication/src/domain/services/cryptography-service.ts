@@ -1,13 +1,7 @@
-import LoggerService from './logger-service';
+interface ICryptographyService {
+  comparePlainAndHash: (plainData: string, hashedData: string) => Promise<boolean>;
 
-abstract class CryptographyService {
-  constructor(
-    protected logger: LoggerService,
-  ) {}
-
-  abstract comparePlainAndHash: (plainData: string, hashedData: string) => Promise<boolean>;
-
-  abstract hash: (plainData: string) => Promise<string>;
+  hash: (plainData: string) => Promise<string>;
 }
 
-export default CryptographyService;
+export default ICryptographyService;

@@ -39,9 +39,9 @@ export const configureRepositories = () => {
   return { inMemoryRepository };
 };
 
-export const configureServices = (secret_key: string, logger: LoggerService) => {
-  const jsonWebTokenService: TokenService = new JSONWebTokenService(secret_key, logger);
-  const bcryptService: CryptographyService = new BcryptService(logger);
+export const configureServices = (secret_key: string) => {
+  const jsonWebTokenService: TokenService = new JSONWebTokenService(secret_key);
+  const bcryptService: CryptographyService = new BcryptService();
   return {
     jsonWebTokenService,
     bcryptService,

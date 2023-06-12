@@ -1,7 +1,8 @@
 import bcrypt from 'bcrypt';
-import CryptographyService from '../../../domain/services/cryptography-service';
+import ICryptographyService from '../../../domain/services/cryptography-service';
+import { CryptographyServiceInvalidCompareError, CryptographyServiceInvalidHashDataError } from '../errors/server-error-factories';
 
-class BcryptService extends CryptographyService {
+class BcryptService implements ICryptographyService {
   private saltRounds = 10;
 
   comparePlainAndHash = async (plainData: string, hashedData: string): Promise<boolean> => {
@@ -9,8 +10,7 @@ class BcryptService extends CryptographyService {
       const result = await bcrypt.compare(plainData, hashedData);
       return result;
     } catch (e) {
-      this.logger.log('warn', `👻 [BcryptService][compare] error: ${(e as Error).message}.`);
-      throw new Error('there was an error when trying to compare both hashes');
+      throw CryptographyServiceInvalidCompareError;
     }
   };
 
@@ -19,8 +19,7 @@ class BcryptService extends CryptographyService {
       const hashedData = await bcrypt.hash(plainData, this.saltRounds);
       return hashedData;
     } catch (e) {
-      this.logger.log('warn', `👻 [BcryptService][hashSensitiveData] error: ${(e as Error).message}.`);
-      throw new Error('there was an error when trying to hash the password');
+      throw CryptographyServiceInvalidHashDataError;
     }
   };
 }

@@ -19,7 +19,7 @@ import {
   const { inMemoryRepository } = configureRepositories();
 
   /* ⚙️ Services. */
-  const { jsonWebTokenService, bcryptService } = configureServices(SECRET_KEY, winstonLogger);
+  const { jsonWebTokenService, bcryptService } = configureServices(SECRET_KEY);
 
   /* 📖 Usecases. */
   const authUsecaseImpl = new AuthUsecaseImpl(

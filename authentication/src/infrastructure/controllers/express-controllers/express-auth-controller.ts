@@ -14,8 +14,6 @@ class ExpressAuthController extends AuthController {
   ) => {
     try {
       const { email, password } = userCredentialsDto.parse(req.body);
-      console.log(email);
-      console.log(password);
       const token = await this.authUsecase.authenticate(email, password);
       return res.status(statusCodes.success.ok).send({ token });
     } catch (e) {

@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import TokenService from '../../../domain/services/token-service';
 import { SmallUserEntity } from '../../../domain/entities/user-entity';
 import JSONWebTokenEntity from './jsonwebtoken-entities';
+import { TokenServiceInvalidDecodeTokenError, TokenServiceInvalidGenerateTokenError } from '../errors/server-error-factories';
 
 class JSONWebTokenService extends TokenService {
   private readonly expiresIn = 60 * 60;
@@ -17,8 +18,7 @@ class JSONWebTokenService extends TokenService {
       );
       return token;
     } catch (e) {
-      this.logger.log('warn', `👻 [JSONWebTokenService][generateToken] error: ${(e as Error).message}.`);
-      throw new Error('there was an error when trying generate the token');
+      throw TokenServiceInvalidGenerateTokenError;
     }
   };
 
@@ -36,8 +36,7 @@ class JSONWebTokenService extends TokenService {
 
       return smallUserEntity;
     } catch (e) {
-      this.logger.log('warn', `👻 [JSONWebTokenService][generateToken] error: ${(e as Error).message}.`);
-      throw new Error('there was an error when trying generate the token');
+      throw TokenServiceInvalidDecodeTokenError;
     }
   };
 }
