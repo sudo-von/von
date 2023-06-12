@@ -13,9 +13,8 @@ const createAuthRouter = (authUsecase: AuthUsecase, loggerService: LoggerService
   app.use(express.json());
 
   const router = express.Router();
-  router.post('/refresh', authController.refresh);
-  router.post('/authenticate', authController.auth);
   router.post('/signup', authController.signup);
+  router.post('/authenticate', authController.authenticate);
 
   app.use('/v1/auth', router);
   app.use(bodyHandler);

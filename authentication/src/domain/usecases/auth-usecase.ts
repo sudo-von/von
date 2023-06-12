@@ -19,8 +19,6 @@ abstract class AuthUsecase implements IAuthUsecase {
   abstract authenticate: (email: string, password: string) => Promise<string>;
 
   abstract signup: (userPayload: CreateUserEntity) => Promise<MediumUserEntity>;
-
-  abstract refresh: (token: string) => Promise<string>;
 }
 
 export default AuthUsecase;

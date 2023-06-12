@@ -39,7 +39,7 @@ export type RequestError = {
 export const INVALID_CREDENTIALS_REQUEST: RequestError = {
   code: 'INVALID_CREDENTIALS_REQUEST_ERROR',
   message: INVALID_CREDENTIALS.message,
-  statusCode: statusCodes.clientSide.badRequest,
+  statusCode: statusCodes.clientSide.unauthorized,
 };
 
 export const EMAIL_ALREADY_EXISTS_REQUEST: RequestError = {
