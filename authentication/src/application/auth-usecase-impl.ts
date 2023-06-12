@@ -17,7 +17,6 @@ import {
   InvalidUsernameError,
   SingleUserOnlyError,
   UserCouldntBeCreatedError,
-  UserNotFoundError,
 } from '../domain/errors/error-factories';
 import AuthUsecase from '../domain/usecases/auth-usecase';
 
