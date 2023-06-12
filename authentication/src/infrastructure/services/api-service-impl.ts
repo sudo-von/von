@@ -2,7 +2,6 @@ import express, { Router } from 'express';
 import AuthUsecase from '../../domain/usecases/auth-usecase';
 import errorHandler from '../controllers/express-controllers/middlewares/error-handler';
 import exceptionHandler from '../controllers/express-controllers/middlewares/exception-handler';
-import jwtAuthHandler from '../controllers/express-controllers/middlewares/jwt-auth-handler';
 import TokenService from '../../domain/services/token-service';
 import LoggerService from '../../domain/services/logger-service';
 import ExpressAuthControllerImpl from '../controllers/express-controllers/express-auth-controller';
@@ -13,7 +12,7 @@ const createAuthRouter = (
   authController: ExpressAuthControllerImpl,
 ) => {
   const router = express.Router();
-  router.post('/refresh/:token', jwtAuthHandler(tokenService), authController.refresh);
+  router.post('/refresh', authController.refresh);
   router.post('/authenticate', authController.auth);
   router.post('/signup', authController.signup);
   router.use(bodyHandler);

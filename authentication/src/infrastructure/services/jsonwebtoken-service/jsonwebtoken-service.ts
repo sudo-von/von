@@ -2,24 +2,23 @@ import jwt from 'jsonwebtoken';
 import TokenService from '../../../domain/services/token-service';
 import { SmallUserEntity } from '../../../domain/entities/user-entity';
 import JSONWebTokenEntity from './jsonwebtoken-entities';
-import { TokenServiceInvalidDecodeTokenError, TokenServiceInvalidGenerateTokenError } from '../errors/server-error-factories';
+import {
+  TokenServiceExpiredTokenError,
+  TokenServiceInvalidTokenError,
+} from '../errors/server-error-factories';
 
 class JSONWebTokenService extends TokenService {
-  private readonly expiresIn = 60 * 60;
+  private readonly expiresIn = 60 * 30;
 
   private readonly algorithm = 'HS256';
 
   generateToken = (payload: SmallUserEntity): string => {
-    try {
-      const token = jwt.sign(
-        payload,
-        this.secret,
-        { algorithm: this.algorithm, expiresIn: this.expiresIn },
-      );
-      return token;
-    } catch (e) {
-      throw TokenServiceInvalidGenerateTokenError;
-    }
+    const token = jwt.sign(
+      payload,
+      this.secret,
+      { algorithm: this.algorithm, expiresIn: this.expiresIn },
+    );
+    return token;
   };
 
   decodeToken = (token: string): SmallUserEntity => {
@@ -36,7 +35,10 @@ class JSONWebTokenService extends TokenService {
 
       return smallUserEntity;
     } catch (e) {
-      throw TokenServiceInvalidDecodeTokenError;
+      if ((e as Error).name === 'TokenExpiredError') {
+        throw TokenServiceExpiredTokenError;
+      }
+      throw TokenServiceInvalidTokenError;
     }
   };
 }

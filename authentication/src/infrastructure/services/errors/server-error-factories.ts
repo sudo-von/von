@@ -2,8 +2,8 @@ import { createServiceErrorFactory } from './service-error-factory';
 import {
   CRYPTOGRAPHY_SERVICE_INVALID_COMPARE,
   CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA,
-  TOKEN_SERVICE_DECODE_TOKEN,
-  TOKEN_SERVICE_INVALID_GENERATE_TOKEN,
+  TOKEN_SERVICE_EXPIRED_TOKEN,
+  TOKEN_SERVICE_INVALID_TOKEN,
 } from './service-errors';
 
 export const CryptographyServiceInvalidCompareError = createServiceErrorFactory(
@@ -14,10 +14,10 @@ export const CryptographyServiceInvalidHashDataError = createServiceErrorFactory
   CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA,
 );
 
-export const TokenServiceInvalidDecodeTokenError = createServiceErrorFactory(
-  TOKEN_SERVICE_DECODE_TOKEN,
+export const TokenServiceInvalidTokenError = createServiceErrorFactory(
+  TOKEN_SERVICE_INVALID_TOKEN,
 );
 
-export const TokenServiceInvalidGenerateTokenError = createServiceErrorFactory(
-  TOKEN_SERVICE_INVALID_GENERATE_TOKEN,
+export const TokenServiceExpiredTokenError = createServiceErrorFactory(
+  TOKEN_SERVICE_EXPIRED_TOKEN,
 );

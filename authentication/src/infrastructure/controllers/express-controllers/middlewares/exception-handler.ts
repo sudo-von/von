@@ -15,9 +15,13 @@ import {
   EmailAlreadyExistsRequestError,
   UserNotFoundRequestError,
   UserCreationFailedRequestError,
+  InvalidTokenRequestError,
+  ExpiredTokenRequestError,
 } from '../../errors/request-error-factories';
+import { ServiceErrorCode } from '../../../services/errors/service-errors';
+import { ServiceErrorFactory } from '../../../services/errors/service-error-factory';
 
-const errors: Record<DomainErrorCode, RequestErrorFactory> = {
+const domainErrors: Record<DomainErrorCode, RequestErrorFactory> = {
   INVALID_CREDENTIALS_DOMAIN_ERROR: InvalidCredentialsRequestError,
   INVALID_INTEREST_LENGTH_DOMAIN_ERROR: InvalidInterestRequestError,
   INVALID_NAME_LENGTH_DOMAIN_ERROR: InvalidNameRequestError,
@@ -31,14 +35,25 @@ const errors: Record<DomainErrorCode, RequestErrorFactory> = {
   USER_CREATION_FAILED_DOMAIN_ERROR: UserCreationFailedRequestError,
 };
 
+const serviceErrors: Record<ServiceErrorCode, RequestErrorFactory> = {
+  CRYPTOGRAPHY_SERVICE_INVALID_COMPARE_ERROR: UserCreationFailedRequestError,
+  CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA_ERROR: UserCreationFailedRequestError,
+  TOKEN_SERVICE_INVALID_TOKEN_ERROR: InvalidTokenRequestError,
+  TOKEN_SERVICE_EXPIRED_TOKEN_ERROR: ExpiredTokenRequestError,
+};
+
 const exceptionHandler = (
   error: Error,
   _req: Request,
   _res: Response,
   _next: NextFunction,
 ) => {
-  const { code } = error as DomainErrorFactory;
-  if (errors[code]) throw errors[code];
+  if (error instanceof DomainErrorFactory) {
+    throw domainErrors[error.code];
+  }
+  if (error instanceof ServiceErrorFactory) {
+    throw serviceErrors[error.code];
+  }
   throw InternalServerRequestError;
 };
 

@@ -11,6 +11,7 @@ import {
   USER_CREATION_FAILED,
   USER_NOT_FOUND,
 } from '../../../domain/errors/errors';
+import { TOKEN_SERVICE_EXPIRED_TOKEN, TOKEN_SERVICE_INVALID_TOKEN } from '../../services/errors/service-errors';
 import statusCodes, { AllStatusCodes } from '../status-codes';
 
 export type RequestErrorCode =
@@ -25,7 +26,9 @@ export type RequestErrorCode =
 | 'USER_CREATION_FAILED_REQUEST_ERROR'
 | 'USER_NOT_FOUND_REQUEST_ERROR'
 | 'SINGLE_USER_ONLY_REQUEST_ERROR'
-| 'INTERNAL_SERVER_REQUEST_ERROR';
+| 'INTERNAL_SERVER_REQUEST_ERROR'
+| 'INVALID_TOKEN_REQUEST_ERROR'
+| 'EXPIRED_TOKEN_REQUEST_ERROR';
 
 export type RequestError = {
   code: RequestErrorCode;
@@ -102,5 +105,16 @@ export const SINGLE_USER_ONLY_REQUEST: RequestError = {
 export const INTERNAL_SERVER_REQUEST: RequestError = {
   code: 'INTERNAL_SERVER_REQUEST_ERROR',
   message: 'An internal server error occurred. Please try again later.',
+  statusCode: statusCodes.serverSide.internalServer,
+};
+
+export const INVALID_TOKEN_REQUEST: RequestError = {
+  code: 'INVALID_TOKEN_REQUEST_ERROR',
+  message: TOKEN_SERVICE_INVALID_TOKEN.message,
+  statusCode: statusCodes.serverSide.internalServer,
+};
+export const EXPIRED_TOKEN_REQUEST: RequestError = {
+  code: 'EXPIRED_TOKEN_REQUEST_ERROR',
+  message: TOKEN_SERVICE_EXPIRED_TOKEN.message,
   statusCode: statusCodes.serverSide.internalServer,
 };

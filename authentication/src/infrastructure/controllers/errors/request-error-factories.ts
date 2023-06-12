@@ -1,12 +1,15 @@
 import { createRequestErrorFactory } from './request-error-factory';
 import {
   EMAIL_ALREADY_EXISTS_REQUEST,
+  EXPIRED_TOKEN_REQUEST,
+  INTERNAL_SERVER_REQUEST,
   INVALID_CREDENTIALS_REQUEST,
   INVALID_INTEREST_LENGTH_REQUEST,
   INVALID_NAME_LENGTH_REQUEST,
   INVALID_PASSWORD_LENGTH_REQUEST,
   INVALID_POSITION_LENGTH_REQUEST,
   INVALID_QUOTE_LENGTH_REQUEST,
+  INVALID_TOKEN_REQUEST,
   INVALID_USERNAME_LENGTH_REQUEST,
   SINGLE_USER_ONLY_REQUEST,
   USER_CREATION_FAILED_REQUEST,
@@ -58,5 +61,13 @@ export const SingleUserOnlyRequestError = createRequestErrorFactory(
 );
 
 export const InternalServerRequestError = createRequestErrorFactory(
-  SINGLE_USER_ONLY_REQUEST,
+  INTERNAL_SERVER_REQUEST,
+);
+
+export const InvalidTokenRequestError = createRequestErrorFactory(
+  INVALID_TOKEN_REQUEST,
+);
+
+export const ExpiredTokenRequestError = createRequestErrorFactory(
+  EXPIRED_TOKEN_REQUEST,
 );
