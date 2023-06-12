@@ -7,7 +7,7 @@
     "start:dev": "nodemon"
   },
   "keywords": [
-    "microservice, ask, von"
+    "microservice, profile, von"
   ],
   "author": "Jesús 'VoN' Rodríguez",
   "license": "ISC",
