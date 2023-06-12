@@ -3,15 +3,16 @@ import AuthController from '../auth-controller';
 import { createUserDto } from '../../dtos/auth-dtos/create-user-dto';
 import { userCredentialsDto } from '../../dtos/auth-dtos/user-credentials-dto';
 import statusCodes from '../../status-codes';
+import { MediumUserEntity } from '../../../../domain/entities/user-entity';
 
 class ExpressAuthController extends AuthController {
   authenticate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password } = userCredentialsDto.parse(req.body);
       const token = await this.authUsecase.authenticate(email, password);
-      return res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.success.ok);
+      res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.success.ok);
     } catch (e) {
-      return next(e);
+      next(e);
     }
   };
 
@@ -19,9 +20,10 @@ class ExpressAuthController extends AuthController {
     try {
       const payload = createUserDto.parse(req.body);
       const user = await this.authUsecase.signup(payload);
-      return res.status(statusCodes.success.created).send({ result: user });
+      res.status(statusCodes.success.created).send({ result: user });
+      await this.broker.produceMessage<MediumUserEntity>(user);
     } catch (e) {
-      return next(e);
+      next(e);
     }
   };
 }

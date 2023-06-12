@@ -5,9 +5,10 @@ import exceptionHandler from './middlewares/exception-handler';
 import errorHandler from './middlewares/error-handler';
 import AuthUsecase from '../../../../domain/usecases/auth-usecase';
 import LoggerService from '../../../../domain/services/logger-service';
+import MessageBroker from '../../../message-brokers/message-broker';
 
-const createAuthRouter = (authUsecase: AuthUsecase, loggerService: LoggerService, port: number) => {
-  const authController = new ExpressAuthController(authUsecase, loggerService);
+const createAuthRouter = (authUsecase: AuthUsecase, loggerService: LoggerService, port: number, broker: MessageBroker) => {
+  const authController = new ExpressAuthController(authUsecase, loggerService, broker);
 
   const app = express();
   app.use(express.json());

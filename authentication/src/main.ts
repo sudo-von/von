@@ -6,10 +6,12 @@ import {
   configureServices,
   configureRepositories,
   configureEnvironmentVariables,
+  configureMessageBrokers,
+  connectBrokers,
 } from './setup';
 import createAuthRouter from './infrastructure/controllers/auth-controller/express-controllers/express-auth-router';
 
-(() => {
+(async () => {
   /* 🔐 Environment variables. */
   const { SECRET_KEY, SERVER_PORT } = configureEnvironmentVariables();
 
@@ -30,10 +32,15 @@ import createAuthRouter from './infrastructure/controllers/auth-controller/expre
     inMemoryRepository,
   );
 
+  /* 📦 Message brokers. */
+  const { rabbitMQMessageBroker } = configureMessageBrokers(winstonLogger);
+  await connectBrokers({ rabbitMQMessageBroker });
+
   /* 📡 Routers. */
   createAuthRouter(
     authUsecaseImpl,
     winstonLogger,
     SERVER_PORT,
+    rabbitMQMessageBroker,
   );
 })();

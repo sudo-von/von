@@ -8,6 +8,8 @@ import CryptographyService from './domain/services/cryptography-service';
 import BcryptService from './infrastructure/services/cryptography-services/bcrypt-service/bcrypt-service';
 import WinstonLogger from './infrastructure/services/logger-services/winston-logger/winston-logger';
 import JSONWebTokenService from './infrastructure/services/token-services/jsonwebtoken-service/jsonwebtoken-service';
+import RabbitMQMessageBroker from './infrastructure/message-brokers/rabbitmq/producer-rabbitmq-event';
+import MessageBroker from './infrastructure/message-brokers/message-broker';
 
 export const configureEnvironmentVariables = () => {
   dotenv.config({ path: `${__dirname}/../.env` });
@@ -46,4 +48,15 @@ export const configureServices = (secret_key: string) => {
     jsonWebTokenService,
     bcryptService,
   };
+};
+
+export const configureMessageBrokers = (logger: LoggerService) => {
+  const rabbitMQMessageBroker = new RabbitMQMessageBroker(logger);
+  return { rabbitMQMessageBroker };
+};
+
+export const connectBrokers = async (brokers: Record<string, MessageBroker>): Promise<void> => {
+  await Promise.all(Object.values(brokers).map(async (broker) => {
+    await broker.connect();
+  }));
 };
