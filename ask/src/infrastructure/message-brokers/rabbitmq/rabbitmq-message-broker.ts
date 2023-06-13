@@ -9,43 +9,17 @@ import {
   MessageBrokerNoMessageAvailableError,
 } from '../errors/message-broker-error-factories';
 
-abstract class RabbitMQMessageBroker extends MessageBroker {
+abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
   protected connection?: Connection;
 
   protected channel?: Channel;
 
-  produceMessage = async <T>(queue: Queues, data: T): Promise<void> => {
-    try {
-      if (!this.channel) throw MessageBrokerChannelIsClosedError;
-      const message = JSON.stringify(data);
-      const buffer = Buffer.from(message);
-      await this.channel.assertQueue(queue);
-      this.channel.sendToQueue(queue, buffer);
-    } catch (e) {
-      throw MessageBrokerFailedToSendMessageError;
-    }
-  };
-
-  consumeMessage = async <T>(queue: Queues): Promise<void> => {
-    try {
-      if (!this.channel) throw MessageBrokerChannelIsClosedError;
-      await this.channel.assertQueue(queue);
-      this.channel.consume(queue, (message) => {
-        if (!message) throw MessageBrokerNoMessageAvailableError;
-        const data = JSON.parse(message.content.toString()) as T;
-        this.onMessage(data);
-        if (!this.channel) throw MessageBrokerChannelIsClosedError;
-        this.channel.ack(message);
-      });
-    } catch (e) {
-      throw MessageBrokerFailedToConsumeMessageError;
-    }
-  };
+  protected message?: amqp.ConsumeMessage;
 
   connect = async (): Promise<void> => {
     try {
-      this.connection = await amqp.connect(this.BROKER_URL);
-      this.channel = await this.connection.createChannel();
+      if (!this.connection) this.connection = await amqp.connect(this.BROKER_URL);
+      if (!this.channel) this.channel = await this.connection.createChannel();
     } catch (e) {
       throw MessageBrokerFailedToConnectError;
     }
@@ -59,6 +33,33 @@ abstract class RabbitMQMessageBroker extends MessageBroker {
       this.connection = undefined;
     } catch (e) {
       throw MessageBrokerFailedToCloseError;
+    }
+  };
+
+  produceMessage = async (queue: Queues, data: T): Promise<void> => {
+    try {
+      if (!this.channel) throw MessageBrokerChannelIsClosedError;
+      const message = JSON.stringify(data);
+      const buffer = Buffer.from(message);
+      await this.channel.assertQueue(queue);
+      this.channel.sendToQueue(queue, buffer);
+    } catch (e) {
+      throw MessageBrokerFailedToSendMessageError;
+    }
+  };
+
+  consumeMessage = async (queue: Queues): Promise<void> => {
+    try {
+      if (!this.channel) throw MessageBrokerChannelIsClosedError;
+      await this.channel.assertQueue(queue);
+      this.channel.consume(queue, (message) => {
+        if (!message) throw MessageBrokerNoMessageAvailableError;
+        const data = JSON.parse(message.content.toString());
+        this.message = message;
+        this.onMessage(data);
+      });
+    } catch (e) {
+      throw MessageBrokerFailedToConsumeMessageError;
     }
   };
 }

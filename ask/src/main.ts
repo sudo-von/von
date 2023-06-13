@@ -1,8 +1,15 @@
-import RabbitMQConsumer from './infrastructure/message-brokers/rabbitmq/rabbitmq-consumer';
+import ProfileUsecaseApplication from './application/profile-usecase-application';
+import { configureMessageBrokers, configureRepositories } from './setup';
 
 (async () => {
+  /* 💽 Repositories. */
+  const { inMemoryProfileRepository } = configureRepositories();
+
+  /* 📖 Usecases. */
+  const profileUsecase = new ProfileUsecaseApplication(inMemoryProfileRepository);
+
   /* 📦 Message brokers. */
-  const rabbitMQMessageBroker = new RabbitMQConsumer('amqp://localhost:5672');
-  await rabbitMQMessageBroker.connect();
-  await rabbitMQMessageBroker.consumeMessage('Profile:CreateProfile');
+  const { rabbitMqProfileConsumer } = configureMessageBrokers(profileUsecase);
+  await rabbitMqProfileConsumer.connect();
+  await rabbitMqProfileConsumer.consumeMessage('Profile:CreateProfile');
 })();
