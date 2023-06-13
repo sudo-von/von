@@ -1,9 +1,13 @@
 import { CreateQuestionEntity, QuestionEntity } from '../domain/entities/question-entity';
-import { ProfileCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
+import { validateQuestion } from '../domain/entities/validations/question-validations';
+import { InvalidQuestionLengthError, ProfileCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {
+    const isQuestionValid = validateQuestion(payload.question);
+    if (!isQuestionValid) throw InvalidQuestionLengthError;
+
     const profile = await this.profileRepository.getProfileByUserId(payload.userId);
     if (profile) throw ProfileNotFoundError;
 
