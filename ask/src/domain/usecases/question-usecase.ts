@@ -8,9 +8,9 @@ interface IProfileUsecaseWriter {
   createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity>;
 }
 
-interface IProfileUsecase extends IQuestionUsecaseReader, IProfileUsecaseWriter {}
+interface IQuestionUsecase extends IQuestionUsecaseReader, IProfileUsecaseWriter {}
 
-abstract class ProfileUsecase implements IProfileUsecase {
+abstract class QuestionUsecase implements IQuestionUsecase {
   constructor(
     protected profileRepository: IProfileRepository,
     protected questionRepository: IQuestionRepository,
@@ -19,4 +19,4 @@ abstract class ProfileUsecase implements IProfileUsecase {
   abstract createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity>;
 }
 
-export default ProfileUsecase;
+export default QuestionUsecase;
