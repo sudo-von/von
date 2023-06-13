@@ -1,6 +1,6 @@
-export type Answer = {
+export type AnswerEntity = {
   answer: string;
   answeredAt: Date;
 };
 
-export type CreateAnswer = Readonly<Answer>;
+export type CreateAnswerEntity = Readonly<AnswerEntity>;

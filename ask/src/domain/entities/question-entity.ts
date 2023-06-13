@@ -1,12 +1,12 @@
-import { Answer } from './answer-entity';
+import { AnswerEntity } from './answer-entity';
 
-export type Question = {
+export type QuestionEntity = {
   id: string;
   userId: string;
   question: string;
   askedBy: string;
   askedAt: Date;
-  answer: Answer;
+  answer: AnswerEntity;
 };
 
-export type CreateQuestion = Readonly<Omit<Question, 'id' | 'answer'>>;
+export type CreateQuestionEntity = Readonly<Omit<QuestionEntity, 'id' | 'answer'>>;

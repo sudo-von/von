@@ -1,6 +1,6 @@
 import { CreateProfileEntity } from '../../../domain/entities/profile-entity';
 import ProfileUsecase from '../../../domain/usecases/profile-usecase';
-import { MessageBrokerChannelIsClosedError } from '../errors/message-broker-error-factories';
+import { MessageBrokerChannelIsClosedError, MessageBrokerNoMessageAvailableError } from '../errors/message-broker-error-factories';
 import RabbitMQMessageBroker from './rabbitmq-message-broker';
 
 class RabbitMQProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntity> {
@@ -13,7 +13,7 @@ class RabbitMQProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntity>
 
   onMessage = async (data: CreateProfileEntity): Promise<void> => {
     if (!this.channel) throw MessageBrokerChannelIsClosedError;
-    if (!this.message) throw MessageBrokerChannelIsClosedError;
+    if (!this.message) throw MessageBrokerNoMessageAvailableError;
     await this.profileUsecase.createProfile(data);
   };
 }

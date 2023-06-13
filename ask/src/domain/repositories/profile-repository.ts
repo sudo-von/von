@@ -1,14 +1,14 @@
 import { CreateProfileEntity, ProfileEntity } from '../entities/profile-entity';
 
-interface IProfileReaderRepository {
+interface IProfileRepositoryReader {
   getProfiles: () => Promise<ProfileEntity[]>
   getProfileByUsername: (username: string) => Promise<ProfileEntity | null>;
 }
 
-interface IProfileWriterRepository {
+interface IProfileRepositoryWriter {
   createProfile: (userPayload: CreateProfileEntity) => Promise<ProfileEntity | null>;
 }
 
-interface IProfileRepository extends IProfileReaderRepository, IProfileWriterRepository {}
+interface IProfileRepository extends IProfileRepositoryReader, IProfileRepositoryWriter {}
 
 export default IProfileRepository;
