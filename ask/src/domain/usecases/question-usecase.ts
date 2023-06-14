@@ -1,18 +1,18 @@
-import IProfileRepository from '../repositories/profile-repository';
 import IQuestionRepository from '../repositories/question-repository';
+import { IProfileRepositoryReader } from '../repositories/profile-repository';
 import { CreateQuestionEntity, QuestionEntity } from '../entities/question-entity';
 
 interface IQuestionUsecaseReader {}
 
-interface IProfileUsecaseWriter {
+interface IQuestionUsecaseWriter {
   createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity>;
 }
 
-interface IQuestionUsecase extends IQuestionUsecaseReader, IProfileUsecaseWriter {}
+interface IQuestionUsecase extends IQuestionUsecaseReader, IQuestionUsecaseWriter {}
 
 abstract class QuestionUsecase implements IQuestionUsecase {
   constructor(
-    protected profileRepository: IProfileRepository,
+    protected profileRepository: IProfileRepositoryReader,
     protected questionRepository: IQuestionRepository,
   ) {}
 
