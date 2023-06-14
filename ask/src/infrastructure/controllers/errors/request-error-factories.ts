@@ -1,73 +1,28 @@
 import { createRequestErrorFactory } from './request-error-factory';
 import {
-  EMAIL_ALREADY_EXISTS_REQUEST,
-  EXPIRED_TOKEN_REQUEST,
-  INTERNAL_SERVER_REQUEST,
-  INVALID_CREDENTIALS_REQUEST,
-  INVALID_INTEREST_LENGTH_REQUEST,
-  INVALID_NAME_LENGTH_REQUEST,
-  INVALID_PASSWORD_LENGTH_REQUEST,
-  INVALID_POSITION_LENGTH_REQUEST,
-  INVALID_QUOTE_LENGTH_REQUEST,
-  INVALID_TOKEN_REQUEST,
-  INVALID_USERNAME_LENGTH_REQUEST,
-  SINGLE_USER_ONLY_REQUEST,
-  USER_CREATION_FAILED_REQUEST,
-  USER_NOT_FOUND_REQUEST,
+  INVALID_QUESTION_LENGTH_REQUEST,
+  QUESTION_CREATION_FAILED_REQUEST,
+  PROFILE_CREATION_FAILED_REQUEST,
+  PROFILE_NOT_FOUND_REQUEST,
+  SINGLE_PROFILE_ONLY_REQUEST,
 } from './request-errors';
 
-export const InvalidCredentialsRequestError = createRequestErrorFactory(
-  INVALID_CREDENTIALS_REQUEST,
+export const InvalidQuestionLengthRequestError = createRequestErrorFactory(
+  INVALID_QUESTION_LENGTH_REQUEST,
 );
 
-export const InvalidInterestRequestError = createRequestErrorFactory(
-  INVALID_INTEREST_LENGTH_REQUEST,
+export const QuestionCreationFailedRequestError = createRequestErrorFactory(
+  QUESTION_CREATION_FAILED_REQUEST,
 );
 
-export const InvalidNameRequestError = createRequestErrorFactory(
-  INVALID_NAME_LENGTH_REQUEST,
+export const ProfileCreationFailedRequestError = createRequestErrorFactory(
+  PROFILE_CREATION_FAILED_REQUEST,
 );
 
-export const InvalidPasswordRequestError = createRequestErrorFactory(
-  INVALID_PASSWORD_LENGTH_REQUEST,
+export const ProfileNotFoundRequestError = createRequestErrorFactory(
+  PROFILE_NOT_FOUND_REQUEST,
 );
 
-export const InvalidPositionRequestError = createRequestErrorFactory(
-  INVALID_POSITION_LENGTH_REQUEST,
-);
-
-export const InvalidQuoteRequestError = createRequestErrorFactory(
-  INVALID_QUOTE_LENGTH_REQUEST,
-);
-
-export const InvalidUsernameRequestError = createRequestErrorFactory(
-  INVALID_USERNAME_LENGTH_REQUEST,
-);
-
-export const UserCreationFailedRequestError = createRequestErrorFactory(
-  USER_CREATION_FAILED_REQUEST,
-);
-
-export const EmailAlreadyExistsRequestError = createRequestErrorFactory(
-  EMAIL_ALREADY_EXISTS_REQUEST,
-);
-
-export const UserNotFoundRequestError = createRequestErrorFactory(
-  USER_NOT_FOUND_REQUEST,
-);
-
-export const SingleUserOnlyRequestError = createRequestErrorFactory(
-  SINGLE_USER_ONLY_REQUEST,
-);
-
-export const InternalServerRequestError = createRequestErrorFactory(
-  INTERNAL_SERVER_REQUEST,
-);
-
-export const InvalidTokenRequestError = createRequestErrorFactory(
-  INVALID_TOKEN_REQUEST,
-);
-
-export const ExpiredTokenRequestError = createRequestErrorFactory(
-  EXPIRED_TOKEN_REQUEST,
+export const SingleProfileOnlyRequestError = createRequestErrorFactory(
+  SINGLE_PROFILE_ONLY_REQUEST,
 );
