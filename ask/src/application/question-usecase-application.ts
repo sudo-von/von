@@ -1,6 +1,6 @@
 import { CreateQuestionEntity, QuestionEntity } from '../domain/entities/question-entity';
 import { validateQuestion } from '../domain/entities/validations/question-validations';
-import { InvalidQuestionLengthError, ProfileCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
+import { InvalidQuestionLengthError, QuestionCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
@@ -8,11 +8,11 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const isValidQuestion = validateQuestion(payload.question);
     if (!isValidQuestion) throw InvalidQuestionLengthError;
 
-    const profile = await this.profileRepository.getProfileByUserId(payload.userId);
+    const profile = await this.profileRepository.getProfileByUsername(payload.username);
     if (!profile) throw ProfileNotFoundError;
 
     const createdQuestion = await this.questionRepository.createQuestion(payload);
-    if (!createdQuestion) throw ProfileCreationFailedError;
+    if (!createdQuestion) throw QuestionCreationFailedError;
 
     return createdQuestion;
   };
