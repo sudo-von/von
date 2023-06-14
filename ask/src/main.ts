@@ -9,7 +9,7 @@ import { configureMessageBrokers, configureRepositories } from './setup';
   const profileUsecase = new ProfileUsecaseApplication(inMemoryProfileRepository);
 
   /* 📦 Message brokers. */
-  const { rabbitMqProfileConsumer } = configureMessageBrokers(profileUsecase);
-  await rabbitMqProfileConsumer.connect();
-  await rabbitMqProfileConsumer.consumeMessage('Profile:CreateProfile');
+  const { rabbitMQProfileConsumer } = configureMessageBrokers(profileUsecase);
+  await rabbitMQProfileConsumer.connect();
+  await rabbitMQProfileConsumer.consumeMessage('Profile:CreateProfile');
 })();

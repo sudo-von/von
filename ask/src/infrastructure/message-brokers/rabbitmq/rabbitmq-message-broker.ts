@@ -54,7 +54,7 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
       await this.channel.assertQueue(queue);
       this.channel.consume(queue, (message) => {
         if (!message) throw MessageBrokerNoMessageAvailableError;
-        const data = JSON.parse(message.content.toString());
+        const data = JSON.parse(message.content.toString()) as T;
         this.message = message;
         this.onMessage(data);
       });

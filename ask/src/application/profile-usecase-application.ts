@@ -5,7 +5,7 @@ import { SingleProfileOnlyError, ProfileCreationFailedError } from '../domain/er
 class ProfileUsecaseApplication extends ProfileUsecase {
   createProfile = async (payload: CreateProfileEntity): Promise<ProfileEntity> => {
     const profiles = await this.profileRepository.getProfiles();
-    if (profiles) throw SingleProfileOnlyError;
+    if (profiles.length) throw SingleProfileOnlyError;
 
     const createdProfile = await this.profileRepository.createProfile(payload);
     if (!createdProfile) throw ProfileCreationFailedError;
