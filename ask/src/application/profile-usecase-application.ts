@@ -1,5 +1,5 @@
-import { CreateProfileEntity, ProfileEntity } from '../domain/entities/profile-entity';
 import ProfileUsecase from '../domain/usecases/profile-usecase';
+import { CreateProfileEntity, ProfileEntity } from '../domain/entities/profile-entity';
 import { SingleProfileOnlyError, ProfileCreationFailedError } from '../domain/errors/error-factories';
 
 class ProfileUsecaseApplication extends ProfileUsecase {
