@@ -1,7 +1,7 @@
-import ProfileUsecaseApplication from './application/profile-usecase-application';
-import QuestionUsecaseApplication from './application/question-usecase-application';
+import configureUsecases from './application/setup';
 import createQuestionRouter from './infrastructure/controllers/question-controller/express-controller/express-question-router';
-import { configureMessageBrokers, configureRepositories } from './setup';
+import configureMessageBrokers from './infrastructure/message-brokers/setup';
+import configureRepositories from './infrastructure/repositories/setup';
 
 (async () => {
   /* 💽 Repositories. */
@@ -11,11 +11,10 @@ import { configureMessageBrokers, configureRepositories } from './setup';
   } = configureRepositories();
 
   /* 📖 Usecases. */
-  const profileUsecase = new ProfileUsecaseApplication(inMemoryProfileRepository);
-  const questionUsecase = new QuestionUsecaseApplication(
-    inMemoryProfileRepository,
-    inMemoryQuestionRepository,
-  );
+  const {
+    profileUsecase,
+    questionUsecase,
+  } = configureUsecases(inMemoryProfileRepository, inMemoryQuestionRepository);
 
   /* 📦 Message brokers. */
   const { rabbitMQProfileConsumer } = configureMessageBrokers(profileUsecase);
