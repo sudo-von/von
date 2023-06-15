@@ -1,4 +1,5 @@
 import {
+  ANSWER_NOT_FOUND,
   INVALID_QUESTION_LENGTH,
   PERMISSION_DENIED,
   PROFILE_CREATION_FAILED,
@@ -14,6 +15,7 @@ export type RequestErrorCode =
 | 'PERMISSION_DENIED_REQUEST_ERROR'
 | 'PROFILE_CREATION_FAILED_REQUEST_ERROR'
 | 'PROFILE_NOT_FOUND_REQUEST_ERROR'
+| 'ANSWER_NOT_FOUND_REQUEST_ERROR'
 | 'SINGLE_PROFILE_ONLY_REQUEST_ERROR'
 | 'INTERNAL_SERVER_REQUEST_ERROR';
 
@@ -50,6 +52,12 @@ export const PROFILE_CREATION_FAILED_REQUEST: RequestError = {
 export const PROFILE_NOT_FOUND_REQUEST: RequestError = {
   code: 'PROFILE_NOT_FOUND_REQUEST_ERROR',
   message: PROFILE_NOT_FOUND.message,
+  statusCode: statusCodes.clientSide.notFound,
+};
+
+export const ANSWER_NOT_FOUND_REQUEST: RequestError = {
+  code: 'ANSWER_NOT_FOUND_REQUEST_ERROR',
+  message: ANSWER_NOT_FOUND.message,
   statusCode: statusCodes.clientSide.notFound,
 };
 

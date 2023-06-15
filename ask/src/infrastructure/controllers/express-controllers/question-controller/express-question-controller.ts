@@ -8,6 +8,16 @@ import { CreateQuestionEntity } from '../../../../domain/entities/question-entit
 class ExpressQuestionController {
   constructor(protected questionUsecase: QuestionUsecase) {}
 
+  getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+      const answeredQuestion = await this.questionUsecase.getAnsweredQuestionById(id);
+      return res.status(statusCodes.success.ok).send({ result: answeredQuestion });
+    } catch (e) {
+      return next(e);
+    }
+  };
+
   getAllQuestionsByUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { user, params } = req;

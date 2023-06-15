@@ -26,6 +26,13 @@ class InMemoryQuestionRepository implements IQuestionRepository {
     },
   ];
 
+  getAnsweredQuestionById = async (id: string): Promise<DetailedQuestionEntity | null> => {
+    const answeredQuestion = this.questionsInMemory.find(
+      (p) => p.id === id && p.answer,
+    ) || null;
+    return answeredQuestion;
+  };
+
   getAnsweredQuestionsByUser = async (username: string): Promise<DetailedQuestionEntity[]> => {
     const questions: DetailedQuestionEntity[] = this.questionsInMemory.filter(
       (p) => p.username === username && p.answer,
@@ -33,16 +40,16 @@ class InMemoryQuestionRepository implements IQuestionRepository {
     return questions;
   };
 
-  getUnansweredQuestionsByUser = async (username: string): Promise<DetailedQuestionEntity[]> => {
+  getAllQuestionsByUser = async (username: string): Promise<DetailedQuestionEntity[]> => {
     const questions: DetailedQuestionEntity[] = this.questionsInMemory.filter(
-      (p) => p.username === username && !p.answer,
+      (p) => p.username === username,
     );
     return questions;
   };
 
-  getAllQuestionsByUser = async (username: string): Promise<DetailedQuestionEntity[]> => {
+  getUnansweredQuestionsByUser = async (username: string): Promise<DetailedQuestionEntity[]> => {
     const questions: DetailedQuestionEntity[] = this.questionsInMemory.filter(
-      (p) => p.username === username,
+      (p) => p.username === username && !p.answer,
     );
     return questions;
   };

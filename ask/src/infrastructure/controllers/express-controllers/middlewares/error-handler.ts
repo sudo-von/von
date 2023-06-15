@@ -3,6 +3,7 @@ import { DomainErrorCode } from '../../../../domain/errors/errors';
 import { DomainErrorFactory } from '../../../../domain/errors/error-factory';
 import { RequestErrorFactory } from '../../errors/request-error-factory';
 import {
+  AnswerNotFoundRequestError,
   InternalServerRequestError,
   InvalidQuestionLengthRequestError,
   PermissionDeniedRequestError,
@@ -19,6 +20,7 @@ const domainErrors: Record<DomainErrorCode, RequestErrorFactory> = {
   PROFILE_CREATION_FAILED_DOMAIN_ERROR: ProfileCreationFailedRequestError,
   PROFILE_NOT_FOUND_DOMAIN_ERROR: ProfileNotFoundRequestError,
   SINGLE_PROFILE_ONLY_DOMAIN_ERROR: SingleProfileOnlyRequestError,
+  ANSWER_NOT_FOUND_DOMAIN_ERROR: AnswerNotFoundRequestError,
 };
 
 const errorHandler = (

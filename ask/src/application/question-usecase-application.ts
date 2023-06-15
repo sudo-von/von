@@ -5,10 +5,52 @@ import {
   QuestionCreationFailedError,
   ProfileNotFoundError,
   PermissionDeniedError,
+  AnswerNotFoundError,
 } from '../domain/errors/error-factories';
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
+  getAnsweredQuestionById = async (id: string): Promise<QuestionEntity> => {
+    const answeredQuestion = await this.questionRepository.getAnsweredQuestionById(id);
+    if (!answeredQuestion) throw AnswerNotFoundError;
+
+    const question: QuestionEntity = {
+      id: answeredQuestion.id,
+      question: answeredQuestion.question,
+      username: answeredQuestion.username,
+      askedAt: answeredQuestion.askedAt,
+      answer: answeredQuestion.answer,
+      views: answeredQuestion.views,
+    };
+
+    return question;
+  };
+
+  getAllQuestionsByUser = async (
+    requestingUser: string,
+    requestedUser: string,
+  ): Promise<QuestionEntity[]> => {
+    if (requestingUser !== requestedUser) throw PermissionDeniedError;
+
+    const profile = await this.profileRepository.getProfileByUsername(requestedUser);
+    if (!profile) throw ProfileNotFoundError;
+
+    const detailedQuestions = await this.questionRepository.getAllQuestionsByUser(
+      requestedUser,
+    );
+
+    const questions: QuestionEntity[] = detailedQuestions.map((q) => ({
+      id: q.id,
+      question: q.question,
+      username: q.username,
+      askedAt: q.askedAt,
+      answer: q.answer,
+      views: q.views,
+    }));
+
+    return questions;
+  };
+
   getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
@@ -49,31 +91,6 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     }));
 
     return unansweredQuestions;
-  };
-
-  getAllQuestionsByUser = async (
-    requestingUser: string,
-    requestedUser: string,
-  ): Promise<QuestionEntity[]> => {
-    if (requestingUser !== requestedUser) throw PermissionDeniedError;
-
-    const profile = await this.profileRepository.getProfileByUsername(requestedUser);
-    if (!profile) throw ProfileNotFoundError;
-
-    const detailedQuestions = await this.questionRepository.getAllQuestionsByUser(
-      requestedUser,
-    );
-
-    const questions: QuestionEntity[] = detailedQuestions.map((q) => ({
-      id: q.id,
-      question: q.question,
-      username: q.username,
-      askedAt: q.askedAt,
-      answer: q.answer,
-      views: q.views,
-    }));
-
-    return questions;
   };
 
   createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {

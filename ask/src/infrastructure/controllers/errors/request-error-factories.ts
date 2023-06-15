@@ -7,6 +7,7 @@ import {
   SINGLE_PROFILE_ONLY_REQUEST,
   INTERNAL_SERVER_REQUEST,
   PERMISSION_DENIED_REQUEST,
+  ANSWER_NOT_FOUND_REQUEST,
 } from './request-errors';
 
 export const InvalidQuestionLengthRequestError = createRequestErrorFactory(
@@ -27,6 +28,10 @@ export const ProfileCreationFailedRequestError = createRequestErrorFactory(
 
 export const ProfileNotFoundRequestError = createRequestErrorFactory(
   PROFILE_NOT_FOUND_REQUEST,
+);
+
+export const AnswerNotFoundRequestError = createRequestErrorFactory(
+  ANSWER_NOT_FOUND_REQUEST,
 );
 
 export const SingleProfileOnlyRequestError = createRequestErrorFactory(

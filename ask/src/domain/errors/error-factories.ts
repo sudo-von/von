@@ -5,6 +5,7 @@ import {
   PROFILE_CREATION_FAILED,
   PROFILE_NOT_FOUND,
   QUESTION_CREATION_FAILED,
+  ANSWER_NOT_FOUND,
   SINGLE_PROFILE_ONLY,
 } from './errors';
 
@@ -13,4 +14,5 @@ export const QuestionCreationFailedError = createDomainErrorFactory(QUESTION_CRE
 export const PermissionDeniedError = createDomainErrorFactory(PERMISSION_DENIED);
 export const ProfileCreationFailedError = createDomainErrorFactory(PROFILE_CREATION_FAILED);
 export const ProfileNotFoundError = createDomainErrorFactory(PROFILE_NOT_FOUND);
+export const AnswerNotFoundError = createDomainErrorFactory(ANSWER_NOT_FOUND);
 export const SingleProfileOnlyError = createDomainErrorFactory(SINGLE_PROFILE_ONLY);

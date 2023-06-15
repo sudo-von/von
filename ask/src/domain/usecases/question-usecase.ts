@@ -12,6 +12,10 @@ interface IQuestionUsecaseReader {
     requestingUser: string,
     requestedUser: string,
   ) => Promise<QuestionEntity[]>;
+
+  getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
+
+  getAnsweredQuestionById: (id: string) => Promise<QuestionEntity>;
 }
 
 interface IQuestionUsecaseWriter {
@@ -30,6 +34,11 @@ abstract class QuestionUsecase implements IQuestionUsecase {
     questionPayload: CreateQuestionEntity
   ) => Promise<QuestionEntity>;
 
+  abstract getUnansweredQuestionsByUser: (
+    requestingUser: string,
+    requestedUser: string,
+  ) => Promise<QuestionEntity[]>;
+
   abstract getAllQuestionsByUser: (
     requestingUser: string,
     requestedUser: string,
@@ -37,10 +46,7 @@ abstract class QuestionUsecase implements IQuestionUsecase {
 
   abstract getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
 
-  abstract getUnansweredQuestionsByUser: (
-    requestingUser: string,
-    requestedUser: string,
-  ) => Promise<QuestionEntity[]>;
+  abstract getAnsweredQuestionById: (id: string) => Promise<QuestionEntity>;
 }
 
 export default QuestionUsecase;

@@ -6,6 +6,7 @@ export type DomainErrorCode =
   | 'PERMISSION_DENIED_DOMAIN_ERROR'
   | 'PROFILE_CREATION_FAILED_DOMAIN_ERROR'
   | 'PROFILE_NOT_FOUND_DOMAIN_ERROR'
+  | 'ANSWER_NOT_FOUND_DOMAIN_ERROR'
   | 'SINGLE_PROFILE_ONLY_DOMAIN_ERROR';
 
 export type DomainError = {
@@ -36,6 +37,11 @@ export const PROFILE_CREATION_FAILED: DomainError = {
 export const PROFILE_NOT_FOUND: DomainError = {
   code: 'PROFILE_NOT_FOUND_DOMAIN_ERROR',
   message: 'Profile not found.',
+};
+
+export const ANSWER_NOT_FOUND: DomainError = {
+  code: 'ANSWER_NOT_FOUND_DOMAIN_ERROR',
+  message: 'Answer not found.',
 };
 
 export const SINGLE_PROFILE_ONLY: DomainError = {
