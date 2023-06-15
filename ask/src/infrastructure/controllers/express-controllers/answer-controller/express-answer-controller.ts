@@ -8,7 +8,7 @@ class ExpressAnswerController {
   getAnswersByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { username } = req.params;
-      const answers = await this.anserUsecase.getAnswersByUsername(username);
+      const answers = await this.anserUsecase.getAnsweredQuestionsByUsername(username);
       res.status(statusCodes.success.ok).send({ result: answers });
     } catch (e) {
       next(e);

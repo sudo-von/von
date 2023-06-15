@@ -3,7 +3,7 @@ import { IProfileRepositoryReader } from '../repositories/profile-repository';
 import { QuestionEntity } from '../entities/question-entity';
 
 interface IAnswerUsecaseReader {
-  getAnswersByUsername: (username: string) => Promise<QuestionEntity[]>;
+  getAnsweredQuestionsByUsername: (username: string) => Promise<QuestionEntity[]>;
 }
 
 interface IAnswerUsecaseWriter {}
@@ -16,7 +16,7 @@ abstract class AnswerUsecase implements IAnswerUsecase {
     protected questionRepository: IQuestionRepository,
   ) {}
 
-  abstract getAnswersByUsername: (username: string) => Promise<QuestionEntity[]>;
+  abstract getAnsweredQuestionsByUsername: (username: string) => Promise<QuestionEntity[]>;
 }
 
 export default AnswerUsecase;

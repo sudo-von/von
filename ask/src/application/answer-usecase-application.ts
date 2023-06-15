@@ -3,7 +3,7 @@ import { ProfileNotFoundError } from '../domain/errors/error-factories';
 import AnswerUsecase from '../domain/usecases/answer-usecase';
 
 class AnswerUsecaseApplication extends AnswerUsecase {
-  getAnswersByUsername = async (username: string): Promise<QuestionEntity[]> => {
+  getAnsweredQuestionsByUsername = async (username: string): Promise<QuestionEntity[]> => {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 

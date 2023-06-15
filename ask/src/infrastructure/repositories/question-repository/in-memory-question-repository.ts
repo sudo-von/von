@@ -38,6 +38,13 @@ class InMemoryQuestionRepository implements IQuestionRepository {
     return questions;
   };
 
+  getAllQuestionsByUser = async (username: string): Promise<DetailedQuestionEntity[]> => {
+    const questions: DetailedQuestionEntity[] = this.questionsInMemory.filter(
+      (p) => p.username === username,
+    );
+    return questions;
+  };
+
   createQuestion = async (
     payload: CreateQuestionEntity,
   ): Promise<DetailedQuestionEntity | null> => {

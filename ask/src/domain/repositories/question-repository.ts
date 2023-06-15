@@ -3,6 +3,7 @@ import { CreateQuestionEntity, DetailedQuestionEntity } from '../entities/questi
 interface IQuestionRepositoryReader {
   getUnansweredQuestionsByUser: (username: string) => Promise<DetailedQuestionEntity[]>;
   getAnsweredQuestionsByUser: (username: string) => Promise<DetailedQuestionEntity[]>;
+  getAllQuestionsByUser: (username: string) => Promise<DetailedQuestionEntity[]>;
 }
 
 interface IQuestionRepositoryWriter {

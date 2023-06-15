@@ -12,7 +12,9 @@ const createQuestionRouter = (
   const questionController = new ExpressQuestionController(questionUsecase);
 
   const router = express.Router();
-  router.get('/user/:username', jwtAuthHandler(tokenService), questionController.getUnansweredQuestionsByUser);
+  const authHandler = jwtAuthHandler(tokenService);
+  router.get('/user/:username/all', authHandler, validateRequestBodyHandler, questionController.getAllQuestionsByUser);
+  router.get('/user/:username/unanswered', authHandler, questionController.getUnansweredQuestionsByUser);
   router.post('/user/:username', validateRequestBodyHandler, questionController.createQuestion);
   return router;
 };

@@ -29,6 +29,27 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     return unansweredQuestions;
   };
 
+  getAllQuestionsByUser = async (
+    requestingUser: string,
+    requestedUser: string,
+  ): Promise<QuestionEntity[]> => {
+    if (requestingUser !== requestedUser) throw PermissionDeniedError;
+
+    const detailedQuestions = await this.questionRepository.getAllQuestionsByUser(
+      requestedUser,
+    );
+
+    const questions: QuestionEntity[] = detailedQuestions.map((q) => ({
+      id: q.id,
+      question: q.question,
+      username: q.username,
+      askedAt: q.askedAt,
+      answer: q.answer,
+    }));
+
+    return questions;
+  };
+
   createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {
     const isValidQuestion = validateQuestion(payload.question);
     if (!isValidQuestion) throw InvalidQuestionLengthError;
