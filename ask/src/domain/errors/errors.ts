@@ -3,6 +3,7 @@ import { createQuestionRules } from '../entities/validations/question-validation
 export type DomainErrorCode =
   | 'INVALID_QUESTION_LENGTH_DOMAIN_ERROR'
   | 'QUESTION_CREATION_FAILED_DOMAIN_ERROR'
+  | 'PERMISSION_DENIED_DOMAIN_ERROR'
   | 'PROFILE_CREATION_FAILED_DOMAIN_ERROR'
   | 'PROFILE_NOT_FOUND_DOMAIN_ERROR'
   | 'SINGLE_PROFILE_ONLY_DOMAIN_ERROR';
@@ -20,6 +21,11 @@ export const INVALID_QUESTION_LENGTH: DomainError = {
 export const QUESTION_CREATION_FAILED: DomainError = {
   code: 'QUESTION_CREATION_FAILED_DOMAIN_ERROR',
   message: 'Question creation failed.',
+};
+
+export const PERMISSION_DENIED: DomainError = {
+  code: 'PERMISSION_DENIED_DOMAIN_ERROR',
+  message: 'You do not have permission to access this resource.',
 };
 
 export const PROFILE_CREATION_FAILED: DomainError = {

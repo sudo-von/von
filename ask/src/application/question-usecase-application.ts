@@ -1,30 +1,35 @@
-import { CreateQuestionEntity, DetailedQuestionEntity, QuestionEntity } from '../domain/entities/question-entity';
+import { CreateQuestionEntity, QuestionEntity } from '../domain/entities/question-entity';
 import { validateQuestion } from '../domain/entities/validations/question-validations';
-import { InvalidQuestionLengthError, QuestionCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
+import {
+  InvalidQuestionLengthError,
+  QuestionCreationFailedError,
+  ProfileNotFoundError,
+  PermissionDeniedError,
+} from '../domain/errors/error-factories';
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   getUnansweredQuestionsByUser = async (
+    requestingUser: string,
     requestedUser: string,
-    ownerUser: string,
   ): Promise<QuestionEntity[]> => {
-    if (requestedUser !== ownerUser) throw new Error('you dont have enough permissions');
+    if (requestingUser !== requestedUser) throw PermissionDeniedError;
 
     const detailedQuestions = await this.questionRepository.getUnansweredQuestionsByUser(
       requestedUser,
     );
 
-    const questions: QuestionEntity[] = detailedQuestions.map((q) => ({
+    const unansweredQuestions: QuestionEntity[] = detailedQuestions.map((q) => ({
       id: q.id,
       question: q.question,
       username: q.username,
       askedAt: q.askedAt,
     }));
 
-    return questions;
+    return unansweredQuestions;
   };
 
-  createQuestion = async (payload: CreateQuestionEntity): Promise<DetailedQuestionEntity> => {
+  createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {
     const isValidQuestion = validateQuestion(payload.question);
     if (!isValidQuestion) throw InvalidQuestionLengthError;
 
@@ -34,7 +39,14 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const createdQuestion = await this.questionRepository.createQuestion(payload);
     if (!createdQuestion) throw QuestionCreationFailedError;
 
-    return createdQuestion;
+    const unansweredQuestions: QuestionEntity = {
+      id: createdQuestion.id,
+      question: createdQuestion.question,
+      username: createdQuestion.username,
+      askedAt: createdQuestion.askedAt,
+    };
+
+    return unansweredQuestions;
   };
 }
 

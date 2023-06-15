@@ -33,13 +33,7 @@ class ExpressQuestionController {
         askedBy: req.ip || '',
         askedAt: new Date(new Date().toUTCString()),
       };
-      const question = await this.questionUsecase.createQuestion(createQuestionEntity);
-      const createdQuestion: CreatedQuestionDto = {
-        id: question.id,
-        question: question.question,
-        askedAt: question.askedAt,
-        username: question.username,
-      };
+      const createdQuestion = await this.questionUsecase.createQuestion(createQuestionEntity);
       res.status(statusCodes.success.created).send({ result: createdQuestion });
     } catch (e) {
       next(e);

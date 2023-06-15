@@ -5,6 +5,7 @@ import { RequestErrorFactory } from '../../errors/request-error-factory';
 import {
   InternalServerRequestError,
   InvalidQuestionLengthRequestError,
+  PermissionDeniedRequestError,
   ProfileCreationFailedRequestError,
   ProfileNotFoundRequestError,
   QuestionCreationFailedRequestError,
@@ -14,6 +15,7 @@ import {
 const domainErrors: Record<DomainErrorCode, RequestErrorFactory> = {
   INVALID_QUESTION_LENGTH_DOMAIN_ERROR: InvalidQuestionLengthRequestError,
   QUESTION_CREATION_FAILED_DOMAIN_ERROR: QuestionCreationFailedRequestError,
+  PERMISSION_DENIED_DOMAIN_ERROR: PermissionDeniedRequestError,
   PROFILE_CREATION_FAILED_DOMAIN_ERROR: ProfileCreationFailedRequestError,
   PROFILE_NOT_FOUND_DOMAIN_ERROR: ProfileNotFoundRequestError,
   SINGLE_PROFILE_ONLY_DOMAIN_ERROR: SingleProfileOnlyRequestError,

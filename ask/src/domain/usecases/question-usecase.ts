@@ -1,11 +1,11 @@
 import IQuestionRepository from '../repositories/question-repository';
 import { IProfileRepositoryReader } from '../repositories/profile-repository';
-import { CreateQuestionEntity, DetailedQuestionEntity, QuestionEntity } from '../entities/question-entity';
+import { CreateQuestionEntity, QuestionEntity } from '../entities/question-entity';
 
 interface IQuestionUsecaseReader {}
 
 interface IQuestionUsecaseWriter {
-  createQuestion: (questionPayload: CreateQuestionEntity) => Promise<DetailedQuestionEntity>;
+  createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity>;
 }
 
 interface IQuestionUsecase extends IQuestionUsecaseReader, IQuestionUsecaseWriter {}
@@ -18,11 +18,11 @@ abstract class QuestionUsecase implements IQuestionUsecase {
 
   abstract createQuestion: (
     questionPayload: CreateQuestionEntity
-  ) => Promise<DetailedQuestionEntity>;
+  ) => Promise<QuestionEntity>;
 
   abstract getUnansweredQuestionsByUser: (
+    requestingUser: string,
     requestedUser: string,
-    ownerUser: string,
   ) => Promise<QuestionEntity[]>;
 }
 
