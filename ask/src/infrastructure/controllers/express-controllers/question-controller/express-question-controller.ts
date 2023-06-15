@@ -6,9 +6,7 @@ import { CreateQuestionEntity } from '../../../../domain/entities/question-entit
 import QuestionUsecase from '../../../../domain/usecases/question-usecase';
 
 class ExpressQuestionController {
-  constructor(
-    protected questionUsecase: QuestionUsecase,
-  ) {}
+  constructor(protected questionUsecase: QuestionUsecase) {}
 
   createQuestion = async (req: Request, res: Response, next: NextFunction) => {
     try {

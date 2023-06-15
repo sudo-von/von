@@ -1,5 +1,6 @@
 import IProfileRepository from '../domain/repositories/profile-repository';
 import IQuestionRepository from '../domain/repositories/question-repository';
+import AnswerUsecaseApplication from './answer-usecase-application';
 import ProfileUsecaseApplication from './profile-usecase-application';
 import QuestionUsecaseApplication from './question-usecase-application';
 
@@ -12,7 +13,11 @@ const configureUsecases = (
     profileRepository,
     questionRepository,
   );
-  return { profileUsecase, questionUsecase };
+  const answerUsecase = new AnswerUsecaseApplication(
+    profileRepository,
+    questionRepository,
+  );
+  return { profileUsecase, questionUsecase, answerUsecase };
 };
 
 export default configureUsecases;

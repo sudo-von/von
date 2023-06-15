@@ -1,5 +1,5 @@
 import configureUsecases from './application/setup';
-import createQuestionRouter from './infrastructure/controllers/express-controllers/question-controller/express-question-router';
+import configureControllers from './infrastructure/controllers/express-controllers/setup';
 import configureMessageBrokers from './infrastructure/message-brokers/setup';
 import configureRepositories from './infrastructure/repositories/setup';
 
@@ -12,6 +12,7 @@ import configureRepositories from './infrastructure/repositories/setup';
 
   /* 📖 Usecases. */
   const {
+    answerUsecase,
     profileUsecase,
     questionUsecase,
   } = configureUsecases(inMemoryProfileRepository, inMemoryQuestionRepository);
@@ -21,5 +22,5 @@ import configureRepositories from './infrastructure/repositories/setup';
   await rabbitMQProfileConsumer.connect();
   await rabbitMQProfileConsumer.consumeMessage('Profile:CreateProfile');
 
-  createQuestionRouter(questionUsecase, 3001);
+  configureControllers(questionUsecase, answerUsecase);
 })();
