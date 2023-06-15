@@ -1,6 +1,6 @@
 import { AnswerEntity } from './answer-entity';
 
-export type QuestionEntity = {
+export type DetailedQuestionEntity = {
   id: string;
   username: string;
   question: string;
@@ -9,6 +9,6 @@ export type QuestionEntity = {
   answer?: AnswerEntity;
 };
 
-export type MediumQuestionEntity = Readonly<Omit<QuestionEntity, 'askedBy'>>;
+export type QuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'askedBy'>>;
 
-export type CreateQuestionEntity = Readonly<Omit<QuestionEntity, 'id' | 'answer'>>;
+export type CreateQuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'id' | 'answer'>>;

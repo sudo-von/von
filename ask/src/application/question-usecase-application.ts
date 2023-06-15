@@ -1,10 +1,10 @@
-import { CreateQuestionEntity, QuestionEntity } from '../domain/entities/question-entity';
+import { CreateQuestionEntity, DetailedQuestionEntity } from '../domain/entities/question-entity';
 import { validateQuestion } from '../domain/entities/validations/question-validations';
 import { InvalidQuestionLengthError, QuestionCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
-  createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {
+  createQuestion = async (payload: CreateQuestionEntity): Promise<DetailedQuestionEntity> => {
     const isValidQuestion = validateQuestion(payload.question);
     if (!isValidQuestion) throw InvalidQuestionLengthError;
 

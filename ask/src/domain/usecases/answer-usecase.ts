@@ -1,9 +1,9 @@
 import IQuestionRepository from '../repositories/question-repository';
 import { IProfileRepositoryReader } from '../repositories/profile-repository';
-import { MediumQuestionEntity } from '../entities/question-entity';
+import { QuestionEntity } from '../entities/question-entity';
 
 interface IAnswerUsecaseReader {
-  getAnswersByUsername: (username: string) => Promise<MediumQuestionEntity[]>;
+  getAnswersByUsername: (username: string) => Promise<QuestionEntity[]>;
 }
 
 interface IAnswerUsecaseWriter {}
@@ -16,7 +16,7 @@ abstract class AnswerUsecase implements IAnswerUsecase {
     protected questionRepository: IQuestionRepository,
   ) {}
 
-  abstract getAnswersByUsername: (username: string) => Promise<MediumQuestionEntity[]>;
+  abstract getAnswersByUsername: (username: string) => Promise<QuestionEntity[]>;
 }
 
 export default AnswerUsecase;

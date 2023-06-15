@@ -1,15 +1,15 @@
-import { MediumQuestionEntity } from '../domain/entities/question-entity';
+import { QuestionEntity } from '../domain/entities/question-entity';
 import { ProfileNotFoundError } from '../domain/errors/error-factories';
 import AnswerUsecase from '../domain/usecases/answer-usecase';
 
 class AnswerUsecaseApplication extends AnswerUsecase {
-  getAnswersByUsername = async (username: string): Promise<MediumQuestionEntity[]> => {
+  getAnswersByUsername = async (username: string): Promise<QuestionEntity[]> => {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
-    const answers = await this.questionRepository.getAnswersByUsername(username);
+    const detailedAnswers = await this.questionRepository.getAnsweredQuestionsByUser(username);
 
-    const mediumAnswers: MediumQuestionEntity[] = answers.map((answer) => ({
+    const answeredQuestions: QuestionEntity[] = detailedAnswers.map((answer) => ({
       id: answer.id,
       askedAt: answer.askedAt,
       question: answer.question,
@@ -17,7 +17,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
       answer: answer.answer,
     }));
 
-    return mediumAnswers;
+    return answeredQuestions;
   };
 }
 

@@ -20,7 +20,7 @@ const configureControllers = (
   app.use(errorHandler);
 
   app.listen(3001, () => {
-    console.log(`💻 [QuestionController][start]: Starting application on port ${3001}.`);
+    console.log(`💻 [Controllers]: Starting application on port ${3001}.`);
   });
 };
 
