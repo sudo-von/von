@@ -19,7 +19,6 @@ import JSONWebTokenService from './infrastructure/services/token-service/jsonweb
 
   /* 📖 Usecases. */
   const {
-    answerUsecase,
     profileUsecase,
     questionUsecase,
   } = configureUsecases(inMemoryProfileRepository, inMemoryQuestionRepository);
@@ -29,5 +28,5 @@ import JSONWebTokenService from './infrastructure/services/token-service/jsonweb
   await rabbitMQProfileConsumer.connect();
   await rabbitMQProfileConsumer.consumeMessage('Profile:CreateProfile');
 
-  configureControllers(tokenService, questionUsecase, answerUsecase);
+  configureControllers(tokenService, questionUsecase);
 })();

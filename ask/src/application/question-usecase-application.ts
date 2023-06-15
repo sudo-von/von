@@ -9,11 +9,31 @@ import {
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
+  getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
+    const profile = await this.profileRepository.getProfileByUsername(username);
+    if (!profile) throw ProfileNotFoundError;
+
+    const detailedAnswers = await this.questionRepository.getAnsweredQuestionsByUser(username);
+
+    const answeredQuestions: QuestionEntity[] = detailedAnswers.map((answer) => ({
+      id: answer.id,
+      askedAt: answer.askedAt,
+      question: answer.question,
+      username: answer.username,
+      answer: answer.answer,
+    }));
+
+    return answeredQuestions;
+  };
+
   getUnansweredQuestionsByUser = async (
     requestingUser: string,
     requestedUser: string,
   ): Promise<QuestionEntity[]> => {
     if (requestingUser !== requestedUser) throw PermissionDeniedError;
+
+    const profile = await this.profileRepository.getProfileByUsername(requestedUser);
+    if (!profile) throw ProfileNotFoundError;
 
     const detailedQuestions = await this.questionRepository.getUnansweredQuestionsByUser(
       requestedUser,
@@ -34,6 +54,9 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     requestedUser: string,
   ): Promise<QuestionEntity[]> => {
     if (requestingUser !== requestedUser) throw PermissionDeniedError;
+
+    const profile = await this.profileRepository.getProfileByUsername(requestedUser);
+    if (!profile) throw ProfileNotFoundError;
 
     const detailedQuestions = await this.questionRepository.getAllQuestionsByUser(
       requestedUser,

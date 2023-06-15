@@ -8,25 +8,6 @@ import { CreateQuestionEntity } from '../../../../domain/entities/question-entit
 class ExpressQuestionController {
   constructor(protected questionUsecase: QuestionUsecase) {}
 
-  getUnansweredQuestionsByUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { user, params } = req;
-      if (!user) {
-        return res.status(PERMISSION_DENIED_REQUEST.statusCode).send({
-          message: PERMISSION_DENIED_REQUEST.message,
-        });
-      }
-      const { username } = params;
-      const unansweredQuestions = await this.questionUsecase.getUnansweredQuestionsByUser(
-        user.username,
-        username,
-      );
-      return res.status(statusCodes.success.ok).send({ result: unansweredQuestions });
-    } catch (e) {
-      return next(e);
-    }
-  };
-
   getAllQuestionsByUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { user, params } = req;
@@ -37,6 +18,35 @@ class ExpressQuestionController {
       }
       const { username } = params;
       const unansweredQuestions = await this.questionUsecase.getAllQuestionsByUser(
+        user.username,
+        username,
+      );
+      return res.status(statusCodes.success.ok).send({ result: unansweredQuestions });
+    } catch (e) {
+      return next(e);
+    }
+  };
+
+  getAnsweredQuestionsByUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { username } = req.params;
+      const answers = await this.questionUsecase.getAnsweredQuestionsByUser(username);
+      res.status(statusCodes.success.ok).send({ result: answers });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  getUnansweredQuestionsByUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { user, params } = req;
+      if (!user) {
+        return res.status(PERMISSION_DENIED_REQUEST.statusCode).send({
+          message: PERMISSION_DENIED_REQUEST.message,
+        });
+      }
+      const { username } = params;
+      const unansweredQuestions = await this.questionUsecase.getUnansweredQuestionsByUser(
         user.username,
         username,
       );

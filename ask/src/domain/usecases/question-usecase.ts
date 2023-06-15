@@ -30,12 +30,14 @@ abstract class QuestionUsecase implements IQuestionUsecase {
     questionPayload: CreateQuestionEntity
   ) => Promise<QuestionEntity>;
 
-  abstract getUnansweredQuestionsByUser: (
+  abstract getAllQuestionsByUser: (
     requestingUser: string,
     requestedUser: string,
   ) => Promise<QuestionEntity[]>;
 
-  abstract getAllQuestionsByUser: (
+  abstract getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
+
+  abstract getUnansweredQuestionsByUser: (
     requestingUser: string,
     requestedUser: string,
   ) => Promise<QuestionEntity[]>;

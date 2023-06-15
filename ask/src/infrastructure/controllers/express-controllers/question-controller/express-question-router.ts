@@ -13,9 +13,10 @@ const createQuestionRouter = (
 
   const router = express.Router();
   const authHandler = jwtAuthHandler(tokenService);
-  router.get('/user/:username/all', authHandler, validateRequestBodyHandler, questionController.getAllQuestionsByUser);
-  router.get('/user/:username/unanswered', authHandler, questionController.getUnansweredQuestionsByUser);
-  router.post('/user/:username', validateRequestBodyHandler, questionController.createQuestion);
+  router.get('/all/:username', authHandler, validateRequestBodyHandler, questionController.getAllQuestionsByUser);
+  router.get('/answered/:username', questionController.getAnsweredQuestionsByUser);
+  router.get('/unanswered/:username', authHandler, questionController.getUnansweredQuestionsByUser);
+  router.post('/:username', validateRequestBodyHandler, questionController.createQuestion);
   return router;
 };
 
