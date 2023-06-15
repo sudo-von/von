@@ -5,6 +5,7 @@ import {
   PROFILE_CREATION_FAILED_REQUEST,
   PROFILE_NOT_FOUND_REQUEST,
   SINGLE_PROFILE_ONLY_REQUEST,
+  INTERNAL_SERVER_REQUEST,
 } from './request-errors';
 
 export const InvalidQuestionLengthRequestError = createRequestErrorFactory(
@@ -25,4 +26,8 @@ export const ProfileNotFoundRequestError = createRequestErrorFactory(
 
 export const SingleProfileOnlyRequestError = createRequestErrorFactory(
   SINGLE_PROFILE_ONLY_REQUEST,
+);
+
+export const InternalServerRequestError = createRequestErrorFactory(
+  INTERNAL_SERVER_REQUEST,
 );

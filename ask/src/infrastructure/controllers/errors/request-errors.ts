@@ -12,7 +12,8 @@ export type RequestErrorCode =
 | 'QUESTION_CREATION_FAILED_REQUEST_ERROR'
 | 'PROFILE_CREATION_FAILED_REQUEST_ERROR'
 | 'PROFILE_NOT_FOUND_REQUEST_ERROR'
-| 'SINGLE_PROFILE_ONLY_REQUEST_ERROR';
+| 'SINGLE_PROFILE_ONLY_REQUEST_ERROR'
+| 'INTERNAL_SERVER_REQUEST_ERROR';
 
 export type RequestError = {
   code: RequestErrorCode;
@@ -48,4 +49,10 @@ export const SINGLE_PROFILE_ONLY_REQUEST: RequestError = {
   code: 'SINGLE_PROFILE_ONLY_REQUEST_ERROR',
   message: SINGLE_PROFILE_ONLY.message,
   statusCode: statusCodes.clientSide.conflict,
+};
+
+export const INTERNAL_SERVER_REQUEST: RequestError = {
+  code: 'INTERNAL_SERVER_REQUEST_ERROR',
+  message: 'An internal server error occurred. Please try again later.',
+  statusCode: statusCodes.serverSide.internalServer,
 };

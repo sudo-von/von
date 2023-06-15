@@ -29,7 +29,7 @@ export const PROFILE_CREATION_FAILED: DomainError = {
 
 export const PROFILE_NOT_FOUND: DomainError = {
   code: 'PROFILE_NOT_FOUND_DOMAIN_ERROR',
-  message: 'PROFILE not found.',
+  message: 'Profile not found.',
 };
 
 export const SINGLE_PROFILE_ONLY: DomainError = {
