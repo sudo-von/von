@@ -9,7 +9,7 @@ class ExpressAnswerController {
     try {
       const { username } = req.params;
       const answers = await this.anserUsecase.getAnswersByUsername(username);
-      res.status(statusCodes.success.created).send({ result: answers });
+      res.status(statusCodes.success.ok).send({ result: answers });
     } catch (e) {
       next(e);
     }

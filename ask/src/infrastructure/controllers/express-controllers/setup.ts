@@ -4,12 +4,14 @@ import createQuestionRouter from './question-controller/express-question-router'
 import QuestionUsecase from '../../../domain/usecases/question-usecase';
 import AnswerUsecase from '../../../domain/usecases/answer-usecase';
 import errorHandler from './middlewares/error-handler';
+import TokenService from '../../services/token-service/token-service';
 
 const configureControllers = (
+  tokenService: TokenService,
   questionUsecase: QuestionUsecase,
   answerUsecase: AnswerUsecase,
 ) => {
-  const questionRouter = createQuestionRouter(questionUsecase);
+  const questionRouter = createQuestionRouter(questionUsecase, tokenService);
   const answerRouter = createAnswerRouter(answerUsecase);
 
   const app = express();

@@ -8,6 +8,21 @@ import QuestionUsecase from '../../../../domain/usecases/question-usecase';
 class ExpressQuestionController {
   constructor(protected questionUsecase: QuestionUsecase) {}
 
+  getUnansweredQuestionsByUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { user, params } = req;
+      if (!user) throw new Error('as');
+      const { username } = params;
+      const unansweredQuestions = await this.questionUsecase.getUnansweredQuestionsByUser(
+        user.username,
+        username,
+      );
+      res.status(statusCodes.success.ok).send({ result: unansweredQuestions });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   createQuestion = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { username } = req.params;
