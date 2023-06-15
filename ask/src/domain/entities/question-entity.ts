@@ -5,6 +5,7 @@ export type DetailedQuestionEntity = {
   username: string;
   question: string;
   askedBy: string;
+  views: number;
   askedAt: Date;
   answer?: AnswerEntity;
 };

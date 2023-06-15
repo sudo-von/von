@@ -10,6 +10,7 @@ class InMemoryQuestionRepository implements IQuestionRepository {
       question: 'How is it going?',
       askedAt: new Date(),
       askedBy: '::1',
+      views: 10,
     },
     {
       id: crypto.randomBytes(8).toString('hex'),
@@ -17,6 +18,7 @@ class InMemoryQuestionRepository implements IQuestionRepository {
       question: 'How long have you been studying...?',
       askedAt: new Date(),
       askedBy: '::1',
+      views: 0,
       answer: {
         answer: "It's been a long time since I...",
         answeredAt: new Date(),

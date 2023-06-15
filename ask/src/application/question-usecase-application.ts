@@ -21,6 +21,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       question: answer.question,
       username: answer.username,
       answer: answer.answer,
+      views: answer.views,
     }));
 
     return answeredQuestions;
@@ -44,6 +45,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       question: q.question,
       username: q.username,
       askedAt: q.askedAt,
+      views: q.views,
     }));
 
     return unansweredQuestions;
@@ -68,6 +70,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       username: q.username,
       askedAt: q.askedAt,
       answer: q.answer,
+      views: q.views,
     }));
 
     return questions;
@@ -88,6 +91,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       question: createdQuestion.question,
       username: createdQuestion.username,
       askedAt: createdQuestion.askedAt,
+      views: createdQuestion.views,
     };
 
     return unansweredQuestions;

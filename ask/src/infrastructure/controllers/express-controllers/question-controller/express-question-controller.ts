@@ -65,6 +65,7 @@ class ExpressQuestionController {
         question: payload.question,
         askedBy: req.ip || '',
         askedAt: new Date(new Date().toUTCString()),
+        views: 0,
       };
       const createdQuestion = await this.questionUsecase.createQuestion(createQuestionEntity);
       return res.status(statusCodes.success.created).send({ result: createdQuestion });
