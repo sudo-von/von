@@ -1,5 +1,5 @@
 import configureUsecases from './application/setup';
-import createQuestionRouter from './infrastructure/controllers/question-controller/express-controller/express-question-router';
+import createQuestionRouter from './infrastructure/controllers/express-controllers/question-controller/express-question-router';
 import configureMessageBrokers from './infrastructure/message-brokers/setup';
 import configureRepositories from './infrastructure/repositories/setup';
 

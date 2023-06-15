@@ -3,11 +3,37 @@ import IQuestionRepository from '../../../domain/repositories/question-repositor
 import { CreateQuestionEntity, QuestionEntity } from '../../../domain/entities/question-entity';
 
 class InMemoryQuestionRepository implements IQuestionRepository {
-  private questionsInMemory: QuestionEntity[] = [];
+  private questionsInMemory: QuestionEntity[] = [
+    {
+      id: crypto.randomBytes(8).toString('hex'),
+      username: 'sudo_von',
+      question: 'How is it going?',
+      askedAt: new Date(),
+      askedBy: '::1',
+    },
+    {
+      id: crypto.randomBytes(8).toString('hex'),
+      username: 'sudo_von',
+      question: 'How long have you been studying...?',
+      askedAt: new Date(),
+      askedBy: '::1',
+      answer: {
+        answer: "It's been a long time since I...",
+        answeredAt: new Date(),
+      },
+    },
+  ];
+
+  getAnswersByUsername = async (username: string): Promise<QuestionEntity[]> => {
+    const questions: QuestionEntity[] = this.questionsInMemory.filter(
+      (p) => p.username === username && p.answer,
+    );
+    return questions;
+  };
 
   getQuestionsByUsername = async (username: string): Promise<QuestionEntity[]> => {
     const questions: QuestionEntity[] = this.questionsInMemory.filter(
-      (p) => p.username === username,
+      (p) => p.username === username && !p.answer,
     );
     return questions;
   };

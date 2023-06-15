@@ -1,8 +1,8 @@
 import express from 'express';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase';
 import ExpressQuestionController from './express-question-controller';
-import validateRequestBodyHandler from './middlewares/validate-request-body-handler';
-import errorHandler from './middlewares/error-handler';
+import validateRequestBodyHandler from '../middlewares/validate-request-body-handler';
+import errorHandler from '../middlewares/error-handler';
 
 const createQuestionRouter = (
   questionUsecase: QuestionUsecase,

@@ -2,6 +2,7 @@ import { CreateQuestionEntity, QuestionEntity } from '../entities/question-entit
 
 interface IQuestionRepositoryReader {
   getQuestionsByUsername: (username: string) => Promise<QuestionEntity[]>;
+  getAnswersByUsername: (username: string) => Promise<QuestionEntity[]>;
 }
 
 interface IQuestionRepositoryWriter {

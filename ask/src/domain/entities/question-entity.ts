@@ -9,4 +9,6 @@ export type QuestionEntity = {
   answer?: AnswerEntity;
 };
 
+export type MediumQuestionEntity = Readonly<Omit<QuestionEntity, 'askedBy'>>;
+
 export type CreateQuestionEntity = Readonly<Omit<QuestionEntity, 'id' | 'answer'>>;
