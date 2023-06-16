@@ -5,7 +5,8 @@ interface IProfileUsecaseReader {}
 
 interface IProfileUsecaseWriter {
   createProfile: (profilePayload: CreateProfileEntity) => Promise<ProfileEntity>;
-  increaseProfileViewsByUsername: (username: string) => Promise<void>;
+  increaseTotalViewsByUsername: (username: string) => Promise<void>;
+  increaseTotalQuestionsByUsername: (username: string) => Promise<void>;
 }
 
 interface IProfileUsecase extends IProfileUsecaseReader, IProfileUsecaseWriter {}
@@ -15,7 +16,9 @@ abstract class ProfileUsecase implements IProfileUsecase {
 
   abstract createProfile: (profilePayload: CreateProfileEntity) => Promise<ProfileEntity>;
 
-  abstract increaseProfileViewsByUsername: (username: string) => Promise<void>;
+  abstract increaseTotalViewsByUsername: (username: string) => Promise<void>;
+
+  abstract increaseTotalQuestionsByUsername: (username: string) => Promise<void>;
 }
 
 export default ProfileUsecase;

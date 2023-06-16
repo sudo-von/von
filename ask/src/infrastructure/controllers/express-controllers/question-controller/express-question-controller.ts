@@ -18,7 +18,7 @@ class ExpressQuestionController {
       const { id } = req.params;
       const answeredQuestion = await this.questionUsecase.getAnsweredQuestionById(id);
 
-      await this.profileUsecase.increaseProfileViewsByUsername(answeredQuestion.username);
+      await this.profileUsecase.increaseTotalViewsByUsername(answeredQuestion.username);
 
       const answeredQuestionDto: QuestionDto = {
         id: answeredQuestion.id,
@@ -88,7 +88,7 @@ class ExpressQuestionController {
 
       const answeredQuestions = await this.questionUsecase.getAnsweredQuestionsByUser(username);
 
-      await this.profileUsecase.increaseProfileViewsByUsername(username);
+      await this.profileUsecase.increaseTotalViewsByUsername(username);
 
       const answeredQuestionsDto: QuestionDto[] = answeredQuestions.map((q) => ({
         id: q.id,
@@ -155,6 +155,8 @@ class ExpressQuestionController {
       };
 
       const createdQuestion = await this.questionUsecase.createQuestion(createQuestionEntity);
+
+      await this.profileUsecase.increaseTotalQuestionsByUsername(username);
 
       const questionDto: QuestionDto = {
         id: createdQuestion.id,

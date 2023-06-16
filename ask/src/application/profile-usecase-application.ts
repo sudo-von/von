@@ -13,7 +13,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     return createdProfile;
   };
 
-  increaseProfileViewsByUsername = async (username: string): Promise<void> => {
+  increaseTotalViewsByUsername = async (username: string): Promise<void> => {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
@@ -24,6 +24,23 @@ class ProfileUsecaseApplication extends ProfileUsecase {
         total_answers: profile.statistics.total_answers,
         total_questions: profile.statistics.total_questions,
         total_views: profile.statistics.total_views + 1,
+      },
+    };
+
+    await this.profileRepository.updateProfileById(profile.id, payload);
+  };
+
+  increaseTotalQuestionsByUsername = async (username: string): Promise<void> => {
+    const profile = await this.profileRepository.getProfileByUsername(username);
+    if (!profile) throw ProfileNotFoundError;
+
+    const payload: UpdateProfileEntity = {
+      userId: profile.userId,
+      username: profile.username,
+      statistics: {
+        total_answers: profile.statistics.total_answers,
+        total_questions: profile.statistics.total_questions + 1,
+        total_views: profile.statistics.total_views,
       },
     };
 
