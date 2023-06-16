@@ -13,3 +13,5 @@ export type DetailedQuestionEntity = {
 export type QuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'askedBy'>>;
 
 export type CreateQuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'id' | 'answer'>>;
+
+export type UpdateQuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'id'>>;

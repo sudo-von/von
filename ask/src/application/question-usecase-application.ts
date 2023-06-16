@@ -1,4 +1,4 @@
-import { CreateQuestionEntity, QuestionEntity } from '../domain/entities/question-entity';
+import { CreateQuestionEntity, QuestionEntity, UpdateQuestionEntity } from '../domain/entities/question-entity';
 import { validateQuestion } from '../domain/entities/validations/question-validations';
 import {
   InvalidQuestionLengthError,
@@ -14,13 +14,24 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const answeredQuestion = await this.questionRepository.getAnsweredQuestionById(id);
     if (!answeredQuestion) throw AnswerNotFoundError;
 
-    const question: QuestionEntity = {
-      id: answeredQuestion.id,
+    const updatedQuestion: UpdateQuestionEntity = {
       question: answeredQuestion.question,
       username: answeredQuestion.username,
       askedAt: answeredQuestion.askedAt,
       answer: answeredQuestion.answer,
-      views: answeredQuestion.views,
+      views: answeredQuestion.views + 1,
+      askedBy: answeredQuestion.askedBy,
+    };
+
+    await this.questionRepository.updateQuestionById(id, updatedQuestion);
+
+    const question: QuestionEntity = {
+      id,
+      question: updatedQuestion.question,
+      username: updatedQuestion.username,
+      askedAt: updatedQuestion.askedAt,
+      answer: updatedQuestion.answer,
+      views: updatedQuestion.views,
     };
 
     return question;

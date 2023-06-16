@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import IQuestionRepository from '../../../domain/repositories/question-repository';
-import { CreateQuestionEntity, DetailedQuestionEntity } from '../../../domain/entities/question-entity';
+import { CreateQuestionEntity, DetailedQuestionEntity, UpdateQuestionEntity } from '../../../domain/entities/question-entity';
 
 class InMemoryQuestionRepository implements IQuestionRepository {
   private questionsInMemory: DetailedQuestionEntity[] = [
@@ -63,6 +63,21 @@ class InMemoryQuestionRepository implements IQuestionRepository {
     };
     this.questionsInMemory.push(question);
     return question;
+  };
+
+  updateQuestionById = async (
+    id: string,
+    payload: UpdateQuestionEntity,
+  ): Promise<void> => {
+    this.questionsInMemory = this.questionsInMemory.map(
+      (p) => {
+        if (p.id !== id) return p;
+        return {
+          ...payload,
+          id,
+        };
+      },
+    );
   };
 }
 
