@@ -1,32 +1,34 @@
 import configureUsecases from './application/setup';
 import configureEnvironmentVariables from './infrastructure/config';
-import configureControllers from './infrastructure/controllers/express-controllers/setup';
+import configureControllers from './infrastructure/controllers/express-controllers/config';
 import configureMessageBrokers from './infrastructure/message-brokers/setup';
 import configureRepositories from './infrastructure/repositories/setup';
-import JSONWebTokenService from './infrastructure/services/token-service/jsonwebtoken-service/jsonwebtoken-service';
+import configureServices from './infrastructure/services/config';
 
 (async () => {
   /* 🔐 Environment variables. */
-  const { SECRET_KEY } = configureEnvironmentVariables();
+  const { SECRET_KEY, SERVER_PORT } = configureEnvironmentVariables();
 
   /* 💽 Repositories. */
-  const {
-    inMemoryProfileRepository,
-    inMemoryQuestionRepository,
-  } = configureRepositories();
+  const { profileRepository, questionRepository } = configureRepositories();
 
-  const tokenService = new JSONWebTokenService(SECRET_KEY);
+  /* 🔧 Services. */
+  const { tokenService } = configureServices(SECRET_KEY);
 
   /* 📖 Usecases. */
   const {
     profileUsecase,
     questionUsecase,
-  } = configureUsecases(inMemoryProfileRepository, inMemoryQuestionRepository);
+  } = configureUsecases(profileRepository, questionRepository);
 
   /* 📦 Message brokers. */
-  const { rabbitMQProfileConsumer } = configureMessageBrokers(profileUsecase);
-  await rabbitMQProfileConsumer.connect();
-  await rabbitMQProfileConsumer.consumeMessage('Profile:CreateProfile');
+  const { createProfileConsumer } = configureMessageBrokers(profileUsecase);
+  await createProfileConsumer.connect();
+  await createProfileConsumer.consumeMessage('Profile:CreateProfile');
 
-  configureControllers(tokenService, questionUsecase);
+  /* 🔌 Controllers. */
+  const app = configureControllers(tokenService, questionUsecase);
+  app.listen(SERVER_PORT, () => {
+    console.log(`🚀 Starting application on port ${SERVER_PORT}.`);
+  });
 })();

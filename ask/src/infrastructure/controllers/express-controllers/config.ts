@@ -16,9 +16,7 @@ const configureControllers = (
   app.use('/v1/questions', questionRouter);
   app.use(errorHandler);
 
-  app.listen(3001, () => {
-    console.log(`💻 [Controllers]: Starting application on port ${3001}.`);
-  });
+  return app;
 };
 
 export default configureControllers;
