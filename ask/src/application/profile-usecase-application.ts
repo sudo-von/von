@@ -3,6 +3,13 @@ import { CreateProfileEntity, ProfileEntity, UpdateProfileEntity } from '../doma
 import { SingleProfileOnlyError, ProfileCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
 
 class ProfileUsecaseApplication extends ProfileUsecase {
+  getProfileByUsername = async (username: string): Promise<ProfileEntity> => {
+    const profile = await this.profileRepository.getProfileByUsername(username);
+    if (!profile) throw ProfileNotFoundError;
+
+    return profile;
+  };
+
   createProfile = async (payload: CreateProfileEntity): Promise<ProfileEntity> => {
     const profiles = await this.profileRepository.getProfiles();
     if (profiles.length) throw SingleProfileOnlyError;

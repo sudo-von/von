@@ -1,7 +1,9 @@
 import IProfileRepository from '../repositories/profile-repository';
 import { CreateProfileEntity, ProfileEntity } from '../entities/profile-entity';
 
-interface IProfileUsecaseReader {}
+interface IProfileUsecaseReader {
+  getProfileByUsername: (username: string) => Promise<ProfileEntity>
+}
 
 interface IProfileUsecaseWriter {
   createProfile: (profilePayload: CreateProfileEntity) => Promise<ProfileEntity>;
@@ -14,6 +16,8 @@ interface IProfileUsecase extends IProfileUsecaseReader, IProfileUsecaseWriter {
 
 abstract class ProfileUsecase implements IProfileUsecase {
   constructor(protected profileRepository: IProfileRepository) {}
+
+  abstract getProfileByUsername: (username: string) => Promise<ProfileEntity>;
 
   abstract createProfile: (profilePayload: CreateProfileEntity) => Promise<ProfileEntity>;
 
