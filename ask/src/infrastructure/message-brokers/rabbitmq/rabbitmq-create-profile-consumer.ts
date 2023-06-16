@@ -3,7 +3,12 @@ import ProfileUsecase from '../../../domain/usecases/profile-usecase';
 import { CreateProfileEntity } from '../../../domain/entities/profile-entity';
 import { MessageBrokerChannelIsClosedError, MessageBrokerNoMessageAvailableError } from '../errors/message-broker-error-factories';
 
-class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntity> {
+type CreateProfileEntityDto = {
+  userId: string;
+  username: string;
+};
+
+class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntityDto> {
   constructor(
     protected readonly MESSAGE_BROKER_URL: string,
     protected profileUsecase: ProfileUsecase,
@@ -11,10 +16,22 @@ class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileE
     super(MESSAGE_BROKER_URL);
   }
 
-  onMessage = async (data: CreateProfileEntity): Promise<void> => {
+  onMessage = async (data: CreateProfileEntityDto): Promise<void> => {
     if (!this.channel) throw MessageBrokerChannelIsClosedError;
     if (!this.message) throw MessageBrokerNoMessageAvailableError;
-    await this.profileUsecase.createProfile(data);
+
+    const createProfileEntity: CreateProfileEntity = {
+      userId: data.userId,
+      username: data.username,
+      statistics: {
+        total_answers: 0,
+        total_questions: 0,
+        total_views: 0,
+      },
+    };
+
+    await this.profileUsecase.createProfile(createProfileEntity);
+
     this.channel.ack(this.message);
     this.message = undefined;
   };

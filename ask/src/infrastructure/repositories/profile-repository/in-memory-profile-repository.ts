@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { CreateProfileEntity, ProfileEntity } from '../../../domain/entities/profile-entity';
+import { CreateProfileEntity, ProfileEntity, UpdateProfileEntity } from '../../../domain/entities/profile-entity';
 import IProfileRepository from '../../../domain/repositories/profile-repository';
 
 class InMemoryProfileRepository implements IProfileRepository {
@@ -19,6 +19,19 @@ class InMemoryProfileRepository implements IProfileRepository {
     };
     this.profilesInMemory.push(profile);
     return profile;
+  };
+
+  updateProfileById = async (
+    id: string,
+    profilePayload: UpdateProfileEntity,
+  ): Promise<void> => {
+    this.profilesInMemory.map((profile) => {
+      if (profile.id !== id) return profile;
+      return {
+        ...profilePayload,
+        id,
+      };
+    });
   };
 }
 

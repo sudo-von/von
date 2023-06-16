@@ -5,14 +5,20 @@ import QuestionUsecase from '../../../../domain/usecases/question-usecase';
 import { createQuestionDto } from '../../dtos/create-question-dto';
 import { CreateQuestionEntity, handleAskedBy } from '../../../../domain/entities/question-entity';
 import { QuestionDto } from '../../dtos/question-dto';
+import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
 
 class ExpressQuestionController {
-  constructor(protected questionUsecase: QuestionUsecase) {}
+  constructor(
+    protected questionUsecase: QuestionUsecase,
+    protected profileUsecase: ProfileUsecase,
+  ) {}
 
   getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
       const answeredQuestion = await this.questionUsecase.getAnsweredQuestionById(id);
+
+      await this.profileUsecase.increaseProfileViewsByUsername(answeredQuestion.username);
 
       const answeredQuestionDto: QuestionDto = {
         id: answeredQuestion.id,
@@ -81,6 +87,8 @@ class ExpressQuestionController {
       const { username } = req.params;
 
       const answeredQuestions = await this.questionUsecase.getAnsweredQuestionsByUser(username);
+
+      await this.profileUsecase.increaseProfileViewsByUsername(username);
 
       const answeredQuestionsDto: QuestionDto[] = answeredQuestions.map((q) => ({
         id: q.id,
