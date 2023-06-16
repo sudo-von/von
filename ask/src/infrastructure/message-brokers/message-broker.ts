@@ -1,7 +1,9 @@
-export type Queues = 'Profile:CreateProfile';
+export type Queues =
+  | 'Profile:CreateProfile'
+  | 'Profile:UpdateProfile';
 
 abstract class MessageBroker<T> {
-  constructor(protected readonly BROKER_URL: string) {}
+  constructor(protected readonly MESSAGE_BROKER_URL: string) {}
 
   public abstract connect(): Promise<void>;
 

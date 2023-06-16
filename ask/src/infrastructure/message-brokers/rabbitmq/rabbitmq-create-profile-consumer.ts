@@ -3,12 +3,12 @@ import ProfileUsecase from '../../../domain/usecases/profile-usecase';
 import { CreateProfileEntity } from '../../../domain/entities/profile-entity';
 import { MessageBrokerChannelIsClosedError, MessageBrokerNoMessageAvailableError } from '../errors/message-broker-error-factories';
 
-class RabbitMQProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntity> {
+class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntity> {
   constructor(
-    protected readonly BROKER_URL: string,
+    protected readonly MESSAGE_BROKER_URL: string,
     protected profileUsecase: ProfileUsecase,
   ) {
-    super(BROKER_URL);
+    super(MESSAGE_BROKER_URL);
   }
 
   onMessage = async (data: CreateProfileEntity): Promise<void> => {
@@ -20,4 +20,4 @@ class RabbitMQProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntity>
   };
 }
 
-export default RabbitMQProfileConsumer;
+export default RabbitMQCreateProfileConsumer;

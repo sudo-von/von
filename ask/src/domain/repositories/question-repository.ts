@@ -1,16 +1,16 @@
 import {
-  CreateQuestionEntity, DetailedQuestionEntity, UpdateQuestionEntity,
+  CreateQuestionEntity, QuestionEntity, UpdateQuestionEntity,
 } from '../entities/question-entity';
 
 interface IQuestionRepositoryReader {
-  getAnsweredQuestionById: (id: string) => Promise<DetailedQuestionEntity | null>
-  getAllQuestionsByUser: (username: string) => Promise<DetailedQuestionEntity[]>;
-  getAnsweredQuestionsByUser: (username: string) => Promise<DetailedQuestionEntity[]>;
-  getUnansweredQuestionsByUser: (username: string) => Promise<DetailedQuestionEntity[]>;
+  getAnsweredQuestionById: (id: string) => Promise<QuestionEntity | null>
+  getAllQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
+  getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
+  getUnansweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
 }
 
 interface IQuestionRepositoryWriter {
-  createQuestion: (questionPayload: CreateQuestionEntity) => Promise<DetailedQuestionEntity | null>;
+  createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity | null>;
   updateQuestionById: (id: string, questionPayload: UpdateQuestionEntity) => Promise<void>;
 }
 

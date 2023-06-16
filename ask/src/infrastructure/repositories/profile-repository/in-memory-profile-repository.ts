@@ -7,11 +7,6 @@ class InMemoryProfileRepository implements IProfileRepository {
 
   getProfiles = async (): Promise<ProfileEntity[]> => this.profilesInMemory;
 
-  getProfileByUserId = async (userId: string): Promise<ProfileEntity | null> => {
-    const profile = this.profilesInMemory.find((p) => p.userId === userId) || null;
-    return profile;
-  };
-
   getProfileByUsername = async (username: string): Promise<ProfileEntity | null> => {
     const profile = this.profilesInMemory.find((p) => p.username === username) || null;
     return profile;

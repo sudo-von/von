@@ -32,6 +32,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       askedAt: updatedQuestion.askedAt,
       answer: updatedQuestion.answer,
       views: updatedQuestion.views,
+      askedBy: updatedQuestion.askedBy,
     };
 
     return question;
@@ -46,35 +47,37 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(requestedUser);
     if (!profile) throw ProfileNotFoundError;
 
-    const detailedQuestions = await this.questionRepository.getAllQuestionsByUser(
+    const questions = await this.questionRepository.getAllQuestionsByUser(
       requestedUser,
     );
 
-    const questions: QuestionEntity[] = detailedQuestions.map((q) => ({
+    const allQuestions: QuestionEntity[] = questions.map((q) => ({
       id: q.id,
       question: q.question,
       username: q.username,
       askedAt: q.askedAt,
       answer: q.answer,
       views: q.views,
+      askedBy: q.askedBy,
     }));
 
-    return questions;
+    return allQuestions;
   };
 
   getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
-    const detailedAnswers = await this.questionRepository.getAnsweredQuestionsByUser(username);
+    const answers = await this.questionRepository.getAnsweredQuestionsByUser(username);
 
-    const answeredQuestions: QuestionEntity[] = detailedAnswers.map((answer) => ({
+    const answeredQuestions: QuestionEntity[] = answers.map((answer) => ({
       id: answer.id,
       askedAt: answer.askedAt,
       question: answer.question,
       username: answer.username,
       answer: answer.answer,
       views: answer.views,
+      askedBy: answer.askedBy,
     }));
 
     return answeredQuestions;
@@ -99,6 +102,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       username: q.username,
       askedAt: q.askedAt,
       views: q.views,
+      askedBy: q.askedBy,
     }));
 
     return unansweredQuestions;
@@ -111,18 +115,19 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(payload.username);
     if (!profile) throw ProfileNotFoundError;
 
-    const createdQuestion = await this.questionRepository.createQuestion(payload);
-    if (!createdQuestion) throw QuestionCreationFailedError;
+    const question = await this.questionRepository.createQuestion(payload);
+    if (!question) throw QuestionCreationFailedError;
 
-    const unansweredQuestions: QuestionEntity = {
-      id: createdQuestion.id,
-      question: createdQuestion.question,
-      username: createdQuestion.username,
-      askedAt: createdQuestion.askedAt,
-      views: createdQuestion.views,
+    const questionEntity: QuestionEntity = {
+      id: question.id,
+      question: question.question,
+      username: question.username,
+      askedAt: question.askedAt,
+      views: question.views,
+      askedBy: question.askedBy,
     };
 
-    return unansweredQuestions;
+    return questionEntity;
   };
 }
 

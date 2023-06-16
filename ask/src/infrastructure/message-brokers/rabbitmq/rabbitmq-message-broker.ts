@@ -18,7 +18,7 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
 
   connect = async (): Promise<void> => {
     try {
-      if (!this.connection) this.connection = await amqp.connect(this.BROKER_URL);
+      if (!this.connection) this.connection = await amqp.connect(this.MESSAGE_BROKER_URL);
       if (!this.channel) this.channel = await this.connection.createChannel();
     } catch (e) {
       throw MessageBrokerFailedToConnectError;

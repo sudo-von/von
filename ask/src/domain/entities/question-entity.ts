@@ -1,6 +1,6 @@
 import { AnswerEntity } from './answer-entity';
 
-export type DetailedQuestionEntity = {
+export type QuestionEntity = {
   id: string;
   username: string;
   question: string;
@@ -10,8 +10,8 @@ export type DetailedQuestionEntity = {
   answer?: AnswerEntity;
 };
 
-export type QuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'askedBy'>>;
+export type CreateQuestionEntity = Readonly<Omit<QuestionEntity, 'id' | 'answer'>>;
 
-export type CreateQuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'id' | 'answer'>>;
+export type UpdateQuestionEntity = Readonly<Omit<QuestionEntity, 'id'>>;
 
-export type UpdateQuestionEntity = Readonly<Omit<DetailedQuestionEntity, 'id'>>;
+export const handleAskedBy = (askedBy: string) => (askedBy === 'chat-gpt' ? 'chat-gpt' : 'anonymous');
