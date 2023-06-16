@@ -14,25 +14,16 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const answeredQuestion = await this.questionRepository.getAnsweredQuestionById(id);
     if (!answeredQuestion) throw AnswerNotFoundError;
 
-    const updatedQuestion: UpdateQuestionEntity = {
-      question: answeredQuestion.question,
-      username: answeredQuestion.username,
-      askedAt: answeredQuestion.askedAt,
-      answer: answeredQuestion.answer,
+    const increasedViewsQuestion: UpdateQuestionEntity = {
+      ...answeredQuestion,
       views: answeredQuestion.views + 1,
-      askedBy: answeredQuestion.askedBy,
     };
 
-    await this.questionRepository.updateQuestionById(id, updatedQuestion);
+    await this.questionRepository.updateQuestionById(id, increasedViewsQuestion);
 
     const question: QuestionEntity = {
-      id,
-      question: updatedQuestion.question,
-      username: updatedQuestion.username,
-      askedAt: updatedQuestion.askedAt,
-      answer: updatedQuestion.answer,
-      views: updatedQuestion.views,
-      askedBy: updatedQuestion.askedBy,
+      ...answeredQuestion,
+      views: increasedViewsQuestion.views,
     };
 
     return question;
@@ -47,19 +38,9 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(requestedUser);
     if (!profile) throw ProfileNotFoundError;
 
-    const questions = await this.questionRepository.getAllQuestionsByUser(
+    const allQuestions = await this.questionRepository.getAllQuestionsByUser(
       requestedUser,
     );
-
-    const allQuestions: QuestionEntity[] = questions.map((q) => ({
-      id: q.id,
-      question: q.question,
-      username: q.username,
-      askedAt: q.askedAt,
-      answer: q.answer,
-      views: q.views,
-      askedBy: q.askedBy,
-    }));
 
     return allQuestions;
   };
@@ -68,17 +49,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
-    const answers = await this.questionRepository.getAnsweredQuestionsByUser(username);
-
-    const answeredQuestions: QuestionEntity[] = answers.map((answer) => ({
-      id: answer.id,
-      askedAt: answer.askedAt,
-      question: answer.question,
-      username: answer.username,
-      answer: answer.answer,
-      views: answer.views,
-      askedBy: answer.askedBy,
-    }));
+    const answeredQuestions = await this.questionRepository.getAnsweredQuestionsByUser(username);
 
     return answeredQuestions;
   };
@@ -92,18 +63,9 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(requestedUser);
     if (!profile) throw ProfileNotFoundError;
 
-    const detailedQuestions = await this.questionRepository.getUnansweredQuestionsByUser(
+    const unansweredQuestions = await this.questionRepository.getUnansweredQuestionsByUser(
       requestedUser,
     );
-
-    const unansweredQuestions: QuestionEntity[] = detailedQuestions.map((q) => ({
-      id: q.id,
-      question: q.question,
-      username: q.username,
-      askedAt: q.askedAt,
-      views: q.views,
-      askedBy: q.askedBy,
-    }));
 
     return unansweredQuestions;
   };
@@ -115,19 +77,10 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(payload.username);
     if (!profile) throw ProfileNotFoundError;
 
-    const question = await this.questionRepository.createQuestion(payload);
-    if (!question) throw QuestionCreationFailedError;
+    const unansweredQuestion = await this.questionRepository.createQuestion(payload);
+    if (!unansweredQuestion) throw QuestionCreationFailedError;
 
-    const questionEntity: QuestionEntity = {
-      id: question.id,
-      question: question.question,
-      username: question.username,
-      askedAt: question.askedAt,
-      views: question.views,
-      askedBy: question.askedBy,
-    };
-
-    return questionEntity;
+    return unansweredQuestion;
   };
 }
 

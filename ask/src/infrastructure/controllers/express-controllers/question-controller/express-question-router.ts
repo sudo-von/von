@@ -4,12 +4,14 @@ import ExpressQuestionController from './express-question-controller';
 import validateRequestBodyHandler from '../middlewares/validate-request-body-handler';
 import jwtAuthHandler from '../middlewares/jwt-auth-handler';
 import TokenService from '../../../services/token-service/token-service';
+import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
 
 const createQuestionRouter = (
   questionUsecase: QuestionUsecase,
+  profileUsecase: ProfileUsecase,
   tokenService: TokenService,
 ) => {
-  const questionController = new ExpressQuestionController(questionUsecase);
+  const questionController = new ExpressQuestionController(questionUsecase, profileUsecase);
 
   const router = express.Router();
   const authHandler = jwtAuthHandler(tokenService);

@@ -20,7 +20,6 @@ interface IQuestionUsecaseReader {
 
 interface IQuestionUsecaseWriter {
   createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity>;
-  deleteQuestionById: (id: string) => Promise<QuestionEntity | null>;
 }
 
 interface IQuestionUsecase extends IQuestionUsecaseReader, IQuestionUsecaseWriter {}
@@ -48,8 +47,6 @@ abstract class QuestionUsecase implements IQuestionUsecase {
   abstract createQuestion: (
     questionPayload: CreateQuestionEntity
   ) => Promise<QuestionEntity>;
-
-  abstract deleteQuestionById: (id: string) => Promise<QuestionEntity | null>;
 }
 
 export default QuestionUsecase;

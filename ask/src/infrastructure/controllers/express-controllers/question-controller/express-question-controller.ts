@@ -16,6 +16,7 @@ class ExpressQuestionController {
   getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
+
       const answeredQuestion = await this.questionUsecase.getAnsweredQuestionById(id);
 
       await this.profileUsecase.increaseTotalViewsByUsername(answeredQuestion.username);
@@ -26,12 +27,15 @@ class ExpressQuestionController {
         question: answeredQuestion.question,
         views: answeredQuestion.views,
         asked_at: answeredQuestion.askedAt,
-        answer: {
-          answer: answeredQuestion.answer ? answeredQuestion.answer.answer : '',
-          answered_at: answeredQuestion.answer ? answeredQuestion.answer.answeredAt : new Date(),
-        },
         asked_by: handleAskedBy(answeredQuestion.askedBy),
       };
+
+      if (answeredQuestion.answer) {
+        answeredQuestionDto.answer = {
+          answer: answeredQuestion.answer.answer,
+          answered_at: answeredQuestion.answer.answeredAt,
+        };
+      }
 
       return res.status(statusCodes.success.ok).send({ result: answeredQuestionDto });
     } catch (e) {
@@ -63,7 +67,6 @@ class ExpressQuestionController {
           views: q.views,
           asked_at: q.askedAt,
           asked_by: q.askedBy,
-
         };
 
         if (q.answer) {
@@ -90,18 +93,25 @@ class ExpressQuestionController {
 
       await this.profileUsecase.increaseTotalViewsByUsername(username);
 
-      const answeredQuestionsDto: QuestionDto[] = answeredQuestions.map((q) => ({
-        id: q.id,
-        username: q.username,
-        question: q.question,
-        views: q.views,
-        asked_at: q.askedAt,
-        answer: {
-          answer: q.answer ? q.answer.answer : '',
-          answered_at: q.answer ? q.answer.answeredAt : new Date(),
-        },
-        asked_by: handleAskedBy(q.askedBy),
-      }));
+      const answeredQuestionsDto: QuestionDto[] = answeredQuestions.map((q) => {
+        const question: QuestionDto = {
+          id: q.id,
+          username: q.username,
+          question: q.question,
+          views: q.views,
+          asked_at: q.askedAt,
+          asked_by: handleAskedBy(q.askedBy),
+        };
+
+        if (q.answer) {
+          question.answer = {
+            answer: q.answer.answer,
+            answered_at: q.answer.answeredAt,
+          };
+        }
+
+        return question;
+      });
 
       return res.status(statusCodes.success.ok).send({ result: answeredQuestionsDto });
     } catch (e) {
