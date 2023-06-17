@@ -1,5 +1,9 @@
 import crypto from 'crypto';
-import { CreateProfileEntity, ProfileEntity, UpdateProfileEntity } from '../../../domain/entities/profile-entity';
+import {
+  CreateProfileEntity,
+  ProfileEntity,
+  UpdateProfileEntity,
+} from '../../../domain/entities/profile-entity';
 import IProfileRepository from '../../../domain/repositories/profile-repository';
 
 class InMemoryProfileRepository implements IProfileRepository {

@@ -1,12 +1,10 @@
+import { StatisticsEntity } from './statistics-entity';
+
 export type ProfileEntity = Readonly<{
   id: string;
   userId: string;
   username: string;
-  statistics: {
-    total_views: number;
-    total_questions: number;
-    total_answers: number;
-  }
+  statistics: StatisticsEntity
 }>;
 
 export type CreateProfileEntity = Readonly<

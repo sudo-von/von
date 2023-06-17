@@ -15,7 +15,10 @@ import configureServices from './infrastructure/services/config';
   } = configureEnvironmentVariables();
 
   /* 💽 Repositories. */
-  const { profileRepository, questionRepository } = configureRepositories();
+  const {
+    profileRepository,
+    questionRepository,
+  } = configureRepositories();
 
   /* 🔧 Services. */
   const { tokenService } = configureServices(SECRET_KEY);

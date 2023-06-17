@@ -16,13 +16,11 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
 
   protected message?: amqp.ConsumeMessage;
 
-  connect = async (): Promise<void> => {
-    try {
-      if (!this.connection) this.connection = await amqp.connect(this.MESSAGE_BROKER_URL);
-      if (!this.channel) this.channel = await this.connection.createChannel();
-    } catch (e) {
-      throw MessageBrokerFailedToConnectError;
-    }
+  ackMessage = (): void => {
+    if (!this.channel) throw MessageBrokerChannelIsClosedError;
+    if (!this.message) throw MessageBrokerNoMessageAvailableError;
+    this.channel.ack(this.message);
+    this.message = undefined;
   };
 
   close = async () => {
@@ -36,15 +34,12 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
     }
   };
 
-  produceMessage = async (queue: Queues, data: T): Promise<void> => {
+  connect = async (): Promise<void> => {
     try {
-      if (!this.channel) throw MessageBrokerChannelIsClosedError;
-      const message = JSON.stringify(data);
-      const buffer = Buffer.from(message);
-      await this.channel.assertQueue(queue);
-      this.channel.sendToQueue(queue, buffer);
+      if (!this.connection) this.connection = await amqp.connect(this.MESSAGE_BROKER_URL);
+      if (!this.channel) this.channel = await this.connection.createChannel();
     } catch (e) {
-      throw MessageBrokerFailedToSendMessageError;
+      throw MessageBrokerFailedToConnectError;
     }
   };
 
@@ -60,6 +55,18 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
       });
     } catch (e) {
       throw MessageBrokerFailedToConsumeMessageError;
+    }
+  };
+
+  produceMessage = async (queue: Queues, data: T): Promise<void> => {
+    try {
+      if (!this.channel) throw MessageBrokerChannelIsClosedError;
+      const message = JSON.stringify(data);
+      const buffer = Buffer.from(message);
+      await this.channel.assertQueue(queue);
+      this.channel.sendToQueue(queue, buffer);
+    } catch (e) {
+      throw MessageBrokerFailedToSendMessageError;
     }
   };
 }

@@ -10,21 +10,27 @@ import {
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
+  increaseQuestionViews = async (questionEntity: QuestionEntity): Promise<QuestionEntity> => {
+    const increasedViewsQuestion: UpdateQuestionEntity = {
+      ...questionEntity,
+      views: questionEntity.views + 1,
+    };
+
+    await this.questionRepository.updateQuestionById(questionEntity.id, increasedViewsQuestion);
+
+    const question: QuestionEntity = {
+      ...increasedViewsQuestion,
+      id: questionEntity.id,
+    };
+
+    return question;
+  };
+
   getAnsweredQuestionById = async (id: string): Promise<QuestionEntity> => {
     const answeredQuestion = await this.questionRepository.getAnsweredQuestionById(id);
     if (!answeredQuestion) throw AnswerNotFoundError;
 
-    const increasedViewsQuestion: UpdateQuestionEntity = {
-      ...answeredQuestion,
-      views: answeredQuestion.views + 1,
-    };
-
-    await this.questionRepository.updateQuestionById(id, increasedViewsQuestion);
-
-    const question: QuestionEntity = {
-      ...answeredQuestion,
-      views: increasedViewsQuestion.views,
-    };
+    const question = await this.increaseQuestionViews(answeredQuestion);
 
     return question;
   };
@@ -38,11 +44,9 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(requestedUser);
     if (!profile) throw ProfileNotFoundError;
 
-    const allQuestions = await this.questionRepository.getAllQuestionsByUser(
-      requestedUser,
-    );
+    const questions = await this.questionRepository.getAllQuestionsByUser(requestedUser);
 
-    return allQuestions;
+    return questions;
   };
 
   getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
@@ -77,10 +81,10 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(payload.username);
     if (!profile) throw ProfileNotFoundError;
 
-    const unansweredQuestion = await this.questionRepository.createQuestion(payload);
-    if (!unansweredQuestion) throw QuestionCreationFailedError;
+    const question = await this.questionRepository.createQuestion(payload);
+    if (!question) throw QuestionCreationFailedError;
 
-    return unansweredQuestion;
+    return question;
   };
 }
 
