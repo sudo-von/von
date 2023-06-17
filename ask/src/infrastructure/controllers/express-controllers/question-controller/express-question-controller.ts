@@ -159,7 +159,7 @@ class ExpressQuestionController {
       const createQuestionEntity: CreateQuestionEntity = {
         username,
         question: body.question,
-        askedBy: req.ip || '',
+        askedBy: req.ip,
         askedAt: new Date(new Date().toUTCString()),
         views: 0,
       };

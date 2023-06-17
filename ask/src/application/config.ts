@@ -7,11 +7,16 @@ const configureUsecases = (
   profileRepository: IProfileRepository,
   questionRepository: IQuestionRepository,
 ) => {
-  const profileUsecase = new ProfileUsecaseApplication(profileRepository);
+  const profileUsecase = new ProfileUsecaseApplication(
+    profileRepository,
+    questionRepository,
+  );
+
   const questionUsecase = new QuestionUsecaseApplication(
     profileRepository,
     questionRepository,
   );
+
   return { profileUsecase, questionUsecase };
 };
 

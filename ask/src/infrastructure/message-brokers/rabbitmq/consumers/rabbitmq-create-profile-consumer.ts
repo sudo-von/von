@@ -17,11 +17,6 @@ class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileE
       const createProfileEntity: CreateProfileEntity = {
         userId: data.userId,
         username: data.username,
-        statistics: {
-          totalAnswers: 0,
-          totalQuestions: 0,
-          totalViews: 0,
-        },
       };
       await this.profileUsecase.createProfile(createProfileEntity);
     } catch (e) {

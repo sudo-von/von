@@ -39,7 +39,7 @@ import configureServices from './infrastructure/services/config';
   await createProfileConsumer.consumeMessage('Profile:CreateProfile');
 
   /* 🔌 Controllers. */
-  const app = configureControllers(tokenService, questionUsecase);
+  const app = configureControllers(tokenService, questionUsecase, profileUsecase);
   app.listen(SERVER_PORT, () => {
     console.log(`🚀 Starting application on port ${SERVER_PORT}.`);
   });
