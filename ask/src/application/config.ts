@@ -11,7 +11,6 @@ const configureUsecases = (
     profileRepository,
     questionRepository,
   );
-
   const questionUsecase = new QuestionUsecaseApplication(
     profileRepository,
     questionRepository,

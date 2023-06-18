@@ -10,6 +10,7 @@ const configureControllers = (
   tokenService: TokenService,
   questionUsecase: QuestionUsecase,
   profileUsecase: ProfileUsecase,
+  SERVER_PORT: number,
 ) => {
   const questionRouter = createQuestionRouter(questionUsecase, profileUsecase, tokenService);
   const profileRouter = createProfileRouter(profileUsecase);
@@ -21,7 +22,9 @@ const configureControllers = (
   app.use('/v1/profiles', profileRouter);
   app.use(errorHandler);
 
-  return app;
+  app.listen(SERVER_PORT, () => {
+    console.log(`🚀: Starting application on port ${SERVER_PORT}.`);
+  });
 };
 
 export default configureControllers;
