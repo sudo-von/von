@@ -3,23 +3,24 @@ import { IProfileRepositoryReader } from '../repositories/profile-repository';
 import { CreateQuestionEntity, QuestionEntity } from '../entities/question-entity';
 
 interface IQuestionUsecaseReader {
-  getUnansweredQuestionsByUser: (
-    requestingUser: string,
-    requestedUser: string,
-  ) => Promise<QuestionEntity[]>;
-
   getAllQuestionsByUser: (
     requestingUser: string,
     requestedUser: string,
   ) => Promise<QuestionEntity[]>;
 
-  getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
+  getUnansweredQuestionsByUser: (
+    requestingUser: string,
+    requestedUser: string,
+  ) => Promise<QuestionEntity[]>;
 
   getAnsweredQuestionById: (id: string) => Promise<QuestionEntity>;
+
+  getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
 }
 
 interface IQuestionUsecaseWriter {
-  createQuestion: (questionPayload: CreateQuestionEntity) => Promise<QuestionEntity>;
+  createQuestion: (payload: CreateQuestionEntity) => Promise<QuestionEntity>;
+  increaseQuestionViews: (payload: QuestionEntity) => Promise<QuestionEntity>;
 }
 
 interface IQuestionUsecase extends IQuestionUsecaseReader, IQuestionUsecaseWriter {}
@@ -30,23 +31,23 @@ abstract class QuestionUsecase implements IQuestionUsecase {
     protected questionRepository: IQuestionRepository,
   ) {}
 
-  abstract getUnansweredQuestionsByUser: (
-    requestingUser: string,
-    requestedUser: string,
-  ) => Promise<QuestionEntity[]>;
+  abstract createQuestion: (payload: CreateQuestionEntity) => Promise<QuestionEntity>;
+
+  abstract increaseQuestionViews: (payload: QuestionEntity) => Promise<QuestionEntity>;
 
   abstract getAllQuestionsByUser: (
     requestingUser: string,
     requestedUser: string,
   ) => Promise<QuestionEntity[]>;
 
-  abstract getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
+  abstract getUnansweredQuestionsByUser: (
+    requestingUser: string,
+    requestedUser: string,
+  ) => Promise<QuestionEntity[]>;
 
   abstract getAnsweredQuestionById: (id: string) => Promise<QuestionEntity>;
 
-  abstract createQuestion: (
-    questionPayload: CreateQuestionEntity
-  ) => Promise<QuestionEntity>;
+  abstract getAnsweredQuestionsByUser: (username: string) => Promise<QuestionEntity[]>;
 }
 
 export default QuestionUsecase;

@@ -1,17 +1,50 @@
 import { NextFunction, Request, Response } from 'express';
 import statusCodes from '../../status-codes';
-import { PERMISSION_DENIED_REQUEST } from '../../errors/request-errors';
-import QuestionUsecase from '../../../../domain/usecases/question-usecase';
-import { createQuestionDto } from '../../dtos/create-question-dto';
-import { CreateQuestionEntity, handleAskedBy } from '../../../../domain/entities/question-entity';
 import { QuestionDto } from '../../dtos/question-dto';
+import { createQuestionDto } from '../../dtos/create-question-dto';
+import { PERMISSION_DENIED_REQUEST } from '../../errors/request-errors';
 import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
+import QuestionUsecase from '../../../../domain/usecases/question-usecase';
+import { CreateQuestionEntity } from '../../../../domain/entities/question-entity';
 
 class ExpressQuestionController {
   constructor(
     protected questionUsecase: QuestionUsecase,
     protected profileUsecase: ProfileUsecase,
   ) {}
+
+  createQuestion = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { username } = req.params;
+
+      const body = createQuestionDto.parse(req.body);
+
+      const createQuestionEntity: CreateQuestionEntity = {
+        username,
+        question: body.question,
+        askedBy: req.ip,
+        askedAt: new Date(new Date().toUTCString()),
+        views: 0,
+      };
+
+      const createdQuestion = await this.questionUsecase.createQuestion(createQuestionEntity);
+
+      await this.profileUsecase.increaseTotalQuestionsByUsername(username);
+
+      const questionDto: QuestionDto = {
+        id: createdQuestion.id,
+        username: createdQuestion.username,
+        question: createdQuestion.question,
+        views: createdQuestion.views,
+        asked_at: createdQuestion.askedAt,
+        asked_by: createdQuestion.askedBy,
+      };
+
+      return res.status(statusCodes.success.created).send({ result: questionDto });
+    } catch (e) {
+      return next(e);
+    }
+  };
 
   getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -27,7 +60,7 @@ class ExpressQuestionController {
         question: answeredQuestion.question,
         views: answeredQuestion.views,
         asked_at: answeredQuestion.askedAt,
-        asked_by: handleAskedBy(answeredQuestion.askedBy),
+        asked_by: answeredQuestion.askedBy,
       };
 
       if (answeredQuestion.answer) {
@@ -100,7 +133,7 @@ class ExpressQuestionController {
           question: q.question,
           views: q.views,
           asked_at: q.askedAt,
-          asked_by: handleAskedBy(q.askedBy),
+          asked_by: q.askedBy,
         };
 
         if (q.answer) {
@@ -145,39 +178,6 @@ class ExpressQuestionController {
       }));
 
       return res.status(statusCodes.success.ok).send({ result: unansweredQuestionsDto });
-    } catch (e) {
-      return next(e);
-    }
-  };
-
-  createQuestion = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { username } = req.params;
-
-      const body = createQuestionDto.parse(req.body);
-
-      const createQuestionEntity: CreateQuestionEntity = {
-        username,
-        question: body.question,
-        askedBy: req.ip,
-        askedAt: new Date(new Date().toUTCString()),
-        views: 0,
-      };
-
-      const createdQuestion = await this.questionUsecase.createQuestion(createQuestionEntity);
-
-      await this.profileUsecase.increaseTotalQuestionsByUsername(username);
-
-      const questionDto: QuestionDto = {
-        id: createdQuestion.id,
-        username: createdQuestion.username,
-        question: createdQuestion.question,
-        views: createdQuestion.views,
-        asked_at: createdQuestion.askedAt,
-        asked_by: handleAskedBy(createdQuestion.askedBy),
-      };
-
-      return res.status(statusCodes.success.created).send({ result: questionDto });
     } catch (e) {
       return next(e);
     }

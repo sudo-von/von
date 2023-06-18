@@ -1,4 +1,6 @@
-import { CreateQuestionEntity, QuestionEntity, UpdateQuestionEntity } from '../domain/entities/question-entity';
+import {
+  CreateQuestionEntity, QuestionEntity, UpdateQuestionEntity, handleAskedBy,
+} from '../domain/entities/question-entity';
 import { validateQuestion } from '../domain/entities/validations/question-validations';
 import {
   InvalidQuestionLengthError,
@@ -10,17 +12,49 @@ import {
 import QuestionUsecase from '../domain/usecases/question-usecase';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
-  increaseQuestionViews = async (questionEntity: QuestionEntity): Promise<QuestionEntity> => {
-    const increasedViewsQuestion: UpdateQuestionEntity = {
-      ...questionEntity,
-      views: questionEntity.views + 1,
+  createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {
+    const isValidQuestion = validateQuestion(payload.question);
+    if (!isValidQuestion) throw InvalidQuestionLengthError;
+
+    const profile = await this.profileRepository.getProfileByUsername(payload.username);
+    if (!profile) throw ProfileNotFoundError;
+
+    const question = await this.questionRepository.createQuestion(payload);
+    if (!question) throw QuestionCreationFailedError;
+
+    const formatedQuestion = {
+      id: question.id,
+      views: question.views,
+      answer: question.answer,
+      askedAt: question.askedAt,
+      askedBy: handleAskedBy(question.askedBy),
+      question: question.question,
+      username: question.username,
     };
 
-    await this.questionRepository.updateQuestionById(questionEntity.id, increasedViewsQuestion);
+    return formatedQuestion;
+  };
+
+  increaseQuestionViews = async (payload: QuestionEntity): Promise<QuestionEntity> => {
+    const increasedViewsQuestion: UpdateQuestionEntity = {
+      answer: payload.answer,
+      askedBy: payload.askedBy,
+      askedAt: payload.askedAt,
+      question: payload.question,
+      username: payload.username,
+      views: payload.views + 1,
+    };
+
+    await this.questionRepository.updateQuestionById(payload.id, increasedViewsQuestion);
 
     const question: QuestionEntity = {
-      ...increasedViewsQuestion,
-      id: questionEntity.id,
+      id: payload.id,
+      views: payload.views,
+      answer: payload.answer,
+      askedAt: payload.askedAt,
+      askedBy: payload.askedBy,
+      question: payload.question,
+      username: payload.username,
     };
 
     return question;
@@ -32,7 +66,36 @@ class QuestionUsecaseApplication extends QuestionUsecase {
 
     const question = await this.increaseQuestionViews(answeredQuestion);
 
-    return question;
+    const formatedQuestion = {
+      id: question.id,
+      views: question.views,
+      answer: question.answer,
+      askedAt: question.askedAt,
+      question: question.question,
+      username: question.username,
+      askedBy: handleAskedBy(question.askedBy),
+    };
+
+    return formatedQuestion;
+  };
+
+  getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
+    const profile = await this.profileRepository.getProfileByUsername(username);
+    if (!profile) throw ProfileNotFoundError;
+
+    const answeredQuestions = await this.questionRepository.getAnsweredQuestionsByUser(username);
+
+    const formatedQuestions = answeredQuestions.map((q) => ({
+      id: q.id,
+      views: q.views,
+      answer: q.answer,
+      askedAt: q.askedAt,
+      question: q.question,
+      username: q.username,
+      askedBy: handleAskedBy(q.askedBy),
+    }));
+
+    return formatedQuestions;
   };
 
   getAllQuestionsByUser = async (
@@ -44,18 +107,9 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const profile = await this.profileRepository.getProfileByUsername(requestedUser);
     if (!profile) throw ProfileNotFoundError;
 
-    const questions = await this.questionRepository.getAllQuestionsByUser(requestedUser);
+    const allQuestions = await this.questionRepository.getAllQuestionsByUser(requestedUser);
 
-    return questions;
-  };
-
-  getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
-    const profile = await this.profileRepository.getProfileByUsername(username);
-    if (!profile) throw ProfileNotFoundError;
-
-    const answeredQuestions = await this.questionRepository.getAnsweredQuestionsByUser(username);
-
-    return answeredQuestions;
+    return allQuestions;
   };
 
   getUnansweredQuestionsByUser = async (
@@ -72,19 +126,6 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     );
 
     return unansweredQuestions;
-  };
-
-  createQuestion = async (payload: CreateQuestionEntity): Promise<QuestionEntity> => {
-    const isValidQuestion = validateQuestion(payload.question);
-    if (!isValidQuestion) throw InvalidQuestionLengthError;
-
-    const profile = await this.profileRepository.getProfileByUsername(payload.username);
-    if (!profile) throw ProfileNotFoundError;
-
-    const question = await this.questionRepository.createQuestion(payload);
-    if (!question) throw QuestionCreationFailedError;
-
-    return question;
   };
 }
 

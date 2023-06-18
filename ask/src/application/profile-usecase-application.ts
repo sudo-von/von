@@ -21,26 +21,6 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     return profile;
   };
 
-  createProfile = async (payload: CreateProfileEntity): Promise<ProfileEntity> => {
-    const profiles = await this.profileRepository.getProfiles();
-    if (profiles.length) throw SingleProfileOnlyError;
-
-    const profileWithMetrics: CreateProfileWithMetricsEntity = {
-      userId: payload.userId,
-      username: payload.username,
-      metrics: {
-        totalAnswers: 0,
-        totalQuestions: 0,
-        totalViews: 0,
-      },
-    };
-
-    const createdProfile = await this.profileRepository.createProfile(profileWithMetrics);
-    if (!createdProfile) throw ProfileCreationFailedError;
-
-    return createdProfile;
-  };
-
   increaseTotalViewsByUsername = async (username: string): Promise<void> => {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
@@ -90,6 +70,26 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     };
 
     await this.profileRepository.updateProfileById(profile.id, payload);
+  };
+
+  createProfile = async (payload: CreateProfileEntity): Promise<ProfileEntity> => {
+    const profiles = await this.profileRepository.getProfiles();
+    if (profiles.length) throw SingleProfileOnlyError;
+
+    const profileWithMetrics: CreateProfileWithMetricsEntity = {
+      userId: payload.userId,
+      username: payload.username,
+      metrics: {
+        totalAnswers: 0,
+        totalQuestions: 0,
+        totalViews: 0,
+      },
+    };
+
+    const createdProfile = await this.profileRepository.createProfile(profileWithMetrics);
+    if (!createdProfile) throw ProfileCreationFailedError;
+
+    return createdProfile;
   };
 }
 

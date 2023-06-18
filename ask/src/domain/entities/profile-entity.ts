@@ -17,6 +17,10 @@ Omit<ProfileEntity, 'id' | 'metrics' & {
 }>
 >;
 
+export type UpdateProfileEntity = Readonly<
+Omit<ProfileEntity, 'id' | 'metrics'>
+>;
+
 export type UpdateProfileWithMetricsEntity = Readonly<
 Omit<ProfileEntity, 'id' | 'metrics'> & {
   metrics: UpdateMetricsEntity
