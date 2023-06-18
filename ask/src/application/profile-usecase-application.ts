@@ -1,6 +1,9 @@
 import ProfileUsecase from '../domain/usecases/profile-usecase';
 import {
-  CreateProfileEntity, CreateProfileWithMetricsEntity, ProfileEntity, UpdateProfileEntity,
+  ProfileEntity,
+  CreateProfileEntity,
+  CreateProfileWithMetricsEntity,
+  UpdateProfileWithMetricsEntity,
 } from '../domain/entities/profile-entity';
 import { SingleProfileOnlyError, ProfileCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
 
@@ -42,7 +45,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
-    const payload: UpdateProfileEntity = {
+    const payload: UpdateProfileWithMetricsEntity = {
       userId: profile.userId,
       username: profile.username,
       metrics: {
@@ -59,7 +62,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
-    const payload: UpdateProfileEntity = {
+    const payload: UpdateProfileWithMetricsEntity = {
       userId: profile.userId,
       username: profile.username,
       metrics: {
@@ -76,7 +79,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     const profile = await this.profileRepository.getProfileByUsername(username);
     if (!profile) throw ProfileNotFoundError;
 
-    const payload: UpdateProfileEntity = {
+    const payload: UpdateProfileWithMetricsEntity = {
       userId: profile.userId,
       username: profile.username,
       metrics: {

@@ -1,4 +1,8 @@
-import { CreateProfileWithMetricsEntity, ProfileEntity, UpdateProfileEntity } from '../entities/profile-entity';
+import {
+  ProfileEntity,
+  CreateProfileWithMetricsEntity,
+  UpdateProfileWithMetricsEntity,
+} from '../entities/profile-entity';
 
 export interface IProfileRepositoryReader {
   getProfiles: () => Promise<ProfileEntity[]>;
@@ -7,7 +11,7 @@ export interface IProfileRepositoryReader {
 
 interface IProfileRepositoryWriter {
   createProfile: (payload: CreateProfileWithMetricsEntity) => Promise<ProfileEntity | null>;
-  updateProfileById: (id: string, payload: UpdateProfileEntity) => Promise<void>;
+  updateProfileById: (id: string, payload: UpdateProfileWithMetricsEntity) => Promise<void>;
 }
 
 interface IProfileRepository extends IProfileRepositoryReader, IProfileRepositoryWriter {}

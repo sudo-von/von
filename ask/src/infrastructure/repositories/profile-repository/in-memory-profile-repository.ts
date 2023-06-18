@@ -1,8 +1,8 @@
 import crypto from 'crypto';
 import {
-  CreateProfileWithMetricsEntity,
   ProfileEntity,
-  UpdateProfileEntity,
+  CreateProfileWithMetricsEntity,
+  UpdateProfileWithMetricsEntity,
 } from '../../../domain/entities/profile-entity';
 import IProfileRepository from '../../../domain/repositories/profile-repository';
 
@@ -17,10 +17,10 @@ class InMemoryProfileRepository implements IProfileRepository {
   };
 
   createProfile = async (
-    profilePayload: CreateProfileWithMetricsEntity,
+    payload: CreateProfileWithMetricsEntity,
   ): Promise<ProfileEntity | null> => {
     const profile: ProfileEntity = {
-      ...profilePayload,
+      ...payload,
       id: crypto.randomBytes(8).toString('hex'),
     };
     this.profilesInMemory.push(profile);
@@ -29,12 +29,12 @@ class InMemoryProfileRepository implements IProfileRepository {
 
   updateProfileById = async (
     id: string,
-    profilePayload: UpdateProfileEntity,
+    payload: UpdateProfileWithMetricsEntity,
   ): Promise<void> => {
     this.profilesInMemory = this.profilesInMemory.map((profile) => {
       if (profile.id !== id) return profile;
       return {
-        ...profilePayload,
+        ...payload,
         id,
       };
     });
