@@ -1,7 +1,8 @@
 import dotenv from 'dotenv';
 
 const configureEnvironmentVariables = () => {
-  dotenv.config({ path: `${__dirname}/../../.env` });
+  const BASE_PATH = `${__dirname}/../../.env`;
+  dotenv.config({ path: BASE_PATH });
 
   const {
     PORT,
