@@ -49,12 +49,12 @@ class QuestionUsecaseApplication extends QuestionUsecase {
 
     const question: QuestionEntity = {
       id: payload.id,
-      views: payload.views,
-      answer: payload.answer,
-      askedAt: payload.askedAt,
-      askedBy: payload.askedBy,
-      question: payload.question,
-      username: payload.username,
+      views: increasedViewsQuestion.views,
+      answer: increasedViewsQuestion.answer,
+      askedAt: increasedViewsQuestion.askedAt,
+      askedBy: increasedViewsQuestion.askedBy,
+      question: increasedViewsQuestion.question,
+      username: increasedViewsQuestion.username,
     };
 
     return question;
