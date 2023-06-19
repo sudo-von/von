@@ -1,11 +1,15 @@
-import ProfileUsecase from '../domain/usecases/profile-usecase';
 import {
   ProfileEntity,
   CreateProfileEntity,
   CreateProfileWithMetricsEntity,
   UpdateProfileWithMetricsEntity,
 } from '../domain/entities/profile-entity';
-import { SingleProfileOnlyError, ProfileCreationFailedError, ProfileNotFoundError } from '../domain/errors/error-factories';
+import {
+  ProfileNotFoundError,
+  SingleProfileOnlyError,
+  ProfileCreationFailedError,
+} from '../domain/errors/error-factories';
+import ProfileUsecase from '../domain/usecases/profile-usecase';
 
 class ProfileUsecaseApplication extends ProfileUsecase {
   getProfileByUsername = async (username: string): Promise<ProfileEntity> => {
@@ -26,6 +30,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     if (!profile) throw ProfileNotFoundError;
 
     const payload: UpdateProfileWithMetricsEntity = {
+      about: profile.about,
       userId: profile.userId,
       username: profile.username,
       metrics: {
@@ -43,6 +48,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     if (!profile) throw ProfileNotFoundError;
 
     const payload: UpdateProfileWithMetricsEntity = {
+      about: profile.about,
       userId: profile.userId,
       username: profile.username,
       metrics: {
@@ -60,6 +66,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     if (!profile) throw ProfileNotFoundError;
 
     const payload: UpdateProfileWithMetricsEntity = {
+      about: profile.about,
       userId: profile.userId,
       username: profile.username,
       metrics: {
@@ -77,6 +84,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     if (profiles.length) throw SingleProfileOnlyError;
 
     const profileWithMetrics: CreateProfileWithMetricsEntity = {
+      about: payload.about,
       userId: payload.userId,
       username: payload.username,
       metrics: {

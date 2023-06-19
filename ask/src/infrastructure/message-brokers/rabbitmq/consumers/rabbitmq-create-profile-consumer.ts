@@ -1,8 +1,7 @@
 import RabbitMQMessageBroker from '../rabbitmq-message-broker';
+import { CreateProfileEntityDto } from '../../dtos/profille-dto';
 import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
 import { CreateProfileEntity } from '../../../../domain/entities/profile-entity';
-
-type CreateProfileEntityDto = Readonly<Omit<CreateProfileEntity, 'statistics'>>;
 
 class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileEntityDto> {
   constructor(
@@ -15,8 +14,13 @@ class RabbitMQCreateProfileConsumer extends RabbitMQMessageBroker<CreateProfileE
   onMessage = async (data: CreateProfileEntityDto): Promise<void> => {
     try {
       const createProfileEntity: CreateProfileEntity = {
-        userId: data.userId,
+        userId: data.user_id,
         username: data.username,
+        about: {
+          interest: data.about.interest,
+          position: data.about.position,
+          quote: data.about.quote,
+        },
       };
       await this.profileUsecase.createProfile(createProfileEntity);
     } catch (e) {

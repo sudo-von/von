@@ -16,6 +16,7 @@ class ExpressProfileController {
 
       const profileDto: ProfileDto = {
         id: profile.id,
+        about: profile.about,
         username: profile.username,
         metrics: {
           total_answers: profile.metrics.totalAnswers,

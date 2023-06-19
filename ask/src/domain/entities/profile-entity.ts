@@ -1,3 +1,4 @@
+import { AboutEntity } from './about-entity';
 import { CreateMetricsEntity, MetricsEntity, UpdateMetricsEntity } from './metrics-entity';
 
 export type ProfileEntity = Readonly<{
@@ -5,6 +6,7 @@ export type ProfileEntity = Readonly<{
   userId: string;
   username: string;
   metrics: MetricsEntity
+  about: AboutEntity;
 }>;
 
 export type CreateProfileEntity = Readonly<

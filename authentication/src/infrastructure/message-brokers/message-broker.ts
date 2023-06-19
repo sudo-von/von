@@ -2,19 +2,23 @@ import LoggerService from '../../domain/services/logger-service';
 
 export type Queues = 'Profile:CreateProfile';
 
-abstract class MessageBroker {
+abstract class MessageBroker<T> {
   constructor(
     protected logger: LoggerService,
     protected readonly BROKER_URL: string,
   ) {}
 
-  public abstract produceMessage: <T>(queue: Queues, data: T) => Promise<void>;
+  public abstract ackMessage: () => void;
 
-  public abstract consumeMessage: <T>(queue: Queues) => Promise<T>;
+  public abstract close(): Promise<void>;
 
   public abstract connect(): Promise<void>;
 
-  public abstract close(): Promise<void>;
+  public abstract onMessage: (data: T) => Promise<void>;
+
+  public abstract consumeMessage: (queue: Queues) => Promise<void>;
+
+  public abstract produceMessage: (queue: Queues, data: T) => Promise<void>;
 }
 
 export default MessageBroker;
