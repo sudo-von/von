@@ -1,7 +1,9 @@
 export type LogType = 'warn' | 'info';
 
-abstract class LoggerService {
-  abstract log:(logType: LogType, message: string) => void;
+export interface ILoggerServiceWriter {
+  log:(logType: LogType, message: string) => void;
 }
 
-export default LoggerService;
+interface ILoggerService extends ILoggerServiceWriter {}
+
+export default ILoggerService;

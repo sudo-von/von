@@ -18,9 +18,9 @@ import {
   SingleUserOnlyError,
   UserCouldntBeCreatedError,
 } from '../domain/errors/error-factories';
-import AuthUsecase from '../domain/usecases/auth-usecase';
+import AuthUsecase from '../domain/usecases/authentication-usecase';
 
-class AuthUsecaseImpl extends AuthUsecase {
+class AuthenticationUsecaseApplication extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
     try {
       const user = await this.userRepository.getUserByEmail(email);
@@ -101,4 +101,4 @@ class AuthUsecaseImpl extends AuthUsecase {
   };
 }
 
-export default AuthUsecaseImpl;
+export default AuthenticationUsecaseApplication;

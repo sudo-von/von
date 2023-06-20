@@ -1,5 +1,5 @@
 import ProfileUsecase from '../../domain/usecases/profile-usecase';
-import RabbitMQCreateProfileConsumer from './rabbitmq/consumers/rabbitmq-create-profile-consumer';
+import RabbitMQCreateProfileConsumer from './rabbitmq-message-broker/consumers/rabbitmq-create-profile-consumer';
 
 const configureMessageBrokers = async (
   MESSAGE_BROKER_URL: string,

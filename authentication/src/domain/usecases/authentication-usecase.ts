@@ -4,27 +4,28 @@ import IUserRepository from '../repositories/user-repository';
 import CryptographyService from '../services/cryptography-service';
 import { CreateUserEntity, MediumUserEntity, SmallUserEntity } from '../entities/user-entity';
 
-interface IAuthUsecaseReader {
+interface IAuthenticationUsecaseReader {
   authenticate: (email: string, password: string) => Promise<string>;
 }
 
-interface IAuthUsecaseWriter {
+interface IAuthenticationUsecaseWriter {
   signup: (userPayload: CreateUserEntity) => Promise<SmallUserEntity>;
 }
 
-interface IAuthUsecase extends IAuthUsecaseReader, IAuthUsecaseWriter {}
+interface IAuthenticationUsecase extends
+  IAuthenticationUsecaseReader, IAuthenticationUsecaseWriter {}
 
-abstract class AuthUsecase implements IAuthUsecase {
+abstract class AuthenticationUsecase implements IAuthenticationUsecase {
   constructor(
     protected tokenService: TokenService,
     protected loggerService: LoggerService,
-    protected cryptographyService: CryptographyService,
     protected userRepository: IUserRepository,
+    protected cryptographyService: CryptographyService,
   ) {}
 
-  abstract authenticate: (email: string, password: string) => Promise<string>;
+  abstract signup: (payload: CreateUserEntity) => Promise<MediumUserEntity>;
 
-  abstract signup: (userPayload: CreateUserEntity) => Promise<MediumUserEntity>;
+  abstract authenticate: (email: string, password: string) => Promise<string>;
 }
 
-export default AuthUsecase;
+export default AuthenticationUsecase;

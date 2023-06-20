@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
-import statusCodes from '../../../status-codes';
+import statusCodes from '../../status-codes';
 
 const validateRequestBodyHandler = (
   error: Error,

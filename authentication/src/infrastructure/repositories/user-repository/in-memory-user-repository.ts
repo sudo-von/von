@@ -1,8 +1,8 @@
-import { v4 } from 'uuid';
-import { CreateUserEntity, UserEntity } from '../../../domain/entities/user-entity';
+import crypto from 'crypto';
 import IUserRepository from '../../../domain/repositories/user-repository';
+import { CreateUserEntity, UserEntity } from '../../../domain/entities/user-entity';
 
-class InMemoryRepository implements IUserRepository {
+class InMemoryUserRepository implements IUserRepository {
   private usersInMemory: UserEntity[] = [];
 
   getUsers = async (): Promise<UserEntity[]> => this.usersInMemory;
@@ -22,14 +22,14 @@ class InMemoryRepository implements IUserRepository {
     return user;
   };
 
-  createUser = async (userPayload: CreateUserEntity): Promise<UserEntity | null> => {
+  createUser = async (payload: CreateUserEntity): Promise<UserEntity | null> => {
     const user: UserEntity = {
-      ...userPayload,
-      id: v4(),
+      ...payload,
+      id: crypto.randomBytes(8).toString('hex'),
     };
     this.usersInMemory.push(user);
     return user;
   };
 }
 
-export default InMemoryRepository;
+export default InMemoryUserRepository;

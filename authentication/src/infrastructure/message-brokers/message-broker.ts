@@ -1,12 +1,9 @@
-import LoggerService from '../../domain/services/logger-service';
-
-export type Queues = 'Profile:CreateProfile';
+export type Queues =
+  | 'Profile:CreateProfile'
+  | 'Profile:UpdateProfile';
 
 abstract class MessageBroker<T> {
-  constructor(
-    protected logger: LoggerService,
-    protected readonly BROKER_URL: string,
-  ) {}
+  constructor(protected readonly MESSAGE_BROKER_URL: string) {}
 
   public abstract ackMessage: () => void;
 

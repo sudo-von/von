@@ -1,46 +1,46 @@
 import 'express-async-errors';
-import AuthUsecaseImpl from './application/auth-usecase-impl';
-
-import {
-  configureLoggers,
-  configureServices,
-  configureRepositories,
-  configureEnvironmentVariables,
-  configureMessageBrokers,
-  connectBrokers,
-} from './setup';
-import createAuthRouter from './infrastructure/controllers/auth-controller/express-controllers/express-auth-router';
+import configureUsecases from './application/config';
+import configureEnvironmentVariables from './infrastructure/config';
+import configureServices from './infrastructure/services/configure';
+import configureRepositories from './infrastructure/repositories/config';
+import configureMessageBrokers from './infrastructure/message-brokers/config';
+import configureControllers from './infrastructure/controllers/express-controllers/config';
 
 (async () => {
   /* 🔐 Environment variables. */
-  const { SECRET_KEY, SERVER_PORT } = configureEnvironmentVariables();
-
-  /* 📝 Loggers. */
-  const { winstonLogger } = configureLoggers();
+  const {
+    SECRET_KEY,
+    SERVER_PORT,
+    MESSAGE_BROKER_URL,
+  } = configureEnvironmentVariables();
 
   /* 💽 Repositories. */
-  const { inMemoryRepository } = configureRepositories();
+  const {
+    userRepository,
+  } = configureRepositories();
 
   /* ⚙️ Services. */
-  const { jsonWebTokenService, bcryptService } = configureServices(SECRET_KEY);
+  const {
+    tokenService,
+    loggerService,
+    cryptographyService,
+  } = configureServices(SECRET_KEY);
 
   /* 📖 Usecases. */
-  const authUsecaseImpl = new AuthUsecaseImpl(
-    jsonWebTokenService,
-    winstonLogger,
-    bcryptService,
-    inMemoryRepository,
-  );
+  const {
+    authenticationUsecase,
+  } = configureUsecases(tokenService, loggerService, userRepository, cryptographyService);
 
   /* 📦 Message brokers. */
-  const { rabbitMQMessageBroker } = configureMessageBrokers(winstonLogger);
-  await connectBrokers({ rabbitMQMessageBroker });
+  const {
+    createProfileProducer,
+  } = configureMessageBrokers(MESSAGE_BROKER_URL);
 
-  /* 📡 Routers. */
-  createAuthRouter(
-    authUsecaseImpl,
-    winstonLogger,
-    rabbitMQMessageBroker,
+  /* 🔌 Controllers. */
+  configureControllers(
     SERVER_PORT,
+    loggerService,
+    authenticationUsecase,
+    createProfileProducer,
   );
 })();

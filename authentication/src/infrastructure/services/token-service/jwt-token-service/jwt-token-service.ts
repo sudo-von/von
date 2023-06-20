@@ -4,7 +4,7 @@ import TokenService from '../../../../domain/services/token-service';
 import { SmallUserEntity } from '../../../../domain/entities/user-entity';
 import { TokenServiceExpiredTokenError, TokenServiceInvalidTokenError } from '../../errors/server-error-factories';
 
-class JSONWebTokenService extends TokenService {
+class JWTTokenService extends TokenService {
   private readonly expiresIn = 60 * 30;
 
   private readonly algorithm = 'HS256';
@@ -12,7 +12,7 @@ class JSONWebTokenService extends TokenService {
   generateToken = (payload: SmallUserEntity): string => {
     const token = jwt.sign(
       payload,
-      this.secret,
+      this.SECRET_KEY,
       { algorithm: this.algorithm, expiresIn: this.expiresIn },
     );
     return token;
@@ -20,7 +20,7 @@ class JSONWebTokenService extends TokenService {
 
   decodeToken = (token: string): SmallUserEntity => {
     try {
-      const payload = jwt.verify(token, this.secret) as JSONWebTokenDto;
+      const payload = jwt.verify(token, this.SECRET_KEY) as JSONWebTokenDto;
 
       const smallUserEntity: SmallUserEntity = {
         id: payload.id,
@@ -40,4 +40,4 @@ class JSONWebTokenService extends TokenService {
   };
 }
 
-export default JSONWebTokenService;
+export default JWTTokenService;
