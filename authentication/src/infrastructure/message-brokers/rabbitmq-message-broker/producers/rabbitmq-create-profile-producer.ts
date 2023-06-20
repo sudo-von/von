@@ -1,6 +1,6 @@
+import { CreateProfileDto } from '../../dtos/profile-dto';
 import RabbitMQMessageBroker from '../rabbitmq-message-broker';
-import { RestrictedUserEntity } from '../../../../domain/entities/user-entity';
 
-class RabbitMQCreateProfileProducer extends RabbitMQMessageBroker<RestrictedUserEntity> {}
+class RabbitMQCreateProfileProducer extends RabbitMQMessageBroker<CreateProfileDto> {}
 
 export default RabbitMQCreateProfileProducer;

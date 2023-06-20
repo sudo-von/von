@@ -1,7 +1,7 @@
 import TokenService from '../domain/services/token-service';
-import AuthenticationUsecaseApplication from './auth-usecase-impl';
 import IUserRepository from '../domain/repositories/user-repository';
 import ICryptographyService from '../domain/services/cryptography-service';
+import AuthenticationUsecaseApplication from './authentication-usecase-application';
 
 const configureUsecases = (
   tokenService: TokenService,

@@ -10,20 +10,20 @@ const jwtAuthHandler = (tokenService: TokenService) => (
   const { authorization } = req.headers;
   if (!authorization) {
     return res.status(statusCodes.clientSide.unauthorized).json({
-      message: 'Missing authorization header.',
+      error: 'Missing authorization header.',
     });
   }
 
   const [scheme, token] = authorization.split(' ');
   if (scheme.toLowerCase() !== 'bearer') {
     return res.status(statusCodes.clientSide.unauthorized).json({
-      message: 'Authorization scheme not supported.',
+      error: 'Authorization scheme not supported.',
     });
   }
 
   if (!token) {
     return res.status(statusCodes.clientSide.unauthorized).json({
-      message: 'Missing token.',
+      error: 'Missing token.',
     });
   }
 
@@ -33,7 +33,7 @@ const jwtAuthHandler = (tokenService: TokenService) => (
     return next();
   } catch (err) {
     return res.status(statusCodes.clientSide.forbidden).json({
-      message: 'The provided token is invalid. Please log in again.',
+      error: 'The provided token is invalid. Please log in again.',
     });
   }
 };

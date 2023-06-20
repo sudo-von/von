@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import statusCodes from '../../status-codes';
+import { RestrictedUserDto } from '../../dtos/user-dto';
+import { createUserDto } from '../../dtos/create-user-dto';
+import { userCredentialsDto } from '../../dtos/user-credentials-dto';
 import { CreateUserEntity } from '../../../../domain/entities/user-entity';
-import { createUserDto } from '../../dtos/authentication-dtos/create-user-dto';
-import { userCredentialsDto } from '../../dtos/authentication-dtos/user-credentials-dto';
+import { CreateProfileDto } from '../../../message-brokers/dtos/profile-dto';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
 import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
 
@@ -40,8 +42,35 @@ class ExpressAuthenticationController {
       };
 
       const user = await this.authenticationUsecase.signup(createUserEntity);
-      res.status(statusCodes.success.created).send({ result: user });
-      await this.createProfileProducer.produceMessage('Profile:CreateProfile', user);
+
+      const restrictedUserDto: RestrictedUserDto = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        profile_picture: user.profilePicture,
+        about: {
+          quote: user.about.quote,
+          interest: user.about.interest,
+          position: user.about.position,
+        },
+      };
+
+      res.status(statusCodes.success.created).send({ result: restrictedUserDto });
+
+      const createProfileDto: CreateProfileDto = {
+        name: user.name,
+        user_id: user.id,
+        username: user.username,
+        profile_picture: user.profilePicture,
+        about: {
+          quote: user.about.quote,
+          interest: user.about.interest,
+          position: user.about.position,
+        },
+      };
+
+      await this.createProfileProducer.produceMessage('Profile:CreateProfile', createProfileDto);
     } catch (e) {
       next(e);
     }

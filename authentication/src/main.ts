@@ -1,7 +1,7 @@
 import 'express-async-errors';
 import configureUsecases from './application/config';
-import configureEnvironmentVariables from './infrastructure/config';
 import configureServices from './infrastructure/services/configure';
+import configureEnvironmentVariables from './infrastructure/config';
 import configureRepositories from './infrastructure/repositories/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
 import configureControllers from './infrastructure/controllers/express-controllers/config';

@@ -22,7 +22,7 @@ class JWTTokenService extends TokenService {
     try {
       const payload = jwt.verify(token, this.SECRET_KEY) as JSONWebTokenDto;
 
-      const smallUserEntity: EssentialUserEntity = {
+      const essentialUserEntity: EssentialUserEntity = {
         id: payload.id,
         name: payload.name,
         username: payload.username,
@@ -30,7 +30,7 @@ class JWTTokenService extends TokenService {
         profilePicture: payload.profilePicture,
       };
 
-      return smallUserEntity;
+      return essentialUserEntity;
     } catch (e) {
       if ((e as Error).name === 'TokenExpiredError') {
         throw TokenServiceExpiredTokenError;
