@@ -1,5 +1,5 @@
-import { createAboutRules } from '../entities/validations/create-about-validations';
-import { createUserRules } from '../entities/validations/create-user-validations';
+import { createAboutRules } from '../entities/validations/about-validations';
+import { createUserRules } from '../entities/validations/user-validations';
 
 export type DomainErrorCode =
   | 'INVALID_CREDENTIALS_DOMAIN_ERROR'

@@ -1,103 +1,109 @@
-import { SmallUserEntity, CreateUserEntity, MediumUserEntity } from '../domain/entities/user-entity';
-import { validatePosition, validateInterest, validateQuote } from '../domain/entities/validations/create-about-validations';
 import {
-  validateEmail,
+  EssentialUserEntity,
+  CreateUserEntity,
+  RestrictedUserEntity,
+} from '../domain/entities/user-entity';
+import {
   validateName,
+  validateEmail,
   validatePassword,
   validateUsername,
-} from '../domain/entities/validations/create-user-validations';
+} from '../domain/entities/validations/user-validations';
 import {
-  InvalidCredentialsError,
-  InvalidEmailError,
-  InvalidInterestError,
+  validateQuote,
+  validatePosition,
+  validateInterest,
+} from '../domain/entities/validations/about-validations';
+import {
   InvalidNameError,
+  InvalidEmailError,
+  InvalidQuoteError,
+  SingleUserOnlyError,
+  InvalidInterestError,
   InvalidPasswordError,
   InvalidPositionError,
-  InvalidQuoteError,
   InvalidUsernameError,
-  SingleUserOnlyError,
+  InvalidCredentialsError,
   UserCouldntBeCreatedError,
 } from '../domain/errors/error-factories';
 import AuthUsecase from '../domain/usecases/authentication-usecase';
 
 class AuthenticationUsecaseApplication extends AuthUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
-    try {
-      const user = await this.userRepository.getUserByEmail(email);
-      if (!user) throw InvalidCredentialsError;
+    const user = await this.userRepository.getUserByEmail(email);
+    if (!user) throw InvalidCredentialsError;
 
-      const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
-        password,
-        user.password,
-      );
-      if (!areCredentialsValid) throw InvalidCredentialsError;
+    const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
+      password,
+      user.password,
+    );
+    if (!areCredentialsValid) throw InvalidCredentialsError;
 
-      const smallUser: SmallUserEntity = {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-        profile_picture: user.profile_picture,
-      };
+    const essentialUserEntity: EssentialUserEntity = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      profilePicture: user.profilePicture,
+    };
 
-      const token = this.tokenService.generateToken(smallUser);
-      return token;
-    } catch (e) {
-      this.loggerService.log('warn', (e as Error).message);
-      throw e;
-    }
+    const token = this.tokenService.generateToken(essentialUserEntity);
+    return token;
   };
 
-  signup = async (userPayload: CreateUserEntity): Promise<MediumUserEntity> => {
-    try {
-      const isNameValid = validateName(userPayload.name);
-      if (!isNameValid) throw InvalidNameError;
+  signup = async (payload: CreateUserEntity): Promise<RestrictedUserEntity> => {
+    const isNameValid = validateName(payload.name);
+    if (!isNameValid) throw InvalidNameError;
 
-      const isUsernameValid = validateUsername(userPayload.username);
-      if (!isUsernameValid) throw InvalidUsernameError;
+    const isUsernameValid = validateUsername(payload.username);
+    if (!isUsernameValid) throw InvalidUsernameError;
 
-      const isEmailValid = validateEmail(userPayload.email);
-      if (!isEmailValid) throw InvalidEmailError;
+    const isEmailValid = validateEmail(payload.email);
+    if (!isEmailValid) throw InvalidEmailError;
 
-      const isPasswordValid = validatePassword(userPayload.password);
-      if (!isPasswordValid) throw InvalidPasswordError;
+    const isPasswordValid = validatePassword(payload.password);
+    if (!isPasswordValid) throw InvalidPasswordError;
 
-      const isPositionValid = validatePosition(userPayload.about.position);
-      if (!isPositionValid) throw InvalidPositionError;
+    const isPositionValid = validatePosition(payload.about.position);
+    if (!isPositionValid) throw InvalidPositionError;
 
-      const isInterestValid = validateInterest(userPayload.about.interest);
-      if (!isInterestValid) throw InvalidInterestError;
+    const isInterestValid = validateInterest(payload.about.interest);
+    if (!isInterestValid) throw InvalidInterestError;
 
-      const isQuoteValid = validateQuote(userPayload.about.quote);
-      if (!isQuoteValid) throw InvalidQuoteError;
+    const isQuoteValid = validateQuote(payload.about.quote);
+    if (!isQuoteValid) throw InvalidQuoteError;
 
-      const users = await this.userRepository.getUsers();
-      if (users.length) throw SingleUserOnlyError;
+    const users = await this.userRepository.getUsers();
+    if (users.length) throw SingleUserOnlyError;
 
-      const hashedPassword = await this.cryptographyService.hash(userPayload.password);
+    const hashedPassword = await this.cryptographyService.hash(payload.password);
 
-      const payload: CreateUserEntity = {
-        ...userPayload,
-        password: hashedPassword,
-      };
+    const createUserEntity: CreateUserEntity = {
+      name: payload.name,
+      email: payload.email,
+      password: hashedPassword,
+      username: payload.username,
+      profilePicture: payload.profilePicture,
+      about: {
+        interest: payload.about.interest,
+        position: payload.about.position,
+        quote: payload.about.quote,
+      },
+    };
 
-      const createdUser = await this.userRepository.createUser(payload);
-      if (!createdUser) throw UserCouldntBeCreatedError;
+    const createdUser = await this.userRepository.createUser(createUserEntity);
+    if (!createdUser) throw UserCouldntBeCreatedError;
 
-      const mediumUserEntity: MediumUserEntity = {
-        id: createdUser.id,
-        name: createdUser.name,
-        username: createdUser.username,
-        email: createdUser.email,
-        profile_picture: createdUser.profile_picture,
-        about: createdUser.about,
-      };
+    const restrictedUserEntity: RestrictedUserEntity = {
+      id: createdUser.id,
+      name: createdUser.name,
+      about: createdUser.about,
+      email: createdUser.email,
+      username: createdUser.username,
+      profilePicture: createdUser.profilePicture,
+    };
 
-      return mediumUserEntity;
-    } catch (e) {
-      this.loggerService.log('warn', (e as Error).message);
-      throw e;
-    }
+    return restrictedUserEntity;
   };
 }
 

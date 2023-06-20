@@ -6,13 +6,13 @@ export type UserEntity = Readonly<{
   email: string;
   username: string;
   password: string;
-  profile_picture: string;
+  profilePicture: string;
   about: AboutEntity;
 }>;
 
-export type SmallUserEntity = Omit<UserEntity, 'about' | 'password' >;
+export type EssentialUserEntity = Omit<UserEntity, 'about' | 'password' >;
 
-export type MediumUserEntity = Omit<UserEntity, 'password' >;
+export type RestrictedUserEntity = Omit<UserEntity, 'password' >;
 
 export type CreateUserEntity = Readonly<
 Omit<UserEntity, 'id'> & {

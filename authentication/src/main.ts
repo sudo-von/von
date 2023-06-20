@@ -7,40 +7,44 @@ import configureMessageBrokers from './infrastructure/message-brokers/config';
 import configureControllers from './infrastructure/controllers/express-controllers/config';
 
 (async () => {
+  try {
   /* 🔐 Environment variables. */
-  const {
-    SECRET_KEY,
-    SERVER_PORT,
-    MESSAGE_BROKER_URL,
-  } = configureEnvironmentVariables();
+    const {
+      SECRET_KEY,
+      SERVER_PORT,
+      MESSAGE_BROKER_URL,
+    } = configureEnvironmentVariables();
 
-  /* 💽 Repositories. */
-  const {
-    userRepository,
-  } = configureRepositories();
+    /* 💽 Repositories. */
+    const {
+      userRepository,
+    } = configureRepositories();
 
-  /* ⚙️ Services. */
-  const {
-    tokenService,
-    loggerService,
-    cryptographyService,
-  } = configureServices(SECRET_KEY);
+    /* ⚙️ Services. */
+    const {
+      tokenService,
+      loggerService,
+      cryptographyService,
+    } = configureServices(SECRET_KEY);
 
-  /* 📖 Usecases. */
-  const {
-    authenticationUsecase,
-  } = configureUsecases(tokenService, loggerService, userRepository, cryptographyService);
+    /* 📖 Usecases. */
+    const {
+      authenticationUsecase,
+    } = configureUsecases(tokenService, userRepository, cryptographyService);
 
-  /* 📦 Message brokers. */
-  const {
-    createProfileProducer,
-  } = configureMessageBrokers(MESSAGE_BROKER_URL);
+    /* 📦 Message brokers. */
+    const {
+      createProfileProducer,
+    } = configureMessageBrokers(MESSAGE_BROKER_URL);
 
-  /* 🔌 Controllers. */
-  configureControllers(
-    SERVER_PORT,
-    loggerService,
-    authenticationUsecase,
-    createProfileProducer,
-  );
+    /* 🔌 Controllers. */
+    configureControllers(
+      SERVER_PORT,
+      loggerService,
+      authenticationUsecase,
+      createProfileProducer,
+    );
+  } catch (e) {
+    console.log('🔥 Message:', (e as Error).message);
+  }
 })();

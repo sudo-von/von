@@ -20,6 +20,8 @@ import {
 } from '../../errors/request-error-factories';
 import { ServiceErrorCode } from '../../../services/errors/service-errors';
 import { ServiceErrorFactory } from '../../../services/errors/service-error-factory';
+import ILoggerService from '../../../../domain/services/logger-service';
+import { MessageBrokerErrorFactory } from '../../../message-brokers/errors/message-broker-error-factory';
 
 const domainErrors: Record<DomainErrorCode, RequestErrorFactory> = {
   INVALID_CREDENTIALS_DOMAIN_ERROR: InvalidCredentialsRequestError,
@@ -42,12 +44,16 @@ const serviceErrors: Record<ServiceErrorCode, RequestErrorFactory> = {
   TOKEN_SERVICE_EXPIRED_TOKEN_ERROR: ExpiredTokenRequestError,
 };
 
-const exceptionHandler = (
+const exceptionHandler = (loggerService: ILoggerService) => (
   error: Error,
   _req: Request,
-  _res: Response,
+  res: Response,
   _next: NextFunction,
 ) => {
+  loggerService.log('warn', (error as Error).message);
+  if (error instanceof MessageBrokerErrorFactory) {
+    res.end();
+  }
   if (error instanceof DomainErrorFactory) {
     throw domainErrors[error.code];
   }

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import JSONWebTokenDto from './dtos/jsonwebtoken-dto';
 import TokenService from '../../../../domain/services/token-service';
-import { SmallUserEntity } from '../../../../domain/entities/user-entity';
+import { EssentialUserEntity } from '../../../../domain/entities/user-entity';
 import { TokenServiceExpiredTokenError, TokenServiceInvalidTokenError } from '../../errors/server-error-factories';
 
 class JWTTokenService extends TokenService {
@@ -9,7 +9,7 @@ class JWTTokenService extends TokenService {
 
   private readonly algorithm = 'HS256';
 
-  generateToken = (payload: SmallUserEntity): string => {
+  generateToken = (payload: EssentialUserEntity): string => {
     const token = jwt.sign(
       payload,
       this.SECRET_KEY,
@@ -18,16 +18,16 @@ class JWTTokenService extends TokenService {
     return token;
   };
 
-  decodeToken = (token: string): SmallUserEntity => {
+  decodeToken = (token: string): EssentialUserEntity => {
     try {
       const payload = jwt.verify(token, this.SECRET_KEY) as JSONWebTokenDto;
 
-      const smallUserEntity: SmallUserEntity = {
+      const smallUserEntity: EssentialUserEntity = {
         id: payload.id,
         name: payload.name,
         username: payload.username,
         email: payload.email,
-        profile_picture: payload.profile_picture,
+        profilePicture: payload.profilePicture,
       };
 
       return smallUserEntity;

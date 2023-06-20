@@ -6,6 +6,7 @@ import {
   MessageBrokerFailedToConsumeMessageError,
   MessageBrokerFailedToSendMessageError,
   MessageBrokerNoMessageAvailableError,
+  MessageBrokerOnMessageNotImplementedError,
 } from '../errors/message-broker-error-factories';
 import MessageBroker, { Queues } from '../message-broker';
 
@@ -70,7 +71,9 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
     }
   };
 
-  onMessage = async (_data: T): Promise<void> => {};
+  onMessage = async (_data: T): Promise<void> => {
+    throw MessageBrokerOnMessageNotImplementedError;
+  };
 }
 
 export default RabbitMQMessageBroker;

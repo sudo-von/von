@@ -12,16 +12,16 @@ const configureEnvironmentVariables = () => {
   } = process.env;
 
   if (!PORT) {
-    throw new Error('🚫: PORT is not defined.');
+    throw new Error('🚫 PORT is not defined.');
   }
   if (!SECRET_KEY) {
-    throw new Error('🚫: SECRET_KEY is not defined.');
+    throw new Error('🚫 SECRET_KEY is not defined.');
   }
   if (!MESSAGE_BROKER_HOST) {
-    throw new Error('🚫: MESSAGE_BROKER_HOST is not defined.');
+    throw new Error('🚫 MESSAGE_BROKER_HOST is not defined.');
   }
   if (!MESSAGE_BROKER_PORT) {
-    throw new Error('🚫: MESSAGE_BROKER_PORT is not defined.');
+    throw new Error('🚫 MESSAGE_BROKER_PORT is not defined.');
   }
   const BASE_RADIX = 10;
   const SERVER_PORT = parseInt(PORT, BASE_RADIX);

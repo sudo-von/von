@@ -1,6 +1,6 @@
-import { SmallUserEntity } from '../../../../../domain/entities/user-entity';
+import { EssentialUserEntity } from '../../../../../domain/entities/user-entity';
 
-type JSONWebTokenDto = Readonly<SmallUserEntity & {
+type JSONWebTokenDto = Readonly<EssentialUserEntity & {
   iat: number;
   exp: number;
 }>;

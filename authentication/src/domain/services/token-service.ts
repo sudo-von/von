@@ -1,11 +1,11 @@
-import { SmallUserEntity } from '../entities/user-entity';
+import { EssentialUserEntity } from '../entities/user-entity';
 
 abstract class TokenService {
   constructor(protected SECRET_KEY: string) {}
 
-  abstract decodeToken: (token: string) => SmallUserEntity;
+  abstract decodeToken: (token: string) => EssentialUserEntity;
 
-  abstract generateToken: (payload: SmallUserEntity) => string;
+  abstract generateToken: (payload: EssentialUserEntity) => string;
 }
 
 export default TokenService;
