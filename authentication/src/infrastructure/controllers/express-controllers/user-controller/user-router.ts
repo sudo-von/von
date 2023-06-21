@@ -12,6 +12,7 @@ const createUserRouter = (
 
   const router = express.Router();
 
+  router.get('/username/:username', userController.getUserByUsername);
   router.patch('/:id', jwtAuthHandler, userController.updateProfileById);
 
   return router;

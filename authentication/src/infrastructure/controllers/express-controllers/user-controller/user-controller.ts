@@ -14,6 +14,31 @@ class ExpressUserController {
     private updateProfileProducer: RabbitMQUpdateProfileProducer,
   ) {}
 
+  getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { username } = req.params;
+
+      const user = await this.userUsecase.getUserByUsername(username);
+
+      const restrictedUserDto: RestrictedUserDto = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        profile_picture: user.profilePicture,
+        about: {
+          quote: user.about.quote,
+          interest: user.about.interest,
+          position: user.about.position,
+        },
+      };
+
+      res.status(statusCodes.success.ok).send({ result: restrictedUserDto });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   updateProfileById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { body, params, user } = req;
@@ -55,7 +80,7 @@ class ExpressUserController {
         },
       };
 
-      res.status(statusCodes.success.created).send({ result: restrictedUserDto });
+      res.status(statusCodes.success.ok).send({ result: restrictedUserDto });
 
       const updateProfileDto: UpdateProfileDto = {
         name: updatedUser.name,

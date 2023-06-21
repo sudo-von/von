@@ -2,7 +2,9 @@ import IUserRepository from '../repositories/user-repository';
 import ICryptographyService from '../services/cryptography-service';
 import { RestrictedUserEntity, UpdateUserEntity } from '../entities/user-entity';
 
-interface IUserUsecaseReader {}
+interface IUserUsecaseReader {
+  getUserByUsername: (username: string) => Promise<RestrictedUserEntity>
+}
 
 interface IUserUsecaseWriter {
   updateUserById: (
@@ -19,6 +21,8 @@ abstract class UserUsecase implements IUserUsecase {
     protected userRepository: IUserRepository,
     protected cryptographyService: ICryptographyService,
   ) {}
+
+  abstract getUserByUsername: (username: string) => Promise<RestrictedUserEntity>;
 
   abstract updateUserById: (
     requestingUserId: string,

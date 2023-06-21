@@ -28,6 +28,26 @@ import {
 import UserUsecase from '../domain/usecases/user-usecase';
 
 class UserUsecaseApplication extends UserUsecase {
+  getUserByUsername = async (username: string): Promise<RestrictedUserEntity> => {
+    const user = await this.userRepository.getUserByUsername(username);
+    if (!user) throw UserNotFoundError;
+
+    const restrictedUserEntity: RestrictedUserEntity = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      about: {
+        interest: user.about.interest,
+        position: user.about.position,
+        quote: user.about.quote,
+      },
+    };
+
+    return restrictedUserEntity;
+  };
+
   updateUserById = async (
     requestingUserId: string,
     requestedUserId: string,
@@ -95,9 +115,9 @@ class UserUsecaseApplication extends UserUsecase {
       username: updatedUser.username,
       profilePicture: updatedUser.profilePicture,
       about: {
-        interest: updateUserEntity.about.interest,
-        position: updateUserEntity.about.position,
-        quote: updateUserEntity.about.quote,
+        interest: updatedUser.about.interest,
+        position: updatedUser.about.position,
+        quote: updatedUser.about.quote,
       },
     };
 
