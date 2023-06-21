@@ -1,11 +1,9 @@
-export type CreateAboutDto = {
+export type AboutDto = {
   quote: string;
   interest: string;
   position: string;
 };
 
-export type UpdateAboutDto = {
-  quote: string;
-  interest: string;
-  position: string;
-};
+export type CreateAboutDto = Readonly<AboutDto>;
+
+export type UpdateAboutDto = Readonly<AboutDto>;

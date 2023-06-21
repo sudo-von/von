@@ -1,20 +1,18 @@
 import express from 'express';
-import AuthUsecase from '../../../../domain/usecases/authentication-usecase';
-import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
-import ExpressAuthenticationController from './user-controller';
+import ExpressUserController from './user-controller';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
 import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-update-profile-producer';
+import jwtAuthHandler from '../middlewares/jwt-auth-handler';
 
 const createUserRouter = (
   userUsecase: UserUsecase,
   messageBroker: RabbitMQUpdateProfileProducer,
 ) => {
-  const authController = new Express(userUsecase, messageBroker);
+  const userController = new ExpressUserController(userUsecase, messageBroker);
 
   const router = express.Router();
 
-  router.post('/signup', authController.signup);
-  router.post('/authenticate', authController.authenticate);
+  router.patch('/:id', jwtAuthHandler, userController.updateProfileById);
 
   return router;
 };

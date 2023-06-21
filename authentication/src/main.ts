@@ -29,20 +29,24 @@ import configureControllers from './infrastructure/controllers/express-controlle
 
     /* 📖 Usecases. */
     const {
+      userUsecase,
       authenticationUsecase,
     } = configureUsecases(tokenService, userRepository, cryptographyService);
 
     /* 📦 Message brokers. */
     const {
       createProfileProducer,
+      updateProfileProducer,
     } = configureMessageBrokers(MESSAGE_BROKER_URL);
 
     /* 🔌 Controllers. */
     configureControllers(
       SERVER_PORT,
+      userUsecase,
       loggerService,
       authenticationUsecase,
       createProfileProducer,
+      updateProfileProducer,
     );
   } catch (e) {
     console.log('🔥 Message:', (e as Error).message);

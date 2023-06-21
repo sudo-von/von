@@ -1,13 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import statusCodes from '../../status-codes';
 import { RestrictedUserDto } from '../../dtos/user-dto';
-import { createUserDto } from '../../dtos/create-user-dto';
-import { userCredentialsDto } from '../../dtos/user-credentials-dto';
-import { CreateUserEntity } from '../../../../domain/entities/user-entity';
-import { CreateProfileDto } from '../../../message-brokers/dtos/profile-dto';
-import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
-import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
+import { updateUserDto } from '../../dtos/update-user-dto';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
+import { PERMISSION_DENIED_REQUEST } from '../../errors/request-errors';
+import { UpdateUserEntity } from '../../../../domain/entities/user-entity';
+import { UpdateProfileDto } from '../../../message-brokers/dtos/profile-dto';
 import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-update-profile-producer';
 
 class ExpressUserController {
@@ -18,9 +16,18 @@ class ExpressUserController {
 
   updateProfileById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const payload = createUserDto.parse(req.body);
+      const { body, params, user } = req;
+      const { id } = params;
 
-      const createUserEntity: CreateUserEntity = {
+      if (!user) {
+        return res.status(PERMISSION_DENIED_REQUEST.statusCode).send({
+          message: PERMISSION_DENIED_REQUEST.message,
+        });
+      }
+
+      const payload = updateUserDto.parse(body);
+
+      const updateUserEntity: UpdateUserEntity = {
         name: payload.name,
         email: payload.email,
         username: payload.username,
@@ -33,38 +40,38 @@ class ExpressUserController {
         },
       };
 
-      const user = await this.authenticationUsecase.signup(createUserEntity);
+      const updatedUser = await this.userUsecase.updateUserById(user.id, id, updateUserEntity);
 
       const restrictedUserDto: RestrictedUserDto = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        profile_picture: user.profilePicture,
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        username: updatedUser.username,
+        profile_picture: updatedUser.profilePicture,
         about: {
-          quote: user.about.quote,
-          interest: user.about.interest,
-          position: user.about.position,
+          quote: updatedUser.about.quote,
+          interest: updatedUser.about.interest,
+          position: updatedUser.about.position,
         },
       };
 
       res.status(statusCodes.success.created).send({ result: restrictedUserDto });
 
-      const createProfileDto: CreateProfileDto = {
-        name: user.name,
-        user_id: user.id,
-        username: user.username,
-        profile_picture: user.profilePicture,
+      const updateProfileDto: UpdateProfileDto = {
+        name: updatedUser.name,
+        user_id: updatedUser.id,
+        username: updatedUser.username,
+        profile_picture: updatedUser.profilePicture,
         about: {
-          quote: user.about.quote,
-          interest: user.about.interest,
-          position: user.about.position,
+          quote: updatedUser.about.quote,
+          interest: updatedUser.about.interest,
+          position: updatedUser.about.position,
         },
       };
 
-      await this.createProfileProducer.produceMessage('Profile:CreateProfile', createProfileDto);
+      return await this.updateProfileProducer.produceMessage('Profile:UpdateProfile', updateProfileDto);
     } catch (e) {
-      next(e);
+      return next(e);
     }
   };
 }

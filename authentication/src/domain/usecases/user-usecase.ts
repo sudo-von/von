@@ -1,6 +1,6 @@
 import IUserRepository from '../repositories/user-repository';
-import { RestrictedUserEntity, UpdateUserEntity } from '../entities/user-entity';
 import ICryptographyService from '../services/cryptography-service';
+import { RestrictedUserEntity, UpdateUserEntity } from '../entities/user-entity';
 
 interface IUserUsecaseReader {}
 
