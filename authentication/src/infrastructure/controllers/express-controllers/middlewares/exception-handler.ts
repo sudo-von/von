@@ -17,6 +17,9 @@ import {
   UserCreationFailedRequestError,
   InvalidTokenRequestError,
   ExpiredTokenRequestError,
+  PermissionDeniedRequestError,
+  UserUpdateFailedRequestError,
+  UsernameAlreadyExistsRequestError,
 } from '../../errors/request-error-factories';
 import { ServiceErrorCode } from '../../../services/errors/service-errors';
 import { ServiceErrorFactory } from '../../../services/errors/service-error-factory';
@@ -35,6 +38,9 @@ const domainErrors: Record<DomainErrorCode, RequestErrorFactory> = {
   SINGLE_USER_ONLY_DOMAIN_ERROR: SingleUserOnlyRequestError,
   USER_NOT_FOUND_DOMAIN_ERROR: UserNotFoundRequestError,
   USER_CREATION_FAILED_DOMAIN_ERROR: UserCreationFailedRequestError,
+  PERMISSION_DENIED_DOMAIN_ERROR: PermissionDeniedRequestError,
+  USER_UPDATE_FAILED_DOMAIN_ERROR: UserUpdateFailedRequestError,
+  USERNAME_ALREADY_EXISTS_DOMAIN_ERROR: UsernameAlreadyExistsRequestError,
 };
 
 const serviceErrors: Record<ServiceErrorCode, RequestErrorFactory> = {
@@ -50,7 +56,7 @@ const exceptionHandler = (loggerService: ILoggerService) => (
   res: Response,
   _next: NextFunction,
 ) => {
-  loggerService.log('warn', `⚠️: ${(error as Error).message}`);
+  loggerService.log('warn', `⚠️ ${(error as Error).message}`);
   if (error instanceof MessageBrokerErrorFactory) {
     res.end();
   }

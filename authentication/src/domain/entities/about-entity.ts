@@ -5,3 +5,5 @@ export type AboutEntity = Readonly<{
 }>;
 
 export type CreateAboutEntity = Readonly<AboutEntity>;
+
+export type UpdateAboutEntity = Readonly<AboutEntity>;

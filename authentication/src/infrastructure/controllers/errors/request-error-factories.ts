@@ -11,9 +11,12 @@ import {
   INVALID_QUOTE_LENGTH_REQUEST,
   INVALID_TOKEN_REQUEST,
   INVALID_USERNAME_LENGTH_REQUEST,
+  PERMISSION_DENIED_REQUEST,
   SINGLE_USER_ONLY_REQUEST,
+  USERNAME_ALREADY_EXISTS_REQUEST,
   USER_CREATION_FAILED_REQUEST,
   USER_NOT_FOUND_REQUEST,
+  USER_UPDATE_FAILED_REQUEST,
 } from './request-errors';
 
 export const InvalidCredentialsRequestError = createRequestErrorFactory(
@@ -70,4 +73,16 @@ export const InvalidTokenRequestError = createRequestErrorFactory(
 
 export const ExpiredTokenRequestError = createRequestErrorFactory(
   EXPIRED_TOKEN_REQUEST,
+);
+
+export const PermissionDeniedRequestError = createRequestErrorFactory(
+  PERMISSION_DENIED_REQUEST,
+);
+
+export const UserUpdateFailedRequestError = createRequestErrorFactory(
+  USER_UPDATE_FAILED_REQUEST,
+);
+
+export const UsernameAlreadyExistsRequestError = createRequestErrorFactory(
+  USERNAME_ALREADY_EXISTS_REQUEST,
 );

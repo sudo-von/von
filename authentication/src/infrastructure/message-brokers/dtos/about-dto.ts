@@ -3,3 +3,9 @@ export type CreateAboutDto = {
   interest: string;
   position: string;
 };
+
+export type UpdateAboutDto = {
+  quote: string;
+  interest: string;
+  position: string;
+};

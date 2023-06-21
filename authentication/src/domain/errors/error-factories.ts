@@ -11,10 +11,14 @@ import {
   USER_CREATION_FAILED,
   USER_NOT_FOUND,
   SINGLE_USER_ONLY,
+  USERNAME_ALREADY_EXISTS,
+  PERMISSION_DENIED,
+  USER_UPDATE_FAILED,
 } from './errors';
 
 export const InvalidCredentialsError = createDomainErrorFactory(INVALID_CREDENTIALS);
-export const InvalidEmailError = createDomainErrorFactory(EMAIL_ALREADY_EXISTS);
+export const EmailAlreadyExistsError = createDomainErrorFactory(EMAIL_ALREADY_EXISTS);
+export const UsernameAlreadyExistsError = createDomainErrorFactory(USERNAME_ALREADY_EXISTS);
 export const InvalidInterestError = createDomainErrorFactory(INVALID_INTEREST_LENGTH);
 export const InvalidNameError = createDomainErrorFactory(INVALID_NAME_LENGTH);
 export const InvalidPasswordError = createDomainErrorFactory(INVALID_PASSWORD_LENGTH);
@@ -22,5 +26,7 @@ export const InvalidPositionError = createDomainErrorFactory(INVALID_POSITION_LE
 export const InvalidQuoteError = createDomainErrorFactory(INVALID_QUOTE_LENGTH);
 export const InvalidUsernameError = createDomainErrorFactory(INVALID_USERNAME_LENGTH);
 export const UserCouldntBeCreatedError = createDomainErrorFactory(USER_CREATION_FAILED);
+export const UserCouldntBeUpdatedError = createDomainErrorFactory(USER_UPDATE_FAILED);
 export const UserNotFoundError = createDomainErrorFactory(USER_NOT_FOUND);
 export const SingleUserOnlyError = createDomainErrorFactory(SINGLE_USER_ONLY);
+export const PermissionDeniedError = createDomainErrorFactory(PERMISSION_DENIED);

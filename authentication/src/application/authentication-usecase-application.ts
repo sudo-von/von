@@ -16,7 +16,7 @@ import {
 } from '../domain/entities/validations/about-validations';
 import {
   InvalidNameError,
-  InvalidEmailError,
+  EmailAlreadyExistsError,
   InvalidQuoteError,
   SingleUserOnlyError,
   InvalidInterestError,
@@ -59,7 +59,7 @@ class AuthenticationUsecaseApplication extends AuthUsecase {
     if (!isUsernameValid) throw InvalidUsernameError;
 
     const isEmailValid = validateEmail(payload.email);
-    if (!isEmailValid) throw InvalidEmailError;
+    if (!isEmailValid) throw EmailAlreadyExistsError;
 
     const isPasswordValid = validatePassword(payload.password);
     if (!isPasswordValid) throw InvalidPasswordError;

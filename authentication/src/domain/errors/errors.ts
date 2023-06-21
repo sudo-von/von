@@ -4,11 +4,14 @@ import { createAboutRules } from '../entities/validations/about-validations';
 export type DomainErrorCode =
   | 'USER_NOT_FOUND_DOMAIN_ERROR'
   | 'SINGLE_USER_ONLY_DOMAIN_ERROR'
+  | 'PERMISSION_DENIED_DOMAIN_ERROR'
+  | 'USER_UPDATE_FAILED_DOMAIN_ERROR'
   | 'INVALID_NAME_LENGTH_DOMAIN_ERROR'
   | 'INVALID_CREDENTIALS_DOMAIN_ERROR'
   | 'INVALID_QUOTE_LENGTH_DOMAIN_ERROR'
   | 'EMAIL_ALREADY_EXISTS_DOMAIN_ERROR'
   | 'USER_CREATION_FAILED_DOMAIN_ERROR'
+  | 'USERNAME_ALREADY_EXISTS_DOMAIN_ERROR'
   | 'INVALID_INTEREST_LENGTH_DOMAIN_ERROR'
   | 'INVALID_PASSWORD_LENGTH_DOMAIN_ERROR'
   | 'INVALID_POSITION_LENGTH_DOMAIN_ERROR'
@@ -27,6 +30,11 @@ export const INVALID_CREDENTIALS: DomainError = {
 export const EMAIL_ALREADY_EXISTS: DomainError = {
   code: 'EMAIL_ALREADY_EXISTS_DOMAIN_ERROR',
   message: 'Email already exists. Please choose a different email address.',
+};
+
+export const USERNAME_ALREADY_EXISTS: DomainError = {
+  code: 'USERNAME_ALREADY_EXISTS_DOMAIN_ERROR',
+  message: 'Username already exists. Please choose a different username.',
 };
 
 export const INVALID_INTEREST_LENGTH: DomainError = {
@@ -64,6 +72,11 @@ export const USER_CREATION_FAILED: DomainError = {
   message: 'User creation failed.',
 };
 
+export const USER_UPDATE_FAILED: DomainError = {
+  code: 'USER_UPDATE_FAILED_DOMAIN_ERROR',
+  message: 'User update failed.',
+};
+
 export const USER_NOT_FOUND: DomainError = {
   code: 'USER_NOT_FOUND_DOMAIN_ERROR',
   message: 'User not found.',
@@ -72,4 +85,9 @@ export const USER_NOT_FOUND: DomainError = {
 export const SINGLE_USER_ONLY: DomainError = {
   code: 'SINGLE_USER_ONLY_DOMAIN_ERROR',
   message: 'Single user only. Only one user is allowed.',
+};
+
+export const PERMISSION_DENIED: DomainError = {
+  code: 'PERMISSION_DENIED_DOMAIN_ERROR',
+  message: 'You do not have permission to access this resource.',
 };
