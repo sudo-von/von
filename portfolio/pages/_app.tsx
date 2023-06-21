@@ -1,8 +1,15 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import { AppProps } from "next/app";
+import { Lexend } from "next/font/google";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const font = Lexend({ subsets: ["latin"] });
 
-export default MyApp
+const App = ({ Component, pageProps }: AppProps) => {
+  return (
+    <main className={font.className}>
+      <Component {...pageProps} />;
+    </main>
+  );
+};
+
+export default App;
