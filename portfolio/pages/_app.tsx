@@ -7,7 +7,7 @@ const font = Lexend({ subsets: ["latin"] });
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <main className={font.className}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </main>
   );
 };
