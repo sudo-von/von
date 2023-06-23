@@ -56,9 +56,9 @@ const exceptionHandler = (loggerService: ILoggerService) => (
   res: Response,
   _next: NextFunction,
 ) => {
-  loggerService.log('warn', `⚠️ ${(error as Error).message}`);
+  loggerService.log('warn', `🚧 ${(error as Error).message}`);
   if (error instanceof MessageBrokerErrorFactory) {
-    res.end();
+    return res.end();
   }
   if (error instanceof DomainErrorFactory) {
     throw domainErrors[error.code];
