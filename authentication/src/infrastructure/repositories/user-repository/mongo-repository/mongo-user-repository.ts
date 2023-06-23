@@ -30,7 +30,7 @@ class MongoUserRepository implements IUserRepository {
     return userEntity;
   };
 
-  createUser = async (payload: CreateUserEntity): Promise<UserEntity | null> => {
+  createUser = async (payload: CreateUserEntity): Promise<UserEntity> => {
     const userModel = new UserModel({
       name: payload.name,
       email: payload.email,

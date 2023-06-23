@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import IUserRepository from '../../../domain/repositories/user-repository';
-import { CreateUserEntity, UpdateUserEntity, UserEntity } from '../../../domain/entities/user-entity';
+import IUserRepository from '../../../../domain/repositories/user-repository';
+import { CreateUserEntity, UpdateUserEntity, UserEntity } from '../../../../domain/entities/user-entity';
 
 class InMemoryUserRepository implements IUserRepository {
   private usersInMemory: UserEntity[] = [];
@@ -22,7 +22,7 @@ class InMemoryUserRepository implements IUserRepository {
     return user;
   };
 
-  createUser = async (payload: CreateUserEntity): Promise<UserEntity | null> => {
+  createUser = async (payload: CreateUserEntity): Promise<UserEntity> => {
     const userEntity: UserEntity = {
       name: payload.name,
       email: payload.email,

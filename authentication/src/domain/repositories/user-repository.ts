@@ -8,7 +8,7 @@ interface IUserRepositoryReader {
 }
 
 interface IUserRepositoryWriter {
-  createUser: (payload: CreateUserEntity) => Promise<UserEntity | null>;
+  createUser: (payload: CreateUserEntity) => Promise<UserEntity>;
   updateUserById: (id: string, payload: UpdateUserEntity) => Promise<UserEntity | null>;
 }
 
