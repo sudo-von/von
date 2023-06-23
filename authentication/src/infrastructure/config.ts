@@ -39,10 +39,12 @@ const configureEnvironmentVariables = () => {
   if (!MESSAGE_BROKER_PORT) {
     throw new Error('🚫 MESSAGE_BROKER_PORT is not defined.');
   }
+
   const BASE_RADIX = 10;
   const SERVER_PORT = parseInt(PORT, BASE_RADIX);
   const MESSAGE_BROKER_URL = `${MESSAGE_BROKER_HOST}:${MESSAGE_BROKER_PORT}`;
   const DATABASE_URL = `${DATABASE_HOST}:${DATABASE_PORT}`;
+
   return {
     SECRET_KEY,
     SERVER_PORT,
