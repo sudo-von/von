@@ -7,8 +7,8 @@ const configureEnvironmentVariables = () => {
   const {
     PORT,
     SECRET_KEY,
-    DATABASE_PORT,
     DATABASE_HOST,
+    DATABASE_PORT,
     DATABASE_USERNAME,
     DATABASE_PASSWORD,
     MESSAGE_BROKER_HOST,
@@ -21,11 +21,11 @@ const configureEnvironmentVariables = () => {
   if (!SECRET_KEY) {
     throw new Error('🚫 SECRET_KEY is not defined.');
   }
-  if (!DATABASE_PORT) {
-    throw new Error('🚫 DATABASE_PORT is not defined.');
-  }
   if (!DATABASE_HOST) {
     throw new Error('🚫 DATABASE_HOST is not defined.');
+  }
+  if (!DATABASE_PORT) {
+    throw new Error('🚫 DATABASE_PORT is not defined.');
   }
   if (!DATABASE_USERNAME) {
     throw new Error('🚫 DATABASE_USERNAME is not defined.');
@@ -42,7 +42,7 @@ const configureEnvironmentVariables = () => {
   const BASE_RADIX = 10;
   const SERVER_PORT = parseInt(PORT, BASE_RADIX);
   const MESSAGE_BROKER_URL = `${MESSAGE_BROKER_HOST}:${MESSAGE_BROKER_PORT}`;
-  const DATABASE_URL = `${DATABASE_HOST}:${DATABASE_PORT}/`;
+  const DATABASE_URL = `${DATABASE_HOST}:${DATABASE_PORT}`;
   return {
     SECRET_KEY,
     SERVER_PORT,

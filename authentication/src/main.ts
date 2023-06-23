@@ -12,13 +12,20 @@ import configureControllers from './infrastructure/controllers/express-controlle
     const {
       SECRET_KEY,
       SERVER_PORT,
+      DATABASE_URL,
+      DATABASE_USERNAME,
+      DATABASE_PASSWORD,
       MESSAGE_BROKER_URL,
     } = configureEnvironmentVariables();
 
     /* 💽 Repositories. */
     const {
       userRepository,
-    } = configureRepositories();
+    } = await configureRepositories(
+      DATABASE_URL,
+      DATABASE_USERNAME,
+      DATABASE_PASSWORD,
+    );
 
     /* ⚙️ Services. */
     const {
