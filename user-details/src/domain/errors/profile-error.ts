@@ -1,20 +1,6 @@
-import { profileRules } from '../entities/validations/profile-validations';
-
-export type DomainErrorCode =
-  | 'INVALID_PROFILE_NAME_LENGTH_DOMAIN_ERROR'
-  | 'INVALID_PROFILE_QUOTE_LENGTH_DOMAIN_ERROR'
-  | 'INVALID_PROFILE_POSITION_LENGTH_DOMAIN_ERROR'
-  | 'INVALID_PROFILE_INTEREST_LENGTH_DOMAIN_ERROR'
-  | 'INVALID_PROFILE_PICTURE_LENGTH_DOMAIN_ERROR'
-  | 'PERMISSION_DENIED_DOMAIN_ERROR'
-  | 'PROFILE_CREATION_FAILED_DOMAIN_ERROR'
-  | 'PROFILE_NOT_FOUND_DOMAIN_ERROR'
-  | 'SINGLE_PROFILE_ONLY_DOMAIN_ERROR';
-
-export type DomainError = {
-  code: DomainErrorCode;
-  message: string;
-};
+import { profileRules } from '../validations/profile-validations';
+import { DomainError } from './error-codes';
+import { createDomainErrorFactory } from './error-factory';
 
 export const INVALID_PROFILE_NAME_LENGTH: DomainError = {
   code: 'INVALID_PROFILE_NAME_LENGTH_DOMAIN_ERROR',
@@ -41,11 +27,6 @@ export const INVALID_PROFILE_PICTURE_LENGTH: DomainError = {
   message: `Please provide a profile picture url that consists of ${profileRules.profilePicture.MIN_LENGTH} to ${profileRules.profilePicture.MAX_LENGTH} characters.`,
 };
 
-export const PERMISSION_DENIED: DomainError = {
-  code: 'PERMISSION_DENIED_DOMAIN_ERROR',
-  message: 'You do not have permission to access this resource.',
-};
-
 export const PROFILE_CREATION_FAILED: DomainError = {
   code: 'PROFILE_CREATION_FAILED_DOMAIN_ERROR',
   message: 'Profile creation failed.',
@@ -56,7 +37,48 @@ export const PROFILE_NOT_FOUND: DomainError = {
   message: 'Profile not found.',
 };
 
+export const PROFILE_UPDATE_FAILED: DomainError = {
+  code: 'PROFILE_UPDATE_FAILED_DOMAIN_ERROR',
+  message: 'Profile update failed.',
+};
+
 export const SINGLE_PROFILE_ONLY: DomainError = {
   code: 'SINGLE_PROFILE_ONLY_DOMAIN_ERROR',
   message: 'Only one profile is allowed.',
 };
+
+export const InvalidProfileNameLengthError = createDomainErrorFactory(
+  INVALID_PROFILE_NAME_LENGTH,
+);
+
+export const InvalidProfileQuoteLengthError = createDomainErrorFactory(
+  INVALID_PROFILE_QUOTE_LENGTH,
+);
+
+export const InvalidProfilPositionLengthError = createDomainErrorFactory(
+  INVALID_PROFILE_POSITION_LENGTH,
+);
+
+export const InvalidProfileInterestLengthError = createDomainErrorFactory(
+  INVALID_PROFILE_INTEREST_LENGTH,
+);
+
+export const InvalidProfilePictureLengthError = createDomainErrorFactory(
+  INVALID_PROFILE_INTEREST_LENGTH,
+);
+
+export const ProfileCreationFailedError = createDomainErrorFactory(
+  PROFILE_CREATION_FAILED,
+);
+
+export const ProfileNotFoundError = createDomainErrorFactory(
+  PROFILE_NOT_FOUND,
+);
+
+export const ProfileUpdateFailedError = createDomainErrorFactory(
+  PROFILE_UPDATE_FAILED,
+);
+
+export const SingleProfileOnlyError = createDomainErrorFactory(
+  SINGLE_PROFILE_ONLY,
+);

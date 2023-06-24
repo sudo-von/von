@@ -6,7 +6,7 @@ import {
   validateInterest,
   validateProfilePicture,
   profileRules,
-} from '../../../src/domain/entities/validations/profile-validations';
+} from '../../../src/domain/validations/profile-validations';
 
 describe('profile validation', () => {
   describe('when minimum length is valid', () => {

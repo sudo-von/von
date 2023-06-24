@@ -1,5 +1,5 @@
-import IProfileRepository from '../domain/repositories/profile-repository';
-import IQuestionRepository from '../domain/repositories/question-repository';
+import IProfileRepository from 'ask/src/domain/repositories/profile-repository';
+import IQuestionRepository from 'ask/src/domain/repositories/question-repository';
 import ProfileUsecaseApplication from './profile-usecase-application';
 import QuestionUsecaseApplication from './question-usecase-application';
 

@@ -2,7 +2,7 @@ export type ProfileEntity = Readonly<{
   id: string;
   name: string;
   quote: string;
-  userId: string;
+  username: string;
   position: string;
   interest: string;
   profilePicture: string;

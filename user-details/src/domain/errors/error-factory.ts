@@ -1,4 +1,7 @@
-import { DomainError, DomainErrorCode } from './errors';
+import {
+  DomainError,
+  DomainErrorCode,
+} from './error-codes';
 
 export class DomainErrorFactory extends Error implements DomainError {
   constructor(public code: DomainErrorCode, public message: string) {
