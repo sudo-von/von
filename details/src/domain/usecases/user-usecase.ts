@@ -1,16 +1,18 @@
 import IUserRepository from '../repositories/user-repository';
-import { CreateUserEntity, UserEntity } from '../entities/user-entity';
+import {
+  UserEntity,
+  CreateUserEntity,
+  UpdateUserEntity,
+} from '../entities/user-entity';
 
-interface IUserUsecaseReader {
-  getUserByUsername: (username: string) => Promise<UserEntity>;
-}
+interface IUserUsecaseReader {}
 
 interface IUserUsecaseWriter {
   createUser: (
     payload: CreateUserEntity
   ) => Promise<UserEntity>;
 
-  updateProfileByUsername: (
+  updateUserByUsername: (
     username: string,
     payload: CreateUserEntity
   ) => Promise<UserEntity>;
@@ -21,15 +23,13 @@ interface IUserUsecase extends IUserUsecaseReader, IUserUsecaseWriter {}
 abstract class UserUsecase implements IUserUsecase {
   constructor(protected userRepository: IUserRepository) {}
 
-  abstract getUserByUsername: (username: string) => Promise<UserEntity>;
-
   abstract createUser: (
     payload: CreateUserEntity
   ) => Promise<UserEntity>;
 
-  abstract updateProfileByUsername: (
+  abstract updateUserByUsername: (
     username: string,
-    payload: CreateUserEntity
+    payload: UpdateUserEntity
   ) => Promise<UserEntity>;
 }
 

@@ -7,6 +7,16 @@ export const INVALID_USER_USERNAME_LENGTH: DomainError = {
   message: `Please provide a username that consists of ${userRules.username.MIN_LENGTH} to ${userRules.username.MAX_LENGTH} characters.`,
 };
 
+export const PERMISSION_DENIED: DomainError = {
+  code: 'PERMISSION_DENIED_DOMAIN_ERROR',
+  message: 'You do not have permission to access this resource.',
+};
+
+export const SINGLE_USER_ONLY: DomainError = {
+  code: 'SINGLE_USER_ONLY_DOMAIN_ERROR',
+  message: 'Only one user is allowed.',
+};
+
 export const USER_CREATION_FAILED: DomainError = {
   code: 'USER_CREATION_FAILED_DOMAIN_ERROR',
   message: 'User creation failed.',
@@ -22,18 +32,21 @@ export const USER_UPDATE_FAILED: DomainError = {
   message: 'User update failed.',
 };
 
-export const SINGLE_USER_ONLY: DomainError = {
-  code: 'SINGLE_USER_ONLY_DOMAIN_ERROR',
-  message: 'Only one user is allowed.',
+export const USERNAME_ALREADY_EXISTS: DomainError = {
+  code: 'USERNAME_ALREADY_EXISTS_DOMAIN_ERROR',
+  message: 'Username already exists. Please choose a different username.',
 };
 
-export const PERMISSION_DENIED: DomainError = {
-  code: 'PERMISSION_DENIED_DOMAIN_ERROR',
-  message: 'You do not have permission to access this resource.',
-};
-
-export const InvalidUserUsernameNameLengthError = createDomainErrorFactory(
+export const InvalidUsernameNameLengthError = createDomainErrorFactory(
   INVALID_USER_USERNAME_LENGTH,
+);
+
+export const PermissionDeniedError = createDomainErrorFactory(
+  PERMISSION_DENIED,
+);
+
+export const SingleUserOnlyError = createDomainErrorFactory(
+  SINGLE_USER_ONLY,
 );
 
 export const UserCreationFailedError = createDomainErrorFactory(
@@ -48,10 +61,6 @@ export const UserUpdateFailedError = createDomainErrorFactory(
   USER_UPDATE_FAILED,
 );
 
-export const SingleUserOnlyError = createDomainErrorFactory(
-  SINGLE_USER_ONLY,
-);
-
-export const PermissionDeniedError = createDomainErrorFactory(
-  PERMISSION_DENIED,
+export const UsernameAlreadyExistsError = createDomainErrorFactory(
+  USERNAME_ALREADY_EXISTS,
 );
