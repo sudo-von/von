@@ -35,8 +35,8 @@ class UserUsecaseApplication extends UserUsecase {
     const isUsernameValid = validateUsername(payload.username);
     if (!isUsernameValid) throw InvalidUsernameNameLengthError;
 
-    const user = await this.userRepository.getUserByUsername(username);
-    if (!user) throw UserNotFoundError;
+    const userExists = await this.userRepository.getUserByUsername(username);
+    if (!userExists) throw UserNotFoundError;
 
     if (username !== payload.username) {
       const usernameAlreadyExists = await this.userRepository.getUserByUsername(payload.username);

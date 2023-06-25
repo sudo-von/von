@@ -8,7 +8,7 @@ const configureUsecases = (
   profileRepository: IProfileRepository,
 ) => {
   const userUsecase = new UserUsecaseApplication(userRepository);
-  const profileUsecase = new ProfileUsecaseApplication(profileRepository);
+  const profileUsecase = new ProfileUsecaseApplication(userRepository, profileRepository);
 
   return { userUsecase, profileUsecase };
 };

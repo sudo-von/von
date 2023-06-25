@@ -5,16 +5,19 @@ export type DomainError = {
 
 export type DomainErrorCode =
 | UserDomainErrorCode
+| CommonDomainErrorCode
 | ProfileDomainErrorCode;
 
 export type UserDomainErrorCode =
 | 'INVALID_USER_USERNAME_LENGTH_DOMAIN_ERROR'
-| 'PERMISSION_DENIED_DOMAIN_ERROR'
 | 'SINGLE_USER_ONLY_DOMAIN_ERROR'
 | 'USER_CREATION_FAILED_DOMAIN_ERROR'
 | 'USER_NOT_FOUND_DOMAIN_ERROR'
 | 'USER_UPDATE_FAILED_DOMAIN_ERROR'
 | 'USERNAME_ALREADY_EXISTS_DOMAIN_ERROR';
+
+export type CommonDomainErrorCode =
+| 'PERMISSION_DENIED_DOMAIN_ERROR';
 
 export type ProfileDomainErrorCode =
 | 'INVALID_PROFILE_INTEREST_LENGTH_DOMAIN_ERROR'

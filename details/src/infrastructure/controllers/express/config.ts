@@ -1,9 +1,9 @@
 import 'express-async-errors';
 import express from 'express';
-import errorHandler from './middlewares/error-handler';
-import TokenService from '../../services/token-service/token-service';
-import ProfileUsecase from '../../../domain/usecases/profile-usecase';
+import errorMiddleware from './middlewares/error-middleware';
 import createProfileRouter from './profile-controller/profile-router';
+import ProfileUsecase from '../../../domain/usecases/profile-usecase';
+import TokenService from '../../services/token-service/token-service';
 
 const configureControllers = (
   tokenService: TokenService,
@@ -17,8 +17,9 @@ const configureControllers = (
   app.use(express.json());
 
   app.set('trust proxy', true);
+
   app.use('/v1/profile', profileRouter);
-  app.use(errorHandler);
+  app.use(errorMiddleware);
 
   app.listen(SERVER_PORT, () => {
     console.log(`🚀: Starting application on port ${SERVER_PORT}.`);

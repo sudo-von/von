@@ -7,11 +7,6 @@ export const INVALID_USER_USERNAME_LENGTH: DomainError = {
   message: `Please provide a username that consists of ${userRules.username.MIN_LENGTH} to ${userRules.username.MAX_LENGTH} characters.`,
 };
 
-export const PERMISSION_DENIED: DomainError = {
-  code: 'PERMISSION_DENIED_DOMAIN_ERROR',
-  message: 'You do not have permission to access this resource.',
-};
-
 export const SINGLE_USER_ONLY: DomainError = {
   code: 'SINGLE_USER_ONLY_DOMAIN_ERROR',
   message: 'Only one user is allowed.',
@@ -39,10 +34,6 @@ export const USERNAME_ALREADY_EXISTS: DomainError = {
 
 export const InvalidUsernameNameLengthError = createDomainErrorFactory(
   INVALID_USER_USERNAME_LENGTH,
-);
-
-export const PermissionDeniedError = createDomainErrorFactory(
-  PERMISSION_DENIED,
 );
 
 export const SingleUserOnlyError = createDomainErrorFactory(

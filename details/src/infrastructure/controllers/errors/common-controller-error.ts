@@ -1,6 +1,6 @@
 import statusCode from '../status-codes';
 import { ControllerError } from './controller-error-codes';
-import { PERMISSION_DENIED } from '../../../domain/errors/user-error';
+import { PERMISSION_DENIED } from '../../../domain/errors/common-error';
 import { createControllerErrorFactory } from './controller-error-factory';
 
 export type ProfileControllerErrorCode =

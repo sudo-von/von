@@ -14,7 +14,7 @@ import {
   UpdateProfileEntity,
 } from '../../../../domain/entities/profile-entity';
 import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
-import { PermissionDeniedError } from '../../../../domain/errors/user-error';
+import { PermissionDeniedError } from '../../../../domain/errors/common-error';
 
 class ExpressProfileController {
   constructor(private profileUsecase: ProfileUsecase) {}

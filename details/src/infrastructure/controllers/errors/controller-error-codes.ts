@@ -5,8 +5,17 @@ export type ControllerError = {
 };
 
 export type ControllerErrorCode =
+| UserControllerErrorCode
 | CommonControllerErrorCode
 | ProfileControllerErrorCode;
+
+export type UserControllerErrorCode =
+| 'INVALID_USER_USERNAME_LENGTH_CONTROLLER_ERROR'
+| 'SINGLE_USER_ONLY_CONTROLLER_ERROR'
+| 'USER_CREATION_FAILED_CONTROLLER_ERROR'
+| 'USER_NOT_FOUND_CONTROLLER_ERROR'
+| 'USER_UPDATE_FAILED_CONTROLLER_ERROR'
+| 'USERNAME_ALREADY_EXISTS_CONTROLLER_ERROR';
 
 export type CommonControllerErrorCode =
 | 'INTERNAL_SERVER_CONTROLLER_ERROR'

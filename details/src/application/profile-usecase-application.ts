@@ -1,6 +1,6 @@
 import {
+  UserNotFoundError,
   InvalidUsernameNameLengthError,
-  PermissionDeniedError,
 } from '../domain/errors/user-error';
 import {
   ProfileNotFoundError,
@@ -21,6 +21,7 @@ import {
   validateQuote,
 } from '../domain/validations/profile-validations';
 import ProfileUsecase from '../domain/usecases/profile-usecase';
+import { PermissionDeniedError } from '../domain/errors/common-error';
 import { validateUsername } from '../domain/validations/user-validations';
 
 class ProfileUsecaseApplication extends ProfileUsecase {
@@ -48,6 +49,9 @@ class ProfileUsecaseApplication extends ProfileUsecase {
 
     const isUsernameValid = validateUsername(payload.username);
     if (!isUsernameValid) throw InvalidUsernameNameLengthError;
+
+    const userExists = await this.userRepository.getUserByUsername(payload.username);
+    if (!userExists) throw UserNotFoundError;
 
     const profiles = await this.profileRepository.getProfiles();
     if (profiles.length) throw SingleProfileOnlyError;
