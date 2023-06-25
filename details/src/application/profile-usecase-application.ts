@@ -31,8 +31,12 @@ class ProfileUsecaseApplication extends ProfileUsecase {
   };
 
   createProfile = async (
+    requestingUsername: string,
+    requestedUsername: string,
     payload: CreateProfileEntity,
   ): Promise<ProfileEntity> => {
+    if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
+
     const isQuoteValid = validateQuote(payload.quote);
     if (!isQuoteValid) throw InvalidProfileQuoteLengthError;
 

@@ -1,0 +1,22 @@
+export type ControllerError = {
+  code: ControllerErrorCode;
+  message: string;
+  statusCode: number;
+};
+
+export type ControllerErrorCode =
+| CommonControllerErrorCode
+| ProfileControllerErrorCode;
+
+export type CommonControllerErrorCode =
+| 'INTERNAL_SERVER_CONTROLLER_ERROR'
+| 'PERMISSION_DENIED_CONTROLLER_ERROR';
+
+export type ProfileControllerErrorCode =
+| 'INVALID_PROFILE_INTEREST_LENGTH_CONTROLLER_ERROR'
+| 'INVALID_PROFILE_POSITION_LENGTH_CONTROLLER_ERROR'
+| 'INVALID_PROFILE_QUOTE_LENGTH_CONTROLLER_ERROR'
+| 'PROFILE_CREATION_FAILED_CONTROLLER_ERROR'
+| 'PROFILE_NOT_FOUND_CONTROLLER_ERROR'
+| 'PROFILE_UPDATE_FAILED_CONTROLLER_ERROR'
+| 'SINGLE_PROFILE_ONLY_CONTROLLER_ERROR';

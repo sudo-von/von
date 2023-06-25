@@ -11,6 +11,8 @@ interface IProfileUsecaseReader {
 
 interface IProfileUsecaseWriter {
   createProfile: (
+    requestingUsername: string,
+    requestedUsername: string,
     payload: CreateProfileEntity
   ) => Promise<ProfileEntity>;
 
@@ -29,6 +31,8 @@ abstract class ProfileUsecase implements IProfileUsecase {
   abstract getProfileByUsername: (username: string) => Promise<ProfileEntity>;
 
   abstract createProfile: (
+    requestingUsername: string,
+    requestedUsername: string,
     payload: CreateProfileEntity
   ) => Promise<ProfileEntity>;
 

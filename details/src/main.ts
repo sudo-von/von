@@ -1,12 +1,16 @@
 import configureUsecases from './application/config';
 import configureEnvironmentVariables from './infrastructure/config';
+import configureControllers from './infrastructure/controllers/express/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
 import configureRepositories from './infrastructure/repositories/config';
+import configureServices from './infrastructure/services/token-service/config';
 
 (async () => {
   try {
   /* 🔐 Environment variables. */
     const {
+      SECRET_KEY,
+      SERVER_PORT,
       DATABASE_URL,
       DATABASE_USERNAME,
       DATABASE_PASSWORD,
@@ -17,28 +21,25 @@ import configureRepositories from './infrastructure/repositories/config';
     const {
       userRepository,
       profileRepository,
-    } = await configureRepositories(
-      DATABASE_URL,
-      DATABASE_USERNAME,
-      DATABASE_PASSWORD,
-    );
+    } = await configureRepositories(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 
     /* ⚙️ Services. */
+    const {
+      tokenService,
+    } = configureServices(SECRET_KEY);
 
     /* 📖 Usecases. */
     const {
       userUsecase,
       profileUsecase,
-    } = configureUsecases(
-      userRepository,
-      profileRepository,
-    );
+    } = configureUsecases(userRepository, profileRepository);
 
     /* 📦 Message brokers. */
     await configureMessageBrokers(MESSAGE_BROKER_URL, userUsecase);
 
     /* 🔌 Controllers. */
+    configureControllers(tokenService, profileUsecase, SERVER_PORT);
   } catch (e) {
-    console.log('🔥 Error:', (e as Error).message);
+    console.log('🔥:', (e as Error).message);
   }
 })();
