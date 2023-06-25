@@ -2,11 +2,6 @@ import { profileRules } from '../validations/profile-validations';
 import { DomainError } from './error-codes';
 import { createDomainErrorFactory } from './error-factory';
 
-export const INVALID_PROFILE_NAME_LENGTH: DomainError = {
-  code: 'INVALID_PROFILE_NAME_LENGTH_DOMAIN_ERROR',
-  message: `Please provide a name that consists of ${profileRules.name.MIN_LENGTH} to ${profileRules.name.MAX_LENGTH} characters.`,
-};
-
 export const INVALID_PROFILE_QUOTE_LENGTH: DomainError = {
   code: 'INVALID_PROFILE_QUOTE_LENGTH_DOMAIN_ERROR',
   message: `Please provide a quote that consists of ${profileRules.quote.MIN_LENGTH} to ${profileRules.quote.MAX_LENGTH} characters.`,
@@ -20,11 +15,6 @@ export const INVALID_PROFILE_POSITION_LENGTH: DomainError = {
 export const INVALID_PROFILE_INTEREST_LENGTH: DomainError = {
   code: 'INVALID_PROFILE_INTEREST_LENGTH_DOMAIN_ERROR',
   message: `Please provide an interest that consists of ${profileRules.interest.MIN_LENGTH} to ${profileRules.interest.MAX_LENGTH} characters.`,
-};
-
-export const INVALID_PROFILE_PICTURE_LENGTH: DomainError = {
-  code: 'INVALID_PROFILE_PICTURE_LENGTH_DOMAIN_ERROR',
-  message: `Please provide a profile picture url that consists of ${profileRules.profilePicture.MIN_LENGTH} to ${profileRules.profilePicture.MAX_LENGTH} characters.`,
 };
 
 export const PROFILE_CREATION_FAILED: DomainError = {
@@ -47,10 +37,6 @@ export const SINGLE_PROFILE_ONLY: DomainError = {
   message: 'Only one profile is allowed.',
 };
 
-export const InvalidProfileNameLengthError = createDomainErrorFactory(
-  INVALID_PROFILE_NAME_LENGTH,
-);
-
 export const InvalidProfileQuoteLengthError = createDomainErrorFactory(
   INVALID_PROFILE_QUOTE_LENGTH,
 );
@@ -60,10 +46,6 @@ export const InvalidProfilPositionLengthError = createDomainErrorFactory(
 );
 
 export const InvalidProfileInterestLengthError = createDomainErrorFactory(
-  INVALID_PROFILE_INTEREST_LENGTH,
-);
-
-export const InvalidProfilePictureLengthError = createDomainErrorFactory(
   INVALID_PROFILE_INTEREST_LENGTH,
 );
 

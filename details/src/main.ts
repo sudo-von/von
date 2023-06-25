@@ -16,6 +16,7 @@ import configureRepositories from './infrastructure/repositories/config';
     /* 💽 Repositories. */
     const {
       userRepository,
+      profileRepository,
     } = await configureRepositories(
       DATABASE_URL,
       DATABASE_USERNAME,
@@ -25,7 +26,13 @@ import configureRepositories from './infrastructure/repositories/config';
     /* ⚙️ Services. */
 
     /* 📖 Usecases. */
-    const { userUsecase } = configureUsecases(userRepository);
+    const {
+      userUsecase,
+      profileUsecase,
+    } = configureUsecases(
+      userRepository,
+      profileRepository,
+    );
 
     /* 📦 Message brokers. */
     await configureMessageBrokers(MESSAGE_BROKER_URL, userUsecase);

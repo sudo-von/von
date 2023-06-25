@@ -1,12 +1,24 @@
+import {
+  ProfileEntity,
+  CreateProfileEntity,
+  UpdateProfileEntity,
+} from '../entities/profile-entity';
 import IProfileRepository from '../repositories/profile-repository';
-import { ProfileEntity, CreateProfileEntity } from '../entities/profile-entity';
 
 interface IProfileUsecaseReader {
   getProfileByUsername: (username: string) => Promise<ProfileEntity>;
 }
 
 interface IProfileUsecaseWriter {
-  createProfile: (payload: CreateProfileEntity) => Promise<ProfileEntity>;
+  createProfile: (
+    payload: CreateProfileEntity
+  ) => Promise<ProfileEntity>;
+
+  updateProfileByUsername: (
+    requestingUsername: string,
+    requestedUsername: string,
+    payload: UpdateProfileEntity
+  ) => Promise<ProfileEntity>;
 }
 
 interface IProfileUsecase extends IProfileUsecaseReader, IProfileUsecaseWriter {}
@@ -16,7 +28,15 @@ abstract class ProfileUsecase implements IProfileUsecase {
 
   abstract getProfileByUsername: (username: string) => Promise<ProfileEntity>;
 
-  abstract createProfile: (payload: CreateProfileEntity) => Promise<ProfileEntity>;
+  abstract createProfile: (
+    payload: CreateProfileEntity
+  ) => Promise<ProfileEntity>;
+
+  abstract updateProfileByUsername: (
+    requestingUsername: string,
+    requestedUsername: string,
+    payload: UpdateProfileEntity
+  ) => Promise<ProfileEntity>;
 }
 
 export default ProfileUsecase;

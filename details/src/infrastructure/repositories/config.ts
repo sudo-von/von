@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import UserMongoRepository from './user-repository/mongo-repository/user-mongo-repository';
+import ProfileMongoRepository from './profile-repository/mongo-repository/profile-mongo-repository';
 
 const configureRepositories = async (
   DATABASE_URL: string,
@@ -12,8 +13,9 @@ const configureRepositories = async (
   });
 
   const userRepository = new UserMongoRepository();
+  const profileRepository = new ProfileMongoRepository();
 
-  return { userRepository };
+  return { userRepository, profileRepository };
 };
 
 export default configureRepositories;

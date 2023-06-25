@@ -1,9 +1,9 @@
-import IUserRepository from '../repositories/user-repository';
 import {
   UserEntity,
   CreateUserEntity,
   UpdateUserEntity,
 } from '../entities/user-entity';
+import IUserRepository from '../repositories/user-repository';
 
 interface IUserUsecaseReader {}
 

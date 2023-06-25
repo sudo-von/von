@@ -10,8 +10,14 @@ export interface IProfileRepositoryReader {
 }
 
 interface IProfileRepositoryWriter {
-  createProfile: (payload: CreateProfileEntity) => Promise<ProfileEntity | null>;
-  updateProfileById: (id: string, payload: UpdateProfileEntity) => Promise<ProfileEntity | null>;
+  createProfile: (
+    payload: CreateProfileEntity
+  ) => Promise<ProfileEntity>;
+
+  updateProfileByUsername: (
+    username: string,
+    payload: UpdateProfileEntity
+  ) => Promise<ProfileEntity | null>;
 }
 
 interface IProfileRepository extends IProfileRepositoryReader, IProfileRepositoryWriter {}

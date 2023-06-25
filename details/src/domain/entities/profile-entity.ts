@@ -1,11 +1,9 @@
 export type ProfileEntity = Readonly<{
   id: string;
-  name: string;
   quote: string;
+  interest: string;
   username: string;
   position: string;
-  interest: string;
-  profilePicture: string;
 }>;
 
 export type CreateProfileEntity = Omit<ProfileEntity, 'id'>;
