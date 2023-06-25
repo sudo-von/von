@@ -6,8 +6,8 @@ import {
   CreateUserEntity,
   UpdateUserEntity,
   UserEntity,
-} from '../../../domain/entities/user-entity';
-import IUserRepository from '../../../domain/repositories/user-repository';
+} from '../../../../domain/entities/user-entity';
+import IUserRepository from '../../../../domain/repositories/user-repository';
 
 class UserMongoRepository implements IUserRepository {
   getUsers = async (): Promise<UserEntity[]> => {

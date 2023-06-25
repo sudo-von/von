@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import UserMongoRepository from '../user-repository/mongo-repository/user-mongo-repository';
+import UserMongoRepository from './user-repository/mongo-repository/user-mongo-repository';
 
 const configureRepositories = async (
   DATABASE_URL: string,
