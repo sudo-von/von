@@ -1,7 +1,10 @@
+import {
+  CreateUserEntity,
+  RestrictedUserEntity,
+} from '../entities/user-entity';
 import TokenService from '../services/token-service';
 import IUserRepository from '../repositories/user-repository';
 import CryptographyService from '../services/cryptography-service';
-import { CreateUserEntity, RestrictedUserEntity } from '../entities/user-entity';
 
 interface IAuthenticationUsecaseReader {
   authenticate: (email: string, password: string) => Promise<string>;

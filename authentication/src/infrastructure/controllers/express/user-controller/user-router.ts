@@ -1,8 +1,8 @@
 import express from 'express';
 import ExpressUserController from './user-controller';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
+import authenticationMiddleware from '../middlewares/authentication-middleware';
 import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
-import jwtAuthHandler from '../middlewares/jwt-auth-handler';
 
 const createUserRouter = (
   userUsecase: UserUsecase,
@@ -13,7 +13,7 @@ const createUserRouter = (
   const router = express.Router();
 
   router.get('/username/:username', userController.getUserByUsername);
-  router.patch('/:id', jwtAuthHandler, userController.updateProfileById);
+  router.patch('/username/:username', authenticationMiddleware, userController.updateProfileByUsername);
 
   return router;
 };

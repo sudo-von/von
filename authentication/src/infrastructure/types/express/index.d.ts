@@ -1,9 +1,11 @@
-import { RestrictedUserEntity } from '../../../domain/entities/user-entity';
+import {
+  RestrictedControllerUserDto,
+} from '../../controllers/dtos/controller-user-dto';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: RestrictedUserEntity
+      user?: RestrictedControllerUserDto
     }
   }
 }

@@ -2,13 +2,13 @@ import {
   UserNotFoundError,
   UserUpdateFailedError,
   InvalidNameLengthError,
-  InvalidCredentialsError,
   InvalidUsernameLengthError,
   InvalidPasswordLengthError,
   InvalidProfilePictureLengthError,
 } from '../domain/errors/user-error';
 import {
   PermissionDeniedError,
+  InvalidCredentialsError,
 } from '../domain/errors/common-error';
 import {
   UpdateUserEntity,
@@ -66,7 +66,18 @@ class UserUsecaseApplication extends UserUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const updatedUser = await this.userRepository.updateUserByUsername(requestedUsername, payload);
+    const updateUserEntity: UpdateUserEntity = {
+      name: payload.name,
+      email: payload.email,
+      password: user.password,
+      username: payload.username,
+      profilePicture: payload.profilePicture,
+    };
+
+    const updatedUser = await this.userRepository.updateUserByUsername(
+      requestedUsername,
+      updateUserEntity,
+    );
     if (!updatedUser) throw UserUpdateFailedError;
 
     const restrictedUserEntity: RestrictedUserEntity = {

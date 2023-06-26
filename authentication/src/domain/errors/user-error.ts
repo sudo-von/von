@@ -7,11 +7,6 @@ export const EMAIL_ALREADY_EXISTS: DomainError = {
   message: 'Email already exists. Please choose a different email address.',
 };
 
-export const INVALID_CREDENTIALS: DomainError = {
-  code: 'INVALID_CREDENTIALS_DOMAIN_ERROR',
-  message: 'Invalid credentials. Please verify your username and password and try again.',
-};
-
 export const INVALID_USERNAME_LENGTH: DomainError = {
   code: 'INVALID_USERNAME_LENGTH_DOMAIN_ERROR',
   message: `Please provide a quote that consists of ${userRules.username.MIN_LENGTH} to ${userRules.username.MAX_LENGTH} characters.`,
@@ -58,8 +53,6 @@ export const USERNAME_ALREADY_EXISTS: DomainError = {
 };
 
 export const EmailAlreadyExistsError = createDomainErrorFactory(EMAIL_ALREADY_EXISTS);
-
-export const InvalidCredentialsError = createDomainErrorFactory(INVALID_CREDENTIALS);
 
 export const InvalidUsernameLengthError = createDomainErrorFactory(INVALID_USERNAME_LENGTH);
 

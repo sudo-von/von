@@ -2,8 +2,8 @@ import configureUsecases from './application/config';
 import configureEnvironmentVariables from './infrastructure/config';
 import configureRepositories from './infrastructure/repositories/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
+import configureControllers from './infrastructure/controllers/express/config';
 import configureTokenServices from './infrastructure/services/token-service/config';
-import configureControllers from './infrastructure/controllers/express-controllers/config';
 import configureCryptographyServices from './infrastructure/services/cryptography-service/config';
 
 (async () => {

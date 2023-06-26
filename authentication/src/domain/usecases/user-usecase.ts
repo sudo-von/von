@@ -1,6 +1,9 @@
+import {
+  UpdateUserEntity,
+  RestrictedUserEntity,
+} from '../entities/user-entity';
 import IUserRepository from '../repositories/user-repository';
 import ICryptographyService from '../services/cryptography-service';
-import { RestrictedUserEntity, UpdateUserEntity } from '../entities/user-entity';
 
 interface IUserUsecaseReader {
   getUserByUsername: (username: string) => Promise<RestrictedUserEntity>

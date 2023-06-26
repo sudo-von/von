@@ -1,12 +1,14 @@
 import {
   SingleUserOnlyError,
   InvalidNameLengthError,
-  InvalidCredentialsError,
   UserCreationFailedError,
   InvalidPasswordLengthError,
   InvalidUsernameLengthError,
   InvalidProfilePictureLengthError,
 } from '../domain/errors/user-error';
+import {
+  InvalidCredentialsError,
+} from '../domain/errors/common-error';
 import {
   CreateUserEntity,
   RestrictedUserEntity,

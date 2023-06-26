@@ -1,9 +1,9 @@
 import express from 'express';
+import ExpressAuthenticationController from './authentication-controller';
 import AuthUsecase from '../../../../domain/usecases/authentication-usecase';
 import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
-import ExpressAuthenticationController from './authentication-controller';
 
-const createAuthenticationRouter = (
+const createExpressAuthenticationRouter = (
   authUsecase: AuthUsecase,
   messageBroker: RabbitMQCreateProfileProducer,
 ) => {
@@ -17,4 +17,4 @@ const createAuthenticationRouter = (
   return router;
 };
 
-export default createAuthenticationRouter;
+export default createExpressAuthenticationRouter;

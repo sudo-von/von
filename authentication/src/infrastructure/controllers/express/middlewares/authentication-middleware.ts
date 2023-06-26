@@ -1,13 +1,18 @@
-import { NextFunction, Request, Response } from 'express';
+import {
+  Request,
+  Response,
+  NextFunction,
+} from 'express';
 import statusCodes from '../../status-codes';
 import TokenService from '../../../../domain/services/token-service';
 
-const jwtAuthHandler = (tokenService: TokenService) => (
+const authenticationMiddleware = (tokenService: TokenService) => (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
+
   if (!authorization) {
     return res.status(statusCodes.clientSide.unauthorized).json({
       error: 'Missing authorization header.',
@@ -28,14 +33,18 @@ const jwtAuthHandler = (tokenService: TokenService) => (
   }
 
   try {
-    const user = tokenService.decodeToken(token);
-    req.user = user;
+    const decodedToken = tokenService.decodeToken(token);
+
+    req.user = decodedToken;
+
     return next();
-  } catch (err) {
+  } catch (error) {
+    console.log('🔥:', (error as Error).message);
+
     return res.status(statusCodes.clientSide.forbidden).json({
       error: 'The provided token is invalid. Please log in again.',
     });
   }
 };
 
-export default jwtAuthHandler;
+export default authenticationMiddleware;
