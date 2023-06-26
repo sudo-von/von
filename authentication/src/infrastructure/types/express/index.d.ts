@@ -1,9 +1,9 @@
-import { EssentialUserEntity } from '../../../domain/entities/user-entity';
+import { RestrictedUserEntity } from '../../../domain/entities/user-entity';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: EssentialUserEntity
+      user?: RestrictedUserEntity
     }
   }
 }

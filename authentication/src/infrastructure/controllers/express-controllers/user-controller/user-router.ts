@@ -1,7 +1,7 @@
 import express from 'express';
 import ExpressUserController from './user-controller';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
-import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-update-profile-producer';
+import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 import jwtAuthHandler from '../middlewares/jwt-auth-handler';
 
 const createUserRouter = (

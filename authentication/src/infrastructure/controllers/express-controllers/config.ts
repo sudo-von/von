@@ -5,10 +5,10 @@ import ILoggerService from '../../../domain/services/logger-service';
 import createAuthenticationRouter from './authentication-controller/authentication-router';
 import AuthenticationUsecase from '../../../domain/usecases/authentication-usecase';
 import validateRequestBodyHandler from './middlewares/validate-request-body-handler';
-import RabbitMQCreateProfileProducer from '../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
+import RabbitMQCreateProfileProducer from '../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 import createUserRouter from './user-controller/user-router';
 import UserUsecase from '../../../domain/usecases/user-usecase';
-import RabbitMQUpdateProfileProducer from '../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-update-profile-producer';
+import RabbitMQUpdateProfileProducer from '../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
 const configureControllers = (
   SERVER_PORT: number,

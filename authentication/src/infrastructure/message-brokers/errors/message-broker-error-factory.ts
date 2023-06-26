@@ -1,8 +1,11 @@
-import { MessageBrokerCode, MessageBrokerError } from './message-broker-errors';
+import {
+  MessageBrokerError,
+  MessageBrokerErrorCode,
+} from './message-broker-error-codes';
 
 export class MessageBrokerErrorFactory extends Error implements MessageBrokerError {
   constructor(
-    public code: MessageBrokerCode,
+    public code: MessageBrokerErrorCode,
     public message: string,
   ) {
     super(message);

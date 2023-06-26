@@ -21,6 +21,14 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${AUTHENTICATION_DATABASE_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${AUTHENTICATION_DATABASE_PASSWORD}
     restart: always
+  authentication:
+    build:
+      context: ./authentication
+      dockerfile: Dockerfile
+    container_name: authentication
+    ports:
+      - 3000:3000
+    restart: always
   details:
     build:
       context: ./details

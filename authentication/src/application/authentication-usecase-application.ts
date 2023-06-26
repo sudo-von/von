@@ -1,34 +1,25 @@
 import {
-  EssentialUserEntity,
+  SingleUserOnlyError,
+  InvalidNameLengthError,
+  InvalidCredentialsError,
+  UserCreationFailedError,
+  InvalidPasswordLengthError,
+  InvalidUsernameLengthError,
+  InvalidProfilePictureLengthError,
+} from '../domain/errors/user-error';
+import {
   CreateUserEntity,
   RestrictedUserEntity,
 } from '../domain/entities/user-entity';
 import {
-  validateName,
-  validateEmail,
-  validatePassword,
-  validateUsername,
-} from '../domain/entities/validations/user-validations';
-import {
-  validateQuote,
-  validatePosition,
-  validateInterest,
-} from '../domain/entities/validations/about-validations';
-import {
-  InvalidNameError,
-  EmailAlreadyExistsError,
-  InvalidQuoteError,
-  SingleUserOnlyError,
-  InvalidInterestError,
-  InvalidPasswordError,
-  InvalidPositionError,
-  InvalidUsernameError,
-  InvalidCredentialsError,
-  UserCouldntBeCreatedError,
-} from '../domain/errors/error-factories';
-import AuthUsecase from '../domain/usecases/authentication-usecase';
+  validateNameLength,
+  validatePasswordLength,
+  validateUsernameLength,
+  validateProfilePictureLength,
+} from '../domain/validations/user-validations';
+import AuthenticationUsecase from '../domain/usecases/authentication-usecase';
 
-class AuthenticationUsecaseApplication extends AuthUsecase {
+class AuthenticationUsecaseApplication extends AuthenticationUsecase {
   authenticate = async (email: string, password: string): Promise<string> => {
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) throw InvalidCredentialsError;
@@ -39,7 +30,7 @@ class AuthenticationUsecaseApplication extends AuthUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const essentialUserEntity: EssentialUserEntity = {
+    const restrictedUserEntity: RestrictedUserEntity = {
       id: user.id,
       name: user.name,
       email: user.email,
@@ -47,31 +38,22 @@ class AuthenticationUsecaseApplication extends AuthUsecase {
       profilePicture: user.profilePicture,
     };
 
-    const token = this.tokenService.generateToken(essentialUserEntity);
+    const token = this.tokenService.generateToken(restrictedUserEntity);
     return token;
   };
 
   signup = async (payload: CreateUserEntity): Promise<RestrictedUserEntity> => {
-    const isNameValid = validateName(payload.name);
-    if (!isNameValid) throw InvalidNameError;
+    const isNameLengthValid = validateNameLength(payload.name);
+    if (!isNameLengthValid) throw InvalidNameLengthError;
 
-    const isUsernameValid = validateUsername(payload.username);
-    if (!isUsernameValid) throw InvalidUsernameError;
+    const isUsernameLengthValid = validateUsernameLength(payload.username);
+    if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
 
-    const isEmailValid = validateEmail(payload.email);
-    if (!isEmailValid) throw EmailAlreadyExistsError;
+    const isPasswordLengthValid = validatePasswordLength(payload.password);
+    if (!isPasswordLengthValid) throw InvalidPasswordLengthError;
 
-    const isPasswordValid = validatePassword(payload.password);
-    if (!isPasswordValid) throw InvalidPasswordError;
-
-    const isPositionValid = validatePosition(payload.about.position);
-    if (!isPositionValid) throw InvalidPositionError;
-
-    const isInterestValid = validateInterest(payload.about.interest);
-    if (!isInterestValid) throw InvalidInterestError;
-
-    const isQuoteValid = validateQuote(payload.about.quote);
-    if (!isQuoteValid) throw InvalidQuoteError;
+    const isProfilePictureLengthValid = validateProfilePictureLength(payload.profilePicture);
+    if (!isProfilePictureLengthValid) throw InvalidProfilePictureLengthError;
 
     const users = await this.userRepository.getUsers();
     if (users.length) throw SingleUserOnlyError;
@@ -84,20 +66,14 @@ class AuthenticationUsecaseApplication extends AuthUsecase {
       password: hashedPassword,
       username: payload.username,
       profilePicture: payload.profilePicture,
-      about: {
-        interest: payload.about.interest,
-        position: payload.about.position,
-        quote: payload.about.quote,
-      },
     };
 
     const createdUser = await this.userRepository.createUser(createUserEntity);
-    if (!createdUser) throw UserCouldntBeCreatedError;
+    if (!createdUser) throw UserCreationFailedError;
 
     const restrictedUserEntity: RestrictedUserEntity = {
       id: createdUser.id,
       name: createdUser.name,
-      about: createdUser.about,
       email: createdUser.email,
       username: createdUser.username,
       profilePicture: createdUser.profilePicture,

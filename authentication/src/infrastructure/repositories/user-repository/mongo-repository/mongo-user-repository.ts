@@ -1,19 +1,17 @@
-import { UserModel, userModelToUserEntity } from './user-schema';
+import UserModel from './mongo-user-schema';
+import {
+  UserEntity,
+  CreateUserEntity,
+  UpdateUserEntity,
+} from '../../../../domain/entities/user-entity';
+import userModelToUserEntity from './mongo-user-mapper';
 import IUserRepository from '../../../../domain/repositories/user-repository';
-import { CreateUserEntity, UpdateUserEntity, UserEntity } from '../../../../domain/entities/user-entity';
 
 class MongoUserRepository implements IUserRepository {
   getUsers = async (): Promise<UserEntity[]> => {
     const userModels = await UserModel.find();
     const userEntities = userModels.map((model) => userModelToUserEntity(model));
     return userEntities;
-  };
-
-  getUserById = async (id: string): Promise<UserEntity | null> => {
-    const userModel = await UserModel.findById(id);
-    if (!userModel) return null;
-    const userEntity = userModelToUserEntity(userModel);
-    return userEntity;
   };
 
   getUserByEmail = async (email: string): Promise<UserEntity | null> => {
@@ -37,29 +35,22 @@ class MongoUserRepository implements IUserRepository {
       username: payload.username,
       password: payload.password,
       profilePicture: payload.profilePicture,
-      about: {
-        interest: payload.about.interest,
-        position: payload.about.position,
-        quote: payload.about.quote,
-      },
     });
     const storedUser = await userModel.save();
     const userEntity = userModelToUserEntity(storedUser);
     return userEntity;
   };
 
-  updateUserById = async (id: string, payload: UpdateUserEntity): Promise<UserEntity | null> => {
-    const updatedUser = await UserModel.findByIdAndUpdate(id, {
+  updateUserByUsername = async (
+    username: string,
+    payload: UpdateUserEntity,
+  ): Promise<UserEntity | null> => {
+    const updatedUser = await UserModel.findOneAndUpdate({ username }, {
       name: payload.name,
       email: payload.email,
       username: payload.username,
       password: payload.password,
       profilePicture: payload.profilePicture,
-      about: {
-        interest: payload.about.interest,
-        position: payload.about.position,
-        quote: payload.about.quote,
-      },
     });
     if (!updatedUser) return null;
     const userEntity = userModelToUserEntity(updatedUser);

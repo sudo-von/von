@@ -6,7 +6,7 @@ import { userCredentialsDto } from '../../dtos/user-credentials-dto';
 import { CreateUserEntity } from '../../../../domain/entities/user-entity';
 import { CreateProfileDto } from '../../../message-brokers/dtos/profile-dto';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
-import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
+import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 
 class ExpressAuthenticationController {
   constructor(

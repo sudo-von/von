@@ -1,6 +1,10 @@
+import {
+  MessageBrokerOnMessageNotImplementedError,
+} from './errors/message-broker-errors';
+
 export type Queues =
-  | 'Profile:CreateProfile'
-  | 'Profile:UpdateProfile';
+  | 'User:CreateUser'
+  | 'User:UpdateUser';
 
 abstract class MessageBroker<T> {
   constructor(protected readonly MESSAGE_BROKER_URL: string) {}
@@ -11,11 +15,13 @@ abstract class MessageBroker<T> {
 
   public abstract connect(): Promise<void>;
 
-  public abstract onMessage: (data: T) => Promise<void>;
-
   public abstract consumeMessage: (queue: Queues) => Promise<void>;
 
   public abstract produceMessage: (queue: Queues, data: T) => Promise<void>;
+
+  public onMessage = async (_data: T): Promise<void> => {
+    throw MessageBrokerOnMessageNotImplementedError;
+  };
 }
 
 export default MessageBroker;

@@ -23,6 +23,11 @@ import configureServices from './infrastructure/services/token-service/config';
       profileRepository,
     } = await configureRepositories(DATABASE_URL, DATABASE_USERNAME, DATABASE_PASSWORD);
 
+    await userRepository.createUser({
+      userId: '6498feee130eabf28754257e',
+      username: 'sudo_von',
+    });
+
     /* ⚙️ Services. */
     const {
       tokenService,

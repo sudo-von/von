@@ -1,6 +1,6 @@
 import express from 'express';
 import AuthUsecase from '../../../../domain/usecases/authentication-usecase';
-import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
+import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 import ExpressAuthenticationController from './authentication-controller';
 
 const createAuthenticationRouter = (

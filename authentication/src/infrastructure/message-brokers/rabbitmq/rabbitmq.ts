@@ -1,16 +1,15 @@
 import amqp, { Channel, Connection } from 'amqplib';
 import {
-  MessageBrokerChannelIsClosedError,
   MessageBrokerFailedToCloseError,
+  MessageBrokerChannelIsClosedError,
   MessageBrokerFailedToConnectError,
-  MessageBrokerFailedToConsumeMessageError,
-  MessageBrokerFailedToSendMessageError,
   MessageBrokerNoMessageAvailableError,
-  MessageBrokerOnMessageNotImplementedError,
-} from '../errors/message-broker-error-factories';
+  MessageBrokerFailedToSendMessageError,
+  MessageBrokerFailedToConsumeMessageError,
+} from '../errors/message-broker-errors';
 import MessageBroker, { Queues } from '../message-broker';
 
-abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
+abstract class RabbitMQ<T> extends MessageBroker<T> {
   protected connection?: Connection;
 
   protected channel?: Channel;
@@ -70,10 +69,6 @@ abstract class RabbitMQMessageBroker<T> extends MessageBroker<T> {
       throw MessageBrokerFailedToSendMessageError;
     }
   };
-
-  onMessage = async (_data: T): Promise<void> => {
-    throw MessageBrokerOnMessageNotImplementedError;
-  };
 }
 
-export default RabbitMQMessageBroker;
+export default RabbitMQ;

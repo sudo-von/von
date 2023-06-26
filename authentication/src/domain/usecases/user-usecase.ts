@@ -7,9 +7,9 @@ interface IUserUsecaseReader {
 }
 
 interface IUserUsecaseWriter {
-  updateUserById: (
-    requestingUserId: string,
-    requestedUserId: string,
+  updateUserByUsername: (
+    requestingUsername: string,
+    requestedUsername: string,
     payload: UpdateUserEntity
   ) => Promise<RestrictedUserEntity>;
 }
@@ -24,9 +24,9 @@ abstract class UserUsecase implements IUserUsecase {
 
   abstract getUserByUsername: (username: string) => Promise<RestrictedUserEntity>;
 
-  abstract updateUserById: (
-    requestingUserId: string,
-    requestedUserId: string,
+  abstract updateUserByUsername: (
+    requestingUsername: string,
+    requestedUsername: string,
     payload: UpdateUserEntity
   ) => Promise<RestrictedUserEntity>;
 }

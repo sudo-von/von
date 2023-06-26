@@ -1,30 +1,25 @@
 import {
-  RestrictedUserEntity,
+  UserNotFoundError,
+  UserUpdateFailedError,
+  InvalidNameLengthError,
+  InvalidCredentialsError,
+  InvalidUsernameLengthError,
+  InvalidPasswordLengthError,
+  InvalidProfilePictureLengthError,
+} from '../domain/errors/user-error';
+import {
+  PermissionDeniedError,
+} from '../domain/errors/common-error';
+import {
   UpdateUserEntity,
+  RestrictedUserEntity,
 } from '../domain/entities/user-entity';
 import {
-  validateName,
-  validateEmail,
-  validateUsername,
-} from '../domain/entities/validations/user-validations';
-import {
-  validateQuote,
-  validatePosition,
-  validateInterest,
-} from '../domain/entities/validations/about-validations';
-import {
-  InvalidNameError,
-  EmailAlreadyExistsError,
-  InvalidQuoteError,
-  InvalidInterestError,
-  InvalidPositionError,
-  InvalidUsernameError,
-  UserNotFoundError,
-  UsernameAlreadyExistsError,
-  PermissionDeniedError,
-  InvalidCredentialsError,
-  UserCouldntBeUpdatedError,
-} from '../domain/errors/error-factories';
+  validateNameLength,
+  validatePasswordLength,
+  validateUsernameLength,
+  validateProfilePictureLength,
+} from '../domain/validations/user-validations';
 import UserUsecase from '../domain/usecases/user-usecase';
 
 class UserUsecaseApplication extends UserUsecase {
@@ -38,75 +33,41 @@ class UserUsecaseApplication extends UserUsecase {
       email: user.email,
       username: user.username,
       profilePicture: user.profilePicture,
-      about: {
-        interest: user.about.interest,
-        position: user.about.position,
-        quote: user.about.quote,
-      },
     };
 
     return restrictedUserEntity;
   };
 
-  updateUserById = async (
-    requestingUserId: string,
-    requestedUserId: string,
+  updateUserByUsername = async (
+    requestingUsername: string,
+    requestedUsername: string,
     payload: UpdateUserEntity,
   ): Promise<RestrictedUserEntity> => {
-    if (requestingUserId !== requestedUserId) throw PermissionDeniedError;
+    if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
 
-    const isNameValid = validateName(payload.name);
-    if (!isNameValid) throw InvalidNameError;
+    const isNameLengthValid = validateNameLength(payload.name);
+    if (!isNameLengthValid) throw InvalidNameLengthError;
 
-    const isUsernameValid = validateUsername(payload.username);
-    if (!isUsernameValid) throw InvalidUsernameError;
+    const isUsernameLengthValid = validateUsernameLength(payload.username);
+    if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
 
-    const isEmailValid = validateEmail(payload.email);
-    if (!isEmailValid) throw EmailAlreadyExistsError;
+    const isPasswordLengthValid = validatePasswordLength(payload.password);
+    if (!isPasswordLengthValid) throw InvalidPasswordLengthError;
 
-    const isPositionValid = validatePosition(payload.about.position);
-    if (!isPositionValid) throw InvalidPositionError;
+    const isProfilePictureLengthValid = validateProfilePictureLength(payload.profilePicture);
+    if (!isProfilePictureLengthValid) throw InvalidProfilePictureLengthError;
 
-    const isInterestValid = validateInterest(payload.about.interest);
-    if (!isInterestValid) throw InvalidInterestError;
-
-    const isQuoteValid = validateQuote(payload.about.quote);
-    if (!isQuoteValid) throw InvalidQuoteError;
-
-    const userFoundById = await this.userRepository.getUserById(requestedUserId);
-    if (!userFoundById) throw UserNotFoundError;
+    const user = await this.userRepository.getUserByUsername(requestedUsername);
+    if (!user) throw UserNotFoundError;
 
     const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
       payload.password,
-      userFoundById.password,
+      user.password,
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    if (userFoundById.username !== payload.username) {
-      const userFoundByUsername = await this.userRepository.getUserByUsername(payload.username);
-      if (userFoundByUsername) throw UsernameAlreadyExistsError;
-    }
-
-    if (userFoundById.email !== payload.email) {
-      const userFoundByEmail = await this.userRepository.getUserByEmail(payload.email);
-      if (userFoundByEmail) throw EmailAlreadyExistsError;
-    }
-
-    const updateUserEntity: UpdateUserEntity = {
-      name: payload.name,
-      email: payload.email,
-      username: payload.username,
-      password: userFoundById.password,
-      profilePicture: payload.profilePicture,
-      about: {
-        interest: payload.about.interest,
-        position: payload.about.position,
-        quote: payload.about.quote,
-      },
-    };
-
-    const updatedUser = await this.userRepository.updateUserById(requestedUserId, updateUserEntity);
-    if (!updatedUser) throw UserCouldntBeUpdatedError;
+    const updatedUser = await this.userRepository.updateUserByUsername(requestedUsername, payload);
+    if (!updatedUser) throw UserUpdateFailedError;
 
     const restrictedUserEntity: RestrictedUserEntity = {
       id: updatedUser.id,
@@ -114,11 +75,6 @@ class UserUsecaseApplication extends UserUsecase {
       email: updatedUser.email,
       username: updatedUser.username,
       profilePicture: updatedUser.profilePicture,
-      about: {
-        interest: updatedUser.about.interest,
-        position: updatedUser.about.position,
-        quote: updatedUser.about.quote,
-      },
     };
 
     return restrictedUserEntity;

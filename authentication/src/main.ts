@@ -1,4 +1,3 @@
-import 'express-async-errors';
 import configureUsecases from './application/config';
 import configureServices from './infrastructure/services/configure';
 import configureEnvironmentVariables from './infrastructure/config';
@@ -32,19 +31,27 @@ import configureControllers from './infrastructure/controllers/express-controlle
       tokenService,
       loggerService,
       cryptographyService,
-    } = configureServices(SECRET_KEY);
+    } = configureServices(
+      SECRET_KEY,
+    );
 
     /* 📖 Usecases. */
     const {
       userUsecase,
       authenticationUsecase,
-    } = configureUsecases(tokenService, userRepository, cryptographyService);
+    } = configureUsecases(
+      tokenService,
+      userRepository,
+      cryptographyService,
+    );
 
     /* 📦 Message brokers. */
     const {
-      createProfileProducer,
-      updateProfileProducer,
-    } = configureMessageBrokers(MESSAGE_BROKER_URL);
+      createUserProducer,
+      updateUserProducer,
+    } = await configureMessageBrokers(
+      MESSAGE_BROKER_URL,
+    );
 
     /* 🔌 Controllers. */
     configureControllers(
@@ -52,10 +59,11 @@ import configureControllers from './infrastructure/controllers/express-controlle
       userUsecase,
       loggerService,
       authenticationUsecase,
-      createProfileProducer,
-      updateProfileProducer,
+      createUserProducer,
+      updateUserProducer,
     );
   } catch (e) {
-    console.log('🔥 Message:', (e as Error).message);
+    console.log('🔥:', (e as Error).message);
+    process.exit(1);
   }
 })();

@@ -1,11 +1,14 @@
-import RabbitMQCreateProfileProducer from './rabbitmq-message-broker/producers/rabbitmq-create-profile-producer';
-import RabbitMQUpdateProfileProducer from './rabbitmq-message-broker/producers/rabbitmq-update-profile-producer';
+import RabbitMQCreateUserProducer from './rabbitmq/producers/rabbitmq-create-user-producer';
+import RabbitMQUpdateUserProducer from './rabbitmq/producers/rabbitmq-update-user-producer';
 
-const configureMessageBrokers = (MESSAGE_BROKER_URL: string) => {
-  const createProfileProducer = new RabbitMQCreateProfileProducer(MESSAGE_BROKER_URL);
-  const updateProfileProducer = new RabbitMQUpdateProfileProducer(MESSAGE_BROKER_URL);
+const configureMessageBrokers = async (MESSAGE_BROKER_URL: string) => {
+  const createUserProducer = new RabbitMQCreateUserProducer(MESSAGE_BROKER_URL);
+  const updateUserProducer = new RabbitMQUpdateUserProducer(MESSAGE_BROKER_URL);
 
-  return { createProfileProducer, updateProfileProducer };
+  await createUserProducer.connect();
+  await updateUserProducer.connect();
+
+  return { createUserProducer, updateUserProducer };
 };
 
 export default configureMessageBrokers;

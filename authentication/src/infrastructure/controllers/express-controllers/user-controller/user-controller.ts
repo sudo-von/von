@@ -6,7 +6,7 @@ import UserUsecase from '../../../../domain/usecases/user-usecase';
 import { PERMISSION_DENIED_REQUEST } from '../../errors/request-errors';
 import { UpdateUserEntity } from '../../../../domain/entities/user-entity';
 import { UpdateProfileDto } from '../../../message-brokers/dtos/profile-dto';
-import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq-message-broker/producers/rabbitmq-update-profile-producer';
+import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
 class ExpressUserController {
   constructor(
