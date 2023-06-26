@@ -41,5 +41,6 @@ import configureServices from './infrastructure/services/token-service/config';
     configureControllers(tokenService, profileUsecase, SERVER_PORT);
   } catch (e) {
     console.log('🔥:', (e as Error).message);
+    process.exit(1);
   }
 })();

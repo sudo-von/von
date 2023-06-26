@@ -1,21 +1,31 @@
 version: '3.8'
 services:
+  message_broker:
+    image: rabbitmq:3-management-alpine
+    container_name: message_broker
+    volumes:
+      - ./volumes/message_broker/data/:/var/lib/rabbitmq/
+      - ./volumes/message_broker/log/:/var/log/rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: always
   authentication_database:
     image: mongo:4.4
     container_name: authentication_database
     ports:
-      - 27018:27017
+      - 27017:27017
     volumes:
       - ./volumes/authentication_database/:/data/db
-    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${AUTHENTICATION_DATABASE_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${AUTHENTICATION_DATABASE_PASSWORD}
-  authentication:
+    restart: always
+  details:
     build:
-      context: ./authentication
+      context: ./details
       dockerfile: Dockerfile
-    container_name: authentication
+    container_name: details
     ports:
-      - 3000:3000
+      - 3003:3003
     restart: always
