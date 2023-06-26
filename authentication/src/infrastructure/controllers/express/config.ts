@@ -4,6 +4,7 @@ import bodyMiddleware from './middlewares/body-middleware';
 import createUserRouter from './user-controller/user-router';
 import errorMiddleware from './middlewares/error-middleware';
 import UserUsecase from '../../../domain/usecases/user-usecase';
+import TokenService from '../../services/token-service/token-service';
 import AuthenticationUsecase from '../../../domain/usecases/authentication-usecase';
 import createAuthenticationRouter from './authentication-controller/authentication-router';
 import RabbitMQCreateProfileProducer from '../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
@@ -12,6 +13,7 @@ import RabbitMQUpdateProfileProducer from '../../message-brokers/rabbitmq/produc
 const configureControllers = (
   SERVER_PORT: number,
   userUsecase: UserUsecase,
+  tokenService: TokenService,
   authenticationUsecase: AuthenticationUsecase,
   createProfileProducer: RabbitMQCreateProfileProducer,
   updateProfileProducer: RabbitMQUpdateProfileProducer,
@@ -25,6 +27,7 @@ const configureControllers = (
   );
 
   const authenticationRouter = createAuthenticationRouter(
+    tokenService,
     authenticationUsecase,
     createProfileProducer,
   );
@@ -36,7 +39,7 @@ const configureControllers = (
   app.use(errorMiddleware);
 
   app.listen(SERVER_PORT, () => {
-    console.log(`💻: Starting application on port ${SERVER_PORT}.`);
+    console.log(`🚀: Starting application on port ${SERVER_PORT}.`);
   });
 };
 

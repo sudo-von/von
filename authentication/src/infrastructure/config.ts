@@ -16,28 +16,28 @@ const configureEnvironmentVariables = () => {
   } = process.env;
 
   if (!PORT) {
-    throw new Error('🚫 PORT is not defined.');
+    throw new Error('PORT is not defined.');
   }
   if (!SECRET_KEY) {
-    throw new Error('🚫 SECRET_KEY is not defined.');
+    throw new Error('SECRET_KEY is not defined.');
   }
   if (!DATABASE_HOST) {
-    throw new Error('🚫 DATABASE_HOST is not defined.');
+    throw new Error('DATABASE_HOST is not defined.');
   }
   if (!DATABASE_PORT) {
-    throw new Error('🚫 DATABASE_PORT is not defined.');
+    throw new Error('DATABASE_PORT is not defined.');
   }
   if (!DATABASE_USERNAME) {
-    throw new Error('🚫 DATABASE_USERNAME is not defined.');
+    throw new Error('DATABASE_USERNAME is not defined.');
   }
   if (!DATABASE_PASSWORD) {
-    throw new Error('🚫 DATABASE_PASSWORD is not defined.');
+    throw new Error('DATABASE_PASSWORD is not defined.');
   }
   if (!MESSAGE_BROKER_HOST) {
-    throw new Error('🚫 MESSAGE_BROKER_HOST is not defined.');
+    throw new Error('MESSAGE_BROKER_HOST is not defined.');
   }
   if (!MESSAGE_BROKER_PORT) {
-    throw new Error('🚫 MESSAGE_BROKER_PORT is not defined.');
+    throw new Error('MESSAGE_BROKER_PORT is not defined.');
   }
 
   const BASE_RADIX = 10;

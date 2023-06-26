@@ -30,7 +30,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       this.channel = undefined;
       this.connection = undefined;
     } catch (e) {
-      console.log('🔥:', (e as Error).message);
+      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
       throw MessageBrokerFailedToCloseError;
     }
   };
@@ -40,7 +40,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       if (!this.connection) this.connection = await amqp.connect(this.MESSAGE_BROKER_URL);
       if (!this.channel) this.channel = await this.connection.createChannel();
     } catch (e) {
-      console.log('🔥:', (e as Error).message);
+      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
       throw MessageBrokerFailedToConnectError;
     }
   };
@@ -56,7 +56,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
         this.onMessage(data);
       });
     } catch (e) {
-      console.log('🔥:', (e as Error).message);
+      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
       throw MessageBrokerFailedToConsumeMessageError;
     }
   };
@@ -69,7 +69,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       await this.channel.assertQueue(queue);
       this.channel.sendToQueue(queue, buffer);
     } catch (e) {
-      console.log('🔥:', (e as Error).message);
+      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
       throw MessageBrokerFailedToSendMessageError;
     }
   };

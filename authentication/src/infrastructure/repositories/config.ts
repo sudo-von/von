@@ -6,14 +6,18 @@ const configureRepositories = async (
   DATABASE_USERNAME: string,
   DATABASE_PASSWORD: string,
 ) => {
-  await mongoose.connect(DATABASE_URL, {
-    user: DATABASE_USERNAME,
-    pass: DATABASE_PASSWORD,
-  });
+  try {
+    await mongoose.connect(DATABASE_URL, {
+      user: DATABASE_USERNAME,
+      pass: DATABASE_PASSWORD,
+    });
 
-  const userRepository = new MongoUserRepository();
+    const userRepository = new MongoUserRepository();
 
-  return { userRepository };
+    return { userRepository };
+  } catch (e) {
+    throw new Error(`An error occurred with the database: ${(e as Error).message}.`);
+  }
 };
 
 export default configureRepositories;

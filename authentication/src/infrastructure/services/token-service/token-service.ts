@@ -1,9 +1,12 @@
 import {
   RestrictedUserEntity,
-} from '../entities/user-entity';
+} from '../../../domain/entities/user-entity';
+import {
+  TokenUserDto,
+} from './dtos/token-user-dto';
 
 interface ITokenServiceReader {
-  decodeToken: (token: string) => RestrictedUserEntity;
+  decodeToken: (token: string) => TokenUserDto;
 }
 
 interface ITokenServiceWriter {
@@ -15,7 +18,7 @@ interface ITokenService extends ITokenServiceReader, ITokenServiceWriter {}
 abstract class TokenService implements ITokenService {
   constructor(protected SECRET_KEY: string) {}
 
-  abstract decodeToken: (token: string) => RestrictedUserEntity;
+  abstract decodeToken: (token: string) => TokenUserDto;
 
   abstract generateToken: (payload: RestrictedUserEntity) => string;
 }

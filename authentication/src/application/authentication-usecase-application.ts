@@ -22,7 +22,7 @@ import {
 import AuthenticationUsecase from '../domain/usecases/authentication-usecase';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
-  authenticate = async (email: string, password: string): Promise<string> => {
+  authenticate = async (email: string, password: string): Promise<RestrictedUserEntity> => {
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) throw InvalidCredentialsError;
 
@@ -40,8 +40,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       profilePicture: user.profilePicture,
     };
 
-    const token = this.tokenService.generateToken(restrictedUserEntity);
-    return token;
+    return restrictedUserEntity;
   };
 
   signup = async (payload: CreateUserEntity): Promise<RestrictedUserEntity> => {

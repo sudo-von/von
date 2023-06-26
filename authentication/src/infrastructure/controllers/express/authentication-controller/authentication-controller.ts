@@ -15,11 +15,13 @@ import {
 import {
   MessageBrokerCreateUserDto,
 } from '../../../message-brokers/dtos/message-broker-user-dto';
+import TokenService from '../../../services/token-service/token-service';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
 import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 
 class ExpressAuthenticationController {
   constructor(
+    private tokenService: TokenService,
     private authenticationUsecase: AuthenticationUsecase,
     private createUserProducer: RabbitMQCreateUserProducer,
   ) {}
@@ -28,7 +30,9 @@ class ExpressAuthenticationController {
     try {
       const { email, password } = CreateControllerUserCredentialsDto.parse(req.body);
 
-      const token = await this.authenticationUsecase.authenticate(email, password);
+      const restrictedUser = await this.authenticationUsecase.authenticate(email, password);
+
+      const token = this.tokenService.generateToken(restrictedUser);
 
       return res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.success.ok);
     } catch (e) {

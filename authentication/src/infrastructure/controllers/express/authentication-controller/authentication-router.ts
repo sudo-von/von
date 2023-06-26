@@ -1,13 +1,19 @@
 import express from 'express';
+import TokenService from '../../../services/token-service/token-service';
 import ExpressAuthenticationController from './authentication-controller';
-import AuthUsecase from '../../../../domain/usecases/authentication-usecase';
-import RabbitMQCreateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
+import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
+import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 
 const createExpressAuthenticationRouter = (
-  authUsecase: AuthUsecase,
-  messageBroker: RabbitMQCreateProfileProducer,
+  tokenService: TokenService,
+  authenticationUsecase: AuthenticationUsecase,
+  createUserProducer: RabbitMQCreateUserProducer,
 ) => {
-  const authController = new ExpressAuthenticationController(authUsecase, messageBroker);
+  const authController = new ExpressAuthenticationController(
+    tokenService,
+    authenticationUsecase,
+    createUserProducer,
+  );
 
   const router = express.Router();
 

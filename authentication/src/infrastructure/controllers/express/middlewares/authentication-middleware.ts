@@ -4,7 +4,7 @@ import {
   NextFunction,
 } from 'express';
 import statusCodes from '../../status-codes';
-import TokenService from '../../../../domain/services/token-service';
+import TokenService from '../../../services/token-service/token-service';
 
 const authenticationMiddleware = (tokenService: TokenService) => (
   req: Request,
@@ -33,10 +33,7 @@ const authenticationMiddleware = (tokenService: TokenService) => (
   }
 
   try {
-    const decodedToken = tokenService.decodeToken(token);
-
-    req.user = decodedToken;
-
+    req.user = tokenService.decodeToken(token);
     return next();
   } catch (error) {
     console.log('🔥:', (error as Error).message);

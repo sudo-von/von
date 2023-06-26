@@ -10,6 +10,8 @@ services:
       - 5672:5672
       - 15672:15672
     restart: always
+    logging:
+      driver: none
   authentication_database:
     image: mongo:4.4
     container_name: authentication_database
@@ -21,6 +23,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${AUTHENTICATION_DATABASE_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${AUTHENTICATION_DATABASE_PASSWORD}
     restart: always
+    logging:
+      driver: none
   authentication:
     build:
       context: ./authentication

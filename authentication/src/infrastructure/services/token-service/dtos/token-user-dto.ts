@@ -1,12 +1,11 @@
-type TokenUserDto = Readonly<{
+export type TokenUserDto = Readonly<{
   id: string;
   name: string;
   email: string;
   username: string;
-  password: string;
   profile_picture: string;
   iat: number;
   exp: number;
 }>;
 
-export default TokenUserDto;
+export type CreateTokenUserDto = Omit<TokenUserDto, 'iat' | 'exp'>;

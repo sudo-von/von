@@ -7,8 +7,8 @@ export type UserEntity = Readonly<{
   profilePicture: string;
 }>;
 
-export type RestrictedUserEntity = Omit<UserEntity, 'password'>;
-
 export type CreateUserEntity = Omit<UserEntity, 'id'>;
 
 export type UpdateUserEntity = Omit<UserEntity, 'id'>;
+
+export type RestrictedUserEntity = Omit<UserEntity, 'password'>;

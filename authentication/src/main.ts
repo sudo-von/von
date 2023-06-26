@@ -30,7 +30,9 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
     /* ⚙️ Services. */
     const {
       tokenService,
-    } = configureTokenServices(SECRET_KEY);
+    } = configureTokenServices(
+      SECRET_KEY,
+    );
     const {
       cryptographyService,
     } = configureCryptographyServices();
@@ -40,7 +42,6 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
       userUsecase,
       authenticationUsecase,
     } = configureUsecases(
-      tokenService,
       userRepository,
       cryptographyService,
     );
@@ -57,6 +58,7 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
     configureControllers(
       SERVER_PORT,
       userUsecase,
+      tokenService,
       authenticationUsecase,
       createUserProducer,
       updateUserProducer,

@@ -2,12 +2,14 @@ import {
   CreateUserEntity,
   RestrictedUserEntity,
 } from '../entities/user-entity';
-import TokenService from '../services/token-service';
 import IUserRepository from '../repositories/user-repository';
 import CryptographyService from '../services/cryptography-service';
 
 interface IAuthenticationUsecaseReader {
-  authenticate: (email: string, password: string) => Promise<string>;
+  authenticate: (
+    email: string,
+    password: string
+  ) => Promise<RestrictedUserEntity>;
 }
 
 interface IAuthenticationUsecaseWriter {
@@ -19,12 +21,14 @@ interface IAuthenticationUsecase extends
 
 abstract class AuthenticationUsecase implements IAuthenticationUsecase {
   constructor(
-    protected tokenService: TokenService,
     protected userRepository: IUserRepository,
     protected cryptographyService: CryptographyService,
   ) {}
 
-  abstract authenticate: (email: string, password: string) => Promise<string>;
+  abstract authenticate: (
+    email: string,
+    password: string
+  ) => Promise<RestrictedUserEntity>;
 
   abstract signup: (payload: CreateUserEntity) => Promise<RestrictedUserEntity>;
 }
