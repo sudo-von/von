@@ -1,11 +1,11 @@
-import { EssentialUserEntity } from '../entities/user-entity';
+import { RestrictedUserEntity } from '../entities/user-entity';
 
 abstract class TokenService {
   constructor(protected SECRET_KEY: string) {}
 
-  abstract decodeToken: (token: string) => EssentialUserEntity;
+  abstract decodeToken: (token: string) => RestrictedUserEntity;
 
-  abstract generateToken: (payload: EssentialUserEntity) => string;
+  abstract generateToken: (payload: RestrictedUserEntity) => string;
 }
 
 export default TokenService;

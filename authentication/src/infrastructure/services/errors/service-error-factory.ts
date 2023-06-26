@@ -1,4 +1,7 @@
-import { ServiceError, ServiceErrorCode } from './service-errors';
+import {
+  ServiceError,
+  ServiceErrorCode,
+} from './service-error-codes';
 
 export class ServiceErrorFactory extends Error implements ServiceError {
   constructor(

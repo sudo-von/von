@@ -1,10 +1,8 @@
-interface ICryptographyServiceReader {}
-
 interface ICryptographyServiceWriter {
   hash: (plainData: string) => Promise<string>;
   comparePlainAndHash: (plainData: string, hashedData: string) => Promise<boolean>;
 }
 
-interface ICryptographyService extends ICryptographyServiceReader, ICryptographyServiceWriter {}
+interface ICryptographyService extends ICryptographyServiceWriter {}
 
 export default ICryptographyService;

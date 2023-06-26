@@ -1,15 +1,18 @@
 import bcrypt from 'bcrypt';
+import {
+  CryptographyServiceInvalidCompareError,
+  CryptographyServiceInvalidHashDataError,
+} from '../../errors/cryptography-service-errors';
 import ICryptographyService from '../../../../domain/services/cryptography-service';
-import { CryptographyServiceInvalidCompareError, CryptographyServiceInvalidHashDataError } from '../../errors/server-error-factories';
 
 class BcryptCryptographyService implements ICryptographyService {
-  private saltRounds = 10;
-
   hash = async (plainData: string): Promise<string> => {
     try {
-      const hashedData = await bcrypt.hash(plainData, this.saltRounds);
+      const rounds = 10;
+      const hashedData = await bcrypt.hash(plainData, rounds);
       return hashedData;
     } catch (e) {
+      console.log('🔥:', (e as Error).message);
       throw CryptographyServiceInvalidHashDataError;
     }
   };
@@ -19,6 +22,7 @@ class BcryptCryptographyService implements ICryptographyService {
       const result = await bcrypt.compare(plainData, hashedData);
       return result;
     } catch (e) {
+      console.log('🔥:', (e as Error).message);
       throw CryptographyServiceInvalidCompareError;
     }
   };

@@ -1,9 +1,10 @@
 import configureUsecases from './application/config';
-import configureServices from './infrastructure/services/configure';
 import configureEnvironmentVariables from './infrastructure/config';
 import configureRepositories from './infrastructure/repositories/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
+import configureTokenServices from './infrastructure/services/token-service/config';
 import configureControllers from './infrastructure/controllers/express-controllers/config';
+import configureCryptographyServices from './infrastructure/services/cryptography-service/config';
 
 (async () => {
   try {
@@ -29,11 +30,10 @@ import configureControllers from './infrastructure/controllers/express-controlle
     /* ⚙️ Services. */
     const {
       tokenService,
-      loggerService,
+    } = configureTokenServices(SECRET_KEY);
+    const {
       cryptographyService,
-    } = configureServices(
-      SECRET_KEY,
-    );
+    } = configureCryptographyServices();
 
     /* 📖 Usecases. */
     const {
@@ -57,7 +57,6 @@ import configureControllers from './infrastructure/controllers/express-controlle
     configureControllers(
       SERVER_PORT,
       userUsecase,
-      loggerService,
       authenticationUsecase,
       createUserProducer,
       updateUserProducer,

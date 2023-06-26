@@ -1,38 +1,38 @@
-import jwt from 'jsonwebtoken';
-import JSONWebTokenDto from './dtos/jsonwebtoken-dto';
+import jwt, { SignOptions } from 'jsonwebtoken';
+import {
+  TokenServiceExpiredTokenError,
+  TokenServiceInvalidTokenError,
+} from '../../errors/token-service-errors';
+import {
+  RestrictedUserEntity,
+} from '../../../../domain/entities/user-entity';
+import TokenUserDto from '../dtos/token-user-dto';
 import TokenService from '../../../../domain/services/token-service';
-import { EssentialUserEntity } from '../../../../domain/entities/user-entity';
-import { TokenServiceExpiredTokenError, TokenServiceInvalidTokenError } from '../../errors/server-error-factories';
 
 class JWTTokenService extends TokenService {
-  private readonly expiresIn = 60 * 30;
-
-  private readonly algorithm = 'HS256';
-
-  generateToken = (payload: EssentialUserEntity): string => {
-    const token = jwt.sign(
-      payload,
-      this.SECRET_KEY,
-      { algorithm: this.algorithm, expiresIn: this.expiresIn },
-    );
+  generateToken = (payload: RestrictedUserEntity): string => {
+    const options: SignOptions = { algorithm: 'HS256', expiresIn: 60 * 30 };
+    const token = jwt.sign(payload, this.SECRET_KEY, options);
     return token;
   };
 
-  decodeToken = (token: string): EssentialUserEntity => {
+  decodeToken = (token: string): RestrictedUserEntity => {
     try {
-      const payload = jwt.verify(token, this.SECRET_KEY) as JSONWebTokenDto;
+      const payload = jwt.verify(token, this.SECRET_KEY) as TokenUserDto;
 
-      const essentialUserEntity: EssentialUserEntity = {
+      const restrictedUserEntity: RestrictedUserEntity = {
         id: payload.id,
         name: payload.name,
-        username: payload.username,
         email: payload.email,
-        profilePicture: payload.profilePicture,
+        username: payload.username,
+        profilePicture: payload.profile_picture,
       };
 
-      return essentialUserEntity;
+      return restrictedUserEntity;
     } catch (e) {
-      if ((e as Error).name === 'TokenExpiredError') {
+      const { name, message } = e as Error;
+      console.log('🔥:', message);
+      if (name === 'TokenExpiredError') {
         throw TokenServiceExpiredTokenError;
       }
       throw TokenServiceInvalidTokenError;
