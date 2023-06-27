@@ -4,9 +4,16 @@ import {
   NextFunction,
 } from 'express';
 import statusCodes from '../../status-codes';
+import {
+  UserNotFoundError,
+} from '../../../../domain/errors/user-error';
 import TokenService from '../../../services/token-service/token-service';
+import IUserRepository from '../../../../domain/repositories/user-repository';
 
-const authenticationMiddleware = (tokenService: TokenService) => (
+const authenticationMiddleware = (
+  tokenService: TokenService,
+  userRepository: IUserRepository,
+) => async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -33,7 +40,21 @@ const authenticationMiddleware = (tokenService: TokenService) => (
   }
 
   try {
-    req.user = tokenService.decodeToken(token);
+    const decodeToken = tokenService.decodeToken(token);
+
+    const user = await userRepository.getUserById(decodeToken.id);
+    if (!user) throw UserNotFoundError;
+
+    req.user = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      iat: decodeToken.iat,
+      exp: decodeToken.exp,
+      username: user.username,
+      profile_picture: user.profilePicture,
+    };
+
     return next();
   } catch (error) {
     console.log('🔥:', (error as Error).message);

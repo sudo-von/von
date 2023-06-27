@@ -61,6 +61,7 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
       SERVER_PORT,
       userUsecase,
       tokenService,
+      userRepository,
       authenticationUsecase,
       createUserProducer,
       updateUserProducer,

@@ -5,6 +5,7 @@ import createUserRouter from './user-controller/user-router';
 import errorMiddleware from './middlewares/error-middleware';
 import UserUsecase from '../../../domain/usecases/user-usecase';
 import TokenService from '../../services/token-service/token-service';
+import IUserRepository from '../../../domain/repositories/user-repository';
 import AuthenticationUsecase from '../../../domain/usecases/authentication-usecase';
 import createAuthenticationRouter from './authentication-controller/authentication-router';
 import RabbitMQCreateProfileProducer from '../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
@@ -14,6 +15,7 @@ const configureControllers = (
   SERVER_PORT: number,
   userUsecase: UserUsecase,
   tokenService: TokenService,
+  userRepository: IUserRepository,
   authenticationUsecase: AuthenticationUsecase,
   createProfileProducer: RabbitMQCreateProfileProducer,
   updateProfileProducer: RabbitMQUpdateProfileProducer,
@@ -24,6 +26,7 @@ const configureControllers = (
   const userRouter = createUserRouter(
     userUsecase,
     tokenService,
+    userRepository,
     updateProfileProducer,
   );
 
