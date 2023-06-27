@@ -40,19 +40,19 @@ const authenticationMiddleware = (
   }
 
   try {
-    const decodeToken = tokenService.decodeToken(token);
+    const decodedToken = tokenService.decodeToken(token);
 
-    const user = await userRepository.getUserById(decodeToken.id);
-    if (!user) throw UserNotFoundError;
+    const updatedUser = await userRepository.getUserById(decodedToken.id);
+    if (!updatedUser) throw UserNotFoundError;
 
     req.user = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      iat: decodeToken.iat,
-      exp: decodeToken.exp,
-      username: user.username,
-      profile_picture: user.profilePicture,
+      id: updatedUser.id,
+      iat: decodedToken.iat,
+      exp: decodedToken.exp,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      username: updatedUser.username,
+      profile_picture: updatedUser.profilePicture,
     };
 
     return next();

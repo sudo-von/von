@@ -6,7 +6,7 @@ import IUserRepository from '../../../../domain/repositories/user-repository';
 import authenticationMiddleware from '../middlewares/authentication-middleware';
 import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
-const createUserRouter = (
+const configureUserRouter = (
   userUsecase: UserUsecase,
   tokenService: TokenService,
   userRepository: IUserRepository,
@@ -19,7 +19,9 @@ const createUserRouter = (
   router.get('/username/:username', userController.getUserByUsername);
   router.patch('/username/:username', authenticationMiddleware(tokenService, userRepository), userController.updateProfileByUsername);
 
+  console.log('🔌 User router has been configured.');
+
   return router;
 };
 
-export default createUserRouter;
+export default configureUserRouter;

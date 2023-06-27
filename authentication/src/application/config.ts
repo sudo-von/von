@@ -17,6 +17,8 @@ const configureUsecases = (
     cryptographyService,
   );
 
+  console.log('📖 Usecases have been configured.');
+
   return { userUsecase, authenticationUsecase };
 };
 

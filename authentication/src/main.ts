@@ -3,8 +3,10 @@ import configureEnvironmentVariables from './infrastructure/config';
 import configureRepositories from './infrastructure/repositories/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
 import configureControllers from './infrastructure/controllers/express/config';
-import configureTokenServices from './infrastructure/services/token-service/config';
-import configureCryptographyServices from './infrastructure/services/cryptography-service/config';
+import configureTokenService from './infrastructure/services/token-service/config';
+import configureUserRouter from './infrastructure/controllers/express/user-controller/config';
+import configureCryptographyService from './infrastructure/services/cryptography-service/config';
+import configureAuthenticationRouter from './infrastructure/controllers/express/authentication-controller/config';
 
 (async () => {
   try {
@@ -29,15 +31,9 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
       DATABASE_PASSWORD,
     );
 
-    /* ⚙️ Services. */
-    const {
-      tokenService,
-    } = configureTokenServices(
-      SECRET_KEY,
-    );
-    const {
-      cryptographyService,
-    } = configureCryptographyServices();
+    /* 🔧 Services. */
+    const tokenService = configureTokenService(SECRET_KEY);
+    const cryptographyService = configureCryptographyService();
 
     /* 📖 Usecases. */
     const {
@@ -56,18 +52,27 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
       MESSAGE_BROKER_URL,
     );
 
-    /* 🔌 Controllers. */
-    configureControllers(
-      SERVER_PORT,
+    /* 🔌 Routers. */
+    const userRouter = configureUserRouter(
       userUsecase,
       tokenService,
       userRepository,
-      authenticationUsecase,
-      createUserProducer,
       updateUserProducer,
     );
+    const authenticationRouter = configureAuthenticationRouter(
+      tokenService,
+      authenticationUsecase,
+      createUserProducer,
+    );
+
+    /* 🚀 Controllers. */
+    configureControllers(
+      SERVER_PORT,
+      userRouter,
+      authenticationRouter,
+    );
   } catch (e) {
-    console.log('🔥:', (e as Error).message);
+    console.log(`⛔️ An error occurred while configuring the application: ${(e as Error).message}`);
     process.exit(1);
   }
 })();

@@ -1,9 +1,11 @@
 import BcryptCryptographyService from './bcrypt-cryptography-service/bcrypt-cryptography-service';
 
-const configureCryptographyServices = () => {
+const configureCryptographyService = () => {
   const cryptographyService = new BcryptCryptographyService();
 
-  return { cryptographyService };
+  console.log('🔧 Cryptography service has been configured.');
+
+  return cryptographyService;
 };
 
-export default configureCryptographyServices;
+export default configureCryptographyService;

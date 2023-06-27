@@ -1,8 +1,7 @@
 import dotenv from 'dotenv';
 
 const configureEnvironmentVariables = () => {
-  const BASE_PATH = `${__dirname}/../../.env`;
-  dotenv.config({ path: BASE_PATH });
+  dotenv.config({ path: `${__dirname}/../../.env` });
 
   const {
     PORT,
@@ -48,6 +47,8 @@ const configureEnvironmentVariables = () => {
   const SERVER_PORT = parseInt(PORT, BASE_RADIX);
   const MESSAGE_BROKER_URL = `${MESSAGE_BROKER_HOST}:${MESSAGE_BROKER_PORT}`;
   const DATABASE_URL = `${DATABASE_HOST}:${DATABASE_PORT}`;
+
+  console.log('🔐 Environment variables have been configured.');
 
   return {
     SECRET_KEY,

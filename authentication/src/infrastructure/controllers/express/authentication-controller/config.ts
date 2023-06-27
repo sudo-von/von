@@ -4,7 +4,7 @@ import ExpressAuthenticationController from './authentication-controller';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
 import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 
-const createExpressAuthenticationRouter = (
+const configureAuthenticationRouter = (
   tokenService: TokenService,
   authenticationUsecase: AuthenticationUsecase,
   createUserProducer: RabbitMQCreateUserProducer,
@@ -20,7 +20,9 @@ const createExpressAuthenticationRouter = (
   router.post('/signup', authController.signup);
   router.post('/authenticate', authController.authenticate);
 
+  console.log('🔌 Authentication router has been configured.');
+
   return router;
 };
 
-export default createExpressAuthenticationRouter;
+export default configureAuthenticationRouter;

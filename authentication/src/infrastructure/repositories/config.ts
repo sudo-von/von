@@ -16,6 +16,8 @@ const configureRepositories = async (
 
     const userRepository = new MongoUserRepository();
 
+    console.log('💽 Repositories have been configured.');
+
     return { userRepository };
   } catch (e) {
     throw new Error(`An error occurred with the database: ${(e as Error).message}.`);

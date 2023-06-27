@@ -8,6 +8,8 @@ const configureMessageBrokers = async (MESSAGE_BROKER_URL: string) => {
   await createUserProducer.connect();
   await updateUserProducer.connect();
 
+  console.log('📦 Message brokers have been configured.');
+
   return { createUserProducer, updateUserProducer };
 };
 
