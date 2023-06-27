@@ -12,7 +12,7 @@ class BcryptCryptographyService implements ICryptographyService {
       const hashedData = await bcrypt.hash(plainData, rounds);
       return hashedData;
     } catch (e) {
-      console.log('🔥:', (e as Error).message);
+      console.log(`⛔️ An error occurred with the cryptography service: ${(e as Error).message}.`);
       throw CryptographyServiceInvalidHashDataError;
     }
   };
@@ -22,7 +22,7 @@ class BcryptCryptographyService implements ICryptographyService {
       const result = await bcrypt.compare(plainData, hashedData);
       return result;
     } catch (e) {
-      console.log('🔥:', (e as Error).message);
+      console.log(`⛔️ An error occurred with the cryptography service: ${(e as Error).message}.`);
       throw CryptographyServiceInvalidCompareError;
     }
   };

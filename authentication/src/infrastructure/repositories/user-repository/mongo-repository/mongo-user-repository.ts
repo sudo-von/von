@@ -46,11 +46,15 @@ class MongoUserRepository implements IUserRepository {
     payload: UpdateUserEntity,
   ): Promise<UserEntity | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({ username }, {
-      name: payload.name,
-      email: payload.email,
-      username: payload.username,
-      password: payload.password,
-      profilePicture: payload.profilePicture,
+      $set: {
+        name: payload.name,
+        email: payload.email,
+        username: payload.username,
+        password: payload.password,
+        profilePicture: payload.profilePicture,
+      },
+    }, {
+      new: true,
     });
     if (!updatedUser) return null;
     const userEntity = userModelToUserEntity(updatedUser);

@@ -23,6 +23,7 @@ const configureControllers = (
 
   const userRouter = createUserRouter(
     userUsecase,
+    tokenService,
     updateProfileProducer,
   );
 

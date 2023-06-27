@@ -32,7 +32,7 @@ class JWTTokenService extends TokenService {
       return payload;
     } catch (e) {
       const { name, message } = e as Error;
-      console.log('🔥:', message);
+      console.log(`⛔️ An error occurred with the token service: ${message}.`);
       if (name === 'TokenExpiredError') {
         throw TokenServiceExpiredTokenError;
       }
