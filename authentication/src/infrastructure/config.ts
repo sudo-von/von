@@ -7,6 +7,7 @@ const configureEnvironmentVariables = () => {
   const {
     PORT,
     SECRET_KEY,
+    DATABASE_NAME,
     DATABASE_HOST,
     DATABASE_PORT,
     DATABASE_USERNAME,
@@ -20,6 +21,9 @@ const configureEnvironmentVariables = () => {
   }
   if (!SECRET_KEY) {
     throw new Error('SECRET_KEY is not defined.');
+  }
+  if (!DATABASE_NAME) {
+    throw new Error('DATABASE_NAME is not defined.');
   }
   if (!DATABASE_HOST) {
     throw new Error('DATABASE_HOST is not defined.');
@@ -49,6 +53,7 @@ const configureEnvironmentVariables = () => {
     SECRET_KEY,
     SERVER_PORT,
     DATABASE_URL,
+    DATABASE_NAME,
     DATABASE_USERNAME,
     DATABASE_PASSWORD,
     MESSAGE_BROKER_URL,

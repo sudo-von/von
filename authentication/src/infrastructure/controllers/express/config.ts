@@ -32,8 +32,8 @@ const configureControllers = (
     createProfileProducer,
   );
 
-  app.use('/v1/user', userRouter);
-  app.use('/v1/auth', authenticationRouter);
+  app.use('/api/v1/user', userRouter);
+  app.use('/api/v1/authentication', authenticationRouter);
 
   app.use(bodyMiddleware);
   app.use(errorMiddleware);

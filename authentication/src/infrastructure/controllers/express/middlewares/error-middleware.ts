@@ -71,7 +71,7 @@ const errorMiddleware = (
   res: Response,
   _next: NextFunction,
 ) => {
-  console.log('🔥:', (error as Error).message);
+  console.log(`⛔️ An error occurred with the controller: ${(error as Error).message}`);
 
   if (error instanceof MessageBrokerErrorFactory) {
     return res.end();

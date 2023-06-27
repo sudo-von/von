@@ -13,6 +13,7 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
       SECRET_KEY,
       SERVER_PORT,
       DATABASE_URL,
+      DATABASE_NAME,
       DATABASE_USERNAME,
       DATABASE_PASSWORD,
       MESSAGE_BROKER_URL,
@@ -23,6 +24,7 @@ import configureCryptographyServices from './infrastructure/services/cryptograph
       userRepository,
     } = await configureRepositories(
       DATABASE_URL,
+      DATABASE_NAME,
       DATABASE_USERNAME,
       DATABASE_PASSWORD,
     );

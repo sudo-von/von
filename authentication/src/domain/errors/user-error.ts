@@ -29,7 +29,7 @@ export const INVALID_PROFILE_PICTURE_LENGTH: DomainError = {
 
 export const SINGLE_USER_ONLY: DomainError = {
   code: 'SINGLE_USER_ONLY_DOMAIN_ERROR',
-  message: 'Single user only. Only one user is allowed.',
+  message: 'Only one user is allowed.',
 };
 
 export const USER_CREATION_FAILED: DomainError = {

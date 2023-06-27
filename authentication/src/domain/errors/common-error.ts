@@ -3,7 +3,7 @@ import { createDomainErrorFactory } from './error-factory';
 
 export const INVALID_CREDENTIALS: DomainError = {
   code: 'INVALID_CREDENTIALS_DOMAIN_ERROR',
-  message: 'Invalid credentials. Please verify your username and password and try again.',
+  message: 'Please verify your email and password and try again.',
 };
 
 export const PERMISSION_DENIED: DomainError = {

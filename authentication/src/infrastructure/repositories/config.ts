@@ -3,11 +3,13 @@ import MongoUserRepository from './user-repository/mongo-repository/mongo-user-r
 
 const configureRepositories = async (
   DATABASE_URL: string,
+  DATABASE_NAME: string,
   DATABASE_USERNAME: string,
   DATABASE_PASSWORD: string,
 ) => {
   try {
     await mongoose.connect(DATABASE_URL, {
+      dbName: DATABASE_NAME,
       user: DATABASE_USERNAME,
       pass: DATABASE_PASSWORD,
     });
