@@ -7,10 +7,10 @@ import {
 import {
   CreateUserEntity,
   RestrictedUserEntity,
-} from '../domain/entities/user-entity';
+} from '../domain/entities/user/user-entity';
 import {
   validateUserSignup,
-} from '../domain/validations/user/user-validations';
+} from '../domain/entities/user/user-validations';
 import AuthenticationUsecase from '../domain/usecases/authentication-usecase';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {

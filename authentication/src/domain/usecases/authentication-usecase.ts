@@ -1,7 +1,7 @@
 import {
   CreateUserEntity,
   RestrictedUserEntity,
-} from '../entities/user-entity';
+} from '../entities/user/user-entity';
 import IUserRepository from '../repositories/user-repository';
 import CryptographyService from '../services/cryptography-service';
 

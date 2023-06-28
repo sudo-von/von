@@ -3,7 +3,7 @@ import {
   UserEntity,
   CreateUserEntity,
   UpdateUserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 import userModelToUserEntity from './mongo-user-mapper';
 import IUserRepository from '../../../../domain/repositories/user-repository';
 

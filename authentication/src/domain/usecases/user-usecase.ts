@@ -1,7 +1,7 @@
 import {
   UpdateUserEntity,
   RestrictedUserEntity,
-} from '../entities/user-entity';
+} from '../entities/user/user-entity';
 import IUserRepository from '../repositories/user-repository';
 import ICryptographyService from '../services/cryptography-service';
 

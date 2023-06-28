@@ -9,10 +9,10 @@ import {
 import {
   UpdateUserEntity,
   RestrictedUserEntity,
-} from '../domain/entities/user-entity';
+} from '../domain/entities/user/user-entity';
 import {
   validateUserUpdate,
-} from '../domain/validations/user/user-validations';
+} from '../domain/entities/user/user-validations';
 import UserUsecase from '../domain/usecases/user-usecase';
 
 class UserUsecaseApplication extends UserUsecase {

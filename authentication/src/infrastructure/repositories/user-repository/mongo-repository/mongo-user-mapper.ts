@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   UserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 
 const userModelToUserEntity = (model: HydratedDocument<UserEntity>): UserEntity => ({
   id: model._id.toHexString(),

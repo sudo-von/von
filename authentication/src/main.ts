@@ -66,11 +66,7 @@ import configureAuthenticationRouter from './infrastructure/controllers/express/
     );
 
     /* 🚀 Controllers. */
-    await configureControllers(
-      SERVER_PORT,
-      userRouter,
-      authenticationRouter,
-    );
+    await configureControllers(SERVER_PORT, userRouter, authenticationRouter);
   } catch (e) {
     console.log(`⛔️ An error occurred while configuring the application: ${(e as Error).message}`);
     process.exit(1);

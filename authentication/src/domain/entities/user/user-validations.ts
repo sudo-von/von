@@ -7,7 +7,7 @@ import {
 import {
   CreateUserEntity,
   UpdateUserEntity,
-} from '../../entities/user-entity';
+} from './user-entity';
 import userRules from './user-rules';
 
 export const validateNameLength = (name: string) => {

@@ -4,7 +4,7 @@ import {
 } from 'mongoose';
 import {
   UserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 
 const userSchema = new Schema<UserEntity>({
   name: {

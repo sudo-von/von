@@ -11,7 +11,7 @@ import {
 import TokenService from '../token-service';
 import {
   RestrictedUserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 
 class JWTTokenService extends TokenService {
   generateToken = (payload: RestrictedUserEntity): string => {

@@ -4,7 +4,7 @@ import {
 import {
   createDomainErrorFactory,
 } from './error-factory';
-import userRules from '../validations/user/user-rules';
+import userRules from '../entities/user/user-rules';
 
 export const EMAIL_ALREADY_EXISTS: DomainError = {
   code: 'EMAIL_ALREADY_EXISTS_DOMAIN_ERROR',

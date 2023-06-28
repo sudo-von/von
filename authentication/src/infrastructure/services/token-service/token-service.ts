@@ -3,7 +3,7 @@ import {
 } from './dtos/token-user-dto';
 import {
   RestrictedUserEntity,
-} from '../../../domain/entities/user-entity';
+} from '../../../domain/entities/user/user-entity';
 
 interface ITokenServiceReader {
   decodeToken: (token: string) => TokenUserDto;

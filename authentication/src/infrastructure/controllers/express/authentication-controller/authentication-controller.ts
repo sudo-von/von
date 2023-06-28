@@ -11,7 +11,7 @@ import {
 import statusCodes from '../../status-codes';
 import {
   CreateUserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 import {
   MessageBrokerCreateUserDto,
 } from '../../../message-brokers/dtos/message-broker-user-dto';

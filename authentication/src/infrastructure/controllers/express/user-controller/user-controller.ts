@@ -13,7 +13,7 @@ import {
 } from '../../errors/common-controller-error';
 import {
   UpdateUserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 import {
   MessageBrokerUpdateUserDto,
 } from '../../../message-brokers/dtos/message-broker-user-dto';
