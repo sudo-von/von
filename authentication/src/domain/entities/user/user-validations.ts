@@ -1,5 +1,6 @@
 import {
   InvalidNameLengthError,
+  InvalidEmailLengthError,
   InvalidPasswordLengthError,
   InvalidUsernameLengthError,
   InvalidProfilePictureLengthError,
@@ -16,6 +17,12 @@ export const validateNameLength = (name: string) => {
   return nameLength >= MIN_LENGTH && nameLength <= MAX_LENGTH;
 };
 
+export const validateEmailLength = (email: string) => {
+  const emailLength = email.trim().length;
+  const { MIN_LENGTH, MAX_LENGTH } = userRules.email;
+  return emailLength >= MIN_LENGTH && emailLength <= MAX_LENGTH;
+};
+
 export const validateUsernameLength = (username: string) => {
   const usernameLength = username.trim().length;
   const { MIN_LENGTH, MAX_LENGTH } = userRules.username;
@@ -23,9 +30,9 @@ export const validateUsernameLength = (username: string) => {
 };
 
 export const validatePasswordLength = (password: string) => {
-  const nameLength = password.trim().length;
-  const { MIN_LENGTH } = userRules.password;
-  return nameLength >= MIN_LENGTH;
+  const passwordLength = password.trim().length;
+  const { MIN_LENGTH, MAX_LENGTH } = userRules.password;
+  return passwordLength >= MIN_LENGTH && passwordLength <= MAX_LENGTH;
 };
 
 export const validateProfilePictureLength = (profilePicture: string) => {
@@ -37,6 +44,9 @@ export const validateProfilePictureLength = (profilePicture: string) => {
 export const validateUserSignup = (payload: CreateUserEntity) => {
   const isNameLengthValid = validateNameLength(payload.name);
   if (!isNameLengthValid) throw InvalidNameLengthError;
+
+  const isEmailLengthValid = validateEmailLength(payload.email);
+  if (!isEmailLengthValid) throw InvalidEmailLengthError;
 
   const isUsernameLengthValid = validateUsernameLength(payload.username);
   if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
@@ -51,6 +61,9 @@ export const validateUserSignup = (payload: CreateUserEntity) => {
 export const validateUserUpdate = (payload: UpdateUserEntity) => {
   const isNameLengthValid = validateNameLength(payload.name);
   if (!isNameLengthValid) throw InvalidNameLengthError;
+
+  const isEmailLengthValid = validateEmailLength(payload.email);
+  if (!isEmailLengthValid) throw InvalidEmailLengthError;
 
   const isUsernameLengthValid = validateUsernameLength(payload.username);
   if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
