@@ -1,0 +1,234 @@
+openapi: 3.0.0
+info:
+  title: Authentication microservice
+  description: |-
+    Provides endpoints for user authentication and management within the application.
+  contact:
+    name: Jesús Ángel Rodríguez Martínez.
+    email: sudo.von.contact@gmail.com
+  version: 1.0.0
+
+externalDocs:
+  description: Discover more in the repository.
+  url: https://github.com/sudo-von/von/tree/master/authentication
+
+tags:
+  - name: authentication
+    description: Everything about authentication.
+  - name: user
+    description: Everything about a specific user.
+
+paths:
+  /api/v1/authentication/signup:
+    post:
+      tags:
+        - authentication
+      summary: Create a new user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserControllerDto'
+        required: true
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestrictedUserControllerDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/authentication/authenticate:
+    post:
+      tags:
+        - authentication
+      summary: Authenticate a user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserCredentialsControllerDto'
+        required: true
+      responses:
+        '200':
+          description: Ok.
+          headers:
+            Authorization:
+              schema:
+                type: string
+                example: Bearer {token}
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/user/username/{username}:
+    get:
+      tags:
+        - user
+      summary: Get user by username.
+      parameters:
+        - name: username
+          in: path
+          description: 'The username that needs to be fetched.'
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestrictedUserControllerDto'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - user
+      security:
+        - Authorization: []
+      summary: Update a user.
+      parameters:
+        - name: username
+          in: path
+          description: 'The username of the user you want to update.'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserControllerDto'
+        required: true
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestrictedUserControllerDto'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    CreateUserCredentialsControllerDto:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    CreateUserControllerDto:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        profile_picture:
+          type: string
+    UpdateUserControllerDto:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        profile_picture:
+          type: string
+    RestrictedUserControllerDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        profile_picture:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        code:
+          type: string
+
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      description: JSON Web Token (JWT).

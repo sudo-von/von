@@ -66,7 +66,7 @@ import configureAuthenticationRouter from './infrastructure/controllers/express/
     );
 
     /* 🚀 Controllers. */
-    configureControllers(
+    await configureControllers(
       SERVER_PORT,
       userRouter,
       authenticationRouter,

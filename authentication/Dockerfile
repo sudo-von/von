@@ -9,6 +9,7 @@ WORKDIR /usr/app
 ENV NODE_ENV production
 COPY --chown=node:node --from=builder /usr/app/.env ./
 COPY --chown=node:node --from=builder /usr/app/build ./src/.
+COPY --chown=node:node --from=builder /usr/app/swagger.yaml ./
 COPY --chown=node:node --from=builder /usr/app/package*.json ./
 RUN npm ci --omit=dev
 USER node
