@@ -1,10 +1,5 @@
 import {
   SingleUserOnlyError,
-  InvalidNameLengthError,
-  UserCreationFailedError,
-  InvalidPasswordLengthError,
-  InvalidUsernameLengthError,
-  InvalidProfilePictureLengthError,
 } from '../domain/errors/user-error';
 import {
   InvalidCredentialsError,
@@ -14,11 +9,8 @@ import {
   RestrictedUserEntity,
 } from '../domain/entities/user-entity';
 import {
-  validateNameLength,
-  validatePasswordLength,
-  validateUsernameLength,
-  validateProfilePictureLength,
-} from '../domain/validations/user-validations';
+  validateUserSignup,
+} from '../domain/validations/user/user-validations';
 import AuthenticationUsecase from '../domain/usecases/authentication-usecase';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
@@ -44,17 +36,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
   };
 
   signup = async (payload: CreateUserEntity): Promise<RestrictedUserEntity> => {
-    const isNameLengthValid = validateNameLength(payload.name);
-    if (!isNameLengthValid) throw InvalidNameLengthError;
-
-    const isUsernameLengthValid = validateUsernameLength(payload.username);
-    if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
-
-    const isPasswordLengthValid = validatePasswordLength(payload.password);
-    if (!isPasswordLengthValid) throw InvalidPasswordLengthError;
-
-    const isProfilePictureLengthValid = validateProfilePictureLength(payload.profilePicture);
-    if (!isProfilePictureLengthValid) throw InvalidProfilePictureLengthError;
+    validateUserSignup(payload);
 
     const users = await this.userRepository.getUsers();
     if (users.length) throw SingleUserOnlyError;
@@ -70,7 +52,6 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     };
 
     const createdUser = await this.userRepository.createUser(createUserEntity);
-    if (!createdUser) throw UserCreationFailedError;
 
     const restrictedUserEntity: RestrictedUserEntity = {
       id: createdUser.id,

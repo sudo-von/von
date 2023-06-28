@@ -30,6 +30,7 @@ import {
   DomainErrorFactory,
 } from '../../../../domain/errors/error-factory';
 import {
+  TokenServiceFailedTokenGenerationError,
   TokenServiceExpiredTokenControllerError,
   TokenServiceInvalidTokenControllerError,
 } from '../../errors/token-service-controller-errors';
@@ -39,6 +40,10 @@ import {
 import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
+import {
+  CryptographyServiceInvalidCompareControllerError,
+  CryptographyServiceInvalidHashDataControllerError,
+} from '../../errors/cryptography-service-controller-errors';
 import {
   MessageBrokerErrorFactory,
 } from '../../../message-brokers/errors/message-broker-error-factory';
@@ -59,10 +64,11 @@ const domainErrors: Record<DomainErrorCode, ControllerErrorFactory> = {
 };
 
 const serviceErrors: Record<ServiceErrorCode, ControllerErrorFactory> = {
-  CRYPTOGRAPHY_SERVICE_INVALID_COMPARE_ERROR: UserCreationFailedControllerError,
-  CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA_ERROR: UserCreationFailedControllerError,
-  TOKEN_SERVICE_INVALID_TOKEN_ERROR: TokenServiceInvalidTokenControllerError,
+  CRYPTOGRAPHY_SERVICE_INVALID_COMPARE_ERROR: CryptographyServiceInvalidCompareControllerError,
+  CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA_ERROR: CryptographyServiceInvalidHashDataControllerError,
   TOKEN_SERVICE_EXPIRED_TOKEN_ERROR: TokenServiceExpiredTokenControllerError,
+  TOKEN_SERVICE_FAILED_TOKEN_GENERATION_ERROR: TokenServiceFailedTokenGenerationError,
+  TOKEN_SERVICE_INVALID_TOKEN_ERROR: TokenServiceInvalidTokenControllerError,
 };
 
 const errorMiddleware = (

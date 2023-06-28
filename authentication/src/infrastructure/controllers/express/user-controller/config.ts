@@ -4,15 +4,15 @@ import UserUsecase from '../../../../domain/usecases/user-usecase';
 import TokenService from '../../../services/token-service/token-service';
 import IUserRepository from '../../../../domain/repositories/user-repository';
 import authenticationMiddleware from '../middlewares/authentication-middleware';
-import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
+import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
 const configureUserRouter = (
   userUsecase: UserUsecase,
   tokenService: TokenService,
   userRepository: IUserRepository,
-  messageBroker: RabbitMQUpdateProfileProducer,
+  updateUserProducer: RabbitMQUpdateUserProducer,
 ) => {
-  const userController = new ExpressUserController(userUsecase, messageBroker);
+  const userController = new ExpressUserController(userUsecase, updateUserProducer);
 
   const router = express.Router();
 

@@ -1,10 +1,6 @@
 import {
   UserNotFoundError,
   UserUpdateFailedError,
-  InvalidNameLengthError,
-  InvalidUsernameLengthError,
-  InvalidPasswordLengthError,
-  InvalidProfilePictureLengthError,
 } from '../domain/errors/user-error';
 import {
   PermissionDeniedError,
@@ -15,11 +11,8 @@ import {
   RestrictedUserEntity,
 } from '../domain/entities/user-entity';
 import {
-  validateNameLength,
-  validatePasswordLength,
-  validateUsernameLength,
-  validateProfilePictureLength,
-} from '../domain/validations/user-validations';
+  validateUserUpdate,
+} from '../domain/validations/user/user-validations';
 import UserUsecase from '../domain/usecases/user-usecase';
 
 class UserUsecaseApplication extends UserUsecase {
@@ -45,17 +38,7 @@ class UserUsecaseApplication extends UserUsecase {
   ): Promise<RestrictedUserEntity> => {
     if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
 
-    const isNameLengthValid = validateNameLength(payload.name);
-    if (!isNameLengthValid) throw InvalidNameLengthError;
-
-    const isUsernameLengthValid = validateUsernameLength(payload.username);
-    if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
-
-    const isPasswordLengthValid = validatePasswordLength(payload.password);
-    if (!isPasswordLengthValid) throw InvalidPasswordLengthError;
-
-    const isProfilePictureLengthValid = validateProfilePictureLength(payload.profilePicture);
-    if (!isProfilePictureLengthValid) throw InvalidProfilePictureLengthError;
+    validateUserUpdate(payload);
 
     const user = await this.userRepository.getUserByUsername(requestedUsername);
     if (!user) throw UserNotFoundError;

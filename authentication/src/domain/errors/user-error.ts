@@ -1,6 +1,10 @@
-import { DomainError } from './error-codes';
-import { userRules } from '../validations/user-validations';
-import { createDomainErrorFactory } from './error-factory';
+import {
+  DomainError,
+} from './error-codes';
+import {
+  createDomainErrorFactory,
+} from './error-factory';
+import userRules from '../validations/user/user-rules';
 
 export const EMAIL_ALREADY_EXISTS: DomainError = {
   code: 'EMAIL_ALREADY_EXISTS_DOMAIN_ERROR',

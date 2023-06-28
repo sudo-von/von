@@ -95,7 +95,7 @@ export const InvalidPasswordLengthControllerError = createControllerErrorFactory
 );
 
 export const InvalidProfilePictureControllerLengthError = createControllerErrorFactory(
-  INVALID_PASSWORD_LENGTH_CONTROLLER,
+  INVALID_PROFILE_PICTURE_LENGTH_CONTROLLER,
 );
 
 export const SingleUserOnlyControllerError = createControllerErrorFactory(

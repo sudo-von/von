@@ -4,9 +4,9 @@ import {
   NextFunction,
 } from 'express';
 import {
-  CreateControllerUserDto,
-  RestrictedControllerUserDto,
-  CreateControllerUserCredentialsDto,
+  CreateUserControllerDto,
+  RestrictedUserControllerDto,
+  CreateUserCredentialsControllerDto,
 } from '../../dtos/controller-user-dto';
 import statusCodes from '../../status-codes';
 import {
@@ -28,7 +28,7 @@ class ExpressAuthenticationController {
 
   authenticate = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { email, password } = CreateControllerUserCredentialsDto.parse(req.body);
+      const { email, password } = CreateUserCredentialsControllerDto.parse(req.body);
 
       const restrictedUser = await this.authenticationUsecase.authenticate(email, password);
 
@@ -42,7 +42,7 @@ class ExpressAuthenticationController {
 
   signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const payload = CreateControllerUserDto.parse(req.body);
+      const payload = CreateUserControllerDto.parse(req.body);
 
       const createUserEntity: CreateUserEntity = {
         name: payload.name,
@@ -52,21 +52,21 @@ class ExpressAuthenticationController {
         profilePicture: payload.profile_picture,
       };
 
-      const user = await this.authenticationUsecase.signup(createUserEntity);
+      const createdUser = await this.authenticationUsecase.signup(createUserEntity);
 
-      const restrictedControllerUserDto: RestrictedControllerUserDto = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        profile_picture: user.profilePicture,
+      const restrictedUserControllerDto: RestrictedUserControllerDto = {
+        id: createdUser.id,
+        name: createdUser.name,
+        email: createdUser.email,
+        username: createdUser.username,
+        profile_picture: createdUser.profilePicture,
       };
 
-      res.status(statusCodes.success.created).send({ result: restrictedControllerUserDto });
+      res.status(statusCodes.success.created).send({ result: restrictedUserControllerDto });
 
       const messageBrokerCreateUserDto: MessageBrokerCreateUserDto = {
-        user_id: user.id,
-        username: user.username,
+        user_id: createdUser.id,
+        username: createdUser.username,
       };
 
       return await this.createUserProducer.produceMessage('User:CreateUser', messageBrokerCreateUserDto);

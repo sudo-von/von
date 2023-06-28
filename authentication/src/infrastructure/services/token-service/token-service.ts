@@ -1,9 +1,9 @@
 import {
-  RestrictedUserEntity,
-} from '../../../domain/entities/user-entity';
-import {
   TokenUserDto,
 } from './dtos/token-user-dto';
+import {
+  RestrictedUserEntity,
+} from '../../../domain/entities/user-entity';
 
 interface ITokenServiceReader {
   decodeToken: (token: string) => TokenUserDto;

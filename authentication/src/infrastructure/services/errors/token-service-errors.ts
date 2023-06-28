@@ -15,10 +15,19 @@ export const TOKEN_SERVICE_EXPIRED_TOKEN: ServiceError = {
   message: 'Token expired. Please log in again.',
 };
 
+export const TOKEN_SERVICE_FAILED_TOKEN_GENERATION: ServiceError = {
+  code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION_ERROR',
+  message: 'Unable to generate token.',
+};
+
 export const TokenServiceInvalidTokenError = createServiceErrorFactory(
   TOKEN_SERVICE_INVALID_TOKEN,
 );
 
 export const TokenServiceExpiredTokenError = createServiceErrorFactory(
   TOKEN_SERVICE_EXPIRED_TOKEN,
+);
+
+export const TokenServiceFailedTokenGeneration = createServiceErrorFactory(
+  TOKEN_SERVICE_FAILED_TOKEN_GENERATION,
 );

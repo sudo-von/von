@@ -4,8 +4,8 @@ import {
   NextFunction,
 } from 'express';
 import {
-  RestrictedControllerUserDto,
-  UpdateControllerUserDto,
+  UpdateUserControllerDto,
+  RestrictedUserControllerDto,
 } from '../../dtos/controller-user-dto';
 import statusCodes from '../../status-codes';
 import {
@@ -18,31 +18,31 @@ import {
   MessageBrokerUpdateUserDto,
 } from '../../../message-brokers/dtos/message-broker-user-dto';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
-import RabbitMQUpdateProfileProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
+import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
 class ExpressUserController {
   constructor(
     private userUsecase: UserUsecase,
-    private updateProfileProducer: RabbitMQUpdateProfileProducer,
+    private updateUserProducer: RabbitMQUpdateUserProducer,
   ) {}
 
   getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { username } = req.params;
 
-      const user = await this.userUsecase.getUserByUsername(username);
+      const restrictedUser = await this.userUsecase.getUserByUsername(username);
 
-      const restrictedUserDto: RestrictedControllerUserDto = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        username: user.username,
-        profile_picture: user.profilePicture,
+      const restrictedUserControllerDto: RestrictedUserControllerDto = {
+        id: restrictedUser.id,
+        name: restrictedUser.name,
+        email: restrictedUser.email,
+        username: restrictedUser.username,
+        profile_picture: restrictedUser.profilePicture,
       };
 
-      res.status(statusCodes.success.ok).send({ result: restrictedUserDto });
+      return res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
     } catch (e) {
-      next(e);
+      return next(e);
     }
   };
 
@@ -57,7 +57,7 @@ class ExpressUserController {
         });
       }
 
-      const payload = UpdateControllerUserDto.parse(body);
+      const payload = UpdateUserControllerDto.parse(body);
 
       const updateUserEntity: UpdateUserEntity = {
         name: payload.name,
@@ -73,7 +73,7 @@ class ExpressUserController {
         updateUserEntity,
       );
 
-      const restrictedControllerUserDto: RestrictedControllerUserDto = {
+      const restrictedUserControllerDto: RestrictedUserControllerDto = {
         id: updatedUser.id,
         name: updatedUser.name,
         email: updatedUser.email,
@@ -81,14 +81,14 @@ class ExpressUserController {
         profile_picture: updatedUser.profilePicture,
       };
 
-      res.status(statusCodes.success.ok).send({ result: restrictedControllerUserDto });
+      res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
 
       const updateProfileDto: MessageBrokerUpdateUserDto = {
         user_id: updatedUser.id,
         username: updatedUser.username,
       };
 
-      return await this.updateProfileProducer.produceMessage('User:UpdateUser', updateProfileDto);
+      return await this.updateUserProducer.produceMessage('User:UpdateUser', updateProfileDto);
     } catch (e) {
       return next(e);
     }

@@ -1,5 +1,9 @@
-import { DomainError } from './error-codes';
-import { createDomainErrorFactory } from './error-factory';
+import {
+  DomainError,
+} from './error-codes';
+import {
+  createDomainErrorFactory,
+} from './error-factory';
 
 export const INVALID_CREDENTIALS: DomainError = {
   code: 'INVALID_CREDENTIALS_DOMAIN_ERROR',
