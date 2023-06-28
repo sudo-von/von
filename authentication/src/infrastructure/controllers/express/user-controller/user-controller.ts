@@ -28,7 +28,7 @@ class ExpressUserController {
 
   getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { username } = req.params;
+      const username = req.params.username.toLowerCase();
 
       const restrictedUser = await this.userUsecase.getUserByUsername(username);
 
@@ -49,7 +49,8 @@ class ExpressUserController {
   updateProfileByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { body, params, user } = req;
-      const { username } = params;
+
+      const username = params.username.toLowerCase();
 
       if (!user) {
         return res.status(PERMISSION_DENIED_CONTROLLER.statusCode).send({
