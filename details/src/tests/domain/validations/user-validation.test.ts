@@ -8,7 +8,7 @@ import {
   validateQuote,
   validatePosition,
   validateInterest,
-} from '../../../domain/validations/profile-validations';
+} from '../../../domain/entities/profile/profile-validations';
 
 describe('profile validation', () => {
   describe('when minimum length is valid', () => {

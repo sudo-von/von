@@ -1,4 +1,4 @@
-import { profileRules } from '../validations/profile-validations';
+import { profileRules } from '../entities/profile/profile-validations';
 import { DomainError } from './error-codes';
 import { createDomainErrorFactory } from './error-factory';
 

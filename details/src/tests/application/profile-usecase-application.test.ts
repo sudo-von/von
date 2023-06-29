@@ -4,7 +4,7 @@ import {
   describe,
 } from '@jest/globals';
 import UserMongoRepository, { getUserByUsernameMock } from '../__mocks__/user-repository-mock';
-import { CreateProfileEntity, ProfileEntity } from '../../domain/entities/profile-entity';
+import { CreateProfileEntity, ProfileEntity } from '../../domain/entities/profile/profile-entity';
 import ProfileUsecaseApplication from '../../application/profile-usecase-application';
 import ProfileMongoRepository, { createProfileMock, getProfileByUsernameMock, getProfilesMock } from '../__mocks__/profile-repository-mock';
 import { ProfileNotFoundError } from '../../domain/errors/profile-error';

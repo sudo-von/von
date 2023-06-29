@@ -2,9 +2,9 @@ import {
   ProfileEntity,
   CreateProfileEntity,
   UpdateProfileEntity,
-} from '../entities/profile-entity';
-import IProfileRepository from '../repositories/profile-repository';
+} from '../entities/profile/profile-entity';
 import IUserRepository from '../repositories/user-repository';
+import IProfileRepository from '../repositories/profile-repository';
 
 interface IProfileUsecaseReader {
   getProfileByUsername: (username: string) => Promise<ProfileEntity>;

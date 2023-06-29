@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { ProfileEntity } from '../../../domain/entities/profile-entity';
+import { ProfileEntity } from '../../../domain/entities/profile/profile-entity';
 
 export type ControllerProfileDto = {
   id: string;

@@ -6,7 +6,7 @@ import {
   CreateProfileEntity,
   UpdateProfileEntity,
   ProfileEntity,
-} from '../../../../domain/entities/profile-entity';
+} from '../../../../domain/entities/profile/profile-entity';
 import IProfileRepository from '../../../../domain/repositories/profile-repository';
 
 class ProfileMongoRepository implements IProfileRepository {

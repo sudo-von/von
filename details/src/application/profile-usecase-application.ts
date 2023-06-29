@@ -14,12 +14,12 @@ import {
   ProfileEntity,
   CreateProfileEntity,
   UpdateProfileEntity,
-} from '../domain/entities/profile-entity';
+} from '../domain/entities/profile/profile-entity';
 import {
   validateInterest,
   validatePosition,
   validateQuote,
-} from '../domain/validations/profile-validations';
+} from '../domain/entities/profile/profile-validations';
 import ProfileUsecase from '../domain/usecases/profile-usecase';
 import { PermissionDeniedError } from '../domain/errors/common-error';
 import { validateUsername } from '../domain/entities/user/user-validations';

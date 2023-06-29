@@ -1,17 +1,4 @@
-export const profileRules = {
-  quote: {
-    MIN_LENGTH: 5,
-    MAX_LENGTH: 100,
-  },
-  position: {
-    MIN_LENGTH: 5,
-    MAX_LENGTH: 24,
-  },
-  interest: {
-    MIN_LENGTH: 5,
-    MAX_LENGTH: 34,
-  },
-};
+import profileRules from './profile-rules';
 
 export const validateQuote = (quote: string) => {
   const quoteLength = quote.trim().length;

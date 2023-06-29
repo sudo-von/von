@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument } from 'mongoose';
-import { ProfileEntity } from '../../../../domain/entities/profile-entity';
+import { ProfileEntity } from '../../../../domain/entities/profile/profile-entity';
 
 const profileSchema = new mongoose.Schema<ProfileEntity>({
   quote: {

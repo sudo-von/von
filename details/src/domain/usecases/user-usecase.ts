@@ -5,8 +5,6 @@ import {
 } from '../entities/user/user-entity';
 import IUserRepository from '../repositories/user-repository';
 
-interface IUserUsecaseReader {}
-
 interface IUserUsecaseWriter {
   createUser: (
     payload: CreateUserEntity
@@ -18,7 +16,7 @@ interface IUserUsecaseWriter {
   ) => Promise<UserEntity>;
 }
 
-interface IUserUsecase extends IUserUsecaseReader, IUserUsecaseWriter {}
+interface IUserUsecase extends IUserUsecaseWriter {}
 
 abstract class UserUsecase implements IUserUsecase {
   constructor(protected userRepository: IUserRepository) {}

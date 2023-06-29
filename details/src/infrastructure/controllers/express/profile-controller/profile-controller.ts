@@ -12,7 +12,7 @@ import statusCodes from '../../status-codes';
 import {
   CreateProfileEntity,
   UpdateProfileEntity,
-} from '../../../../domain/entities/profile-entity';
+} from '../../../../domain/entities/profile/profile-entity';
 import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
 import { PermissionDeniedError } from '../../../../domain/errors/common-error';
 
