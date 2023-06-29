@@ -1,5 +1,9 @@
-import { ServiceError } from './service-error-codes';
-import { createServiceErrorFactory } from './service-error-factory';
+import {
+  ServiceError,
+} from './service-error-codes';
+import {
+  createServiceErrorFactory,
+} from './service-error-factory';
 
 export const TOKEN_SERVICE_INVALID_TOKEN: ServiceError = {
   code: 'TOKEN_SERVICE_INVALID_TOKEN_ERROR',

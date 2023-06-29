@@ -6,14 +6,16 @@ const configureMessageBrokers = async (
   MESSAGE_BROKER_URL: string,
   userUsecase: UserUsecase,
 ) => {
-  const createUserProducer = new RabbitMQCreateUserConsumer(MESSAGE_BROKER_URL, userUsecase);
-  const updateUserProducer = new RabbitMQUpdateUserConsumer(MESSAGE_BROKER_URL, userUsecase);
+  const createUserConsumer = new RabbitMQCreateUserConsumer(MESSAGE_BROKER_URL, userUsecase);
+  const updateUserConsumer = new RabbitMQUpdateUserConsumer(MESSAGE_BROKER_URL, userUsecase);
 
-  await createUserProducer.connect();
-  await updateUserProducer.connect();
+  await createUserConsumer.connect();
+  await updateUserConsumer.connect();
 
-  await createUserProducer.consumeMessage('User:CreateUser');
-  await updateUserProducer.consumeMessage('User:UpdateUser');
+  await createUserConsumer.consumeMessage('User:CreateUser');
+  await updateUserConsumer.consumeMessage('User:UpdateUser');
+
+  console.log('📦 Message brokers have been configured.');
 };
 
 export default configureMessageBrokers;

@@ -1,15 +1,13 @@
+import ProfileModel from './mongo-profile-model';
 import {
-  ProfileModel,
-  profileModelToProfileEntity,
-} from './profile-mongo-schema';
-import {
+  ProfileEntity,
   CreateProfileEntity,
   UpdateProfileEntity,
-  ProfileEntity,
 } from '../../../../domain/entities/profile/profile-entity';
+import profileModelToProfileEntity from './mongo-profile-mapper';
 import IProfileRepository from '../../../../domain/repositories/profile-repository';
 
-class ProfileMongoRepository implements IProfileRepository {
+class MongoProfileRepository implements IProfileRepository {
   getProfiles = async (): Promise<ProfileEntity[]> => {
     const profileModels = await ProfileModel.find();
     const profileEntities = profileModels.map((model) => profileModelToProfileEntity(model));
@@ -17,9 +15,9 @@ class ProfileMongoRepository implements IProfileRepository {
   };
 
   getProfileByUsername = async (username: string): Promise<ProfileEntity | null> => {
-    const userModel = await ProfileModel.findOne({ username });
-    if (!userModel) return null;
-    const profileEntity = profileModelToProfileEntity(userModel);
+    const profileModel = await ProfileModel.findOne({ username });
+    if (!profileModel) return null;
+    const profileEntity = profileModelToProfileEntity(profileModel);
     return profileEntity;
   };
 
@@ -46,6 +44,8 @@ class ProfileMongoRepository implements IProfileRepository {
         username: payload.username,
         position: payload.position,
       },
+    }, {
+      new: true,
     });
     if (!updatedProfile) return null;
     const profileEntity = profileModelToProfileEntity(updatedProfile);
@@ -53,4 +53,4 @@ class ProfileMongoRepository implements IProfileRepository {
   };
 }
 
-export default ProfileMongoRepository;
+export default MongoProfileRepository;

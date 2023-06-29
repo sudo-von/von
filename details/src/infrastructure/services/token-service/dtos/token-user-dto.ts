@@ -7,5 +7,3 @@ export type TokenUserDto = Readonly<{
   iat: number;
   exp: number;
 }>;
-
-export type CreateTokenUserDto = Omit<TokenUserDto, 'iat' | 'exp'>;

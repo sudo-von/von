@@ -1,9 +1,11 @@
-import { ControllerUserDto } from '../../controllers/dtos/controller-user-dto';
+import {
+  TokenUserDto,
+} from '../../services/token-service/dtos/token-user-dto';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: ControllerUserDto
+      user?: TokenUserDto
     }
   }
 }
