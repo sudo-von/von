@@ -14,6 +14,7 @@ import {
   InvalidUsernameLengthControllerError,
   UsernameAlreadyExistsControllerError,
   InvalidProfilePictureControllerLengthError,
+  InvalidEmailLengthControllerError,
 } from '../../errors/user-controller-error';
 import {
   InternalServerControllerError,
@@ -50,6 +51,7 @@ import {
 
 const domainErrors: Record<DomainErrorCode, ControllerErrorFactory> = {
   INVALID_CREDENTIALS_DOMAIN_ERROR: InvalidCredentialsControllerError,
+  INVALID_EMAIL_LENGTH_DOMAIN_ERROR: InvalidEmailLengthControllerError,
   INVALID_NAME_LENGTH_DOMAIN_ERROR: InvalidNameLengthControllerError,
   INVALID_PASSWORD_LENGTH_DOMAIN_ERROR: InvalidPasswordLengthControllerError,
   INVALID_PROFILE_PICTURE_LENGTH_DOMAIN_ERROR: InvalidProfilePictureControllerLengthError,

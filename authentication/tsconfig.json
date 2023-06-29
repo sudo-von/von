@@ -2,10 +2,7 @@
   "compilerOptions": {
     "lib": ["es6"],
     "strict": true,
-    "rootDirs": [
-      "src",
-      "tests"
-    ],
+    "rootDirs": ["src", "tests"],
     "outDir": "build",
     "target": "es2016",
     "module": "commonjs",
@@ -16,4 +13,6 @@
     "forceConsistentCasingInFileNames": true,
     "typeRoots" : ["./src/infrastructure/types", "./node_modules/@types"],
   },
+  "include": ["src"],
+  "exclude": ["node_modules", "tests"]
 }

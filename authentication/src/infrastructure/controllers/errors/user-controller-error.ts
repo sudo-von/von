@@ -9,6 +9,7 @@ import {
   INVALID_USERNAME_LENGTH,
   INVALID_PASSWORD_LENGTH,
   INVALID_PROFILE_PICTURE_LENGTH,
+  INVALID_EMAIL_LENGTH,
 } from '../../../domain/errors/user-error';
 import statusCode from '../status-codes';
 import {
@@ -22,6 +23,12 @@ export const EMAIL_ALREADY_EXISTS_CONTROLLER: ControllerError = {
   code: 'EMAIL_ALREADY_EXISTS_CONTROLLER_ERROR',
   message: EMAIL_ALREADY_EXISTS.message,
   statusCode: statusCode.clientSide.conflict,
+};
+
+export const INVALID_EMAIL_LENGTH_CONTROLLER: ControllerError = {
+  code: 'INVALID_EMAIL_LENGTH_CONTROLLER_ERROR',
+  message: INVALID_EMAIL_LENGTH.message,
+  statusCode: statusCode.clientSide.badRequest,
 };
 
 export const INVALID_USERNAME_LENGTH_CONTROLLER: ControllerError = {
@@ -82,8 +89,8 @@ export const EmailAlreadyExistsControllerError = createControllerErrorFactory(
   EMAIL_ALREADY_EXISTS_CONTROLLER,
 );
 
-export const InvalidUsernameLengthControllerError = createControllerErrorFactory(
-  INVALID_USERNAME_LENGTH_CONTROLLER,
+export const InvalidEmailLengthControllerError = createControllerErrorFactory(
+  INVALID_EMAIL_LENGTH_CONTROLLER,
 );
 
 export const InvalidNameLengthControllerError = createControllerErrorFactory(
@@ -96,6 +103,10 @@ export const InvalidPasswordLengthControllerError = createControllerErrorFactory
 
 export const InvalidProfilePictureControllerLengthError = createControllerErrorFactory(
   INVALID_PROFILE_PICTURE_LENGTH_CONTROLLER,
+);
+
+export const InvalidUsernameLengthControllerError = createControllerErrorFactory(
+  INVALID_USERNAME_LENGTH_CONTROLLER,
 );
 
 export const SingleUserOnlyControllerError = createControllerErrorFactory(
