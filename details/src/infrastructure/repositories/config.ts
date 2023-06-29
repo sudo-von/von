@@ -4,18 +4,26 @@ import ProfileMongoRepository from './profile-repository/mongo-repository/profil
 
 const configureRepositories = async (
   DATABASE_URL: string,
+  DATABASE_NAME: string,
   DATABASE_USERNAME: string,
   DATABASE_PASSWORD: string,
 ) => {
-  await mongoose.connect(DATABASE_URL, {
-    user: DATABASE_USERNAME,
-    pass: DATABASE_PASSWORD,
-  });
+  try {
+    await mongoose.connect(DATABASE_URL, {
+      dbName: DATABASE_NAME,
+      user: DATABASE_USERNAME,
+      pass: DATABASE_PASSWORD,
+    });
 
-  const userRepository = new UserMongoRepository();
-  const profileRepository = new ProfileMongoRepository();
+    const userRepository = new UserMongoRepository();
+    const profileRepository = new ProfileMongoRepository();
 
-  return { userRepository, profileRepository };
+    console.log('💽 Repositories have been configured.');
+
+    return { userRepository, profileRepository };
+  } catch (e) {
+    throw new Error(`An error occurred with the database: ${(e as Error).message}.`);
+  }
 };
 
 export default configureRepositories;

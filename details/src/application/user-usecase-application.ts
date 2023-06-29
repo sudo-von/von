@@ -2,7 +2,7 @@ import {
   CreateUserEntity,
   UpdateUserEntity,
   UserEntity,
-} from '../domain/entities/user-entity';
+} from '../domain/entities/user/user-entity';
 import {
   InvalidUsernameNameLengthError,
   SingleUserOnlyError,
@@ -12,7 +12,7 @@ import {
   UsernameAlreadyExistsError,
 } from '../domain/errors/user-error';
 import UserUsecase from '../domain/usecases/user-usecase';
-import { validateUsername } from '../domain/validations/user-validations';
+import { validateUsername } from '../domain/entities/user/user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
   createUser = async (payload: CreateUserEntity): Promise<UserEntity> => {

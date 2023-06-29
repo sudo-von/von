@@ -6,7 +6,7 @@ import {
   CreateUserEntity,
   UpdateUserEntity,
   UserEntity,
-} from '../../../../domain/entities/user-entity';
+} from '../../../../domain/entities/user/user-entity';
 import IUserRepository from '../../../../domain/repositories/user-repository';
 
 class UserMongoRepository implements IUserRepository {

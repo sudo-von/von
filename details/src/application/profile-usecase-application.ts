@@ -22,7 +22,7 @@ import {
 } from '../domain/validations/profile-validations';
 import ProfileUsecase from '../domain/usecases/profile-usecase';
 import { PermissionDeniedError } from '../domain/errors/common-error';
-import { validateUsername } from '../domain/validations/user-validations';
+import { validateUsername } from '../domain/entities/user/user-validations';
 
 class ProfileUsecaseApplication extends ProfileUsecase {
   getProfileByUsername = async (username: string): Promise<ProfileEntity> => {

@@ -1,5 +1,5 @@
 import mongoose, { HydratedDocument } from 'mongoose';
-import { UserEntity } from '../../../../domain/entities/user-entity';
+import { UserEntity } from '../../../../domain/entities/user/user-entity';
 
 const userSchema = new mongoose.Schema<UserEntity>({
   userId: {

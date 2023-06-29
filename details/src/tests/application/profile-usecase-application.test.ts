@@ -8,7 +8,7 @@ import { CreateProfileEntity, ProfileEntity } from '../../domain/entities/profil
 import ProfileUsecaseApplication from '../../application/profile-usecase-application';
 import ProfileMongoRepository, { createProfileMock, getProfileByUsernameMock, getProfilesMock } from '../__mocks__/profile-repository-mock';
 import { ProfileNotFoundError } from '../../domain/errors/profile-error';
-import { UserEntity } from '../../domain/entities/user-entity';
+import { UserEntity } from '../../domain/entities/user/user-entity';
 import { PermissionDeniedError } from '../../domain/errors/common-error';
 
 jest.mock('../../infrastructure/repositories/user-repository/mongo-repository/user-mongo-repository');

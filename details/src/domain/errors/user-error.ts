@@ -1,5 +1,5 @@
 import { DomainError } from './error-codes';
-import { userRules } from '../validations/user-validations';
+import { userRules } from '../entities/user/user-validations';
 import { createDomainErrorFactory } from './error-factory';
 
 export const INVALID_USER_USERNAME_LENGTH: DomainError = {

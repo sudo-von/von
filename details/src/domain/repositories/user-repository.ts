@@ -1,4 +1,4 @@
-import { CreateUserEntity, UpdateUserEntity, UserEntity } from '../entities/user-entity';
+import { CreateUserEntity, UpdateUserEntity, UserEntity } from '../entities/user/user-entity';
 
 export interface IUserRepositoryReader {
   getUsers: () => Promise<UserEntity[]>;

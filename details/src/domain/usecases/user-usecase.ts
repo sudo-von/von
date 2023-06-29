@@ -2,7 +2,7 @@ import {
   UserEntity,
   CreateUserEntity,
   UpdateUserEntity,
-} from '../entities/user-entity';
+} from '../entities/user/user-entity';
 import IUserRepository from '../repositories/user-repository';
 
 interface IUserUsecaseReader {}
