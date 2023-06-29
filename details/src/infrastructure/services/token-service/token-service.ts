@@ -1,6 +1,14 @@
-import TokenUserDto from './dtos/token-user-dto';
+import {
+  TokenUserDto,
+} from './dtos/token-user-dto';
 
-abstract class TokenService {
+interface ITokenServiceReader {
+  decodeToken: (token: string) => TokenUserDto;
+}
+
+interface ITokenService extends ITokenServiceReader {}
+
+abstract class TokenService implements ITokenService {
   constructor(protected SECRET_KEY: string) {}
 
   abstract decodeToken: (token: string) => TokenUserDto;

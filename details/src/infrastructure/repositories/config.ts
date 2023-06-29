@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import UserMongoRepository from './user-repository/mongo-repository/user-mongo-repository';
-import ProfileMongoRepository from './profile-repository/mongo-repository/profile-mongo-repository';
+import MongoUserRepository from './user-repository/mongo-repository/mongo-user-repository';
+import MongoProfileRepository from './profile-repository/mongo-repository/profile-mongo-repository';
 
 const configureRepositories = async (
   DATABASE_URL: string,
@@ -15,8 +15,8 @@ const configureRepositories = async (
       pass: DATABASE_PASSWORD,
     });
 
-    const userRepository = new UserMongoRepository();
-    const profileRepository = new ProfileMongoRepository();
+    const userRepository = new MongoUserRepository();
+    const profileRepository = new MongoProfileRepository();
 
     console.log('💽 Repositories have been configured.');
 

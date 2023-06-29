@@ -1,19 +1,24 @@
+import UserModel from './mongo-user-model';
 import {
-  UserModel,
-  userModelToUserEntity,
-} from './user-mongo-schema';
-import {
+  UserEntity,
   CreateUserEntity,
   UpdateUserEntity,
-  UserEntity,
 } from '../../../../domain/entities/user/user-entity';
+import userModelToUserEntity from './mongo-user-mapper';
 import IUserRepository from '../../../../domain/repositories/user-repository';
 
-class UserMongoRepository implements IUserRepository {
+class MongoUserRepository implements IUserRepository {
   getUsers = async (): Promise<UserEntity[]> => {
     const userModels = await UserModel.find();
     const userEntities = userModels.map((model) => userModelToUserEntity(model));
     return userEntities;
+  };
+
+  getUserByUserId = async (userId: string): Promise<UserEntity | null> => {
+    const userModel = await UserModel.findOne({ userId });
+    if (!userModel) return null;
+    const userEntity = userModelToUserEntity(userModel);
+    return userEntity;
   };
 
   getUserByUsername = async (username: string): Promise<UserEntity | null> => {
@@ -42,6 +47,8 @@ class UserMongoRepository implements IUserRepository {
         userId: payload.userId,
         username: payload.username,
       },
+    }, {
+      new: true,
     });
     if (!updatedUser) return null;
     const userEntity = userModelToUserEntity(updatedUser);
@@ -49,4 +56,4 @@ class UserMongoRepository implements IUserRepository {
   };
 }
 
-export default UserMongoRepository;
+export default MongoUserRepository;

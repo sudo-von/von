@@ -1,8 +1,11 @@
-import { ControllerUserDto } from '../../../controllers/dtos/controller-user-dto';
-
-type TokenUserDto = Readonly<ControllerUserDto & {
+export type TokenUserDto = Readonly<{
+  id: string;
+  name: string;
+  email: string;
+  username: string;
+  profile_picture: string;
   iat: number;
   exp: number;
 }>;
 
-export default TokenUserDto;
+export type CreateTokenUserDto = Omit<TokenUserDto, 'iat' | 'exp'>;

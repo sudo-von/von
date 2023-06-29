@@ -1,28 +1,23 @@
 import {
   UserNotFoundError,
-  InvalidUsernameNameLengthError,
 } from '../domain/errors/user-error';
+import {
+  PermissionDeniedError,
+} from '../domain/errors/common-error';
 import {
   ProfileNotFoundError,
   SingleProfileOnlyError,
   ProfileUpdateFailedError,
   ProfileCreationFailedError,
-  InvalidProfileQuoteLengthError,
-  InvalidProfileInterestLengthError,
 } from '../domain/errors/profile-error';
 import {
   ProfileEntity,
   CreateProfileEntity,
   UpdateProfileEntity,
 } from '../domain/entities/profile/profile-entity';
-import {
-  validateInterest,
-  validatePosition,
-  validateQuote,
-} from '../domain/entities/profile/profile-validations';
 import ProfileUsecase from '../domain/usecases/profile-usecase';
-import { PermissionDeniedError } from '../domain/errors/common-error';
-import { validateUsername } from '../domain/entities/user/user-validations';
+import validateProfileUpdate from '../domain/entities/profile/validations/update-profile-validations';
+import validateProfileCreation from '../domain/entities/profile/validations/create-profile-validations';
 
 class ProfileUsecaseApplication extends ProfileUsecase {
   getProfileByUsername = async (username: string): Promise<ProfileEntity> => {
@@ -38,20 +33,10 @@ class ProfileUsecaseApplication extends ProfileUsecase {
   ): Promise<ProfileEntity> => {
     if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
 
-    const isQuoteValid = validateQuote(payload.quote);
-    if (!isQuoteValid) throw InvalidProfileQuoteLengthError;
+    validateProfileCreation(payload);
 
-    const isInterestValid = validateInterest(payload.interest);
-    if (!isInterestValid) throw InvalidProfileInterestLengthError;
-
-    const isPositionValid = validatePosition(payload.position);
-    if (!isPositionValid) throw InvalidProfileQuoteLengthError;
-
-    const isUsernameValid = validateUsername(payload.username);
-    if (!isUsernameValid) throw InvalidUsernameNameLengthError;
-
-    const userExists = await this.userRepository.getUserByUsername(payload.username);
-    if (!userExists) throw UserNotFoundError;
+    const userFound = await this.userRepository.getUserByUsername(payload.username);
+    if (!userFound) throw UserNotFoundError;
 
     const profiles = await this.profileRepository.getProfiles();
     if (profiles.length) throw SingleProfileOnlyError;
@@ -69,17 +54,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
   ): Promise<ProfileEntity> => {
     if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
 
-    const isQuoteValid = validateQuote(payload.quote);
-    if (!isQuoteValid) throw InvalidProfileQuoteLengthError;
-
-    const isInterestValid = validateInterest(payload.interest);
-    if (!isInterestValid) throw InvalidProfileInterestLengthError;
-
-    const isPositionValid = validatePosition(payload.position);
-    if (!isPositionValid) throw InvalidProfileQuoteLengthError;
-
-    const isUsernameValid = validateUsername(payload.username);
-    if (!isUsernameValid) throw InvalidUsernameNameLengthError;
+    validateProfileUpdate(payload);
 
     const updatedProfile = await this.profileRepository.updateProfileByUsername(
       requestedUsername,

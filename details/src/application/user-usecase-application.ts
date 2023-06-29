@@ -1,23 +1,22 @@
 import {
+  SingleUserOnlyError,
+  UserUpdateFailedError,
+  UserCreationFailedError,
+} from '../domain/errors/user-error';
+import {
+  UserEntity,
   CreateUserEntity,
   UpdateUserEntity,
-  UserEntity,
 } from '../domain/entities/user/user-entity';
-import {
-  InvalidUsernameNameLengthError,
-  SingleUserOnlyError,
-  UserCreationFailedError,
-  UserNotFoundError,
-  UserUpdateFailedError,
-  UsernameAlreadyExistsError,
-} from '../domain/errors/user-error';
 import UserUsecase from '../domain/usecases/user-usecase';
-import { validateUsername } from '../domain/entities/user/user-validations';
+import validateUserUpdate from '../domain/entities/user/validations/update-user-validations';
+import validateUserCreation from '../domain/entities/user/validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  createUser = async (payload: CreateUserEntity): Promise<UserEntity> => {
-    const isUsernameValid = validateUsername(payload.username);
-    if (!isUsernameValid) throw InvalidUsernameNameLengthError;
+  createUser = async (
+    payload: CreateUserEntity,
+  ): Promise<UserEntity> => {
+    validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
     if (users.length) throw SingleUserOnlyError;
@@ -32,16 +31,7 @@ class UserUsecaseApplication extends UserUsecase {
     username: string,
     payload: UpdateUserEntity,
   ): Promise<UserEntity> => {
-    const isUsernameValid = validateUsername(payload.username);
-    if (!isUsernameValid) throw InvalidUsernameNameLengthError;
-
-    const userExists = await this.userRepository.getUserByUsername(username);
-    if (!userExists) throw UserNotFoundError;
-
-    if (username !== payload.username) {
-      const usernameAlreadyExists = await this.userRepository.getUserByUsername(payload.username);
-      if (usernameAlreadyExists) throw UsernameAlreadyExistsError;
-    }
+    validateUserUpdate(payload);
 
     const updatedUser = await this.userRepository.updateUserByUsername(username, payload);
     if (!updatedUser) throw UserUpdateFailedError;
