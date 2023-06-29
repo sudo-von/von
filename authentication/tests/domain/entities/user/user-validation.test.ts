@@ -1,9 +1,4 @@
 import {
-  it,
-  expect,
-  describe,
-} from '@jest/globals';
-import {
   InvalidNameLengthError,
   InvalidEmailLengthError,
   InvalidUsernameLengthError,
@@ -11,16 +6,19 @@ import {
   InvalidProfilePictureLengthError,
 } from '../../../../src/domain/errors/user-error';
 import {
-  validateUserSignup,
+  CreateUserEntity,
+  UpdateUserEntity,
+} from '../../../../src/domain/entities/user/user-entity';
+import {
+  validateEmailLength,
   validateNameLength,
+  validateUserSignup,
+  validateUserUpdate,
   validateUsernameLength,
   validatePasswordLength,
   validateProfilePictureLength,
-  validateEmailLength,
-  validateUserUpdate,
 } from '../../../../src/domain/entities/user/user-validations';
 import userRules from '../../../../src/domain/entities/user/user-rules';
-import { CreateUserEntity, UpdateUserEntity } from '../../../../src/domain/entities/user/user-entity';
 
 describe('user validations', () => {
   describe('user field length validations', () => {

@@ -19,13 +19,11 @@ import CryptographyServiceMock, {
 } from '../__mocks__/services/cryptography-service-mock';
 import {
   validateUserSignupMock,
-  validateUserUpdateMock,
 } from '../__mocks__/entities/user/user-validation-mocks';
 import AuthenticationUsecaseApplication from '../../src/application/authentication-usecase-application';
 
 jest.mock('../../src/domain/entities/user/user-validations', () => ({
   validateUserSignup: validateUserSignupMock,
-  validateUserUpdate: validateUserUpdateMock,
 }));
 
 describe('authenticationUsecaseApplication', () => {
