@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2016",
     "lib": ["es6"],
-    "module": "commonjs",
-    "rootDir": "src",
-    "resolveJsonModule": true,
-    "outDir": "build",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noImplicitAny": true,
+    "outDir": "build",
+    "target": "es2016",
+    "module": "commonjs",
     "skipLibCheck": true,
-    "typeRoots": ["src/infrastructure/types", "./node_modules/@types"]
-  }
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "rootDirs": ["src", "tests"],
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots" : ["./src/infrastructure/types", "./node_modules/@types"],
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "tests"]
 }
