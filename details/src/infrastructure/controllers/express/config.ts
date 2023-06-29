@@ -1,29 +1,31 @@
 import 'express-async-errors';
-import express from 'express';
+import express, {
+  Router,
+} from 'express';
+import bodyMiddleware from './middlewares/body-middleware';
 import errorMiddleware from './middlewares/error-middleware';
-import createProfileRouter from './profile-controller/profile-router';
-import ProfileUsecase from '../../../domain/usecases/profile-usecase';
-import TokenService from '../../services/token-service/token-service';
 
 const configureControllers = (
-  tokenService: TokenService,
-  profileUsecase: ProfileUsecase,
   SERVER_PORT: number,
+  profileRouter: Router,
 ) => {
-  const profileRouter = createProfileRouter(tokenService, profileUsecase);
+  try {
+    const app = express();
+    app.use(express.json());
 
-  const app = express();
+    app.set('trust proxy', true);
 
-  app.use(express.json());
+    app.use('/api/v1/profile', profileRouter);
 
-  app.set('trust proxy', true);
+    app.use(bodyMiddleware);
+    app.use(errorMiddleware);
 
-  app.use('/v1/profile', profileRouter);
-  app.use(errorMiddleware);
-
-  app.listen(SERVER_PORT, () => {
-    console.log(`🚀: Starting application on port ${SERVER_PORT}.`);
-  });
+    app.listen(SERVER_PORT, () => {
+      console.log(`🚀 Controllers have been configured on port ${SERVER_PORT}.`);
+    });
+  } catch (e) {
+    throw new Error(`An error occurred with the controllers: ${(e as Error).message}.`);
+  }
 };
 
 export default configureControllers;

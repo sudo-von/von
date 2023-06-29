@@ -1,38 +1,58 @@
 import {
-  NextFunction,
   Request,
   Response,
+  NextFunction,
 } from 'express';
+import statusCodes from '../../status-codes';
+import {
+  PERMISSION_DENIED_CONTROLLER,
+} from '../../errors/common-controller-error';
 import {
   CreateControllerProfileDto,
   UpdateControllerProfileDto,
-  profileEntityToControllerProfileDto,
-} from '../../dtos/controller-profile-dto';
-import statusCodes from '../../status-codes';
+} from '../../dtos/profile-dto/controller-profile-dto';
 import {
   CreateProfileEntity,
   UpdateProfileEntity,
 } from '../../../../domain/entities/profile/profile-entity';
 import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
-import { PermissionDeniedError } from '../../../../domain/errors/common-error';
+import profileEntityToControllerProfileDto from '../../dtos/profile-dto/controller-profile-mapper';
 
 class ExpressProfileController {
   constructor(private profileUsecase: ProfileUsecase) {}
+
+  getProfileByUsername = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { username } = req.params;
+
+      const profile = await this.profileUsecase.getProfileByUsername(username);
+
+      const controllerProfileDto = profileEntityToControllerProfileDto(profile);
+
+      return res.status(statusCodes.success.ok).send({ result: controllerProfileDto });
+    } catch (e) {
+      return next(e);
+    }
+  };
 
   createProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { user, params, body } = req;
       const { username } = params;
 
-      if (!user) throw PermissionDeniedError;
+      if (!user) {
+        return res.status(PERMISSION_DENIED_CONTROLLER.statusCode).send({
+          message: PERMISSION_DENIED_CONTROLLER.message,
+        });
+      }
 
-      const createControllerProfileDto = CreateControllerProfileDto.parse(body);
+      const payload = CreateControllerProfileDto.parse(body);
 
       const createProfileEntity: CreateProfileEntity = {
         username,
-        quote: createControllerProfileDto.quote,
-        interest: createControllerProfileDto.interest,
-        position: createControllerProfileDto.position,
+        quote: payload.quote,
+        interest: payload.interest,
+        position: payload.position,
       };
 
       const createdProfile = await this.profileUsecase.createProfile(
@@ -54,15 +74,19 @@ class ExpressProfileController {
       const { user, params, body } = req;
       const { username } = params;
 
-      if (!user) throw PermissionDeniedError;
+      if (!user) {
+        return res.status(PERMISSION_DENIED_CONTROLLER.statusCode).send({
+          message: PERMISSION_DENIED_CONTROLLER.message,
+        });
+      }
 
-      const updateControllerProfileDto = UpdateControllerProfileDto.parse(body);
+      const payload = UpdateControllerProfileDto.parse(body);
 
       const updateProfileEntity: UpdateProfileEntity = {
         username,
-        quote: updateControllerProfileDto.quote,
-        interest: updateControllerProfileDto.interest,
-        position: updateControllerProfileDto.position,
+        quote: payload.quote,
+        interest: payload.interest,
+        position: payload.position,
       };
 
       const updatedProfile = await this.profileUsecase.updateProfileByUsername(
@@ -72,20 +96,6 @@ class ExpressProfileController {
       );
 
       const controllerProfileDto = profileEntityToControllerProfileDto(updatedProfile);
-
-      return res.status(statusCodes.success.ok).send({ result: controllerProfileDto });
-    } catch (e) {
-      return next(e);
-    }
-  };
-
-  getProfileByUsername = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { username } = req.params;
-
-      const profile = await this.profileUsecase.getProfileByUsername(username);
-
-      const controllerProfileDto = profileEntityToControllerProfileDto(profile);
 
       return res.status(statusCodes.success.ok).send({ result: controllerProfileDto });
     } catch (e) {

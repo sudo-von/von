@@ -1,5 +1,6 @@
-import { z } from 'zod';
-import { ProfileEntity } from '../../../domain/entities/profile/profile-entity';
+import {
+  z,
+} from 'zod';
 
 export type ControllerProfileDto = {
   id: string;
@@ -49,14 +50,4 @@ export const UpdateControllerProfileDto = z.object({
       invalid_type_error: 'position field must be a string',
     })
     .trim(),
-});
-
-export const profileEntityToControllerProfileDto = (
-  profileEntity: ProfileEntity,
-): ControllerProfileDto => ({
-  id: profileEntity.id,
-  quote: profileEntity.quote,
-  interest: profileEntity.interest,
-  username: profileEntity.username,
-  position: profileEntity.position,
 });

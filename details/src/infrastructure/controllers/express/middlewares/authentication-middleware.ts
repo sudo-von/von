@@ -1,9 +1,19 @@
-import { NextFunction, Request, Response } from 'express';
-import TokenService from '../../../services/token-service/token-service';
+import {
+  Request,
+  Response,
+  NextFunction,
+} from 'express';
 import statusCodes from '../../status-codes';
-import { ControllerUserDto } from '../../dtos/controller-user-dto';
+import {
+  UserNotFoundError,
+} from '../../../../domain/errors/user-error';
+import TokenService from '../../../services/token-service/token-service';
+import IUserRepository from '../../../../domain/repositories/user-repository';
 
-const authenticationMiddleware = (tokenService: TokenService) => (
+const authenticationMiddleware = (
+  tokenService: TokenService,
+  userRepository: IUserRepository,
+) => async (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -32,18 +42,23 @@ const authenticationMiddleware = (tokenService: TokenService) => (
   try {
     const decodedToken = tokenService.decodeToken(token);
 
-    const controllerUserDto: ControllerUserDto = {
-      id: decodedToken.id,
+    const updatedUser = await userRepository.getUserByUserId(decodedToken.id);
+    if (!updatedUser) throw UserNotFoundError;
+
+    req.user = {
+      id: updatedUser.id,
+      iat: decodedToken.iat,
+      exp: decodedToken.exp,
       name: decodedToken.name,
       email: decodedToken.email,
-      username: decodedToken.username,
+      username: updatedUser.username,
       profile_picture: decodedToken.profile_picture,
     };
 
-    req.user = controllerUserDto;
-
     return next();
-  } catch (err) {
+  } catch (error) {
+    console.log('🔥:', (error as Error).message);
+
     return res.status(statusCodes.clientSide.forbidden).json({
       error: 'The provided token is invalid. Please log in again.',
     });

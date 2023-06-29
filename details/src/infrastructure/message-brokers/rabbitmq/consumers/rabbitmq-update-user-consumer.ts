@@ -1,7 +1,11 @@
+import {
+  MessageBrokerUpdateUserDto,
+} from '../../dtos/message-broker-user-dto';
 import RabbitMQMessageBroker from '../rabbitmq';
+import {
+  UpdateUserEntity,
+} from '../../../../domain/entities/user/user-entity';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
-import { UpdateUserEntity } from '../../../../domain/entities/user/user-entity';
-import { MessageBrokerUpdateUserDto } from '../../dtos/message-broker-user-dto';
 
 class RabbitMQUpdateUserConsumer extends RabbitMQMessageBroker<MessageBrokerUpdateUserDto> {
   constructor(

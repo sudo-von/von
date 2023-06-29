@@ -40,7 +40,7 @@ const configureControllers = async (
       console.log(`🚀 Controllers have been configured on port ${SERVER_PORT}.`);
     });
   } catch (e) {
-    throw new Error(`An error occurred with the controller: ${(e as Error).message}.`);
+    throw new Error(`An error occurred with the controllers: ${(e as Error).message}.`);
   }
 };
 

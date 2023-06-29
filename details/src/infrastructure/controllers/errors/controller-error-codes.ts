@@ -7,7 +7,8 @@ export type ControllerError = {
 export type ControllerErrorCode =
 | UserControllerErrorCode
 | CommonControllerErrorCode
-| ProfileControllerErrorCode;
+| ProfileControllerErrorCode
+| TokenServiceControllerErrorCode;
 
 export type UserControllerErrorCode =
 | 'INVALID_USER_USERNAME_LENGTH_CONTROLLER_ERROR'
@@ -29,3 +30,7 @@ export type ProfileControllerErrorCode =
 | 'PROFILE_NOT_FOUND_CONTROLLER_ERROR'
 | 'PROFILE_UPDATE_FAILED_CONTROLLER_ERROR'
 | 'SINGLE_PROFILE_ONLY_CONTROLLER_ERROR';
+
+export type TokenServiceControllerErrorCode =
+| 'TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER_ERROR'
+| 'TOKEN_SERVICE_EXPIRED_TOKEN_CONTROLLER_ERROR';

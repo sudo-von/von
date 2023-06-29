@@ -4,6 +4,7 @@ import configureRepositories from './infrastructure/repositories/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
 import configureControllers from './infrastructure/controllers/express/config';
 import configureTokenService from './infrastructure/services/token-service/config';
+import configureProfileRouter from './infrastructure/controllers/express/profile-controller/config';
 
 (async () => {
   try {
@@ -47,8 +48,15 @@ import configureTokenService from './infrastructure/services/token-service/confi
       userUsecase,
     );
 
-    /* 🔌 Controllers. */
-    configureControllers(tokenService, profileUsecase, SERVER_PORT);
+    /* 🔌 Routers. */
+    const profileRouter = configureProfileRouter(
+      tokenService,
+      profileUsecase,
+      userRepository,
+    );
+
+    /* 🚀 Controllers. */
+    await configureControllers(SERVER_PORT, profileRouter);
   } catch (e) {
     console.log(`⛔️ An error occurred while configuring the application: ${(e as Error).message}`);
     process.exit(1);

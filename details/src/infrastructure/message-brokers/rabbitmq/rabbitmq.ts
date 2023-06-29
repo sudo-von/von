@@ -1,4 +1,7 @@
-import amqp, { Channel, Connection } from 'amqplib';
+import amqp, {
+  Channel,
+  Connection,
+} from 'amqplib';
 import MessageBroker, {
   Queues,
 } from '../message-broker';

@@ -1,7 +1,11 @@
+import {
+  MessageBrokerCreateUserDto,
+} from '../../dtos/message-broker-user-dto';
 import RabbitMQMessageBroker from '../rabbitmq';
+import {
+  CreateUserEntity,
+} from '../../../../domain/entities/user/user-entity';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
-import { CreateUserEntity } from '../../../../domain/entities/user/user-entity';
-import { MessageBrokerCreateUserDto } from '../../dtos/message-broker-user-dto';
 
 class RabbitMQCreateUserConsumer extends RabbitMQMessageBroker<MessageBrokerCreateUserDto> {
   constructor(
