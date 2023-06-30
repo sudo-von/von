@@ -1,6 +1,10 @@
-import { DomainError } from './error-codes';
-import { userRules } from '../entities/user/validations/user-validations';
-import { createDomainErrorFactory } from './error-factory';
+import {
+  DomainError,
+} from './error-codes';
+import {
+  createDomainErrorFactory,
+} from './error-factory';
+import userRules from '../entities/user/validations/user-rules';
 
 export const INVALID_USER_USERNAME_LENGTH: DomainError = {
   code: 'INVALID_USER_USERNAME_LENGTH_DOMAIN_ERROR',

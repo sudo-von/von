@@ -1,6 +1,10 @@
-import { profileRules } from '../entities/profile/profile-validations';
-import { DomainError } from './error-codes';
-import { createDomainErrorFactory } from './error-factory';
+import {
+  DomainError,
+} from './error-codes';
+import {
+  createDomainErrorFactory,
+} from './error-factory';
+import profileRules from '../entities/profile/validations/profile-rules';
 
 export const INVALID_PROFILE_QUOTE_LENGTH: DomainError = {
   code: 'INVALID_PROFILE_QUOTE_LENGTH_DOMAIN_ERROR',

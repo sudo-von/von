@@ -1,4 +1,4 @@
-import UserModel from './mongo-user-schema';
+import UserModel from './mongo-user-model';
 import {
   UserEntity,
   CreateUserEntity,
