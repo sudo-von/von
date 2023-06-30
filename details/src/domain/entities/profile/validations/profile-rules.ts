@@ -5,11 +5,11 @@ const profileRules = {
   },
   position: {
     MIN_LENGTH: 5,
-    MAX_LENGTH: 24,
+    MAX_LENGTH: 25,
   },
   interest: {
     MIN_LENGTH: 5,
-    MAX_LENGTH: 34,
+    MAX_LENGTH: 35,
   },
 };
 
