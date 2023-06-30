@@ -43,10 +43,7 @@ import configureProfileRouter from './infrastructure/controllers/express/profile
     );
 
     /* 📦 Message brokers. */
-    await configureMessageBrokers(
-      MESSAGE_BROKER_URL,
-      userUsecase,
-    );
+    await configureMessageBrokers(MESSAGE_BROKER_URL, userUsecase);
 
     /* 🔌 Routers. */
     const profileRouter = configureProfileRouter(
@@ -56,7 +53,7 @@ import configureProfileRouter from './infrastructure/controllers/express/profile
     );
 
     /* 🚀 Controllers. */
-    await configureControllers(SERVER_PORT, profileRouter);
+    configureControllers(SERVER_PORT, profileRouter);
   } catch (e) {
     console.log(`⛔️ An error occurred while configuring the application: ${(e as Error).message}`);
     process.exit(1);
