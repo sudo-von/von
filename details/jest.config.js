@@ -4,7 +4,10 @@ module.exports = {
   preset: 'ts-jest',
   collectCoverage: true,
   testEnvironment: 'node',
-  ignorePatterns: ['tests'],
   coverageReporters: ['text'],
   displayName: { name: 'details', color: 'green' },
+  testMatch: [
+    "<rootDir>/tests/**/*.unit-test.ts",
+    "<rootDir>/tests/**/*.integration-test.ts"
+  ],
 };
