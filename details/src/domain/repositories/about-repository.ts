@@ -2,7 +2,7 @@ import {
   AboutEntity,
   CreateAboutEntity,
   UpdateAboutEntity,
-} from '../entities/about/about-entity';
+} from '../entities/introduction/introduction-entity';
 
 export interface IAboutRepositoryReader {
   getAbouts: () => Promise<AboutEntity[]>;

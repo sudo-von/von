@@ -1,15 +1,15 @@
 const profileRules = {
-  quote: {
+  interest: {
     MIN_LENGTH: 5,
-    MAX_LENGTH: 100,
+    MAX_LENGTH: 35,
   },
   position: {
     MIN_LENGTH: 5,
     MAX_LENGTH: 25,
   },
-  interest: {
+  quote: {
     MIN_LENGTH: 5,
-    MAX_LENGTH: 35,
+    MAX_LENGTH: 100,
   },
 };
 
