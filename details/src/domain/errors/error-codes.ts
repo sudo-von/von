@@ -4,9 +4,18 @@ export type DomainError = {
 };
 
 export type DomainErrorCode =
+| AboutErrorCode
 | UserDomainErrorCode
 | CommonDomainErrorCode
 | ProfileDomainErrorCode;
+
+export type AboutErrorCode =
+| 'ABOUT_CREATION_FAILED_DOMAIN_ERROR'
+| 'ABOUT_NOT_FOUND_DOMAIN_ERROR'
+| 'ABOUT_UPDATE_FAILED_DOMAIN_ERROR'
+| 'INVALID_ABOUT_DESCRIPTION_LENGTH_DOMAIN_ERROR'
+| 'INVALID_ABOUT_TITLE_LENGTH_DOMAIN_ERROR'
+| 'SINGLE_ABOUT_ONLY_DOMAIN_ERROR';
 
 export type UserDomainErrorCode =
 | 'INVALID_USER_USERNAME_LENGTH_DOMAIN_ERROR'
