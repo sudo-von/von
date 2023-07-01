@@ -9,7 +9,7 @@ import {
   SingleProfileOnlyError,
   ProfileUpdateFailedError,
   ProfileCreationFailedError,
-} from '../domain/errors/profile-error';
+} from '../domain/entities/profile/profile-errors';
 import {
   ProfileEntity,
   CreateProfileEntity,

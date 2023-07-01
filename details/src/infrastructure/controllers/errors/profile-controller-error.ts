@@ -7,7 +7,7 @@ import {
   INVALID_PROFILE_INTEREST_LENGTH,
   INVALID_PROFILE_POSITION_LENGTH,
   INVALID_PROFILE_QUOTE_LENGTH,
-} from '../../../domain/errors/profile-error';
+} from '../../../domain/entities/profile/profile-errors';
 import { ControllerError } from './controller-error-codes';
 import { createControllerErrorFactory } from './controller-error-factory';
 

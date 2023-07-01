@@ -2,9 +2,9 @@ import {
   CreateProfileEntity,
 } from '../profile-entity';
 import {
-  validateQuote,
-  validatePosition,
-  validateInterest,
+  validateProfileQuote,
+  validateProfilePosition,
+  validateProfileInterest,
 } from './profile-validations';
 import {
   InvalidUsernameNameLengthError,
@@ -13,17 +13,17 @@ import {
   InvalidProfileQuoteLengthError,
   InvalidProfilPositionLengthError,
   InvalidProfileInterestLengthError,
-} from '../../../errors/profile-error';
+} from '../profile-errors';
 import validateUsernameLength from '../../user/validations/user-validations';
 
 const validateProfileCreation = (payload: CreateProfileEntity) => {
-  const isQuoteLengthValid = validateQuote(payload.quote);
+  const isQuoteLengthValid = validateProfileQuote(payload.quote);
   if (!isQuoteLengthValid) throw InvalidProfileQuoteLengthError;
 
-  const isInteresLengthtValid = validateInterest(payload.interest);
+  const isInteresLengthtValid = validateProfileInterest(payload.interest);
   if (!isInteresLengthtValid) throw InvalidProfileInterestLengthError;
 
-  const isPositionLengthValid = validatePosition(payload.position);
+  const isPositionLengthValid = validateProfilePosition(payload.position);
   if (!isPositionLengthValid) throw InvalidProfilPositionLengthError;
 
   const isUsernameLengthValid = validateUsernameLength(payload.username);
