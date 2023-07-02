@@ -3,11 +3,6 @@ import {
 } from '../../errors/error-factory';
 import cybersecurityRules from './cybersecurity-rules';
 
-export const CybersecurityCreationFailedError = createDomainErrorFactory({
-  code: 'CYBERSECURITY_CREATION_FAILED_DOMAIN_ERROR',
-  message: 'Cybersecurity creation failed.',
-});
-
 export const CybersecurityNotFoundError = createDomainErrorFactory({
   code: 'CYBERSECURITY_NOT_FOUND_DOMAIN_ERROR',
   message: 'Cybersecurity not found.',

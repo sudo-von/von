@@ -20,6 +20,7 @@ interface IProfileRepositoryWriter {
   ) => Promise<ProfileEntity | null>;
 }
 
-interface IProfileRepository extends IProfileRepositoryReader, IProfileRepositoryWriter {}
+interface IProfileRepository extends
+  IProfileRepositoryReader, IProfileRepositoryWriter {}
 
 export default IProfileRepository;

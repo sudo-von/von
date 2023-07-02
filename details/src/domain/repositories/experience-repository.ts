@@ -20,6 +20,7 @@ interface IExperienceRepositoryWriter {
   ) => Promise<ExperienceEntity | null>;
 }
 
-interface IExperienceRepository extends IExperienceRepositoryReader, IExperienceRepositoryWriter {}
+interface IExperienceRepository extends
+  IExperienceRepositoryReader, IExperienceRepositoryWriter {}
 
 export default IExperienceRepository;

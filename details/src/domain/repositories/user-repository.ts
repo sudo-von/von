@@ -15,6 +15,7 @@ interface IUserRepositoryWriter {
   updateUserByUsername: (username: string, payload: UpdateUserEntity) => Promise<UserEntity | null>;
 }
 
-interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}
+interface IUserRepository extends
+  IUserRepositoryReader, IUserRepositoryWriter {}
 
 export default IUserRepository;
