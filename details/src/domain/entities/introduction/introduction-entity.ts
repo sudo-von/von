@@ -1,10 +1,13 @@
+import {
+  Username,
+} from '../user/user-entity';
+
 export type IntroductionEntity = Readonly<{
   id: string;
   title: string;
   description: string;
   videoUrl: string;
-  username: string;
-}>;
+} & Username>;
 
 export type CreateIntroductionEntity = Omit<IntroductionEntity, 'id'>;
 

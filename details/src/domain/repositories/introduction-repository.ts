@@ -5,16 +5,16 @@ import {
 } from '../entities/introduction/introduction-entity';
 
 export interface IIntroductionRepositoryReader {
-  find: () => Promise<IntroductionEntity[]>;
-  findByUsername: (username: string) => Promise<IntroductionEntity | null>;
+  getIntroductions: () => Promise<IntroductionEntity[]>;
+  getIntroductionByUsername: (username: string) => Promise<IntroductionEntity | null>;
 }
 
 interface IIntroductionRepositoryWriter {
-  create: (
+  createIntroduction: (
     payload: CreateIntroductionEntity
   ) => Promise<IntroductionEntity>;
 
-  updateByUsername: (
+  updateIntroductionByUsername: (
     username: string,
     payload: UpdateIntroductionEntity
   ) => Promise<IntroductionEntity | null>;

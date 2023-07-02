@@ -7,3 +7,5 @@ export type UserEntity = Readonly<{
 export type CreateUserEntity = Omit<UserEntity, 'id'>;
 
 export type UpdateUserEntity = Omit<UserEntity, 'id'>;
+
+export type Username = Pick<UserEntity, 'username'>;

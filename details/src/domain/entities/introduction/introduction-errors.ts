@@ -3,11 +3,6 @@ import {
 } from '../../errors/error-factory';
 import introductionRules from './introduction-rules';
 
-export const IntroductionCreationFailedError = createDomainErrorFactory({
-  code: 'INTRODUCTION_CREATION_FAILED_DOMAIN_ERROR',
-  message: 'Introduction creation failed.',
-});
-
 export const IntroductionNotFoundError = createDomainErrorFactory({
   code: 'INTRODUCTION_NOT_FOUND_DOMAIN_ERROR',
   message: 'Introduction not found.',

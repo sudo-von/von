@@ -28,6 +28,7 @@ class MongoProfileRepository implements IProfileRepository {
       username: payload.username,
       position: payload.position,
     });
+
     const storedProfile = await profileModel.save();
     const profileEntity = profileModelToProfileEntity(storedProfile);
     return profileEntity;

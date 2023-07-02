@@ -5,7 +5,7 @@ import {
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
-} from '../../errors/token-service-errors';
+} from '../token-service-errors';
 import TokenService from '../token-service';
 
 class JWTTokenService extends TokenService {

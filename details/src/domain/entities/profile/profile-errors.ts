@@ -18,11 +18,6 @@ export const InvalidProfileQuoteLengthError = createDomainErrorFactory({
   message: `Please provide a quote that consists of ${profileRules.quote.MIN_LENGTH} to ${profileRules.quote.MAX_LENGTH} characters.`,
 });
 
-export const ProfileCreationFailedError = createDomainErrorFactory({
-  code: 'PROFILE_CREATION_FAILED_DOMAIN_ERROR',
-  message: 'Profile creation failed.',
-});
-
 export const ProfileNotFoundError = createDomainErrorFactory({
   code: 'PROFILE_NOT_FOUND_DOMAIN_ERROR',
   message: 'Profile not found.',

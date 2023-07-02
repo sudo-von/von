@@ -1,14 +1,11 @@
 import {
   UserNotFoundError,
+  UserPermissionDeniedError,
 } from '../domain/entities/user/user-errors';
-import {
-  PermissionDeniedError,
-} from '../domain/errors/common-error';
 import {
   ProfileNotFoundError,
   SingleProfileOnlyError,
   ProfileUpdateFailedError,
-  ProfileCreationFailedError,
 } from '../domain/entities/profile/profile-errors';
 import {
   ProfileEntity,
@@ -31,7 +28,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     requestedUsername: string,
     payload: CreateProfileEntity,
   ): Promise<ProfileEntity> => {
-    if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
+    if (requestingUsername !== requestedUsername) throw UserPermissionDeniedError;
 
     validateProfileCreation(payload);
 
@@ -42,8 +39,6 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     if (profiles.length) throw SingleProfileOnlyError;
 
     const createdProfile = await this.profileRepository.createProfile(payload);
-    if (!createdProfile) throw ProfileCreationFailedError;
-
     return createdProfile;
   };
 
@@ -52,7 +47,7 @@ class ProfileUsecaseApplication extends ProfileUsecase {
     requestedUsername: string,
     payload: UpdateProfileEntity,
   ): Promise<ProfileEntity> => {
-    if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
+    if (requestingUsername !== requestedUsername) throw UserPermissionDeniedError;
 
     validateProfileUpdate(payload);
 
