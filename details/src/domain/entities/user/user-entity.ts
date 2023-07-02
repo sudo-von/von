@@ -1,7 +1,9 @@
+export type Username = string;
+
 export type UserEntity = Readonly<{
   id: string;
   userId: string;
-  username: string;
+  username: Username;
 }>;
 
 export type CreateUserEntity = Omit<UserEntity, 'id'>;

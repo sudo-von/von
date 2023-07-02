@@ -8,7 +8,7 @@ export const InvalidProfileInterestLengthError = createDomainErrorFactory({
   message: `Please provide an interest that consists of ${profileRules.interest.MIN_LENGTH} to ${profileRules.interest.MAX_LENGTH} characters.`,
 });
 
-export const InvalidProfilPositionLengthError = createDomainErrorFactory({
+export const InvalidProfilePositionLengthError = createDomainErrorFactory({
   code: 'INVALID_PROFILE_POSITION_LENGTH_DOMAIN_ERROR',
   message: `Please provide a position that consists of ${profileRules.position.MIN_LENGTH} to ${profileRules.position.MAX_LENGTH} characters.`,
 });

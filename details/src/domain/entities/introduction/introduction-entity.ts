@@ -1,9 +1,9 @@
 export type IntroductionEntity = Readonly<{
   id: string;
   title: string;
-  username: string;
-  videoUrl: string;
   description: string;
+  videoUrl: string;
+  username: string;
 }>;
 
 export type CreateIntroductionEntity = Omit<IntroductionEntity, 'id'>;

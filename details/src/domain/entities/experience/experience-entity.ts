@@ -1,8 +1,8 @@
 export type ExperienceEntity = Readonly<{
   id: string;
   title: string;
-  username: string;
   description: string;
+  username: string;
 }>;
 
 export type CreateExperienceEntity = Omit<ExperienceEntity, 'id'>;

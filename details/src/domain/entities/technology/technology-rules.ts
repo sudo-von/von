@@ -1,4 +1,4 @@
-const experienceRules = {
+const technologyRules = {
   description: {
     MIN_LENGTH: 5,
     MAX_LENGTH: 450,
@@ -9,4 +9,4 @@ const experienceRules = {
   },
 };
 
-export default experienceRules;
+export default technologyRules;
