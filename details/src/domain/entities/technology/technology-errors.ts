@@ -18,11 +18,6 @@ export const SingleTechnologyOnlyError = createDomainErrorFactory({
   message: 'Only one technology is allowed.',
 });
 
-export const TechnologyCreationFailedError = createDomainErrorFactory({
-  code: 'TECHNOLOGY_CREATION_FAILED_DOMAIN_ERROR',
-  message: 'Technology creation failed.',
-});
-
 export const TechnologyNotFoundError = createDomainErrorFactory({
   code: 'TECHNOLOGY_NOT_FOUND_DOMAIN_ERROR',
   message: 'Technology not found.',

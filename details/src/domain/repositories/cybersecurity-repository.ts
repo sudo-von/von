@@ -4,7 +4,7 @@ import {
   UpdateCybersecurityEntity,
 } from '../entities/cybersecurity/cybersecurity-entity';
 
-export interface ICybersecurityRepositoryReader {
+interface ICybersecurityRepositoryReader {
   getCybersecurity: () => Promise<CybersecurityEntity[]>;
   getCybersecurityByUsername: (username: string) => Promise<CybersecurityEntity | null>;
 }

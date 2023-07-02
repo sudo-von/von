@@ -4,7 +4,7 @@ import {
   UpdateExperienceEntity,
 } from '../entities/experience/experience-entity';
 
-export interface IExperienceRepositoryReader {
+interface IExperienceRepositoryReader {
   getExperiences: () => Promise<ExperienceEntity[]>;
   getExperienceByUsername: (username: string) => Promise<ExperienceEntity | null>;
 }

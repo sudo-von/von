@@ -4,7 +4,7 @@ import {
   UpdateIntroductionEntity,
 } from '../entities/introduction/introduction-entity';
 
-export interface IIntroductionRepositoryReader {
+interface IIntroductionRepositoryReader {
   getIntroductions: () => Promise<IntroductionEntity[]>;
   getIntroductionByUsername: (username: string) => Promise<IntroductionEntity | null>;
 }

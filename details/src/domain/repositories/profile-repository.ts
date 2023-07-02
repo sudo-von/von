@@ -4,7 +4,7 @@ import {
   UpdateProfileEntity,
 } from '../entities/profile/profile-entity';
 
-export interface IProfileRepositoryReader {
+interface IProfileRepositoryReader {
   getProfiles: () => Promise<ProfileEntity[]>;
   getProfileByUsername: (username: string) => Promise<ProfileEntity | null>;
 }
