@@ -4,12 +4,19 @@ export type DomainError = {
 };
 
 export type DomainErrorCode =
+| CompanyDomainErrorCode
 | CybersecurityDomainErrorCode
 | ExperienceDomainErrorCode
 | IntroductionDomainErrorCode
 | ProfileDomainErrorCode
 | TechnologyDomainErrorCode
 | UserDomainErrorCode;
+
+export type CompanyDomainErrorCode =
+| 'COMPANY_NOT_FOUND_DOMAIN_ERROR'
+| 'COMPANY_UPDATE_FAILED_DOMAIN_ERROR'
+| 'INVALID_COMPANY_NAME_LENGTH_DOMAIN_ERROR'
+| 'INVALID_COMPANY_POSITION_LENGTH_DOMAIN_ERROR';
 
 export type CybersecurityDomainErrorCode =
 | 'CYBERSECURITY_NOT_FOUND_DOMAIN_ERROR'
