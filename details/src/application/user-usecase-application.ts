@@ -2,7 +2,7 @@ import {
   SingleUserOnlyError,
   UserUpdateFailedError,
   UserCreationFailedError,
-} from '../domain/errors/user-error';
+} from '../domain/entities/user/user-errors';
 import {
   UserEntity,
   CreateUserEntity,

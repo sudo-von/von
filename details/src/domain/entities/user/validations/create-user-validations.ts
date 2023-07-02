@@ -3,7 +3,7 @@ import {
 } from '../user-entity';
 import {
   InvalidUsernameNameLengthError,
-} from '../../../errors/user-error';
+} from '../user-errors';
 import validateUsernameLength from './user-validations';
 
 const validateUserCreation = (payload: CreateUserEntity) => {

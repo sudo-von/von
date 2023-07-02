@@ -1,6 +1,6 @@
 import {
   UserNotFoundError,
-} from '../domain/errors/user-error';
+} from '../domain/entities/user/user-errors';
 import {
   PermissionDeniedError,
 } from '../domain/errors/common-error';

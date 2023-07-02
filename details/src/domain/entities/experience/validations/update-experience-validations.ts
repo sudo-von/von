@@ -11,15 +11,15 @@ import {
 } from './experience-validations';
 import {
   InvalidUsernameNameLengthError,
-} from '../../../errors/user-error';
+} from '../../user/user-errors';
 import validateUsernameLength from '../../user/validations/user-validations';
 
 const validateExperienceUpdate = (payload: UpdateExperienceEntity) => {
-  const isDescriptionLengthValid = validateExperienceDescription(payload.description);
-  if (!isDescriptionLengthValid) throw InvalidExperienceDescriptionLengthError;
-
   const isTitleLengthValid = validateExperienceTitle(payload.title);
   if (!isTitleLengthValid) throw InvalidExperienceTitleLengthError;
+
+  const isDescriptionLengthValid = validateExperienceDescription(payload.description);
+  if (!isDescriptionLengthValid) throw InvalidExperienceDescriptionLengthError;
 
   const isUsernameLengthValid = validateUsernameLength(payload.username);
   if (!isUsernameLengthValid) throw InvalidUsernameNameLengthError;

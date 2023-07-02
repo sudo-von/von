@@ -11,15 +11,15 @@ import {
 } from './cybersecurity-validations';
 import {
   InvalidUsernameNameLengthError,
-} from '../../../errors/user-error';
+} from '../../user/user-errors';
 import validateUsernameLength from '../../user/validations/user-validations';
 
 const validateCybersecurityUpdate = (payload: UpdateCybersecurityEntity) => {
-  const isDescriptionLengthValid = validateCybersecurityDescription(payload.description);
-  if (!isDescriptionLengthValid) throw InvalidCybersecurityDescriptionLengthError;
-
   const isTitleLengthValid = validateCybersecurityTitle(payload.title);
   if (!isTitleLengthValid) throw InvalidCybersecurityTitleLengthError;
+
+  const isDescriptionLengthValid = validateCybersecurityDescription(payload.description);
+  if (!isDescriptionLengthValid) throw InvalidCybersecurityDescriptionLengthError;
 
   const isUsernameLengthValid = validateUsernameLength(payload.username);
   if (!isUsernameLengthValid) throw InvalidUsernameNameLengthError;

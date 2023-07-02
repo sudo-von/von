@@ -11,15 +11,15 @@ import {
 } from './technology-validations';
 import {
   InvalidUsernameNameLengthError,
-} from '../../../errors/user-error';
+} from '../../user/user-errors';
 import validateUsernameLength from '../../user/validations/user-validations';
 
 const validateTechnologyUpdate = (payload: UpdateTechnologyEntity) => {
-  const isDescriptionLengthValid = validateTechnologyDescription(payload.description);
-  if (!isDescriptionLengthValid) throw InvalidTechnologyDescriptionLengthError;
-
   const isTitleLengthValid = validateTechnologyTitle(payload.title);
   if (!isTitleLengthValid) throw InvalidTechnologyTitleLengthError;
+
+  const isDescriptionLengthValid = validateTechnologyDescription(payload.description);
+  if (!isDescriptionLengthValid) throw InvalidTechnologyDescriptionLengthError;
 
   const isUsernameLengthValid = validateUsernameLength(payload.username);
   if (!isUsernameLengthValid) throw InvalidUsernameNameLengthError;

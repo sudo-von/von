@@ -1,4 +1,4 @@
-import userRules from './user-rules';
+import userRules from '../user-rules';
 
 const validateUsernameLength = (username: string) => {
   const usernameLength = username.trim().length;

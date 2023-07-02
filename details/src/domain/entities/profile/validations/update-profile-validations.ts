@@ -8,7 +8,7 @@ import {
 } from './profile-validations';
 import {
   InvalidUsernameNameLengthError,
-} from '../../../errors/user-error';
+} from '../../user/user-errors';
 import {
   InvalidProfileQuoteLengthError,
   InvalidProfilePositionLengthError,

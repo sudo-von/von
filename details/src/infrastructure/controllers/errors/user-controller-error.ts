@@ -6,7 +6,7 @@ import {
   USER_CREATION_FAILED,
   USERNAME_ALREADY_EXISTS,
   INVALID_USER_USERNAME_LENGTH,
-} from '../../../domain/errors/user-error';
+} from '../../../domain/entities/user/user-errors';
 import { ControllerError } from './controller-error-codes';
 import { createControllerErrorFactory } from './controller-error-factory';
 
