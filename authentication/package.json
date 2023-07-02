@@ -4,10 +4,11 @@
   "description": "authentication microservice implemented by von",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon",
+    "build": "tsc",
     "start": "node build/index.js",
-    "test": "jest",
-    "build": "tsc"
+    "start:dev": "nodemon",
+    "test:unit": "jest --testMatch 'tests/**/*.unit-test.ts'",
+    "test:integration": "jest --testMatch 'tests/**/*.integration-test.ts'"
   },
   "keywords": [
     "microservice, authentication, von"
