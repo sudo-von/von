@@ -3,11 +3,6 @@ import {
 } from '../../errors/error-factory';
 import experienceRules from './experience-rules';
 
-export const ExperienceCreationFailedError = createDomainErrorFactory({
-  code: 'EXPERIENCE_CREATION_FAILED_DOMAIN_ERROR',
-  message: 'Experience creation failed.',
-});
-
 export const ExperienceNotFoundError = createDomainErrorFactory({
   code: 'EXPERIENCE_NOT_FOUND_DOMAIN_ERROR',
   message: 'Experience not found.',
