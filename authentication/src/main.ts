@@ -4,9 +4,12 @@ import configureRepositories from './infrastructure/repositories/config';
 import configureMessageBrokers from './infrastructure/message-brokers/config';
 import configureControllers from './infrastructure/controllers/express/config';
 import configureTokenService from './infrastructure/services/token-service/config';
+import configureLoggerService from './infrastructure/services/logger-service/config';
 import configureUserRouter from './infrastructure/controllers/express/user-controller/config';
 import configureCryptographyService from './infrastructure/services/cryptography-service/config';
-import configureAuthenticationRouter from './infrastructure/controllers/express/authentication-controller/config';
+import configureAuthenticationRouter from './infrastructure/controllers/express/authentication-controller/authentication-router';
+
+const loggerService = configureLoggerService();
 
 (async () => {
   try {
@@ -19,7 +22,7 @@ import configureAuthenticationRouter from './infrastructure/controllers/express/
       DATABASE_USERNAME,
       DATABASE_PASSWORD,
       MESSAGE_BROKER_URL,
-    } = configureEnvironmentVariables();
+    } = configureEnvironmentVariables(loggerService);
 
     /* 💽 Repositories. */
     const {
@@ -29,46 +32,49 @@ import configureAuthenticationRouter from './infrastructure/controllers/express/
       DATABASE_NAME,
       DATABASE_USERNAME,
       DATABASE_PASSWORD,
+      loggerService,
     );
 
     /* 🔧 Services. */
-    const tokenService = configureTokenService(SECRET_KEY);
-    const cryptographyService = configureCryptographyService();
+    const tokenService = configureTokenService(SECRET_KEY, loggerService);
+    const cryptographyService = configureCryptographyService(loggerService);
 
     /* 📖 Usecases. */
     const {
-      userUsecase,
+      // userUsecase,
       authenticationUsecase,
-    } = configureUsecases(
-      userRepository,
-      cryptographyService,
-    );
+    } = configureUsecases(loggerService, userRepository, cryptographyService);
 
     /* 📦 Message brokers. */
     const {
       createUserProducer,
       updateUserProducer,
-    } = await configureMessageBrokers(
-      MESSAGE_BROKER_URL,
-    );
+    } = await configureMessageBrokers(MESSAGE_BROKER_URL, loggerService);
 
     /* 🔌 Routers. */
-    const userRouter = configureUserRouter(
-      userUsecase,
-      tokenService,
-      userRepository,
-      updateUserProducer,
-    );
+    // const userRouter = configureUserRouter(
+    //   userUsecase,
+    //   tokenService,
+    //   loggerService,
+    //   userRepository,
+    //   updateUserProducer,
+    // );
     const authenticationRouter = configureAuthenticationRouter(
       tokenService,
+      loggerService,
       authenticationUsecase,
       createUserProducer,
     );
 
     /* 🚀 Controllers. */
-    await configureControllers(SERVER_PORT, userRouter, authenticationRouter);
+    await configureControllers(
+      SERVER_PORT,
+      // userRouter,
+      authenticationRouter,
+      loggerService,
+    );
   } catch (e) {
-    console.log(`⛔️ An error occurred while configuring the application: ${(e as Error).message}`);
+    loggerService.error(e as Error, '⛔️ An error occurred while configuring the application.');
     process.exit(1);
   }
 })();

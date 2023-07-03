@@ -5,7 +5,7 @@ export type RestrictedUserControllerDto = {
   name: string;
   email: string;
   username: string;
-  profile_picture: string;
+  profile_picture_url: string;
 };
 
 export const CreateUserControllerDto = z.object({
@@ -36,15 +36,23 @@ export const CreateUserControllerDto = z.object({
       invalid_type_error: 'password field must be a string',
     })
     .trim(),
-  profile_picture: z
+});
+
+export const CreateUserCredentialsControllerDto = z.object({
+  email: z
     .string({
-      required_error: 'profile_picture field is required',
-      invalid_type_error: 'profile_picture field must be a string',
+      required_error: 'email field is required',
+      invalid_type_error: 'email field must be a string',
     })
+    .email('email field must contain a valid email')
     .trim()
-    .url({
-      message: 'profile_picture field must contain a valid url',
-    }),
+    .toLowerCase(),
+  password: z
+    .string({
+      required_error: 'password field is required',
+      invalid_type_error: 'password field must be a string',
+    })
+    .trim(),
 });
 
 export const UpdateUserControllerDto = z.object({
@@ -67,32 +75,6 @@ export const UpdateUserControllerDto = z.object({
       required_error: 'username field is required',
       invalid_type_error: 'username field must be a string',
     })
-    .trim()
-    .toLowerCase(),
-  password: z
-    .string({
-      required_error: 'password field is required',
-      invalid_type_error: 'password field must be a string',
-    })
-    .trim(),
-  profile_picture: z
-    .string({
-      required_error: 'profile_picture field is required',
-      invalid_type_error: 'profile_picture field must be a string',
-    })
-    .trim()
-    .url({
-      message: 'profile_picture field must contain a valid url',
-    }),
-});
-
-export const CreateUserCredentialsControllerDto = z.object({
-  email: z
-    .string({
-      required_error: 'email field is required',
-      invalid_type_error: 'email field must be a string',
-    })
-    .email('email field must contain a valid email')
     .trim()
     .toLowerCase(),
   password: z

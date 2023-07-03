@@ -1,18 +1,15 @@
 import {
-  UserNotFoundError,
-  UserUpdateFailedError,
-} from '../domain/errors/user-error';
-import {
-  PermissionDeniedError,
   InvalidCredentialsError,
-} from '../domain/errors/common-error';
+  UserNotFoundError,
+  UserPermissionDeniedError,
+  UserUpdateFailedError,
+} from '../domain/entities/user/user-errors';
 import {
   UpdateUserEntity,
   RestrictedUserEntity,
+  UserPayload,
 } from '../domain/entities/user/user-entity';
-import {
-  validateUserUpdate,
-} from '../domain/entities/user/user-validations';
+import validateUserUpdate from '../domain/entities/user/validations/update-user-validations';
 import UserUsecase from '../domain/usecases/user-usecase';
 
 class UserUsecaseApplication extends UserUsecase {
@@ -25,7 +22,7 @@ class UserUsecaseApplication extends UserUsecase {
       name: user.name,
       email: user.email,
       username: user.username,
-      profilePicture: user.profilePicture,
+      profilePictureUrl: user.profilePictureUrl,
     };
 
     return restrictedUserEntity;
@@ -36,7 +33,7 @@ class UserUsecaseApplication extends UserUsecase {
     requestedUsername: string,
     payload: UpdateUserEntity,
   ): Promise<RestrictedUserEntity> => {
-    if (requestingUsername !== requestedUsername) throw PermissionDeniedError;
+    if (requestingUsername !== requestedUsername) throw UserPermissionDeniedError;
 
     validateUserUpdate(payload);
 
@@ -49,12 +46,12 @@ class UserUsecaseApplication extends UserUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const updateUserEntity: UpdateUserEntity = {
+    const updateUserEntity: UserPayload = {
       name: payload.name,
       email: payload.email,
       password: user.password,
       username: payload.username,
-      profilePicture: payload.profilePicture,
+      profilePictureUrl: payload.profilePicture.name,
     };
 
     const updatedUser = await this.userRepository.updateUserByUsername(
@@ -68,7 +65,7 @@ class UserUsecaseApplication extends UserUsecase {
       name: updatedUser.name,
       email: updatedUser.email,
       username: updatedUser.username,
-      profilePicture: updatedUser.profilePicture,
+      profilePictureUrl: updatedUser.profilePictureUrl,
     };
 
     return restrictedUserEntity;

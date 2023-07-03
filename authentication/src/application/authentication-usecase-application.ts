@@ -1,17 +1,14 @@
 import {
   SingleUserOnlyError,
-} from '../domain/errors/user-error';
-import {
   InvalidCredentialsError,
-} from '../domain/errors/common-error';
+} from '../domain/entities/user/user-errors';
 import {
   CreateUserEntity,
   RestrictedUserEntity,
+  UserPayload,
 } from '../domain/entities/user/user-entity';
-import {
-  validateUserSignup,
-} from '../domain/entities/user/user-validations';
 import AuthenticationUsecase from '../domain/usecases/authentication-usecase';
+import validateUserSignup from '../domain/entities/user/validations/signup-user-validations';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
   authenticate = async (email: string, password: string): Promise<RestrictedUserEntity> => {
@@ -29,7 +26,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       name: user.name,
       email: user.email,
       username: user.username,
-      profilePicture: user.profilePicture,
+      profilePictureUrl: user.profilePictureUrl,
     };
 
     return restrictedUserEntity;
@@ -43,12 +40,12 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
 
     const hashedPassword = await this.cryptographyService.hash(payload.password);
 
-    const createUserEntity: CreateUserEntity = {
+    const createUserEntity: UserPayload = {
       name: payload.name,
       email: payload.email,
       password: hashedPassword,
       username: payload.username,
-      profilePicture: payload.profilePicture,
+      profilePictureUrl: payload.profilePicture.name,
     };
 
     const createdUser = await this.userRepository.createUser(createUserEntity);
@@ -58,7 +55,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       name: createdUser.name,
       email: createdUser.email,
       username: createdUser.username,
-      profilePicture: createdUser.profilePicture,
+      profilePictureUrl: createdUser.profilePictureUrl,
     };
 
     return restrictedUserEntity;

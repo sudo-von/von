@@ -5,10 +5,7 @@ import {
   createControllerErrorFactory,
 } from './controller-error-factory';
 import statusCode from '../status-codes';
-import {
-  PERMISSION_DENIED,
-  INVALID_CREDENTIALS,
-} from '../../../domain/errors/common-error';
+import { InvalidCredentialsError, UserPermissionDeniedError } from '../../../domain/entities/user/user-errors';
 
 export const INTERNAL_SERVER_CONTROLLER: ControllerError = {
   code: 'INTERNAL_SERVER_CONTROLLER_ERROR',
@@ -18,13 +15,13 @@ export const INTERNAL_SERVER_CONTROLLER: ControllerError = {
 
 export const INVALID_CREDENTIALS_CONTROLLER: ControllerError = {
   code: 'INVALID_CREDENTIALS_CONTROLLER_ERROR',
-  message: INVALID_CREDENTIALS.message,
+  message: InvalidCredentialsError.message,
   statusCode: statusCode.clientSide.unauthorized,
 };
 
 export const PERMISSION_DENIED_CONTROLLER: ControllerError = {
   code: 'PERMISSION_DENIED_CONTROLLER_ERROR',
-  message: PERMISSION_DENIED.message,
+  message: UserPermissionDeniedError.message,
   statusCode: statusCode.clientSide.forbidden,
 };
 
@@ -39,3 +36,9 @@ export const InvalidCredentialsControllerError = createControllerErrorFactory(
 export const PermissionDeniedControllerError = createControllerErrorFactory(
   PERMISSION_DENIED_CONTROLLER,
 );
+
+export const InvalidFileParameterControllerError = createControllerErrorFactory({
+  code: 'INVALID_FILE_PARAMETER_NAME_CONTROLLER_ERROR',
+  message: 'The specified parameter for uploading a file is incorrect or empty',
+  statusCode: statusCode.clientSide.badRequest,
+});

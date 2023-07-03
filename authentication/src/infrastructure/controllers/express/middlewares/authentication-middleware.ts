@@ -6,7 +6,7 @@ import {
 import statusCodes from '../../status-codes';
 import {
   UserNotFoundError,
-} from '../../../../domain/errors/user-error';
+} from '../../../../domain/entities/user/user-errors';
 import TokenService from '../../../services/token-service/token-service';
 import IUserRepository from '../../../../domain/repositories/user-repository';
 
@@ -52,7 +52,7 @@ const authenticationMiddleware = (
       name: updatedUser.name,
       email: updatedUser.email,
       username: updatedUser.username,
-      profile_picture: updatedUser.profilePicture,
+      profile_picture: updatedUser.profilePictureUrl,
     };
 
     return next();

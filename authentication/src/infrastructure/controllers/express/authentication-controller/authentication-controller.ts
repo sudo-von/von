@@ -18,6 +18,7 @@ import {
 import TokenService from '../../../services/token-service/token-service';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
 import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
+import { InvalidFileParameterControllerError } from '../../errors/common-controller-error';
 
 class ExpressAuthenticationController {
   constructor(
@@ -42,15 +43,26 @@ class ExpressAuthenticationController {
 
   signup = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const payload = CreateUserControllerDto.parse(req.body);
+      const { file, body } = req;
+
+      if (!file) throw InvalidFileParameterControllerError;
+      console.log('🚀 ~ file: authentication-controller.ts:49 ~ ExpressAuthenticationController ~ signup= ~ file:', file);
+
+      const payload = CreateUserControllerDto.parse(body);
 
       const createUserEntity: CreateUserEntity = {
         name: payload.name,
         email: payload.email,
         username: payload.username,
         password: payload.password,
-        profilePicture: payload.profile_picture,
+        profilePicture: {
+          size: file.size,
+          name: file.originalname,
+          buffer: file.buffer,
+          mimetype: file.mimetype,
+        },
       };
+      console.log('🚀 ~ file: authentication-controller.ts:64 ~ ExpressAuthenticationController ~ signup= ~ createUserEntity:', createUserEntity);
 
       const createdUser = await this.authenticationUsecase.signup(createUserEntity);
 
@@ -59,17 +71,10 @@ class ExpressAuthenticationController {
         name: createdUser.name,
         email: createdUser.email,
         username: createdUser.username,
-        profile_picture: createdUser.profilePicture,
+        profile_picture_url: createdUser.profilePictureUrl,
       };
 
-      res.status(statusCodes.success.created).send({ result: restrictedUserControllerDto });
-
-      const messageBrokerCreateUserDto: MessageBrokerCreateUserDto = {
-        user_id: createdUser.id,
-        username: createdUser.username,
-      };
-
-      return await this.createUserProducer.produceMessage('User:CreateUser', messageBrokerCreateUserDto);
+      return res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
     } catch (e) {
       return next(e);
     }

@@ -37,7 +37,7 @@ class ExpressUserController {
         name: restrictedUser.name,
         email: restrictedUser.email,
         username: restrictedUser.username,
-        profile_picture: restrictedUser.profilePicture,
+        profile_picture_url: restrictedUser.profilePictureUrl,
       };
 
       return res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
@@ -59,7 +59,9 @@ class ExpressUserController {
       }
 
       const payload = UpdateUserControllerDto.parse(body);
+      return res.status(statusCodes.success.ok).send({ result: { } });
 
+      /*
       const updateUserEntity: UpdateUserEntity = {
         name: payload.name,
         email: payload.email,
@@ -90,6 +92,7 @@ class ExpressUserController {
       };
 
       return await this.updateUserProducer.produceMessage('User:UpdateUser', updateProfileDto);
+      */
     } catch (e) {
       return next(e);
     }

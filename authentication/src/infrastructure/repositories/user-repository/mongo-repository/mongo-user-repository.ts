@@ -1,8 +1,7 @@
 import UserModel from './mongo-user-model';
 import {
   UserEntity,
-  CreateUserEntity,
-  UpdateUserEntity,
+  UserPayload,
 } from '../../../../domain/entities/user/user-entity';
 import userModelToUserEntity from './mongo-user-mapper';
 import IUserRepository from '../../../../domain/repositories/user-repository';
@@ -35,13 +34,13 @@ class MongoUserRepository implements IUserRepository {
     return userEntity;
   };
 
-  createUser = async (payload: CreateUserEntity): Promise<UserEntity> => {
+  createUser = async (payload: UserPayload): Promise<UserEntity> => {
     const userModel = new UserModel({
       name: payload.name,
       email: payload.email,
       username: payload.username,
       password: payload.password,
-      profilePicture: payload.profilePicture,
+      profilePictureUrl: payload.profilePictureUrl,
     });
     const storedUser = await userModel.save();
     const userEntity = userModelToUserEntity(storedUser);
@@ -50,7 +49,7 @@ class MongoUserRepository implements IUserRepository {
 
   updateUserByUsername = async (
     username: string,
-    payload: UpdateUserEntity,
+    payload: UserPayload,
   ): Promise<UserEntity | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({ username }, {
       $set: {
@@ -58,7 +57,7 @@ class MongoUserRepository implements IUserRepository {
         email: payload.email,
         username: payload.username,
         password: payload.password,
-        profilePicture: payload.profilePicture,
+        profilePictureUrl: payload.profilePictureUrl,
       },
     }, {
       new: true,

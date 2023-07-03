@@ -8,8 +8,6 @@ import {
   SingleUserOnlyControllerError,
   UserUpdateFailedControllerError,
   InvalidNameLengthControllerError,
-  EmailAlreadyExistsControllerError,
-  UserCreationFailedControllerError,
   InvalidPasswordLengthControllerError,
   InvalidUsernameLengthControllerError,
   UsernameAlreadyExistsControllerError,
@@ -54,15 +52,15 @@ const domainErrors: Record<DomainErrorCode, ControllerErrorFactory> = {
   INVALID_EMAIL_LENGTH_DOMAIN_ERROR: InvalidEmailLengthControllerError,
   INVALID_NAME_LENGTH_DOMAIN_ERROR: InvalidNameLengthControllerError,
   INVALID_PASSWORD_LENGTH_DOMAIN_ERROR: InvalidPasswordLengthControllerError,
-  INVALID_PROFILE_PICTURE_LENGTH_DOMAIN_ERROR: InvalidProfilePictureControllerLengthError,
+  INVALID_PROFILE_PICTURE_NAME_LENGTH_DOMAIN_ERROR: InvalidProfilePictureControllerLengthError,
   INVALID_USERNAME_LENGTH_DOMAIN_ERROR: InvalidUsernameLengthControllerError,
-  EMAIL_ALREADY_EXISTS_DOMAIN_ERROR: EmailAlreadyExistsControllerError,
   SINGLE_USER_ONLY_DOMAIN_ERROR: SingleUserOnlyControllerError,
   USER_NOT_FOUND_DOMAIN_ERROR: UserNotFoundControllerError,
-  USER_CREATION_FAILED_DOMAIN_ERROR: UserCreationFailedControllerError,
-  PERMISSION_DENIED_DOMAIN_ERROR: PermissionDeniedControllerError,
+  USER_PERMISSION_DENIED_DOMAIN_ERROR: PermissionDeniedControllerError,
   USER_UPDATE_FAILED_DOMAIN_ERROR: UserUpdateFailedControllerError,
   USERNAME_ALREADY_EXISTS_DOMAIN_ERROR: UsernameAlreadyExistsControllerError,
+  INVALID_PROFILE_PICTURE_MIME_TYPE_DOMAIN_ERROR: InternalServerControllerError,
+  INVALID_PROFILE_PICTURE_SIZE_DOMAIN_ERROR: InternalServerControllerError,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ControllerErrorFactory> = {
@@ -83,6 +81,10 @@ const errorMiddleware = (
 
   if (error instanceof MessageBrokerErrorFactory) {
     return res.end();
+  }
+
+  if (error instanceof ControllerErrorFactory) {
+    return res.status(error.statusCode).json({ code: error.code, error: error.message });
   }
 
   if (error instanceof DomainErrorFactory) {

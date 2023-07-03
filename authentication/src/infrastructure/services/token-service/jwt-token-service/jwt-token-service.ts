@@ -21,7 +21,7 @@ class JWTTokenService extends TokenService {
         name: payload.name,
         email: payload.email,
         username: payload.username,
-        profile_picture: payload.profilePicture,
+        profile_picture: payload.profilePictureUrl,
       };
       const options: SignOptions = { algorithm: 'HS256', expiresIn: 60 * 30 };
       const token = jwt.sign(createTokenUserDto, this.SECRET_KEY, options);

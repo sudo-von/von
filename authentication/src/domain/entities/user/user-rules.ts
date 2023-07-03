@@ -1,23 +1,19 @@
 const userRules = {
-  name: {
-    MIN_LENGTH: 6,
-    MAX_LENGTH: 30,
-  },
   email: {
     MIN_LENGTH: 3,
     MAX_LENGTH: 250,
   },
-  username: {
+  name: {
     MIN_LENGTH: 3,
-    MAX_LENGTH: 12,
+    MAX_LENGTH: 30,
   },
   password: {
     MIN_LENGTH: 10,
-    MAX_LENGTH: 60,
+    MAX_LENGTH: 80,
   },
-  profilePicture: {
-    MIN_LENGTH: 6,
-    MAX_LENGTH: 60,
+  username: {
+    MIN_LENGTH: 3,
+    MAX_LENGTH: 12,
   },
 } as const;
 
