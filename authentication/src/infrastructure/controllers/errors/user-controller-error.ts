@@ -10,7 +10,6 @@ import {
   SingleUserOnlyError,
   UserNotFoundError,
   UserUpdateFailedError,
-  UsernameAlreadyExistsError,
 } from '../../../domain/entities/user/user-errors';
 import { InvalidProfilePictureNameLengthError } from '../../../domain/entities/profile-picture/profile-picture-errors';
 
@@ -60,10 +59,4 @@ export const UserUpdateFailedControllerError = createControllerErrorFactory({
   code: 'USER_UPDATE_FAILED_CONTROLLER_ERROR',
   message: UserUpdateFailedError.message,
   statusCode: statusCode.serverSide.internalServer,
-});
-
-export const UsernameAlreadyExistsControllerError = createControllerErrorFactory({
-  code: 'USERNAME_ALREADY_EXISTS_CONTROLLER_ERROR',
-  message: UsernameAlreadyExistsError.message,
-  statusCode: statusCode.clientSide.conflict,
 });

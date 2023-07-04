@@ -52,7 +52,7 @@ const authenticationMiddleware = (
       name: updatedUser.name,
       email: updatedUser.email,
       username: updatedUser.username,
-      profile_picture: updatedUser.profilePictureUrl,
+      profile_picture: updatedUser.profilePictureName,
     };
 
     return next();

@@ -9,6 +9,6 @@ const profilePictureRules = {
   mimetype: {
     ALLOWED_MIMETYPES: ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'],
   },
-};
+} as const;
 
 export default profilePictureRules;

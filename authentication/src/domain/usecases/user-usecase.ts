@@ -2,27 +2,15 @@ import {
   UpdateUserEntity,
   RestrictedUserEntity,
 } from '../entities/user/user-entity';
+import FileService from '../services/file-service';
+import SecurityService from '../services/security-service';
 import IUserRepository from '../repositories/user-repository';
-import ICryptographyService from '../services/cryptography-service';
 
-interface IUserUsecaseReader {
-  getUserByUsername: (username: string) => Promise<RestrictedUserEntity>
-}
-
-interface IUserUsecaseWriter {
-  updateUserByUsername: (
-    requestingUsername: string,
-    requestedUsername: string,
-    payload: UpdateUserEntity
-  ) => Promise<RestrictedUserEntity>;
-}
-
-interface IUserUsecase extends IUserUsecaseReader, IUserUsecaseWriter {}
-
-abstract class UserUsecase implements IUserUsecase {
+abstract class UserUsecase {
   constructor(
+    protected fileService: FileService,
     protected userRepository: IUserRepository,
-    protected cryptographyService: ICryptographyService,
+    protected securityService: SecurityService,
   ) {}
 
   abstract getUserByUsername: (username: string) => Promise<RestrictedUserEntity>;

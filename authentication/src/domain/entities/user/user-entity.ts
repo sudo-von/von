@@ -9,17 +9,19 @@ export type UserEntity = Readonly<{
   email: string;
   username: string;
   password: string;
-  profilePictureUrl: string;
+  profilePictureName: string;
 }>;
 
-export type UserPayload = Omit<UserEntity, 'id'>;
+export type UserPayloadEntity = Omit<UserEntity, 'id'>;
 
-export type CreateUserEntity = Omit<UserPayload, 'profilePictureUrl'> & {
+export type RestrictedUserEntity = Omit<UserEntity, 'password'>;
+
+export type UserCredentialsEntity = Pick<UserEntity, 'email' | 'password'>;
+
+export type CreateUserEntity = Omit<UserPayloadEntity, 'profilePictureName'> & {
   profilePicture: CreateProfilePicture
 };
 
-export type UpdateUserEntity = Omit<UserPayload, 'profilePictureUrl'> & {
+export type UpdateUserEntity = Omit<UserPayloadEntity, 'profilePictureName'> & {
   profilePicture: UpdateProfilePicture
 };
-
-export type RestrictedUserEntity = Omit<UserEntity, 'password'>;

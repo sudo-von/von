@@ -10,7 +10,6 @@ import {
   InvalidNameLengthControllerError,
   InvalidPasswordLengthControllerError,
   InvalidUsernameLengthControllerError,
-  UsernameAlreadyExistsControllerError,
   InvalidProfilePictureControllerLengthError,
   InvalidEmailLengthControllerError,
 } from '../../errors/user-controller-error';
@@ -58,7 +57,6 @@ const domainErrors: Record<DomainErrorCode, ControllerErrorFactory> = {
   USER_NOT_FOUND_DOMAIN_ERROR: UserNotFoundControllerError,
   USER_PERMISSION_DENIED_DOMAIN_ERROR: PermissionDeniedControllerError,
   USER_UPDATE_FAILED_DOMAIN_ERROR: UserUpdateFailedControllerError,
-  USERNAME_ALREADY_EXISTS_DOMAIN_ERROR: UsernameAlreadyExistsControllerError,
   INVALID_PROFILE_PICTURE_MIME_TYPE_DOMAIN_ERROR: InternalServerControllerError,
   INVALID_PROFILE_PICTURE_SIZE_DOMAIN_ERROR: InternalServerControllerError,
 };
@@ -69,6 +67,7 @@ const serviceErrors: Record<ServiceErrorCode, ControllerErrorFactory> = {
   TOKEN_SERVICE_EXPIRED_TOKEN_ERROR: TokenServiceExpiredTokenControllerError,
   TOKEN_SERVICE_FAILED_TOKEN_GENERATION_ERROR: TokenServiceFailedTokenGenerationError,
   TOKEN_SERVICE_INVALID_TOKEN_ERROR: TokenServiceInvalidTokenControllerError,
+  FILE_SERVICE_INVALID_STORE_ERROR: InternalServerControllerError,
 };
 
 const errorMiddleware = (

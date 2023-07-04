@@ -10,7 +10,7 @@ import {
 } from '../../dtos/controller-user-dto';
 import statusCodes from '../../status-codes';
 import {
-  CreateUserEntity,
+  CreateUserEntity, UserCredentialsEntity,
 } from '../../../../domain/entities/user/user-entity';
 import {
   MessageBrokerCreateUserDto,
@@ -31,7 +31,12 @@ class ExpressAuthenticationController {
     try {
       const { email, password } = CreateUserCredentialsControllerDto.parse(req.body);
 
-      const restrictedUser = await this.authenticationUsecase.authenticate(email, password);
+      const userCredentials: UserCredentialsEntity = {
+        email,
+        password,
+      };
+
+      const restrictedUser = await this.authenticationUsecase.authenticate(userCredentials);
 
       const token = this.tokenService.generateToken(restrictedUser);
 
@@ -71,7 +76,7 @@ class ExpressAuthenticationController {
         name: createdUser.name,
         email: createdUser.email,
         username: createdUser.username,
-        profile_picture_url: createdUser.profilePictureUrl,
+        profile_picture_url: createdUser.profilePictureName,
       };
 
       return res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });

@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
-import ILoggerService from './services/logger-service/logger-service';
 
-const configureEnvironmentVariables = (loggerService: ILoggerService) => {
+const configureEnvironmentVariables = () => {
   dotenv.config({ path: `${__dirname}/../../.env` });
 
   const {
@@ -48,8 +47,6 @@ const configureEnvironmentVariables = (loggerService: ILoggerService) => {
   const SERVER_PORT = parseInt(PORT, BASE_RADIX);
   const MESSAGE_BROKER_URL = `${MESSAGE_BROKER_HOST}:${MESSAGE_BROKER_PORT}`;
   const DATABASE_URL = `${DATABASE_HOST}:${DATABASE_PORT}`;
-
-  loggerService.info('Environment variables have been configured.');
 
   return {
     SECRET_KEY,

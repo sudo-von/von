@@ -11,7 +11,7 @@ const userModelToUserEntity = (model: HydratedDocument<UserEntity>): UserEntity 
   email: model.email,
   username: model.username,
   password: model.password,
-  profilePictureUrl: model.profilePictureUrl,
+  profilePictureName: model.profilePictureName,
 });
 
 export default userModelToUserEntity;

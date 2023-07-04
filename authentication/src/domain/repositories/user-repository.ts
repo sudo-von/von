@@ -1,6 +1,6 @@
 import {
   UserEntity,
-  UserPayload,
+  UserPayloadEntity,
 } from '../entities/user/user-entity';
 
 interface IUserRepositoryReader {
@@ -11,8 +11,11 @@ interface IUserRepositoryReader {
 }
 
 interface IUserRepositoryWriter {
-  createUser: (payload: UserPayload) => Promise<UserEntity>;
-  updateUserByUsername: (username: string, payload: UserPayload) => Promise<UserEntity | null>;
+  createUser: (payload: UserPayloadEntity) => Promise<UserEntity>;
+  updateUserByUsername: (
+    username: string,
+    payload: UserPayloadEntity
+  ) => Promise<UserEntity | null>;
 }
 
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}

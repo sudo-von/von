@@ -7,7 +7,7 @@ import {
 import {
   UpdateUserEntity,
   RestrictedUserEntity,
-  UserPayload,
+  UserPayloadEntity,
 } from '../domain/entities/user/user-entity';
 import validateUserUpdate from '../domain/entities/user/validations/update-user-validations';
 import UserUsecase from '../domain/usecases/user-usecase';
@@ -22,7 +22,7 @@ class UserUsecaseApplication extends UserUsecase {
       name: user.name,
       email: user.email,
       username: user.username,
-      profilePictureUrl: user.profilePictureUrl,
+      profilePictureName: user.profilePictureName,
     };
 
     return restrictedUserEntity;
@@ -40,18 +40,18 @@ class UserUsecaseApplication extends UserUsecase {
     const user = await this.userRepository.getUserByUsername(requestedUsername);
     if (!user) throw UserNotFoundError;
 
-    const areCredentialsValid = await this.cryptographyService.comparePlainAndHash(
+    const areCredentialsValid = await this.securityService.compareHashes(
       payload.password,
       user.password,
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const updateUserEntity: UserPayload = {
+    const updateUserEntity: UserPayloadEntity = {
       name: payload.name,
       email: payload.email,
       password: user.password,
       username: payload.username,
-      profilePictureUrl: payload.profilePicture.name,
+      profilePictureName: payload.profilePicture.name,
     };
 
     const updatedUser = await this.userRepository.updateUserByUsername(
@@ -65,7 +65,7 @@ class UserUsecaseApplication extends UserUsecase {
       name: updatedUser.name,
       email: updatedUser.email,
       username: updatedUser.username,
-      profilePictureUrl: updatedUser.profilePictureUrl,
+      profilePictureName: updatedUser.profilePictureName,
     };
 
     return restrictedUserEntity;

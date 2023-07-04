@@ -1,20 +1,16 @@
 import pino, {
   Logger,
 } from 'pino';
-import ILoggerService from '../logger-service';
+import LoggerService from '../logger-service';
 
-class PinoLoggerService implements ILoggerService {
-  private logger: Logger;
+class PinoLoggerService extends LoggerService {
+  private logger: Logger = pino({ level: 'info' });
 
-  constructor() {
-    this.logger = pino({ level: 'info' });
-  }
+  info = (message: string) => this.logger.info(`🚀: ${message}`);
 
-  info = (message: string) => this.logger.info(`🚀 ${message}`);
+  warn = (message: string) => this.logger.warn(`🚧: ${message}`);
 
-  warn = (message: string) => this.logger.warn(`🚧 ${message}`);
-
-  error = (error: Error, message: string) => this.logger.error(error, `⛔️ ${message}`);
+  error = (message: string, error: Error) => this.logger.error(error, `⛔️: ${message}`);
 }
 
 export default PinoLoggerService;

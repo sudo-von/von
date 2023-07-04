@@ -22,7 +22,7 @@ const userSchema = new Schema<UserEntity>({
     type: String,
     required: true,
   },
-  profilePictureUrl: {
+  profilePictureName: {
     type: String,
     required: true,
   },

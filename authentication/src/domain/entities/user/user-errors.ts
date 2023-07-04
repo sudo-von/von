@@ -5,7 +5,7 @@ import userRules from './user-rules';
 
 export const InvalidCredentialsError = createDomainErrorFactory({
   code: 'INVALID_CREDENTIALS_DOMAIN_ERROR',
-  message: 'Please verify your email and password and try again.',
+  message: 'Please verify your credentials and try again.',
 });
 
 export const InvalidEmailLengthError = createDomainErrorFactory({
@@ -46,9 +46,4 @@ export const UserPermissionDeniedError = createDomainErrorFactory({
 export const UserUpdateFailedError = createDomainErrorFactory({
   code: 'USER_UPDATE_FAILED_DOMAIN_ERROR',
   message: 'User update failed.',
-});
-
-export const UsernameAlreadyExistsError = createDomainErrorFactory({
-  code: 'USERNAME_ALREADY_EXISTS_DOMAIN_ERROR',
-  message: 'Username already exists. Please choose a different username.',
 });

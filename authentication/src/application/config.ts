@@ -1,29 +1,27 @@
-// import UserUsecaseApplication from './user-usecase-application';
+import UserUsecaseApplication from './user-usecase';
+import FileService from '../domain/services/file-service';
+import SecurityService from '../domain/services/security-service';
 import IUserRepository from '../domain/repositories/user-repository';
-import ICryptographyService from '../domain/services/cryptography-service';
-import AuthenticationUsecaseApplication from './authentication-usecase-application';
-import ILoggerService from '../infrastructure/services/logger-service/logger-service';
+import AuthenticationUsecaseApplication from './authentication-usecase';
 
 const configureUsecases = (
-  loggerService: ILoggerService,
+  fileService: FileService,
   userRepository: IUserRepository,
-  cryptographyService: ICryptographyService,
+  securityService: SecurityService,
 ) => {
-  // const userUsecase = new UserUsecaseApplication(
-  //  userRepository,
-  //  cryptographyService,
-  // );
-
-  const authenticationUsecase = new AuthenticationUsecaseApplication(
+  const userUsecase = new UserUsecaseApplication(
+    fileService,
     userRepository,
-    cryptographyService,
+    securityService,
   );
 
-  loggerService.info('Usecases have been configured.');
+  const authenticationUsecase = new AuthenticationUsecaseApplication(
+    fileService,
+    userRepository,
+    securityService,
+  );
 
-  return { // userUsecase,
-    authenticationUsecase,
-  };
+  return { userUsecase, authenticationUsecase };
 };
 
 export default configureUsecases;

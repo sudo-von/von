@@ -1,9 +1,9 @@
-interface ILoggerServiceWriter {
-  info: (message: string) => void;
-  warn: (message: string) => void;
-  error: (error: Error, message: string) => void;
+abstract class LoggerService {
+  abstract info: (message: string) => void;
+
+  abstract warn: (message: string) => void;
+
+  abstract error: (message: string, error: Error) => void;
 }
 
-interface ILoggerService extends ILoggerServiceWriter {}
-
-export default ILoggerService;
+export default LoggerService;

@@ -37,7 +37,7 @@ class ExpressUserController {
         name: restrictedUser.name,
         email: restrictedUser.email,
         username: restrictedUser.username,
-        profile_picture_url: restrictedUser.profilePictureUrl,
+        profile_picture_url: restrictedUser.profilePictureName,
       };
 
       return res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
