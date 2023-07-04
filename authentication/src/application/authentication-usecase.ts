@@ -35,11 +35,14 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     if (users.length >= 300) throw SingleUserOnlyError;
 
     const hashedFilename = this.securityService.hash(payload.username);
+    console.log('🚀 ~ file: authentication-usecase.ts:38 ~ AuthenticationUsecaseApplication ~ signup= ~ hashedFilename:', hashedFilename);
     const hashedPassword = await this.securityService.hashPassword(payload.password);
+    console.log('🚀 ~ file: authentication-usecase.ts:40 ~ AuthenticationUsecaseApplication ~ signup= ~ hashedPassword:', hashedPassword);
     const hashedProfilePictureName = formatProfilePictureUrl(
       hashedFilename,
       payload.profilePicture.mimetype,
     );
+    console.log('🚀 ~ file: authentication-usecase.ts:45 ~ AuthenticationUsecaseApplication ~ signup= ~ hashedProfilePictureName:', hashedProfilePictureName);
 
     await this.fileService.store(hashedProfilePictureName, payload.profilePicture.buffer);
 
@@ -52,6 +55,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     });
 
     const restrictedUser = userEntityToRestrictedUserEntity(createdUser);
+    console.log('🚀 ~ file: authentication-usecase.ts:58 ~ AuthenticationUsecaseApplication ~ signup= ~ restrictedUser:', restrictedUser);
 
     return restrictedUser;
   };

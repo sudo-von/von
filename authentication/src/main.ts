@@ -42,7 +42,7 @@ const loggerService = configureLoggerService();
     loggerService.info('🔧 Token service has been configured.');
     const securityService = configureSecurityService(loggerService);
     loggerService.info('🔧 Security service has been configured.');
-    const fileService = configureFileService(`${__dirname}/application`, loggerService);
+    const fileService = configureFileService(loggerService);
     loggerService.info('🔧 File service has been configured.');
 
     /* 📖 Usecases. */

@@ -40,7 +40,7 @@ class MongoUserRepository implements IUserRepository {
       email: payload.email,
       username: payload.username,
       password: payload.password,
-      profilePictureUrl: payload.profilePictureName,
+      profilePictureName: payload.profilePictureName,
     });
     const storedUser = await userModel.save();
     const userEntity = userModelToUserEntity(storedUser);

@@ -5,7 +5,7 @@ import profilePictureRules from './profile-picture-rules';
 
 export const InvalidProfilePictureMimeTypeError = createDomainErrorFactory({
   code: 'INVALID_PROFILE_PICTURE_MIME_TYPE_DOMAIN_ERROR',
-  message: `Please provide a profile picture file with one of the following MIME types: ${profilePictureRules.mimetype.ALLOWED_MIMETYPES.join(',')}.`,
+  message: `Please provide a profile picture file with one of the following MIME types: ${profilePictureRules.mimetype.ALLOWED_MIMETYPES.join(', ')}.`,
 });
 
 export const InvalidProfilePictureNameLengthError = createDomainErrorFactory({

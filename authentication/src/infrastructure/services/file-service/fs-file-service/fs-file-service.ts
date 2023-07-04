@@ -1,6 +1,7 @@
 import fs from 'fs/promises';
 import FileService from '../../../../domain/services/file-service';
 import FileServiceInvalidStoreError from '../../errors/file-service-errors';
+import LoggerService from '../../logger-service/logger-service';
 
 class FSFileService extends FileService {
   store = async (filename: string, buffer: Buffer): Promise<void> => {

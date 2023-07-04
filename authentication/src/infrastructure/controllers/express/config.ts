@@ -27,6 +27,7 @@ const configureControllers = async (
     const app = express();
     app.use(express.json());
     app.use(express.urlencoded());
+    app.use('/static', express.static(path.join('src', '..', 'public')));
 
     const swaggerPath = path.join(__dirname, '..', '..', '..', '..', 'swagger.yaml');
     const swaggerFile = await promises.readFile(swaggerPath, 'utf8');
