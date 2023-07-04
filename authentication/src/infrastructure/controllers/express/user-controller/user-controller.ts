@@ -8,12 +8,14 @@ import {
 } from '../../dtos/user-controller-dtos';
 import statusCodes from '../../status-codes';
 import {
+  UserPermissionDeniedControllerError,
+} from '../../errors/user-controller-errors';
+import {
   InvalidFileParameterControllerError,
 } from '../../errors/request-controller-errors';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
 import restrictedUserToRestrictedUserController from '../../mappers/user-controller-mappers';
 import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
-import { UserPermissionDeniedControllerError } from '../../errors/user-controller-errors';
 
 class ExpressUserController {
   constructor(

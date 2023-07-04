@@ -3,9 +3,6 @@ import amqp, {
   Connection,
 } from 'amqplib';
 import {
-  Queues,
-} from '../message-broker-queues';
-import {
   MessageBrokerFailedToCloseError,
   MessageBrokerChannelIsClosedError,
   MessageBrokerFailedToConnectError,
@@ -13,6 +10,9 @@ import {
   MessageBrokerFailedToSendMessageError,
   MessageBrokerFailedToConsumeMessageError,
 } from '../message-broker-errors';
+import {
+  Queues,
+} from '../message-broker-queues';
 import MessageBroker from '../message-broker';
 
 abstract class RabbitMQ<T> extends MessageBroker<T> {

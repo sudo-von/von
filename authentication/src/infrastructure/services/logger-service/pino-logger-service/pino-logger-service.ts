@@ -16,7 +16,10 @@ class PinoLoggerService extends LoggerService {
 
   warn = (message: string) => this.logger.warn(message);
 
-  error = (message: string, error: Error) => this.logger.error(error, message);
+  error = (message: string, error: Error) => {
+    const formattedMessage = `⛔️ ${message} ${error.message};`;
+    this.logger.error(formattedMessage);
+  };
 }
 
 export default PinoLoggerService;

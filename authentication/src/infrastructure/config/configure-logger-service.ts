@@ -6,10 +6,11 @@ import PinoLoggerService from '../services/logger-service/pino-logger-service/pi
 const configureLoggerService = () => {
   const loggerService = new PinoLoggerService({
     level: 'info',
+    name: 'authentication',
+    timestamp: stdTimeFunctions.isoTime,
     formatters: {
       level: (label) => ({ level: label }),
     },
-    timestamp: stdTimeFunctions.isoTime,
   });
 
   return loggerService;

@@ -1,6 +1,8 @@
+import {
+  CreateUserMessageBroker,
+} from '../../dtos/user-message-broker-dtos';
 import RabbitMQMessageBroker from '../rabbitmq';
-import { MessageBrokerCreateUserDto } from '../../dtos/message-broker-user-dto';
 
-class RabbitMQCreateUserProducer extends RabbitMQMessageBroker<MessageBrokerCreateUserDto> {}
+class RabbitMQCreateUserProducer extends RabbitMQMessageBroker<CreateUserMessageBroker> {}
 
 export default RabbitMQCreateUserProducer;
