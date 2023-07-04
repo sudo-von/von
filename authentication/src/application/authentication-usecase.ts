@@ -31,7 +31,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
-    if (users.length >= 300) throw SingleUserOnlyError;
+    if (users.length) throw SingleUserOnlyError;
 
     const hashedPassword = await this.securityService.hashPassword(payload.password);
     const profilePictureNameChecksum = this.securityService.computeChecksum(payload.username);

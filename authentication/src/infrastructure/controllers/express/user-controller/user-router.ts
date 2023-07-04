@@ -1,3 +1,4 @@
+import multer from 'multer';
 import express from 'express';
 import ExpressUserController from './user-controller';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
@@ -16,10 +17,16 @@ const configureUserRouter = (
 ) => {
   const userController = new ExpressUserController(userUsecase, updateUserProducer);
 
+  const upload = multer();
   const router = express.Router();
 
   router.get('/username/:username', userController.getUserByUsername);
-  router.patch('/username/:username', authenticationMiddleware(tokenService, loggerService, userRepository), userController.updateProfileByUsername);
+  router.patch(
+    '/username/:username',
+    authenticationMiddleware(tokenService, loggerService, userRepository),
+    upload.single('profile_picture'),
+    userController.updateProfileByUsername,
+  );
 
   return router;
 };

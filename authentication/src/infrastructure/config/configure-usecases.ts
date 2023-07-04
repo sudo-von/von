@@ -1,5 +1,5 @@
-import UserUsecaseApplication from '../../application/user-usecase';
 import FileService from '../../domain/services/file-service';
+import UserUsecaseApplication from '../../application/user-usecase';
 import SecurityService from '../../domain/services/security-service';
 import IUserRepository from '../../domain/repositories/user-repository';
 import AuthenticationUsecaseApplication from '../../application/authentication-usecase';
