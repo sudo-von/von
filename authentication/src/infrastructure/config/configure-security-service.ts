@@ -1,5 +1,5 @@
-import LoggerService from '../logger-service/logger-service';
-import DataSecurityService from './data-security-service/data-security-service';
+import LoggerService from '../services/logger-service/logger-service';
+import DataSecurityService from '../services/security-service/data-security-service/data-security-service';
 
 const configureSecurityService = (loggerService: LoggerService) => {
   const securityService = new DataSecurityService(loggerService);

@@ -1,42 +1,42 @@
 import {
-  CreateUserEntity,
-  RestrictedUserEntity,
-  UserCredentialsEntity,
-} from '../domain/entities/user/user-entity';
+  CreateUser,
+  RestrictedUser,
+  UserCredentials,
+} from '../domain/entities/user/user-entities';
 import {
   SingleUserOnlyError,
   InvalidCredentialsError,
 } from '../domain/entities/user/user-errors';
+import userToRestrictedUser from '../domain/entities/user/user-mappers';
 import AuthenticationUsecase from '../domain/usecases/authentication-usecase';
-import userEntityToRestrictedUserEntity from '../domain/entities/user/user-mappers';
 import validateUserCreation from '../domain/entities/user/validations/create-user-validations';
-import formatProfilePictureUrl from '../domain/entities/profile-picture/profile-picture-utils';
+import formatProfilePictureName from '../domain/entities/profile-picture/profile-picture-utils';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
-  authenticate = async (credentials: UserCredentialsEntity): Promise<RestrictedUserEntity> => {
-    const userFoundByEmail = await this.userRepository.getUserByEmail(credentials.email);
+  authenticate = async (userCredentials: UserCredentials): Promise<RestrictedUser> => {
+    const userFoundByEmail = await this.userRepository.getUserByEmail(userCredentials.email);
     if (!userFoundByEmail) throw InvalidCredentialsError;
 
     const areCredentialsValid = await this.securityService.compareHashes(
-      credentials.password,
+      userCredentials.password,
       userFoundByEmail.password,
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const restrictedUser = userEntityToRestrictedUserEntity(userFoundByEmail);
+    const restrictedUser = userToRestrictedUser(userFoundByEmail);
     return restrictedUser;
   };
 
-  signup = async (payload: CreateUserEntity): Promise<RestrictedUserEntity> => {
+  signup = async (payload: CreateUser): Promise<RestrictedUser> => {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
     if (users.length >= 300) throw SingleUserOnlyError;
 
     const hashedPassword = await this.securityService.hashPassword(payload.password);
-    const hashedProfilePictureName = this.securityService.hash(payload.username);
-    const formattedProfilePictureName = formatProfilePictureUrl(
-      hashedProfilePictureName,
+    const profilePictureNameChecksum = this.securityService.computeChecksum(payload.username);
+    const formattedProfilePictureName = formatProfilePictureName(
+      profilePictureNameChecksum,
       payload.profilePicture.mimetype,
     );
 
@@ -50,7 +50,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       profilePictureName: formattedProfilePictureName,
     });
 
-    const restrictedUser = userEntityToRestrictedUserEntity(createdUser);
+    const restrictedUser = userToRestrictedUser(createdUser);
     return restrictedUser;
   };
 }

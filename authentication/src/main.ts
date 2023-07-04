@@ -1,14 +1,14 @@
 import configureUsecases from './application/config';
-import configureRepositories from './infrastructure/repositories/config';
-import configureMessageBrokers from './infrastructure/message-brokers/config';
+import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
+import configureRepositories from './infrastructure/config/configure-repositories';
+import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureControllers from './infrastructure/controllers/express/config';
-import configureTokenService from './infrastructure/services/token-service/config';
-import configureLoggerService from './infrastructure/services/logger-service/config';
-import configureSecurityService from './infrastructure/services/security-service/config';
+import configureFileService from './infrastructure/config/configure-file-service';
+import configureTokenService from './infrastructure/config/configure-token-service';
+import configureLoggerService from './infrastructure/config/configure-logger-service';
+import configureSecurityService from './infrastructure/config/configure-security-service';
 import configureUserRouter from './infrastructure/controllers/express/user-controller/config';
-import configureEnvironmentVariables from './infrastructure/config';
 import configureAuthenticationRouter from './infrastructure/controllers/express/authentication-controller/authentication-router';
-import configureFileService from './infrastructure/services/file-service/config';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -42,7 +42,7 @@ loggerService.info('📢 Logger service has been configured.');
     const tokenService = configureTokenService(SECRET_KEY);
     loggerService.info('🔑 Token service has been configured.');
     const securityService = configureSecurityService(loggerService);
-    loggerService.info('🛡️ Security service has been configured.');
+    loggerService.info('🔒 Security service has been configured.');
     const fileService = configureFileService(loggerService);
     loggerService.info('📂 File service has been configured.');
 
@@ -50,11 +50,7 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       userUsecase,
       authenticationUsecase,
-    } = configureUsecases(
-      fileService,
-      userRepository,
-      securityService,
-    );
+    } = configureUsecases(fileService, userRepository, securityService);
     loggerService.info('📖 Usecases have been configured.');
 
     /* 📦 Message brokers. */
@@ -62,31 +58,34 @@ loggerService.info('📢 Logger service has been configured.');
       createUserProducer,
       updateUserProducer,
     } = await configureMessageBrokers(MESSAGE_BROKER_URL, loggerService);
+    loggerService.info('📦 Message brokers have been configured.');
 
     /* 🔌 Routers. */
-    // const userRouter = configureUserRouter(
-    //   userUsecase,
-    //   tokenService,
-    //   loggerService,
-    //   userRepository,
-    //   updateUserProducer,
-    // );
+    const userRouter = configureUserRouter(
+      userUsecase,
+      tokenService,
+      loggerService,
+      userRepository,
+      updateUserProducer,
+    );
+    loggerService.info('🔌 User router has been configured.');
     const authenticationRouter = configureAuthenticationRouter(
       tokenService,
       loggerService,
       authenticationUsecase,
       createUserProducer,
     );
+    loggerService.info('🔌 Authentication router has been configured.');
 
     /* 🚀 Controllers. */
     await configureControllers(
       SERVER_PORT,
-      // userRouter,
+      userRouter,
       authenticationRouter,
       loggerService,
     );
   } catch (e) {
-    loggerService.error('An error occurred while configuring the application.', e as Error);
+    loggerService.error('There was an application error.', e as Error);
     process.exit(1);
   }
 })();

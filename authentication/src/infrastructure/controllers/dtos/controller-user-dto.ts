@@ -5,10 +5,10 @@ export type RestrictedUserControllerDto = {
   name: string;
   email: string;
   username: string;
-  profile_picture_url: string;
+  profile_picture_name: string;
 };
 
-export const CreateUserControllerDto = z.object({
+export const signupUserControllerDto = z.object({
   name: z
     .string({
       required_error: 'name field is required',
@@ -38,7 +38,7 @@ export const CreateUserControllerDto = z.object({
     .trim(),
 });
 
-export const CreateUserCredentialsControllerDto = z.object({
+export const createUserCredentialsControllerDto = z.object({
   email: z
     .string({
       required_error: 'email field is required',
@@ -55,7 +55,7 @@ export const CreateUserCredentialsControllerDto = z.object({
     .trim(),
 });
 
-export const UpdateUserControllerDto = z.object({
+export const updateUserControllerDto = z.object({
   name: z
     .string({
       required_error: 'name field is required',

@@ -33,9 +33,6 @@ import {
   TokenServiceInvalidTokenControllerError,
 } from '../../errors/token-service-controller-errors';
 import {
-  ServiceErrorCode,
-} from '../../../services/file-service/fs-file-service/service-error-codes';
-import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
 import {
@@ -45,29 +42,31 @@ import {
 import {
   MessageBrokerErrorFactory,
 } from '../../../message-brokers/errors/message-broker-error-factory';
+import { ServiceErrorCode } from '../../../services/errors/service-error-codes';
 
 const domainErrors: Record<DomainErrorCode, ControllerErrorFactory> = {
-  INVALID_CREDENTIALS_DOMAIN_ERROR: InvalidCredentialsControllerError,
-  INVALID_EMAIL_LENGTH_DOMAIN_ERROR: InvalidEmailLengthControllerError,
-  INVALID_NAME_LENGTH_DOMAIN_ERROR: InvalidNameLengthControllerError,
-  INVALID_PASSWORD_LENGTH_DOMAIN_ERROR: InvalidPasswordLengthControllerError,
-  INVALID_PROFILE_PICTURE_NAME_LENGTH_DOMAIN_ERROR: InvalidProfilePictureControllerLengthError,
-  INVALID_USERNAME_LENGTH_DOMAIN_ERROR: InvalidUsernameLengthControllerError,
-  SINGLE_USER_ONLY_DOMAIN_ERROR: SingleUserOnlyControllerError,
-  USER_NOT_FOUND_DOMAIN_ERROR: UserNotFoundControllerError,
-  USER_PERMISSION_DENIED_DOMAIN_ERROR: PermissionDeniedControllerError,
-  USER_UPDATE_FAILED_DOMAIN_ERROR: UserUpdateFailedControllerError,
-  INVALID_PROFILE_PICTURE_MIME_TYPE_DOMAIN_ERROR: InternalServerControllerError,
-  INVALID_PROFILE_PICTURE_SIZE_DOMAIN_ERROR: InternalServerControllerError,
+  INVALID_CREDENTIALS: InvalidCredentialsControllerError,
+  INVALID_EMAIL_LENGTH: InvalidEmailLengthControllerError,
+  INVALID_NAME_LENGTH: InvalidNameLengthControllerError,
+  INVALID_PASSWORD_LENGTH: InvalidPasswordLengthControllerError,
+  INVALID_PROFILE_PICTURE_NAME_LENGTH: InvalidProfilePictureControllerLengthError,
+  INVALID_USERNAME_LENGTH: InvalidUsernameLengthControllerError,
+  SINGLE_USER_ONLY: SingleUserOnlyControllerError,
+  USER_NOT_FOUND: UserNotFoundControllerError,
+  USER_PERMISSION_DENIED: PermissionDeniedControllerError,
+  USER_UPDATE_FAILED: UserUpdateFailedControllerError,
+  INVALID_PROFILE_PICTURE_MIME_TYPE: InternalServerControllerError,
+  INVALID_PROFILE_PICTURE_SIZE: InternalServerControllerError,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ControllerErrorFactory> = {
-  CRYPTOGRAPHY_SERVICE_INVALID_COMPARE_ERROR: CryptographyServiceInvalidCompareControllerError,
-  CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA_ERROR: CryptographyServiceInvalidHashDataControllerError,
-  TOKEN_SERVICE_EXPIRED_TOKEN_ERROR: TokenServiceExpiredTokenControllerError,
-  TOKEN_SERVICE_FAILED_TOKEN_GENERATION_ERROR: TokenServiceFailedTokenGenerationError,
-  TOKEN_SERVICE_INVALID_TOKEN_ERROR: TokenServiceInvalidTokenControllerError,
-  FILE_SERVICE_INVALID_STORE_ERROR: InternalServerControllerError,
+  SECURITY_SERVICE_UNCAUGHT_COMPARE_HASHES: InternalServerControllerError,
+  SECURITY_SERVICE_UNCAUGHT_HASH: InternalServerControllerError,
+  SECURITY_SERVICE_UNCAUGHT_HASH_PASSWORD: InternalServerControllerError,
+  TOKEN_SERVICE_EXPIRED_TOKEN: TokenServiceExpiredTokenControllerError,
+  TOKEN_SERVICE_FAILED_TOKEN_GENERATION: TokenServiceFailedTokenGenerationError,
+  TOKEN_SERVICE_INVALID_TOKEN: TokenServiceInvalidTokenControllerError,
+  FILE_SERVICE_UNCAUGHT_STORE: InternalServerControllerError,
 };
 
 const errorMiddleware = (
@@ -76,8 +75,6 @@ const errorMiddleware = (
   res: Response,
   _next: NextFunction,
 ) => {
-  console.log(`⛔️ An error occurred with the controller: ${(error as Error).message}`);
-
   if (error instanceof MessageBrokerErrorFactory) {
     return res.end();
   }

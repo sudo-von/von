@@ -1,21 +1,22 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import {
-  CryptographyServiceInvalidCompareError,
-  CryptographyServiceInvalidHashDataError,
+  SecurityServicUncaughtCompareHashesError,
+  SecurityServiceUncaughtComputeChecksumError,
+  SecurityServiceUncaughtHashPasswordError,
 } from '../security-service-errors';
 import SecurityService from '../../../../domain/services/security-service';
 
 class DataSecurityService extends SecurityService {
-  hash = (plainData: string): string => {
+  computeChecksum = (plainData: string): string => {
     try {
       const algorithm = 'md5';
       const encoding = 'hex';
       const hash = crypto.createHash(algorithm).update(plainData).digest(encoding);
       return hash;
     } catch (e) {
-      this.loggerService.error(CryptographyServiceInvalidHashDataError.message, e as Error);
-      throw CryptographyServiceInvalidHashDataError;
+      this.loggerService.error(SecurityServiceUncaughtComputeChecksumError.message, e as Error);
+      throw SecurityServiceUncaughtComputeChecksumError;
     }
   };
 
@@ -25,8 +26,8 @@ class DataSecurityService extends SecurityService {
       const hash = await bcrypt.hash(password, rounds);
       return hash;
     } catch (e) {
-      this.loggerService.error(CryptographyServiceInvalidHashDataError.message, e as Error);
-      throw CryptographyServiceInvalidHashDataError;
+      this.loggerService.error(SecurityServiceUncaughtHashPasswordError.message, e as Error);
+      throw SecurityServiceUncaughtHashPasswordError;
     }
   };
 
@@ -35,8 +36,8 @@ class DataSecurityService extends SecurityService {
       const result = await bcrypt.compare(plainData, hashedData);
       return result;
     } catch (e) {
-      this.loggerService.error(CryptographyServiceInvalidCompareError.message, e as Error);
-      throw CryptographyServiceInvalidCompareError;
+      this.loggerService.error(SecurityServicUncaughtCompareHashesError.message, e as Error);
+      throw SecurityServicUncaughtCompareHashesError;
     }
   };
 }

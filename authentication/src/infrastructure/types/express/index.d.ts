@@ -1,11 +1,11 @@
 import {
-  TokenUserDto,
-} from '../../services/token-service/dtos/token-user-dto';
+  UserToken,
+} from '../../services/token-service/dtos/user-token-dtos';
 
 declare global {
   namespace Express {
     interface Request {
-      user?: TokenUserDto
+      user?: UserToken
     }
   }
 }

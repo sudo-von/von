@@ -1,6 +1,6 @@
 import {
-  UpdateUserEntity,
-} from '../user-entity';
+  UpdateUser,
+} from '../user-entities';
 import {
   InvalidNameLengthError,
   InvalidEmailLengthError,
@@ -15,7 +15,7 @@ import {
 } from './user-validations';
 import validateProfilePictureUpdate from '../../profile-picture/validations/update-profile-picture-validations';
 
-const validateUserUpdate = (payload: UpdateUserEntity) => {
+const validateUserUpdate = (payload: UpdateUser) => {
   const isNameLengthValid = validateNameLength(payload.name);
   if (!isNameLengthValid) throw InvalidNameLengthError;
 

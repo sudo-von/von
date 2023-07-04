@@ -1,8 +1,10 @@
-import jwt, { SignOptions } from 'jsonwebtoken';
+import jwt, {
+  SignOptions,
+} from 'jsonwebtoken';
 import {
-  TokenUserDto,
-  CreateTokenUserDto,
-} from '../dtos/token-user-dto';
+  UserToken,
+  CreateUserToken,
+} from '../dtos/user-token-dtos';
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
@@ -10,38 +12,41 @@ import {
 } from '../token-service-errors';
 import TokenService from '../token-service';
 import {
-  RestrictedUserEntity,
-} from '../../../../domain/entities/user/user-entity';
+  RestrictedUser,
+} from '../../../../domain/entities/user/user-entities';
 
 class JWTTokenService extends TokenService {
-  generateToken = (payload: RestrictedUserEntity): string => {
+  generateToken = (payload: RestrictedUser): string => {
     try {
-      const createTokenUserDto: CreateTokenUserDto = {
+      const createUserToken: CreateUserToken = {
         id: payload.id,
         name: payload.name,
         email: payload.email,
         username: payload.username,
-        profile_picture: payload.profilePictureName,
+        profile_picture_name: payload.profilePictureName,
       };
+
       const options: SignOptions = { algorithm: 'HS256', expiresIn: 60 * 30 };
-      const token = jwt.sign(createTokenUserDto, this.SECRET_KEY, options);
+
+      const token = jwt.sign(createUserToken, this.SECRET_KEY, options);
       return token;
     } catch (e) {
-      console.log(`⛔️ An error occurred with the token service: ${(e as Error).message}.`);
+      this.loggerService.error(TokenServiceFailedTokenGeneration.message, e as Error);
       throw TokenServiceFailedTokenGeneration;
     }
   };
 
-  decodeToken = (token: string): TokenUserDto => {
+  decodeToken = (token: string): UserToken => {
     try {
-      const payload = jwt.verify(token, this.SECRET_KEY) as TokenUserDto;
+      const payload = jwt.verify(token, this.SECRET_KEY) as UserToken;
       return payload;
     } catch (e) {
-      const { name, message } = e as Error;
-      console.log(`⛔️ An error occurred with the token service: ${message}.`);
-      if (name === 'TokenExpiredError') {
+      const error = e as Error;
+      if (error.name === 'TokenExpiredError') {
+        this.loggerService.error(TokenServiceExpiredTokenError.message, error);
         throw TokenServiceExpiredTokenError;
       }
+      this.loggerService.error(TokenServiceInvalidTokenError.message, error);
       throw TokenServiceInvalidTokenError;
     }
   };

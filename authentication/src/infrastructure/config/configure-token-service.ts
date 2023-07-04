@@ -1,4 +1,4 @@
-import JWTTokenService from './jwt-token-service/jwt-token-service';
+import JWTTokenService from '../services/token-service/jwt-token-service/jwt-token-service';
 
 const configureTokenService = (SECRET_KEY: string) => {
   const tokenService = new JWTTokenService(SECRET_KEY);

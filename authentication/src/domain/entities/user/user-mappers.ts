@@ -1,14 +1,14 @@
 import {
-  UserEntity,
-  RestrictedUserEntity,
-} from './user-entity';
+  User,
+  RestrictedUser,
+} from './user-entities';
 
-const userEntityToRestrictedUserEntity = (userEntity: UserEntity): RestrictedUserEntity => ({
-  id: userEntity.id,
-  name: userEntity.name,
-  email: userEntity.email,
-  username: userEntity.username,
-  profilePictureName: userEntity.profilePictureName,
+const userToRestrictedUser = (user: User): RestrictedUser => ({
+  id: user.id,
+  name: user.name,
+  email: user.email,
+  username: user.username,
+  profilePictureName: user.profilePictureName,
 });
 
-export default userEntityToRestrictedUserEntity;
+export default userToRestrictedUser;

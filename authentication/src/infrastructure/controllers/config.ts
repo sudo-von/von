@@ -13,39 +13,43 @@ import {
   serve,
   setup,
 } from 'swagger-ui-express';
-import bodyMiddleware from './middlewares/body-middleware';
-import errorMiddleware from './middlewares/error-middleware';
-import ILoggerService from '../../services/logger-service/logger-service';
+import bodyMiddleware from './express/middlewares/body-middleware';
+import errorMiddleware from './express/middlewares/error-middleware';
+import LoggerService from '../services/logger-service/logger-service';
 
-const configureControllers = async (
+const configureServer = async (
   SERVER_PORT: number,
-  // userRouter: Router,
+  userRouter: Router,
   authenticationRouter: Router,
-  loggerService: ILoggerService,
+  loggerService: LoggerService,
 ) => {
   try {
     const app = express();
-    app.use(express.json());
-    app.use(express.urlencoded());
-    app.use('/static', express.static(path.join('src', '..', 'public')));
 
-    const swaggerPath = path.join(__dirname, '..', '..', '..', '..', 'swagger.yaml');
+    const directory = path.join('src', '..');
+    const staticPath = path.join(directory, 'public');
+    const swaggerPath = path.join(directory, 'swagger.yaml');
+
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
+    app.use('/static', express.static(staticPath));
+
     const swaggerFile = await promises.readFile(swaggerPath, 'utf8');
     const swaggerYaml = parse(swaggerFile);
 
     app.use('/api/v1/docs', serve, setup(swaggerYaml));
-    // app.use('/api/v1/user', userRouter);
+    app.use('/api/v1/user', userRouter);
     app.use('/api/v1/authentication', authenticationRouter);
 
     app.use(bodyMiddleware);
     app.use(errorMiddleware);
 
     app.listen(SERVER_PORT, () => {
-      loggerService.info(`Controllers have been configured on port ${SERVER_PORT}.`);
+      loggerService.info(`🚀 Controllers have been configured on port ${SERVER_PORT}.`);
     });
   } catch (e) {
     throw new Error(`An error occurred with the controllers: ${(e as Error).message}.`);
   }
 };
 
-export default configureControllers;
+export default configureServer;

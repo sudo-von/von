@@ -24,8 +24,6 @@ const configureAuthenticationRouter = (
   router.post('/signup', upload.single('profile_picture'), authController.signup);
   router.post('/authenticate', authController.authenticate);
 
-  loggerService.info('Authentication router has been configured.');
-
   return router;
 };
 

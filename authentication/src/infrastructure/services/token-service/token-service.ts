@@ -1,26 +1,20 @@
 import {
-  TokenUserDto,
-} from './dtos/token-user-dto';
+  UserToken,
+} from './dtos/user-token-dtos';
 import {
-  RestrictedUserEntity,
-} from '../../../domain/entities/user/user-entity';
+  RestrictedUser,
+} from '../../../domain/entities/user/user-entities';
+import LoggerService from '../logger-service/logger-service';
 
-interface ITokenServiceReader {
-  decodeToken: (token: string) => TokenUserDto;
-}
+abstract class TokenService {
+  constructor(
+    protected readonly SECRET_KEY: string,
+    protected readonly loggerService: LoggerService,
+  ) {}
 
-interface ITokenServiceWriter {
-  generateToken: (payload: RestrictedUserEntity) => string;
-}
+  abstract decodeToken: (token: string) => UserToken;
 
-interface ITokenService extends ITokenServiceReader, ITokenServiceWriter {}
-
-abstract class TokenService implements ITokenService {
-  constructor(protected SECRET_KEY: string) {}
-
-  abstract decodeToken: (token: string) => TokenUserDto;
-
-  abstract generateToken: (payload: RestrictedUserEntity) => string;
+  abstract generateToken: (payload: RestrictedUser) => string;
 }
 
 export default TokenService;

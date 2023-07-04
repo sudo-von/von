@@ -1,4 +1,10 @@
-import amqp, { Channel, Connection } from 'amqplib';
+import amqp, {
+  Channel,
+  Connection,
+} from 'amqplib';
+import {
+  Queues,
+} from '../message-broker-queues';
 import {
   MessageBrokerFailedToCloseError,
   MessageBrokerChannelIsClosedError,
@@ -6,8 +12,8 @@ import {
   MessageBrokerNoMessageAvailableError,
   MessageBrokerFailedToSendMessageError,
   MessageBrokerFailedToConsumeMessageError,
-} from '../errors/message-broker-errors';
-import MessageBroker, { Queues } from '../message-broker';
+} from '../message-broker-errors';
+import MessageBroker from '../message-broker';
 
 abstract class RabbitMQ<T> extends MessageBroker<T> {
   protected connection?: Connection;
@@ -30,7 +36,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       this.channel = undefined;
       this.connection = undefined;
     } catch (e) {
-      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
+      this.loggerService.error(MessageBrokerFailedToCloseError.message, e as Error);
       throw MessageBrokerFailedToCloseError;
     }
   };
@@ -40,7 +46,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       if (!this.connection) this.connection = await amqp.connect(this.MESSAGE_BROKER_URL);
       if (!this.channel) this.channel = await this.connection.createChannel();
     } catch (e) {
-      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
+      this.loggerService.error(MessageBrokerFailedToConnectError.message, e as Error);
       throw MessageBrokerFailedToConnectError;
     }
   };
@@ -56,7 +62,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
         this.onMessage(data);
       });
     } catch (e) {
-      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
+      this.loggerService.error(MessageBrokerFailedToConsumeMessageError.message, e as Error);
       throw MessageBrokerFailedToConsumeMessageError;
     }
   };
@@ -69,7 +75,7 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       await this.channel.assertQueue(queue);
       this.channel.sendToQueue(queue, buffer);
     } catch (e) {
-      console.log(`⛔️ An error occurred with the message broker: ${(e as Error).message}.`);
+      this.loggerService.error(MessageBrokerFailedToSendMessageError.message, e as Error);
       throw MessageBrokerFailedToSendMessageError;
     }
   };

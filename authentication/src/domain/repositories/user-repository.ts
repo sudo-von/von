@@ -1,18 +1,18 @@
 import {
-  UserEntity,
-  UserPayloadEntity,
-} from '../entities/user/user-entity';
+  User,
+  UserPayload,
+} from '../entities/user/user-entities';
 
 interface IUserRepositoryReader {
-  getUsers: () => Promise<UserEntity[]>;
-  getUserById: (id: string) => Promise<UserEntity | null>;
-  getUserByEmail: (email: string) => Promise<UserEntity | null>;
-  getUserByUsername: (username: string) => Promise<UserEntity | null>;
+  getUsers: () => Promise<User[]>;
+  getUserById: (id: string) => Promise<User | null>;
+  getUserByEmail: (email: string) => Promise<User | null>;
+  getUserByUsername: (username: string) => Promise<User | null>;
 }
 
 interface IUserRepositoryWriter {
-  createUser: (payload: UserPayloadEntity) => Promise<UserEntity>;
-  updateUserByUsername: (username: string, payload: UserPayloadEntity) => Promise<UserEntity | null>;
+  createUser: (payload: UserPayload) => Promise<User>;
+  updateUserByUsername: (username: string, payload: UserPayload) => Promise<User | null>;
 }
 
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}

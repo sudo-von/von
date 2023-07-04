@@ -21,8 +21,6 @@ const configureUserRouter = (
   router.get('/username/:username', userController.getUserByUsername);
   router.patch('/username/:username', authenticationMiddleware(tokenService, userRepository), userController.updateProfileByUsername);
 
-  loggerService.info('User router has been configured.');
-
   return router;
 };
 

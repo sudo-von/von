@@ -3,9 +3,9 @@ import {
 } from 'mongoose';
 import userSchema from './mongo-user-schema';
 import {
-  UserEntity,
-} from '../../../../domain/entities/user/user-entity';
+  User,
+} from '../../../../domain/entities/user/user-entities';
 
-const UserModel = model<UserEntity>('user', userSchema);
+const UserModel = model<User>('user', userSchema);
 
 export default UserModel;

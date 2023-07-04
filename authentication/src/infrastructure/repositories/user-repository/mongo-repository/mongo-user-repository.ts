@@ -1,40 +1,40 @@
 import UserModel from './mongo-user-model';
 import {
-  UserEntity,
-  UserPayloadEntity,
-} from '../../../../domain/entities/user/user-entity';
-import userModelToUserEntity from './mongo-user-mapper';
+  User,
+  UserPayload,
+} from '../../../../domain/entities/user/user-entities';
+import userModelToUser from './mongo-user-mapper';
 import IUserRepository from '../../../../domain/repositories/user-repository';
 
 class MongoUserRepository implements IUserRepository {
-  getUsers = async (): Promise<UserEntity[]> => {
+  getUsers = async (): Promise<User[]> => {
     const userModels = await UserModel.find();
-    const userEntities = userModels.map((model) => userModelToUserEntity(model));
-    return userEntities;
+    const users = userModels.map((model) => userModelToUser(model));
+    return users;
   };
 
-  getUserById = async (id: string): Promise<UserEntity | null> => {
+  getUserById = async (id: string): Promise<User | null> => {
     const userModel = await UserModel.findById(id);
     if (!userModel) return null;
-    const userEntity = userModelToUserEntity(userModel);
-    return userEntity;
+    const user = userModelToUser(userModel);
+    return user;
   };
 
-  getUserByEmail = async (email: string): Promise<UserEntity | null> => {
+  getUserByEmail = async (email: string): Promise<User | null> => {
     const userModel = await UserModel.findOne({ email });
     if (!userModel) return null;
-    const userEntity = userModelToUserEntity(userModel);
-    return userEntity;
+    const user = userModelToUser(userModel);
+    return user;
   };
 
-  getUserByUsername = async (username: string): Promise<UserEntity | null> => {
+  getUserByUsername = async (username: string): Promise<User | null> => {
     const userModel = await UserModel.findOne({ username });
     if (!userModel) return null;
-    const userEntity = userModelToUserEntity(userModel);
-    return userEntity;
+    const user = userModelToUser(userModel);
+    return user;
   };
 
-  createUser = async (payload: UserPayloadEntity): Promise<UserEntity> => {
+  createUser = async (payload: UserPayload): Promise<User> => {
     const userModel = new UserModel({
       name: payload.name,
       email: payload.email,
@@ -43,14 +43,14 @@ class MongoUserRepository implements IUserRepository {
       profilePictureName: payload.profilePictureName,
     });
     const storedUser = await userModel.save();
-    const userEntity = userModelToUserEntity(storedUser);
-    return userEntity;
+    const user = userModelToUser(storedUser);
+    return user;
   };
 
   updateUserByUsername = async (
     username: string,
-    payload: UserPayloadEntity,
-  ): Promise<UserEntity | null> => {
+    payload: UserPayload,
+  ): Promise<User | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({ username }, {
       $set: {
         name: payload.name,
@@ -63,8 +63,8 @@ class MongoUserRepository implements IUserRepository {
       new: true,
     });
     if (!updatedUser) return null;
-    const userEntity = userModelToUserEntity(updatedUser);
-    return userEntity;
+    const user = userModelToUser(updatedUser);
+    return user;
   };
 }
 

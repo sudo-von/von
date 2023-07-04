@@ -1,7 +1,7 @@
 import {
-  UpdateUserEntity,
-  RestrictedUserEntity,
-} from '../entities/user/user-entity';
+  UpdateUser,
+  RestrictedUser,
+} from '../entities/user/user-entities';
 import FileService from '../services/file-service';
 import SecurityService from '../services/security-service';
 import IUserRepository from '../repositories/user-repository';
@@ -13,13 +13,9 @@ abstract class UserUsecase {
     protected securityService: SecurityService,
   ) {}
 
-  abstract getUserByUsername: (username: string) => Promise<RestrictedUserEntity>;
+  abstract getUserByUsername: (username: string) => Promise<RestrictedUser>;
 
-  abstract updateUserByUsername: (
-    requestingUsername: string,
-    requestedUsername: string,
-    payload: UpdateUserEntity
-  ) => Promise<RestrictedUserEntity>;
+  abstract updateUserByUsername: (username: string, payload: UpdateUser) => Promise<RestrictedUser>;
 }
 
 export default UserUsecase;

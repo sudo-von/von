@@ -1,6 +1,6 @@
 import {
   CreateProfilePicture,
-} from '../profile-picture-entity';
+} from '../profile-picture-entities';
 import {
   InvalidProfilePictureSizeError,
   InvalidProfilePictureMimeTypeError,

@@ -1,8 +1,8 @@
 import {
-  CreateUserEntity,
-  RestrictedUserEntity,
-  UserCredentialsEntity,
-} from '../entities/user/user-entity';
+  CreateUser,
+  RestrictedUser,
+  UserCredentials,
+} from '../entities/user/user-entities';
 import FileService from '../services/file-service';
 import SecurityService from '../services/security-service';
 import IUserRepository from '../repositories/user-repository';
@@ -14,9 +14,9 @@ abstract class AuthenticationUsecase {
     protected securityService: SecurityService,
   ) {}
 
-  abstract signup: (payload: CreateUserEntity) => Promise<RestrictedUserEntity>;
+  abstract signup: (payload: CreateUser) => Promise<RestrictedUser>;
 
-  abstract authenticate: (credentials: UserCredentialsEntity) => Promise<RestrictedUserEntity>;
+  abstract authenticate: (userCredentials: UserCredentials) => Promise<RestrictedUser>;
 }
 
 export default AuthenticationUsecase;

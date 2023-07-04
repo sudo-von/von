@@ -3,7 +3,7 @@ import LoggerService from '../../infrastructure/services/logger-service/logger-s
 abstract class SecurityService {
   constructor(protected loggerService: LoggerService) {}
 
-  abstract hash: (plainData: string) => string;
+  abstract computeChecksum: (plainData: string) => string;
 
   abstract hashPassword: (password: string) => Promise<string>;
 

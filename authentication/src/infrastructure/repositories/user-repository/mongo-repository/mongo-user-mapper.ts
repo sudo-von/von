@@ -2,10 +2,10 @@ import {
   HydratedDocument,
 } from 'mongoose';
 import {
-  UserEntity,
-} from '../../../../domain/entities/user/user-entity';
+  User,
+} from '../../../../domain/entities/user/user-entities';
 
-const userModelToUserEntity = (model: HydratedDocument<UserEntity>): UserEntity => ({
+const userModelToUser = (model: HydratedDocument<User>): User => ({
   id: model._id.toHexString(),
   name: model.name,
   email: model.email,
@@ -14,4 +14,4 @@ const userModelToUserEntity = (model: HydratedDocument<UserEntity>): UserEntity 
   profilePictureName: model.profilePictureName,
 });
 
-export default userModelToUserEntity;
+export default userModelToUser;

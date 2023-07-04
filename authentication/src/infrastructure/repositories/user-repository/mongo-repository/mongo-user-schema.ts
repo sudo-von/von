@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  UserEntity,
-} from '../../../../domain/entities/user/user-entity';
+  User,
+} from '../../../../domain/entities/user/user-entities';
 
-const userSchema = new Schema<UserEntity>({
+const userSchema = new Schema<User>({
   name: {
     type: String,
     required: true,

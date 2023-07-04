@@ -25,6 +25,9 @@ const bodyMiddleware = (
     const errors = error.errors.map((e) => e.message);
     return res.status(statusCode.clientSide.badRequest).json({ errors });
   }
+  if (error instanceof MessageBrokerErrorFactory) {
+    return res.end();
+  }
   return next(error);
 };
 

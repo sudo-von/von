@@ -1,13 +1,16 @@
 import {
+  Queues,
+} from './message-broker-queues';
+import {
   MessageBrokerOnMessageNotImplementedError,
-} from './errors/message-broker-errors';
-
-export type Queues =
-  | 'User:CreateUser'
-  | 'User:UpdateUser';
+} from './message-broker-errors';
+import LoggerService from '../services/logger-service/logger-service';
 
 abstract class MessageBroker<T> {
-  constructor(protected readonly MESSAGE_BROKER_URL: string) {}
+  constructor(
+    protected readonly MESSAGE_BROKER_URL: string,
+    protected readonly loggerService: LoggerService,
+  ) {}
 
   public abstract ackMessage: () => void;
 

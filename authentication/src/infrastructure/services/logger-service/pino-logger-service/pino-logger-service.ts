@@ -1,16 +1,22 @@
 import pino, {
   Logger,
+  LoggerOptions,
 } from 'pino';
 import LoggerService from '../logger-service';
 
 class PinoLoggerService extends LoggerService {
-  private logger: Logger = pino({ level: 'info' });
+  private logger: Logger;
 
-  info = (message: string) => this.logger.info(`🚀 · ${message}`);
+  constructor(options: LoggerOptions) {
+    super();
+    this.logger = pino(options);
+  }
 
-  warn = (message: string) => this.logger.warn(`🚧 · ${message}`);
+  info = (message: string) => this.logger.info(message);
 
-  error = (message: string, error: Error) => this.logger.error(error, `⛔️ · ${message}`);
+  warn = (message: string) => this.logger.warn(message);
+
+  error = (message: string, error: Error) => this.logger.error(error, message);
 }
 
 export default PinoLoggerService;

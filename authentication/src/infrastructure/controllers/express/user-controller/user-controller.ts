@@ -4,20 +4,15 @@ import {
   NextFunction,
 } from 'express';
 import {
-  UpdateUserControllerDto,
-  RestrictedUserControllerDto,
+  updateUserControllerDto,
 } from '../../dtos/controller-user-dto';
 import statusCodes from '../../status-codes';
 import {
-  PERMISSION_DENIED_CONTROLLER,
+  PermissionDeniedControllerError,
+  InvalidFileParameterControllerError,
 } from '../../errors/common-controller-error';
-import {
-  UpdateUserEntity,
-} from '../../../../domain/entities/user/user-entity';
-import {
-  MessageBrokerUpdateUserDto,
-} from '../../../message-brokers/dtos/message-broker-user-dto';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
+import restrictedUserEntityToRestrictedUserControllerDto from '../../mappers/controller-user-mappers';
 import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
 class ExpressUserController {
@@ -30,17 +25,11 @@ class ExpressUserController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const restrictedUser = await this.userUsecase.getUserByUsername(username);
+      const userFound = await this.userUsecase.getUserByUsername(username);
 
-      const restrictedUserControllerDto: RestrictedUserControllerDto = {
-        id: restrictedUser.id,
-        name: restrictedUser.name,
-        email: restrictedUser.email,
-        username: restrictedUser.username,
-        profile_picture_url: restrictedUser.profilePictureName,
-      };
+      const restrictedUser = restrictedUserEntityToRestrictedUserControllerDto(userFound);
 
-      return res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
+      return res.status(statusCodes.success.ok).send({ result: restrictedUser });
     } catch (e) {
       return next(e);
     }
@@ -48,51 +37,39 @@ class ExpressUserController {
 
   updateProfileByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { body, params, user } = req;
+      const {
+        body, params, user, file,
+      } = req;
+
+      if (!file) throw InvalidFileParameterControllerError;
+
+      if (!user) throw PermissionDeniedControllerError;
 
       const username = params.username.toLowerCase();
 
-      if (!user) {
-        return res.status(PERMISSION_DENIED_CONTROLLER.statusCode).send({
-          message: PERMISSION_DENIED_CONTROLLER.message,
-        });
-      }
+      const payload = updateUserControllerDto.parse(body);
 
-      const payload = UpdateUserControllerDto.parse(body);
-      return res.status(statusCodes.success.ok).send({ result: { } });
-
-      /*
-      const updateUserEntity: UpdateUserEntity = {
+      const updatedUser = await this.userUsecase.updateUserByUsername(user.username, username, {
         name: payload.name,
         email: payload.email,
         username: payload.username,
         password: payload.password,
-        profilePicture: payload.profile_picture,
-      };
+        profilePicture: {
+          size: file.size,
+          name: file.originalname,
+          buffer: file.buffer,
+          mimetype: file.mimetype,
+        },
+      });
 
-      const updatedUser = await this.userUsecase.updateUserByUsername(
-        user.username,
-        username,
-        updateUserEntity,
-      );
+      const restrictedUser = restrictedUserEntityToRestrictedUserControllerDto(updatedUser);
 
-      const restrictedUserControllerDto: RestrictedUserControllerDto = {
-        id: updatedUser.id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        username: updatedUser.username,
-        profile_picture: updatedUser.profilePicture,
-      };
+      res.status(statusCodes.success.ok).send({ result: restrictedUser });
 
-      res.status(statusCodes.success.ok).send({ result: restrictedUserControllerDto });
-
-      const updateProfileDto: MessageBrokerUpdateUserDto = {
-        user_id: updatedUser.id,
-        username: updatedUser.username,
-      };
-
-      return await this.updateUserProducer.produceMessage('User:UpdateUser', updateProfileDto);
-      */
+      return await this.updateUserProducer.produceMessage('User:UpdateUser', {
+        user_id: restrictedUser.id,
+        username: restrictedUser.username,
+      });
     } catch (e) {
       return next(e);
     }

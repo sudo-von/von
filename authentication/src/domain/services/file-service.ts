@@ -6,6 +6,8 @@ abstract class FileService {
     protected loggerService: LoggerService,
   ) {}
 
+  abstract delete: (filename: string) => Promise<void>;
+
   abstract upload: (filename: string, buffer: Buffer) => Promise<void>;
 }
 
