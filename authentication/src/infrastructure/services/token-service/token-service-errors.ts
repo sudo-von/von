@@ -14,5 +14,5 @@ export const TokenServiceFailedTokenGeneration = createServiceErrorFactory({
 
 export const TokenServiceInvalidTokenError = createServiceErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
-  message: 'Invalid token. Please log in again.',
+  message: 'The provided token is invalid. Please log in again.',
 });

@@ -10,7 +10,7 @@ import {
 import statusCodes from '../../status-codes';
 import {
   InvalidFileParameterControllerError,
-} from '../../errors/common-controller-error';
+} from '../../errors/request-controller-errors';
 import {
   UserCredentials,
 } from '../../../../domain/entities/user/user-entities';

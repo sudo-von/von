@@ -8,12 +8,12 @@ import {
 } from '../../dtos/user-controller-dtos';
 import statusCodes from '../../status-codes';
 import {
-  PermissionDeniedControllerError,
   InvalidFileParameterControllerError,
-} from '../../errors/common-controller-error';
+} from '../../errors/request-controller-errors';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
 import restrictedUserToRestrictedUserController from '../../mappers/user-controller-mappers';
 import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
+import { UserPermissionDeniedControllerError } from '../../errors/user-controller-errors';
 
 class ExpressUserController {
   constructor(
@@ -43,7 +43,7 @@ class ExpressUserController {
 
       if (!file) throw InvalidFileParameterControllerError;
 
-      if (!user) throw PermissionDeniedControllerError;
+      if (!user) throw UserPermissionDeniedControllerError;
 
       const username = params.username.toLowerCase();
 

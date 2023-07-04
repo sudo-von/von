@@ -1,8 +1,8 @@
-import UserUsecaseApplication from './user-usecase';
-import FileService from '../domain/services/file-service';
-import SecurityService from '../domain/services/security-service';
-import IUserRepository from '../domain/repositories/user-repository';
-import AuthenticationUsecaseApplication from './authentication-usecase';
+import UserUsecaseApplication from '../../application/user-usecase';
+import FileService from '../../domain/services/file-service';
+import SecurityService from '../../domain/services/security-service';
+import IUserRepository from '../../domain/repositories/user-repository';
+import AuthenticationUsecaseApplication from '../../application/authentication-usecase';
 
 const configureUsecases = (
   fileService: FileService,

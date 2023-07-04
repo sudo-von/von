@@ -1,3 +1,13 @@
+import {
+  UserDomainErrorCode,
+  ProfilePictureDomainErrorCode,
+} from '../../../domain/errors/error-codes';
+import {
+  FileServiceErrorCode,
+  TokenServiceErrorCode,
+  SecurityServiceErrorCode,
+} from '../../services/errors/service-error-codes';
+
 export type ControllerError = {
   code: ControllerErrorCode;
   message: string;
@@ -5,36 +15,31 @@ export type ControllerError = {
 };
 
 export type ControllerErrorCode =
-| UserControllerErrorCode
-| CommonControllerErrorCode
+| FileServiceControllerErrorCode
+| ProfilePictureControllerErrorCode
+| RequestControllerErrorCode
+| SecurityServiceControllerErrorCode
 | TokenServiceControllerErrorCode
-| CryptographyServiceControllerErrorCode;
+| UserControllerErrorCode;
 
-export type UserControllerErrorCode =
-| 'EMAIL_ALREADY_EXISTS_CONTROLLER_ERROR'
-| 'INVALID_CREDENTIALS_CONTROLLER_ERROR'
-| 'INVALID_EMAIL_LENGTH_CONTROLLER_ERROR'
-| 'INVALID_USERNAME_LENGTH_CONTROLLER_ERROR'
-| 'INVALID_NAME_LENGTH_CONTROLLER_ERROR'
-| 'INVALID_PASSWORD_LENGTH_CONTROLLER_ERROR'
-| 'INVALID_PROFILE_PICTURE_LENGTH_CONTROLLER_ERROR'
-| 'SINGLE_USER_ONLY_CONTROLLER_ERROR'
-| 'USER_CREATION_FAILED_CONTROLLER_ERROR'
-| 'USER_NOT_FOUND_CONTROLLER_ERROR'
-| 'USER_UPDATE_FAILED_CONTROLLER_ERROR'
-| 'USERNAME_ALREADY_EXISTS_CONTROLLER_ERROR';
+export type FileServiceControllerErrorCode =
+| FileServiceErrorCode;
 
-export type CommonControllerErrorCode =
-| 'INTERNAL_SERVER_CONTROLLER_ERROR'
-| 'INVALID_CREDENTIALS_CONTROLLER_ERROR'
-| 'PERMISSION_DENIED_CONTROLLER_ERROR'
-| 'INVALID_FILE_PARAMETER_NAME_CONTROLLER_ERROR';
+export type ProfilePictureControllerErrorCode =
+| ProfilePictureDomainErrorCode;
+
+export type RequestControllerErrorCode =
+| 'AUTHORIZATION_SCHEME_NOT_SUPPORTED'
+| 'INTERNAL_SERVER'
+| 'INVALID_FILE_PARAMETER_NAME'
+| 'MISSING_AUTHORIZATION_HEADER'
+| 'AUTHORIZATION_SCHEME_NOT_SUPPORTED';
+
+export type SecurityServiceControllerErrorCode =
+| SecurityServiceErrorCode;
 
 export type TokenServiceControllerErrorCode =
-| 'TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER_ERROR'
-| 'TOKEN_SERVICE_EXPIRED_TOKEN_CONTROLLER_ERROR'
-| 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION_CONTROLLER_ERROR';
+| TokenServiceErrorCode;
 
-export type CryptographyServiceControllerErrorCode =
-| 'CRYPTOGRAPHY_SERVICE_INVALID_COMPARE_CONTROLLER_ERROR'
-| 'CRYPTOGRAPHY_SERVICE_INVALID_HASH_DATA_CONTROLLER_ERROR';
+export type UserControllerErrorCode =
+| UserDomainErrorCode;

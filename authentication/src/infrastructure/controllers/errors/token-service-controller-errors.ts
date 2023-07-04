@@ -1,41 +1,29 @@
 import {
-  ControllerError,
-} from './controller-error-codes';
-import {
-  INTERNAL_SERVER_CONTROLLER,
-} from './common-controller-error';
+  InternalServerControllerError,
+} from './request-controller-errors';
 import {
   createControllerErrorFactory,
 } from './controller-error-factory';
 import statusCode from '../status-codes';
-import { TokenServiceExpiredTokenError, TokenServiceInvalidTokenError } from '../../services/token-service/token-service-errors';
+import {
+  TokenServiceExpiredTokenError,
+  TokenServiceInvalidTokenError,
+} from '../../services/token-service/token-service-errors';
 
-export const TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER: ControllerError = {
-  code: 'TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER_ERROR',
-  message: TokenServiceInvalidTokenError.message,
-  statusCode: statusCode.clientSide.forbidden,
-};
-
-export const TOKEN_SERVICE_EXPIRED_TOKEN_CONTROLLER: ControllerError = {
-  code: 'TOKEN_SERVICE_EXPIRED_TOKEN_CONTROLLER_ERROR',
+export const TokenServiceExpiredTokenControllerError = createControllerErrorFactory({
+  code: 'TOKEN_SERVICE_EXPIRED_TOKEN',
   message: TokenServiceExpiredTokenError.message,
   statusCode: statusCode.clientSide.unauthorized,
-};
+});
 
-export const TOKEN_SERVICE_FAILED_TOKEN_GENERATION_CONTROLLER: ControllerError = {
-  code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION_CONTROLLER_ERROR',
-  message: INTERNAL_SERVER_CONTROLLER.message,
+export const TokenServiceFailedTokenGenerationError = createControllerErrorFactory({
+  code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION',
+  message: InternalServerControllerError.message,
   statusCode: statusCode.serverSide.internalServer,
-};
+});
 
-export const TokenServiceInvalidTokenControllerError = createControllerErrorFactory(
-  TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER,
-);
-
-export const TokenServiceExpiredTokenControllerError = createControllerErrorFactory(
-  TOKEN_SERVICE_EXPIRED_TOKEN_CONTROLLER,
-);
-
-export const TokenServiceFailedTokenGenerationError = createControllerErrorFactory(
-  TOKEN_SERVICE_FAILED_TOKEN_GENERATION_CONTROLLER,
-);
+export const TokenServiceInvalidTokenControllerError = createControllerErrorFactory({
+  code: 'TOKEN_SERVICE_INVALID_TOKEN',
+  message: TokenServiceInvalidTokenError.message,
+  statusCode: statusCode.clientSide.forbidden,
+});

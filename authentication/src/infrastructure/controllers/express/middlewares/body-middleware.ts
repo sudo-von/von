@@ -12,7 +12,7 @@ import {
 import statusCode from '../../status-codes';
 import {
   InvalidFileParameterControllerError,
-} from '../../errors/common-controller-error';
+} from '../../errors/request-controller-errors';
 
 const bodyMiddleware = (
   error: Error,

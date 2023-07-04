@@ -1,13 +1,13 @@
-import configureUsecases from './application/config';
-import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
-import configureRepositories from './infrastructure/config/configure-repositories';
-import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
-import configureControllers from './infrastructure/controllers/express/config';
+import configureUsecases from './infrastructure/config/configure-usecases';
+import configureControllers from './infrastructure/config/configure-controllers';
 import configureFileService from './infrastructure/config/configure-file-service';
+import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
+import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureSecurityService from './infrastructure/config/configure-security-service';
-import configureUserRouter from './infrastructure/controllers/express/user-controller/config';
+import configureUserRouter from './infrastructure/controllers/express/user-controller/user-router';
+import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
 import configureAuthenticationRouter from './infrastructure/controllers/express/authentication-controller/authentication-router';
 
 const loggerService = configureLoggerService();
@@ -39,7 +39,7 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('💽 Repositories have been configured.');
 
     /* 🔧 Services. */
-    const tokenService = configureTokenService(SECRET_KEY);
+    const tokenService = configureTokenService(SECRET_KEY, loggerService);
     loggerService.info('🔑 Token service has been configured.');
     const securityService = configureSecurityService(loggerService);
     loggerService.info('🔒 Security service has been configured.');

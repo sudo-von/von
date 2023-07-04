@@ -8,16 +8,15 @@ import {
   SingleUserOnlyControllerError,
   UserUpdateFailedControllerError,
   InvalidNameLengthControllerError,
+  InvalidCredentialsControllerError,
   InvalidEmailLengthControllerError,
+  UserPermissionDeniedControllerError,
   InvalidPasswordLengthControllerError,
   InvalidUsernameLengthControllerError,
-  InvalidProfilePictureControllerLengthError,
-} from '../../errors/user-controller-error';
+} from '../../errors/user-controller-errors';
 import {
   InternalServerControllerError,
-  PermissionDeniedControllerError,
-  InvalidCredentialsControllerError,
-} from '../../errors/common-controller-error';
+} from '../../errors/request-controller-errors';
 import {
   ControllerErrorFactory,
 } from '../../errors/controller-error-factory';
@@ -28,45 +27,50 @@ import {
   DomainErrorFactory,
 } from '../../../../domain/errors/error-factory';
 import {
+  ServiceErrorCode,
+} from '../../../services/errors/service-error-codes';
+import {
   TokenServiceFailedTokenGenerationError,
   TokenServiceExpiredTokenControllerError,
   TokenServiceInvalidTokenControllerError,
 } from '../../errors/token-service-controller-errors';
 import {
+  InvalidProfilePictureSizeControllerError,
+  InvalidProfilePictureMimeTypeControllerError,
+  InvalidProfilePictureNameLengthControllerError,
+} from '../../errors/profile-picture-controller-errors';
+import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
 import {
-  CryptographyServiceInvalidCompareControllerError,
-  CryptographyServiceInvalidHashDataControllerError,
-} from '../../errors/cryptography-service-controller-errors';
-import {
   MessageBrokerErrorFactory,
 } from '../../../message-brokers/errors/message-broker-error-factory';
-import { ServiceErrorCode } from '../../../services/errors/service-error-codes';
 
 const domainErrors: Record<DomainErrorCode, ControllerErrorFactory> = {
   INVALID_CREDENTIALS: InvalidCredentialsControllerError,
   INVALID_EMAIL_LENGTH: InvalidEmailLengthControllerError,
   INVALID_NAME_LENGTH: InvalidNameLengthControllerError,
   INVALID_PASSWORD_LENGTH: InvalidPasswordLengthControllerError,
-  INVALID_PROFILE_PICTURE_NAME_LENGTH: InvalidProfilePictureControllerLengthError,
+  INVALID_PROFILE_PICTURE_NAME_LENGTH: InvalidProfilePictureNameLengthControllerError,
+  INVALID_PROFILE_PICTURE_MIME_TYPE: InvalidProfilePictureMimeTypeControllerError,
+  INVALID_PROFILE_PICTURE_SIZE: InvalidProfilePictureSizeControllerError,
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthControllerError,
   SINGLE_USER_ONLY: SingleUserOnlyControllerError,
   USER_NOT_FOUND: UserNotFoundControllerError,
-  USER_PERMISSION_DENIED: PermissionDeniedControllerError,
+  USER_PERMISSION_DENIED: UserPermissionDeniedControllerError,
   USER_UPDATE_FAILED: UserUpdateFailedControllerError,
-  INVALID_PROFILE_PICTURE_MIME_TYPE: InternalServerControllerError,
-  INVALID_PROFILE_PICTURE_SIZE: InternalServerControllerError,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ControllerErrorFactory> = {
-  SECURITY_SERVICE_UNCAUGHT_COMPARE_HASHES: InternalServerControllerError,
-  SECURITY_SERVICE_UNCAUGHT_HASH: InternalServerControllerError,
-  SECURITY_SERVICE_UNCAUGHT_HASH_PASSWORD: InternalServerControllerError,
+  SECURITY_SERVICE_FAILED_CHECKSUM_COMPUTING: InternalServerControllerError,
+  SECURITY_SERVICE_FAILED_HASH_COMPARISON: InternalServerControllerError,
+  SECURITY_SERVICE_FAILED_PASSWORD_HASHING: InternalServerControllerError,
+  FILE_SERVICE_FAILED_DELETION: InternalServerControllerError,
+  FILE_SERVICE_FAILED_FILE_UPLOADING: InternalServerControllerError,
+  FILE_SERVICE_ERROR_NO_ENTITY: InternalServerControllerError,
   TOKEN_SERVICE_EXPIRED_TOKEN: TokenServiceExpiredTokenControllerError,
   TOKEN_SERVICE_FAILED_TOKEN_GENERATION: TokenServiceFailedTokenGenerationError,
   TOKEN_SERVICE_INVALID_TOKEN: TokenServiceInvalidTokenControllerError,
-  FILE_SERVICE_UNCAUGHT_STORE: InternalServerControllerError,
 };
 
 const errorMiddleware = (

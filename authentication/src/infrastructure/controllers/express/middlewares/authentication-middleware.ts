@@ -3,41 +3,38 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCodes from '../../status-codes';
+import {
+  MissingTokenControllerError,
+  MissingAuthorizationHeaderControllerError,
+  AuthorizationSchemeNotSupportedControllerError,
+} from '../../errors/request-controller-errors';
 import {
   UserNotFoundError,
 } from '../../../../domain/entities/user/user-errors';
+import {
+  TokenServiceInvalidTokenControllerError,
+} from '../../errors/token-service-controller-errors';
 import TokenService from '../../../services/token-service/token-service';
 import IUserRepository from '../../../../domain/repositories/user-repository';
+import LoggerService from '../../../services/logger-service/logger-service';
 
 const authenticationMiddleware = (
   tokenService: TokenService,
+  loggerService: LoggerService,
   userRepository: IUserRepository,
 ) => async (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(statusCodes.clientSide.unauthorized).json({
-      error: 'Missing authorization header.',
-    });
-  }
+  if (!authorization) throw MissingAuthorizationHeaderControllerError;
 
   const [scheme, token] = authorization.split(' ');
-  if (scheme.toLowerCase() !== 'bearer') {
-    return res.status(statusCodes.clientSide.unauthorized).json({
-      error: 'Authorization scheme not supported.',
-    });
-  }
+  if (scheme.toLowerCase() !== 'bearer') throw AuthorizationSchemeNotSupportedControllerError;
 
-  if (!token) {
-    return res.status(statusCodes.clientSide.unauthorized).json({
-      error: 'Missing token.',
-    });
-  }
+  if (!token) throw MissingTokenControllerError;
 
   try {
     const decodedToken = tokenService.decodeToken(token);
@@ -47,19 +44,18 @@ const authenticationMiddleware = (
 
     req.user = {
       id: updatedUser.id,
-      iat: decodedToken.iat,
-      exp: decodedToken.exp,
       name: updatedUser.name,
       email: updatedUser.email,
       username: updatedUser.username,
       profile_picture_name: updatedUser.profilePictureName,
+      iat: decodedToken.iat,
+      exp: decodedToken.exp,
     };
 
     return next();
-  } catch (error) {
-    return res.status(statusCodes.clientSide.forbidden).json({
-      error: 'The provided token is invalid. Please log in again.',
-    });
+  } catch (e) {
+    loggerService.error(TokenServiceInvalidTokenControllerError.message, e as Error);
+    throw TokenServiceInvalidTokenControllerError;
   }
 };
 
