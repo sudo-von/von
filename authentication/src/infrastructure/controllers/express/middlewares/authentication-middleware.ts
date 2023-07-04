@@ -57,8 +57,6 @@ const authenticationMiddleware = (
 
     return next();
   } catch (error) {
-    console.log('🔥:', (error as Error).message);
-
     return res.status(statusCodes.clientSide.forbidden).json({
       error: 'The provided token is invalid. Please log in again.',
     });

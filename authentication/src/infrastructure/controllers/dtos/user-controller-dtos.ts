@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export type RestrictedUserControllerDto = {
+export type RestrictedUserController = {
   id: string;
   name: string;
   email: string;
@@ -8,7 +8,7 @@ export type RestrictedUserControllerDto = {
   profile_picture_name: string;
 };
 
-export const signupUserControllerDto = z.object({
+export const createUserController = z.object({
   name: z
     .string({
       required_error: 'name field is required',
@@ -38,7 +38,7 @@ export const signupUserControllerDto = z.object({
     .trim(),
 });
 
-export const createUserCredentialsControllerDto = z.object({
+export const createUserCredentialsController = z.object({
   email: z
     .string({
       required_error: 'email field is required',
@@ -55,7 +55,7 @@ export const createUserCredentialsControllerDto = z.object({
     .trim(),
 });
 
-export const updateUserControllerDto = z.object({
+export const updateUserController = z.object({
   name: z
     .string({
       required_error: 'name field is required',

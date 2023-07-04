@@ -2,17 +2,17 @@ import {
   createServiceErrorFactory,
 } from '../errors/service-error-factory';
 
-export const SecurityServicUncaughtCompareHashesError = createServiceErrorFactory({
-  code: 'SECURITY_SERVICE_UNCAUGHT_COMPARE_HASHES',
-  message: 'There was an error in the comparePlainAndHash method.',
+export const SecurityServiceFailedChecksumComputingError = createServiceErrorFactory({
+  code: 'SECURITY_SERVICE_FAILED_CHECKSUM_COMPUTING',
+  message: 'An error occurred during checksum computing.',
 });
 
-export const SecurityServiceUncaughtComputeChecksumError = createServiceErrorFactory({
-  code: 'SECURITY_SERVICE_UNCAUGHT_COMPUTE_CHECKSUM',
-  message: 'There was an error in the computeChecksum method.',
+export const SecurityServicFailedHashComparisonError = createServiceErrorFactory({
+  code: 'SECURITY_SERVICE_FAILED_HASH_COMPARISON',
+  message: 'An error occurred during hash comparison.',
 });
 
-export const SecurityServiceUncaughtHashPasswordError = createServiceErrorFactory({
-  code: 'SECURITY_SERVICE_UNCAUGHT_HASH_PASSWORD',
-  message: 'There was an error in the hashData method.',
+export const SecurityServiceFailedPasswordHashingError = createServiceErrorFactory({
+  code: 'SECURITY_SERVICE_FAILED_PASSWORD_HASHING',
+  message: 'An error occurred during password hashing.',
 });

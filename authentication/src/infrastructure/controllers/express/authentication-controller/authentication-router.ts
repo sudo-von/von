@@ -2,13 +2,11 @@ import multer from 'multer';
 import express from 'express';
 import TokenService from '../../../services/token-service/token-service';
 import ExpressAuthenticationController from './authentication-controller';
-import ILoggerService from '../../../services/logger-service/logger-service';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
 import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 
 const configureAuthenticationRouter = (
   tokenService: TokenService,
-  loggerService: ILoggerService,
   authenticationUsecase: AuthenticationUsecase,
   createUserProducer: RabbitMQCreateUserProducer,
 ) => {

@@ -3,9 +3,9 @@ import {
   writeFile,
 } from 'fs/promises';
 import {
-  FileServiceENOENTError,
-  FileServiceUncaughtDeleteError,
-  FileServiceUncaughtStoreError,
+  FileServiceNoEntityError,
+  FileServiceFailedFileDeletion,
+  FileServiceFailedFileUploading,
 } from '../file-service-errors';
 import FileService from '../../../../domain/services/file-service';
 
@@ -17,11 +17,11 @@ class FSFileService extends FileService {
     } catch (e) {
       const error = e as Error;
       if (error.name === 'ENOENT') {
-        this.loggerService.error(FileServiceENOENTError.message, error);
-        throw FileServiceENOENTError;
+        this.loggerService.error(FileServiceNoEntityError.message, error);
+        throw FileServiceNoEntityError;
       }
-      this.loggerService.error(FileServiceUncaughtDeleteError.message, error);
-      throw FileServiceUncaughtDeleteError;
+      this.loggerService.error(FileServiceFailedFileDeletion.message, error);
+      throw FileServiceFailedFileDeletion;
     }
   };
 
@@ -32,11 +32,11 @@ class FSFileService extends FileService {
     } catch (e) {
       const error = e as Error;
       if (error.name === 'ENOENT') {
-        this.loggerService.error(FileServiceENOENTError.message, error);
-        throw FileServiceENOENTError;
+        this.loggerService.error(FileServiceNoEntityError.message, error);
+        throw FileServiceNoEntityError;
       }
-      this.loggerService.error(FileServiceUncaughtStoreError.message, error);
-      throw FileServiceUncaughtStoreError;
+      this.loggerService.error(FileServiceFailedFileUploading.message, error);
+      throw FileServiceFailedFileUploading;
     }
   };
 }

@@ -13,11 +13,11 @@ import {
   serve,
   setup,
 } from 'swagger-ui-express';
-import bodyMiddleware from './express/middlewares/body-middleware';
-import errorMiddleware from './express/middlewares/error-middleware';
+import bodyMiddleware from '../controllers/express/middlewares/body-middleware';
+import errorMiddleware from '../controllers/express/middlewares/error-middleware';
 import LoggerService from '../services/logger-service/logger-service';
 
-const configureServer = async (
+const configureControllers = async (
   SERVER_PORT: number,
   userRouter: Router,
   authenticationRouter: Router,
@@ -52,4 +52,4 @@ const configureServer = async (
   }
 };
 
-export default configureServer;
+export default configureControllers;

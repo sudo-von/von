@@ -4,9 +4,9 @@ import {
   NextFunction,
 } from 'express';
 import {
-  signupUserControllerDto,
-  createUserCredentialsControllerDto,
-} from '../../dtos/controller-user-dto';
+  createUserController,
+  createUserCredentialsController,
+} from '../../dtos/user-controller-dtos';
 import statusCodes from '../../status-codes';
 import {
   InvalidFileParameterControllerError,
@@ -16,8 +16,8 @@ import {
 } from '../../../../domain/entities/user/user-entities';
 import TokenService from '../../../services/token-service/token-service';
 import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
+import restrictedUserToRestrictedUserController from '../../mappers/user-controller-mappers';
 import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
-import restrictedUserEntityToRestrictedUserControllerDto from '../../mappers/controller-user-mappers';
 
 class ExpressAuthenticationController {
   constructor(
@@ -28,7 +28,7 @@ class ExpressAuthenticationController {
 
   authenticate = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { email, password } = createUserCredentialsControllerDto.parse(req.body);
+      const { email, password } = createUserCredentialsController.parse(req.body);
 
       const userCredentials: UserCredentials = {
         email,
@@ -39,9 +39,9 @@ class ExpressAuthenticationController {
 
       const token = this.tokenService.generateToken(restrictedUser);
 
-      return res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.success.ok);
+      res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.success.ok);
     } catch (e) {
-      return next(e);
+      next(e);
     }
   };
 
@@ -51,7 +51,7 @@ class ExpressAuthenticationController {
 
       if (!file) throw InvalidFileParameterControllerError;
 
-      const payload = signupUserControllerDto.parse(body);
+      const payload = createUserController.parse(body);
 
       const createdUser = await this.authenticationUsecase.signup({
         name: payload.name,
@@ -66,16 +66,16 @@ class ExpressAuthenticationController {
         },
       });
 
-      const restrictedUser = restrictedUserEntityToRestrictedUserControllerDto(createdUser);
+      const restrictedUser = restrictedUserToRestrictedUserController(createdUser);
 
       res.status(statusCodes.success.ok).send({ result: restrictedUser });
 
-      return await this.createUserProducer.produceMessage('User:CreateUser', {
+      await this.createUserProducer.produceMessage('User:CreateUser', {
         user_id: restrictedUser.id,
         username: restrictedUser.username,
       });
     } catch (e) {
-      return next(e);
+      next(e);
     }
   };
 }

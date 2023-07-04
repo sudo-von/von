@@ -1,33 +1,30 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import {
-  SecurityServicUncaughtCompareHashesError,
-  SecurityServiceUncaughtComputeChecksumError,
-  SecurityServiceUncaughtHashPasswordError,
+  SecurityServicFailedHashComparisonError,
+  SecurityServiceFailedChecksumComputingError,
+  SecurityServiceFailedPasswordHashingError,
 } from '../security-service-errors';
 import SecurityService from '../../../../domain/services/security-service';
 
 class DataSecurityService extends SecurityService {
   computeChecksum = (plainData: string): string => {
     try {
-      const algorithm = 'md5';
-      const encoding = 'hex';
-      const hash = crypto.createHash(algorithm).update(plainData).digest(encoding);
+      const hash = crypto.createHash('md5').update(plainData).digest('hex');
       return hash;
     } catch (e) {
-      this.loggerService.error(SecurityServiceUncaughtComputeChecksumError.message, e as Error);
-      throw SecurityServiceUncaughtComputeChecksumError;
+      this.loggerService.error(SecurityServiceFailedChecksumComputingError.message, e as Error);
+      throw SecurityServiceFailedChecksumComputingError;
     }
   };
 
   hashPassword = async (password: string): Promise<string> => {
     try {
-      const rounds = 10;
-      const hash = await bcrypt.hash(password, rounds);
+      const hash = await bcrypt.hash(password, 10);
       return hash;
     } catch (e) {
-      this.loggerService.error(SecurityServiceUncaughtHashPasswordError.message, e as Error);
-      throw SecurityServiceUncaughtHashPasswordError;
+      this.loggerService.error(SecurityServiceFailedPasswordHashingError.message, e as Error);
+      throw SecurityServiceFailedPasswordHashingError;
     }
   };
 
@@ -36,8 +33,8 @@ class DataSecurityService extends SecurityService {
       const result = await bcrypt.compare(plainData, hashedData);
       return result;
     } catch (e) {
-      this.loggerService.error(SecurityServicUncaughtCompareHashesError.message, e as Error);
-      throw SecurityServicUncaughtCompareHashesError;
+      this.loggerService.error(SecurityServicFailedHashComparisonError.message, e as Error);
+      throw SecurityServicFailedHashComparisonError;
     }
   };
 }

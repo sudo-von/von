@@ -4,15 +4,15 @@ import {
   NextFunction,
 } from 'express';
 import {
-  updateUserControllerDto,
-} from '../../dtos/controller-user-dto';
+  updateUserController,
+} from '../../dtos/user-controller-dtos';
 import statusCodes from '../../status-codes';
 import {
   PermissionDeniedControllerError,
   InvalidFileParameterControllerError,
 } from '../../errors/common-controller-error';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
-import restrictedUserEntityToRestrictedUserControllerDto from '../../mappers/controller-user-mappers';
+import restrictedUserToRestrictedUserController from '../../mappers/user-controller-mappers';
 import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
 class ExpressUserController {
@@ -25,9 +25,9 @@ class ExpressUserController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const userFound = await this.userUsecase.getUserByUsername(username);
+      const userFoundByUsername = await this.userUsecase.getUserByUsername(username);
 
-      const restrictedUser = restrictedUserEntityToRestrictedUserControllerDto(userFound);
+      const restrictedUser = restrictedUserToRestrictedUserController(userFoundByUsername);
 
       return res.status(statusCodes.success.ok).send({ result: restrictedUser });
     } catch (e) {
@@ -47,9 +47,9 @@ class ExpressUserController {
 
       const username = params.username.toLowerCase();
 
-      const payload = updateUserControllerDto.parse(body);
+      const payload = updateUserController.parse(body);
 
-      const updatedUser = await this.userUsecase.updateUserByUsername(user.username, username, {
+      const updatedUser = await this.userUsecase.updateUserByUsername(username, {
         name: payload.name,
         email: payload.email,
         username: payload.username,
@@ -62,7 +62,7 @@ class ExpressUserController {
         },
       });
 
-      const restrictedUser = restrictedUserEntityToRestrictedUserControllerDto(updatedUser);
+      const restrictedUser = restrictedUserToRestrictedUserController(updatedUser);
 
       res.status(statusCodes.success.ok).send({ result: restrictedUser });
 

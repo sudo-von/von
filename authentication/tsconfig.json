@@ -11,7 +11,10 @@
     "resolveJsonModule": true,
     "rootDirs": ["src", "tests"],
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./src/infrastructure/types", "./node_modules/@types"]
+    "typeRoots": [
+      "./src/infrastructure/controllers/types",
+      "./node_modules/@types"
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "tests"]

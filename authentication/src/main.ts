@@ -71,7 +71,6 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 User router has been configured.');
     const authenticationRouter = configureAuthenticationRouter(
       tokenService,
-      loggerService,
       authenticationUsecase,
       createUserProducer,
     );

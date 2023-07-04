@@ -8,10 +8,10 @@ import {
   SingleUserOnlyControllerError,
   UserUpdateFailedControllerError,
   InvalidNameLengthControllerError,
+  InvalidEmailLengthControllerError,
   InvalidPasswordLengthControllerError,
   InvalidUsernameLengthControllerError,
   InvalidProfilePictureControllerLengthError,
-  InvalidEmailLengthControllerError,
 } from '../../errors/user-controller-error';
 import {
   InternalServerControllerError,
