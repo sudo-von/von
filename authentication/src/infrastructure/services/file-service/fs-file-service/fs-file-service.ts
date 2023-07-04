@@ -1,17 +1,18 @@
-import fs from 'fs/promises';
+import {
+  writeFile,
+} from 'fs/promises';
 import FileService from '../../../../domain/services/file-service';
-import FileServiceInvalidStoreError from '../../errors/file-service-errors';
-import LoggerService from '../../logger-service/logger-service';
+import FileServiceUncaughtStoreError from '../file-service-errors';
 
 class FSFileService extends FileService {
-  store = async (filename: string, buffer: Buffer): Promise<void> => {
+  upload = async (filename: string, buffer: Buffer): Promise<void> => {
     try {
       const path = `${this.directory}/${filename}`;
-      console.log('🚀 ~ file: fs-file-service.ts:8 ~ FSFileService ~ store= ~ path:', path);
-      await fs.writeFile(path, buffer, 'utf8');
+      const encoding = 'utf8';
+      await writeFile(path, buffer, encoding);
     } catch (e) {
-      this.loggerService.error(FileServiceInvalidStoreError.message, e as Error);
-      throw FileServiceInvalidStoreError;
+      this.loggerService.error(FileServiceUncaughtStoreError.message, e as Error);
+      throw FileServiceUncaughtStoreError;
     }
   };
 }

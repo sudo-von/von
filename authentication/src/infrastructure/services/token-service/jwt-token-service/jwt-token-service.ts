@@ -7,7 +7,7 @@ import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
   TokenServiceFailedTokenGeneration,
-} from '../../errors/token-service-errors';
+} from '../token-service-errors';
 import TokenService from '../token-service';
 import {
   RestrictedUserEntity,

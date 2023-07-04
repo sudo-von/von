@@ -34,7 +34,7 @@ import {
 } from '../../errors/token-service-controller-errors';
 import {
   ServiceErrorCode,
-} from '../../../services/errors/service-error-codes';
+} from '../../../services/file-service/fs-file-service/service-error-codes';
 import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';

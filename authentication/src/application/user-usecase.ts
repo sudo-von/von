@@ -1,31 +1,25 @@
 import {
-  InvalidCredentialsError,
   UserNotFoundError,
-  UserPermissionDeniedError,
   UserUpdateFailedError,
+  InvalidCredentialsError,
+  UserPermissionDeniedError,
 } from '../domain/entities/user/user-errors';
 import {
   UpdateUserEntity,
   RestrictedUserEntity,
-  UserPayloadEntity,
 } from '../domain/entities/user/user-entity';
-import validateUserUpdate from '../domain/entities/user/validations/update-user-validations';
 import UserUsecase from '../domain/usecases/user-usecase';
+import userEntityToRestrictedUserEntity from '../domain/entities/user/user-mappers';
+import validateUserUpdate from '../domain/entities/user/validations/update-user-validations';
+import formatProfilePictureUrl from '../domain/entities/profile-picture/profile-picture-utils';
 
 class UserUsecaseApplication extends UserUsecase {
   getUserByUsername = async (username: string): Promise<RestrictedUserEntity> => {
-    const user = await this.userRepository.getUserByUsername(username);
-    if (!user) throw UserNotFoundError;
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
 
-    const restrictedUserEntity: RestrictedUserEntity = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      username: user.username,
-      profilePictureName: user.profilePictureName,
-    };
-
-    return restrictedUserEntity;
+    const restrictedUser = userEntityToRestrictedUserEntity(userFoundByUsername);
+    return restrictedUser;
   };
 
   updateUserByUsername = async (
@@ -37,38 +31,34 @@ class UserUsecaseApplication extends UserUsecase {
 
     validateUserUpdate(payload);
 
-    const user = await this.userRepository.getUserByUsername(requestedUsername);
-    if (!user) throw UserNotFoundError;
+    const userFoundByUsername = await this.userRepository.getUserByUsername(requestedUsername);
+    if (!userFoundByUsername) throw UserNotFoundError;
 
     const areCredentialsValid = await this.securityService.compareHashes(
       payload.password,
-      user.password,
+      userFoundByUsername.password,
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const updateUserEntity: UserPayloadEntity = {
+    const hashedProfilePictureName = this.securityService.hash(payload.username);
+    const formattedProfilePictureName = formatProfilePictureUrl(
+      hashedProfilePictureName,
+      payload.profilePicture.mimetype,
+    );
+
+    await this.fileService.upload(formattedProfilePictureName, payload.profilePicture.buffer);
+
+    const updatedUser = await this.userRepository.updateUserByUsername(requestedUsername, {
       name: payload.name,
       email: payload.email,
-      password: user.password,
       username: payload.username,
-      profilePictureName: payload.profilePicture.name,
-    };
-
-    const updatedUser = await this.userRepository.updateUserByUsername(
-      requestedUsername,
-      updateUserEntity,
-    );
+      password: userFoundByUsername.password,
+      profilePictureName: formattedProfilePictureName,
+    });
     if (!updatedUser) throw UserUpdateFailedError;
 
-    const restrictedUserEntity: RestrictedUserEntity = {
-      id: updatedUser.id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      username: updatedUser.username,
-      profilePictureName: updatedUser.profilePictureName,
-    };
-
-    return restrictedUserEntity;
+    const restrictedUser = userEntityToRestrictedUserEntity(updatedUser);
+    return restrictedUser;
   };
 }
 

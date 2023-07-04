@@ -3,10 +3,10 @@ import crypto from 'crypto';
 import {
   CryptographyServiceInvalidCompareError,
   CryptographyServiceInvalidHashDataError,
-} from '../../errors/cryptography-service-errors';
+} from '../security-service-errors';
 import SecurityService from '../../../../domain/services/security-service';
 
-class CryptoSecurityService extends SecurityService {
+class DataSecurityService extends SecurityService {
   hash = (plainData: string): string => {
     try {
       const algorithm = 'md5';
@@ -41,4 +41,4 @@ class CryptoSecurityService extends SecurityService {
   };
 }
 
-export default CryptoSecurityService;
+export default DataSecurityService;

@@ -12,10 +12,7 @@ interface IUserRepositoryReader {
 
 interface IUserRepositoryWriter {
   createUser: (payload: UserPayloadEntity) => Promise<UserEntity>;
-  updateUserByUsername: (
-    username: string,
-    payload: UserPayloadEntity
-  ) => Promise<UserEntity | null>;
+  updateUserByUsername: (username: string, payload: UserPayloadEntity) => Promise<UserEntity | null>;
 }
 
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}

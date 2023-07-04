@@ -1,5 +1,5 @@
 import {
-  UpdateUserEntity,
+  CreateUserEntity,
 } from '../user-entity';
 import {
   InvalidNameLengthError,
@@ -13,9 +13,9 @@ import {
   validatePasswordLength,
   validateUsernameLength,
 } from './user-validations';
-import validateProfilePictureUpdate from '../../profile-picture/validations/update-profile-picture-validations';
+import validateProfilePictureCreation from '../../profile-picture/validations/create-profile-picture-validations';
 
-const validateUserUpdate = (payload: UpdateUserEntity) => {
+const validateUserCreation = (payload: CreateUserEntity) => {
   const isNameLengthValid = validateNameLength(payload.name);
   if (!isNameLengthValid) throw InvalidNameLengthError;
 
@@ -28,7 +28,7 @@ const validateUserUpdate = (payload: UpdateUserEntity) => {
   const isPasswordLengthValid = validatePasswordLength(payload.password);
   if (!isPasswordLengthValid) throw InvalidPasswordLengthError;
 
-  validateProfilePictureUpdate(payload.profilePicture);
+  validateProfilePictureCreation(payload.profilePicture);
 };
 
-export default validateUserUpdate;
+export default validateUserCreation;

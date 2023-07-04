@@ -6,7 +6,7 @@ abstract class FileService {
     protected loggerService: LoggerService,
   ) {}
 
-  abstract store: (filename: string, buffer: Buffer) => Promise<void>;
+  abstract upload: (filename: string, buffer: Buffer) => Promise<void>;
 }
 
 export default FileService;

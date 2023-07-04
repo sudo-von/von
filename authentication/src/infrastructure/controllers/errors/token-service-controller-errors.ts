@@ -11,7 +11,7 @@ import statusCode from '../status-codes';
 import {
   TOKEN_SERVICE_EXPIRED_TOKEN,
   TOKEN_SERVICE_INVALID_TOKEN,
-} from '../../services/errors/token-service-errors';
+} from '../../services/token-service/token-service-errors';
 
 export const TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER: ControllerError = {
   code: 'TOKEN_SERVICE_INVALID_TOKEN_CONTROLLER_ERROR',

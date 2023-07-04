@@ -11,6 +11,7 @@ import configureAuthenticationRouter from './infrastructure/controllers/express/
 import configureFileService from './infrastructure/services/file-service/config';
 
 const loggerService = configureLoggerService();
+loggerService.info('📢 Logger service has been configured.');
 
 (async () => {
   try {
@@ -39,11 +40,11 @@ const loggerService = configureLoggerService();
 
     /* 🔧 Services. */
     const tokenService = configureTokenService(SECRET_KEY);
-    loggerService.info('🔧 Token service has been configured.');
+    loggerService.info('🔑 Token service has been configured.');
     const securityService = configureSecurityService(loggerService);
-    loggerService.info('🔧 Security service has been configured.');
+    loggerService.info('🛡️ Security service has been configured.');
     const fileService = configureFileService(loggerService);
-    loggerService.info('🔧 File service has been configured.');
+    loggerService.info('📂 File service has been configured.');
 
     /* 📖 Usecases. */
     const {
@@ -85,7 +86,7 @@ const loggerService = configureLoggerService();
       loggerService,
     );
   } catch (e) {
-    loggerService.error('⛔️ An error occurred while configuring the application.', e as Error);
+    loggerService.error('An error occurred while configuring the application.', e as Error);
     process.exit(1);
   }
 })();
