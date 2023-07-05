@@ -58,6 +58,60 @@ class UserUsecaseApplication extends UserUsecase {
 
     return updatedUser;
   };
+
+  increaseTotalViewsByUsername = async (username: string): Promise<User> => {
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+      userId: userFoundByUsername.userId,
+      username: userFoundByUsername.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews + 1,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions,
+      },
+    });
+    if (!updatedUser) throw UserUpdateFailedError;
+
+    return updatedUser;
+  };
+
+  increaseTotalAnswersByUsername = async (username: string): Promise<User> => {
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+      userId: userFoundByUsername.userId,
+      username: userFoundByUsername.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers + 1,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions,
+      },
+    });
+    if (!updatedUser) throw UserUpdateFailedError;
+
+    return updatedUser;
+  };
+
+  increaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+      userId: userFoundByUsername.userId,
+      username: userFoundByUsername.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions + 1,
+      },
+    });
+    if (!updatedUser) throw UserUpdateFailedError;
+
+    return updatedUser;
+  };
 }
 
 export default UserUsecaseApplication;
