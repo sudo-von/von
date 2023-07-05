@@ -9,5 +9,6 @@ export type DomainErrorCode =
 export type UserDomainErrorCode =
 | 'INVALID_USERNAME_LENGTH'
 | 'SINGLE_USER_ONLY'
+| 'USER_NOT_FOUND'
 | 'USER_PERMISSION_DENIED'
 | 'USER_UPDATE_FAILED';

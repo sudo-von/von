@@ -13,6 +13,11 @@ export const SingleUserOnlyError = createDomainErrorFactory({
   message: 'Only one user is allowed.',
 });
 
+export const UserNotFoundError = createDomainErrorFactory({
+  code: 'USER_NOT_FOUND',
+  message: 'User not found.',
+});
+
 export const UserPermissionDeniedError = createDomainErrorFactory({
   code: 'USER_PERMISSION_DENIED',
   message: 'You do not have sufficient permissions to perform this action.',

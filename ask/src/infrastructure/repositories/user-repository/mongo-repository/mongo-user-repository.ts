@@ -20,13 +20,6 @@ class MongoUserRepository implements IUserRepository {
     return user;
   };
 
-  getUserByEmail = async (email: string): Promise<User | null> => {
-    const userModel = await UserModel.findOne({ email });
-    if (!userModel) return null;
-    const user = userModelToUser(userModel);
-    return user;
-  };
-
   getUserByUsername = async (username: string): Promise<User | null> => {
     const userModel = await UserModel.findOne({ username });
     if (!userModel) return null;
@@ -36,11 +29,8 @@ class MongoUserRepository implements IUserRepository {
 
   createUser = async (payload: UserPayload): Promise<User> => {
     const userModel = new UserModel({
-      name: payload.name,
-      email: payload.email,
+      userId: payload.userId,
       username: payload.username,
-      password: payload.password,
-      profilePictureName: payload.profilePictureName,
     });
     const storedUser = await userModel.save();
     const user = userModelToUser(storedUser);
@@ -53,11 +43,8 @@ class MongoUserRepository implements IUserRepository {
   ): Promise<User | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({ username }, {
       $set: {
-        name: payload.name,
-        email: payload.email,
+        userId: payload.userId,
         username: payload.username,
-        password: payload.password,
-        profilePictureName: payload.profilePictureName,
       },
     }, {
       new: true,
