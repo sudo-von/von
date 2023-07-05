@@ -1,12 +1,12 @@
 import {
-  UpdateUser,
-} from '../user-entities';
-import {
   InvalidNameLengthError,
   InvalidEmailLengthError,
   InvalidPasswordLengthError,
   InvalidUsernameLengthError,
 } from '../user-errors';
+import {
+  UpdateUser,
+} from '../user-entities';
 import {
   validateNameLength,
   validateEmailLength,

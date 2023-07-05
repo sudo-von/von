@@ -1,11 +1,11 @@
 import {
-  UpdateProfilePicture,
-} from '../profile-picture-entities';
-import {
   InvalidProfilePictureSizeError,
   InvalidProfilePictureMimeTypeError,
   InvalidProfilePictureNameLengthError,
 } from '../profile-picture-errors';
+import {
+  UpdateProfilePicture,
+} from '../profile-picture-entities';
 import {
   validateProfilePictureSize,
   validateProfilePictureMimetype,

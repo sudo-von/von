@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import MongoUserRepository from '../repositories/user-repository/mongo-repository/mongo-user-repository';
+import MongoQuestionRepository from '../repositories/question-repository/mongo-repository/mongo-question-repository';
 
 const configureRepositories = async (
   DATABASE_URL: string,
@@ -16,7 +17,9 @@ const configureRepositories = async (
 
     const userRepository = new MongoUserRepository();
 
-    return { userRepository };
+    const questionRepository = new MongoQuestionRepository();
+
+    return { userRepository, questionRepository };
   } catch (e) {
     throw new Error(`There was a database error: ${(e as Error).message}.`);
   }

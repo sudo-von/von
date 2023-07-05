@@ -1,12 +1,12 @@
 import {
-  CreateUser,
-} from '../user-entities';
-import {
   InvalidNameLengthError,
   InvalidEmailLengthError,
   InvalidPasswordLengthError,
   InvalidUsernameLengthError,
 } from '../user-errors';
+import {
+  CreateUser,
+} from '../user-entities';
 import {
   validateNameLength,
   validateEmailLength,

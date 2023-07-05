@@ -2,8 +2,8 @@ import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
-import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
 import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
+import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -25,6 +25,7 @@ loggerService.info('📢 Logger service has been configured.');
     /* 💽 Repositories. */
     const {
       userRepository,
+      questionRepository,
     } = await configureRepositories(
       DATABASE_URL,
       DATABASE_NAME,
@@ -40,7 +41,8 @@ loggerService.info('📢 Logger service has been configured.');
     /* 📖 Usecases. */
     const {
       userUsecase,
-    } = configureUsecases(userRepository);
+      questionUsecase,
+    } = configureUsecases(userRepository, questionRepository);
     loggerService.info('📖 Usecases have been configured.');
 
     /* 📦 Message brokers. */

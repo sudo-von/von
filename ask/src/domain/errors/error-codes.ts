@@ -4,9 +4,15 @@ export type DomainError = {
 };
 
 export type DomainErrorCode =
-| UserDomainErrorCode;
+| QuestionErrorCode
+| UserErrorCode;
 
-export type UserDomainErrorCode =
+export type QuestionErrorCode =
+| 'INVALID_QUESTION_LENGTH'
+| 'QUESTION_NOT_FOUND'
+| 'QUESTION_UPDATE_FAILED';
+
+export type UserErrorCode =
 | 'INVALID_USERNAME_LENGTH'
 | 'SINGLE_USER_ONLY'
 | 'USER_NOT_FOUND'
