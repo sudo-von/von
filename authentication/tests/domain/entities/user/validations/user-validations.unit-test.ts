@@ -1,10 +1,10 @@
+import userRules from '../../../../../src/domain/entities/user/user-rules';
 import {
-  validateEmailLength,
   validateNameLength,
+  validateEmailLength,
   validateUsernameLength,
   validatePasswordLength,
 } from '../../../../../src/domain/entities/user/validations/user-validations';
-import userRules from '../../../../../src/domain/entities/user/user-rules';
 
 describe('user validations', () => {
   describe('user field length validations', () => {
