@@ -13,6 +13,13 @@ import validateUserUpdate from '../domain/entities/user/validations/update-user-
 import validateUserCreation from '../domain/entities/user/validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
+  getUserByUsername = async (username: string): Promise<User> => {
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    return userFoundByUsername;
+  };
+
   createUser = async (payload: CreateUser): Promise<User> => {
     validateUserCreation(payload);
 
@@ -47,7 +54,6 @@ class UserUsecaseApplication extends UserUsecase {
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
     });
-
     if (!updatedUser) throw UserUpdateFailedError;
 
     return updatedUser;
