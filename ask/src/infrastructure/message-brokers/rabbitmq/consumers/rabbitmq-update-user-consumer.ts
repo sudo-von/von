@@ -18,13 +18,11 @@ class RabbitMQUpdateUserConsumer extends RabbitMQ<CreateUserMessageBroker> {
   }
 
   onMessage = async (data: CreateUserMessageBroker): Promise<void> => {
-    console.log('🚀 ~ file: rabbitmq-update-user-consumer.ts:21 ~ RabbitMQUpdateUserConsumer ~ onMessage= ~ data:', data);
     try {
-      const result = await this.userUsecase.updateUserByUsername(data.username, {
+      await this.userUsecase.updateUserByUsername(data.username, {
         userId: data.user_id,
         username: data.username,
       });
-      console.log('🚀 ~ file: rabbitmq-update-user-consumer.ts:26 ~ RabbitMQUpdateUserConsumer ~ onMessage= ~ result:', result);
       this.ackMessage();
     } catch (e) {
       this.loggerService.error(MessageBrokerFailedToProcessMessageError.message, e as Error);

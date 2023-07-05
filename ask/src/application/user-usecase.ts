@@ -22,6 +22,11 @@ class UserUsecaseApplication extends UserUsecase {
     const createdUser = await this.userRepository.createUser({
       userId: payload.userId,
       username: payload.username,
+      metrics: {
+        totalViews: 0,
+        totalAnswers: 0,
+        totalQuestions: 0,
+      },
     });
 
     return createdUser;
@@ -36,7 +41,13 @@ class UserUsecaseApplication extends UserUsecase {
     const updatedUser = await this.userRepository.updateUserByUsername(username, {
       userId: payload.userId,
       username: payload.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions,
+      },
     });
+
     if (!updatedUser) throw UserUpdateFailedError;
 
     return updatedUser;
