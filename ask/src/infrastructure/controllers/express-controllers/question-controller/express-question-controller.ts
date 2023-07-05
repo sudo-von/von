@@ -5,7 +5,7 @@ import { createQuestionDto } from '../../dtos/create-question-dto';
 import { PERMISSION_DENIED_REQUEST } from '../../errors/request-errors';
 import ProfileUsecase from '../../../../domain/usecases/profile-usecase';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase';
-import { CreateQuestionEntity } from '../../../../domain/entities/question-entity';
+import { CreateQuestion } from '../../../../domain/entities/question/question-entities';
 
 class ExpressQuestionController {
   constructor(
@@ -19,7 +19,7 @@ class ExpressQuestionController {
 
       const body = createQuestionDto.parse(req.body);
 
-      const createQuestionEntity: CreateQuestionEntity = {
+      const createQuestionEntity: CreateQuestion = {
         username,
         question: body.question,
         askedBy: req.ip,

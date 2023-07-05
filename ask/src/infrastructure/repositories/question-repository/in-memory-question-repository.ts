@@ -1,9 +1,9 @@
 import crypto from 'crypto';
 import IQuestionRepository from '../../../domain/repositories/question-repository';
-import { CreateQuestionEntity, QuestionEntity, UpdateQuestionEntity } from '../../../domain/entities/question-entity';
+import { CreateQuestion, Question, UpdateQuestion } from '../../../domain/entities/question/question-entities';
 
 class InMemoryQuestionRepository implements IQuestionRepository {
-  private questionsInMemory: QuestionEntity[] = [
+  private questionsInMemory: Question[] = [
     {
       id: crypto.randomBytes(8).toString('hex'),
       username: 'sudo_von',
@@ -26,38 +26,38 @@ class InMemoryQuestionRepository implements IQuestionRepository {
     },
   ];
 
-  getAnsweredQuestionById = async (id: string): Promise<QuestionEntity | null> => {
+  getAnsweredQuestionById = async (id: string): Promise<Question | null> => {
     const answeredQuestion = this.questionsInMemory.find(
       (p) => p.id === id && p.answer,
     ) || null;
     return answeredQuestion;
   };
 
-  getAnsweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
-    const questions: QuestionEntity[] = this.questionsInMemory.filter(
+  getAnsweredQuestionsByUser = async (username: string): Promise<Question[]> => {
+    const questions: Question[] = this.questionsInMemory.filter(
       (p) => p.username === username && p.answer,
     );
     return questions;
   };
 
-  getAllQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
-    const questions: QuestionEntity[] = this.questionsInMemory.filter(
+  getAllQuestionsByUser = async (username: string): Promise<Question[]> => {
+    const questions: Question[] = this.questionsInMemory.filter(
       (p) => p.username === username,
     );
     return questions;
   };
 
-  getUnansweredQuestionsByUser = async (username: string): Promise<QuestionEntity[]> => {
-    const questions: QuestionEntity[] = this.questionsInMemory.filter(
+  getUnansweredQuestionsByUser = async (username: string): Promise<Question[]> => {
+    const questions: Question[] = this.questionsInMemory.filter(
       (p) => p.username === username && !p.answer,
     );
     return questions;
   };
 
   createQuestion = async (
-    payload: CreateQuestionEntity,
-  ): Promise<QuestionEntity | null> => {
-    const question: QuestionEntity = {
+    payload: CreateQuestion,
+  ): Promise<Question | null> => {
+    const question: Question = {
       ...payload,
       id: crypto.randomBytes(8).toString('hex'),
     };
@@ -67,7 +67,7 @@ class InMemoryQuestionRepository implements IQuestionRepository {
 
   updateQuestionById = async (
     id: string,
-    payload: UpdateQuestionEntity,
+    payload: UpdateQuestion,
   ): Promise<void> => {
     this.questionsInMemory = this.questionsInMemory.map(
       (p) => {
