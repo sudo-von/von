@@ -14,10 +14,8 @@ import validateUserCreation from '../domain/entities/user/validations/create-use
 
 class UserUsecaseApplication extends UserUsecase {
   getUserByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
-    if (!userFoundByUsername) throw UserNotFoundError;
-
-    return userFoundByUsername;
+    const increasedViewsUser = await this.increaseTotalViewsByUsername(username);
+    return increasedViewsUser;
   };
 
   createUser = async (payload: CreateUser): Promise<User> => {
