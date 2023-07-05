@@ -1,9 +1,9 @@
 import {
-  UpdateUser,
-} from '../user-entities';
-import {
   InvalidUsernameLengthError,
 } from '../user-errors';
+import {
+  UpdateUser,
+} from '../user-entities';
 import validateUsernameLength from './user-validations';
 
 const validateUserUpdate = (payload: UpdateUser) => {

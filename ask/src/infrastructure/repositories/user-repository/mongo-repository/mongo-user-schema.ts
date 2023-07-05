@@ -4,6 +4,7 @@ import {
 import {
   User,
 } from '../../../../domain/entities/user/user-entities';
+import metricsSchema from '../../metrics-repository/mongo-repository/mongo-metrics-schema';
 
 const userSchema = new Schema<User>({
   userId: {
@@ -12,6 +13,10 @@ const userSchema = new Schema<User>({
   },
   username: {
     type: String,
+    required: true,
+  },
+  metrics: {
+    type: metricsSchema,
     required: true,
   },
 });

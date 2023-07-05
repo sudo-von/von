@@ -31,6 +31,11 @@ class MongoUserRepository implements IUserRepository {
     const userModel = new UserModel({
       userId: payload.userId,
       username: payload.username,
+      metrics: {
+        totalViews: payload.metrics.totalViews,
+        totalAnswers: payload.metrics.totalAnswers,
+        totalQuestions: payload.metrics.totalQuestions,
+      },
     });
     const storedUser = await userModel.save();
     const user = userModelToUser(storedUser);
@@ -45,6 +50,11 @@ class MongoUserRepository implements IUserRepository {
       $set: {
         userId: payload.userId,
         username: payload.username,
+        metrics: {
+          totalViews: payload.metrics.totalViews,
+          totalAnswers: payload.metrics.totalAnswers,
+          totalQuestions: payload.metrics.totalQuestions,
+        },
       },
     }, {
       new: true,
