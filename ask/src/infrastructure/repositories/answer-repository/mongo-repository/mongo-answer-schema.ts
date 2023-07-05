@@ -8,11 +8,11 @@ import {
 const answerSchema = new Schema<Answer>({
   answer: {
     type: String,
-    required: true,
+    required: false,
   },
   answeredAt: {
     type: Date,
-    required: true,
+    required: false,
   },
 });
 

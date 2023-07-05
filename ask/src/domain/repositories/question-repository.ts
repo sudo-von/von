@@ -1,12 +1,20 @@
 import {
   Question,
-  CreateQuestion,
+  QuestionPayload,
 } from '../entities/question/question-entities';
 
-interface IQuestionRepositoryWriter {
-  createQuestion: (payload: CreateQuestion) => Promise<Question>;
+interface IQuestionRepositoryReader {
+  getQuestionsByUsername: (username: string) => Promise<Question[]>;
+  getAnsweredQuestionById: (id: string) => Promise<Question | null>;
+  getAnsweredQuestionsByUsername: (username: string) => Promise<Question[]>;
+  getUnansweredQuestionsByUsername: (username: string) => Promise<Question[]>;
 }
 
-interface IQuestionRepository extends IQuestionRepositoryWriter {}
+interface IQuestionRepositoryWriter {
+  createQuestion: (payload: QuestionPayload) => Promise<Question>;
+  updateQuestionById: (id: string, payload: QuestionPayload) => Promise<Question | null>;
+}
+
+interface IQuestionRepository extends IQuestionRepositoryReader, IQuestionRepositoryWriter {}
 
 export default IQuestionRepository;

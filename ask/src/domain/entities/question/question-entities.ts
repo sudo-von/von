@@ -2,7 +2,7 @@ import {
   Answer,
 } from '../answer/answer-entities';
 
-export type Question = {
+export type Question = Readonly<{
   id: string;
   views: number;
   askedAt: Date;
@@ -10,6 +10,8 @@ export type Question = {
   username: string;
   question: string;
   answer?: Answer;
-};
+}>;
 
-export type CreateQuestion = Omit<Question, 'id' | 'answer'>;
+export type QuestionPayload = Omit<Question, 'id'>;
+
+export type CreateQuestion = Omit<QuestionPayload, 'views' | 'askedAt' | 'answer'>;
