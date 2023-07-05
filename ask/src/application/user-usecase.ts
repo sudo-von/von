@@ -61,7 +61,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+    const increasedViewsUser = await this.userRepository.updateUserByUsername(username, {
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -70,16 +70,16 @@ class UserUsecaseApplication extends UserUsecase {
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
     });
-    if (!updatedUser) throw UserUpdateFailedError;
+    if (!increasedViewsUser) throw UserUpdateFailedError;
 
-    return updatedUser;
+    return increasedViewsUser;
   };
 
   increaseTotalAnswersByUsername = async (username: string): Promise<User> => {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+    const increasedAnswersUser = await this.userRepository.updateUserByUsername(username, {
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -88,16 +88,16 @@ class UserUsecaseApplication extends UserUsecase {
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
     });
-    if (!updatedUser) throw UserUpdateFailedError;
+    if (!increasedAnswersUser) throw UserUpdateFailedError;
 
-    return updatedUser;
+    return increasedAnswersUser;
   };
 
   increaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+    const increasedQuestionsUser = await this.userRepository.updateUserByUsername(username, {
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -106,9 +106,9 @@ class UserUsecaseApplication extends UserUsecase {
         totalQuestions: userFoundByUsername.metrics.totalQuestions + 1,
       },
     });
-    if (!updatedUser) throw UserUpdateFailedError;
+    if (!increasedQuestionsUser) throw UserUpdateFailedError;
 
-    return updatedUser;
+    return increasedQuestionsUser;
   };
 }
 
