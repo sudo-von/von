@@ -79,15 +79,15 @@ class QuestionController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const questions = await this.questionUsecase.getAnsweredQuestionsByUsername(username);
+      const answeredQuestions = await this.questionUsecase.getAnsweredQuestionsByUsername(username);
 
       await this.userUsecase.increaseTotalViewsByUsername(username);
 
-      const questionControllers = questions.map(
+      const answeredQuestionControllers = answeredQuestions.map(
         (question) => questionToQuestionController(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: questionControllers });
+      res.status(statusCodes.success.ok).send({ result: answeredQuestionControllers });
     } catch (e) {
       next(e);
     }
@@ -97,13 +97,15 @@ class QuestionController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const questions = await this.questionUsecase.getUnansweredQuestionsByUsername(username);
+      const unansweredQuestions = await this.questionUsecase.getUnansweredQuestionsByUsername(
+        username,
+      );
 
-      const questionControllers = questions.map(
+      const unansweredQuestionControllers = unansweredQuestions.map(
         (question) => questionToQuestionController(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: questionControllers });
+      res.status(statusCodes.success.ok).send({ result: unansweredQuestionControllers });
     } catch (e) {
       next(e);
     }
@@ -115,15 +117,15 @@ class QuestionController {
 
       const payload = createAnswerController.parse(req.body);
 
-      const createdQuestion = await this.questionUsecase.createAnswerByQuestionId(id, {
+      const answeredQuestion = await this.questionUsecase.createAnswerByQuestionId(id, {
         answer: payload.answer,
       });
 
-      await this.userUsecase.increaseTotalAnswersByUsername(createdQuestion.username);
+      await this.userUsecase.increaseTotalAnswersByUsername(answeredQuestion.username);
 
-      const formattedQuestion = questionToQuestionController(createdQuestion);
+      const answeredQuestionController = questionToQuestionController(answeredQuestion);
 
-      res.status(statusCodes.success.created).send({ result: formattedQuestion });
+      res.status(statusCodes.success.created).send({ result: answeredQuestionController });
     } catch (e) {
       next(e);
     }
@@ -135,13 +137,13 @@ class QuestionController {
 
       const payload = updateAnswerController.parse(req.body);
 
-      const createdQuestion = await this.questionUsecase.updateAnswerByQuestionId(id, {
+      const answeredQuestion = await this.questionUsecase.updateAnswerByQuestionId(id, {
         answer: payload.answer,
       });
 
-      const formattedQuestion = questionToQuestionController(createdQuestion);
+      const answeredQuestionController = questionToQuestionController(answeredQuestion);
 
-      res.status(statusCodes.success.ok).send({ result: formattedQuestion });
+      res.status(statusCodes.success.ok).send({ result: answeredQuestionController });
     } catch (e) {
       next(e);
     }

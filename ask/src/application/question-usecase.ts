@@ -21,8 +21,8 @@ import {
 import QuestionUsecase from '../domain/usecases/question-usecase';
 import formatQuestion from '../domain/entities/question/question-mappers';
 import validateAnswerUpdate from '../domain/entities/answer/validations/update-answer-validations';
-import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
 import validateAnswerCreation from '../domain/entities/answer/validations/create-answer-validations';
+import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   getAnsweredQuestionById = async (id: string): Promise<Question> => {

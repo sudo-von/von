@@ -12,8 +12,8 @@
     "rootDirs": ["src", "tests"],
     "forceConsistentCasingInFileNames": true,
     "typeRoots": [
-      "./src/infrastructure/controllers/types",
-      "./node_modules/@types"
+      "src/infrastructure/controllers/express/types",
+      "node_modules/@types"
     ]
   },
   "include": ["src"],

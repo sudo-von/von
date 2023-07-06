@@ -24,13 +24,13 @@ const configureQuestionRouter = (
     userRepository,
   );
 
-  router.get('/answered/:id', questionController.getAnsweredQuestionById);
-  router.post('/username/:username', questionController.createQuestionByUsername);
   router.get('/username/:username', authenticationHandler, questionController.getQuestionsByUsername);
-  router.get('/answered/:username', questionController.getAnsweredQuestionsByUsername);
-  router.get('/unanswered/:username', authenticationHandler, questionController.getUnansweredQuestionsByUsername);
-  router.post('/answer/:id', authenticationHandler, questionController.createAnswerByQuestionId);
-  router.patch('/answer/:id', authenticationHandler, questionController.updateAnswerByQuestionId);
+  router.get('/answered/:id', questionController.getAnsweredQuestionById);
+  router.get('/answered/username/:username', questionController.getAnsweredQuestionsByUsername);
+  router.get('/unanswered/username/:username', authenticationHandler, questionController.getUnansweredQuestionsByUsername);
+  router.post('/username/:username', questionController.createQuestionByUsername);
+  router.post('/:id/answer', authenticationHandler, questionController.createAnswerByQuestionId);
+  router.patch('/:id/answer', authenticationHandler, questionController.updateAnswerByQuestionId);
 
   return router;
 };
