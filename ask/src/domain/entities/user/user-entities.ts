@@ -6,7 +6,7 @@ export type User = Readonly<{
   id: string;
   userId: string;
   username: string;
-  metrics: Metrics,
+  metrics: Metrics;
 }>;
 
 export type UserPayload = Omit<User, 'id'>;

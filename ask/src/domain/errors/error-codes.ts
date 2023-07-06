@@ -4,8 +4,12 @@ export type DomainError = {
 };
 
 export type DomainErrorCode =
+| AnswerErrorCode
 | QuestionErrorCode
 | UserErrorCode;
+
+export type AnswerErrorCode =
+| 'ANSWER_NOT_FOUND';
 
 export type QuestionErrorCode =
 | 'INVALID_QUESTION_LENGTH'
