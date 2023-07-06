@@ -14,7 +14,7 @@ class MongoUserRepository implements IUserRepository {
   };
 
   getUserById = async (id: string): Promise<User | null> => {
-    const userModel = await UserModel.findById(id);
+    const userModel = await UserModel.findOne({ userId: id });
     if (!userModel) return null;
     const user = userModelToUser(userModel);
     return user;
