@@ -3,4 +3,6 @@ export type Answer = Readonly<{
   answeredAt: Date;
 }>;
 
+export type CreateAnswer = Pick<Answer, 'answer'>;
+
 export type UpdateAnswer = Pick<Answer, 'answer'>;

@@ -8,6 +8,16 @@ export const InvalidQuestionLengthError = createDomainErrorFactory({
   message: `Please provide a question that consists of ${questionRules.question.MIN_LENGTH} to ${questionRules.question.MAX_LENGTH} characters.`,
 });
 
+export const QuestionAlreadyAnsweredError = createDomainErrorFactory({
+  code: 'QUESTION_ALREADY_ANSWERED',
+  message: 'Question already answered.',
+});
+
+export const QuestionNotAnsweredError = createDomainErrorFactory({
+  code: 'QUESTION_NOT_ANSWERED',
+  message: 'Question has not been answered yet.',
+});
+
 export const QuestionNotFoundError = createDomainErrorFactory({
   code: 'QUESTION_NOT_FOUND',
   message: 'Question not found.',

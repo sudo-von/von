@@ -13,11 +13,6 @@ import validateUserUpdate from '../domain/entities/user/validations/update-user-
 import validateUserCreation from '../domain/entities/user/validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  getUserByUsername = async (username: string): Promise<User> => {
-    const increasedViewsUser = await this.increaseTotalViewsByUsername(username);
-    return increasedViewsUser;
-  };
-
   createUser = async (payload: CreateUser): Promise<User> => {
     validateUserCreation(payload);
 
@@ -37,24 +32,11 @@ class UserUsecaseApplication extends UserUsecase {
     return createdUser;
   };
 
-  updateUserByUsername = async (username: string, payload: UpdateUser): Promise<User> => {
-    validateUserUpdate(payload);
-
+  getUserByUsername = async (username: string): Promise<User> => {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const updatedUser = await this.userRepository.updateUserByUsername(username, {
-      userId: payload.userId,
-      username: payload.username,
-      metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions,
-      },
-    });
-    if (!updatedUser) throw UserUpdateFailedError;
-
-    return updatedUser;
+    return userFoundByUsername;
   };
 
   increaseTotalViewsByUsername = async (username: string): Promise<User> => {
@@ -109,6 +91,26 @@ class UserUsecaseApplication extends UserUsecase {
     if (!increasedQuestionsUser) throw UserUpdateFailedError;
 
     return increasedQuestionsUser;
+  };
+
+  updateUserByUsername = async (username: string, payload: UpdateUser): Promise<User> => {
+    validateUserUpdate(payload);
+
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+      userId: payload.userId,
+      username: payload.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions,
+      },
+    });
+    if (!updatedUser) throw UserUpdateFailedError;
+
+    return updatedUser;
   };
 }
 

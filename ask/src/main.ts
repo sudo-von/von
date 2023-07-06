@@ -1,9 +1,12 @@
 import configureUsecases from './infrastructure/config/configure-usecases';
+import configureControllers from './infrastructure/config/configure-controllers';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
+import configureUserRouter from './infrastructure/controllers/express/user-controller/user-router';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
+import configureQuestionRouter from './infrastructure/controllers/express/question-controller/question-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -52,6 +55,28 @@ loggerService.info('📢 Logger service has been configured.');
       loggerService,
     );
     loggerService.info('📦 Message brokers have been configured.');
+
+    /* 🔌 Routers. */
+    const userRouter = configureUserRouter(
+      userUsecase,
+    );
+    loggerService.info('🔌 User router has been configured.');
+    const questionRouter = configureQuestionRouter(
+      userUsecase,
+      tokenService,
+      loggerService,
+      userRepository,
+      questionUsecase,
+    );
+    loggerService.info('🔌 Question router has been configured.');
+
+    /* 🚀 Controllers. */
+    await configureControllers(
+      SERVER_PORT,
+      userRouter,
+      questionRouter,
+      loggerService,
+    );
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

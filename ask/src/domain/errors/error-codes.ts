@@ -14,6 +14,8 @@ export type AnswerErrorCode =
 
 export type QuestionErrorCode =
 | 'INVALID_QUESTION_LENGTH'
+| 'QUESTION_ALREADY_ANSWERED'
+| 'QUESTION_NOT_ANSWERED'
 | 'QUESTION_NOT_FOUND'
 | 'QUESTION_UPDATE_FAILED';
 

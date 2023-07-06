@@ -5,9 +5,12 @@ import {
   AnswerNotFoundError,
 } from '../domain/entities/answer/answer-errors';
 import {
+  CreateAnswer,
   UpdateAnswer,
 } from '../domain/entities/answer/answer-entities';
 import {
+  QuestionAlreadyAnsweredError,
+  QuestionNotAnsweredError,
   QuestionNotFoundError,
   QuestionUpdateFailedError,
 } from '../domain/entities/question/question-errors';
@@ -19,6 +22,7 @@ import QuestionUsecase from '../domain/usecases/question-usecase';
 import formatQuestion from '../domain/entities/question/question-mappers';
 import validateAnswerUpdate from '../domain/entities/answer/validations/update-answer-validations';
 import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
+import validateAnswerCreation from '../domain/entities/answer/validations/create-answer-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   getAnsweredQuestionById = async (id: string): Promise<Question> => {
@@ -95,11 +99,38 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     return formattedQuestions;
   };
 
+  createAnswerByQuestionId = async (id: string, payload: CreateAnswer): Promise<Question> => {
+    validateAnswerCreation(payload);
+
+    const questionFoundById = await this.questionRepository.getQuestionById(id, { status: 'both' });
+    if (!questionFoundById) throw QuestionNotFoundError;
+
+    if (questionFoundById.answer) throw QuestionAlreadyAnsweredError;
+
+    const updatedQuestion = await this.questionRepository.updateQuestionById(id, {
+      views: questionFoundById.views,
+      askedAt: questionFoundById.askedAt,
+      askedBy: questionFoundById.askedBy,
+      username: questionFoundById.username,
+      question: questionFoundById.question,
+      answer: {
+        answer: payload.answer,
+        answeredAt: new Date(),
+      },
+    });
+    if (!updatedQuestion) throw QuestionUpdateFailedError;
+
+    const formattedQuestion = formatQuestion(updatedQuestion);
+    return formattedQuestion;
+  };
+
   updateAnswerByQuestionId = async (id: string, payload: UpdateAnswer): Promise<Question> => {
     validateAnswerUpdate(payload);
 
     const questionFoundById = await this.questionRepository.getQuestionById(id, { status: 'both' });
     if (!questionFoundById) throw QuestionNotFoundError;
+
+    if (!questionFoundById.answer) throw QuestionNotAnsweredError;
 
     const updatedQuestion = await this.questionRepository.updateQuestionById(id, {
       views: questionFoundById.views,

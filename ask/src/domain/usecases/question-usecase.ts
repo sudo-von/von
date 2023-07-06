@@ -1,4 +1,5 @@
 import {
+  CreateAnswer,
   UpdateAnswer,
 } from '../entities/answer/answer-entities';
 import {
@@ -22,6 +23,8 @@ abstract class QuestionUsecase {
   abstract getAnsweredQuestionsByUsername: (username: string) => Promise<Question[]>;
 
   abstract getUnansweredQuestionsByUsername: (username: string) => Promise<Question[]>;
+
+  abstract createAnswerByQuestionId: (id: string, payload: CreateAnswer) => Promise<Question>;
 
   abstract updateAnswerByQuestionId: (id: string, payload: UpdateAnswer) => Promise<Question>;
 }
