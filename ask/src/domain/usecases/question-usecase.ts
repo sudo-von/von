@@ -1,9 +1,11 @@
 import {
+  UpdateAnswer,
+} from '../entities/answer/answer-entities';
+import {
   CreateQuestion, Question,
 } from '../entities/question/question-entities';
 import IUserRepository from '../repositories/user-repository';
 import IQuestionRepository from '../repositories/question-repository';
-import { UpdateAnswer } from '../entities/answer/answer-entities';
 
 abstract class QuestionUsecase {
   constructor(

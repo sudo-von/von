@@ -3,7 +3,3 @@ export type Metrics = Readonly<{
   totalAnswers: number;
   totalQuestions: number;
 }>;
-
-export type CreateMetricts = Metrics;
-
-export type UpdateMetrics = Metrics;
