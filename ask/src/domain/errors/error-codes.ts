@@ -9,7 +9,8 @@ export type DomainErrorCode =
 | UserErrorCode;
 
 export type AnswerErrorCode =
-| 'ANSWER_NOT_FOUND';
+| 'ANSWER_NOT_FOUND'
+| 'INVALID_ANSWER_LENGTH';
 
 export type QuestionErrorCode =
 | 'INVALID_QUESTION_LENGTH'

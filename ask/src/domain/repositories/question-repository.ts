@@ -3,11 +3,13 @@ import {
   QuestionPayload,
 } from '../entities/question/question-entities';
 
+export type QuestionFilters = {
+  status: 'answered' | 'unanswered' | 'both';
+};
+
 interface IQuestionRepositoryReader {
-  getQuestionsByUsername: (username: string) => Promise<Question[]>;
-  getAnsweredQuestionById: (id: string) => Promise<Question | null>;
-  getAnsweredQuestionsByUsername: (username: string) => Promise<Question[]>;
-  getUnansweredQuestionsByUsername: (username: string) => Promise<Question[]>;
+  getQuestionById: (id: string, filters: QuestionFilters) => Promise<Question | null>;
+  getQuestionsByUsername: (username: string, filters: QuestionFilters) => Promise<Question[]>;
 }
 
 interface IQuestionRepositoryWriter {

@@ -1,43 +1,38 @@
 import QuestionModel from './mongo-question-model';
 import questionModelToQuestion from './mongo-question-mapper';
+import IQuestionRepository, {
+  QuestionFilters,
+} from '../../../../domain/repositories/question-repository';
 import {
   Question,
   QuestionPayload,
 } from '../../../../domain/entities/question/question-entities';
-import IQuestionRepository from '../../../../domain/repositories/question-repository';
+import getQuestionRepositoryFilters from './mongo-question-utils';
 
 class MongoQuestionRepository implements IQuestionRepository {
-  getQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const questionModels = await QuestionModel.find({ username });
-    const questions = questionModels.map((model) => questionModelToQuestion(model));
-    return questions;
-  };
+  getQuestionById = async (
+    id: string,
+    params: QuestionFilters,
+  ): Promise<Question | null> => {
+    const filters = getQuestionRepositoryFilters(params);
 
-  getAnsweredQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const questionModels = await QuestionModel.find({
-      username,
-      answer: { $exists: true },
-    });
-    const questions = questionModels.map((model) => questionModelToQuestion(model));
-    return questions;
-  };
-
-  getUnansweredQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const questionModels = await QuestionModel.find({
-      username,
-      answer: { $exists: false },
-    });
-    const questions = questionModels.map((model) => questionModelToQuestion(model));
-    return questions;
-  };
-
-  getAnsweredQuestionById = async (id: string): Promise<Question | null> => {
-    const questionModel = await QuestionModel.findById(id, {
-      answer: { $exists: false },
-    });
+    const questionModel = await QuestionModel.findById(id, filters);
     if (!questionModel) return null;
+
     const question = questionModelToQuestion(questionModel);
     return question;
+  };
+
+  getQuestionsByUsername = async (
+    username: string,
+    params: QuestionFilters,
+  ): Promise<Question[]> => {
+    const filters = { ...getQuestionRepositoryFilters(params), username };
+
+    const questionModels = await QuestionModel.find(filters);
+
+    const questions = questionModels.map((model) => questionModelToQuestion(model));
+    return questions;
   };
 
   createQuestion = async (payload: QuestionPayload): Promise<Question> => {
@@ -48,7 +43,9 @@ class MongoQuestionRepository implements IQuestionRepository {
       username: payload.username,
       question: payload.question,
     });
+
     const storedQuestion = await questionModel.save();
+
     const question = questionModelToQuestion(storedQuestion);
     return question;
   };
@@ -67,6 +64,7 @@ class MongoQuestionRepository implements IQuestionRepository {
       new: true,
     });
     if (!updatedQuestion) return null;
+
     const question = questionModelToQuestion(updatedQuestion);
     return question;
   };

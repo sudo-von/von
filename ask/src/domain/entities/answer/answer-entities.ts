@@ -3,4 +3,4 @@ export type Answer = Readonly<{
   answeredAt: Date;
 }>;
 
-export type UpdateAnswer = Answer;
+export type UpdateAnswer = Pick<Answer, 'answer'>;

@@ -3,6 +3,7 @@ import {
 } from '../entities/question/question-entities';
 import IUserRepository from '../repositories/user-repository';
 import IQuestionRepository from '../repositories/question-repository';
+import { UpdateAnswer } from '../entities/answer/answer-entities';
 
 abstract class QuestionUsecase {
   constructor(
@@ -14,19 +15,13 @@ abstract class QuestionUsecase {
 
   abstract createQuestion: (payload: CreateQuestion) => Promise<Question>;
 
-  abstract getQuestionsByUsername: (
-    requestingUser: string,
-    requestedUser: string,
-  ) => Promise<Question[]>;
+  abstract getQuestionsByUsername: (username: string) => Promise<Question[]>;
 
-  abstract getAnsweredQuestionsByUsername: (
-    username: string
-  ) => Promise<Question[]>;
+  abstract getAnsweredQuestionsByUsername: (username: string) => Promise<Question[]>;
 
-  abstract getUnansweredQuestionsByUsername: (
-    requestingUser: string,
-    requestedUser: string
-  ) => Promise<Question[]>;
+  abstract getUnansweredQuestionsByUsername: (username: string) => Promise<Question[]>;
+
+  abstract updateAnswerByQuestionId: (id: string, payload: UpdateAnswer) => Promise<Question>;
 }
 
 export default QuestionUsecase;
