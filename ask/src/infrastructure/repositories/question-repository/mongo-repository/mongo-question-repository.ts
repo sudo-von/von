@@ -1,8 +1,8 @@
 import QuestionModel from './mongo-question-model';
-import questionModelToQuestion from './mongo-question-mapper';
 import IQuestionRepository, {
   QuestionFilters,
 } from '../../../../domain/repositories/question-repository';
+import questionModelToQuestion from './mongo-question-mapper';
 import {
   Question,
   QuestionPayload,
@@ -43,9 +43,7 @@ class MongoQuestionRepository implements IQuestionRepository {
       username: payload.username,
       question: payload.question,
     });
-
     const storedQuestion = await questionModel.save();
-
     const question = questionModelToQuestion(storedQuestion);
     return question;
   };
@@ -64,7 +62,6 @@ class MongoQuestionRepository implements IQuestionRepository {
       new: true,
     });
     if (!updatedQuestion) return null;
-
     const question = questionModelToQuestion(updatedQuestion);
     return question;
   };
