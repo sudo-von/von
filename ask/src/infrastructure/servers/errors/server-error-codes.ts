@@ -7,33 +7,33 @@ import {
   TokenServiceErrorCode,
 } from '../../services/errors/service-error-codes';
 
-export type ControllerError = {
-  code: ControllerErrorCode;
+export type ServerError = {
+  code: ServerErrorCode;
   message: string;
   statusCode: number;
 };
 
-export type ControllerErrorCode =
-| AnswerControllerErrorCode
-| QuestionControllerErrorCode
-| RequestControllerErrorCode
-| TokenServiceControllerErrorCode
-| UserControllerErrorCode;
+export type ServerErrorCode =
+| AnswerServerErrorCode
+| QuestionServerErrorCode
+| RequestServerErrorCode
+| TokenServiceServerErrorCode
+| UserServerErrorCode;
 
-export type AnswerControllerErrorCode =
+export type AnswerServerErrorCode =
 | AnswerErrorCode;
 
-export type QuestionControllerErrorCode =
+export type QuestionServerErrorCode =
 | QuestionErrorCode;
 
-export type RequestControllerErrorCode =
+export type RequestServerErrorCode =
 | 'AUTHORIZATION_SCHEME_NOT_SUPPORTED'
 | 'INTERNAL_SERVER'
 | 'MISSING_AUTHORIZATION_HEADER'
 | 'AUTHORIZATION_SCHEME_NOT_SUPPORTED';
 
-export type TokenServiceControllerErrorCode =
+export type TokenServiceServerErrorCode =
 | TokenServiceErrorCode;
 
-export type UserControllerErrorCode =
+export type UserServerErrorCode =
 | UserErrorCode;

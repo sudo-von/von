@@ -4,9 +4,9 @@ import configureRepositories from './infrastructure/config/configure-repositorie
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
-import configureUserRouter from './infrastructure/servers/express-server/user-controller/user-router';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
-import configureQuestionRouter from './infrastructure/servers/express-server/question-controller/question-router';
+import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
+import configureQuestionRouter from './infrastructure/servers/express-server/controllers/question-controller/question-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');

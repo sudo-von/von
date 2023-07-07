@@ -4,16 +4,16 @@ import {
   NextFunction,
 } from 'express';
 import {
-  MissingTokenControllerError,
-  MissingAuthorizationHeaderControllerError,
-  AuthorizationSchemeNotSupportedControllerError,
-} from '../../errors/request-controller-errors';
+  MissingTokenServerError,
+  MissingAuthorizationHeaderServerError,
+  AuthorizationSchemeNotSupportedServerError,
+} from '../../errors/request-server-errors';
 import {
   UserNotFoundError,
 } from '../../../../domain/entities/user/user-errors';
 import {
-  TokenServiceInvalidTokenControllerError,
-} from '../../errors/token-service-controller-errors';
+  TokenServiceInvalidTokenServerError,
+} from '../../errors/token-server-errors';
 import TokenService from '../../../services/token-service/token-service';
 import LoggerService from '../../../services/logger-service/logger-service';
 import IUserRepository from '../../../../domain/repositories/user-repository';
@@ -29,12 +29,12 @@ const authenticationMiddleware = (
 ) => {
   const { authorization } = req.headers;
 
-  if (!authorization) throw MissingAuthorizationHeaderControllerError;
+  if (!authorization) throw MissingAuthorizationHeaderServerError;
 
   const [scheme, token] = authorization.split(' ');
-  if (scheme.toLowerCase() !== 'bearer') throw AuthorizationSchemeNotSupportedControllerError;
+  if (scheme.toLowerCase() !== 'bearer') throw AuthorizationSchemeNotSupportedServerError;
 
-  if (!token) throw MissingTokenControllerError;
+  if (!token) throw MissingTokenServerError;
 
   try {
     const decodedToken = tokenService.decodeToken(token);
@@ -54,8 +54,8 @@ const authenticationMiddleware = (
 
     return next();
   } catch (e) {
-    loggerService.error(TokenServiceInvalidTokenControllerError.message, e as Error);
-    throw TokenServiceInvalidTokenControllerError;
+    loggerService.error(TokenServiceInvalidTokenServerError.message, e as Error);
+    throw TokenServiceInvalidTokenServerError;
   }
 };
 

@@ -1,11 +1,11 @@
 import express from 'express';
 import QuestionController from './question-controller';
-import UserUsecase from '../../../../domain/usecases/user-usecase';
-import TokenService from '../../../services/token-service/token-service';
-import QuestionUsecase from '../../../../domain/usecases/question-usecase';
-import LoggerService from '../../../services/logger-service/logger-service';
-import IUserRepository from '../../../../domain/repositories/user-repository';
-import authenticationMiddleware from '../middlewares/authentication-middleware';
+import UserUsecase from '../../../../../domain/usecases/user-usecase';
+import TokenService from '../../../../services/token-service/token-service';
+import QuestionUsecase from '../../../../../domain/usecases/question-usecase';
+import LoggerService from '../../../../services/logger-service/logger-service';
+import IUserRepository from '../../../../../domain/repositories/user-repository';
+import authenticationMiddleware from '../../middlewares/authentication-middleware';
 
 const configureQuestionRouter = (
   userUsecase: UserUsecase,
