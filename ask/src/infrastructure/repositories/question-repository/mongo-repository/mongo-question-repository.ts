@@ -14,9 +14,9 @@ class MongoQuestionRepository implements IQuestionRepository {
     id: string,
     params: QuestionFilters,
   ): Promise<Question | null> => {
-    const filters = getQuestionRepositoryFilters(params);
+    const filters = { ...getQuestionRepositoryFilters(params), _id: id };
 
-    const questionModel = await QuestionModel.findById(id, filters);
+    const questionModel = await QuestionModel.findOne(filters);
     if (!questionModel) return null;
 
     const question = questionModelToQuestion(questionModel);

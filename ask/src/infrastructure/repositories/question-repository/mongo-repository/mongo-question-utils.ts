@@ -9,7 +9,7 @@ import {
 const getQuestionRepositoryFilters = ({ status }: QuestionFilters): FilterQuery<Question> => {
   if (status === 'answered') return { answer: { $exists: true } };
   if (status === 'unanswered') return { answer: { $exists: false } };
-  return {};
+  return ({});
 };
 
 export default getQuestionRepositoryFilters;
