@@ -1,7 +1,7 @@
 import {
   createControllerErrorFactory,
 } from './controller-error-factory';
-import statusCode from '../status-codes';
+import statusCode from '../constants/status-codes';
 
 export const AuthorizationSchemeNotSupportedControllerError = createControllerErrorFactory({
   code: 'AUTHORIZATION_SCHEME_NOT_SUPPORTED',

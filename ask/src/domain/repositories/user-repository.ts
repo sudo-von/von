@@ -5,7 +5,7 @@ import {
 
 interface IUserRepositoryReader {
   getUsers: () => Promise<User[]>;
-  getUserById: (id: string) => Promise<User | null>;
+  getUserByUserId: (userId: string) => Promise<User | null>;
   getUserByUsername: (username: string) => Promise<User | null>;
 }
 

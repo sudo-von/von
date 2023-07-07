@@ -1,7 +1,7 @@
 import {
   createControllerErrorFactory,
 } from './controller-error-factory';
-import statusCode from '../status-codes';
+import statusCode from '../constants/status-codes';
 import {
   AnswerNotFoundError,
   InvalidAnswerLengthError,

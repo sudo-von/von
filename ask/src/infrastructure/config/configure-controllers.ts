@@ -3,8 +3,8 @@ import express, {
   Router,
 } from 'express';
 import LoggerService from '../services/logger-service/logger-service';
-import bodyMiddleware from '../controllers/express/middlewares/body-middleware';
-import errorMiddleware from '../controllers/express/middlewares/error-middleware';
+import bodyMiddleware from '../servers/express-server/middlewares/body-middleware';
+import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
 
 const configureControllers = async (
   SERVER_PORT: number,
@@ -12,24 +12,20 @@ const configureControllers = async (
   questionRouter: Router,
   loggerService: LoggerService,
 ) => {
-  try {
-    const app = express();
+  const app = express();
 
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-    app.use('/api/v1/ask/user', userRouter);
-    app.use('/api/v1/ask/question', questionRouter);
+  app.use('/api/v1/ask/user', userRouter);
+  app.use('/api/v1/ask/question', questionRouter);
 
-    app.use(bodyMiddleware);
-    app.use(errorMiddleware);
+  app.use(bodyMiddleware);
+  app.use(errorMiddleware);
 
-    app.listen(SERVER_PORT, () => {
-      loggerService.info(`🚀 Controllers have been configured on port ${SERVER_PORT}.`);
-    });
-  } catch (e) {
-    throw new Error(`An error occurred with the controllers: ${(e as Error).message}.`);
-  }
+  app.listen(SERVER_PORT, () => {
+    loggerService.info(`🚀 Controllers have been configured on port ${SERVER_PORT}.`);
+  });
 };
 
 export default configureControllers;

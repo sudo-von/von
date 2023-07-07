@@ -3,7 +3,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCodes from '../../status-codes';
+import statusCodes from '../../constants/status-codes';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
 import userToUserController from '../../dtos/user/user-controller-mappers';
 

@@ -6,7 +6,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCode from '../../status-codes';
+import statusCode from '../../constants/status-codes';
 
 const bodyMiddleware = (
   error: Error,

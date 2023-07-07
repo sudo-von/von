@@ -10,6 +10,7 @@ export type DomainErrorCode =
 
 export type AnswerErrorCode =
 | 'ANSWER_NOT_FOUND'
+| 'ANSWER_UPDATE_FAILED'
 | 'INVALID_ANSWER_LENGTH';
 
 export type QuestionErrorCode =

@@ -6,10 +6,10 @@ import {
   Question,
 } from '../../../../domain/entities/question/question-entities';
 
-const getQuestionRepositoryFilters = ({ status }: QuestionFilters): FilterQuery<Question> => {
+const createQuestionRepositoryQuery = ({ status }: QuestionFilters): FilterQuery<Question> => {
   if (status === 'answered') return { answer: { $exists: true } };
   if (status === 'unanswered') return { answer: { $exists: false } };
   return ({});
 };
 
-export default getQuestionRepositoryFilters;
+export default createQuestionRepositoryQuery;

@@ -7,30 +7,26 @@ import {
   Question,
   QuestionPayload,
 } from '../../../../domain/entities/question/question-entities';
-import getQuestionRepositoryFilters from './mongo-question-utils';
+import createQuestionRepositoryQuery from './mongo-question-utils';
 
 class MongoQuestionRepository implements IQuestionRepository {
   getQuestionById = async (
-    id: string,
-    params: QuestionFilters,
+    _id: string,
+    filters: QuestionFilters,
   ): Promise<Question | null> => {
-    const filters = { ...getQuestionRepositoryFilters(params), _id: id };
-
-    const questionModel = await QuestionModel.findOne(filters);
+    const query = { ...createQuestionRepositoryQuery(filters), _id };
+    const questionModel = await QuestionModel.findOne(query);
     if (!questionModel) return null;
-
     const question = questionModelToQuestion(questionModel);
     return question;
   };
 
   getQuestionsByUsername = async (
     username: string,
-    params: QuestionFilters,
+    filters: QuestionFilters,
   ): Promise<Question[]> => {
-    const filters = { ...getQuestionRepositoryFilters(params), username };
-
-    const questionModels = await QuestionModel.find(filters);
-
+    const query = { ...createQuestionRepositoryQuery(filters), username };
+    const questionModels = await QuestionModel.find(query);
     const questions = questionModels.map((model) => questionModelToQuestion(model));
     return questions;
   };
@@ -48,8 +44,8 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateQuestionById = async (id: string, payload: QuestionPayload): Promise<Question | null> => {
-    const updatedQuestion = await QuestionModel.findOneAndUpdate({ _id: id }, {
+  updateQuestionById = async (_id: string, payload: QuestionPayload): Promise<Question | null> => {
+    const updatedQuestion = await QuestionModel.findOneAndUpdate({ _id }, {
       $set: {
         views: payload.views,
         askedAt: payload.askedAt,
