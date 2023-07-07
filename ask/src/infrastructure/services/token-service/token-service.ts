@@ -9,7 +9,7 @@ abstract class TokenService {
     protected readonly loggerService: LoggerService,
   ) {}
 
-  abstract decodeToken: (token: string) => UserToken;
+  abstract decodeToken: (token: string) => Promise<UserToken>;
 }
 
 export default TokenService;

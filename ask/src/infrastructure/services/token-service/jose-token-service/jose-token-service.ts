@@ -1,4 +1,7 @@
-import jwt from 'jsonwebtoken';
+import {
+  errors,
+  jwtVerify,
+} from 'jose';
 import {
   UserToken,
 } from '../dtos/user-token-dtos';
@@ -8,14 +11,19 @@ import {
 } from '../token-service-errors';
 import TokenService from '../token-service';
 
-class JWTTokenService extends TokenService {
+class JoseTokenService extends TokenService {
   decodeToken = async (token: string): Promise<UserToken> => {
     try {
-      const payload = jwt.verify(token, this.SECRET_KEY) as UserToken;
-      return payload;
+      const secret = new TextEncoder().encode(this.SECRET_KEY);
+      console.log('🚀 ~ file: jose-token-service.ts:18 ~ JoseTokenService ~ decodeToken= ~ secret:', secret);
+
+      const { payload } = await jwtVerify(token, secret);
+      console.log('🚀 ~ file: jose-token-service.ts:20 ~ JoseTokenService ~ decodeToken= ~ payload:', payload);
+
+      return payload as UserToken;
     } catch (e) {
       const error = e as Error;
-      if (error.name === 'TokenExpiredError') {
+      if (error instanceof errors.JWTExpired) {
         this.loggerService.error(TokenServiceExpiredTokenError.message, error);
         throw TokenServiceExpiredTokenError;
       }
@@ -25,4 +33,4 @@ class JWTTokenService extends TokenService {
   };
 }
 
-export default JWTTokenService;
+export default JoseTokenService;

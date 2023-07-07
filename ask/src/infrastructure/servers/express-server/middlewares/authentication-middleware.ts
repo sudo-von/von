@@ -37,7 +37,7 @@ const authenticationMiddleware = (
   if (!token) throw MissingTokenServerError;
 
   try {
-    const decodedToken = tokenService.decodeToken(token);
+    const decodedToken = await tokenService.decodeToken(token);
 
     const updatedUser = await userRepository.getUserByUserId(decodedToken.id);
     if (!updatedUser) throw UserNotFoundError;
