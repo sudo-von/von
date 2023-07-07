@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/sudo-von/daily-ask/infrastructure/config"
@@ -13,5 +12,5 @@ func main() {
 		log.Panic(err)
 	}
 
-	fmt.Println(environmentVariables)
+	config.ConfigureMessageBrokers(environmentVariables.MessageBrokerUrl)
 }
