@@ -1,13 +1,15 @@
 {
-  "name": "von",
+  "name": "portfolio",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "portfolio designed, created and developed by von",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sudo-von/von.git"
   },
-  "author": "",
+  "keywords": [
+    "microservices, portfolio, clean-architecture, javascript, typescript, von"
+  ],
+  "author": "Jesús 'VoN' Rodríguez",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sudo-von/von/issues"
