@@ -52,6 +52,7 @@ loggerService.info('📢 Logger service has been configured.');
     await configureMessageBrokers(
       MESSAGE_BROKER_URL,
       userUsecase,
+      questionUsecase,
       loggerService,
     );
     loggerService.info('📦 Message brokers have been configured.');

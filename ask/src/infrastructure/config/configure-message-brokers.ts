@@ -1,30 +1,41 @@
 import UserUsecase from '../../domain/usecases/user-usecase';
+import QuestionUsecase from '../../domain/usecases/question-usecase';
 import LoggerService from '../services/logger-service/logger-service';
 import RabbitMQCreateUserConsumer from '../message-brokers/rabbitmq/consumers/rabbitmq-create-user-consumer';
 import RabbitMQUpdateUserConsumer from '../message-brokers/rabbitmq/consumers/rabbitmq-update-user-consumer';
+import RabbitMQCreateQuestionConsumer from '../message-brokers/rabbitmq/consumers/rabbitmq-create-question-consumer';
 
 const configureMessageBrokers = async (
   MESSAGE_BROKER_URL: string,
   userUsecase: UserUsecase,
+  questionUsecase: QuestionUsecase,
   loggerService: LoggerService,
 ) => {
-  const createUserProducer = new RabbitMQCreateUserConsumer(
+  const createUserConsumer = new RabbitMQCreateUserConsumer(
     MESSAGE_BROKER_URL,
     loggerService,
     userUsecase,
   );
 
-  const updateUserProducer = new RabbitMQUpdateUserConsumer(
+  const createQuestionConsumer = new RabbitMQCreateQuestionConsumer(
+    MESSAGE_BROKER_URL,
+    loggerService,
+    questionUsecase,
+  );
+
+  const updateUserConsumer = new RabbitMQUpdateUserConsumer(
     MESSAGE_BROKER_URL,
     loggerService,
     userUsecase,
   );
 
-  await createUserProducer.connect();
-  await updateUserProducer.connect();
+  await createUserConsumer.connect();
+  await updateUserConsumer.connect();
+  await createQuestionConsumer.connect();
 
-  await createUserProducer.consumeMessage('User:CreateUser');
-  await updateUserProducer.consumeMessage('User:UpdateUser');
+  await createUserConsumer.consumeMessage('User:CreateUser');
+  await updateUserConsumer.consumeMessage('User:UpdateUser');
+  await createQuestionConsumer.consumeMessage('Question:CreateQuestion');
 };
 
 export default configureMessageBrokers;

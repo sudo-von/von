@@ -1,6 +1,7 @@
 export type Queues =
-  | UserQueues;
+| UserQueues;
 
 export type UserQueues =
-  | 'User:CreateUser'
-  | 'User:UpdateUser';
+| 'User:CreateUser'
+| 'User:UpdateUser'
+| 'Question:CreateQuestion';
