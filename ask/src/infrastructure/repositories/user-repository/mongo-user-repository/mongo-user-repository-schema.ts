@@ -4,7 +4,7 @@ import {
 import {
   UserSchema,
 } from '../user-repository-schema';
-import metricsSchema from '../../metrics-repository/mongo-repository/mongo-repository-metrics-schema';
+import metricsSchema from '../../metrics-repository/mongo-metrics-repository/mongo-metrics-repository-schema';
 
 const userSchema = new Schema<UserSchema>({
   user_id: {

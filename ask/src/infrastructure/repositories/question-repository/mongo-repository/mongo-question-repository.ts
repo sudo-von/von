@@ -1,24 +1,24 @@
 import QuestionModel from './mongo-question-model';
 import IQuestionRepository from '../../../../domain/repositories/question/question-repository';
-import { QuestionFilters } from '../../../../domain/repositories/question/question-filters';
+import { QuestionRepositoryFilters } from '../../../../domain/repositories/question/question-filters';
 import {
   Question,
   QuestionPayload,
 } from '../../../../domain/entities/question/question-entities';
 import questionDocumentToQuestion from './mongo-question-mapper';
-import createQuestionDocumentQuery from './mongo-question-utils';
+import createQuestionRepositoryQuery from './mongo-question-repository-query';
 
 class MongoQuestionRepository implements IQuestionRepository {
-  getQuestion = async (filters: QuestionFilters): Promise<Question | null> => {
-    const query = createQuestionDocumentQuery(filters);
+  getQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
+    const query = createQuestionRepositoryQuery(filters);
     const questionDocument = await QuestionModel.findOne(query);
     if (!questionDocument) return null;
     const question = questionDocumentToQuestion(questionDocument);
     return question;
   };
 
-  getQuestions = async (filters: QuestionFilters): Promise<Question[]> => {
-    const query = createQuestionDocumentQuery(filters);
+  getQuestions = async (filters?: QuestionRepositoryFilters): Promise<Question[]> => {
+    const query = createQuestionRepositoryQuery(filters);
     const questionDocuments = await QuestionModel.find(query);
     const questions = questionDocuments.map((model) => questionDocumentToQuestion(model));
     return questions;
@@ -38,8 +38,12 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateQuestionById = async (_id: string, payload: QuestionPayload): Promise<Question | null> => {
-    const updatedQuestion = await QuestionModel.findOneAndUpdate({ _id }, {
+  updateQuestion = async (
+    payload: QuestionPayload,
+    filters?: QuestionRepositoryFilters,
+  ): Promise<Question | null> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const updatedQuestion = await QuestionModel.findOneAndUpdate(query, {
       $set: {
         views: payload.views,
         askedAt: payload.askedAt,
@@ -56,8 +60,9 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  deleteQuestionById = async (_id: string): Promise<Question | null> => {
-    const updatedQuestion = await QuestionModel.findOneAndUpdate({ _id }, {
+  deleteQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const updatedQuestion = await QuestionModel.findOneAndUpdate(query, {
       $set: {
         is_deleted: true,
       },

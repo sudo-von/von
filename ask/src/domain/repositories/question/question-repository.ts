@@ -1,5 +1,5 @@
 import {
-  QuestionFilters,
+  QuestionRepositoryFilters,
 } from './question-filters';
 import {
   Question,
@@ -7,14 +7,14 @@ import {
 } from '../../entities/question/question-entities';
 
 interface IQuestionRepositoryReader {
-  getQuestions: (filters?: QuestionFilters) => Promise<Question[]>;
-  getQuestion: (filters?: QuestionFilters) => Promise<Question | null>;
+  getQuestions: (filters?: QuestionRepositoryFilters) => Promise<Question[]>;
+  getQuestion: (filters?: QuestionRepositoryFilters) => Promise<Question | null>;
 }
 
 interface IQuestionRepositoryWriter {
   createQuestion: (payload: QuestionPayload) => Promise<Question>;
-  deleteQuestion: (filters?: QuestionFilters) => Promise<Question | null>;
-  updateQuestion: (payload: QuestionPayload, filters?: QuestionFilters) => Promise<Question | null>;
+  deleteQuestion: (filters?: QuestionRepositoryFilters) => Promise<Question | null>;
+  updateQuestion: (payload: QuestionPayload, filters?: QuestionRepositoryFilters) => Promise<Question | null>;
 }
 
 interface IQuestionRepository extends IQuestionRepositoryReader, IQuestionRepositoryWriter {}

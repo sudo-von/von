@@ -1,8 +1,11 @@
-export type QuestionFilterStatus = 'answered' | 'unanswered' | 'both';
+export type QuestionRepositoryFilterStatus =
+| 'answered'
+| 'unanswered'
+| 'both';
 
-export type QuestionFilters = Partial<{
+export type QuestionRepositoryFilters = Partial<{
   id: string;
   username: string;
   isDeleted: boolean;
-  status: QuestionFilterStatus;
+  status: QuestionRepositoryFilterStatus;
 }>;

@@ -4,7 +4,7 @@ import {
 import {
   QuestionSchema,
 } from '../question-repository-schema';
-import answerSchema from '../../answer-repository/mongo-repository/mongo-repository-answer-schema';
+import answerSchema from '../../answer-repository/mongo-answer-repository/mongo-answer-repository-schema';
 
 const questionSchema = new Schema<QuestionSchema>({
   views: {
