@@ -21,6 +21,42 @@ class QuestionController {
     private readonly questionUsecase: QuestionUsecase,
   ) {}
 
+  deleteQuestionById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id.toLowerCase();
+
+      const deletedQuestion = await this.questionUsecase.deleteQuestionById(id);
+
+      await this.userUsecase.decreaseTotalQuestionsByUsername(deletedQuestion.username);
+
+      if (deletedQuestion.answer) {
+        await this.userUsecase.decreaseTotalAnswersByUsername(deletedQuestion.username);
+      }
+
+      const formattedQuestion = questionToQuestionServer(deletedQuestion);
+
+      res.status(statusCodes.success.accepted).send({ result: formattedQuestion });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  deleteAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id.toLowerCase();
+
+      const deletedAnswer = await this.questionUsecase.deleteAnswerByQuestionId(id);
+
+      await this.userUsecase.decreaseTotalAnswersByUsername(deletedAnswer.username);
+
+      const formattedQuestion = questionToQuestionServer(deletedAnswer);
+
+      res.status(statusCodes.success.accepted).send({ result: formattedQuestion });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params.id.toLowerCase();
@@ -29,9 +65,9 @@ class QuestionController {
 
       await this.userUsecase.increaseTotalViewsByUsername(answeredQuestion.username);
 
-      const questionController = questionToQuestionServer(answeredQuestion);
+      const formattedQuestion = questionToQuestionServer(answeredQuestion);
 
-      res.status(statusCodes.success.ok).send({ result: questionController });
+      res.status(statusCodes.success.ok).send({ result: formattedQuestion });
     } catch (e) {
       next(e);
     }
@@ -51,9 +87,9 @@ class QuestionController {
 
       await this.userUsecase.increaseTotalQuestionsByUsername(username);
 
-      const questionController = questionToQuestionServer(createdQuestion);
+      const formattedQuestion = questionToQuestionServer(createdQuestion);
 
-      res.status(statusCodes.success.created).send({ result: questionController });
+      res.status(statusCodes.success.created).send({ result: formattedQuestion });
     } catch (e) {
       next(e);
     }
@@ -65,11 +101,11 @@ class QuestionController {
 
       const questions = await this.questionUsecase.getQuestionsByUsername(username);
 
-      const questionControllers = questions.map(
+      const formattedQuestions = questions.map(
         (question) => questionToQuestionServer(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: questionControllers });
+      res.status(statusCodes.success.ok).send({ result: formattedQuestions });
     } catch (e) {
       next(e);
     }
@@ -83,11 +119,11 @@ class QuestionController {
 
       await this.userUsecase.increaseTotalViewsByUsername(username);
 
-      const answeredQuestionControllers = answeredQuestions.map(
+      const formattedAnsweredQuestions = answeredQuestions.map(
         (question) => questionToQuestionServer(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: answeredQuestionControllers });
+      res.status(statusCodes.success.ok).send({ result: formattedAnsweredQuestions });
     } catch (e) {
       next(e);
     }
@@ -101,11 +137,11 @@ class QuestionController {
         username,
       );
 
-      const unansweredQuestionControllers = unansweredQuestions.map(
+      const formattedUnansweredQuestions = unansweredQuestions.map(
         (question) => questionToQuestionServer(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: unansweredQuestionControllers });
+      res.status(statusCodes.success.ok).send({ result: formattedUnansweredQuestions });
     } catch (e) {
       next(e);
     }
@@ -123,9 +159,9 @@ class QuestionController {
 
       await this.userUsecase.increaseTotalAnswersByUsername(answeredQuestion.username);
 
-      const answeredQuestionController = questionToQuestionServer(answeredQuestion);
+      const formattedAnsweredQuestion = questionToQuestionServer(answeredQuestion);
 
-      res.status(statusCodes.success.created).send({ result: answeredQuestionController });
+      res.status(statusCodes.success.created).send({ result: formattedAnsweredQuestion });
     } catch (e) {
       next(e);
     }
@@ -141,9 +177,9 @@ class QuestionController {
         answer: payload.answer,
       });
 
-      const answeredQuestionController = questionToQuestionServer(answeredQuestion);
+      const formattedAnsweredQuestion = questionToQuestionServer(answeredQuestion);
 
-      res.status(statusCodes.success.ok).send({ result: answeredQuestionController });
+      res.status(statusCodes.success.ok).send({ result: formattedAnsweredQuestion });
     } catch (e) {
       next(e);
     }

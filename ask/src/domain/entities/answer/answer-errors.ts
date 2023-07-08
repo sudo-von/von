@@ -5,12 +5,12 @@ import answerRules from './answer-rules';
 
 export const AnswerDeleteFailedError = createDomainErrorFactory({
   code: 'ANSWER_DELETE_FAILED',
-  message: 'The answer you attempted to delete could not be removed.',
+  message: 'The answer you attempted to delete could not be deleted.',
 });
 
 export const AnswerNotFoundError = createDomainErrorFactory({
   code: 'ANSWER_NOT_FOUND',
-  message: 'The requested answer could not be found..',
+  message: 'The requested answer could not be found.',
 });
 
 export const AnswerUpdateFailedError = createDomainErrorFactory({

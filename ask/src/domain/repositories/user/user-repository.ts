@@ -12,8 +12,13 @@ interface IUserRepositoryReader {
 }
 
 interface IUserRepositoryWriter {
-  createUser: (payload: UserPayload) => Promise<User>;
-  updateUser: (payload: UserPayload, filters?: UserRepositoryFilters) => Promise<User | null>;
+  createUser: (
+    payload: UserPayload
+  ) => Promise<User>;
+  updateUser: (
+    payload: UserPayload,
+    filters?: UserRepositoryFilters
+  ) => Promise<User | null>;
 }
 
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}

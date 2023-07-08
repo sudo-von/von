@@ -9,7 +9,6 @@ const questionToQuestionServer = (question: Question): QuestionServer => ({
   id: question.id,
   views: question.views,
   asked_at: question.askedAt,
-  asked_by: question.askedBy,
   username: question.username,
   question: question.question,
   answer: question.answer && {

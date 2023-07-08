@@ -27,32 +27,17 @@ import validateAnswerCreation from '../domain/entities/answer/validations/create
 import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
-  deleteQuestionById = async (id: string): Promise<void> => {
+  deleteQuestionById = async (id: string): Promise<Question> => {
     const question = await this.questionRepository.getQuestion({
       id,
       status: 'both',
     });
     if (!question) throw QuestionNotFoundError;
 
-    const deletedQuestion = await this.questionRepository.deleteQuestionById(id);
+    const deletedQuestion = await this.questionRepository.deleteQuestion({ id });
     if (!deletedQuestion) throw QuestionDeleteFailedError;
-  };
 
-  deleteAnswerByQuestionId = async (id: string): Promise<void> => {
-    const answeredQuestion = await this.questionRepository.getQuestion({
-      id,
-      status: 'answered',
-    });
-    if (!answeredQuestion) throw AnswerNotFoundError;
-
-    const deletedAnswer = await this.questionRepository.updateQuestionById(id, {
-      views: answeredQuestion.views,
-      askedAt: answeredQuestion.askedAt,
-      askedBy: answeredQuestion.askedBy,
-      username: answeredQuestion.username,
-      question: answeredQuestion.question,
-    });
-    if (!deletedAnswer) throw AnswerDeleteFailedError;
+    return deletedQuestion;
   };
 
   getAnsweredQuestionById = async (id: string): Promise<Question> => {
@@ -62,18 +47,31 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     });
     if (!answeredQuestion) throw AnswerNotFoundError;
 
-    const increasedViewsQuestion = await this.questionRepository.updateQuestionById(id, {
+    const increasedViewsQuestion = await this.questionRepository.updateQuestion({
       views: answeredQuestion.views + 1,
       askedAt: answeredQuestion.askedAt,
       askedBy: answeredQuestion.askedBy,
       username: answeredQuestion.username,
       question: answeredQuestion.question,
       answer: answeredQuestion.answer,
-    });
+    }, { id });
     if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
 
     const formattedQuestion = formatQuestion(increasedViewsQuestion, { answer: false });
     return formattedQuestion;
+  };
+
+  deleteAnswerByQuestionId = async (id: string): Promise<Question> => {
+    const answeredQuestion = await this.questionRepository.getQuestion({
+      id,
+      status: 'answered',
+    });
+    if (!answeredQuestion) throw AnswerNotFoundError;
+
+    const deletedAnswer = await this.questionRepository.deleteAnswer({ id });
+    if (!deletedAnswer) throw AnswerDeleteFailedError;
+
+    return deletedAnswer;
   };
 
   createQuestion = async (payload: CreateQuestion): Promise<Question> => {
@@ -103,9 +101,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       status: 'both',
     });
 
-    const formattedQuestions = questions.map((question) => formatQuestion(question, {
-      askedBy: false,
-    }));
+    const formattedQuestions = questions.map((question) => formatQuestion(question));
     return formattedQuestions;
   };
 
@@ -131,9 +127,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       status: 'unanswered',
     });
 
-    const formattedQuestions = unansweredQuestions.map((question) => formatQuestion(question, {
-      askedBy: false,
-    }));
+    const formattedQuestions = unansweredQuestions.map((question) => formatQuestion(question));
     return formattedQuestions;
   };
 
@@ -148,7 +142,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
 
     if (questionFoundById.answer) throw QuestionAlreadyAnsweredError;
 
-    const updatedQuestion = await this.questionRepository.updateQuestionById(id, {
+    const updatedQuestion = await this.questionRepository.updateQuestion({
       views: questionFoundById.views,
       askedAt: questionFoundById.askedAt,
       askedBy: questionFoundById.askedBy,
@@ -158,12 +152,10 @@ class QuestionUsecaseApplication extends QuestionUsecase {
         answer: payload.answer,
         answeredAt: new Date(),
       },
-    });
+    }, { id });
     if (!updatedQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, {
-      askedBy: false,
-    });
+    const formattedQuestion = formatQuestion(updatedQuestion);
     return formattedQuestion;
   };
 
@@ -178,7 +170,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
 
     if (!questionFoundById.answer) throw QuestionNotAnsweredError;
 
-    const updatedQuestion = await this.questionRepository.updateQuestionById(id, {
+    const updatedQuestion = await this.questionRepository.updateQuestion({
       views: questionFoundById.views,
       askedAt: questionFoundById.askedAt,
       askedBy: questionFoundById.askedBy,
@@ -188,12 +180,10 @@ class QuestionUsecaseApplication extends QuestionUsecase {
         answer: payload.answer,
         answeredAt: new Date(),
       },
-    });
+    }, { id });
     if (!updatedQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, {
-      askedBy: false,
-    });
+    const formattedQuestion = formatQuestion(updatedQuestion);
     return formattedQuestion;
   };
 }

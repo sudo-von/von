@@ -43,7 +43,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const increasedViewsUser = await this.userRepository.updateUserByUsername(username, {
+    const increasedViewsUser = await this.userRepository.updateUser({
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -51,7 +51,7 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: userFoundByUsername.metrics.totalAnswers,
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
-    });
+    }, { username });
     if (!increasedViewsUser) throw UserUpdateFailedError;
 
     return increasedViewsUser;
@@ -61,7 +61,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const decreasedAnswersUser = await this.userRepository.updateUserByUsername(username, {
+    const decreasedAnswersUser = await this.userRepository.updateUser({
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -69,7 +69,7 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: userFoundByUsername.metrics.totalAnswers - 1,
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
-    });
+    }, { username });
     if (!decreasedAnswersUser) throw UserUpdateFailedError;
 
     return decreasedAnswersUser;
@@ -79,7 +79,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const increasedAnswersUser = await this.userRepository.updateUserByUsername(username, {
+    const increasedAnswersUser = await this.userRepository.updateUser({
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -87,7 +87,7 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: userFoundByUsername.metrics.totalAnswers + 1,
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
-    });
+    }, { username });
     if (!increasedAnswersUser) throw UserUpdateFailedError;
 
     return increasedAnswersUser;
@@ -97,7 +97,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const decreasedQuestionsUser = await this.userRepository.updateUserByUsername(username, {
+    const decreasedQuestionsUser = await this.userRepository.updateUser({
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -105,7 +105,7 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: userFoundByUsername.metrics.totalAnswers,
         totalQuestions: userFoundByUsername.metrics.totalQuestions - 1,
       },
-    });
+    }, { username });
     if (!decreasedQuestionsUser) throw UserUpdateFailedError;
 
     return decreasedQuestionsUser;
@@ -115,7 +115,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const increasedQuestionsUser = await this.userRepository.updateUserByUsername(username, {
+    const increasedQuestionsUser = await this.userRepository.updateUser({
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
       metrics: {
@@ -123,7 +123,7 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: userFoundByUsername.metrics.totalAnswers,
         totalQuestions: userFoundByUsername.metrics.totalQuestions + 1,
       },
-    });
+    }, { username });
     if (!increasedQuestionsUser) throw UserUpdateFailedError;
 
     return increasedQuestionsUser;
@@ -135,7 +135,7 @@ class UserUsecaseApplication extends UserUsecase {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const updatedUser = await this.userRepository.updateUserByUsername(username, {
+    const updatedUser = await this.userRepository.updateUser({
       userId: payload.userId,
       username: payload.username,
       metrics: {
@@ -143,7 +143,7 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: userFoundByUsername.metrics.totalAnswers,
         totalQuestions: userFoundByUsername.metrics.totalQuestions,
       },
-    });
+    }, { username });
     if (!updatedUser) throw UserUpdateFailedError;
 
     return updatedUser;

@@ -12,9 +12,19 @@ interface IQuestionRepositoryReader {
 }
 
 interface IQuestionRepositoryWriter {
-  createQuestion: (payload: QuestionPayload) => Promise<Question>;
-  deleteQuestion: (filters?: QuestionRepositoryFilters) => Promise<Question | null>;
-  updateQuestion: (payload: QuestionPayload, filters?: QuestionRepositoryFilters) => Promise<Question | null>;
+  createQuestion: (
+    payload: QuestionPayload
+  ) => Promise<Question>;
+  deleteQuestion: (
+    filters?: QuestionRepositoryFilters
+  ) => Promise<Question | null>;
+  deleteAnswer: (
+    filters?: QuestionRepositoryFilters
+  ) => Promise<Question | null>;
+  updateQuestion: (
+    payload: QuestionPayload,
+    filters?: QuestionRepositoryFilters
+  ) => Promise<Question | null>;
 }
 
 interface IQuestionRepository extends IQuestionRepositoryReader, IQuestionRepositoryWriter {}

@@ -1,26 +1,24 @@
 import {
   Question,
 } from './question-entities';
-import formatAnswer from '../answer/answer-utils';
+import formatAnswer from '../answer/answer-formatters';
 
-type Format = {
-  askedBy?: boolean;
-  answer?: boolean;
-};
+type QuestionFormat = Partial<{
+  answer: boolean;
+}>;
 
-const formatQuestion = (question: Question, format: Format = {
+const formatQuestion = (question: Question, format: QuestionFormat = {
   answer: true,
-  askedBy: true,
 }): Question => ({
   id: question.id,
   views: question.views,
   askedAt: question.askedAt,
-  question: question.question,
+  askedBy: question.askedBy,
   username: question.username,
-  askedBy: format.askedBy ? 'anonymous' : question.askedBy,
+  question: question.question,
   answer: question.answer && {
-    answer: format.answer ? formatAnswer(question.answer.answer) : question.answer.answer,
     answeredAt: question.answer.answeredAt,
+    answer: format.answer ? formatAnswer(question.answer.answer) : question.answer.answer,
   },
 });
 

@@ -4,8 +4,8 @@ import UserUsecase from '../../../../../domain/usecases/user-usecase';
 import TokenService from '../../../../services/token-service/token-service';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase';
 import LoggerService from '../../../../services/logger-service/logger-service';
-import IUserRepository from '../../../../../domain/repositories/user/user-repository';
 import authenticationMiddleware from '../../middlewares/authentication-middleware';
+import IUserRepository from '../../../../../domain/repositories/user/user-repository';
 
 const configureQuestionRouter = (
   userUsecase: UserUsecase,
@@ -31,6 +31,8 @@ const configureQuestionRouter = (
   router.post('/username/:username', questionController.createQuestionByUsername);
   router.post('/:id/answer', authenticationHandler, questionController.createAnswerByQuestionId);
   router.patch('/:id/answer', authenticationHandler, questionController.updateAnswerByQuestionId);
+  router.delete('/:id/answer', authenticationHandler, questionController.deleteAnswerByQuestionId);
+  router.delete('/:id', authenticationHandler, questionController.deleteQuestionById);
 
   return router;
 };

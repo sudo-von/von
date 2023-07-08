@@ -1,12 +1,14 @@
 import QuestionModel from './mongo-question-model';
-import IQuestionRepository from '../../../../domain/repositories/question/question-repository';
-import { QuestionRepositoryFilters } from '../../../../domain/repositories/question/question-filters';
 import {
   Question,
   QuestionPayload,
 } from '../../../../domain/entities/question/question-entities';
 import questionDocumentToQuestion from './mongo-question-mapper';
+import {
+  QuestionRepositoryFilters,
+} from '../../../../domain/repositories/question/question-filters';
 import createQuestionRepositoryQuery from './mongo-question-repository-query';
+import IQuestionRepository from '../../../../domain/repositories/question/question-repository';
 
 class MongoQuestionRepository implements IQuestionRepository {
   getQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
@@ -62,15 +64,29 @@ class MongoQuestionRepository implements IQuestionRepository {
 
   deleteQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
     const query = createQuestionRepositoryQuery(filters);
-    const updatedQuestion = await QuestionModel.findOneAndUpdate(query, {
+    const deletedQuestion = await QuestionModel.findOneAndUpdate(query, {
       $set: {
         is_deleted: true,
       },
     }, {
       new: true,
     });
-    if (!updatedQuestion) return null;
-    const question = questionDocumentToQuestion(updatedQuestion);
+    if (!deletedQuestion) return null;
+    const question = questionDocumentToQuestion(deletedQuestion);
+    return question;
+  };
+
+  deleteAnswer = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const deletedAnswer = await QuestionModel.findOneAndUpdate(query, {
+      $unset: {
+        answer: undefined,
+      },
+    }, {
+      new: true,
+    });
+    if (!deletedAnswer) return null;
+    const question = questionDocumentToQuestion(deletedAnswer);
     return question;
   };
 }

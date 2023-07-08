@@ -22,7 +22,7 @@ export const MissingAuthorizationHeaderServerError = createServerErrorFactory({
 });
 
 export const MissingTokenServerError = createServerErrorFactory({
-  code: 'AUTHORIZATION_SCHEME_NOT_SUPPORTED',
+  code: 'MISSING_TOKEN',
   message: 'Missing token.',
   statusCode: statusCode.clientSide.unauthorized,
 });

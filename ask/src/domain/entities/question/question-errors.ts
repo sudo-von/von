@@ -10,25 +10,25 @@ export const InvalidQuestionLengthError = createDomainErrorFactory({
 
 export const QuestionAlreadyAnsweredError = createDomainErrorFactory({
   code: 'QUESTION_ALREADY_ANSWERED',
-  message: 'Question already answered.',
+  message: 'The question has already been answered.',
 });
 
 export const QuestionDeleteFailedError = createDomainErrorFactory({
   code: 'QUESTION_DELETE_FAILED',
-  message: 'Question delete failed.',
+  message: 'The question you attempted to delete could not be deleted.',
 });
 
 export const QuestionNotAnsweredError = createDomainErrorFactory({
   code: 'QUESTION_NOT_ANSWERED',
-  message: 'Question has not been answered yet.',
+  message: 'The question has not been answered yet.',
 });
 
 export const QuestionNotFoundError = createDomainErrorFactory({
   code: 'QUESTION_NOT_FOUND',
-  message: 'Question not found.',
+  message: 'The requested question could not be found.',
 });
 
 export const QuestionUpdateFailedError = createDomainErrorFactory({
   code: 'QUESTION_UPDATE_FAILED',
-  message: 'Question update failed.',
+  message: 'The question you attempted to update could not be updated.',
 });

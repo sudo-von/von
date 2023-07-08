@@ -16,9 +16,9 @@ class UserController {
 
       const userFoundByUsername = await this.userUsecase.getUserByUsername(username);
 
-      const userController = userToUserServer(userFoundByUsername);
+      const userServer = userToUserServer(userFoundByUsername);
 
-      return res.status(statusCodes.success.ok).send({ result: userController });
+      return res.status(statusCodes.success.ok).send({ result: userServer });
     } catch (e) {
       return next(e);
     }

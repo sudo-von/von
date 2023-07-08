@@ -11,6 +11,10 @@ import {
   InvalidUsernameLengthServerError,
 } from '../../errors/user-server-errors';
 import {
+  TokenServiceExpiredTokenServerError,
+  TokenServiceInvalidTokenServerError,
+} from '../../errors/token-server-errors';
+import {
   ServerErrorFactory,
 } from '../../errors/server-error-factory';
 import {
@@ -39,10 +43,6 @@ import {
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
-import {
-  TokenServiceExpiredTokenServerError,
-  TokenServiceInvalidTokenServerError,
-} from '../../errors/token-server-errors';
 import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';

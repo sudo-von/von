@@ -4,6 +4,9 @@ import {
   NextFunction,
 } from 'express';
 import {
+  TokenServiceInvalidTokenServerError,
+} from '../../errors/token-server-errors';
+import {
   MissingTokenServerError,
   MissingAuthorizationHeaderServerError,
   AuthorizationSchemeNotSupportedServerError,
@@ -11,9 +14,6 @@ import {
 import {
   UserNotFoundError,
 } from '../../../../domain/entities/user/user-errors';
-import {
-  TokenServiceInvalidTokenServerError,
-} from '../../errors/token-server-errors';
 import TokenService from '../../../services/token-service/token-service';
 import LoggerService from '../../../services/logger-service/logger-service';
 import IUserRepository from '../../../../domain/repositories/user/user-repository';
@@ -28,22 +28,20 @@ const authenticationMiddleware = (
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
-
   if (!authorization) throw MissingAuthorizationHeaderServerError;
 
   const [scheme, token] = authorization.split(' ');
   if (scheme.toLowerCase() !== 'bearer') throw AuthorizationSchemeNotSupportedServerError;
-
   if (!token) throw MissingTokenServerError;
 
   try {
     const decodedToken = await tokenService.decode(token);
 
-    const updatedUser = await userRepository.getUser({ id: decodedToken.id });
+    const updatedUser = await userRepository.getUser({ userId: decodedToken.id });
     if (!updatedUser) throw UserNotFoundError;
 
     req.user = {
-      id: updatedUser.id,
+      id: updatedUser.userId,
       name: decodedToken.name,
       email: decodedToken.email,
       username: updatedUser.username,

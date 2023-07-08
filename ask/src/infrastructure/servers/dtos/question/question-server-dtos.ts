@@ -9,7 +9,6 @@ export type QuestionServer = {
   id: string;
   views: number;
   asked_at: Date;
-  asked_by: string;
   username: string;
   question: string;
   answer?: AnswerServer;
