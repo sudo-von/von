@@ -3,7 +3,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCodes from '../../../constants/status-codes';
+import statusCode from 'http-status-codes';
 import {
   createAnswerServer,
   updateAnswerServer,
@@ -35,7 +35,7 @@ class QuestionController {
 
       const formattedQuestion = questionToQuestionServer(deletedQuestion);
 
-      res.status(statusCodes.success.accepted).send({ result: formattedQuestion });
+      res.status(statusCode.ACCEPTED).send({ result: formattedQuestion });
     } catch (e) {
       next(e);
     }
@@ -51,7 +51,7 @@ class QuestionController {
 
       const formattedQuestion = questionToQuestionServer(deletedAnswer);
 
-      res.status(statusCodes.success.accepted).send({ result: formattedQuestion });
+      res.status(statusCode.ACCEPTED).send({ result: formattedQuestion });
     } catch (e) {
       next(e);
     }
@@ -67,7 +67,7 @@ class QuestionController {
 
       const formattedQuestion = questionToQuestionServer(answeredQuestion);
 
-      res.status(statusCodes.success.ok).send({ result: formattedQuestion });
+      res.status(statusCode.OK).send({ result: formattedQuestion });
     } catch (e) {
       next(e);
     }
@@ -89,7 +89,7 @@ class QuestionController {
 
       const formattedQuestion = questionToQuestionServer(createdQuestion);
 
-      res.status(statusCodes.success.created).send({ result: formattedQuestion });
+      res.status(statusCode.CREATED).send({ result: formattedQuestion });
     } catch (e) {
       next(e);
     }
@@ -105,7 +105,7 @@ class QuestionController {
         (question) => questionToQuestionServer(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: formattedQuestions });
+      res.status(statusCode.OK).send({ result: formattedQuestions });
     } catch (e) {
       next(e);
     }
@@ -123,7 +123,7 @@ class QuestionController {
         (question) => questionToQuestionServer(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: formattedAnsweredQuestions });
+      res.status(statusCode.OK).send({ result: formattedAnsweredQuestions });
     } catch (e) {
       next(e);
     }
@@ -141,7 +141,7 @@ class QuestionController {
         (question) => questionToQuestionServer(question),
       );
 
-      res.status(statusCodes.success.ok).send({ result: formattedUnansweredQuestions });
+      res.status(statusCode.OK).send({ result: formattedUnansweredQuestions });
     } catch (e) {
       next(e);
     }
@@ -161,7 +161,7 @@ class QuestionController {
 
       const formattedAnsweredQuestion = questionToQuestionServer(answeredQuestion);
 
-      res.status(statusCodes.success.created).send({ result: formattedAnsweredQuestion });
+      res.status(statusCode.CREATED).send({ result: formattedAnsweredQuestion });
     } catch (e) {
       next(e);
     }
@@ -179,7 +179,7 @@ class QuestionController {
 
       const formattedAnsweredQuestion = questionToQuestionServer(answeredQuestion);
 
-      res.status(statusCodes.success.ok).send({ result: formattedAnsweredQuestion });
+      res.status(statusCode.OK).send({ result: formattedAnsweredQuestion });
     } catch (e) {
       next(e);
     }

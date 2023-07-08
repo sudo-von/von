@@ -6,7 +6,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCode from '../../constants/status-codes';
+import statusCode from 'http-status-codes';
 
 const bodyMiddleware = (
   error: Error,
@@ -16,7 +16,7 @@ const bodyMiddleware = (
 ) => {
   if (error instanceof ZodError) {
     const errors = error.errors.map((e) => e.message);
-    return res.status(statusCode.clientSide.badRequest).json({ errors });
+    return res.status(statusCode.BAD_REQUEST).json({ errors });
   }
   return next(error);
 };

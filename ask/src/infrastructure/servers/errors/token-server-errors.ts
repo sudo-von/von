@@ -1,7 +1,7 @@
+import statusCode from 'http-status-codes';
 import {
   createServerErrorFactory,
 } from './server-error-factory';
-import statusCode from '../constants/status-codes';
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
@@ -10,11 +10,11 @@ import {
 export const TokenServiceExpiredTokenServerError = createServerErrorFactory({
   code: 'TOKEN_SERVICE_EXPIRED_TOKEN',
   message: TokenServiceExpiredTokenError.message,
-  statusCode: statusCode.clientSide.unauthorized,
+  statusCode: statusCode.UNAUTHORIZED,
 });
 
 export const TokenServiceInvalidTokenServerError = createServerErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
   message: TokenServiceInvalidTokenError.message,
-  statusCode: statusCode.clientSide.forbidden,
+  statusCode: statusCode.FORBIDDEN,
 });

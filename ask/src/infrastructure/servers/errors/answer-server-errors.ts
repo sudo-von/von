@@ -1,7 +1,7 @@
+import statusCode from 'http-status-codes';
 import {
   createServerErrorFactory,
 } from './server-error-factory';
-import statusCode from '../constants/status-codes';
 import {
   AnswerDeleteFailedError,
   AnswerNotFoundError,
@@ -11,23 +11,23 @@ import {
 export const AnswerNotFoundServerError = createServerErrorFactory({
   code: 'ANSWER_NOT_FOUND',
   message: AnswerNotFoundError.message,
-  statusCode: statusCode.clientSide.notFound,
+  statusCode: statusCode.NOT_FOUND,
 });
 
 export const AnswerDeleteFailedServerError = createServerErrorFactory({
   code: 'ANSWER_DELETE_FAILED',
   message: AnswerDeleteFailedError.message,
-  statusCode: statusCode.serverSide.internalServer,
+  statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 
 export const AnswerUpdateFailedServerError = createServerErrorFactory({
   code: 'ANSWER_UPDATE_FAILED',
   message: AnswerNotFoundError.message,
-  statusCode: statusCode.serverSide.internalServer,
+  statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 
 export const InvalidAnswerLengthServerError = createServerErrorFactory({
   code: 'INVALID_ANSWER_LENGTH',
   message: InvalidAnswerLengthError.message,
-  statusCode: statusCode.clientSide.badRequest,
+  statusCode: statusCode.BAD_REQUEST,
 });

@@ -3,7 +3,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCodes from '../../../constants/status-codes';
+import statusCode from 'http-status-codes';
 import UserUsecase from '../../../../../domain/usecases/user-usecase';
 import userToUserServer from '../../../dtos/user/user-server-mappers';
 
@@ -18,7 +18,7 @@ class UserController {
 
       const userServer = userToUserServer(userFoundByUsername);
 
-      return res.status(statusCodes.success.ok).send({ result: userServer });
+      return res.status(statusCode.OK).send({ result: userServer });
     } catch (e) {
       return next(e);
     }
