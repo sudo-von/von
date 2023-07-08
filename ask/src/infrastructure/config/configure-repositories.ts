@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import MongoUserRepository from '../repositories/user-repository/mongo-repository/mongo-user-repository';
+import MongoUserRepository from '../repositories/user-repository/mongo-user-repository/mongo-user-repository';
 import MongoQuestionRepository from '../repositories/question-repository/mongo-repository/mongo-question-repository';
 
 const configureRepositories = async (

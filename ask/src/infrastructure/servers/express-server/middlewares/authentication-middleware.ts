@@ -39,7 +39,7 @@ const authenticationMiddleware = (
   try {
     const decodedToken = await tokenService.decode(token);
 
-    const updatedUser = await userRepository.getUser({ _id: decodedToken.id });
+    const updatedUser = await userRepository.getUser({ id: decodedToken.id });
     if (!updatedUser) throw UserNotFoundError;
 
     req.user = {

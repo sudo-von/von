@@ -1,25 +1,25 @@
-import UserModel from './mongo-user-model';
-import userDocumentToUser from './mongo-user-mapper';
+import UserModel from './mongo-user-repository-model';
+import userDocumentToUser from './mongo-user-repository-mapper';
 import {
   User,
   UserPayload,
 } from '../../../../domain/entities/user/user-entities';
 import {
-  UserFilters,
-} from '../../../../domain/repositories/user/user-filters';
-import createQuestionDocumentQuery from './mongo-user-filters';
+  UserRepositoryFilters,
+} from '../../../../domain/repositories/user/user-repository-filters';
+import createUserRepositoryQuery from './mongo-user-repository-query';
 import IUserRepository from '../../../../domain/repositories/user/user-repository';
 
 class MongoUserRepository implements IUserRepository {
-  getUsers = async (filters?: UserFilters): Promise<User[]> => {
-    const query = createQuestionDocumentQuery(filters);
+  getUsers = async (filters?: UserRepositoryFilters): Promise<User[]> => {
+    const query = createUserRepositoryQuery(filters);
     const userDocuments = await UserModel.find(query);
     const users = userDocuments.map((document) => userDocumentToUser(document));
     return users;
   };
 
-  getUser = async (filters?: UserFilters): Promise<User | null> => {
-    const query = createQuestionDocumentQuery(filters);
+  getUser = async (filters?: UserRepositoryFilters): Promise<User | null> => {
+    const query = createUserRepositoryQuery(filters);
     const userDocument = await UserModel.findOne(query);
     if (!userDocument) return null;
     const user = userDocumentToUser(userDocument);
@@ -41,11 +41,12 @@ class MongoUserRepository implements IUserRepository {
     return user;
   };
 
-  updateUserByUsername = async (
-    username: string,
+  updateUser = async (
     payload: UserPayload,
+    filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
-    const updatedUser = await UserModel.findOneAndUpdate({ username }, {
+    const query = createUserRepositoryQuery(filters);
+    const updatedUser = await UserModel.findOneAndUpdate(query, {
       $set: {
         user_id: payload.userId,
         username: payload.username,
