@@ -44,7 +44,11 @@ loggerService.info('📢 Logger service has been configured.');
     /* 📖 Usecases. */
     const {
       userUsecase,
+      answerUsecase,
+      metricUsecase,
       questionUsecase,
+      answeredQuestionUsecase,
+      unansweredQuestionUsecase,
     } = configureUsecases(userRepository, questionRepository);
     loggerService.info('📖 Usecases have been configured.');
 
