@@ -33,117 +33,27 @@ class UserUsecaseApplication extends UserUsecase {
   };
 
   getUserByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
+    const user = await this.userRepository.getUser({ username });
+    if (!user) throw UserNotFoundError;
 
-    return userFoundByUsername;
+    return user;
   };
 
-  increaseTotalViewsByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
-
-    const increasedViewsUser = await this.userRepository.updateUser({
-      userId: userFoundByUsername.userId,
-      username: userFoundByUsername.username,
-      metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews + 1,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions,
-      },
-    }, { username });
-    if (!increasedViewsUser) throw UserUpdateFailedError;
-
-    return increasedViewsUser;
-  };
-
-  decreaseTotalAnswersByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
-
-    const decreasedAnswersUser = await this.userRepository.updateUser({
-      userId: userFoundByUsername.userId,
-      username: userFoundByUsername.username,
-      metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers - 1,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions,
-      },
-    }, { username });
-    if (!decreasedAnswersUser) throw UserUpdateFailedError;
-
-    return decreasedAnswersUser;
-  };
-
-  increaseTotalAnswersByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
-
-    const increasedAnswersUser = await this.userRepository.updateUser({
-      userId: userFoundByUsername.userId,
-      username: userFoundByUsername.username,
-      metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers + 1,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions,
-      },
-    }, { username });
-    if (!increasedAnswersUser) throw UserUpdateFailedError;
-
-    return increasedAnswersUser;
-  };
-
-  decreaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
-
-    const decreasedQuestionsUser = await this.userRepository.updateUser({
-      userId: userFoundByUsername.userId,
-      username: userFoundByUsername.username,
-      metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions - 1,
-      },
-    }, { username });
-    if (!decreasedQuestionsUser) throw UserUpdateFailedError;
-
-    return decreasedQuestionsUser;
-  };
-
-  increaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
-
-    const increasedQuestionsUser = await this.userRepository.updateUser({
-      userId: userFoundByUsername.userId,
-      username: userFoundByUsername.username,
-      metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions + 1,
-      },
-    }, { username });
-    if (!increasedQuestionsUser) throw UserUpdateFailedError;
-
-    return increasedQuestionsUser;
-  };
-
-  updateUserByUsername = async (username: string, payload: UpdateUser): Promise<User> => {
+  updateUserByUserId = async (id: string, payload: UpdateUser): Promise<User> => {
     validateUserUpdate(payload);
 
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
+    const user = await this.userRepository.getUser({ id });
+    if (!user) throw UserNotFoundError;
 
     const updatedUser = await this.userRepository.updateUser({
-      userId: payload.userId,
+      userId: id,
       username: payload.username,
       metrics: {
-        totalViews: userFoundByUsername.metrics.totalViews,
-        totalAnswers: userFoundByUsername.metrics.totalAnswers,
-        totalQuestions: userFoundByUsername.metrics.totalQuestions,
+        totalViews: user.metrics.totalViews,
+        totalAnswers: user.metrics.totalAnswers,
+        totalQuestions: user.metrics.totalQuestions,
       },
-    }, { username });
+    }, { id });
     if (!updatedUser) throw UserUpdateFailedError;
 
     return updatedUser;

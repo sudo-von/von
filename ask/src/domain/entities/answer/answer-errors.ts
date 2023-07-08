@@ -3,6 +3,11 @@ import {
 } from '../../errors/error-factory';
 import answerRules from './answer-rules';
 
+export const AnswerCreationFailedError = createDomainErrorFactory({
+  code: 'ANSWER_CREATION_FAILED',
+  message: 'The answer you attempted to created could not be created.',
+});
+
 export const AnswerDeleteFailedError = createDomainErrorFactory({
   code: 'ANSWER_DELETE_FAILED',
   message: 'The answer you attempted to delete could not be deleted.',

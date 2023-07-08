@@ -13,4 +13,4 @@ export type UserPayload = Omit<User, 'id'>;
 
 export type CreateUser = Omit<UserPayload, 'metrics'>;
 
-export type UpdateUser = Omit<UserPayload, 'metrics'>;
+export type UpdateUser = Omit<UserPayload, 'userId' | 'metrics'>;
