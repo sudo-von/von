@@ -13,6 +13,11 @@ export const QuestionAlreadyAnsweredError = createDomainErrorFactory({
   message: 'Question already answered.',
 });
 
+export const QuestionDeleteFailedError = createDomainErrorFactory({
+  code: 'QUESTION_DELETE_FAILED',
+  message: 'Question delete failed.',
+});
+
 export const QuestionNotAnsweredError = createDomainErrorFactory({
   code: 'QUESTION_NOT_ANSWERED',
   message: 'Question has not been answered yet.',

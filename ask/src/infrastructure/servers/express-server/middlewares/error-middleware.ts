@@ -55,6 +55,7 @@ const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   INVALID_QUESTION_LENGTH: InvalidQuestionLengthServerError,
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
   QUESTION_ALREADY_ANSWERED: QuestionAlreadyAnsweredServerError,
+  QUESTION_DELETE_FAILED: QuestionUpdateFailedServerError,
   QUESTION_NOT_ANSWERED: QuestionNotAnsweredServerError,
   QUESTION_NOT_FOUND: QuestionNotFoundServerError,
   QUESTION_UPDATE_FAILED: QuestionUpdateFailedServerError,

@@ -4,10 +4,10 @@ import {
 
 export const TokenServiceExpiredTokenError = createServiceErrorFactory({
   code: 'TOKEN_SERVICE_EXPIRED_TOKEN',
-  message: 'Token expired. Please log in again.',
+  message: 'Your session has expired. For security reasons, please log in again to continue.',
 });
 
 export const TokenServiceInvalidTokenError = createServiceErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
-  message: 'The provided token is invalid. Please log in again.',
+  message: 'The provided token is invalid. Please ensure you have the correct token and log in again.',
 });

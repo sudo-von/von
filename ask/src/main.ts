@@ -1,5 +1,5 @@
 import configureUsecases from './infrastructure/config/configure-usecases';
-import configureControllers from './infrastructure/config/configure-controllers';
+import configureServers from './infrastructure/config/configure-servers';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
@@ -72,7 +72,7 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 Question router has been configured.');
 
     /* 🚀 Controllers. */
-    await configureControllers(
+    await configureServers(
       SERVER_PORT,
       userRouter,
       questionRouter,

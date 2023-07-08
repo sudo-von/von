@@ -14,7 +14,11 @@ abstract class UserUsecase {
 
   abstract increaseTotalViewsByUsername: (username: string) => Promise<User>;
 
+  abstract decreaseTotalAnswersByUsername: (username: string) => Promise<User>;
+
   abstract increaseTotalAnswersByUsername: (username: string) => Promise<User>;
+
+  abstract decreaseTotalQuestionsByUsername: (username: string) => Promise<User>;
 
   abstract increaseTotalQuestionsByUsername: (username: string) => Promise<User>;
 

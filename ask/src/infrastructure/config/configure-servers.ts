@@ -6,7 +6,7 @@ import LoggerService from '../services/logger-service/logger-service';
 import bodyMiddleware from '../servers/express-server/middlewares/body-middleware';
 import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
 
-const configureControllers = async (
+const configureServers = (
   SERVER_PORT: number,
   userRouter: Router,
   questionRouter: Router,
@@ -17,8 +17,8 @@ const configureControllers = async (
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use('/api/v1/ask/user', userRouter);
-  app.use('/api/v1/ask/question', questionRouter);
+  app.use('/api/v1/user', userRouter);
+  app.use('/api/v1/question', questionRouter);
 
   app.use(bodyMiddleware);
   app.use(errorMiddleware);
@@ -28,4 +28,4 @@ const configureControllers = async (
   });
 };
 
-export default configureControllers;
+export default configureServers;

@@ -2,18 +2,20 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  Answer,
-} from '../../../../domain/entities/answer/answer-entities';
+  AnswerRepository,
+} from '../dtos/answer-repository-dtos';
 
-const answerSchema = new Schema<Answer>({
+const answerSchema = new Schema<AnswerRepository>({
   answer: {
     type: String,
     required: false,
   },
-  answeredAt: {
+  answered_at: {
     type: Date,
     required: false,
   },
+}, {
+  id: false,
 });
 
 export default answerSchema;

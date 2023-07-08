@@ -2,20 +2,20 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  Question,
-} from '../../../../domain/entities/question/question-entities';
+  QuestionRepository,
+} from '../dtos/question-repository-dtos';
 import answerSchema from '../../answer-repository/mongo-repository/mongo-answer-schema';
 
-const questionSchema = new Schema<Question>({
+const questionSchema = new Schema<QuestionRepository>({
   views: {
     type: Number,
     required: true,
   },
-  askedAt: {
+  asked_at: {
     type: Date,
     required: true,
   },
-  askedBy: {
+  asked_by: {
     type: String,
     required: true,
   },
@@ -25,6 +25,10 @@ const questionSchema = new Schema<Question>({
   },
   question: {
     type: String,
+    required: true,
+  },
+  is_deleted: {
+    type: Boolean,
     required: true,
   },
   answer: {

@@ -8,6 +8,7 @@ import {
   QuestionUpdateFailedError,
   InvalidQuestionLengthError,
   QuestionAlreadyAnsweredError,
+  QuestionDeleteFailedError,
 } from '../../../domain/entities/question/question-errors';
 
 export const InvalidQuestionLengthServerError = createServerErrorFactory({
@@ -20,6 +21,12 @@ export const QuestionAlreadyAnsweredServerError = createServerErrorFactory({
   code: 'QUESTION_ALREADY_ANSWERED',
   message: QuestionAlreadyAnsweredError.message,
   statusCode: statusCode.clientSide.conflict,
+});
+
+export const QuestionDeleteFailedServerError = createServerErrorFactory({
+  code: 'QUESTION_DELETE_FAILED',
+  message: QuestionDeleteFailedError.message,
+  statusCode: statusCode.serverSide.internalServer,
 });
 
 export const QuestionNotAnsweredServerError = createServerErrorFactory({

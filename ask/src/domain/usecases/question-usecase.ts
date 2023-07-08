@@ -14,6 +14,10 @@ abstract class QuestionUsecase {
     protected readonly questionRepository: IQuestionRepository,
   ) {}
 
+  abstract deleteQuestionById: (id: string) => Promise<void>;
+
+  abstract deleteAnswerByQuestionId: (id: string) => Promise<void>;
+
   abstract getAnsweredQuestionById: (id: string) => Promise<Question>;
 
   abstract createQuestion: (payload: CreateQuestion) => Promise<Question>;

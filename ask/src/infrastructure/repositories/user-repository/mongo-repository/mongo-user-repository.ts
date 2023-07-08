@@ -14,7 +14,7 @@ class MongoUserRepository implements IUserRepository {
   };
 
   getUserByUserId = async (userId: string): Promise<User | null> => {
-    const userModel = await UserModel.findOne({ userId });
+    const userModel = await UserModel.findOne({ user_id: userId });
     if (!userModel) return null;
     const user = userModelToUser(userModel);
     return user;
@@ -29,12 +29,12 @@ class MongoUserRepository implements IUserRepository {
 
   createUser = async (payload: UserPayload): Promise<User> => {
     const userModel = new UserModel({
-      userId: payload.userId,
+      user_id: payload.userId,
       username: payload.username,
       metrics: {
-        totalViews: payload.metrics.totalViews,
-        totalAnswers: payload.metrics.totalAnswers,
-        totalQuestions: payload.metrics.totalQuestions,
+        total_views: payload.metrics.totalViews,
+        total_answers: payload.metrics.totalAnswers,
+        total_questions: payload.metrics.totalQuestions,
       },
     });
     const storedUser = await userModel.save();
@@ -48,12 +48,12 @@ class MongoUserRepository implements IUserRepository {
   ): Promise<User | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({ username }, {
       $set: {
-        userId: payload.userId,
+        user_id: payload.userId,
         username: payload.username,
         metrics: {
-          totalViews: payload.metrics.totalViews,
-          totalAnswers: payload.metrics.totalAnswers,
-          totalQuestions: payload.metrics.totalQuestions,
+          total_views: payload.metrics.totalViews,
+          total_answers: payload.metrics.totalAnswers,
+          total_questions: payload.metrics.totalQuestions,
         },
       },
     }, {

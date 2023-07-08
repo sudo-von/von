@@ -6,10 +6,24 @@ import {
   Question,
 } from '../../../../domain/entities/question/question-entities';
 
-const createQuestionRepositoryQuery = ({ status }: QuestionFilters): FilterQuery<Question> => {
-  if (status === 'answered') return { answer: { $exists: true } };
-  if (status === 'unanswered') return { answer: { $exists: false } };
-  return ({});
+const createQuestionRepositoryQuery = ({
+  id,
+  status,
+  username,
+  isDeleted = false,
+}: QuestionFilters): FilterQuery<Question> => {
+  let answer = {};
+  if (status === 'answered') answer = { $exists: true };
+  if (status === 'unanswered') answer = { $exists: false };
+
+  const query = {
+    _id: id,
+    answer,
+    username,
+    isDeleted,
+  };
+
+  return query;
 };
 
 export default createQuestionRepositoryQuery;

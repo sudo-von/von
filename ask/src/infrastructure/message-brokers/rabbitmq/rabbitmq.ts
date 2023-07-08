@@ -63,7 +63,6 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       });
     } catch (e) {
       this.loggerService.error(MessageBrokerFailedToConsumeMessageError.message, e as Error);
-      throw MessageBrokerFailedToConsumeMessageError;
     }
   };
 

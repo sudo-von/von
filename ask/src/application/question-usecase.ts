@@ -9,10 +9,11 @@ import {
   UpdateAnswer,
 } from '../domain/entities/answer/answer-entities';
 import {
-  QuestionAlreadyAnsweredError,
-  QuestionNotAnsweredError,
   QuestionNotFoundError,
+  QuestionNotAnsweredError,
+  QuestionDeleteFailedError,
   QuestionUpdateFailedError,
+  QuestionAlreadyAnsweredError,
 } from '../domain/entities/question/question-errors';
 import {
   Question,
@@ -25,8 +26,37 @@ import validateAnswerCreation from '../domain/entities/answer/validations/create
 import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
+  deleteQuestionById = async (id: string): Promise<void> => {
+    const question = await this.questionRepository.getQuestion({
+      id,
+      status: 'both',
+    });
+    if (!question) throw QuestionNotFoundError;
+
+    const deletedQuestion = await this.questionRepository.deleteQuestionById(id);
+    if (!deletedQuestion) throw QuestionDeleteFailedError;
+  };
+
+  deleteAnswerByQuestionId = async (id: string): Promise<void> => {
+    const answeredQuestion = await this.questionRepository.getQuestion({
+      id,
+      status: 'answered',
+    });
+    if (!answeredQuestion) throw AnswerNotFoundError;
+
+    const deletedQuestion = await this.questionRepository.updateQuestionById(id, {
+      views: answeredQuestion.views,
+      askedAt: answeredQuestion.askedAt,
+      askedBy: answeredQuestion.askedBy,
+      username: answeredQuestion.username,
+      question: answeredQuestion.question,
+    });
+    if (!deletedQuestion) throw QuestionDeleteFailedError;
+  };
+
   getAnsweredQuestionById = async (id: string): Promise<Question> => {
-    const answeredQuestion = await this.questionRepository.getQuestionById(id, {
+    const answeredQuestion = await this.questionRepository.getQuestion({
+      id,
       status: 'answered',
     });
     if (!answeredQuestion) throw AnswerNotFoundError;
@@ -41,7 +71,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     });
     if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(increasedViewsQuestion);
+    const formattedQuestion = formatQuestion(increasedViewsQuestion, { answer: false });
     return formattedQuestion;
   };
 
@@ -67,11 +97,14 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const questions = await this.questionRepository.getQuestionsByUsername(username, {
+    const questions = await this.questionRepository.getQuestions({
+      username,
       status: 'both',
     });
 
-    const formattedQuestions = questions.map((question) => formatQuestion(question));
+    const formattedQuestions = questions.map((question) => formatQuestion(question, {
+      askedBy: false,
+    }));
     return formattedQuestions;
   };
 
@@ -79,7 +112,8 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const answeredQuestions = await this.questionRepository.getQuestionsByUsername(username, {
+    const answeredQuestions = await this.questionRepository.getQuestions({
+      username,
       status: 'answered',
     });
 
@@ -91,18 +125,24 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
 
-    const unansweredQuestions = await this.questionRepository.getQuestionsByUsername(username, {
+    const unansweredQuestions = await this.questionRepository.getQuestions({
+      username,
       status: 'unanswered',
     });
 
-    const formattedQuestions = unansweredQuestions.map((question) => formatQuestion(question));
+    const formattedQuestions = unansweredQuestions.map((question) => formatQuestion(question, {
+      askedBy: false,
+    }));
     return formattedQuestions;
   };
 
   createAnswerByQuestionId = async (id: string, payload: CreateAnswer): Promise<Question> => {
     validateAnswerCreation(payload);
 
-    const questionFoundById = await this.questionRepository.getQuestionById(id, { status: 'both' });
+    const questionFoundById = await this.questionRepository.getQuestion({
+      id,
+      status: 'both',
+    });
     if (!questionFoundById) throw QuestionNotFoundError;
 
     if (questionFoundById.answer) throw QuestionAlreadyAnsweredError;
@@ -120,14 +160,19 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     });
     if (!updatedQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion);
+    const formattedQuestion = formatQuestion(updatedQuestion, {
+      askedBy: false,
+    });
     return formattedQuestion;
   };
 
   updateAnswerByQuestionId = async (id: string, payload: UpdateAnswer): Promise<Question> => {
     validateAnswerUpdate(payload);
 
-    const questionFoundById = await this.questionRepository.getQuestionById(id, { status: 'both' });
+    const questionFoundById = await this.questionRepository.getQuestion({
+      id,
+      status: 'both',
+    });
     if (!questionFoundById) throw QuestionNotFoundError;
 
     if (!questionFoundById.answer) throw QuestionNotAnsweredError;
@@ -145,7 +190,9 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     });
     if (!updatedQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion);
+    const formattedQuestion = formatQuestion(updatedQuestion, {
+      askedBy: false,
+    });
     return formattedQuestion;
   };
 }

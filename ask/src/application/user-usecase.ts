@@ -57,6 +57,24 @@ class UserUsecaseApplication extends UserUsecase {
     return increasedViewsUser;
   };
 
+  decreaseTotalAnswersByUsername = async (username: string): Promise<User> => {
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    const decreasedAnswersUser = await this.userRepository.updateUserByUsername(username, {
+      userId: userFoundByUsername.userId,
+      username: userFoundByUsername.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers - 1,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions,
+      },
+    });
+    if (!decreasedAnswersUser) throw UserUpdateFailedError;
+
+    return decreasedAnswersUser;
+  };
+
   increaseTotalAnswersByUsername = async (username: string): Promise<User> => {
     const userFoundByUsername = await this.userRepository.getUserByUsername(username);
     if (!userFoundByUsername) throw UserNotFoundError;
@@ -73,6 +91,24 @@ class UserUsecaseApplication extends UserUsecase {
     if (!increasedAnswersUser) throw UserUpdateFailedError;
 
     return increasedAnswersUser;
+  };
+
+  decreaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
+    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    if (!userFoundByUsername) throw UserNotFoundError;
+
+    const decreasedQuestionsUser = await this.userRepository.updateUserByUsername(username, {
+      userId: userFoundByUsername.userId,
+      username: userFoundByUsername.username,
+      metrics: {
+        totalViews: userFoundByUsername.metrics.totalViews,
+        totalAnswers: userFoundByUsername.metrics.totalAnswers,
+        totalQuestions: userFoundByUsername.metrics.totalQuestions - 1,
+      },
+    });
+    if (!decreasedQuestionsUser) throw UserUpdateFailedError;
+
+    return decreasedQuestionsUser;
   };
 
   increaseTotalQuestionsByUsername = async (username: string): Promise<User> => {

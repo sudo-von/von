@@ -1,15 +1,14 @@
 import {
   Question,
 } from './question-entities';
-import formatAskedBy from './question-utils';
 import formatAnswer from '../answer/answer-utils';
 
-type Options = {
-  askedBy: boolean;
-  answer: boolean;
+type Format = {
+  askedBy?: boolean;
+  answer?: boolean;
 };
 
-const formatQuestion = (question: Question, options: Options = {
+const formatQuestion = (question: Question, format: Format = {
   answer: true,
   askedBy: true,
 }): Question => ({
@@ -18,9 +17,9 @@ const formatQuestion = (question: Question, options: Options = {
   askedAt: question.askedAt,
   question: question.question,
   username: question.username,
-  askedBy: options.askedBy ? formatAskedBy(question.askedBy) : question.askedBy,
+  askedBy: format.askedBy ? 'anonymous' : question.askedBy,
   answer: question.answer && {
-    answer: options.answer ? formatAnswer(question.answer.answer) : question.answer.answer,
+    answer: format.answer ? formatAnswer(question.answer.answer) : question.answer.answer,
     answeredAt: question.answer.answeredAt,
   },
 });
