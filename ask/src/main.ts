@@ -1,5 +1,5 @@
-import configureUsecases from './infrastructure/config/configure-usecases';
 import configureServers from './infrastructure/config/configure-servers';
+import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
@@ -52,8 +52,8 @@ loggerService.info('📢 Logger service has been configured.');
     await configureMessageBrokers(
       MESSAGE_BROKER_URL,
       userUsecase,
-      questionUsecase,
       loggerService,
+      questionUsecase,
     );
     loggerService.info('📦 Message brokers have been configured.');
 

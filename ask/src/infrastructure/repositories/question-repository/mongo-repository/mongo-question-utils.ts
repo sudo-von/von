@@ -1,12 +1,10 @@
 import { FilterQuery } from 'mongoose';
-import {
-  QuestionFilters,
-} from '../../../../domain/repositories/question-repository';
+import { QuestionFilters } from '../../../../domain/repositories/question/question-filters';
 import {
   Question,
 } from '../../../../domain/entities/question/question-entities';
 
-const createQuestionRepositoryQuery = ({
+const createQuestionDocumentQuery = ({
   id,
   status,
   username,
@@ -26,4 +24,4 @@ const createQuestionRepositoryQuery = ({
   return query;
 };
 
-export default createQuestionRepositoryQuery;
+export default createQuestionDocumentQuery;

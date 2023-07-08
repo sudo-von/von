@@ -2,21 +2,21 @@ import {
   HydratedDocument,
 } from 'mongoose';
 import {
-  UserRepository,
-} from '../dtos/user-repository-dtos';
+  UserSchema,
+} from '../user-repository-schema';
 import {
   User,
 } from '../../../../domain/entities/user/user-entities';
 
-const userModelToUser = (model: HydratedDocument<UserRepository>): User => ({
-  id: model._id.toHexString(),
-  userId: model.user_id,
-  username: model.username,
+const userDocumentToUser = (document: HydratedDocument<UserSchema>): User => ({
+  id: document._id.toHexString(),
+  userId: document.user_id,
+  username: document.username,
   metrics: {
-    totalViews: model.metrics.total_views,
-    totalAnswers: model.metrics.total_answers,
-    totalQuestions: model.metrics.total_questions,
+    totalViews: document.metrics.total_views,
+    totalAnswers: document.metrics.total_answers,
+    totalQuestions: document.metrics.total_questions,
   },
 });
 
-export default userModelToUser;
+export default userDocumentToUser;

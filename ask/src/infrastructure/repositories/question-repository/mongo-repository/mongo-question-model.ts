@@ -2,10 +2,10 @@ import {
   model,
 } from 'mongoose';
 import {
-  QuestionRepository,
-} from '../dtos/question-repository-dtos';
+  QuestionSchema,
+} from '../question-repository-schema';
 import questionSchema from './mongo-question-schema';
 
-const QuestionModel = model<QuestionRepository>('question', questionSchema);
+const QuestionModel = model<QuestionSchema>('question', questionSchema);
 
 export default QuestionModel;

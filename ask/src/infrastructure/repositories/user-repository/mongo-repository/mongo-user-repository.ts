@@ -1,34 +1,33 @@
 import UserModel from './mongo-user-model';
-import userModelToUser from './mongo-user-mapper';
+import userDocumentToUser from './mongo-user-mapper';
 import {
   User,
   UserPayload,
 } from '../../../../domain/entities/user/user-entities';
-import IUserRepository from '../../../../domain/repositories/user-repository';
+import {
+  UserFilters,
+} from '../../../../domain/repositories/user/user-filters';
+import createQuestionDocumentQuery from './mongo-user-filters';
+import IUserRepository from '../../../../domain/repositories/user/user-repository';
 
 class MongoUserRepository implements IUserRepository {
-  getUsers = async (): Promise<User[]> => {
-    const userModels = await UserModel.find();
-    const users = userModels.map((model) => userModelToUser(model));
+  getUsers = async (filters?: UserFilters): Promise<User[]> => {
+    const query = createQuestionDocumentQuery(filters);
+    const userDocuments = await UserModel.find(query);
+    const users = userDocuments.map((document) => userDocumentToUser(document));
     return users;
   };
 
-  getUserByUserId = async (userId: string): Promise<User | null> => {
-    const userModel = await UserModel.findOne({ user_id: userId });
-    if (!userModel) return null;
-    const user = userModelToUser(userModel);
-    return user;
-  };
-
-  getUserByUsername = async (username: string): Promise<User | null> => {
-    const userModel = await UserModel.findOne({ username });
-    if (!userModel) return null;
-    const user = userModelToUser(userModel);
+  getUser = async (filters?: UserFilters): Promise<User | null> => {
+    const query = createQuestionDocumentQuery(filters);
+    const userDocument = await UserModel.findOne(query);
+    if (!userDocument) return null;
+    const user = userDocumentToUser(userDocument);
     return user;
   };
 
   createUser = async (payload: UserPayload): Promise<User> => {
-    const userModel = new UserModel({
+    const userDocument = new UserModel({
       user_id: payload.userId,
       username: payload.username,
       metrics: {
@@ -37,8 +36,8 @@ class MongoUserRepository implements IUserRepository {
         total_questions: payload.metrics.totalQuestions,
       },
     });
-    const storedUser = await userModel.save();
-    const user = userModelToUser(storedUser);
+    const storedUser = await userDocument.save();
+    const user = userDocumentToUser(storedUser);
     return user;
   };
 
@@ -60,7 +59,7 @@ class MongoUserRepository implements IUserRepository {
       new: true,
     });
     if (!updatedUser) return null;
-    const user = userModelToUser(updatedUser);
+    const user = userDocumentToUser(updatedUser);
     return user;
   };
 }

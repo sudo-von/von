@@ -3,14 +3,19 @@ import {
 } from '../../errors/error-factory';
 import answerRules from './answer-rules';
 
+export const AnswerDeleteFailedError = createDomainErrorFactory({
+  code: 'ANSWER_DELETE_FAILED',
+  message: 'The answer you attempted to delete could not be removed.',
+});
+
 export const AnswerNotFoundError = createDomainErrorFactory({
   code: 'ANSWER_NOT_FOUND',
-  message: 'Answer not found.',
+  message: 'The requested answer could not be found..',
 });
 
 export const AnswerUpdateFailedError = createDomainErrorFactory({
   code: 'ANSWER_UPDATE_FAILED',
-  message: 'Answer update failed.',
+  message: 'The answer you attempted to update could not be updated.',
 });
 
 export const InvalidAnswerLengthError = createDomainErrorFactory({

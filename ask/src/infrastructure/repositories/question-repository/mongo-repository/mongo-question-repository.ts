@@ -1,32 +1,31 @@
 import QuestionModel from './mongo-question-model';
-import IQuestionRepository, {
-  QuestionFilters,
-} from '../../../../domain/repositories/question-repository';
-import questionModelToQuestion from './mongo-question-mapper';
+import IQuestionRepository from '../../../../domain/repositories/question/question-repository';
+import { QuestionFilters } from '../../../../domain/repositories/question/question-filters';
 import {
   Question,
   QuestionPayload,
 } from '../../../../domain/entities/question/question-entities';
-import createQuestionRepositoryQuery from './mongo-question-utils';
+import questionDocumentToQuestion from './mongo-question-mapper';
+import createQuestionDocumentQuery from './mongo-question-utils';
 
 class MongoQuestionRepository implements IQuestionRepository {
   getQuestion = async (filters: QuestionFilters): Promise<Question | null> => {
-    const query = createQuestionRepositoryQuery(filters);
-    const questionModel = await QuestionModel.findOne(query);
-    if (!questionModel) return null;
-    const question = questionModelToQuestion(questionModel);
+    const query = createQuestionDocumentQuery(filters);
+    const questionDocument = await QuestionModel.findOne(query);
+    if (!questionDocument) return null;
+    const question = questionDocumentToQuestion(questionDocument);
     return question;
   };
 
   getQuestions = async (filters: QuestionFilters): Promise<Question[]> => {
-    const query = createQuestionRepositoryQuery(filters);
-    const questionModels = await QuestionModel.find(query);
-    const questions = questionModels.map((model) => questionModelToQuestion(model));
+    const query = createQuestionDocumentQuery(filters);
+    const questionDocuments = await QuestionModel.find(query);
+    const questions = questionDocuments.map((model) => questionDocumentToQuestion(model));
     return questions;
   };
 
   createQuestion = async (payload: QuestionPayload): Promise<Question> => {
-    const questionModel = new QuestionModel({
+    const questionDocument = new QuestionModel({
       views: payload.views,
       asked_at: payload.askedAt,
       asked_by: payload.askedBy,
@@ -34,8 +33,8 @@ class MongoQuestionRepository implements IQuestionRepository {
       question: payload.question,
       is_deleted: false,
     });
-    const storedQuestion = await questionModel.save();
-    const question = questionModelToQuestion(storedQuestion);
+    const storedQuestion = await questionDocument.save();
+    const question = questionDocumentToQuestion(storedQuestion);
     return question;
   };
 
@@ -53,7 +52,7 @@ class MongoQuestionRepository implements IQuestionRepository {
       new: true,
     });
     if (!updatedQuestion) return null;
-    const question = questionModelToQuestion(updatedQuestion);
+    const question = questionDocumentToQuestion(updatedQuestion);
     return question;
   };
 
@@ -66,7 +65,7 @@ class MongoQuestionRepository implements IQuestionRepository {
       new: true,
     });
     if (!updatedQuestion) return null;
-    const question = questionModelToQuestion(updatedQuestion);
+    const question = questionDocumentToQuestion(updatedQuestion);
     return question;
   };
 }

@@ -5,8 +5,8 @@ import {
 import {
   CreateQuestion, Question,
 } from '../entities/question/question-entities';
-import IUserRepository from '../repositories/user-repository';
-import IQuestionRepository from '../repositories/question-repository';
+import IUserRepository from '../repositories/user/user-repository';
+import IQuestionRepository from '../repositories/question/question-repository';
 
 abstract class QuestionUsecase {
   constructor(

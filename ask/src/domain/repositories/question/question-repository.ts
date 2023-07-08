@@ -1,18 +1,14 @@
 import {
+  QuestionFilters,
+} from './question-filters';
+import {
   Question,
   QuestionPayload,
-} from '../entities/question/question-entities';
-
-export type QuestionFilters = {
-  id?: string;
-  username?: string;
-  isDeleted?: boolean;
-  status: 'answered' | 'unanswered' | 'both';
-};
+} from '../../entities/question/question-entities';
 
 interface IQuestionRepositoryReader {
-  getQuestion: (filters: QuestionFilters) => Promise<Question | null>;
   getQuestions: (filters: QuestionFilters) => Promise<Question[]>;
+  getQuestion: (filters: QuestionFilters) => Promise<Question | null>;
 }
 
 interface IQuestionRepositoryWriter {

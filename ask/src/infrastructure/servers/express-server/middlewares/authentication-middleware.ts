@@ -16,7 +16,7 @@ import {
 } from '../../errors/token-server-errors';
 import TokenService from '../../../services/token-service/token-service';
 import LoggerService from '../../../services/logger-service/logger-service';
-import IUserRepository from '../../../../domain/repositories/user-repository';
+import IUserRepository from '../../../../domain/repositories/user/user-repository';
 
 const authenticationMiddleware = (
   tokenService: TokenService,
@@ -39,7 +39,7 @@ const authenticationMiddleware = (
   try {
     const decodedToken = await tokenService.decode(token);
 
-    const updatedUser = await userRepository.getUserByUserId(decodedToken.id);
+    const updatedUser = await userRepository.getUser({ _id: decodedToken.id });
     if (!updatedUser) throw UserNotFoundError;
 
     req.user = {

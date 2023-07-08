@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  AnswerRepository,
-} from '../dtos/answer-repository-dtos';
+  AnswerSchema,
+} from '../answer-repository-schema';
 
-const answerSchema = new Schema<AnswerRepository>({
+const answerSchema = new Schema<AnswerSchema>({
   answer: {
     type: String,
     required: false,
@@ -15,7 +15,7 @@ const answerSchema = new Schema<AnswerRepository>({
     required: false,
   },
 }, {
-  id: false,
+  _id: false,
 });
 
 export default answerSchema;

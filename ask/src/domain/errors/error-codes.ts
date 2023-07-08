@@ -9,6 +9,7 @@ export type DomainErrorCode =
 | UserErrorCode;
 
 export type AnswerErrorCode =
+| 'ANSWER_DELETE_FAILED'
 | 'ANSWER_NOT_FOUND'
 | 'ANSWER_UPDATE_FAILED'
 | 'INVALID_ANSWER_LENGTH';

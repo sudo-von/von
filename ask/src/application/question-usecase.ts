@@ -2,6 +2,7 @@ import {
   UserNotFoundError,
 } from '../domain/entities/user/user-errors';
 import {
+  AnswerDeleteFailedError,
   AnswerNotFoundError,
 } from '../domain/entities/answer/answer-errors';
 import {
@@ -20,7 +21,7 @@ import {
   CreateQuestion,
 } from '../domain/entities/question/question-entities';
 import QuestionUsecase from '../domain/usecases/question-usecase';
-import formatQuestion from '../domain/entities/question/question-mappers';
+import formatQuestion from '../domain/entities/question/question-formatters';
 import validateAnswerUpdate from '../domain/entities/answer/validations/update-answer-validations';
 import validateAnswerCreation from '../domain/entities/answer/validations/create-answer-validations';
 import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
@@ -44,14 +45,14 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     });
     if (!answeredQuestion) throw AnswerNotFoundError;
 
-    const deletedQuestion = await this.questionRepository.updateQuestionById(id, {
+    const deletedAnswer = await this.questionRepository.updateQuestionById(id, {
       views: answeredQuestion.views,
       askedAt: answeredQuestion.askedAt,
       askedBy: answeredQuestion.askedBy,
       username: answeredQuestion.username,
       question: answeredQuestion.question,
     });
-    if (!deletedQuestion) throw QuestionDeleteFailedError;
+    if (!deletedAnswer) throw AnswerDeleteFailedError;
   };
 
   getAnsweredQuestionById = async (id: string): Promise<Question> => {
@@ -78,7 +79,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   createQuestion = async (payload: CreateQuestion): Promise<Question> => {
     validateQuestionCreation(payload);
 
-    const userFoundByUsername = await this.userRepository.getUserByUsername(payload.username);
+    const userFoundByUsername = await this.userRepository.getUser({ username: payload.username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const createdQuestion = await this.questionRepository.createQuestion({
@@ -94,7 +95,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   };
 
   getQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const questions = await this.questionRepository.getQuestions({
@@ -109,7 +110,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   };
 
   getAnsweredQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const answeredQuestions = await this.questionRepository.getQuestions({
@@ -122,7 +123,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   };
 
   getUnansweredQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const unansweredQuestions = await this.questionRepository.getQuestions({

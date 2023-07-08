@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  MetricsRepository,
-} from '../dtos/metrics-repository-dtos';
+  MetricsSchema,
+} from '../metrics-repository-schema';
 
-const metricsSchema = new Schema<MetricsRepository>({
+const metricsSchema = new Schema<MetricsSchema>({
   total_views: {
     type: Number,
     required: true,
@@ -19,7 +19,7 @@ const metricsSchema = new Schema<MetricsRepository>({
     required: true,
   },
 }, {
-  id: false,
+  _id: false,
 });
 
 export default metricsSchema;

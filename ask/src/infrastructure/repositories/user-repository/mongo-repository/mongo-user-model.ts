@@ -2,10 +2,10 @@ import {
   model,
 } from 'mongoose';
 import {
-  UserRepository,
-} from '../dtos/user-repository-dtos';
+  UserSchema,
+} from '../user-repository-schema';
 import userSchema from './mongo-user-schema';
 
-const UserModel = model<UserRepository>('user', userSchema);
+const UserModel = model<UserSchema>('user', userSchema);
 
 export default UserModel;

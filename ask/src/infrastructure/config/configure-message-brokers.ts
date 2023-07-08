@@ -8,8 +8,8 @@ import RabbitMQCreateQuestionConsumer from '../message-brokers/rabbitmq/consumer
 const configureMessageBrokers = async (
   MESSAGE_BROKER_URL: string,
   userUsecase: UserUsecase,
-  questionUsecase: QuestionUsecase,
   loggerService: LoggerService,
+  questionUsecase: QuestionUsecase,
 ) => {
   const createUserConsumer = new RabbitMQCreateUserConsumer(
     MESSAGE_BROKER_URL,

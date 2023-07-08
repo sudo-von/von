@@ -1,12 +1,14 @@
 import {
+  UserFilters,
+} from './user-filters';
+import {
   User,
   UserPayload,
-} from '../entities/user/user-entities';
+} from '../../entities/user/user-entities';
 
 interface IUserRepositoryReader {
-  getUsers: () => Promise<User[]>;
-  getUserByUserId: (userId: string) => Promise<User | null>;
-  getUserByUsername: (username: string) => Promise<User | null>;
+  getUsers: (filters?: UserFilters) => Promise<User[]>;
+  getUser: (filters?: UserFilters) => Promise<User | null>;
 }
 
 interface IUserRepositoryWriter {

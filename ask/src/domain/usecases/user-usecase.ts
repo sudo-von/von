@@ -3,7 +3,7 @@ import {
   CreateUser,
   UpdateUser,
 } from '../entities/user/user-entities';
-import IUserRepository from '../repositories/user-repository';
+import IUserRepository from '../repositories/user/user-repository';
 
 abstract class UserUsecase {
   constructor(protected readonly userRepository: IUserRepository) {}

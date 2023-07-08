@@ -33,14 +33,14 @@ class UserUsecaseApplication extends UserUsecase {
   };
 
   getUserByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     return userFoundByUsername;
   };
 
   increaseTotalViewsByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const increasedViewsUser = await this.userRepository.updateUserByUsername(username, {
@@ -58,7 +58,7 @@ class UserUsecaseApplication extends UserUsecase {
   };
 
   decreaseTotalAnswersByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const decreasedAnswersUser = await this.userRepository.updateUserByUsername(username, {
@@ -76,7 +76,7 @@ class UserUsecaseApplication extends UserUsecase {
   };
 
   increaseTotalAnswersByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const increasedAnswersUser = await this.userRepository.updateUserByUsername(username, {
@@ -94,7 +94,7 @@ class UserUsecaseApplication extends UserUsecase {
   };
 
   decreaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const decreasedQuestionsUser = await this.userRepository.updateUserByUsername(username, {
@@ -112,7 +112,7 @@ class UserUsecaseApplication extends UserUsecase {
   };
 
   increaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const increasedQuestionsUser = await this.userRepository.updateUserByUsername(username, {
@@ -132,7 +132,7 @@ class UserUsecaseApplication extends UserUsecase {
   updateUserByUsername = async (username: string, payload: UpdateUser): Promise<User> => {
     validateUserUpdate(payload);
 
-    const userFoundByUsername = await this.userRepository.getUserByUsername(username);
+    const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
     const updatedUser = await this.userRepository.updateUserByUsername(username, {
