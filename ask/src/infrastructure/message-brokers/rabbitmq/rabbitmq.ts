@@ -3,7 +3,7 @@ import amqp, {
   Connection,
 } from 'amqplib';
 import {
-  MessageBrokerFailedToCloseError,
+  MessageBrokerFailedToAckError,
   MessageBrokerChannelIsClosedError,
   MessageBrokerFailedToConnectError,
   MessageBrokerNoMessageAvailableError,
@@ -15,29 +15,21 @@ import {
 } from '../message-broker-queues';
 import MessageBroker from '../message-broker';
 
-abstract class RabbitMQ<T> extends MessageBroker<T> {
-  protected connection?: Connection;
-
+abstract class RabbitMQ extends MessageBroker {
   protected channel?: Channel;
+
+  protected connection?: Connection;
 
   protected message?: amqp.ConsumeMessage;
 
   ackMessage = (): void => {
-    if (!this.channel) throw MessageBrokerChannelIsClosedError;
-    if (!this.message) throw MessageBrokerNoMessageAvailableError;
-    this.channel.ack(this.message);
-    this.message = undefined;
-  };
-
-  close = async () => {
     try {
-      if (this.channel) await this.channel.close();
-      if (this.connection) await this.connection.close();
-      this.channel = undefined;
-      this.connection = undefined;
+      if (!this.channel) throw MessageBrokerChannelIsClosedError;
+      if (!this.message) throw MessageBrokerNoMessageAvailableError;
+      this.channel.ack(this.message);
+      this.message = undefined;
     } catch (e) {
-      this.loggerService.error(MessageBrokerFailedToCloseError.message, e as Error);
-      throw MessageBrokerFailedToCloseError;
+      this.loggerService.error(MessageBrokerFailedToAckError.message, e as Error);
     }
   };
 
@@ -57,25 +49,21 @@ abstract class RabbitMQ<T> extends MessageBroker<T> {
       await this.channel.assertQueue(queue);
       this.channel.consume(queue, (message) => {
         if (!message) throw MessageBrokerNoMessageAvailableError;
-        const data = JSON.parse(message.content.toString()) as T;
         this.message = message;
-        this.onMessage(data);
+        this.onMessage(message.content);
       });
     } catch (e) {
       this.loggerService.error(MessageBrokerFailedToConsumeMessageError.message, e as Error);
     }
   };
 
-  produceMessage = async (queue: Queues, data: T): Promise<void> => {
+  produceMessage = async (queue: Queues, data: Buffer): Promise<void> => {
     try {
       if (!this.channel) throw MessageBrokerChannelIsClosedError;
-      const message = JSON.stringify(data);
-      const buffer = Buffer.from(message);
       await this.channel.assertQueue(queue);
-      this.channel.sendToQueue(queue, buffer);
+      this.channel.sendToQueue(queue, data);
     } catch (e) {
       this.loggerService.error(MessageBrokerFailedToSendMessageError.message, e as Error);
-      throw MessageBrokerFailedToSendMessageError;
     }
   };
 }

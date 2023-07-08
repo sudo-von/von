@@ -8,7 +8,7 @@ import {
 import QuestionUsecase from '../../../../domain/usecases/question-usecase';
 import LoggerService from '../../../services/logger-service/logger-service';
 
-class RabbitMQCreateQuestionConsumer extends RabbitMQ<CreateQuestionMessageBroker> {
+class RabbitMQCreateQuestionConsumer extends RabbitMQ {
   constructor(
     protected readonly MESSAGE_BROKER_URL: string,
     protected readonly loggerService: LoggerService,
@@ -17,17 +17,17 @@ class RabbitMQCreateQuestionConsumer extends RabbitMQ<CreateQuestionMessageBroke
     super(MESSAGE_BROKER_URL, loggerService);
   }
 
-  onMessage = async (data: CreateQuestionMessageBroker): Promise<void> => {
+  onMessage = async (data: Buffer): Promise<void> => {
     try {
+      const payload = JSON.parse(data.toString()) as CreateQuestionMessageBroker;
       await this.questionUsecase.createQuestion({
-        askedBy: data.asked_by,
-        question: data.question,
-        username: data.username,
+        askedBy: payload.asked_by,
+        question: payload.question,
+        username: payload.username,
       });
       this.ackMessage();
     } catch (e) {
       this.loggerService.error(MessageBrokerFailedToProcessMessageError.message, e as Error);
-      throw MessageBrokerFailedToProcessMessageError;
     }
   };
 }

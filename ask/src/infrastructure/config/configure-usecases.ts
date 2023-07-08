@@ -1,6 +1,6 @@
 import UserUsecaseApplication from '../../application/user-usecase';
-import IUserRepository from '../../domain/repositories/user/user-repository';
 import QuestionUsecaseApplication from '../../application/question-usecase';
+import IUserRepository from '../../domain/repositories/user/user-repository';
 import IQuestionRepository from '../../domain/repositories/question/question-repository';
 
 const configureUsecases = (

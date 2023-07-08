@@ -49,18 +49,11 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📖 Usecases have been configured.');
 
     /* 📦 Message brokers. */
-    await configureMessageBrokers(
-      MESSAGE_BROKER_URL,
-      userUsecase,
-      loggerService,
-      questionUsecase,
-    );
+    await configureMessageBrokers(MESSAGE_BROKER_URL, userUsecase, loggerService, questionUsecase);
     loggerService.info('📦 Message brokers have been configured.');
 
     /* 🔌 Routers. */
-    const userRouter = configureUserRouter(
-      userUsecase,
-    );
+    const userRouter = configureUserRouter(userUsecase);
     loggerService.info('🔌 User router has been configured.');
     const questionRouter = configureQuestionRouter(
       userUsecase,
@@ -72,12 +65,7 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 Question router has been configured.');
 
     /* 🚀 Controllers. */
-    await configureServers(
-      SERVER_PORT,
-      userRouter,
-      questionRouter,
-      loggerService,
-    );
+    await configureServers(SERVER_PORT, userRouter, questionRouter, loggerService);
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

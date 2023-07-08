@@ -3,12 +3,12 @@ import {
   MessageBrokerFailedToProcessMessageError,
 } from '../../message-broker-errors';
 import {
-  CreateUserMessageBroker,
+  UpdateUserMessageBroker,
 } from '../../dtos/user-message-broker-dtos';
 import UserUsecase from '../../../../domain/usecases/user-usecase';
 import LoggerService from '../../../services/logger-service/logger-service';
 
-class RabbitMQUpdateUserConsumer extends RabbitMQ<CreateUserMessageBroker> {
+class RabbitMQUpdateUserConsumer extends RabbitMQ {
   constructor(
     protected readonly MESSAGE_BROKER_URL: string,
     protected readonly loggerService: LoggerService,
@@ -17,16 +17,16 @@ class RabbitMQUpdateUserConsumer extends RabbitMQ<CreateUserMessageBroker> {
     super(MESSAGE_BROKER_URL, loggerService);
   }
 
-  onMessage = async (data: CreateUserMessageBroker): Promise<void> => {
+  onMessage = async (data: Buffer): Promise<void> => {
     try {
-      await this.userUsecase.updateUserByUsername(data.username, {
-        userId: data.user_id,
-        username: data.username,
+      const payload = JSON.parse(data.toString()) as UpdateUserMessageBroker;
+      await this.userUsecase.updateUserByUsername(payload.username, {
+        userId: payload.user_id,
+        username: payload.username,
       });
       this.ackMessage();
     } catch (e) {
       this.loggerService.error(MessageBrokerFailedToProcessMessageError.message, e as Error);
-      throw MessageBrokerFailedToProcessMessageError;
     }
   };
 }
