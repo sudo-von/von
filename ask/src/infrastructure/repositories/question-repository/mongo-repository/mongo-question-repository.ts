@@ -52,7 +52,10 @@ class MongoQuestionRepository implements IQuestionRepository {
         askedBy: payload.askedBy,
         username: payload.username,
         question: payload.question,
-        answer: payload.answer,
+        answer: payload.answer && {
+          answer: payload.answer.answer,
+          answered_at: payload.answer.answeredAt,
+        },
       },
     }, {
       new: true,

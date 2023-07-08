@@ -9,7 +9,7 @@ import {
 } from '../../../../domain/repositories/question/question-filters';
 
 const createQuestionRepositoryQuery = (
-  filters?: QuestionRepositoryFilters,
+  filters: QuestionRepositoryFilters = {},
 ): FilterQuery<QuestionSchema> => {
   const query: FilterQuery<QuestionSchema> = {
     is_deleted: false,
