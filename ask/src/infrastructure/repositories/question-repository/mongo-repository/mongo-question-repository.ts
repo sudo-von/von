@@ -80,7 +80,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     const query = createQuestionRepositoryQuery(filters);
     const deletedAnswer = await QuestionModel.findOneAndUpdate(query, {
       $unset: {
-        answer: undefined,
+        answer: 1,
       },
     }, {
       new: true,
