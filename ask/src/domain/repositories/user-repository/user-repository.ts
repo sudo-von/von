@@ -16,7 +16,7 @@ interface IUserRepositoryWriter {
     payload: UserPayload
   ) => Promise<User>;
   updateUser: (
-    payload: UserPayload,
+    payload: Partial<UserPayload>,
     filters?: UserRepositoryFilters
   ) => Promise<User | null>;
 }

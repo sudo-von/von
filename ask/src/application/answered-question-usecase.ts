@@ -10,7 +10,7 @@ import {
   Question,
 } from '../domain/entities/question/question-entities';
 import formatQuestion from '../domain/entities/question/question-formatters';
-import AnsweredQuestionUsecase from '../domain/usecases/answered-question-usecase';
+import AnsweredQuestionUsecase from '../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
   getAnsweredQuestionById = async (id: string): Promise<Question> => {
@@ -29,7 +29,7 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     }, { id });
     if (!updatedQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, { answer: false });
+    const formattedQuestion = formatQuestion(updatedQuestion, { formatAnswer: false });
     return formattedQuestion;
   };
 

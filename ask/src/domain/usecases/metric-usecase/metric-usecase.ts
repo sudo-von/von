@@ -1,7 +1,7 @@
 import {
   User,
-} from '../entities/user/user-entities';
-import IUserRepository from '../repositories/user/user-repository';
+} from '../../entities/user/user-entities';
+import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class MetricUsecase {
   constructor(protected readonly userRepository: IUserRepository) {}

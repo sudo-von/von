@@ -17,6 +17,6 @@ export const RequiredFieldServerError = createServerErrorFactory({
 
 export const RequestRuntimeServerError = createServerErrorFactory({
   code: 'REQUEST_RUNTIME_SERVER_ERROR',
-  error: 'An unexpected error occurred while processing the request.',
+  error: 'An error occurred while processing the request.',
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });

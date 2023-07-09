@@ -3,10 +3,10 @@ import {
 } from 'mongoose';
 import {
   QuestionSchema,
-} from '../question-repository-schema';
+} from '../../../../domain/repositories/question-repository/question-repository-schema';
 import {
   QuestionRepositoryFilters,
-} from '../../../../domain/repositories/question/question-filters';
+} from '../../../../domain/repositories/question-repository/question-repository-filters';
 
 const createQuestionRepositoryQuery = (
   filters: QuestionRepositoryFilters = {},

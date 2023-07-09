@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   QuestionSchema,
-} from '../question-repository-schema';
+} from '../../../../domain/repositories/question-repository/question-repository-schema';
 import {
   Question,
 } from '../../../../domain/entities/question/question-entities';

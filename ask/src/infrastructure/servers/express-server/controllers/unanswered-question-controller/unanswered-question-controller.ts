@@ -5,7 +5,7 @@ import {
 } from 'express';
 import statusCode from 'http-status-codes';
 import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
-import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase';
+import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionController {
   constructor(private readonly unansweredQuestionUsecase: UnansweredQuestionUsecase) {}

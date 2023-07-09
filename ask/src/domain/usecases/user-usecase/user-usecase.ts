@@ -2,9 +2,9 @@ import {
   User,
   CreateUser,
   UpdateUser,
-} from '../entities/user/user-entities';
-import IUserRepository from '../repositories/user/user-repository';
-import IQuestionRepository from '../repositories/question/question-repository';
+} from '../../entities/user/user-entities';
+import IUserRepository from '../../repositories/user-repository/user-repository';
+import IQuestionRepository from '../../repositories/question-repository/question-repository';
 
 abstract class UserUsecase {
   constructor(

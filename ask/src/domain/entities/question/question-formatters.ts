@@ -4,11 +4,11 @@ import {
 import formatAnswer from '../answer/answer-formatters';
 
 type QuestionFormat = Partial<{
-  answer: boolean;
+  formatAnswer: boolean;
 }>;
 
 const formatQuestion = (question: Question, format: QuestionFormat = {
-  answer: true,
+  formatAnswer: true,
 }): Question => ({
   id: question.id,
   views: question.views,
@@ -18,7 +18,7 @@ const formatQuestion = (question: Question, format: QuestionFormat = {
   question: question.question,
   answer: question.answer && {
     answeredAt: question.answer.answeredAt,
-    answer: format.answer ? formatAnswer(question.answer.answer) : question.answer.answer,
+    answer: format.formatAnswer ? formatAnswer(question.answer.answer) : question.answer.answer,
   },
 });
 

@@ -1,18 +1,14 @@
 import {
   CreateAnswer,
   UpdateAnswer,
-} from '../entities/answer/answer-entities';
+} from '../../entities/answer/answer-entities';
 import {
   Question,
-} from '../entities/question/question-entities';
-import IUserRepository from '../repositories/user/user-repository';
-import IQuestionRepository from '../repositories/question/question-repository';
+} from '../../entities/question/question-entities';
+import IQuestionRepository from '../../repositories/question-repository/question-repository';
 
 abstract class AnswerUsecase {
-  constructor(
-    protected readonly userRepository: IUserRepository,
-    protected readonly questionRepository: IQuestionRepository,
-  ) {}
+  constructor(protected readonly questionRepository: IQuestionRepository) {}
 
   abstract deleteAnswerByQuestionId: (id: string) => Promise<Question>;
 

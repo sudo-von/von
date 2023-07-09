@@ -1,6 +1,6 @@
 import {
   QuestionRepositoryFilters,
-} from './question-filters';
+} from './question-repository-filters';
 import {
   Question,
   QuestionPayload,
@@ -22,7 +22,7 @@ interface IQuestionRepositoryWriter {
     filters?: QuestionRepositoryFilters
   ) => Promise<Question | null>;
   updateQuestion: (
-    payload: QuestionPayload,
+    payload: Partial<QuestionPayload>,
     filters?: QuestionRepositoryFilters
   ) => Promise<Question | null>;
   updateQuestions: (

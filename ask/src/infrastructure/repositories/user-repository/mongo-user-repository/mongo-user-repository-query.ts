@@ -3,10 +3,10 @@ import {
 } from 'mongoose';
 import {
   UserSchema,
-} from '../user-repository-schema';
+} from '../../../../domain/repositories/user-repository/user-repository-schema';
 import {
   UserRepositoryFilters,
-} from '../../../../domain/repositories/user/user-repository-filters';
+} from '../../../../domain/repositories/user-repository/user-repository-filters';
 
 const createUserRepositoryQuery = (filters?: UserRepositoryFilters): FilterQuery<UserSchema> => {
   const query: FilterQuery<UserSchema> = {};

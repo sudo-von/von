@@ -6,7 +6,6 @@ import {
   UserNotFoundError,
   SingleUserOnlyError,
   UserUpdateFailedError,
-  UserPermissionDeniedError,
   InvalidUsernameLengthError,
 } from '../../../../domain/entities/user/user-errors';
 
@@ -26,12 +25,6 @@ export const UserNotFoundServerError = createServerErrorFactory({
   code: 'USER_NOT_FOUND',
   error: UserNotFoundError.message,
   statusCode: statusCode.NOT_FOUND,
-});
-
-export const UserPermissionDeniedServerError = createServerErrorFactory({
-  code: 'USER_PERMISSION_DENIED',
-  error: UserPermissionDeniedError.message,
-  statusCode: statusCode.FORBIDDEN,
 });
 
 export const UserUpdateFailedServerError = createServerErrorFactory({

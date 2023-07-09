@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   MetricsSchema,
-} from '../metrics-repository-schema';
+} from '../../../../domain/repositories/metrics-repository/metrics-repository-schema';
 
 const metricsSchema = new Schema<MetricsSchema>({
   total_views: {

@@ -6,9 +6,9 @@ import {
 } from '../../../../domain/entities/user/user-entities';
 import {
   UserRepositoryFilters,
-} from '../../../../domain/repositories/user/user-repository-filters';
+} from '../../../../domain/repositories/user-repository/user-repository-filters';
 import createUserRepositoryQuery from './mongo-user-repository-query';
-import IUserRepository from '../../../../domain/repositories/user/user-repository';
+import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 class MongoUserRepository implements IUserRepository {
   getUsers = async (filters?: UserRepositoryFilters): Promise<User[]> => {

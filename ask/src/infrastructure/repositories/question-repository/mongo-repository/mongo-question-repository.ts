@@ -6,9 +6,9 @@ import {
 import questionDocumentToQuestion from './mongo-question-mapper';
 import {
   QuestionRepositoryFilters,
-} from '../../../../domain/repositories/question/question-filters';
+} from '../../../../domain/repositories/question-repository/question-repository-filters';
 import createQuestionRepositoryQuery from './mongo-question-repository-query';
-import IQuestionRepository from '../../../../domain/repositories/question/question-repository';
+import IQuestionRepository from '../../../../domain/repositories/question-repository/question-repository';
 
 class MongoQuestionRepository implements IQuestionRepository {
   getQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {

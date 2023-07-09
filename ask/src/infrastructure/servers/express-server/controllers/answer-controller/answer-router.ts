@@ -3,8 +3,8 @@ import {
   RequestHandler,
 } from 'express';
 import AnswerController from './answer-controller';
-import AnswerUsecase from '../../../../../domain/usecases/answer-usecase';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase';
+import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
+import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 
 const configureAnswerRouter = (
   answerUsecase: AnswerUsecase,

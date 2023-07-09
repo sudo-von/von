@@ -1,8 +1,8 @@
 import {
   Question,
-} from '../entities/question/question-entities';
-import IUserRepository from '../repositories/user/user-repository';
-import IQuestionRepository from '../repositories/question/question-repository';
+} from '../../entities/question/question-entities';
+import IUserRepository from '../../repositories/user-repository/user-repository';
+import IQuestionRepository from '../../repositories/question-repository/question-repository';
 
 abstract class UnansweredQuestionUsecase {
   constructor(

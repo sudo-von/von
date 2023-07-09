@@ -3,7 +3,7 @@ import {
   RequestHandler,
 } from 'express';
 import UnansweredQuestionController from './unanswered-question-controller';
-import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase';
+import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 const configureUnansweredQuestionRouter = (
   authenticationHandler: RequestHandler,

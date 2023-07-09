@@ -8,7 +8,7 @@ import {
   CreateUser,
   UpdateUser,
 } from '../domain/entities/user/user-entities';
-import UserUsecase from '../domain/usecases/user-usecase';
+import UserUsecase from '../domain/usecases/user-usecase/user-usecase';
 import validateUserUpdate from '../domain/entities/user/validations/update-user-validations';
 import validateUserCreation from '../domain/entities/user/validations/create-user-validations';
 

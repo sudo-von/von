@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   QuestionSchema,
-} from '../question-repository-schema';
+} from '../../../../domain/repositories/question-repository/question-repository-schema';
 import answerSchema from '../../answer-repository/mongo-answer-repository/mongo-answer-repository-schema';
 
 const questionSchema = new Schema<QuestionSchema>({

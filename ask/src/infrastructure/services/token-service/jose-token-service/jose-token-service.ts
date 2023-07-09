@@ -23,11 +23,9 @@ class JoseTokenService extends TokenService {
       const error = e as Error;
 
       if (error instanceof errors.JWTExpired) {
-        this.loggerService.error(TokenServiceExpiredTokenError.message, error);
         throw TokenServiceExpiredTokenError;
       }
 
-      this.loggerService.error(TokenServiceInvalidTokenError.message, error);
       throw TokenServiceInvalidTokenError;
     }
   };

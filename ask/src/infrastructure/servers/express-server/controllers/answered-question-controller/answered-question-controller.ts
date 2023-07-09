@@ -4,9 +4,9 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase';
+import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
-import AnsweredQuestionUsecase from '../../../../../domain/usecases/answered-question-usecase';
+import AnsweredQuestionUsecase from '../../../../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionController {
   constructor(

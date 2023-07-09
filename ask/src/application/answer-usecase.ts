@@ -15,7 +15,7 @@ import {
 import {
   Question,
 } from '../domain/entities/question/question-entities';
-import AnswerUsecase from '../domain/usecases/answer-usecase';
+import AnswerUsecase from '../domain/usecases/answer-usecase/answer-usecase';
 import formatQuestion from '../domain/entities/question/question-formatters';
 import validateAnswerUpdate from '../domain/entities/answer/validations/update-answer-validations';
 import validateAnswerCreation from '../domain/entities/answer/validations/create-answer-validations';
@@ -30,7 +30,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     const deletedAnswer = await this.questionRepository.deleteAnswer({ id });
     if (!deletedAnswer) throw AnswerDeleteFailedError;
 
-    const formattedQuestion = formatQuestion(deletedAnswer, { answer: false });
+    const formattedQuestion = formatQuestion(deletedAnswer, { formatAnswer: false });
     return formattedQuestion;
   };
 
@@ -55,7 +55,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     }, { id });
     if (!updatedQuestion) throw AnswerCreationFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, { answer: false });
+    const formattedQuestion = formatQuestion(updatedQuestion, { formatAnswer: false });
     return formattedQuestion;
   };
 
@@ -80,7 +80,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     }, { id });
     if (!updatedQuestion) throw AnswerUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, { answer: false });
+    const formattedQuestion = formatQuestion(updatedQuestion, { formatAnswer: false });
     return formattedQuestion;
   };
 }

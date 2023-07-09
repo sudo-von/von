@@ -1,5 +1,5 @@
-import UserUsecase from '../../domain/usecases/user-usecase';
-import QuestionUsecase from '../../domain/usecases/question-usecase';
+import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
+import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import LoggerService from '../services/logger-service/logger-service';
 import RabbitMQCreateUserConsumer from '../message-brokers/rabbitmq/consumers/rabbitmq-create-user-consumer';
 import RabbitMQUpdateUserConsumer from '../message-brokers/rabbitmq/consumers/rabbitmq-update-user-consumer';

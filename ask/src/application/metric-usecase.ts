@@ -5,7 +5,7 @@ import {
 import {
   User,
 } from '../domain/entities/user/user-entities';
-import MetricUsecase from '../domain/usecases/metric-usecase';
+import MetricUsecase from '../domain/usecases/metric-usecase/metric-usecase';
 
 class MetricUsecaseApplication extends MetricUsecase {
   increaseTotalViewsByUsername = async (username: string): Promise<User> => {

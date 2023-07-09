@@ -5,7 +5,7 @@ import {
 import {
   CreateUserMessageBroker,
 } from '../../dtos/user-message-broker-dtos';
-import UserUsecase from '../../../../domain/usecases/user-usecase';
+import UserUsecase from '../../../../domain/usecases/user-usecase/user-usecase';
 import LoggerService from '../../../services/logger-service/logger-service';
 
 class RabbitMQCreateUserConsumer extends RabbitMQ {

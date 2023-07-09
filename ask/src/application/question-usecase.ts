@@ -9,7 +9,7 @@ import {
   Question,
   CreateQuestion,
 } from '../domain/entities/question/question-entities';
-import QuestionUsecase from '../domain/usecases/question-usecase';
+import QuestionUsecase from '../domain/usecases/question-usecase/question-usecase';
 import formatQuestion from '../domain/entities/question/question-formatters';
 import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
 
@@ -21,7 +21,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const deletedQuestion = await this.questionRepository.deleteQuestion({ id });
     if (!deletedQuestion) throw QuestionDeleteFailedError;
 
-    const formattedQuestion = formatQuestion(deletedQuestion, { answer: false });
+    const formattedQuestion = formatQuestion(deletedQuestion, { formatAnswer: false });
     return formattedQuestion;
   };
 
@@ -39,7 +39,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       question: payload.question,
     });
 
-    const formattedQuestion = formatQuestion(createdQuestion, { answer: false });
+    const formattedQuestion = formatQuestion(createdQuestion, { formatAnswer: false });
     return formattedQuestion;
   };
 

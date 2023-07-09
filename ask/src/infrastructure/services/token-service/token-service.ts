@@ -1,13 +1,9 @@
 import {
   UserToken,
 } from './dtos/user/user-token-dtos';
-import LoggerService from '../logger-service/logger-service';
 
 abstract class TokenService {
-  constructor(
-    protected readonly secret: string,
-    protected readonly loggerService: LoggerService,
-  ) {}
+  constructor(protected readonly secret: string) {}
 
   abstract decode: (token: string) => Promise<UserToken>;
 }

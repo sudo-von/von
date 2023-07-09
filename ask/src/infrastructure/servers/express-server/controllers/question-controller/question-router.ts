@@ -3,8 +3,8 @@ import {
   RequestHandler,
 } from 'express';
 import QuestionController from './question-controller';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase';
-import QuestionUsecase from '../../../../../domain/usecases/question-usecase';
+import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
+import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
 
 const configureQuestionRouter = (
   metricUsecase: MetricUsecase,

@@ -5,7 +5,7 @@ import {
   Question,
 } from '../domain/entities/question/question-entities';
 import formatQuestion from '../domain/entities/question/question-formatters';
-import UnansweredQuestionUsecase from '../domain/usecases/unanswered-question-usecase';
+import UnansweredQuestionUsecase from '../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionUsecaseApplication extends UnansweredQuestionUsecase {
   getUnansweredQuestionsByUsername = async (username: string): Promise<Question[]> => {

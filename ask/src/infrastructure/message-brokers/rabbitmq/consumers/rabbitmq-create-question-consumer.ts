@@ -5,7 +5,7 @@ import {
 import {
   CreateQuestionMessageBroker,
 } from '../../dtos/question-message-broker-dtos';
-import QuestionUsecase from '../../../../domain/usecases/question-usecase';
+import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 import LoggerService from '../../../services/logger-service/logger-service';
 
 class RabbitMQCreateQuestionConsumer extends RabbitMQ {
