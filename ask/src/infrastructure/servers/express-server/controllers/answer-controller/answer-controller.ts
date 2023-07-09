@@ -8,9 +8,9 @@ import {
   CreateAnswerRequest,
   UpdateAnswerRequest,
 } from '../../../dtos/answer/answer-server-dtos';
+import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
 import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
 import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
-import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
 
 class AnswerController {
   constructor(

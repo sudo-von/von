@@ -4,8 +4,8 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
 import userToUserResponse from '../../../dtos/user/user-server-mappers';
+import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
 
 class UserController {
   constructor(private readonly userUsecase: UserUsecase) {}

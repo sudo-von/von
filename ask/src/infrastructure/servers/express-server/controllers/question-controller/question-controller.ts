@@ -7,9 +7,9 @@ import statusCode from 'http-status-codes';
 import {
   CreateQuestionRequest,
 } from '../../../dtos/question/question-server-dtos';
+import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
 import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
-import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
 
 class QuestionController {
   constructor(
