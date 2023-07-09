@@ -1,12 +1,11 @@
-import configureServers from './infrastructure/config/configure-servers';
+import configureServer from './infrastructure/config/configure-server';
+import configureRouters from './infrastructure/config/configure-routers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
-import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
-import configureQuestionRouter from './infrastructure/servers/express-server/controllers/question-controller/question-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -57,19 +56,35 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📦 Message brokers have been configured.');
 
     /* 🔌 Routers. */
-    const userRouter = configureUserRouter(userUsecase);
-    loggerService.info('🔌 User router has been configured.');
-    const questionRouter = configureQuestionRouter(
+    const {
+      userRouter,
+      answerRouter,
+      questionRouter,
+      answeredQuestionRouter,
+      unansweredQuestionRouter,
+    } = configureRouters(
       userUsecase,
+      answerUsecase,
+      metricUsecase,
+      questionUsecase,
+      answeredQuestionUsecase,
+      unansweredQuestionUsecase,
       tokenService,
       loggerService,
       userRepository,
-      questionUsecase,
     );
-    loggerService.info('🔌 Question router has been configured.');
+    loggerService.info('🔌 Routers have been configured.');
 
-    /* 🚀 Controllers. */
-    await configureServers(SERVER_PORT, userRouter, questionRouter, loggerService);
+    /* 🚀 Server. */
+    configureServer(
+      SERVER_PORT,
+      userRouter,
+      answerRouter,
+      questionRouter,
+      answeredQuestionRouter,
+      unansweredQuestionRouter,
+      loggerService,
+    );
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

@@ -15,9 +15,9 @@ const configureAnswerRouter = (
 
   const router = Router();
 
-  router.post('/:id', authenticationHandler, answerController.createAnswerByQuestionId);
-  router.patch('/:id', authenticationHandler, answerController.updateAnswerByQuestionId);
-  router.delete('/:id', authenticationHandler, answerController.deleteAnswerByQuestionId);
+  router.post('/question/:id', authenticationHandler, answerController.createAnswerByQuestionId);
+  router.patch('/question/:id', authenticationHandler, answerController.updateAnswerByQuestionId);
+  router.delete('/question/:id', authenticationHandler, answerController.deleteAnswerByQuestionId);
 
   return router;
 };

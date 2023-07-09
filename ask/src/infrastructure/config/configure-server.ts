@@ -6,10 +6,13 @@ import LoggerService from '../services/logger-service/logger-service';
 import bodyMiddleware from '../servers/express-server/middlewares/body-middleware';
 import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
 
-const configureServers = (
-  SERVER_PORT: number,
+const configureServer = (
+  serverPort: number,
   userRouter: Router,
+  answerRouter: Router,
   questionRouter: Router,
+  answeredQuestionRouter: Router,
+  unansweredQuestionRouter: Router,
   loggerService: LoggerService,
 ) => {
   const app = express();
@@ -17,15 +20,18 @@ const configureServers = (
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use('/api/v1/user', userRouter);
+  app.use('/api/v1/answer', answerRouter);
+  app.use('/api/v1/answered-question', answeredQuestionRouter);
   app.use('/api/v1/question', questionRouter);
+  app.use('/api/v1/unanswered-question', unansweredQuestionRouter);
+  app.use('/api/v1/user', userRouter);
 
   app.use(bodyMiddleware);
   app.use(errorMiddleware);
 
-  app.listen(SERVER_PORT, () => {
-    loggerService.info(`🚀 Controllers have been configured on port ${SERVER_PORT}.`);
+  app.listen(serverPort, () => {
+    loggerService.info(`🚀 Controllers have been configured on port ${serverPort}.`);
   });
 };
 
-export default configureServers;
+export default configureServer;
