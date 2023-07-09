@@ -1,11 +1,11 @@
 import {
-  QuestionServer,
+  QuestionResponse,
 } from './question-server-dtos';
 import {
   Question,
 } from '../../../../domain/entities/question/question-entities';
 
-const questionToQuestionServer = (question: Question): QuestionServer => ({
+const questionToQuestionResponse = (question: Question): QuestionResponse => ({
   id: question.id,
   views: question.views,
   asked_at: question.askedAt,
@@ -17,4 +17,4 @@ const questionToQuestionServer = (question: Question): QuestionServer => ({
   },
 });
 
-export default questionToQuestionServer;
+export default questionToQuestionResponse;

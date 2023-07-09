@@ -4,13 +4,11 @@ import {
   NextFunction,
 } from 'express';
 import {
-  TokenServiceInvalidTokenServerError,
-} from '../../errors/token-server-errors';
-import {
+  InvalidTokenServerError,
   MissingTokenServerError,
   MissingAuthorizationHeaderServerError,
   AuthorizationSchemeNotSupportedServerError,
-} from '../../errors/request-server-errors';
+} from '../../dtos/token/token-server-errors';
 import {
   UserNotFoundError,
 } from '../../../../domain/entities/user/user-errors';
@@ -28,17 +26,17 @@ const authenticationMiddleware = (
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
-  if (!authorization) throw MissingAuthorizationHeaderServerError;
+  if (!authorization) return next(MissingAuthorizationHeaderServerError);
 
   const [scheme, token] = authorization.split(' ');
-  if (scheme.toLowerCase() !== 'bearer') throw AuthorizationSchemeNotSupportedServerError;
-  if (!token) throw MissingTokenServerError;
+  if (scheme.toLowerCase() !== 'bearer') return next(AuthorizationSchemeNotSupportedServerError);
+  if (!token) return next(MissingTokenServerError);
 
   try {
     const decodedToken = await tokenService.decode(token);
 
     const updatedUser = await userRepository.getUser({ userId: decodedToken.id });
-    if (!updatedUser) throw UserNotFoundError;
+    if (!updatedUser) return next(UserNotFoundError);
 
     req.user = {
       id: updatedUser.userId,
@@ -52,8 +50,8 @@ const authenticationMiddleware = (
 
     return next();
   } catch (e) {
-    loggerService.error(TokenServiceInvalidTokenServerError.message, e as Error);
-    throw TokenServiceInvalidTokenServerError;
+    loggerService.error(InvalidTokenServerError.error, e as Error);
+    return next(InvalidTokenServerError);
   }
 };
 

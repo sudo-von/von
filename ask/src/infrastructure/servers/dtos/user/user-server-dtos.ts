@@ -1,10 +1,10 @@
 import {
-  MetricServer,
+  MetricResponse,
 } from '../metric/metric-server-dtos';
 
-export type UserServer = {
+export type UserResponse = {
   id: string;
   user_id: string;
   username: string;
-  metrics: MetricServer;
+  metrics: MetricResponse;
 };

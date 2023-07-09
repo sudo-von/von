@@ -5,7 +5,7 @@ import {
 } from 'express';
 import statusCode from 'http-status-codes';
 import UserUsecase from '../../../../../domain/usecases/user-usecase';
-import userToUserServer from '../../../dtos/user/user-server-mappers';
+import userToUserResponse from '../../../dtos/user/user-server-mappers';
 
 class UserController {
   constructor(private readonly userUsecase: UserUsecase) {}
@@ -14,11 +14,11 @@ class UserController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const userFoundByUsername = await this.userUsecase.getUserByUsername(username);
+      const user = await this.userUsecase.getUserByUsername(username);
 
-      const userServer = userToUserServer(userFoundByUsername);
+      const userResponse = userToUserResponse(user);
 
-      return res.status(statusCode.OK).send({ result: userServer });
+      return res.status(statusCode.OK).send({ result: userResponse });
     } catch (e) {
       return next(e);
     }

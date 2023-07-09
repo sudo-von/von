@@ -2,12 +2,12 @@ import {
   z,
 } from 'zod';
 
-export type AnswerServer = {
+export type AnswerResponse = {
   answer: string;
   answered_at: Date;
 };
 
-export const createAnswerServer = z.object({
+export const CreateAnswerRequest = z.object({
   answer: z
     .string({
       required_error: 'answer field is required',
@@ -16,7 +16,7 @@ export const createAnswerServer = z.object({
     .trim(),
 });
 
-export const updateAnswerServer = z.object({
+export const UpdateAnswerRequest = z.object({
   answer: z
     .string({
       required_error: 'answer field is required',

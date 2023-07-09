@@ -4,28 +4,32 @@ import {
   NextFunction,
 } from 'express';
 import {
+  ServerErrorFactory,
+} from '../../errors/server-error-factory';
+import {
   UserNotFoundServerError,
   SingleUserOnlyServerError,
   UserUpdateFailedServerError,
   UserPermissionDeniedServerError,
   InvalidUsernameLengthServerError,
-} from '../../errors/user-server-errors';
+} from '../../dtos/user/user-server-errors';
 import {
-  TokenServiceExpiredTokenServerError,
-  TokenServiceInvalidTokenServerError,
-} from '../../errors/token-server-errors';
+  ExpiredTokenServerError,
+  InvalidTokenServerError,
+} from '../../dtos/token/token-server-errors';
 import {
-  ServerErrorFactory,
-} from '../../errors/server-error-factory';
+  DomainErrorCode,
+} from '../../../../domain/errors/error-codes';
 import {
   AnswerNotFoundServerError,
   AnswerDeleteFailedServerError,
   AnswerUpdateFailedServerError,
   InvalidAnswerLengthServerError,
-} from '../../errors/answer-server-errors';
+  AnswerCreationFailedServerError,
+} from '../../dtos/answer/answer-server-errors';
 import {
-  InternalServerServerError,
-} from '../../errors/request-server-errors';
+  DomainErrorFactory,
+} from '../../../../domain/errors/error-factory';
 import {
   QuestionNotFoundServerError,
   QuestionNotAnsweredServerError,
@@ -33,24 +37,17 @@ import {
   QuestionUpdateFailedServerError,
   InvalidQuestionLengthServerError,
   QuestionAlreadyAnsweredServerError,
-} from '../../errors/question-server-errors';
-import {
-  DomainErrorCode,
-} from '../../../../domain/errors/error-codes';
-import {
-  DomainErrorFactory,
-} from '../../../../domain/errors/error-factory';
+} from '../../dtos/question/question-server-errors';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
 import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
-import {
-  MessageBrokerErrorFactory,
-} from '../../../message-brokers/errors/message-broker-error-factory';
+import { InternalServerServerError } from '../../dtos/common/common-server-errors';
 
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
+  ANSWER_CREATION_FAILED: AnswerCreationFailedServerError,
   ANSWER_DELETE_FAILED: AnswerDeleteFailedServerError,
   ANSWER_NOT_FOUND: AnswerNotFoundServerError,
   ANSWER_UPDATE_FAILED: AnswerUpdateFailedServerError,
@@ -69,37 +66,34 @@ const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
 };
 
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
-  TOKEN_SERVICE_EXPIRED_TOKEN: TokenServiceExpiredTokenServerError,
-  TOKEN_SERVICE_INVALID_TOKEN: TokenServiceInvalidTokenServerError,
+  TOKEN_SERVICE_EXPIRED_TOKEN: ExpiredTokenServerError,
+  TOKEN_SERVICE_INVALID_TOKEN: InvalidTokenServerError,
 };
 
 const errorMiddleware = (
-  error: Error,
+  err: Error,
   _req: Request,
   res: Response,
   _next: NextFunction,
 ) => {
-  if (error instanceof MessageBrokerErrorFactory) {
-    return res.end();
+  if (err instanceof ServerErrorFactory) {
+    const { code, error, statusCode } = err;
+    return res.status(statusCode).json({ code, error });
   }
 
-  if (error instanceof ServerErrorFactory) {
-    return res.status(error.statusCode).json({ code: error.code, error: error.message });
+  if (err instanceof DomainErrorFactory) {
+    const { code, error, statusCode } = domainErrors[err.code];
+    return res.status(statusCode).json({ code, error });
   }
 
-  if (error instanceof DomainErrorFactory) {
-    const { code, message, statusCode } = domainErrors[error.code];
-    return res.status(statusCode).json({ code, error: message });
-  }
-
-  if (error instanceof ServiceErrorFactory) {
-    const { code, message, statusCode } = serviceErrors[error.code];
-    return res.status(statusCode).json({ code, error: message });
+  if (err instanceof ServiceErrorFactory) {
+    const { code, error, statusCode } = serviceErrors[err.code];
+    return res.status(statusCode).json({ code, error });
   }
 
   return res.status(InternalServerServerError.statusCode).json({
     code: InternalServerServerError.code,
-    error: InternalServerServerError.message,
+    error: InternalServerServerError.error,
   });
 };
 

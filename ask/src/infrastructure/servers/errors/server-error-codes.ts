@@ -9,32 +9,32 @@ import {
 
 export type ServerError = {
   code: ServerErrorCode;
-  message: string;
+  error: string;
   statusCode: number;
 };
 
 export type ServerErrorCode =
 | AnswerServerErrorCode
+| CommonServerErrorCode
 | QuestionServerErrorCode
-| RequestServerErrorCode
-| TokenServiceServerErrorCode
+| TokenServerErrorCode
 | UserServerErrorCode;
 
 export type AnswerServerErrorCode =
 | AnswerErrorCode;
 
+export type CommonServerErrorCode =
+| 'INTERNAL_SERVER'
+| 'REQUIRED_FIELD';
+
 export type QuestionServerErrorCode =
 | QuestionErrorCode;
 
-export type RequestServerErrorCode =
+export type TokenServerErrorCode =
+| TokenServiceErrorCode
 | 'AUTHORIZATION_SCHEME_NOT_SUPPORTED'
-| 'INTERNAL_SERVER'
 | 'MISSING_AUTHORIZATION_HEADER'
-| 'MISSING_TOKEN'
-| 'AUTHORIZATION_SCHEME_NOT_SUPPORTED';
-
-export type TokenServiceServerErrorCode =
-| TokenServiceErrorCode;
+| 'MISSING_TOKEN';
 
 export type UserServerErrorCode =
 | UserErrorCode;

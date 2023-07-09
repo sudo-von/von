@@ -5,19 +5,15 @@ import {
 } from 'express';
 import statusCode from 'http-status-codes';
 import {
-  createAnswerServer,
-  updateAnswerServer,
-} from '../../../dtos/answer/answer-server-dtos';
-import {
-  createQuestionServer,
+  CreateQuestionRequest,
 } from '../../../dtos/question/question-server-dtos';
-import UserUsecase from '../../../../../domain/usecases/user-usecase';
+import MetricUsecase from '../../../../../domain/usecases/metric-usecase';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase';
-import questionToQuestionServer from '../../../dtos/question/question-server-mappers';
+import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
 
 class QuestionController {
   constructor(
-    private readonly userUsecase: UserUsecase,
+    private readonly metricUsecase: MetricUsecase,
     private readonly questionUsecase: QuestionUsecase,
   ) {}
 
@@ -25,49 +21,17 @@ class QuestionController {
     try {
       const id = req.params.id.toLowerCase();
 
-      const deletedQuestion = await this.questionUsecase.deleteQuestionById(id);
+      const question = await this.questionUsecase.deleteQuestionById(id);
 
-      await this.userUsecase.decreaseTotalQuestionsByUsername(deletedQuestion.username);
+      await this.metricUsecase.decreaseTotalQuestionsByUsername(question.username);
 
-      if (deletedQuestion.answer) {
-        await this.userUsecase.decreaseTotalAnswersByUsername(deletedQuestion.username);
+      if (question.answer) {
+        await this.metricUsecase.decreaseTotalAnswersByUsername(question.username);
       }
 
-      const formattedQuestion = questionToQuestionServer(deletedQuestion);
+      const questionResponse = questionToQuestionResponse(question);
 
-      res.status(statusCode.ACCEPTED).send({ result: formattedQuestion });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  deleteAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id.toLowerCase();
-
-      const deletedAnswer = await this.questionUsecase.deleteAnswerByQuestionId(id);
-
-      await this.userUsecase.decreaseTotalAnswersByUsername(deletedAnswer.username);
-
-      const formattedQuestion = questionToQuestionServer(deletedAnswer);
-
-      res.status(statusCode.ACCEPTED).send({ result: formattedQuestion });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id.toLowerCase();
-
-      const answeredQuestion = await this.questionUsecase.getAnsweredQuestionById(id);
-
-      await this.userUsecase.increaseTotalViewsByUsername(answeredQuestion.username);
-
-      const formattedQuestion = questionToQuestionServer(answeredQuestion);
-
-      res.status(statusCode.OK).send({ result: formattedQuestion });
+      res.status(statusCode.ACCEPTED).send({ result: questionResponse });
     } catch (e) {
       next(e);
     }
@@ -77,7 +41,7 @@ class QuestionController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const payload = createQuestionServer.parse(req.body);
+      const payload = CreateQuestionRequest.parse(req.body);
 
       const createdQuestion = await this.questionUsecase.createQuestion({
         username,
@@ -85,11 +49,11 @@ class QuestionController {
         question: payload.question,
       });
 
-      await this.userUsecase.increaseTotalQuestionsByUsername(username);
+      await this.metricUsecase.increaseTotalQuestionsByUsername(username);
 
-      const formattedQuestion = questionToQuestionServer(createdQuestion);
+      const questionResponse = questionToQuestionResponse(createdQuestion);
 
-      res.status(statusCode.CREATED).send({ result: formattedQuestion });
+      res.status(statusCode.CREATED).send({ result: questionResponse });
     } catch (e) {
       next(e);
     }
@@ -101,85 +65,9 @@ class QuestionController {
 
       const questions = await this.questionUsecase.getQuestionsByUsername(username);
 
-      const formattedQuestions = questions.map(
-        (question) => questionToQuestionServer(question),
-      );
+      const questionResponses = questions.map((question) => questionToQuestionResponse(question));
 
-      res.status(statusCode.OK).send({ result: formattedQuestions });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  getAnsweredQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const username = req.params.username.toLowerCase();
-
-      const answeredQuestions = await this.questionUsecase.getAnsweredQuestionsByUsername(username);
-
-      await this.userUsecase.increaseTotalViewsByUsername(username);
-
-      const formattedAnsweredQuestions = answeredQuestions.map(
-        (question) => questionToQuestionServer(question),
-      );
-
-      res.status(statusCode.OK).send({ result: formattedAnsweredQuestions });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  getUnansweredQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const username = req.params.username.toLowerCase();
-
-      const unansweredQuestions = await this.questionUsecase.getUnansweredQuestionsByUsername(
-        username,
-      );
-
-      const formattedUnansweredQuestions = unansweredQuestions.map(
-        (question) => questionToQuestionServer(question),
-      );
-
-      res.status(statusCode.OK).send({ result: formattedUnansweredQuestions });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  createAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id.toLowerCase();
-
-      const payload = createAnswerServer.parse(req.body);
-
-      const answeredQuestion = await this.questionUsecase.createAnswerByQuestionId(id, {
-        answer: payload.answer,
-      });
-
-      await this.userUsecase.increaseTotalAnswersByUsername(answeredQuestion.username);
-
-      const formattedAnsweredQuestion = questionToQuestionServer(answeredQuestion);
-
-      res.status(statusCode.CREATED).send({ result: formattedAnsweredQuestion });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  updateAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const id = req.params.id.toLowerCase();
-
-      const payload = updateAnswerServer.parse(req.body);
-
-      const answeredQuestion = await this.questionUsecase.updateAnswerByQuestionId(id, {
-        answer: payload.answer,
-      });
-
-      const formattedAnsweredQuestion = questionToQuestionServer(answeredQuestion);
-
-      res.status(statusCode.OK).send({ result: formattedAnsweredQuestion });
+      res.status(statusCode.OK).send({ result: questionResponses });
     } catch (e) {
       next(e);
     }

@@ -2,19 +2,19 @@ import {
   z,
 } from 'zod';
 import {
-  AnswerServer,
+  AnswerResponse,
 } from '../answer/answer-server-dtos';
 
-export type QuestionServer = {
+export type QuestionResponse = {
   id: string;
   views: number;
   asked_at: Date;
   username: string;
   question: string;
-  answer?: AnswerServer;
+  answer?: AnswerResponse;
 };
 
-export const createQuestionServer = z.object({
+export const CreateQuestionRequest = z.object({
   question: z
     .string({
       required_error: 'question field is required',

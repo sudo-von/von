@@ -6,19 +6,23 @@ import {
   Response,
   NextFunction,
 } from 'express';
-import statusCode from 'http-status-codes';
+import {
+  RequiredFieldServerError,
+} from '../../dtos/common/common-server-errors';
 
 const bodyMiddleware = (
-  error: Error,
+  err: Error,
   _req: Request,
   res: Response,
   next: NextFunction,
 ) => {
-  if (error instanceof ZodError) {
-    const errors = error.errors.map((e) => e.message);
-    return res.status(statusCode.BAD_REQUEST).json({ errors });
+  if (err instanceof ZodError) {
+    return res.status(RequiredFieldServerError.statusCode).json({
+      code: RequiredFieldServerError.code,
+      errors: err.errors.map((e) => e.message),
+    });
   }
-  return next(error);
+  return next(err);
 };
 
 export default bodyMiddleware;
