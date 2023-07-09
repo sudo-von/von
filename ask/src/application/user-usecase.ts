@@ -42,7 +42,7 @@ class UserUsecaseApplication extends UserUsecase {
   updateUserByUserId = async (id: string, payload: UpdateUser): Promise<User> => {
     validateUserUpdate(payload);
 
-    const user = await this.userRepository.getUser({ id });
+    const user = await this.userRepository.getUser({ userId: id });
     if (!user) throw UserNotFoundError;
 
     const updatedUser = await this.userRepository.updateUser({
@@ -53,8 +53,12 @@ class UserUsecaseApplication extends UserUsecase {
         totalAnswers: user.metrics.totalAnswers,
         totalQuestions: user.metrics.totalQuestions,
       },
-    }, { id });
+    }, { userId: id });
     if (!updatedUser) throw UserUpdateFailedError;
+
+    await this.questionRepository.updateQuestions({
+      username: payload.username,
+    });
 
     return updatedUser;
   };

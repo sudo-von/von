@@ -4,9 +4,13 @@ import {
   UpdateUser,
 } from '../entities/user/user-entities';
 import IUserRepository from '../repositories/user/user-repository';
+import IQuestionRepository from '../repositories/question/question-repository';
 
 abstract class UserUsecase {
-  constructor(protected readonly userRepository: IUserRepository) {}
+  constructor(
+    protected readonly userRepository: IUserRepository,
+    protected readonly questionRepository: IQuestionRepository,
+  ) {}
 
   abstract createUser: (payload: CreateUser) => Promise<User>;
 

@@ -13,6 +13,7 @@ const configureUsecases = (
 ) => {
   const userUsecase = new UserUsecaseApplication(
     userRepository,
+    questionRepository,
   );
 
   const answerUsecase = new AnswerUsecaseApplication(

@@ -25,6 +25,10 @@ interface IQuestionRepositoryWriter {
     payload: QuestionPayload,
     filters?: QuestionRepositoryFilters
   ) => Promise<Question | null>;
+  updateQuestions: (
+    payload: Partial<QuestionPayload>,
+    filters?: QuestionRepositoryFilters
+  ) => Promise<void>;
 }
 
 interface IQuestionRepository extends IQuestionRepositoryReader, IQuestionRepositoryWriter {}

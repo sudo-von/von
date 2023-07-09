@@ -25,7 +25,7 @@ const configureServer = (
   app.use('/api/v1/unanswered-question', unansweredQuestionRouter);
   app.use('/api/v1/user', userRouter);
 
-  app.use(errorMiddleware);
+  app.use(errorMiddleware(loggerService));
 
   app.listen(serverPort, () => {
     loggerService.info(`🚀 Server has been configured on port ${serverPort}.`);

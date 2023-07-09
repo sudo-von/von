@@ -48,8 +48,8 @@ class MongoQuestionRepository implements IQuestionRepository {
     const updatedQuestion = await QuestionModel.findOneAndUpdate(query, {
       $set: {
         views: payload.views,
-        askedAt: payload.askedAt,
-        askedBy: payload.askedBy,
+        asked_at: payload.askedAt,
+        asked_by: payload.askedBy,
         username: payload.username,
         question: payload.question,
         answer: payload.answer && {
@@ -63,6 +63,26 @@ class MongoQuestionRepository implements IQuestionRepository {
     if (!updatedQuestion) return null;
     const question = questionDocumentToQuestion(updatedQuestion);
     return question;
+  };
+
+  updateQuestions = async (
+    payload: Partial<QuestionPayload>,
+    filters?: QuestionRepositoryFilters,
+  ): Promise<void> => {
+    const query = createQuestionRepositoryQuery(filters);
+    await QuestionModel.updateMany(query, {
+      $set: {
+        views: payload.views,
+        askedAt: payload.askedAt,
+        askedBy: payload.askedBy,
+        username: payload.username,
+        question: payload.question,
+        answer: payload.answer && {
+          answer: payload.answer.answer,
+          answered_at: payload.answer.answeredAt,
+        },
+      },
+    });
   };
 
   deleteQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
