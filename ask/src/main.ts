@@ -37,7 +37,7 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('💽 Repositories have been configured.');
 
     /* 🔧 Services. */
-    const tokenService = configureTokenService(SECRET_KEY, loggerService);
+    const tokenService = configureTokenService(SECRET_KEY);
     loggerService.info('🔑 Token service has been configured.');
 
     /* 📖 Usecases. */

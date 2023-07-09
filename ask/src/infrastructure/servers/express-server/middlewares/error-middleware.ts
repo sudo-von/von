@@ -13,7 +13,6 @@ import {
   UserNotFoundServerError,
   SingleUserOnlyServerError,
   UserUpdateFailedServerError,
-  UserPermissionDeniedServerError,
   InvalidUsernameLengthServerError,
 } from '../../dtos/user/user-server-errors';
 import {
@@ -69,7 +68,6 @@ const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   QUESTION_UPDATE_FAILED: QuestionUpdateFailedServerError,
   SINGLE_USER_ONLY: SingleUserOnlyServerError,
   USER_NOT_FOUND: UserNotFoundServerError,
-  USER_PERMISSION_DENIED: UserPermissionDeniedServerError,
   USER_UPDATE_FAILED: UserUpdateFailedServerError,
 };
 
