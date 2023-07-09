@@ -1,16 +1,16 @@
 import {
   UserNotFoundError,
-} from '../domain/entities/user/user-errors';
+} from '../../domain/entities/user/user-errors';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionUpdateFailedError,
-} from '../domain/entities/question/question-errors';
+} from '../../domain/entities/question/question-errors';
 import {
   Question,
-} from '../domain/entities/question/question-entities';
-import formatQuestion from '../domain/entities/question/question-formatters';
-import AnsweredQuestionUsecase from '../domain/usecases/answered-question-usecase/answered-question-usecase';
+} from '../../domain/entities/question/question-entities';
+import formatQuestion from '../../domain/entities/question/question-formatters';
+import AnsweredQuestionUsecase from '../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
   getAnsweredQuestionById = async (id: string): Promise<Question> => {

@@ -1,11 +1,11 @@
 import {
   UserNotFoundError,
   UserUpdateFailedError,
-} from '../domain/entities/user/user-errors';
+} from '../../domain/entities/user/user-errors';
 import {
   User,
-} from '../domain/entities/user/user-entities';
-import MetricUsecase from '../domain/usecases/metric-usecase/metric-usecase';
+} from '../../domain/entities/user/user-entities';
+import MetricUsecase from '../../domain/usecases/metric-usecase/metric-usecase';
 
 class MetricUsecaseApplication extends MetricUsecase {
   increaseTotalViewsByUsername = async (username: string): Promise<User> => {

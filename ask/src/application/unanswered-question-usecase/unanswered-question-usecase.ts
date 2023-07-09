@@ -1,11 +1,11 @@
 import {
   UserNotFoundError,
-} from '../domain/entities/user/user-errors';
+} from '../../domain/entities/user/user-errors';
 import {
   Question,
-} from '../domain/entities/question/question-entities';
-import formatQuestion from '../domain/entities/question/question-formatters';
-import UnansweredQuestionUsecase from '../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
+} from '../../domain/entities/question/question-entities';
+import formatQuestion from '../../domain/entities/question/question-formatters';
+import UnansweredQuestionUsecase from '../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionUsecaseApplication extends UnansweredQuestionUsecase {
   getUnansweredQuestionsByUsername = async (username: string): Promise<Question[]> => {

@@ -2,23 +2,23 @@ import {
   AnswerDeleteFailedError,
   AnswerUpdateFailedError,
   AnswerCreationFailedError,
-} from '../domain/entities/answer/answer-errors';
+} from '../../domain/entities/answer/answer-errors';
 import {
   CreateAnswer,
   UpdateAnswer,
-} from '../domain/entities/answer/answer-entities';
+} from '../../domain/entities/answer/answer-entities';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionAlreadyAnsweredError,
-} from '../domain/entities/question/question-errors';
+} from '../../domain/entities/question/question-errors';
 import {
   Question,
-} from '../domain/entities/question/question-entities';
-import AnswerUsecase from '../domain/usecases/answer-usecase/answer-usecase';
-import formatQuestion from '../domain/entities/question/question-formatters';
-import validateAnswerUpdate from '../domain/entities/answer/validations/update-answer-validations';
-import validateAnswerCreation from '../domain/entities/answer/validations/create-answer-validations';
+} from '../../domain/entities/question/question-entities';
+import AnswerUsecase from '../../domain/usecases/answer-usecase/answer-usecase';
+import formatQuestion from '../../domain/entities/question/question-formatters';
+import validateAnswerUpdate from '../../domain/entities/answer/validations/update-answer-validations';
+import validateAnswerCreation from '../../domain/entities/answer/validations/create-answer-validations';
 
 class AnswerUsecaseApplication extends AnswerUsecase {
   deleteAnswerByQuestionId = async (id: string): Promise<Question> => {

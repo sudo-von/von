@@ -1,17 +1,17 @@
 import {
   UserNotFoundError,
-} from '../domain/entities/user/user-errors';
+} from '../../domain/entities/user/user-errors';
 import {
   QuestionNotFoundError,
   QuestionDeleteFailedError,
-} from '../domain/entities/question/question-errors';
+} from '../../domain/entities/question/question-errors';
 import {
   Question,
   CreateQuestion,
-} from '../domain/entities/question/question-entities';
-import QuestionUsecase from '../domain/usecases/question-usecase/question-usecase';
-import formatQuestion from '../domain/entities/question/question-formatters';
-import validateQuestionCreation from '../domain/entities/question/validations/create-question-validations';
+} from '../../domain/entities/question/question-entities';
+import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
+import formatQuestion from '../../domain/entities/question/question-formatters';
+import validateQuestionCreation from '../../domain/entities/question/validations/create-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (id: string): Promise<Question> => {
