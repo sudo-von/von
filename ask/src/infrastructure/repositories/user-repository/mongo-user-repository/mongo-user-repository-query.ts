@@ -8,7 +8,7 @@ import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
 
-const createUserRepositoryQuery = (filters?: UserRepositoryFilters): FilterQuery<UserSchema> => {
+const createUserRepositoryQuery = (filters?: UserRepositoryFilters) => {
   const query: FilterQuery<UserSchema> = {};
 
   if (!filters) return query;

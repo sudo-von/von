@@ -4,10 +4,10 @@ import {
   User,
   UserPayload,
 } from '../../../../domain/entities/user-entity/user-entities';
+import createUserRepositoryQuery from './mongo-user-repository-query';
 import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
-import createUserRepositoryQuery from './mongo-user-repository-query';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 class MongoUserRepository implements IUserRepository {
@@ -42,7 +42,7 @@ class MongoUserRepository implements IUserRepository {
   };
 
   updateUser = async (
-    payload: UserPayload,
+    payload: Partial<UserPayload>,
     filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
     const query = createUserRepositoryQuery(filters);
@@ -50,7 +50,7 @@ class MongoUserRepository implements IUserRepository {
       $set: {
         user_id: payload.userId,
         username: payload.username,
-        metrics: {
+        metrics: payload.metrics && {
           total_views: payload.metrics.totalViews,
           total_answers: payload.metrics.totalAnswers,
           total_questions: payload.metrics.totalQuestions,

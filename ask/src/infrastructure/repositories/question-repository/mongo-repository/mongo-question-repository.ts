@@ -1,29 +1,29 @@
 import QuestionModel from './mongo-question-model';
+import questionDocumentToQuestion from './mongo-question-mapper';
 import {
   Question,
   QuestionPayload,
 } from '../../../../domain/entities/question-entity/question-entities';
-import questionDocumentToQuestion from './mongo-question-mapper';
+import createQuestionRepositoryQuery from './mongo-question-repository-query';
 import {
   QuestionRepositoryFilters,
 } from '../../../../domain/repositories/question-repository/question-repository-filters';
-import createQuestionRepositoryQuery from './mongo-question-repository-query';
 import IQuestionRepository from '../../../../domain/repositories/question-repository/question-repository';
 
 class MongoQuestionRepository implements IQuestionRepository {
+  getQuestions = async (filters?: QuestionRepositoryFilters): Promise<Question[]> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const questionDocuments = await QuestionModel.find(query);
+    const questions = questionDocuments.map((model) => questionDocumentToQuestion(model));
+    return questions;
+  };
+
   getQuestion = async (filters?: QuestionRepositoryFilters): Promise<Question | null> => {
     const query = createQuestionRepositoryQuery(filters);
     const questionDocument = await QuestionModel.findOne(query);
     if (!questionDocument) return null;
     const question = questionDocumentToQuestion(questionDocument);
     return question;
-  };
-
-  getQuestions = async (filters?: QuestionRepositoryFilters): Promise<Question[]> => {
-    const query = createQuestionRepositoryQuery(filters);
-    const questionDocuments = await QuestionModel.find(query);
-    const questions = questionDocuments.map((model) => questionDocumentToQuestion(model));
-    return questions;
   };
 
   createQuestion = async (payload: QuestionPayload): Promise<Question> => {
@@ -41,7 +41,7 @@ class MongoQuestionRepository implements IQuestionRepository {
   };
 
   updateQuestion = async (
-    payload: QuestionPayload,
+    payload: Partial<QuestionPayload>,
     filters?: QuestionRepositoryFilters,
   ): Promise<Question | null> => {
     const query = createQuestionRepositoryQuery(filters);
