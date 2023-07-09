@@ -4,7 +4,7 @@ import {
 import {
   Question,
   QuestionPayload,
-} from '../../entities/question/question-entities';
+} from '../../entities/question-entity/question-entities';
 
 interface IQuestionRepositoryReader {
   getQuestions: (filters?: QuestionRepositoryFilters) => Promise<Question[]>;

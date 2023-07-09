@@ -6,7 +6,7 @@ import {
 } from '../../../../domain/repositories/question-repository/question-repository-schema';
 import {
   Question,
-} from '../../../../domain/entities/question/question-entities';
+} from '../../../../domain/entities/question-entity/question-entities';
 
 const questionDocumentToQuestion = (document: HydratedDocument<QuestionSchema>): Question => ({
   id: document._id.toHexString(),

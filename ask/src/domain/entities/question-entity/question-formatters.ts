@@ -1,7 +1,7 @@
 import {
   Question,
 } from './question-entities';
-import formatAnswer from '../answer/answer-formatters';
+import formatAnswer from '../answer-entity/answer-formatters';
 
 type QuestionFormat = Partial<{
   formatAnswer: boolean;

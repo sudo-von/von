@@ -1,6 +1,6 @@
+import configureUsecases from './application/configure-usecases';
 import configureServer from './infrastructure/config/configure-server';
 import configureRouters from './infrastructure/config/configure-routers';
-import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';

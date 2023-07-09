@@ -1,11 +1,11 @@
-import UserUsecaseApplication from '../../application/user-usecase/user-usecase';
-import AnswerUsecaseApplication from '../../application/answer-usecase/answer-usecase';
-import MetricUsecaseApplication from '../../application/metric-usecase/metric-usecase';
-import QuestionUsecaseApplication from '../../application/question-usecase/question-usecase';
-import IUserRepository from '../../domain/repositories/user-repository/user-repository';
-import IQuestionRepository from '../../domain/repositories/question-repository/question-repository';
-import AnsweredQuestionUsecaseApplication from '../../application/answered-question-usecase/answered-question-usecase';
-import UnansweredQuestionUsecaseApplication from '../../application/unanswered-question-usecase/unanswered-question-usecase';
+import UserUsecaseApplication from './user-usecase/user-usecase';
+import AnswerUsecaseApplication from './answer-usecase/answer-usecase';
+import MetricUsecaseApplication from './metric-usecase/metric-usecase';
+import QuestionUsecaseApplication from './question-usecase/question-usecase';
+import IUserRepository from '../domain/repositories/user-repository/user-repository';
+import IQuestionRepository from '../domain/repositories/question-repository/question-repository';
+import AnsweredQuestionUsecaseApplication from './answered-question-usecase/answered-question-usecase';
+import UnansweredQuestionUsecaseApplication from './unanswered-question-usecase/unanswered-question-usecase';
 
 const configureUsecases = (
   userRepository: IUserRepository,
@@ -17,7 +17,6 @@ const configureUsecases = (
   );
 
   const answerUsecase = new AnswerUsecaseApplication(
-    userRepository,
     questionRepository,
   );
 

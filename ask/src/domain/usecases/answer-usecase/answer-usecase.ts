@@ -1,10 +1,10 @@
 import {
   CreateAnswer,
   UpdateAnswer,
-} from '../../entities/answer/answer-entities';
+} from '../../entities/answer-entity/answer-entities';
 import {
   Question,
-} from '../../entities/question/question-entities';
+} from '../../entities/question-entity/question-entities';
 import IQuestionRepository from '../../repositories/question-repository/question-repository';
 
 abstract class AnswerUsecase {

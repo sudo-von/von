@@ -1,10 +1,10 @@
 import {
   UserNotFoundError,
   UserUpdateFailedError,
-} from '../../domain/entities/user/user-errors';
+} from '../../domain/entities/user-entity/user-errors';
 import {
   User,
-} from '../../domain/entities/user/user-entities';
+} from '../../domain/entities/user-entity/user-entities';
 import MetricUsecase from '../../domain/usecases/metric-usecase/metric-usecase';
 
 class MetricUsecaseApplication extends MetricUsecase {

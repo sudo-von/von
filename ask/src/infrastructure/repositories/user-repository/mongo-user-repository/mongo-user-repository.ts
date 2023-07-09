@@ -3,7 +3,7 @@ import userDocumentToUser from './mongo-user-repository-mapper';
 import {
   User,
   UserPayload,
-} from '../../../../domain/entities/user/user-entities';
+} from '../../../../domain/entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';

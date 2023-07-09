@@ -1,6 +1,6 @@
 import {
   Metrics,
-} from '../metric/metric-entities';
+} from '../metric-entity/metric-entities';
 
 export type User = Readonly<{
   id: string;

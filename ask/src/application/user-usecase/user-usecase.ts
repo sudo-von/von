@@ -2,15 +2,15 @@ import {
   UserNotFoundError,
   SingleUserOnlyError,
   UserUpdateFailedError,
-} from '../../domain/entities/user/user-errors';
+} from '../../domain/entities/user-entity/user-errors';
 import {
   User,
   CreateUser,
   UpdateUser,
-} from '../../domain/entities/user/user-entities';
+} from '../../domain/entities/user-entity/user-entities';
 import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
-import validateUserUpdate from '../../domain/entities/user/validations/update-user-validations';
-import validateUserCreation from '../../domain/entities/user/validations/create-user-validations';
+import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
+import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
   createUser = async (payload: CreateUser): Promise<User> => {

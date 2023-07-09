@@ -3,7 +3,7 @@ import {
 } from './user-server-dtos';
 import {
   User,
-} from '../../../../domain/entities/user/user-entities';
+} from '../../../../domain/entities/user-entity/user-entities';
 
 const userToUserResponse = (user: User): UserResponse => ({
   id: user.id,

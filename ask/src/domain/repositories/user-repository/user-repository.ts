@@ -4,7 +4,7 @@ import {
 import {
   User,
   UserPayload,
-} from '../../entities/user/user-entities';
+} from '../../entities/user-entity/user-entities';
 
 interface IUserRepositoryReader {
   getUsers: (filters?: UserRepositoryFilters) => Promise<User[]>;

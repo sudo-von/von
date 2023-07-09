@@ -9,7 +9,7 @@ import {
   QuestionUpdateFailedError,
   InvalidQuestionLengthError,
   QuestionAlreadyAnsweredError,
-} from '../../../../domain/entities/question/question-errors';
+} from '../../../../domain/entities/question-entity/question-errors';
 
 export const InvalidQuestionLengthServerError = createServerErrorFactory({
   code: 'INVALID_QUESTION_LENGTH',

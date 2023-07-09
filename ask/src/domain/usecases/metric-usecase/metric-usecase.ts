@@ -1,6 +1,6 @@
 import {
   User,
-} from '../../entities/user/user-entities';
+} from '../../entities/user-entity/user-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class MetricUsecase {

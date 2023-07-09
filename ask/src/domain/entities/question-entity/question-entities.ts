@@ -1,6 +1,6 @@
 import {
   Answer,
-} from '../answer/answer-entities';
+} from '../answer-entity/answer-entities';
 
 export type Question = Readonly<{
   id: string;

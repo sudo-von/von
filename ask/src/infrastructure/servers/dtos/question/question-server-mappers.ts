@@ -3,7 +3,7 @@ import {
 } from './question-server-dtos';
 import {
   Question,
-} from '../../../../domain/entities/question/question-entities';
+} from '../../../../domain/entities/question-entity/question-entities';
 
 const questionToQuestionResponse = (question: Question): QuestionResponse => ({
   id: question.id,

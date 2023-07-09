@@ -7,7 +7,7 @@ import {
   AnswerDeleteFailedError,
   InvalidAnswerLengthError,
   AnswerCreationFailedError,
-} from '../../../../domain/entities/answer/answer-errors';
+} from '../../../../domain/entities/answer-entity/answer-errors';
 
 export const AnswerCreationFailedServerError = createServerErrorFactory({
   code: 'ANSWER_CREATION_FAILED',

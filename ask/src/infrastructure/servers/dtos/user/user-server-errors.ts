@@ -7,7 +7,7 @@ import {
   SingleUserOnlyError,
   UserUpdateFailedError,
   InvalidUsernameLengthError,
-} from '../../../../domain/entities/user/user-errors';
+} from '../../../../domain/entities/user-entity/user-errors';
 
 export const InvalidUsernameLengthServerError = createServerErrorFactory({
   code: 'INVALID_USERNAME_LENGTH',

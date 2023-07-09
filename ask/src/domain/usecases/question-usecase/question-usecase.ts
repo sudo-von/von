@@ -1,7 +1,7 @@
 import {
   Question,
   CreateQuestion,
-} from '../../entities/question/question-entities';
+} from '../../entities/question-entity/question-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 import IQuestionRepository from '../../repositories/question-repository/question-repository';
 

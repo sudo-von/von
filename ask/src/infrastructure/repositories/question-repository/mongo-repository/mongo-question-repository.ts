@@ -2,7 +2,7 @@ import QuestionModel from './mongo-question-model';
 import {
   Question,
   QuestionPayload,
-} from '../../../../domain/entities/question/question-entities';
+} from '../../../../domain/entities/question-entity/question-entities';
 import questionDocumentToQuestion from './mongo-question-mapper';
 import {
   QuestionRepositoryFilters,
