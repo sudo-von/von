@@ -1,7 +1,6 @@
-export type Token = Readonly<{
-  iat: number;
-  exp: number;
-}>;
+import {
+  Token,
+} from '../token/token-dtos';
 
 export type UserToken = Readonly<{
   id: string;

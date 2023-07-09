@@ -9,5 +9,5 @@ export const TokenServiceExpiredTokenError = createServiceErrorFactory({
 
 export const TokenServiceInvalidTokenError = createServiceErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
-  message: 'The provided token is invalid. Please ensure you have the correct token and log in again.',
+  message: 'The provided token is invalid. Please log in again to continue.',
 });

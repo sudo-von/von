@@ -25,7 +25,8 @@ export type AnswerServerErrorCode =
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
-| 'REQUIRED_FIELD';
+| 'REQUIRED_FIELD'
+| 'REQUEST_RUNTIME_SERVER_ERROR';
 
 export type QuestionServerErrorCode =
 | QuestionErrorCode;

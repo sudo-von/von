@@ -4,7 +4,6 @@ import {
   NextFunction,
 } from 'express';
 import {
-  InvalidTokenServerError,
   MissingTokenServerError,
   MissingAuthorizationHeaderServerError,
   AuthorizationSchemeNotSupportedServerError,
@@ -26,11 +25,20 @@ const authenticationMiddleware = (
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
-  if (!authorization) return next(MissingAuthorizationHeaderServerError);
+
+  if (!authorization) {
+    return next(MissingAuthorizationHeaderServerError);
+  }
 
   const [scheme, token] = authorization.split(' ');
-  if (scheme.toLowerCase() !== 'bearer') return next(AuthorizationSchemeNotSupportedServerError);
-  if (!token) return next(MissingTokenServerError);
+
+  if (scheme.toLowerCase() !== 'bearer') {
+    return next(AuthorizationSchemeNotSupportedServerError);
+  }
+
+  if (!token) {
+    return next(MissingTokenServerError);
+  }
 
   try {
     const decodedToken = await tokenService.decode(token);
@@ -50,8 +58,7 @@ const authenticationMiddleware = (
 
     return next();
   } catch (e) {
-    loggerService.error(InvalidTokenServerError.error, e as Error);
-    return next(InvalidTokenServerError);
+    return next(e);
   }
 };
 

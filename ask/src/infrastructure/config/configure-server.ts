@@ -3,7 +3,6 @@ import express, {
   Router,
 } from 'express';
 import LoggerService from '../services/logger-service/logger-service';
-import bodyMiddleware from '../servers/express-server/middlewares/body-middleware';
 import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
 
 const configureServer = (
@@ -26,11 +25,10 @@ const configureServer = (
   app.use('/api/v1/unanswered-question', unansweredQuestionRouter);
   app.use('/api/v1/user', userRouter);
 
-  app.use(bodyMiddleware);
   app.use(errorMiddleware);
 
   app.listen(serverPort, () => {
-    loggerService.info(`🚀 Controllers have been configured on port ${serverPort}.`);
+    loggerService.info(`🚀 Server has been configured on port ${serverPort}.`);
   });
 };
 

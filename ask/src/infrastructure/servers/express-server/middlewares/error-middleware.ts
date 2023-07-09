@@ -1,4 +1,7 @@
 import {
+  ZodError,
+} from 'zod';
+import {
   Request,
   Response,
   NextFunction,
@@ -20,6 +23,11 @@ import {
 import {
   DomainErrorCode,
 } from '../../../../domain/errors/error-codes';
+import {
+  RequiredFieldServerError,
+  InternalServerServerError,
+  RequestRuntimeServerError,
+} from '../../dtos/common/common-server-errors';
 import {
   AnswerNotFoundServerError,
   AnswerDeleteFailedServerError,
@@ -44,7 +52,7 @@ import {
 import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
-import { InternalServerServerError } from '../../dtos/common/common-server-errors';
+import LoggerService from '../../../services/logger-service/logger-service';
 
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   ANSWER_CREATION_FAILED: AnswerCreationFailedServerError,
@@ -70,12 +78,21 @@ const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
   TOKEN_SERVICE_INVALID_TOKEN: InvalidTokenServerError,
 };
 
-const errorMiddleware = (
+const errorMiddleware = (loggerService: LoggerService) => (
   err: Error,
   _req: Request,
   res: Response,
   _next: NextFunction,
 ) => {
+  loggerService.error(RequestRuntimeServerError.message, err);
+
+  if (err instanceof ZodError) {
+    return res.status(RequiredFieldServerError.statusCode).json({
+      code: RequiredFieldServerError.code,
+      errors: err.errors.map((e) => e.message),
+    });
+  }
+
   if (err instanceof ServerErrorFactory) {
     const { code, error, statusCode } = err;
     return res.status(statusCode).json({ code, error });
