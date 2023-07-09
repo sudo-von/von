@@ -20,8 +20,7 @@ class RabbitMQUpdateUserConsumer extends RabbitMQ {
   onMessage = async (data: Buffer): Promise<void> => {
     try {
       const payload = JSON.parse(data.toString()) as UpdateUserMessageBroker;
-      await this.userUsecase.updateUserByUsername(payload.username, {
-        userId: payload.user_id,
+      await this.userUsecase.updateUserByUserId(payload.user_id, {
         username: payload.username,
       });
       this.ackMessage();
