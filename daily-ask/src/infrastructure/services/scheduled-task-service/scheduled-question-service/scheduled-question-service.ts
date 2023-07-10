@@ -3,6 +3,9 @@ import {
 } from 'node-cron';
 import ScheduledTaskService from '../scheduled-task-service';
 import LoggerService from '../../logger-service/logger-service';
+import {
+  CreateQuestionMessageBroker,
+} from '../../../message-brokers/dtos/question-message-broker-dtos';
 import MessageBroker from '../../../message-brokers/message-broker';
 import WebScraperService from '../../web-scraper-service/web-scraper-service';
 import ScheduledTaskServiceFailedToProcessTask from '../scheduled-task-errors';
@@ -32,7 +35,12 @@ class ScheduledQuestionService extends ScheduledTaskService {
 
         await this.webScrapperService.close();
 
-        const buffer = Buffer.from(JSON.stringify(question));
+        const payload: CreateQuestionMessageBroker = {
+          asked_by: question.askedBy,
+          question: question.question,
+        };
+
+        const buffer = Buffer.from(JSON.stringify(payload));
 
         this.messageBroker.produceMessage('Question:CreateQuestion', buffer);
       } catch (e) {
