@@ -3,7 +3,7 @@ import LoggerService from '../logger-service/logger-service';
 abstract class WebScraperService {
   constructor(
     protected readonly url: string,
-    protected readonly identifier: string,
+    protected readonly selector: string,
     protected readonly loggerService: LoggerService,
   ) {}
 

@@ -1,6 +1,6 @@
+import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
-import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureScheduledTasks from './infrastructure/config/configure-scheduled-tasks';
 import configureWebScraperServices from './infrastructure/config/configure-web-scrapers';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
@@ -33,17 +33,17 @@ loggerService.info('📢 Logger service has been configured.');
     /* 📦 Message brokers. */
     const {
       createQuestionProducer,
-    } = await configureMessageBrokers(MESSAGE_BROKER_URL, loggerService);
+    } = await configureBrokers(MESSAGE_BROKER_URL, loggerService);
     loggerService.info('📦 Message brokers have been configured.');
 
     /* ⏰ Scheduled tasks. */
     await configureScheduledTasks(
-      createQuestionProducer,
       loggerService,
       questionUsecase,
       topicsWebScraperService,
       startersWebScraperService,
       generatorWebScrapperService,
+      createQuestionProducer,
     );
     loggerService.info('⏰ Scheduled tasks have been configured.');
   } catch (e) {

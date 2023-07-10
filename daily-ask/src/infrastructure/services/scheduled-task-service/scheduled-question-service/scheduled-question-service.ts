@@ -1,22 +1,22 @@
 import {
   schedule,
 } from 'node-cron';
+import Broker from '../../../brokers/broker';
 import ScheduledTaskService from '../scheduled-task-service';
 import LoggerService from '../../logger-service/logger-service';
 import {
-  CreateQuestionMessageBroker,
-} from '../../../message-brokers/dtos/question-message-broker-dtos';
-import MessageBroker from '../../../message-brokers/message-broker';
+  CreateQuestionBroker,
+} from '../../../brokers/dtos/question/question-broker-dtos';
+import ScheduledTaskServiceFailedToProcess from '../scheduled-task-errors';
 import WebScraperService from '../../web-scraper-service/web-scraper-service';
-import ScheduledTaskServiceFailedToProcessTask from '../scheduled-task-errors';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 
 class ScheduledQuestionService extends ScheduledTaskService {
   constructor(
     protected loggerService: LoggerService,
-    protected messageBroker: MessageBroker,
     protected questionUsecase: QuestionUsecase,
     private webScrapperService: WebScraperService,
+    protected createQuestionProducer: Broker<CreateQuestionBroker>,
   ) {
     super(loggerService);
   }
@@ -35,16 +35,12 @@ class ScheduledQuestionService extends ScheduledTaskService {
 
         await this.webScrapperService.close();
 
-        const payload: CreateQuestionMessageBroker = {
+        this.createQuestionProducer.produce('Question:CreateQuestion', {
           asked_by: question.askedBy,
           question: question.question,
-        };
-
-        const buffer = Buffer.from(JSON.stringify(payload));
-
-        this.messageBroker.produceMessage('Question:CreateQuestion', buffer);
+        });
       } catch (e) {
-        this.loggerService.error(ScheduledTaskServiceFailedToProcessTask.message, e as Error);
+        this.loggerService.error(ScheduledTaskServiceFailedToProcess.message, e as Error);
       }
     });
   };

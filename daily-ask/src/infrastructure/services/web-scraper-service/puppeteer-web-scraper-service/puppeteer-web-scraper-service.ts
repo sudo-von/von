@@ -24,11 +24,11 @@ class PuppeteerWebScraperService extends WebScraperService {
 
   constructor(
     protected readonly url: string,
-    protected readonly identifier: string,
+    protected readonly selector: string,
     protected readonly loggerService: LoggerService,
     private readonly options: PuppeteerLaunchOptions,
   ) {
-    super(url, identifier, loggerService);
+    super(url, selector, loggerService);
   }
 
   close = async (): Promise<void> => {
@@ -60,7 +60,7 @@ class PuppeteerWebScraperService extends WebScraperService {
 
       await this.page.goto(this.url);
 
-      const element = await this.page.$(this.identifier);
+      const element = await this.page.$(this.selector);
       if (!element) throw WebScraperServiceElementNotFoundError;
 
       const result = await this.page.evaluate((node) => node.textContent.trim(), element);
