@@ -2,11 +2,11 @@ import LoggerService from '../services/logger-service/logger-service';
 import RabbitMQCreateQuestionProducer from '../message-brokers/rabbitmq/producers/rabbitmq-create-question-producer';
 
 const configureMessageBrokers = async (
-  MESSAGE_BROKER_URL: string,
+  messageBrokerUrl: string,
   loggerService: LoggerService,
 ) => {
   const createQuestionProducer = new RabbitMQCreateQuestionProducer(
-    MESSAGE_BROKER_URL,
+    messageBrokerUrl,
     loggerService,
   );
 

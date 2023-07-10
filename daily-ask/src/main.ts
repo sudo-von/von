@@ -1,47 +1,51 @@
 import configureUsecases from './infrastructure/config/configure-usecases';
-import configureCronJobs from './infrastructure/config/configure-cron-jobs';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
-import configureWebScraperService from './infrastructure/config/configure-web-scraper';
+import configureWebScraperServices from './infrastructure/config/configure-web-scrapers';
 import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
+import configureScheduledTasks from './infrastructure/config/configure-scheduled-tasks';
 
 const loggerService = configureLoggerService();
-loggerService.info('📢 Logger service has been configured.');
+loggerService.info('📢󠀠ㅤLogger service has been configured.');
 
 (async () => {
   try {
-  /* 🔐 Environment variables. */
+  /* 🔐󠀠ㅤEnvironment variables. */
     const {
       MESSAGE_BROKER_URL,
     } = configureEnvironmentVariables();
-    loggerService.info('🔐 Environment variables have been configured.');
+    loggerService.info('🔐󠀠ㅤEnvironment variables have been configured.');
 
-    /* 📖 Usecases. */
-    const { questionUsecase } = configureUsecases();
-    loggerService.info('📖 Usecases have been configured.');
-
-    /* 🔧 Services. */
+    /* 📖󠀠ㅤUsecases. */
     const {
-      conversationStartersWebScrapper,
+      questionUsecase,
+    } = configureUsecases();
+    loggerService.info('📖󠀠ㅤUsecases have been configured.');
+
+    /* 🔧󠀠ㅤServices. */
+    const {
       eslconversationWebScrapperService,
       questionsgeneratorWebScrapperService,
-    } = configureWebScraperService(loggerService);
+      conversationStartersWebScrapperService,
+    } = configureWebScraperServices(loggerService);
     loggerService.info('🕷️󠀠ㅤWeb scraper services have been configured.');
 
-    /* 📦 Message brokers. */
+    /* 📦󠀠ㅤMessage brokers. */
     const {
       createQuestionProducer,
     } = await configureMessageBrokers(MESSAGE_BROKER_URL, loggerService);
-    loggerService.info('📦 Message brokers have been configured.');
+    loggerService.info('📦󠀠ㅤMessage brokers have been configured.');
 
-    configureCronJobs(
+    /* 🗓️󠀠ㅤScheduled tasks. */
+    await configureScheduledTasks(
+      loggerService,
       questionUsecase,
       createQuestionProducer,
-      conversationStartersWebScrapper,
+      conversationStartersWebScrapperService,
       eslconversationWebScrapperService,
       questionsgeneratorWebScrapperService,
     );
-    loggerService.info('⏰ Cron jobs have been configured.');
+    loggerService.info('🗓️󠀠ㅤScheduled tasks have been configured.');
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

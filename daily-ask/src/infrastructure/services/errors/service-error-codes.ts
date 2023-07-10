@@ -4,11 +4,15 @@ export type ServiceError = {
 };
 
 export type ServiceErrorCode =
+| ScheduledTaskService
 | WebScraperServiceErrorCode;
 
 export type PuppeteerServiceErrorCode =
 | 'PUPPETEER_SERVICE_BROWSER_IS_CLOSED'
 | 'PUPPETEER_SERVICE_PAGE_IS_CLOSED';
+
+export type ScheduledTaskService =
+| 'SCHEDULED_TASK_SERVICE_FAILED_TO_PROCESS_TASK';
 
 export type WebScraperServiceErrorCode =
 | PuppeteerServiceErrorCode
