@@ -3,6 +3,7 @@ import LoggerService from '../logger-service/logger-service';
 abstract class WebScraperService {
   constructor(
     protected readonly url: string,
+    protected readonly identifier: string,
     protected readonly loggerService: LoggerService,
   ) {}
 
@@ -10,7 +11,7 @@ abstract class WebScraperService {
 
   abstract connect: () => Promise<void>;
 
-  abstract scrape: (identifier: string) => Promise<string>;
+  abstract scrape: () => Promise<string>;
 }
 
 export default WebScraperService;

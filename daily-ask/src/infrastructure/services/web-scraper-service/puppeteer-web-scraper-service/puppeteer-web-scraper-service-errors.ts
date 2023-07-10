@@ -4,10 +4,10 @@ import {
 
 export const PuppeteerServiceBrowserIsClosedError = createServiceErrorFactory({
   code: 'PUPPETEER_SERVICE_BROWSER_IS_CLOSED',
-  message: 'The web scraper service browser has closed unexpectedly.',
+  message: 'The puppeteer browser is closed.',
 });
 
 export const PuppeteerServicePageIsClosedError = createServiceErrorFactory({
   code: 'PUPPETEER_SERVICE_PAGE_IS_CLOSED',
-  message: 'The web scraper service page has closed unexpectedly.',
+  message: 'The puppeteer page is closed.',
 });
