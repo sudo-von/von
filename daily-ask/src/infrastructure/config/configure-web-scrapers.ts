@@ -14,31 +14,31 @@ const configureWebScraperServices = (loggerService: LoggerService) => {
     ],
   };
 
-  const conversationStartersWebScrapperService = new PuppeteerWebScraperService(
-    'https://www.conversationstarters.com/generator.php',
-    '#random',
-    loggerService,
-    options,
-  );
-
-  const eslconversationWebScrapperService = new PuppeteerWebScraperService(
-    'https://eslconversationtopics.com/random-question-generator/',
-    '.the-question',
-    loggerService,
-    options,
-  );
-
-  const questionsgeneratorWebScrapperService = new PuppeteerWebScraperService(
+  const generatorWebScrapperService = new PuppeteerWebScraperService(
     'https://questionsgenerator.com/ice-breaker.php',
     '.support-sentence',
     loggerService,
     options,
   );
 
+  const startersWebScraperService = new PuppeteerWebScraperService(
+    'https://www.conversationstarters.com/generator.php',
+    '#random',
+    loggerService,
+    options,
+  );
+
+  const topicsWebScraperService = new PuppeteerWebScraperService(
+    'https://eslconversationtopics.com/random-question-generator/',
+    '.the-question',
+    loggerService,
+    options,
+  );
+
   return {
-    conversationStartersWebScrapperService,
-    eslconversationWebScrapperService,
-    questionsgeneratorWebScrapperService,
+    generatorWebScrapperService,
+    startersWebScraperService,
+    topicsWebScraperService,
   };
 };
 

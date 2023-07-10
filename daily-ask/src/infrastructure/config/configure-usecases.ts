@@ -3,7 +3,9 @@ import QuestionUsecaseApplication from '../../application/question-usecase/quest
 const configureUsecases = () => {
   const questionUsecase = new QuestionUsecaseApplication();
 
-  return { questionUsecase };
+  return {
+    questionUsecase,
+  };
 };
 
 export default configureUsecases;

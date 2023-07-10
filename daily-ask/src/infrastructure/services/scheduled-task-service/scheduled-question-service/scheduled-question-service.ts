@@ -8,7 +8,7 @@ import WebScraperService from '../../web-scraper-service/web-scraper-service';
 import ScheduledTaskServiceFailedToProcessTask from '../scheduled-task-errors';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 
-class CreateScheduledQuestionService extends ScheduledTaskService {
+class ScheduledQuestionService extends ScheduledTaskService {
   constructor(
     protected loggerService: LoggerService,
     protected messageBroker: MessageBroker,
@@ -29,7 +29,6 @@ class CreateScheduledQuestionService extends ScheduledTaskService {
           askedBy: identifier,
           question: scrappedQuestion,
         });
-        console.log('🚀 ~ question:', question);
 
         await this.webScrapperService.close();
 
@@ -43,4 +42,4 @@ class CreateScheduledQuestionService extends ScheduledTaskService {
   };
 }
 
-export default CreateScheduledQuestionService;
+export default ScheduledQuestionService;

@@ -2,42 +2,42 @@ import MessageBroker from '../message-brokers/message-broker';
 import LoggerService from '../services/logger-service/logger-service';
 import WebScraperService from '../services/web-scraper-service/web-scraper-service';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
-import CreateScheduledQuestionService from '../services/scheduled-task-service/create-scheduled-question-service/create-question-scheduled-service';
+import ScheduledQuestionService from '../services/scheduled-task-service/scheduled-question-service/scheduled-question-service';
 
 const configureScheduledTasks = async (
+  messageBroker: MessageBroker,
   loggerService: LoggerService,
   questionUsecase: QuestionUsecase,
-  createQuestionProducer: MessageBroker,
-  conversationStartersWebScrapper: WebScraperService,
-  eslconversationWebScrapperService: WebScraperService,
-  questionsgeneratorWebScrapperService: WebScraperService,
+  topicsWebScraperService: WebScraperService,
+  startersWebScraperService: WebScraperService,
+  generatorWebScrapperService: WebScraperService,
 ) => {
-  const conversationStartersScheduledService = new CreateScheduledQuestionService(
+  const morningScheduledQuestion = new ScheduledQuestionService(
     loggerService,
-    createQuestionProducer,
+    messageBroker,
     questionUsecase,
-    conversationStartersWebScrapper,
+    topicsWebScraperService,
   );
 
-  const eslStartersScheduledService = new CreateScheduledQuestionService(
+  const afternoonScheduledQuestion = new ScheduledQuestionService(
     loggerService,
-    createQuestionProducer,
+    messageBroker,
     questionUsecase,
-    eslconversationWebScrapperService,
+    startersWebScraperService,
   );
 
-  const questionsScheduledService = new CreateScheduledQuestionService(
+  const eveningScheduledQuestion = new ScheduledQuestionService(
     loggerService,
-    createQuestionProducer,
+    messageBroker,
     questionUsecase,
-    questionsgeneratorWebScrapperService,
+    generatorWebScrapperService,
   );
 
-  await conversationStartersScheduledService.scheduleTask('conversationstarters', '* 10 * * *');
+  await morningScheduledQuestion.scheduleTask('conversationstarters', '* 10 * * *');
 
-  await eslStartersScheduledService.scheduleTask('eslconversation', '* 15 * * * *');
+  await afternoonScheduledQuestion.scheduleTask('eslconversation', '* 15 * * * *');
 
-  await questionsScheduledService.scheduleTask('questionsgenerator', '* 20 * * * *');
+  await eveningScheduledQuestion.scheduleTask('questionsgenerator', '* 20 * * * *');
 };
 
 export default configureScheduledTasks;

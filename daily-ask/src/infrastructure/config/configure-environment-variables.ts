@@ -17,7 +17,9 @@ const configureEnvironmentVariables = () => {
 
   const MESSAGE_BROKER_URL = `${MESSAGE_BROKER_HOST}:${MESSAGE_BROKER_PORT}`;
 
-  return { MESSAGE_BROKER_URL };
+  return {
+    MESSAGE_BROKER_URL,
+  };
 };
 
 export default configureEnvironmentVariables;

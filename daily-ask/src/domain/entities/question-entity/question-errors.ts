@@ -5,7 +5,7 @@ import questionRules from './question-rules';
 
 export const InvalidAskedByLengthError = createDomainErrorFactory({
   code: 'INVALID_ASKED_BY_LENGTH',
-  message: 'The askedBy field is required."',
+  message: `Please provide an asked by that consists of at least ${questionRules.question.MIN_LENGTH} characters.`,
 });
 
 export const InvalidQuestionLengthError = createDomainErrorFactory({
