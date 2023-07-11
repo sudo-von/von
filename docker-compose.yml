@@ -36,17 +36,6 @@ services:
     restart: always
     logging:
       driver: none
-  #  details_database:
-  #    image: mongo:4.4
-  #    container_name: details_database
-  #    ports:
-  #      - 27018:27017
-  #    environment:
-  #      - MONGO_INITDB_ROOT_USERNAME=${DETAILS_DATABASE_USERNAME}
-  #      - MONGO_INITDB_ROOT_PASSWORD=${DETAILS_DATABASE_PASSWORD}
-  #    restart: always
-  #    logging:
-  #      driver: none
   # 🔧 Services.
   authentication:
     build:
@@ -55,7 +44,7 @@ services:
     container_name: authentication
     ports:
       - 3000:3000
-    restart: always
+    restart: on-failure:10
   ask:
     build:
       context: ./ask
@@ -63,13 +52,10 @@ services:
     container_name: ask
     ports:
       - 3001:3001
-    restart: always
-
-#  details:
-#    build:
-#      context: ./details
-#      dockerfile: Dockerfile
-#    container_name: details
-#    ports:
-#      - 3001:3000
-#    restart: always
+    restart: on-failure:10
+  daily-ask:
+    build:
+      context: ./daily-ask
+      dockerfile: Dockerfile
+    container_name: daily-ask
+    restart: on-failure:10

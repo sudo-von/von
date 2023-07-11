@@ -6,6 +6,7 @@ RUN npm ci
 RUN npm run build
 
 FROM node:16.17.0-bullseye-slim
+ENV NODE_ENV production
 
 RUN apt-get update && apt-get install -y gnupg wget \
   && wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google-archive.gpg \
@@ -15,7 +16,6 @@ RUN apt-get update && apt-get install -y gnupg wget \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/app
-ENV NODE_ENV production
 COPY --chown=node:node --from=builder /usr/app/.env ./
 COPY --chown=node:node --from=builder /usr/app/build ./src/.
 COPY --chown=node:node --from=builder /usr/app/package*.json ./
