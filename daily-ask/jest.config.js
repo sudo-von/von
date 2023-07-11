@@ -8,6 +8,6 @@ module.exports = {
   displayName: { name: 'daily-ask', color: 'black' },
   testMatch: [
     "<rootDir>/tests/**/*.test.ts",
-    "<rootDir>/tests/**/*.unit.test.ts",
+    "<rootDir>/tests/**/*.unit.test.ts"
   ],
 };
