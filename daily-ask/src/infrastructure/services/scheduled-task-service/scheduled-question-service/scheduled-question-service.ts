@@ -21,7 +21,7 @@ class ScheduledQuestionService extends ScheduledTaskService {
     protected loggerService: LoggerService,
     protected questionUsecase: QuestionUsecase,
     protected createQuestionProducer: Broker<CreateQuestionBroker>,
-    private questionWebScraperService: WebScraperService,
+    protected questionWebScraperService: WebScraperService,
   ) {
     super(taskId, loggerService);
   }

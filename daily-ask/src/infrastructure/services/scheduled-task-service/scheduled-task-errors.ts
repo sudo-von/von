@@ -9,5 +9,5 @@ export const ScheduledTaskServiceFailedToProcessError = createServiceErrorFactor
 
 export const ScheduledTaskServiceInvalidPatternError = createServiceErrorFactory({
   code: 'SCHEDULED_TASK_SERVICE_INVALID_PATTERN',
-  message: 'The provided expression is invalid.',
+  message: 'The provided pattern is invalid.',
 });

@@ -26,7 +26,7 @@ class PuppeteerWebScraperService extends WebScraperService {
     protected readonly url: string,
     protected readonly selector: string,
     protected readonly loggerService: LoggerService,
-    private readonly options: PuppeteerLaunchOptions,
+    protected readonly options: PuppeteerLaunchOptions,
   ) {
     super(url, selector, loggerService);
   }
@@ -35,6 +35,7 @@ class PuppeteerWebScraperService extends WebScraperService {
     try {
       if (this.page) await this.page.close();
       if (this.browser) await this.browser.close();
+
       this.browser = undefined;
       this.page = undefined;
     } catch (e) {
