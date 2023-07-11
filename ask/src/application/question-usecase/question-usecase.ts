@@ -8,12 +8,10 @@ import {
 import {
   Question,
   CreateQuestion,
-  CreateGlobalQuestion,
 } from '../../domain/entities/question-entity/question-entities';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import formatQuestion from '../../domain/entities/question-entity/question-formatters';
 import validateQuestionCreation from '../../domain/entities/question-entity/question-validations/create-question-validations';
-import validateGlobalQuestionCreation from '../../domain/entities/question-entity/question-validations/create-global-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (id: string): Promise<Question> => {
@@ -27,36 +25,8 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     return formattedQuestion;
   };
 
-  getQuestionsByUsername = async (username: string): Promise<Question[]> => {
-    const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
-
-    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
-
-    const formattedQuestions = questions.map((question) => formatQuestion(question));
-    return formattedQuestions;
-  };
-
-  createQuestionByUsername = async (payload: CreateQuestion): Promise<Question> => {
+  createGlobalQuestion = async (payload: CreateQuestion): Promise<void> => {
     validateQuestionCreation(payload);
-
-    const user = await this.userRepository.getUser({ username: payload.username });
-    if (!user) throw UserNotFoundError;
-
-    const createdQuestion = await this.questionRepository.createQuestion({
-      views: 0,
-      askedAt: new Date(),
-      askedBy: payload.askedBy,
-      username: payload.username,
-      question: payload.question,
-    });
-
-    const formattedQuestion = formatQuestion(createdQuestion, { formatAnswer: false });
-    return formattedQuestion;
-  };
-
-  createGlobalQuestion = async (payload: CreateGlobalQuestion): Promise<void> => {
-    validateGlobalQuestionCreation(payload);
 
     const users = await this.userRepository.getUsers();
 
@@ -69,6 +39,37 @@ class QuestionUsecaseApplication extends QuestionUsecase {
         question: payload.question,
       })),
     );
+  };
+
+  getQuestionsByUsername = async (username: string): Promise<Question[]> => {
+    const user = await this.userRepository.getUser({ username });
+    if (!user) throw UserNotFoundError;
+
+    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
+
+    const formattedQuestions = questions.map((question) => formatQuestion(question));
+    return formattedQuestions;
+  };
+
+  createQuestionByUsername = async (
+    username: string,
+    payload: CreateQuestion,
+  ):Promise<Question> => {
+    validateQuestionCreation(payload);
+
+    const user = await this.userRepository.getUser({ username });
+    if (!user) throw UserNotFoundError;
+
+    const createdQuestion = await this.questionRepository.createQuestion({
+      views: 0,
+      askedAt: new Date(),
+      askedBy: payload.askedBy,
+      question: payload.question,
+      username,
+    });
+
+    const formattedQuestion = formatQuestion(createdQuestion, { formatAnswer: false });
+    return formattedQuestion;
   };
 }
 

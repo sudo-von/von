@@ -42,7 +42,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (question.answer) throw QuestionAlreadyAnsweredError;
 
-    const updatedQuestion = await this.questionRepository.updateQuestion({
+    const createdAnswer = await this.questionRepository.updateQuestion({
       views: question.views,
       askedAt: question.askedAt,
       askedBy: question.askedBy,
@@ -53,9 +53,9 @@ class AnswerUsecaseApplication extends AnswerUsecase {
         answeredAt: new Date(),
       },
     }, { id });
-    if (!updatedQuestion) throw AnswerCreationFailedError;
+    if (!createdAnswer) throw AnswerCreationFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(createdAnswer, { formatAnswer: false });
     return formattedQuestion;
   };
 
@@ -67,7 +67,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const updatedQuestion = await this.questionRepository.updateQuestion({
+    const updatedAnswer = await this.questionRepository.updateQuestion({
       views: question.views,
       askedAt: question.askedAt,
       askedBy: question.askedBy,
@@ -78,9 +78,9 @@ class AnswerUsecaseApplication extends AnswerUsecase {
         answeredAt: new Date(),
       },
     }, { id });
-    if (!updatedQuestion) throw AnswerUpdateFailedError;
+    if (!updatedAnswer) throw AnswerUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedQuestion, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(updatedAnswer, { formatAnswer: false });
     return formattedQuestion;
   };
 }

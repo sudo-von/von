@@ -43,11 +43,13 @@ class QuestionController {
 
       const payload = CreateQuestionRequest.parse(req.body);
 
-      const createdQuestion = await this.questionUsecase.createQuestionByUsername({
+      const createdQuestion = await this.questionUsecase.createQuestionByUsername(
         username,
-        askedBy: req.ip,
-        question: payload.question,
-      });
+        {
+          askedBy: req.ip,
+          question: payload.question,
+        },
+      );
 
       await this.metricUsecase.increaseTotalQuestionsByUsername(username);
 
