@@ -1,10 +1,10 @@
 import configureServer from './infrastructure/config/configure-server';
+import configureBrokers from './infrastructure/config/configure-brokers';
 import configureRouters from './infrastructure/config/configure-routers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
-import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
 
 const loggerService = configureLoggerService();
@@ -52,8 +52,8 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📖 Usecases have been configured.');
 
     /* 📦 Message brokers. */
-    await configureMessageBrokers(MESSAGE_BROKER_URL, userUsecase, loggerService, questionUsecase);
-    loggerService.info('📦 Message brokers have been configured.');
+    await configureBrokers(MESSAGE_BROKER_URL, userUsecase, loggerService, questionUsecase);
+    loggerService.info('📦 Brokers have been configured.');
 
     /* 🔌 Routers. */
     const {
