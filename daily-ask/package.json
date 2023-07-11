@@ -7,8 +7,7 @@
     "start": "node build/index.js",
     "start:dev": "nodemon",
     "test": "jest",
-    "test:unit": "jest --testMatch '<rootDir>/tests/**/*.unit.test.ts'",
-    "test:integration": "jest --testMatch '<rootDir>/tests/**/*.integration.test.ts'"
+    "test:unit": "jest --testMatch '<rootDir>/tests/**/*.unit.test.ts'"
   },
   "keywords": [
     "microservice, daily-ask, von"
