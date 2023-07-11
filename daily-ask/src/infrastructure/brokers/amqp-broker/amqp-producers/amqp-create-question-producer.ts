@@ -1,7 +1,7 @@
 import AMQPBRoker from '../amqp-broker';
 import {
   CreateQuestionBroker,
-} from '../../dtos/question/question-broker-dtos';
+} from '../../dtos/question-dto/question-broker-dtos';
 
 class AMQPCreateQuestionProducer extends AMQPBRoker<CreateQuestionBroker> {}
 

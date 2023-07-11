@@ -12,7 +12,8 @@ export type PuppeteerServiceErrorCode =
 | 'PUPPETEER_SERVICE_PAGE_IS_CLOSED';
 
 export type ScheduledTaskService =
-| 'SCHEDULED_TASK_SERVICE_FAILED_TO_PROCESS';
+| 'SCHEDULED_TASK_SERVICE_FAILED_TO_PROCESS'
+| 'SCHEDULED_TASK_SERVICE_INVALID_EXPRESSION';
 
 export type WebScraperServiceErrorCode =
 | PuppeteerServiceErrorCode

@@ -15,6 +15,7 @@ import {
   BrokerNoMessageAvailableError,
   BrokerFailedToSendMessageError,
   BrokerFailedToConsumeMessageError,
+  BrokerOnMessageNotImplementedError,
 } from '../errors/broker-errors';
 
 abstract class AMQPBRoker<T> extends Broker<T> {
@@ -69,6 +70,10 @@ abstract class AMQPBRoker<T> extends Broker<T> {
     } catch (e) {
       this.loggerService.error(BrokerFailedToSendMessageError.message, e as Error);
     }
+  };
+
+  onMessage = (_data: T): Promise<void> => {
+    throw BrokerOnMessageNotImplementedError;
   };
 }
 
