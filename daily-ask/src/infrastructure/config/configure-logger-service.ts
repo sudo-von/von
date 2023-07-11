@@ -6,6 +6,7 @@ import PinoLoggerService from '../services/logger-service/pino-logger-service/pi
 
 const configureLoggerService = () => {
   const options: LoggerOptions = {
+    base: undefined,
     name: 'daily-ask',
     timestamp: stdTimeFunctions.isoTime,
     formatters: {
