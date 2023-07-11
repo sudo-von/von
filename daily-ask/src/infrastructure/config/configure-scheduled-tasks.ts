@@ -32,7 +32,7 @@ const configureScheduledTasks = async (
   );
 
   const eveningScheduledQuestion = new ScheduledQuestionService(
-    'afternoon-scheduled-question-generator-web',
+    'evening-scheduled-question-generator-web',
     loggerService,
     questionUsecase,
     createQuestionBroker,
