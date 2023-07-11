@@ -39,11 +39,11 @@ const configureScheduledTasks = async (
     generatorWebScraperService,
   );
 
-  await morningScheduledQuestion.scheduleTask('* 10 * * *');
+  await morningScheduledQuestion.scheduleTask('*/5 * * * * *');
 
-  await afternoonScheduledQuestion.scheduleTask('* 15 * * * *');
+  await afternoonScheduledQuestion.scheduleTask('*/5 * * * * *');
 
-  await eveningScheduledQuestion.scheduleTask('* 20 * * * *');
+  await eveningScheduledQuestion.scheduleTask('*/5 * * * * *');
 };
 
 export default configureScheduledTasks;

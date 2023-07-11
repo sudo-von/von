@@ -19,10 +19,9 @@ class AMQPCreateQuestionConsumer extends AMQPBRoker<CreateQuestionBroker> {
 
   onMessage = async (data: CreateQuestionBroker): Promise<void> => {
     try {
-      await this.questionUsecase.createQuestion({
+      await this.questionUsecase.createGlobalQuestion({
         askedBy: data.asked_by,
         question: data.question,
-        username: data.username,
       });
       this.acknowledge();
     } catch (e) {

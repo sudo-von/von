@@ -43,7 +43,7 @@ class QuestionController {
 
       const payload = CreateQuestionRequest.parse(req.body);
 
-      const createdQuestion = await this.questionUsecase.createQuestion({
+      const createdQuestion = await this.questionUsecase.createQuestionByUsername({
         username,
         askedBy: req.ip,
         question: payload.question,

@@ -15,3 +15,5 @@ export type Question = Readonly<{
 export type QuestionPayload = Omit<Question, 'id'>;
 
 export type CreateQuestion = Pick<QuestionPayload, 'askedBy' | 'username' | 'question'>;
+
+export type CreateGlobalQuestion = Pick<QuestionPayload, 'askedBy' | 'question'>;
