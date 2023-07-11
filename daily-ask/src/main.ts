@@ -26,7 +26,7 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       topicsWebScraperService,
       startersWebScraperService,
-      generatorWebScrapperService,
+      generatorWebScraperService,
     } = configureWebScraperServices(loggerService);
     loggerService.info('🧩 Web scraper services have been configured.');
 
@@ -42,7 +42,7 @@ loggerService.info('📢 Logger service has been configured.');
       questionUsecase,
       topicsWebScraperService,
       startersWebScraperService,
-      generatorWebScrapperService,
+      generatorWebScraperService,
       createQuestionProducer,
     );
     loggerService.info('⏰ Scheduled tasks have been configured.');

@@ -14,7 +14,7 @@ const configureWebScraperServices = (loggerService: LoggerService) => {
     ],
   };
 
-  const generatorWebScrapperService = new PuppeteerWebScraperService(
+  const generatorWebScraperService = new PuppeteerWebScraperService(
     'https://questionsgenerator.com/ice-breaker.php',
     '.support-sentence',
     loggerService,
@@ -36,7 +36,7 @@ const configureWebScraperServices = (loggerService: LoggerService) => {
   );
 
   return {
-    generatorWebScrapperService,
+    generatorWebScraperService,
     startersWebScraperService,
     topicsWebScraperService,
   };

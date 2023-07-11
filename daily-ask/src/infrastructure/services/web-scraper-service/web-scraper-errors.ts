@@ -9,12 +9,12 @@ export const WebScraperServiceElementNotFoundError = createServiceErrorFactory({
 
 export const WebScraperServiceFailedToCloseError = createServiceErrorFactory({
   code: 'WEB_SCRAPER_SERVICE_FAILED_TO_CLOSE',
-  message: 'Failed to close the web scraper connection.',
+  message: 'Failed to close the connection.',
 });
 
 export const WebScraperServiceFailedToConnectError = createServiceErrorFactory({
   code: 'WEB_SCRAPER_SERVICE_FAILED_TO_CONNECT',
-  message: 'Failed to establish a connection with the web scraper.',
+  message: 'Failed to establish a connection.',
 });
 
 export const WebScraperServiceFailedToScrappeError = createServiceErrorFactory({

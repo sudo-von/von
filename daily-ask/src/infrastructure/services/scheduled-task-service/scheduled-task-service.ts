@@ -8,9 +8,9 @@ abstract class ScheduledTaskService {
 
   abstract processTask: () => Promise<void>;
 
-  abstract validateExpression: (expression: string) => boolean;
+  abstract validatePattern: (pattern: string) => boolean;
 
-  abstract scheduleTask: (expression: string) => Promise<void>;
+  abstract scheduleTask: (pattern: string) => Promise<void>;
 }
 
 export default ScheduledTaskService;

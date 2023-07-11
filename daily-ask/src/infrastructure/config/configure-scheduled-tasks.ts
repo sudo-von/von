@@ -12,7 +12,7 @@ const configureScheduledTasks = async (
   questionUsecase: QuestionUsecase,
   startersWebScraperService: WebScraperService,
   topicsWebScraperService: WebScraperService,
-  generatorWebScrapperService: WebScraperService,
+  generatorWebScraperService: WebScraperService,
   createQuestionBroker: Broker<CreateQuestionBroker>,
 ) => {
   const morningScheduledQuestion = new ScheduledQuestionService(
@@ -36,7 +36,7 @@ const configureScheduledTasks = async (
     loggerService,
     questionUsecase,
     createQuestionBroker,
-    generatorWebScrapperService,
+    generatorWebScraperService,
   );
 
   await morningScheduledQuestion.scheduleTask('* 10 * * *');

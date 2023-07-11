@@ -3,8 +3,8 @@ import {
   schedule,
 } from 'node-cron';
 import {
-  ScheduledTaskServiceFailedToProcess,
-  ScheduledTaskServiceInvalidExpression,
+  ScheduledTaskServiceFailedToProcessError,
+  ScheduledTaskServiceInvalidPatternError,
 } from '../scheduled-task-errors';
 import Broker from '../../../brokers/broker';
 import ScheduledTaskService from '../scheduled-task-service';
@@ -26,16 +26,16 @@ class ScheduledQuestionService extends ScheduledTaskService {
     super(taskId, loggerService);
   }
 
-  validateExpression = (expression: string): boolean => {
-    const isExpressionValid = validate(expression);
-    return isExpressionValid;
+  validatePattern = (pattern: string): boolean => {
+    const isPatternValid = validate(pattern);
+    return isPatternValid;
   };
 
-  scheduleTask = async (expression: string): Promise<void> => {
-    const isExpressionValid = this.validateExpression(expression);
-    if (!isExpressionValid) throw ScheduledTaskServiceInvalidExpression;
+  scheduleTask = async (pattern: string): Promise<void> => {
+    const isPatternValid = this.validatePattern(pattern);
+    if (!isPatternValid) throw ScheduledTaskServiceInvalidPatternError;
 
-    schedule(expression, async () => {
+    schedule(pattern, async () => {
       await this.processTask();
     });
   };
@@ -58,7 +58,7 @@ class ScheduledQuestionService extends ScheduledTaskService {
         question: question.question,
       });
     } catch (e) {
-      this.loggerService.error(ScheduledTaskServiceFailedToProcess.message, e as Error);
+      this.loggerService.error(ScheduledTaskServiceFailedToProcessError.message, e as Error);
     }
   };
 }

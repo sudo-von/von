@@ -13,7 +13,7 @@ export type PuppeteerServiceErrorCode =
 
 export type ScheduledTaskService =
 | 'SCHEDULED_TASK_SERVICE_FAILED_TO_PROCESS'
-| 'SCHEDULED_TASK_SERVICE_INVALID_EXPRESSION';
+| 'SCHEDULED_TASK_SERVICE_INVALID_PATTERN';
 
 export type WebScraperServiceErrorCode =
 | PuppeteerServiceErrorCode

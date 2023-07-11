@@ -29,6 +29,7 @@ abstract class AMQPBRoker<T> extends Broker<T> {
     try {
       if (!this.channel) throw BrokerChannelIsClosedError;
       if (!this.message) throw BrokerNoMessageAvailableError;
+
       this.channel.ack(this.message);
       this.message = undefined;
     } catch (e) {
@@ -49,10 +50,14 @@ abstract class AMQPBRoker<T> extends Broker<T> {
   consume = async (queue: Queue): Promise<void> => {
     try {
       if (!this.channel) throw BrokerChannelIsClosedError;
+
       await this.channel.assertQueue(queue);
+
       this.channel.consume(queue, (message) => {
         if (!message) throw BrokerNoMessageAvailableError;
+
         const data = JSON.parse(message.content.toString());
+
         this.message = message;
         this.onMessage(data);
       });
@@ -64,7 +69,9 @@ abstract class AMQPBRoker<T> extends Broker<T> {
   produce = async (queue: Queue, data: T): Promise<void> => {
     try {
       if (!this.channel) throw BrokerChannelIsClosedError;
+
       await this.channel.assertQueue(queue);
+
       const buffer = Buffer.from(JSON.stringify(data));
       this.channel.sendToQueue(queue, buffer);
     } catch (e) {
