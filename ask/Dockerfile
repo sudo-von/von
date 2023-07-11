@@ -5,8 +5,8 @@ RUN npm ci
 RUN npm run build
 
 FROM node:16.17.0-bullseye-slim
-WORKDIR /usr/app
 ENV NODE_ENV production
+WORKDIR /usr/app
 COPY --chown=node:node --from=builder /usr/app/.env ./
 COPY --chown=node:node --from=builder /usr/app/build ./src/.
 COPY --chown=node:node --from=builder /usr/app/package*.json ./
