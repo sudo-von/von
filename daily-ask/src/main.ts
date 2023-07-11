@@ -30,7 +30,7 @@ loggerService.info('📢 Logger service has been configured.');
     } = configureWebScraperServices(loggerService);
     loggerService.info('🧩 Web scraper services have been configured.');
 
-    /* 📦 Message brokers. */
+    /* 📦 Brokers. */
     const {
       createQuestionProducer,
     } = await configureBrokers(MESSAGE_BROKER_URL, loggerService);
