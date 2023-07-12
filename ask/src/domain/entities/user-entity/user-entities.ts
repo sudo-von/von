@@ -10,14 +10,14 @@ export type DetailedUser = Readonly<{
   metrics: DetailedMetrics;
 }>;
 
-export type User = Omit<DetailedUser, 'metrics'> & Readonly<{
+export type User = Readonly<Omit<DetailedUser, 'metrics'> & {
   metrics: Metrics;
 }>;
 
-export type CreateDetailedUser = Omit<User, 'id'>;
+export type CreateUser = Pick<User, 'userId' | 'username'>;
 
-export type UpdateDetailedUser = Omit<User, 'id'>;
+export type UpdateUser = Pick<User, 'username'>;
 
-export type CreateUser = Pick<DetailedUser, 'userId' | 'username'>;
+export type CreateUserWithMetrics = Omit<User, 'id'>;
 
-export type UpdateUser = Pick<DetailedUser, 'username'>;
+export type UpdateUserWithMetrics = Omit<User, 'id'>;

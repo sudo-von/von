@@ -6,7 +6,7 @@ import {
 } from '@entities/user-entity/user-entities';
 import {
   UserRepositorySchema,
-} from '@repositories/user-repository/user-repository-schema';
+} from '../user-repository-schema';
 
 const userDocumentToUser = (document: HydratedDocument<UserRepositorySchema>): User => ({
   id: document._id.toHexString(),

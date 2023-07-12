@@ -6,6 +6,10 @@ export type DetailedMetrics = Readonly<{
 
 export type Metrics = Pick<DetailedMetrics, 'totalViews'>;
 
-export type CreateMetrics = Pick<DetailedMetrics, 'totalViews'>;
+export type CreateMetrics = Metrics;
 
-export type UpdateMetrics = Pick<DetailedMetrics, 'totalViews'>;
+export type UpdateMetrics = Metrics;
+
+export type CreateDetailedMetrics = DetailedMetrics;
+
+export type UpdateDetailedMetrics = DetailedMetrics;

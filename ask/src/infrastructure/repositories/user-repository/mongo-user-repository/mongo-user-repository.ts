@@ -1,7 +1,7 @@
 import {
   User,
-  CreateDetailedUser,
-  UpdateUser,
+  CreateUserWithMetrics,
+  UpdateUserWithMetrics,
 } from '@entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
@@ -12,13 +12,6 @@ import userDocumentToUser from './mongo-user-repository-mapper';
 import createUserRepositoryQuery from './mongo-user-repository-query';
 
 class MongoUserRepository implements IUserRepository {
-  getUsers = async (filters?: UserRepositoryFilters): Promise<User[]> => {
-    const query = createUserRepositoryQuery(filters);
-    const userDocuments = await UserModel.find(query);
-    const users = userDocuments.map((document) => userDocumentToUser(document));
-    return users;
-  };
-
   getUser = async (filters?: UserRepositoryFilters): Promise<User | null> => {
     const query = createUserRepositoryQuery(filters);
     const userDocument = await UserModel.findOne(query);
@@ -27,7 +20,14 @@ class MongoUserRepository implements IUserRepository {
     return user;
   };
 
-  createUser = async (payload: CreateDetailedUser): Promise<User> => {
+  getUsers = async (filters?: UserRepositoryFilters): Promise<User[]> => {
+    const query = createUserRepositoryQuery(filters);
+    const userDocuments = await UserModel.find(query);
+    const users = userDocuments.map((document) => userDocumentToUser(document));
+    return users;
+  };
+
+  createUser = async (payload: CreateUserWithMetrics): Promise<User> => {
     const userDocument = new UserModel({
       user_id: payload.userId,
       username: payload.username,
@@ -41,7 +41,7 @@ class MongoUserRepository implements IUserRepository {
   };
 
   updateUser = async (
-    payload: Partial<UpdateUser>,
+    payload: Partial<UpdateUserWithMetrics>,
     filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
     const query = createUserRepositoryQuery(filters);

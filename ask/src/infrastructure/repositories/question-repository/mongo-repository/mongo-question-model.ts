@@ -4,7 +4,7 @@ import {
 import questionSchema from './mongo-question-schema';
 import {
   QuestionRepositorySchema,
-} from '../../../../domain/repositories/question-repository/question-repository-schema';
+} from '../question-repository-schema';
 
 const QuestionModel = model<QuestionRepositorySchema>('question', questionSchema);
 

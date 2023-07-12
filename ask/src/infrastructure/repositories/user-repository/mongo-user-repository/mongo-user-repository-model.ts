@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   UserRepositorySchema,
-} from '@repositories/user-repository/user-repository-schema';
+} from '../user-repository-schema';
 import userSchema from './mongo-user-repository-schema';
 
 const UserModel = model<UserRepositorySchema>('user', userSchema);

@@ -12,10 +12,10 @@ abstract class UserUsecase {
     protected readonly questionRepository: IQuestionRepository,
   ) {}
 
-  abstract createUser: (payload: CreateUser)
+  abstract getUserByUserId: (id: string)
   => Promise<DetailedUser>;
 
-  abstract getUserByUserId: (id: string)
+  abstract createUser: (payload: CreateUser)
   => Promise<DetailedUser>;
 
   abstract updateUserByUserId: (id: string, payload: UpdateUser)

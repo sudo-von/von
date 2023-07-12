@@ -13,7 +13,9 @@ import formatQuestion from '@entities/question-entity/question-formatters';
 import AnsweredQuestionUsecase from '@usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
-  getAnsweredQuestionById = async (id: string): Promise<DetailedQuestion> => {
+  getAnsweredQuestionById = async (
+    id: string,
+  ): Promise<DetailedQuestion> => {
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
@@ -29,11 +31,12 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     }, { id });
     if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(increasedViewsQuestion, { truncateAnswer: false });
-    return formattedQuestion;
+    return increasedViewsQuestion;
   };
 
-  getAnsweredQuestionsByUsername = async (username: string): Promise<DetailedQuestion[]> => {
+  getAnsweredQuestionsByUsername = async (
+    username: string,
+  ): Promise<DetailedQuestion[]> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
