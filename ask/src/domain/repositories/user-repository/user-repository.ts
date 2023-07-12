@@ -2,23 +2,24 @@ import {
   UserRepositoryFilters,
 } from './user-repository-filters';
 import {
-  User,
-  UserPayload,
-} from '../../entities/user-entity/user-entities';
+  UserRepository,
+  CreateUserRepository,
+  UpdateUserRepository,
+} from './user-repository-entities';
 
 interface IUserRepositoryReader {
-  getUsers: (filters?: UserRepositoryFilters) => Promise<User[]>;
-  getUser: (filters?: UserRepositoryFilters) => Promise<User | null>;
+  getUsers: (filters?: UserRepositoryFilters) => Promise<UserRepository[]>;
+  getUser: (filters?: UserRepositoryFilters) => Promise<UserRepository | null>;
 }
 
 interface IUserRepositoryWriter {
   createUser: (
-    payload: UserPayload
-  ) => Promise<User>;
+    payload: CreateUserRepository
+  ) => Promise<UserRepository>;
   updateUser: (
-    payload: Partial<UserPayload>,
+    payload: UpdateUserRepository,
     filters?: UserRepositoryFilters
-  ) => Promise<User | null>;
+  ) => Promise<UserRepository | null>;
 }
 
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}

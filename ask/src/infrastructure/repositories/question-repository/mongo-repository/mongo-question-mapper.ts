@@ -5,10 +5,10 @@ import {
   Question,
 } from '../../../../domain/entities/question-entity/question-entities';
 import {
-  QuestionSchema,
+  QuestionRepositorySchema,
 } from '../../../../domain/repositories/question-repository/question-repository-schema';
 
-const questionDocumentToQuestion = (document: HydratedDocument<QuestionSchema>): Question => ({
+const questionDocumentToQuestion = (document: HydratedDocument<QuestionRepositorySchema>): Question => ({
   id: document._id.toHexString(),
   views: document.views,
   askedAt: document.asked_at,

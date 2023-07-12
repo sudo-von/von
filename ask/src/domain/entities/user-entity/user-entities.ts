@@ -9,8 +9,6 @@ export type User = Readonly<{
   metrics: Metrics;
 }>;
 
-export type UserPayload = Omit<User, 'id'>;
+export type CreateUser = Pick<User, 'userId' | 'username'>;
 
-export type CreateUser = Omit<UserPayload, 'metrics'>;
-
-export type UpdateUser = Omit<UserPayload, 'userId' | 'metrics'>;
+export type UpdateUser = Pick<User, 'username'>;

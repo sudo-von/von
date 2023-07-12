@@ -4,7 +4,7 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
+import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionController {

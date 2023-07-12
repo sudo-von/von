@@ -7,7 +7,7 @@ type QuestionFormat = Partial<{
   formatAnswer: boolean;
 }>;
 
-const formatQuestion = (question: Question, format: QuestionFormat = {
+const formatQuestion = (question: Question, options: QuestionFormat = {
   formatAnswer: true,
 }): Question => ({
   id: question.id,
@@ -18,7 +18,7 @@ const formatQuestion = (question: Question, format: QuestionFormat = {
   question: question.question,
   answer: question.answer && {
     answeredAt: question.answer.answeredAt,
-    answer: format.formatAnswer ? formatAnswer(question.answer.answer) : question.answer.answer,
+    answer: options.formatAnswer ? formatAnswer(question.answer.answer) : question.answer.answer,
   },
 });
 

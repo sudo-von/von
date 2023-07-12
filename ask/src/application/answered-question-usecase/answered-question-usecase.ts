@@ -19,7 +19,7 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const answeredQuestion = await this.questionRepository.updateQuestion({
+    const increasedViewsQuestion = await this.questionRepository.updateQuestion({
       views: question.views + 1,
       askedAt: question.askedAt,
       askedBy: question.askedBy,
@@ -27,9 +27,9 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
       question: question.question,
       answer: question.answer,
     }, { id });
-    if (!answeredQuestion) throw QuestionUpdateFailedError;
+    if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(answeredQuestion, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(increasedViewsQuestion, { formatAnswer: false });
     return formattedQuestion;
   };
 
@@ -37,10 +37,7 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const answeredQuestions = await this.questionRepository.getQuestions({
-      username,
-      status: 'answered',
-    });
+    const answeredQuestions = await this.questionRepository.getQuestions({ username, status: 'answered' });
 
     const formattedQuestions = answeredQuestions.map((question) => formatQuestion(question));
     return formattedQuestions;

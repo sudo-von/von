@@ -12,6 +12,4 @@ export type Question = Readonly<{
   answer?: Answer;
 }>;
 
-export type QuestionPayload = Omit<Question, 'id'>;
-
-export type CreateQuestion = Pick<QuestionPayload, 'askedBy' | 'question'>;
+export type CreateQuestion = Pick<Question, 'askedBy' | 'question'>;

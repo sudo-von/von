@@ -1,6 +1,6 @@
 import {
   MetricResponse,
-} from '../metric/metric-server-dtos';
+} from '../metric-dto/metric-server-dtos';
 
 export type UserResponse = {
   id: string;

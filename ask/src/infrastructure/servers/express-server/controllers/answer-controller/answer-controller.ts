@@ -7,8 +7,8 @@ import statusCode from 'http-status-codes';
 import {
   CreateAnswerRequest,
   UpdateAnswerRequest,
-} from '../../../dtos/answer/answer-server-dtos';
-import questionToQuestionResponse from '../../../dtos/question/question-server-mappers';
+} from '../../../dtos/answer-dto/answer-server-dtos';
+import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
 import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 

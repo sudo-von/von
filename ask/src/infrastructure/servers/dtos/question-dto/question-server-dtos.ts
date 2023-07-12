@@ -3,7 +3,7 @@ import {
 } from 'zod';
 import {
   AnswerResponse,
-} from '../answer/answer-server-dtos';
+} from '../answer-dto/answer-server-dtos';
 
 export type QuestionResponse = {
   id: string;

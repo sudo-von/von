@@ -1,9 +1,9 @@
 import {
-  MetricsSchema,
+  MetricsRepositorySchema,
 } from '../metrics-repository/metrics-repository-schema';
 
-export type UserSchema = {
+export type UserRepositorySchema = {
   user_id: string;
   username: string;
-  metrics: MetricsSchema;
+  metrics: MetricsRepositorySchema;
 };

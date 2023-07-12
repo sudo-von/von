@@ -4,7 +4,7 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import userToUserResponse from '../../../dtos/user/user-server-mappers';
+import userToUserResponse from '../../../dtos/user-dto/user-server-mappers';
 import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
 
 class UserController {

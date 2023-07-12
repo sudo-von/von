@@ -14,11 +14,11 @@ import {
   SingleUserOnlyServerError,
   UserUpdateFailedServerError,
   InvalidUsernameLengthServerError,
-} from '../../dtos/user/user-server-errors';
+} from '../../dtos/user-dto/user-server-errors';
 import {
   ExpiredTokenServerError,
   InvalidTokenServerError,
-} from '../../dtos/token/token-server-errors';
+} from '../../dtos/token-dto/token-server-errors';
 import {
   DomainErrorCode,
 } from '../../../../domain/errors/error-codes';
@@ -26,14 +26,14 @@ import {
   RequiredFieldServerError,
   InternalServerServerError,
   RequestRuntimeServerError,
-} from '../../dtos/common/common-server-errors';
+} from '../../dtos/common-dto/common-server-errors';
 import {
   AnswerNotFoundServerError,
   AnswerDeleteFailedServerError,
   AnswerUpdateFailedServerError,
   InvalidAnswerLengthServerError,
   AnswerCreationFailedServerError,
-} from '../../dtos/answer/answer-server-errors';
+} from '../../dtos/answer-dto/answer-server-errors';
 import {
   DomainErrorFactory,
 } from '../../../../domain/errors/error-factory';
@@ -44,7 +44,7 @@ import {
   QuestionUpdateFailedServerError,
   InvalidQuestionLengthServerError,
   QuestionAlreadyAnsweredServerError,
-} from '../../dtos/question/question-server-errors';
+} from '../../dtos/question-dto/question-server-errors';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';

@@ -7,7 +7,7 @@ import {
   MissingTokenServerError,
   MissingAuthorizationHeaderServerError,
   AuthorizationSchemeNotSupportedServerError,
-} from '../../dtos/token/token-server-errors';
+} from '../../dtos/token-dto/token-server-errors';
 import {
   UserNotFoundError,
 } from '../../../../domain/entities/user-entity/user-errors';
@@ -48,12 +48,9 @@ const authenticationMiddleware = (
 
     req.user = {
       id: updatedUser.userId,
-      name: decodedToken.name,
-      email: decodedToken.email,
-      username: updatedUser.username,
-      profile_picture_name: decodedToken.profile_picture_name,
       iat: decodedToken.iat,
       exp: decodedToken.exp,
+      username: updatedUser.username,
     };
 
     return next();

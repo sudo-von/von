@@ -2,14 +2,14 @@ import {
   FilterQuery,
 } from 'mongoose';
 import {
-  UserSchema,
+  UserRepositorySchema,
 } from '../../../../domain/repositories/user-repository/user-repository-schema';
 import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
 
 const createUserRepositoryQuery = (filters?: UserRepositoryFilters) => {
-  const query: FilterQuery<UserSchema> = {};
+  const query: FilterQuery<UserRepositorySchema> = {};
 
   if (!filters) return query;
 

@@ -3,3 +3,7 @@ export type Metrics = Readonly<{
   totalAnswers: number;
   totalQuestions: number;
 }>;
+
+export type CreateMetrics = Pick<Metrics, 'totalViews'>;
+
+export type UpdateMetrics = Pick<Metrics, 'totalViews'>;

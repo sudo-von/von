@@ -3,9 +3,9 @@ import {
 } from 'mongoose';
 import questionSchema from './mongo-question-schema';
 import {
-  QuestionSchema,
+  QuestionRepositorySchema,
 } from '../../../../domain/repositories/question-repository/question-repository-schema';
 
-const QuestionModel = model<QuestionSchema>('question', questionSchema);
+const QuestionModel = model<QuestionRepositorySchema>('question', questionSchema);
 
 export default QuestionModel;

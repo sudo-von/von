@@ -5,6 +5,7 @@ import {
   Question,
   QuestionPayload,
 } from '../../entities/question-entity/question-entities';
+import { AnswerPayload } from '../../entities/answer-entity/answer-entities';
 
 interface IQuestionRepositoryReader {
   getQuestions: (filters?: QuestionRepositoryFilters) => Promise<Question[]>;
@@ -15,6 +16,10 @@ interface IQuestionRepositoryWriter {
   createQuestion: (
     payload: QuestionPayload
   ) => Promise<Question>;
+  createAnswer: (
+    payload: AnswerPayload,
+    filters?: QuestionRepositoryFilters,
+  ) => Promise<Question>;
   deleteQuestion: (
     filters?: QuestionRepositoryFilters
   ) => Promise<Question | null>;
@@ -22,8 +27,12 @@ interface IQuestionRepositoryWriter {
     filters?: QuestionRepositoryFilters
   ) => Promise<Question | null>;
   updateQuestion: (
-    payload: Partial<QuestionPayload>,
+    payload: QuestionPayload,
     filters?: QuestionRepositoryFilters
+  ) => Promise<Question | null>;
+  updateAnswer: (
+    payload: AnswerPayload,
+    filters?: QuestionRepositoryFilters,
   ) => Promise<Question | null>;
   updateQuestions: (
     payload: Partial<QuestionPayload>,

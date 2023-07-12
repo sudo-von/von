@@ -2,14 +2,14 @@ import {
   FilterQuery,
 } from 'mongoose';
 import {
-  QuestionSchema,
+  QuestionRepositorySchema,
 } from '../../../../domain/repositories/question-repository/question-repository-schema';
 import {
   QuestionRepositoryFilters,
 } from '../../../../domain/repositories/question-repository/question-repository-filters';
 
 const createQuestionRepositoryQuery = (filters?: QuestionRepositoryFilters) => {
-  const query: FilterQuery<QuestionSchema> = {
+  const query: FilterQuery<QuestionRepositorySchema> = {
     is_deleted: false,
   };
 

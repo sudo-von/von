@@ -42,16 +42,9 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (question.answer) throw QuestionAlreadyAnsweredError;
 
-    const createdAnswer = await this.questionRepository.updateQuestion({
-      views: question.views,
-      askedAt: question.askedAt,
-      askedBy: question.askedBy,
-      username: question.username,
-      question: question.question,
-      answer: {
-        answer: payload.answer,
-        answeredAt: new Date(),
-      },
+    const createdAnswer = await this.questionRepository.createAnswer({
+      answer: payload.answer,
+      answeredAt: new Date(),
     }, { id });
     if (!createdAnswer) throw AnswerCreationFailedError;
 
@@ -67,16 +60,9 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const updatedAnswer = await this.questionRepository.updateQuestion({
-      views: question.views,
-      askedAt: question.askedAt,
-      askedBy: question.askedBy,
-      username: question.username,
-      question: question.question,
-      answer: {
-        answer: payload.answer,
-        answeredAt: new Date(),
-      },
+    const updatedAnswer = await this.questionRepository.updateAnswer({
+      answer: payload.answer,
+      answeredAt: new Date(),
     }, { id });
     if (!updatedAnswer) throw AnswerUpdateFailedError;
 

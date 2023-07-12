@@ -1,13 +1,13 @@
 import {
-  AnswerSchema,
+  AnswerRepositorySchema,
 } from '../answer-repository/answer-repository-schema';
 
-export type QuestionSchema = {
+export type QuestionRepositorySchema = {
   views: number;
   asked_at: Date;
   asked_by: string;
   username: string;
   question: string;
   is_deleted: boolean;
-  answer?: AnswerSchema;
+  answer?: AnswerRepositorySchema;
 };

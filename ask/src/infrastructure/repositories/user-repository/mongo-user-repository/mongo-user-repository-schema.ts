@@ -2,11 +2,11 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  UserSchema,
+  UserRepositorySchema,
 } from '../../../../domain/repositories/user-repository/user-repository-schema';
 import metricsSchema from '../../metrics-repository/mongo-metrics-repository/mongo-metrics-repository-schema';
 
-const userSchema = new Schema<UserSchema>({
+const userSchema = new Schema<UserRepositorySchema>({
   user_id: {
     type: String,
     required: true,

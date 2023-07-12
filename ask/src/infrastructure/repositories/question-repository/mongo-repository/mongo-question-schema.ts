@@ -2,11 +2,11 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  QuestionSchema,
+  QuestionRepositorySchema,
 } from '../../../../domain/repositories/question-repository/question-repository-schema';
 import answerSchema from '../../answer-repository/mongo-answer-repository/mongo-answer-repository-schema';
 
-const questionSchema = new Schema<QuestionSchema>({
+const questionSchema = new Schema<QuestionRepositorySchema>({
   views: {
     type: Number,
     required: true,

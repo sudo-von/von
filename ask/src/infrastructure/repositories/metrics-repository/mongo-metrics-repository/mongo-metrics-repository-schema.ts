@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  MetricsSchema,
+  MetricsRepositorySchema,
 } from '../../../../domain/repositories/metrics-repository/metrics-repository-schema';
 
-const metricsSchema = new Schema<MetricsSchema>({
+const metricsSchema = new Schema<MetricsRepositorySchema>({
   total_views: {
     type: Number,
     required: true,

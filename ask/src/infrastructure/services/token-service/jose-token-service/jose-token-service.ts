@@ -8,7 +8,7 @@ import {
 } from '../token-service-errors';
 import {
   UserToken,
-} from '../dtos/user/user-token-dtos';
+} from '../dtos/user-dto/user-token-dtos';
 import TokenService from '../token-service';
 
 class JoseTokenService extends TokenService {

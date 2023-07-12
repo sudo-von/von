@@ -1,6 +1,6 @@
 import {
   UserToken,
-} from './dtos/user/user-token-dtos';
+} from './dtos/user-dto/user-token-dtos';
 
 abstract class TokenService {
   constructor(protected readonly secret: string) {}

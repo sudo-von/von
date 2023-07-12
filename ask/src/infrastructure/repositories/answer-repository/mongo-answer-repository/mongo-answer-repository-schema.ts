@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  AnswerSchema,
+  AnswerRepositorySchema,
 } from '../../../../domain/repositories/answer-repository/answer-repository-schema';
 
-const answerSchema = new Schema<AnswerSchema>({
+const answerSchema = new Schema<AnswerRepositorySchema>({
   answer: {
     type: String,
     required: false,
