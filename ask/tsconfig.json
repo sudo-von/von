@@ -14,14 +14,7 @@
     "typeRoots": [
       "src/infrastructure/servers/express-server/types",
       "node_modules/@types"
-    ],
-    "paths": {
-      "@entities/*": ["./src/domain/entities/*"],
-      "@errors/*": ["./src/domain/errors/*"],
-      "@repositories/*": ["./src/domain/repositories/*"],
-      "@usecases/*": ["./src/domain/usecases/*"],
-      "@infrastructure/services/*": ["./src/infrastructure/services/*"]
-    }
+    ]
   },
   "include": ["src"],
   "exclude": ["node_modules", "tests"]
