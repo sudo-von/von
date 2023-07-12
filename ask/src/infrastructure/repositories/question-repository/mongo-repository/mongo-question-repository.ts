@@ -1,4 +1,4 @@
-import { CreateDetailedAnswer, UpdateDetailedAnswer } from '@entities/answer-entity/answer-entities';
+import { CreateDetailedAnswer, UpdateDetailedAnswer } from '../../../../domain/entities/answer-entity/answer-entities';
 import QuestionModel from './mongo-question-model';
 import questionDocumentToQuestion from './mongo-question-mapper';
 import {

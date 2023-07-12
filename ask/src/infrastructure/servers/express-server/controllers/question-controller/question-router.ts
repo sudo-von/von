@@ -3,15 +3,13 @@ import {
   RequestHandler,
 } from 'express';
 import QuestionController from './question-controller';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
 
 const configureQuestionRouter = (
-  metricUsecase: MetricUsecase,
   questionUsecase: QuestionUsecase,
   authenticationHandler: RequestHandler,
 ) => {
-  const questionController = new QuestionController(metricUsecase, questionUsecase);
+  const questionController = new QuestionController(questionUsecase);
 
   const router = Router();
 

@@ -1,16 +1,16 @@
 import {
   UserNotFoundError,
-} from '@entities/user-entity/user-errors';
+} from '../../domain/entities/user-entity/user-errors';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionUpdateFailedError,
-} from '@entities/question-entity/question-errors';
+} from '../../domain/entities/question-entity/question-errors';
 import {
   DetailedQuestion,
-} from '@entities/question-entity/question-entities';
-import formatQuestion from '@entities/question-entity/question-formatters';
-import AnsweredQuestionUsecase from '@usecases/answered-question-usecase/answered-question-usecase';
+} from '../../domain/entities/question-entity/question-entities';
+import formatQuestion from '../../domain/entities/question-entity/question-formatters';
+import AnsweredQuestionUsecase from '../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
   getAnsweredQuestionById = async (

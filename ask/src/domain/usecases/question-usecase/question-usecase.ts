@@ -1,9 +1,9 @@
 import {
   CreateQuestion,
   DetailedQuestion,
-} from '@entities/question-entity/question-entities';
-import IUserRepository from '@repositories/user-repository/user-repository';
-import IQuestionRepository from '@repositories/question-repository/question-repository';
+} from '../../entities/question-entity/question-entities';
+import IUserRepository from '../../repositories/user-repository/user-repository';
+import IQuestionRepository from '../../repositories/question-repository/question-repository';
 
 abstract class QuestionUsecase {
   constructor(

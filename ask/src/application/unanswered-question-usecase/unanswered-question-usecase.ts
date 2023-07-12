@@ -1,11 +1,11 @@
 import {
   UserNotFoundError,
-} from '@entities/user-entity/user-errors';
+} from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedQuestion,
-} from '@entities/question-entity/question-entities';
-import formatQuestion from '@entities/question-entity/question-formatters';
-import UnansweredQuestionUsecase from '@usecases/unanswered-question-usecase/unanswered-question-usecase';
+} from '../../domain/entities/question-entity/question-entities';
+import formatQuestion from '../../domain/entities/question-entity/question-formatters';
+import UnansweredQuestionUsecase from '../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionUsecaseApplication extends UnansweredQuestionUsecase {
   getUnansweredQuestionsByUsername = async (

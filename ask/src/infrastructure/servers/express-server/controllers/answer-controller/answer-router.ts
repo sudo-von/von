@@ -4,14 +4,12 @@ import {
 } from 'express';
 import AnswerController from './answer-controller';
 import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 
 const configureAnswerRouter = (
   answerUsecase: AnswerUsecase,
-  metricUsecase: MetricUsecase,
   authenticationHandler: RequestHandler,
 ) => {
-  const answerController = new AnswerController(answerUsecase, metricUsecase);
+  const answerController = new AnswerController(answerUsecase);
 
   const router = Router();
 

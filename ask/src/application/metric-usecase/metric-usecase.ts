@@ -1,11 +1,11 @@
 import {
   UserNotFoundError,
   UserUpdateFailedError,
-} from '@entities/user-entity/user-errors';
+} from '../../domain/entities/user-entity/user-errors';
 import {
   User,
-} from '@entities/user-entity/user-entities';
-import MetricUsecase from '@usecases/metric-usecase/metric-usecase';
+} from '../../domain/entities/user-entity/user-entities';
+import MetricUsecase from '../../domain/usecases/metric-usecase/metric-usecase';
 
 class MetricUsecaseApplication extends MetricUsecase {
   increaseTotalViewsByUsername = async (

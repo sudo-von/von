@@ -1,6 +1,6 @@
 import {
   createDomainErrorFactory,
-} from '@errors/error-factory';
+} from '../../errors/error-factory';
 import userRules from './user-rules';
 
 export const InvalidUsernameLengthError = createDomainErrorFactory({

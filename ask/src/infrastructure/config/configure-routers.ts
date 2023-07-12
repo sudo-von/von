@@ -35,12 +35,10 @@ const configureRouters = (
 
   const answerRouter = configureAnswerRouter(
     answerUsecase,
-    metricUsecase,
     authenticationHandler,
   );
 
   const questionRouter = configureQuestionRouter(
-    metricUsecase,
     questionUsecase,
     authenticationHandler,
   );

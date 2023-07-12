@@ -2,22 +2,22 @@ import {
   AnswerDeleteFailedError,
   AnswerUpdateFailedError,
   AnswerCreationFailedError,
-} from '@entities/answer-entity/answer-errors';
+} from '../../domain/entities/answer-entity/answer-errors';
 import {
   CreateAnswer,
   UpdateAnswer,
-} from '@entities/answer-entity/answer-entities';
+} from '../../domain/entities/answer-entity/answer-entities';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionAlreadyAnsweredError,
-} from '@entities/question-entity/question-errors';
+} from '../../domain/entities/question-entity/question-errors';
 import {
   DetailedQuestion,
-} from '@entities/question-entity/question-entities';
-import AnswerUsecase from '@usecases/answer-usecase/answer-usecase';
-import validateAnswerUpdate from '@entities/answer-entity/answer-validations/update-answer-validations';
-import validateAnswerCreation from '@entities/answer-entity/answer-validations/create-answer-validations';
+} from '../../domain/entities/question-entity/question-entities';
+import AnswerUsecase from '../../domain/usecases/answer-usecase/answer-usecase';
+import validateAnswerUpdate from '../../domain/entities/answer-entity/answer-validations/update-answer-validations';
+import validateAnswerCreation from '../../domain/entities/answer-entity/answer-validations/create-answer-validations';
 
 class AnswerUsecaseApplication extends AnswerUsecase {
   deleteAnswerByQuestionId = async (

@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   User,
-} from '@entities/user-entity/user-entities';
+} from '../../../../domain/entities/user-entity/user-entities';
 import {
   UserRepositorySchema,
 } from '../user-repository-schema';

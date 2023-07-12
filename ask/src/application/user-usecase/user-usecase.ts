@@ -2,15 +2,15 @@ import {
   UserNotFoundError,
   SingleUserOnlyError,
   UserUpdateFailedError,
-} from '@entities/user-entity/user-errors';
+} from '../../domain/entities/user-entity/user-errors';
 import {
   CreateUser,
   UpdateUser,
   DetailedUser,
-} from '@entities/user-entity/user-entities';
-import UserUsecase from '@usecases/user-usecase/user-usecase';
-import validateUserUpdate from '@entities/user-entity/user-validations/update-user-validations';
-import validateUserCreation from '@entities/user-entity/user-validations/create-user-validations';
+} from '../../domain/entities/user-entity/user-entities';
+import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
+import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
+import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
   getUserByUserId = async (

@@ -2,11 +2,11 @@ import {
   User,
   CreateUserWithMetrics,
   UpdateUserWithMetrics,
-} from '@entities/user-entity/user-entities';
+} from '../../../../domain/entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
-} from '@repositories/user-repository/user-repository-filters';
-import IUserRepository from '@repositories/user-repository/user-repository';
+} from '../../../../domain/repositories/user-repository/user-repository-filters';
+import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 import UserModel from './mongo-user-repository-model';
 import userDocumentToUser from './mongo-user-repository-mapper';
 import createUserRepositoryQuery from './mongo-user-repository-query';

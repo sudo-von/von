@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   UserRepositoryFilters,
-} from '@repositories/user-repository/user-repository-filters';
+} from '../../../../domain/repositories/user-repository/user-repository-filters';
 import {
   UserRepositorySchema,
 } from '../user-repository-schema';

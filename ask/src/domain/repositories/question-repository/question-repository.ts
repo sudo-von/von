@@ -2,11 +2,11 @@ import {
   DetailedQuestion,
   CreateDetailedQuestion,
   UpdateDetailedQuestion,
-} from '@entities/question-entity/question-entities';
+} from '../../entities/question-entity/question-entities';
 import {
   CreateDetailedAnswer,
   UpdateDetailedAnswer,
-} from '@entities/answer-entity/answer-entities';
+} from '../../entities/answer-entity/answer-entities';
 import {
   QuestionRepositoryFilters,
 } from './question-repository-filters';

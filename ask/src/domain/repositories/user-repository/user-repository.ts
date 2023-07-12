@@ -2,10 +2,10 @@ import {
   User,
   CreateUserWithMetrics,
   UpdateUserWithMetrics,
-} from '@entities/user-entity/user-entities';
+} from '../../entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
-} from '@repositories/user-repository/user-repository-filters';
+} from './user-repository-filters';
 
 interface IUserRepositoryReader {
   getUsers: (filters?: UserRepositoryFilters)

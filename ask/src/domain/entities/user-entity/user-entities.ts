@@ -1,7 +1,7 @@
 import {
   Metrics,
   DetailedMetrics,
-} from '@entities/metric-entity/metric-entities';
+} from '../metric-entity/metric-entities';
 
 export type DetailedUser = Readonly<{
   id: string;

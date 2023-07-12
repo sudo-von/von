@@ -8,14 +8,12 @@ import {
   CreateAnswerRequest,
   UpdateAnswerRequest,
 } from '../../../dtos/answer-dto/answer-server-dtos';
-import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
+import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 
 class AnswerController {
   constructor(
     private readonly answerUsecase: AnswerUsecase,
-    private readonly metricUsecase: MetricUsecase,
   ) {}
 
   deleteAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
@@ -23,8 +21,6 @@ class AnswerController {
       const id = req.params.id.toLowerCase();
 
       const deletedAnswer = await this.answerUsecase.deleteAnswerByQuestionId(id);
-
-      await this.metricUsecase.decreaseTotalAnswersByUsername(deletedAnswer.username);
 
       const questionResponse = questionToQuestionResponse(deletedAnswer);
 
@@ -43,8 +39,6 @@ class AnswerController {
       const createdAnswer = await this.answerUsecase.createAnswerByQuestionId(id, {
         answer: payload.answer,
       });
-
-      await this.metricUsecase.increaseTotalAnswersByUsername(createdAnswer.username);
 
       const questionResponse = questionToQuestionResponse(createdAnswer);
 

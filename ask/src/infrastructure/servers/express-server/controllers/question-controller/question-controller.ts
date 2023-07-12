@@ -8,12 +8,10 @@ import {
   CreateQuestionRequest,
 } from '../../../dtos/question-dto/question-server-dtos';
 import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
-import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
 
 class QuestionController {
   constructor(
-    private readonly metricUsecase: MetricUsecase,
     private readonly questionUsecase: QuestionUsecase,
   ) {}
 
@@ -22,12 +20,6 @@ class QuestionController {
       const id = req.params.id.toLowerCase();
 
       const question = await this.questionUsecase.deleteQuestionById(id);
-
-      await this.metricUsecase.decreaseTotalQuestionsByUsername(question.username);
-
-      if (question.answer) {
-        await this.metricUsecase.decreaseTotalAnswersByUsername(question.username);
-      }
 
       const questionResponse = questionToQuestionResponse(question);
 
@@ -50,8 +42,6 @@ class QuestionController {
           question: payload.question,
         },
       );
-
-      await this.metricUsecase.increaseTotalQuestionsByUsername(username);
 
       const questionResponse = questionToQuestionResponse(createdQuestion);
 
