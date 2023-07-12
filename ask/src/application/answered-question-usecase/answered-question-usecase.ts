@@ -29,7 +29,7 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     }, { id });
     if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(increasedViewsQuestion, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(increasedViewsQuestion, { truncateAnswer: false });
     return formattedQuestion;
   };
 

@@ -2,23 +2,23 @@ import {
   AnswerDeleteFailedError,
   AnswerUpdateFailedError,
   AnswerCreationFailedError,
-} from '../../domain/entities/answer-entity/answer-errors';
+} from '@entities/answer-entity/answer-errors';
 import {
   CreateAnswer,
   UpdateAnswer,
-} from '../../domain/entities/answer-entity/answer-entities';
+} from '@entities/answer-entity/answer-entities';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionAlreadyAnsweredError,
-} from '../../domain/entities/question-entity/question-errors';
+} from '@entities/question-entity/question-errors';
 import {
   Question,
-} from '../../domain/entities/question-entity/question-entities';
-import AnswerUsecase from '../../domain/usecases/answer-usecase/answer-usecase';
-import formatQuestion from '../../domain/entities/question-entity/question-formatters';
-import validateAnswerUpdate from '../../domain/entities/answer-entity/answer-validations/update-answer-validations';
-import validateAnswerCreation from '../../domain/entities/answer-entity/answer-validations/create-answer-validations';
+} from '@entities/question-entity/question-entities';
+import AnswerUsecase from '@usecases/answer-usecase/answer-usecase';
+import formatQuestion from '@entities/question-entity/question-formatters';
+import validateAnswerUpdate from '@entities/answer-entity/answer-validations/update-answer-validations';
+import validateAnswerCreation from '@entities/answer-entity/answer-validations/create-answer-validations';
 
 class AnswerUsecaseApplication extends AnswerUsecase {
   deleteAnswerByQuestionId = async (id: string): Promise<Question> => {
@@ -30,7 +30,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     const deletedAnswer = await this.questionRepository.deleteAnswer({ id });
     if (!deletedAnswer) throw AnswerDeleteFailedError;
 
-    const formattedQuestion = formatQuestion(deletedAnswer, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(deletedAnswer);
     return formattedQuestion;
   };
 
@@ -48,7 +48,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     }, { id });
     if (!createdAnswer) throw AnswerCreationFailedError;
 
-    const formattedQuestion = formatQuestion(createdAnswer, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(createdAnswer);
     return formattedQuestion;
   };
 
@@ -66,7 +66,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     }, { id });
     if (!updatedAnswer) throw AnswerUpdateFailedError;
 
-    const formattedQuestion = formatQuestion(updatedAnswer, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(updatedAnswer);
     return formattedQuestion;
   };
 }

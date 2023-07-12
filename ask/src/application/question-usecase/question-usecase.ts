@@ -21,7 +21,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const deletedQuestion = await this.questionRepository.deleteQuestion({ id });
     if (!deletedQuestion) throw QuestionDeleteFailedError;
 
-    const formattedQuestion = formatQuestion(deletedQuestion, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(deletedQuestion, { truncateAnswer: false });
     return formattedQuestion;
   };
 
@@ -68,7 +68,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
       username,
     });
 
-    const formattedQuestion = formatQuestion(createdQuestion, { formatAnswer: false });
+    const formattedQuestion = formatQuestion(createdQuestion, { truncateAnswer: false });
     return formattedQuestion;
   };
 }

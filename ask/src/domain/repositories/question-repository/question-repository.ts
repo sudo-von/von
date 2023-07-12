@@ -2,40 +2,49 @@ import {
   QuestionRepositoryFilters,
 } from './question-repository-filters';
 import {
-  Question,
-  QuestionPayload,
-} from '../../entities/question-entity/question-entities';
-import { AnswerPayload } from '../../entities/answer-entity/answer-entities';
+  QuestionRepository,
+  CreateQuestionRepository,
+} from './question-repository-entities';
+import {
+  CreateAnswerRepository,
+  UpdateAnswerRepository,
+} from '../answer-repository/answer-repository-entities';
 
 interface IQuestionRepositoryReader {
-  getQuestions: (filters?: QuestionRepositoryFilters) => Promise<Question[]>;
-  getQuestion: (filters?: QuestionRepositoryFilters) => Promise<Question | null>;
+  getQuestions: (filters?: QuestionRepositoryFilters) => Promise<QuestionRepository[]>;
+  getQuestion: (filters?: QuestionRepositoryFilters) => Promise<QuestionRepository | null>;
 }
 
 interface IQuestionRepositoryWriter {
   createQuestion: (
-    payload: QuestionPayload
-  ) => Promise<Question>;
+    payload: CreateQuestionRepository
+  ) => Promise<QuestionRepository>;
+
   createAnswer: (
-    payload: AnswerPayload,
+    payload: CreateAnswerRepository,
     filters?: QuestionRepositoryFilters,
-  ) => Promise<Question>;
+  ) => Promise<QuestionRepository>;
+
   deleteQuestion: (
     filters?: QuestionRepositoryFilters
-  ) => Promise<Question | null>;
+  ) => Promise<QuestionRepository | null>;
+
   deleteAnswer: (
     filters?: QuestionRepositoryFilters
-  ) => Promise<Question | null>;
+  ) => Promise<QuestionRepository | null>;
+
   updateQuestion: (
-    payload: QuestionPayload,
+    payload: CreateQuestionRepository,
     filters?: QuestionRepositoryFilters
-  ) => Promise<Question | null>;
+  ) => Promise<QuestionRepository | null>;
+
   updateAnswer: (
-    payload: AnswerPayload,
+    payload: UpdateAnswerRepository,
     filters?: QuestionRepositoryFilters,
-  ) => Promise<Question | null>;
+  ) => Promise<QuestionRepository | null>;
+
   updateQuestions: (
-    payload: Partial<QuestionPayload>,
+    payload: Partial<CreateQuestionRepository>,
     filters?: QuestionRepositoryFilters
   ) => Promise<void>;
 }

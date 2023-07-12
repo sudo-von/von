@@ -3,12 +3,12 @@ import {
 } from './question-entities';
 import formatAnswer from '../answer-entity/answer-formatters';
 
-type QuestionFormat = Partial<{
-  formatAnswer: boolean;
+type QuestionFormatOptions = Partial<{
+  truncateAnswer: boolean;
 }>;
 
-const formatQuestion = (question: Question, options: QuestionFormat = {
-  formatAnswer: true,
+const formatQuestion = (question: Question, options: QuestionFormatOptions = {
+  truncateAnswer: false,
 }): Question => ({
   id: question.id,
   views: question.views,
@@ -18,7 +18,7 @@ const formatQuestion = (question: Question, options: QuestionFormat = {
   question: question.question,
   answer: question.answer && {
     answeredAt: question.answer.answeredAt,
-    answer: options.formatAnswer ? formatAnswer(question.answer.answer) : question.answer.answer,
+    answer: options.truncateAnswer ? formatAnswer(question.answer.answer) : question.answer.answer,
   },
 });
 
