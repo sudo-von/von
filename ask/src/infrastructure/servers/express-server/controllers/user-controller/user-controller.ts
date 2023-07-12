@@ -14,7 +14,7 @@ class UserController {
     try {
       const username = req.params.username.toLowerCase();
 
-      const user = await this.userUsecase.getUserByUsername(username);
+      const user = await this.userUsecase.getUserByUserId(username);
 
       const userResponse = userToUserResponse(user);
 

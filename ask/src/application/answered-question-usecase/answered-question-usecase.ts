@@ -1,19 +1,19 @@
 import {
   UserNotFoundError,
-} from '../../domain/entities/user-entity/user-errors';
+} from '@entities/user-entity/user-errors';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionUpdateFailedError,
-} from '../../domain/entities/question-entity/question-errors';
+} from '@entities/question-entity/question-errors';
 import {
-  Question,
-} from '../../domain/entities/question-entity/question-entities';
-import formatQuestion from '../../domain/entities/question-entity/question-formatters';
-import AnsweredQuestionUsecase from '../../domain/usecases/answered-question-usecase/answered-question-usecase';
+  DetailedQuestion,
+} from '@entities/question-entity/question-entities';
+import formatQuestion from '@entities/question-entity/question-formatters';
+import AnsweredQuestionUsecase from '@usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
-  getAnsweredQuestionById = async (id: string): Promise<Question> => {
+  getAnsweredQuestionById = async (id: string): Promise<DetailedQuestion> => {
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
@@ -33,7 +33,7 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     return formattedQuestion;
   };
 
-  getAnsweredQuestionsByUsername = async (username: string): Promise<Question[]> => {
+  getAnsweredQuestionsByUsername = async (username: string): Promise<DetailedQuestion[]> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 

@@ -2,10 +2,10 @@ import {
   QuestionResponse,
 } from './question-server-dtos';
 import {
-  Question,
+  DetailedQuestion,
 } from '../../../../domain/entities/question-entity/question-entities';
 
-const questionToQuestionResponse = (question: Question): QuestionResponse => ({
+const questionToQuestionResponse = (question: DetailedQuestion): QuestionResponse => ({
   id: question.id,
   views: question.views,
   asked_at: question.askedAt,

@@ -1,7 +1,7 @@
 import {
-  User,
   CreateUser,
   UpdateUser,
+  DetailedUser,
 } from '@entities/user-entity/user-entities';
 import IUserRepository from '@repositories/user-repository/user-repository';
 import IQuestionRepository from '@repositories/question-repository/question-repository';
@@ -12,11 +12,14 @@ abstract class UserUsecase {
     protected readonly questionRepository: IQuestionRepository,
   ) {}
 
-  abstract createUser: (payload: CreateUser) => Promise<User>;
+  abstract createUser: (payload: CreateUser)
+  => Promise<DetailedUser>;
 
-  abstract getUserByUsername: (username: string) => Promise<User>;
+  abstract getUserByUserId: (id: string)
+  => Promise<DetailedUser>;
 
-  abstract updateUserByUserId: (id: string, payload: UpdateUser) => Promise<User>;
+  abstract updateUserByUserId: (id: string, payload: UpdateUser)
+  => Promise<DetailedUser>;
 }
 
 export default UserUsecase;

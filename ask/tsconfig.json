@@ -17,8 +17,10 @@
     ],
     "paths": {
       "@entities/*": ["./src/domain/entities/*"],
+      "@errors/*": ["./src/domain/errors/*"],
       "@repositories/*": ["./src/domain/repositories/*"],
-      "@usecases/*": ["./src/domain/usecases/*"]
+      "@usecases/*": ["./src/domain/usecases/*"],
+      "@infrastructure/services/*": ["./src/infrastructure/services/*"]
     }
   },
   "include": ["src"],

@@ -1,54 +1,55 @@
 import {
+  DetailedQuestion,
+  CreateQuestion,
+  UpdateBasicQuestion,
+} from '@entities/question-entity/question-entities';
+import {
+  CreateAnswer,
+  UpdateAnswer,
+} from '@entities/answer-entity/answer-entities';
+import {
   QuestionRepositoryFilters,
 } from './question-repository-filters';
-import {
-  QuestionRepository,
-  CreateQuestionRepository,
-} from './question-repository-entities';
-import {
-  CreateAnswerRepository,
-  UpdateAnswerRepository,
-} from '../answer-repository/answer-repository-entities';
 
-interface IQuestionRepositoryReader {
-  getQuestions: (filters?: QuestionRepositoryFilters) => Promise<QuestionRepository[]>;
-  getQuestion: (filters?: QuestionRepositoryFilters) => Promise<QuestionRepository | null>;
+interface IQuestionReader {
+  getQuestions: (filters?: QuestionRepositoryFilters) => Promise<DetailedQuestion[]>;
+  getQuestion: (filters?: QuestionRepositoryFilters) => Promise<DetailedQuestion | null>;
 }
 
-interface IQuestionRepositoryWriter {
+interface IQuestionWriter {
   createQuestion: (
-    payload: CreateQuestionRepository
-  ) => Promise<QuestionRepository>;
+    payload: CreateQuestion
+  ) => Promise<DetailedQuestion>;
 
   createAnswer: (
-    payload: CreateAnswerRepository,
+    payload: CreateAnswer,
     filters?: QuestionRepositoryFilters,
-  ) => Promise<QuestionRepository>;
+  ) => Promise<DetailedQuestion>;
 
   deleteQuestion: (
     filters?: QuestionRepositoryFilters
-  ) => Promise<QuestionRepository | null>;
+  ) => Promise<DetailedQuestion | null>;
 
   deleteAnswer: (
     filters?: QuestionRepositoryFilters
-  ) => Promise<QuestionRepository | null>;
+  ) => Promise<DetailedQuestion | null>;
 
   updateQuestion: (
-    payload: CreateQuestionRepository,
+    payload: UpdateBasicQuestion,
     filters?: QuestionRepositoryFilters
-  ) => Promise<QuestionRepository | null>;
+  ) => Promise<DetailedQuestion | null>;
 
   updateAnswer: (
-    payload: UpdateAnswerRepository,
+    payload: UpdateAnswer,
     filters?: QuestionRepositoryFilters,
-  ) => Promise<QuestionRepository | null>;
+  ) => Promise<DetailedQuestion | null>;
 
   updateQuestions: (
-    payload: Partial<CreateQuestionRepository>,
+    payload: Partial<UpdateBasicQuestion>,
     filters?: QuestionRepositoryFilters
   ) => Promise<void>;
 }
 
-interface IQuestionRepository extends IQuestionRepositoryReader, IQuestionRepositoryWriter {}
+interface IQuestion extends IQuestionReader, IQuestionWriter {}
 
-export default IQuestionRepository;
+export default IQuestion;

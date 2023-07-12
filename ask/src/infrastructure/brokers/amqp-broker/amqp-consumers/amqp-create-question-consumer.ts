@@ -19,7 +19,7 @@ class AMQPCreateQuestionConsumer extends AMQPBRoker<CreateQuestionBroker> {
 
   onMessage = async (data: CreateQuestionBroker): Promise<void> => {
     try {
-      await this.questionUsecase.createGlobalQuestion({
+      await this.questionUsecase.CreateBroadcastQuestion({
         askedBy: data.asked_by,
         question: data.question,
       });

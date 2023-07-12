@@ -1,8 +1,8 @@
 import {
-  Question,
-} from '../../entities/question-entity/question-entities';
-import IUserRepository from '../../repositories/user-repository/user-repository';
-import IQuestionRepository from '../../repositories/question-repository/question-repository';
+  DetailedQuestion,
+} from '@entities/question-entity/question-entities';
+import IUserRepository from '@repositories/user-repository/user-repository';
+import IQuestionRepository from '@repositories/question-repository/question-repository';
 
 abstract class UnansweredQuestionUsecase {
   constructor(
@@ -10,7 +10,8 @@ abstract class UnansweredQuestionUsecase {
     protected readonly questionRepository: IQuestionRepository,
   ) {}
 
-  abstract getUnansweredQuestionsByUsername: (username: string) => Promise<Question[]>;
+  abstract getUnansweredQuestionsByUsername: (username: string)
+  => Promise<DetailedQuestion[]>;
 }
 
 export default UnansweredQuestionUsecase;

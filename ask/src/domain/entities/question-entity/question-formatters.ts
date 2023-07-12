@@ -1,5 +1,5 @@
 import {
-  Question,
+  DetailedQuestion,
 } from './question-entities';
 import formatAnswer from '../answer-entity/answer-formatters';
 
@@ -7,9 +7,9 @@ type QuestionFormatOptions = Partial<{
   truncateAnswer: boolean;
 }>;
 
-const formatQuestion = (question: Question, options: QuestionFormatOptions = {
+const formatQuestion = (question: DetailedQuestion, options: QuestionFormatOptions = {
   truncateAnswer: false,
-}): Question => ({
+}): DetailedQuestion => ({
   id: question.id,
   views: question.views,
   askedAt: question.askedAt,

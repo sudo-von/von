@@ -6,7 +6,7 @@ import {
   QuestionDeleteFailedError,
 } from '../../domain/entities/question-entity/question-errors';
 import {
-  Question,
+  DetailedQuestion,
   CreateQuestion,
 } from '../../domain/entities/question-entity/question-entities';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
@@ -14,7 +14,7 @@ import formatQuestion from '../../domain/entities/question-entity/question-forma
 import validateQuestionCreation from '../../domain/entities/question-entity/question-validations/create-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
-  deleteQuestionById = async (id: string): Promise<Question> => {
+  deleteQuestionById = async (id: string): Promise<DetailedQuestion> => {
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
@@ -25,7 +25,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     return formattedQuestion;
   };
 
-  createGlobalQuestion = async (payload: CreateQuestion): Promise<void> => {
+  CreateBroadcastQuestion = async (payload: CreateQuestion): Promise<void> => {
     validateQuestionCreation(payload);
 
     const users = await this.userRepository.getUsers();
@@ -41,7 +41,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     );
   };
 
-  getQuestionsByUsername = async (username: string): Promise<Question[]> => {
+  getQuestionsByUsername = async (username: string): Promise<DetailedQuestion[]> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
@@ -54,7 +54,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   createQuestionByUsername = async (
     username: string,
     payload: CreateQuestion,
-  ):Promise<Question> => {
+  ):Promise<DetailedQuestion> => {
     validateQuestionCreation(payload);
 
     const user = await this.userRepository.getUser({ username });

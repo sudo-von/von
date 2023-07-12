@@ -1,23 +1,23 @@
 import {
   Metrics,
-  BasicMetrics,
+  DetailedMetrics,
 } from '@entities/metric-entity/metric-entities';
 
-export type User = Readonly<{
+export type DetailedUser = Readonly<{
   id: string;
   userId: string;
   username: string;
+  metrics: DetailedMetrics;
+}>;
+
+export type User = Omit<DetailedUser, 'metrics'> & Readonly<{
   metrics: Metrics;
 }>;
 
-export type CreateUser = Pick<User, 'userId' | 'username'>;
+export type CreateDetailedUser = Omit<User, 'id'>;
 
-export type UpdateUser = Pick<User, 'username'>;
+export type UpdateDetailedUser = Omit<User, 'id'>;
 
-export type BasicUser = Omit<User, 'metrics'> & {
-  metrics: BasicMetrics;
-};
+export type CreateUser = Pick<DetailedUser, 'userId' | 'username'>;
 
-export type CreateBasicUser = Omit<BasicUser, 'id'>;
-
-export type UpdateBasicUser = Omit<BasicUser, 'id'>;
+export type UpdateUser = Pick<DetailedUser, 'username'>;

@@ -1,15 +1,19 @@
 import {
-  Answer,
+  DetailedAnswer,
 } from '../answer-entity/answer-entities';
 
-export type Question = Readonly<{
+export type DetailedQuestion = Readonly<{
   id: string;
   views: number;
   askedAt: Date;
   askedBy: string;
   username: string;
   question: string;
-  answer?: Answer;
+  answer?: DetailedAnswer;
 }>;
 
-export type CreateQuestion = Pick<Question, 'askedBy' | 'question'>;
+export type CreateDetailedQuestion = Omit<DetailedQuestion, 'id'>;
+
+export type UpdateDetailedQuestion = Omit<DetailedQuestion, 'id'>;
+
+export type CreateQuestion = Pick<DetailedQuestion, 'askedBy' | 'question'>;

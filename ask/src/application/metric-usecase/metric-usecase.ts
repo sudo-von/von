@@ -3,12 +3,12 @@ import {
   UserUpdateFailedError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
-  User,
+  DetailedUser,
 } from '../../domain/entities/user-entity/user-entities';
 import MetricUsecase from '../../domain/usecases/metric-usecase/metric-usecase';
 
 class MetricUsecaseApplication extends MetricUsecase {
-  increaseTotalViewsByUsername = async (username: string): Promise<User> => {
+  increaseTotalViewsByUsername = async (username: string): Promise<DetailedUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
@@ -26,7 +26,7 @@ class MetricUsecaseApplication extends MetricUsecase {
     return updatedUser;
   };
 
-  increaseTotalAnswersByUsername = async (username: string): Promise<User> => {
+  increaseTotalAnswersByUsername = async (username: string): Promise<DetailedUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
@@ -44,7 +44,7 @@ class MetricUsecaseApplication extends MetricUsecase {
     return updatedUser;
   };
 
-  decreaseTotalAnswersByUsername = async (username: string): Promise<User> => {
+  decreaseTotalAnswersByUsername = async (username: string): Promise<DetailedUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
@@ -62,7 +62,7 @@ class MetricUsecaseApplication extends MetricUsecase {
     return updatedUser;
   };
 
-  decreaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
+  decreaseTotalQuestionsByUsername = async (username: string): Promise<DetailedUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
@@ -80,7 +80,7 @@ class MetricUsecaseApplication extends MetricUsecase {
     return updatedUser;
   };
 
-  increaseTotalQuestionsByUsername = async (username: string): Promise<User> => {
+  increaseTotalQuestionsByUsername = async (username: string): Promise<DetailedUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 

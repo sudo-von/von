@@ -2,13 +2,13 @@ import {
   HydratedDocument,
 } from 'mongoose';
 import {
-  Question,
+  DetailedQuestion,
 } from '../../../../domain/entities/question-entity/question-entities';
 import {
   QuestionRepositorySchema,
 } from '../../../../domain/repositories/question-repository/question-repository-schema';
 
-const questionDocumentToQuestion = (document: HydratedDocument<QuestionRepositorySchema>): Question => ({
+const questionDocumentToQuestion = (document: HydratedDocument<QuestionRepositorySchema>): DetailedQuestion => ({
   id: document._id.toHexString(),
   views: document.views,
   askedAt: document.asked_at,

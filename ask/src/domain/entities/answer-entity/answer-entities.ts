@@ -1,8 +1,8 @@
-export type Answer = Readonly<{
+export type DetailedAnswer = Readonly<{
   answer: string;
   answeredAt: Date;
 }>;
 
-export type CreateAnswer = Pick<Answer, 'answer'>;
+export type CreateAnswer = Pick<DetailedAnswer, 'answer'>;
 
-export type UpdateAnswer = Pick<Answer, 'answer'>;
+export type UpdateAnswer = Pick<DetailedAnswer, 'answer'>;

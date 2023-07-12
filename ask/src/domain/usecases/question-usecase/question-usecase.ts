@@ -1,9 +1,9 @@
 import {
-  Question,
   CreateQuestion,
-} from '../../entities/question-entity/question-entities';
-import IUserRepository from '../../repositories/user-repository/user-repository';
-import IQuestionRepository from '../../repositories/question-repository/question-repository';
+  DetailedQuestion,
+} from '@entities/question-entity/question-entities';
+import IUserRepository from '@repositories/user-repository/user-repository';
+import IQuestionRepository from '@repositories/question-repository/question-repository';
 
 abstract class QuestionUsecase {
   constructor(
@@ -11,16 +11,17 @@ abstract class QuestionUsecase {
     protected readonly questionRepository: IQuestionRepository,
   ) {}
 
-  abstract deleteQuestionById: (id: string) => Promise<Question>;
+  abstract deleteQuestionById: (id: string)
+  => Promise<DetailedQuestion>;
 
-  abstract createGlobalQuestion: (payload: CreateQuestion) => Promise<void>;
+  abstract getQuestionsByUsername: (username: string)
+  => Promise<DetailedQuestion[]>;
 
-  abstract getQuestionsByUsername: (username: string) => Promise<Question[]>;
+  abstract CreateBroadcastQuestion: (payload: CreateQuestion)
+  => Promise<void>;
 
-  abstract createQuestionByUsername: (
-    username: string,
-    payload: CreateQuestion
-  ) => Promise<Question>;
+  abstract createQuestionByUsername: (username: string, payload: CreateQuestion)
+  => Promise<DetailedQuestion>;
 }
 
 export default QuestionUsecase;

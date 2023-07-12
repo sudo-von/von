@@ -13,15 +13,15 @@ import {
   QuestionAlreadyAnsweredError,
 } from '@entities/question-entity/question-errors';
 import {
-  Question,
+  DetailedQuestion,
 } from '@entities/question-entity/question-entities';
 import AnswerUsecase from '@usecases/answer-usecase/answer-usecase';
 import formatQuestion from '@entities/question-entity/question-formatters';
-import validateAnswerUpdate from '@entities/answer-entity/answer-validations/update-answer-validations';
+import validateBasicAnswerUpdate from '@entities/answer-entity/answer-validations/update-basic-answer-validations';
 import validateAnswerCreation from '@entities/answer-entity/answer-validations/create-answer-validations';
 
 class AnswerUsecaseApplication extends AnswerUsecase {
-  deleteAnswerByQuestionId = async (id: string): Promise<Question> => {
+  deleteAnswerByQuestionId = async (id: string): Promise<DetailedQuestion> => {
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
@@ -34,7 +34,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     return formattedQuestion;
   };
 
-  createAnswerByQuestionId = async (id: string, payload: CreateAnswer): Promise<Question> => {
+  createAnswerByQuestionId = async (id: string, payload: CreateAnswer): Promise<DetailedQuestion> => {
     validateAnswerCreation(payload);
 
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
@@ -52,8 +52,8 @@ class AnswerUsecaseApplication extends AnswerUsecase {
     return formattedQuestion;
   };
 
-  updateAnswerByQuestionId = async (id: string, payload: UpdateAnswer): Promise<Question> => {
-    validateAnswerUpdate(payload);
+  updateAnswerByQuestionId = async (id: string, payload: UpdateAnswer): Promise<DetailedQuestion> => {
+    validateBasicAnswerUpdate(payload);
 
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;

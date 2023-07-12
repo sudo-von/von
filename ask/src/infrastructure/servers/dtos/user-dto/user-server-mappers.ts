@@ -2,10 +2,10 @@ import {
   UserResponse,
 } from './user-server-dtos';
 import {
-  User,
+  DetailedUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 
-const userToUserResponse = (user: User): UserResponse => ({
+const userToUserResponse = (user: DetailedUser): UserResponse => ({
   id: user.id,
   user_id: user.userId,
   username: user.username,

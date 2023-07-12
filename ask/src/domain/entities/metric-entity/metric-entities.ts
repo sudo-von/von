@@ -1,11 +1,11 @@
-export type Metrics = Readonly<{
+export type DetailedMetrics = Readonly<{
   totalViews: number;
   totalAnswers: number;
   totalQuestions: number;
 }>;
 
-export type BasicMetrics = Pick<Metrics, 'totalViews'>;
+export type Metrics = Pick<DetailedMetrics, 'totalViews'>;
 
-export type CreateMetrics = Pick<Metrics, 'totalViews'>;
+export type CreateMetrics = Pick<DetailedMetrics, 'totalViews'>;
 
-export type UpdateMetrics = Pick<Metrics, 'totalViews'>;
+export type UpdateMetrics = Pick<DetailedMetrics, 'totalViews'>;

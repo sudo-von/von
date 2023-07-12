@@ -4,7 +4,7 @@ import {
   UserUpdateFailedError,
 } from '@entities/user-entity/user-errors';
 import {
-  User,
+  DetailedUser,
   CreateUser,
   UpdateUser,
 } from '@entities/user-entity/user-entities';
@@ -13,7 +13,7 @@ import validateUserUpdate from '@entities/user-entity/user-validations/update-us
 import validateUserCreation from '@entities/user-entity/user-validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  createUser = async (payload: CreateUser): Promise<User> => {
+  createUser = async (payload: CreateUser): Promise<DetailedUser> => {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
@@ -37,7 +37,7 @@ class UserUsecaseApplication extends UserUsecase {
       status: 'both',
     });
 
-    const user: User = {
+    const user: DetailedUser = {
       id: createdUser.id,
       userId: createdUser.userId,
       username: createdUser.username,
@@ -51,7 +51,7 @@ class UserUsecaseApplication extends UserUsecase {
     return user;
   };
 
-  getUserByUsername = async (username: string): Promise<User> => {
+  getUserByUserId = async (username: string): Promise<DetailedUser> => {
     const userFoundByUsername = await this.userRepository.getUser({ username });
     if (!userFoundByUsername) throw UserNotFoundError;
 
@@ -65,7 +65,7 @@ class UserUsecaseApplication extends UserUsecase {
       status: 'both',
     });
 
-    const user: User = {
+    const user: DetailedUser = {
       id: userFoundByUsername.id,
       userId: userFoundByUsername.userId,
       username: userFoundByUsername.username,
@@ -79,7 +79,7 @@ class UserUsecaseApplication extends UserUsecase {
     return user;
   };
 
-  updateUserByUserId = async (id: string, payload: UpdateUser): Promise<User> => {
+  updateUserByUserId = async (id: string, payload: UpdateUser): Promise<DetailedUser> => {
     validateUserUpdate(payload);
 
     const userFoundByUserId = await this.userRepository.getUser({ userId: id });
@@ -108,7 +108,7 @@ class UserUsecaseApplication extends UserUsecase {
       status: 'both',
     });
 
-    const user: User = {
+    const user: DetailedUser = {
       id: updatedUser.id,
       userId: updatedUser.userId,
       username: updatedUser.username,

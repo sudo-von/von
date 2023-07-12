@@ -1,25 +1,25 @@
 import {
-  BasicUser,
-  CreateBasicUser,
-  UpdateBasicUser,
+  User,
+  CreateDetailedUser,
+  UpdateUser,
 } from '@entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
 } from '@repositories/user-repository/user-repository-filters';
 
 interface IUserRepositoryReader {
-  getUsers: (filters?: UserRepositoryFilters) => Promise<BasicUser[]>;
-  getUser: (filters?: UserRepositoryFilters) => Promise<BasicUser | null>;
+  getUsers: (filters?: UserRepositoryFilters) => Promise<User[]>;
+  getUser: (filters?: UserRepositoryFilters) => Promise<User | null>;
 }
 
 interface IUserRepositoryWriter {
   createUser: (
-    payload: CreateBasicUser
-  ) => Promise<BasicUser>;
+    payload: CreateDetailedUser
+  ) => Promise<User>;
   updateUser: (
-    payload: UpdateBasicUser,
+    payload: UpdateUser,
     filters?: UserRepositoryFilters
-  ) => Promise<BasicUser | null>;
+  ) => Promise<User | null>;
 }
 
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}
