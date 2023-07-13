@@ -4,7 +4,7 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
+import questionToDetailedQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionController {
@@ -18,7 +18,9 @@ class UnansweredQuestionController {
         username,
       );
 
-      const questionResponses = questions.map((question) => questionToQuestionResponse(question));
+      const questionResponses = questions.map(
+        (question) => questionToDetailedQuestionResponse(question),
+      );
 
       res.status(statusCode.OK).send({ result: questionResponses });
     } catch (e) {

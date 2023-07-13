@@ -1,11 +1,11 @@
 import {
-  UserResponse,
-} from './user-server-dtos';
+  DetailedUserResponse,
+} from './user-server-response-dtos';
 import {
   DetailedUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 
-const userToUserResponse = (user: DetailedUser): UserResponse => ({
+const userToDetailedUserResponse = (user: DetailedUser): DetailedUserResponse => ({
   id: user.id,
   user_id: user.userId,
   username: user.username,
@@ -16,4 +16,4 @@ const userToUserResponse = (user: DetailedUser): UserResponse => ({
   },
 });
 
-export default userToUserResponse;
+export default userToDetailedUserResponse;

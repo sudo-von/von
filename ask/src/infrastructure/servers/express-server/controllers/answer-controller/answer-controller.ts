@@ -7,9 +7,9 @@ import statusCode from 'http-status-codes';
 import {
   CreateAnswerRequest,
   UpdateAnswerRequest,
-} from '../../../dtos/answer-dto/answer-server-dtos';
+} from '../../../dtos/answer-dto/answer-server-request-dtos';
 import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
-import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
+import questionToDetailedQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 
 class AnswerController {
   constructor(private readonly answerUsecase: AnswerUsecase) {}
@@ -20,7 +20,7 @@ class AnswerController {
 
       const deletedAnswer = await this.answerUsecase.deleteAnswerByQuestionId(id);
 
-      const questionResponse = questionToQuestionResponse(deletedAnswer);
+      const questionResponse = questionToDetailedQuestionResponse(deletedAnswer);
 
       res.status(statusCode.ACCEPTED).send({ result: questionResponse });
     } catch (e) {
@@ -38,7 +38,7 @@ class AnswerController {
         answer: payload.answer,
       });
 
-      const questionResponse = questionToQuestionResponse(createdAnswer);
+      const questionResponse = questionToDetailedQuestionResponse(createdAnswer);
 
       res.status(statusCode.CREATED).send({ result: questionResponse });
     } catch (e) {
@@ -56,7 +56,7 @@ class AnswerController {
         answer: payload.answer,
       });
 
-      const questionResponse = questionToQuestionResponse(updatedAnswer);
+      const questionResponse = questionToDetailedQuestionResponse(updatedAnswer);
 
       res.status(statusCode.OK).send({ result: questionResponse });
     } catch (e) {

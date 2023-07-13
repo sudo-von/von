@@ -1,11 +1,11 @@
 import {
+  UserRepositoryFilters,
+} from './user-repository-filters';
+import {
   User,
   CreateUserWithMetrics,
   PartialUserWithMetrics,
 } from '../../entities/user-entity/user-entities';
-import {
-  UserRepositoryFilters,
-} from './user-repository-filters';
 
 interface IUserRepositoryReader {
   getUsers: (filters?: UserRepositoryFilters)

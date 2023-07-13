@@ -31,7 +31,6 @@ import {
   RequestRuntimeServerError,
 } from '../../dtos/common-dto/common-server-errors';
 import {
-  AnswerNotFoundServerError,
   AnswerDeleteFailedServerError,
   AnswerUpdateFailedServerError,
   InvalidAnswerLengthServerError,
@@ -41,6 +40,9 @@ import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
 import {
+  ServiceErrorFactory,
+} from '../../../services/errors/service-error-factory';
+import {
   QuestionNotFoundServerError,
   QuestionNotAnsweredServerError,
   QuestionDeleteFailedServerError,
@@ -48,15 +50,11 @@ import {
   InvalidQuestionLengthServerError,
   QuestionAlreadyAnsweredServerError,
 } from '../../dtos/question-dto/question-server-errors';
-import {
-  ServiceErrorFactory,
-} from '../../../services/errors/service-error-factory';
 import LoggerService from '../../../services/logger-service/logger-service';
 
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   ANSWER_CREATION_FAILED: AnswerCreationFailedServerError,
   ANSWER_DELETE_FAILED: AnswerDeleteFailedServerError,
-  ANSWER_NOT_FOUND: AnswerNotFoundServerError,
   ANSWER_UPDATE_FAILED: AnswerUpdateFailedServerError,
   INVALID_ANSWER_LENGTH: InvalidAnswerLengthServerError,
   INVALID_QUESTION_LENGTH: InvalidQuestionLengthServerError,

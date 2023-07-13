@@ -4,8 +4,8 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import userToUserResponse from '../../../dtos/user-dto/user-server-mappers';
 import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
+import userToDetailedUserResponse from '../../../dtos/user-dto/user-server-mappers';
 
 class UserController {
   constructor(private readonly userUsecase: UserUsecase) {}
@@ -16,7 +16,7 @@ class UserController {
 
       const user = await this.userUsecase.getUserByUserId(username);
 
-      const userResponse = userToUserResponse(user);
+      const userResponse = userToDetailedUserResponse(user);
 
       return res.status(statusCode.OK).send({ result: userResponse });
     } catch (e) {

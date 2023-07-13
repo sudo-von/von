@@ -3,12 +3,6 @@ export type DetailedAnswer = Readonly<{
   answeredAt: Date;
 }>;
 
-export type CreateDetailedAnswer = DetailedAnswer;
+export type CreateAnswer = Pick<DetailedAnswer, 'answer'>;
 
-export type PartialDetailedAnswer = Partial<DetailedAnswer>;
-
-export type Answer = Pick<DetailedAnswer, 'answer'>;
-
-export type CreateAnswer = Answer;
-
-export type UpdateAnswer = Answer;
+export type UpdateAnswer = Pick<DetailedAnswer, 'answer'>;

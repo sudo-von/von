@@ -70,7 +70,6 @@ loggerService.info('📢 Logger service has been configured.');
       answeredQuestionUsecase,
       unansweredQuestionUsecase,
       tokenService,
-      loggerService,
       userRepository,
     );
     loggerService.info('🔌 Routers have been configured.');

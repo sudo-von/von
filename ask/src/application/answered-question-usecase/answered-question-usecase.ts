@@ -9,7 +9,7 @@ import {
 import {
   DetailedQuestion,
 } from '../../domain/entities/question-entity/question-entities';
-import formatQuestion from '../../domain/entities/question-entity/question-formatters';
+import formatQuestion from '../../domain/entities/question-entity/question-utils';
 import AnsweredQuestionUsecase from '../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {

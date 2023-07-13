@@ -1,11 +1,13 @@
 import {
-  QuestionResponse,
-} from './question-server-dtos';
+  DetailedQuestionResponse,
+} from './question-server-response-dtos';
 import {
   DetailedQuestion,
 } from '../../../../domain/entities/question-entity/question-entities';
 
-const questionToQuestionResponse = (question: DetailedQuestion): QuestionResponse => ({
+const questionToDetailedQuestionResponse = (
+  question: DetailedQuestion,
+): DetailedQuestionResponse => ({
   id: question.id,
   views: question.views,
   asked_at: question.askedAt,
@@ -17,4 +19,4 @@ const questionToQuestionResponse = (question: DetailedQuestion): QuestionRespons
   },
 });
 
-export default questionToQuestionResponse;
+export default questionToDetailedQuestionResponse;

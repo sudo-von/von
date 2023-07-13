@@ -3,7 +3,7 @@ import {
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
 import {
-  AnswerNotFoundError,
+  AnswerUpdateFailedError,
   AnswerDeleteFailedError,
   InvalidAnswerLengthError,
   AnswerCreationFailedError,
@@ -21,15 +21,9 @@ export const AnswerDeleteFailedServerError = createServerErrorFactory({
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 
-export const AnswerNotFoundServerError = createServerErrorFactory({
-  code: 'ANSWER_NOT_FOUND',
-  error: AnswerNotFoundError.message,
-  statusCode: statusCode.NOT_FOUND,
-});
-
 export const AnswerUpdateFailedServerError = createServerErrorFactory({
   code: 'ANSWER_UPDATE_FAILED',
-  error: AnswerNotFoundError.message,
+  error: AnswerUpdateFailedError.message,
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 

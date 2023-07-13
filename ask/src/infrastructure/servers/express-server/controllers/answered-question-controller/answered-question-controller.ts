@@ -5,7 +5,7 @@ import {
 } from 'express';
 import statusCode from 'http-status-codes';
 import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
-import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
+import questionToDetailedQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 import AnsweredQuestionUsecase from '../../../../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionController {
@@ -22,7 +22,7 @@ class AnsweredQuestionController {
 
       await this.metricUsecase.increaseTotalViewsByUsername(question.username);
 
-      const questionResponse = questionToQuestionResponse(question);
+      const questionResponse = questionToDetailedQuestionResponse(question);
 
       res.status(statusCode.OK).send({ result: questionResponse });
     } catch (e) {
@@ -38,7 +38,9 @@ class AnsweredQuestionController {
 
       await this.metricUsecase.increaseTotalViewsByUsername(username);
 
-      const questionResponses = questions.map((question) => questionToQuestionResponse(question));
+      const questionResponses = questions.map(
+        (question) => questionToDetailedQuestionResponse(question),
+      );
 
       res.status(statusCode.OK).send({ result: questionResponses });
     } catch (e) {

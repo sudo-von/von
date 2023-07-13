@@ -4,20 +4,18 @@ import {
   NextFunction,
 } from 'express';
 import {
+  UserNotFoundServerError,
+} from '../../dtos/user-dto/user-server-errors';
+import {
   MissingTokenServerError,
   MissingAuthorizationHeaderServerError,
   AuthorizationSchemeNotSupportedServerError,
 } from '../../dtos/token-dto/token-server-errors';
-import {
-  UserNotFoundError,
-} from '../../../../domain/entities/user-entity/user-errors';
 import TokenService from '../../../services/token-service/token-service';
-import LoggerService from '../../../services/logger-service/logger-service';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 const authenticationMiddleware = (
   tokenService: TokenService,
-  loggerService: LoggerService,
   userRepository: IUserRepository,
 ) => async (
   req: Request,
@@ -25,17 +23,14 @@ const authenticationMiddleware = (
   next: NextFunction,
 ) => {
   const { authorization } = req.headers;
-
   if (!authorization) {
     return next(MissingAuthorizationHeaderServerError);
   }
 
   const [scheme, token] = authorization.split(' ');
-
   if (scheme.toLowerCase() !== 'bearer') {
     return next(AuthorizationSchemeNotSupportedServerError);
   }
-
   if (!token) {
     return next(MissingTokenServerError);
   }
@@ -44,7 +39,7 @@ const authenticationMiddleware = (
     const decodedToken = await tokenService.decode(token);
 
     const updatedUser = await userRepository.getUser({ userId: decodedToken.id });
-    if (!updatedUser) return next(UserNotFoundError);
+    if (!updatedUser) return next(UserNotFoundServerError);
 
     req.user = {
       id: updatedUser.userId,

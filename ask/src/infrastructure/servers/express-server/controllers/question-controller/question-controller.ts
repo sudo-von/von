@@ -4,11 +4,9 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import {
-  CreateQuestionRequest,
-} from '../../../dtos/question-dto/question-server-dtos';
-import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
+import CreateQuestionRequest from '../../../dtos/question-dto/question-server-request-dtos';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
+import questionToDetailedQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 
 class QuestionController {
   constructor(private readonly questionUsecase: QuestionUsecase) {}
@@ -19,7 +17,7 @@ class QuestionController {
 
       const question = await this.questionUsecase.deleteQuestionById(id);
 
-      const questionResponse = questionToQuestionResponse(question);
+      const questionResponse = questionToDetailedQuestionResponse(question);
 
       res.status(statusCode.ACCEPTED).send({ result: questionResponse });
     } catch (e) {
@@ -33,7 +31,9 @@ class QuestionController {
 
       const questions = await this.questionUsecase.getQuestionsByUsername(username);
 
-      const questionResponses = questions.map((question) => questionToQuestionResponse(question));
+      const questionResponses = questions.map(
+        (question) => questionToDetailedQuestionResponse(question),
+      );
 
       res.status(statusCode.OK).send({ result: questionResponses });
     } catch (e) {
@@ -52,7 +52,7 @@ class QuestionController {
         question: payload.question,
       });
 
-      const questionResponse = questionToQuestionResponse(createdQuestion);
+      const questionResponse = questionToDetailedQuestionResponse(createdQuestion);
 
       res.status(statusCode.CREATED).send({ result: questionResponse });
     } catch (e) {

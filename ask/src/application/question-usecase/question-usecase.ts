@@ -10,8 +10,9 @@ import {
   CreateQuestion,
 } from '../../domain/entities/question-entity/question-entities';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
-import formatQuestion from '../../domain/entities/question-entity/question-formatters';
+import formatQuestion from '../../domain/entities/question-entity/question-utils';
 import validateQuestionCreation from '../../domain/entities/question-entity/question-validations/create-question-validations';
+import validateBroadcastQuestionCreation from '../../domain/entities/question-entity/question-validations/create-broadcast-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (
@@ -46,7 +47,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   CreateBroadcastQuestion = async (
     payload: CreateQuestion,
   ): Promise<void> => {
-    validateQuestionCreation(payload);
+    validateBroadcastQuestionCreation(payload);
 
     const users = await this.userRepository.getUsers();
 

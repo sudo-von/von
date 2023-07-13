@@ -2,11 +2,6 @@ import {
   z,
 } from 'zod';
 
-export type AnswerResponse = {
-  answer: string;
-  answered_at: Date;
-};
-
 export const CreateAnswerRequest = z.object({
   answer: z
     .string({

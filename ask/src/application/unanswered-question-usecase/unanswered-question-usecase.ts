@@ -4,7 +4,7 @@ import {
 import {
   DetailedQuestion,
 } from '../../domain/entities/question-entity/question-entities';
-import formatQuestion from '../../domain/entities/question-entity/question-formatters';
+import formatQuestion from '../../domain/entities/question-entity/question-utils';
 import UnansweredQuestionUsecase from '../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionUsecaseApplication extends UnansweredQuestionUsecase {

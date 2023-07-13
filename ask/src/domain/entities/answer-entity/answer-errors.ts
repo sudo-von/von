@@ -13,11 +13,6 @@ export const AnswerDeleteFailedError = createDomainErrorFactory({
   message: 'The answer you attempted to delete could not be deleted.',
 });
 
-export const AnswerNotFoundError = createDomainErrorFactory({
-  code: 'ANSWER_NOT_FOUND',
-  message: 'The requested answer could not be found.',
-});
-
 export const AnswerUpdateFailedError = createDomainErrorFactory({
   code: 'ANSWER_UPDATE_FAILED',
   message: 'The answer you attempted to update could not be updated.',
@@ -25,5 +20,5 @@ export const AnswerUpdateFailedError = createDomainErrorFactory({
 
 export const InvalidAnswerLengthError = createDomainErrorFactory({
   code: 'INVALID_ANSWER_LENGTH',
-  message: `Please provide an answer that consists of ${answerRules.answer.MIN_LENGTH} to ${answerRules.answer.MAX_LENGTH} characters.`,
+  message: `Please provide an answer that consists of ${answerRules.answer.content.MIN_LENGTH} to ${answerRules.answer.content.MAX_LENGTH} characters.`,
 });

@@ -14,8 +14,10 @@ export type DetailedQuestion = Readonly<{
 
 export type CreateDetailedQuestion = Omit<DetailedQuestion, 'id'>;
 
-export type PartialDetailedQuestion = Partial<DetailedQuestion>;
+export type PartialDetailedQuestion = Partial<Omit<DetailedQuestion, 'id'>>;
 
 export type Question = Pick<DetailedQuestion, 'askedBy' | 'question'>;
 
 export type CreateQuestion = Question;
+
+export type CreateBroadcastQuestion = Question;

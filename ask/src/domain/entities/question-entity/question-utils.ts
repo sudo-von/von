@@ -1,7 +1,7 @@
 import {
   DetailedQuestion,
 } from './question-entities';
-import truncateAnswer from '../answer-entity/answer-formatters';
+import truncateAnswer from '../answer-entity/answer-utils';
 
 type QuestionFormatOptions = Partial<{
   truncateAnswer: boolean;
