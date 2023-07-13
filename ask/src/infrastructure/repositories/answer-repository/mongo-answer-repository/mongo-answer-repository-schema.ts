@@ -5,7 +5,7 @@ import {
   AnswerRepositorySchema,
 } from '../answer-repository-schema';
 
-const answerSchema = new Schema<AnswerRepositorySchema>({
+const answerRepositorySchema = new Schema<AnswerRepositorySchema>({
   answer: {
     type: String,
     required: false,
@@ -18,4 +18,4 @@ const answerSchema = new Schema<AnswerRepositorySchema>({
   _id: false,
 });
 
-export default answerSchema;
+export default answerRepositorySchema;

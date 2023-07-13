@@ -18,7 +18,10 @@ const configureRepositories = async (
 
   const questionRepository = new MongoQuestionRepository();
 
-  return { userRepository, questionRepository };
+  return {
+    userRepository,
+    questionRepository,
+  };
 };
 
 export default configureRepositories;

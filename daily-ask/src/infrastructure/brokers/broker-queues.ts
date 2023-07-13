@@ -2,4 +2,4 @@ export type Queue =
 | QuestionQueue;
 
 export type QuestionQueue =
-| 'Question:CreateQuestion';
+| 'Question:CreateBroadcastQuestion';

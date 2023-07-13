@@ -1,18 +1,20 @@
+import UserModel from './mongo-user-repository-model';
 import {
   User,
   CreateUserWithMetrics,
   PartialUserWithMetrics,
 } from '../../../../domain/entities/user-entity/user-entities';
+import userDocumentToUser from './mongo-user-repository-mapper';
+import createUserRepositoryQuery from './mongo-user-repository-query';
 import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
-import UserModel from './mongo-user-repository-model';
-import userDocumentToUser from './mongo-user-repository-mapper';
-import createUserRepositoryQuery from './mongo-user-repository-query';
 
 class MongoUserRepository implements IUserRepository {
-  getUser = async (filters?: UserRepositoryFilters): Promise<User | null> => {
+  getUser = async (
+    filters?: UserRepositoryFilters,
+  ): Promise<User | null> => {
     const query = createUserRepositoryQuery(filters);
     const userDocument = await UserModel.findOne(query);
     if (!userDocument) return null;
@@ -20,14 +22,18 @@ class MongoUserRepository implements IUserRepository {
     return user;
   };
 
-  getUsers = async (filters?: UserRepositoryFilters): Promise<User[]> => {
+  getUsers = async (
+    filters?: UserRepositoryFilters,
+  ): Promise<User[]> => {
     const query = createUserRepositoryQuery(filters);
     const userDocuments = await UserModel.find(query);
     const users = userDocuments.map((document) => userDocumentToUser(document));
     return users;
   };
 
-  createUser = async (payload: CreateUserWithMetrics): Promise<User> => {
+  createUser = async (
+    payload: CreateUserWithMetrics,
+  ): Promise<User> => {
     const userDocument = new UserModel({
       user_id: payload.userId,
       username: payload.username,
@@ -41,17 +47,15 @@ class MongoUserRepository implements IUserRepository {
   };
 
   updateUser = async (
-    payload: Partial<PartialUserWithMetrics>,
+    payload: PartialUserWithMetrics,
     filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
     const query = createUserRepositoryQuery(filters);
     const updatedUser = await UserModel.findOneAndUpdate(query, {
-      $set: {
-        user_id: payload.userId,
-        username: payload.username,
-        metrics: payload.metrics && {
-          total_views: payload.metrics.totalViews,
-        },
+      user_id: payload.userId,
+      username: payload.username,
+      metrics: payload.metrics && {
+        total_views: payload.metrics.totalViews,
       },
     }, {
       new: true,

@@ -45,9 +45,11 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (question.answer) throw QuestionAlreadyAnsweredError;
 
-    const createdAnswer = await this.questionRepository.createDetailedAnswer({
-      answer: payload.answer,
-      answeredAt: new Date(),
+    const createdAnswer = await this.questionRepository.updateDetailedQuestion({
+      answer: {
+        answer: payload.answer,
+        answeredAt: new Date(),
+      },
     }, { id });
     if (!createdAnswer) throw AnswerCreationFailedError;
 
@@ -65,9 +67,11 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const updatedAnswer = await this.questionRepository.updateDetailedAnswer({
-      answer: payload.answer,
-      answeredAt: new Date(),
+    const updatedAnswer = await this.questionRepository.updateDetailedQuestion({
+      answer: {
+        answer: payload.answer,
+        answeredAt: new Date(),
+      },
     }, { id });
     if (!updatedAnswer) throw AnswerUpdateFailedError;
 

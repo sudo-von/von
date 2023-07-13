@@ -53,7 +53,7 @@ class ScheduledQuestionService extends ScheduledTaskService {
 
       await this.questionWebScraperService.close();
 
-      this.createQuestionProducer.produce('Question:CreateQuestion', {
+      this.createQuestionProducer.produce('Question:CreateBroadcastQuestion', {
         asked_by: question.askedBy,
         question: question.question,
       });

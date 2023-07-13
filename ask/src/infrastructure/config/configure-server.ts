@@ -1,7 +1,7 @@
-import 'express-async-errors';
 import express, {
   Router,
 } from 'express';
+import 'express-async-errors';
 import LoggerService from '../services/logger-service/logger-service';
 import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
 

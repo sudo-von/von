@@ -2,10 +2,6 @@ import {
   QuestionRepositoryFilters,
 } from './question-repository-filters';
 import {
-  CreateDetailedAnswer,
-  PartialDetailedAnswer,
-} from '../../entities/answer-entity/answer-entities';
-import {
   DetailedQuestion,
   CreateDetailedQuestion,
   PartialDetailedQuestion,
@@ -13,12 +9,6 @@ import {
 
 interface IAnswerWriter {
   deleteDetailedAnswer: (filters?: QuestionRepositoryFilters)
-  => Promise<DetailedQuestion | null>;
-
-  createDetailedAnswer: (payload: CreateDetailedAnswer, filters?: QuestionRepositoryFilters)
-  => Promise<DetailedQuestion>;
-
-  updateDetailedAnswer: (payload: PartialDetailedAnswer, filters?: QuestionRepositoryFilters)
   => Promise<DetailedQuestion | null>;
 }
 

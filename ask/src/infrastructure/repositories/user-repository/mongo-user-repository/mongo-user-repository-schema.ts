@@ -4,9 +4,9 @@ import {
 import {
   UserRepositorySchema,
 } from '../user-repository-schema';
-import metricsSchema from '../../metrics-repository/mongo-metrics-repository/mongo-metrics-repository-schema';
+import metricsRepositorySchema from '../../metrics-repository/mongo-metrics-repository/mongo-metrics-repository-schema';
 
-const userSchema = new Schema<UserRepositorySchema>({
+const userRepositorySchema = new Schema<UserRepositorySchema>({
   user_id: {
     type: String,
     required: true,
@@ -16,9 +16,9 @@ const userSchema = new Schema<UserRepositorySchema>({
     required: true,
   },
   metrics: {
-    type: metricsSchema,
+    type: metricsRepositorySchema,
     required: true,
   },
 });
 
-export default userSchema;
+export default userRepositorySchema;

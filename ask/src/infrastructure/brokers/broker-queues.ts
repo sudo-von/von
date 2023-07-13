@@ -3,7 +3,7 @@ export type Queue =
 | UserQueue;
 
 export type QuestionQueue =
-| 'Question:CreateQuestion';
+| 'Question:CreateBroadcastQuestion';
 
 export type UserQueue =
 | 'User:CreateUser'

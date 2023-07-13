@@ -4,9 +4,9 @@ import {
 import {
   QuestionRepositorySchema,
 } from '../question-repository-schema';
-import answerSchema from '../../answer-repository/mongo-answer-repository/mongo-answer-repository-schema';
+import answerRepositorySchema from '../../answer-repository/mongo-answer-repository/mongo-answer-repository-schema';
 
-const questionSchema = new Schema<QuestionRepositorySchema>({
+const questionRepositorySchema = new Schema<QuestionRepositorySchema>({
   views: {
     type: Number,
     required: true,
@@ -32,9 +32,9 @@ const questionSchema = new Schema<QuestionRepositorySchema>({
     required: true,
   },
   answer: {
-    type: answerSchema,
+    type: answerRepositorySchema,
     required: false,
   },
 });
 
-export default questionSchema;
+export default questionRepositorySchema;

@@ -5,7 +5,7 @@ import {
   MetricsRepositorySchema,
 } from '../metrics-repository-schema';
 
-const metricsSchema = new Schema<MetricsRepositorySchema>({
+const metricsRepositorySchema = new Schema<MetricsRepositorySchema>({
   total_views: {
     type: Number,
     required: true,
@@ -14,4 +14,4 @@ const metricsSchema = new Schema<MetricsRepositorySchema>({
   _id: false,
 });
 
-export default metricsSchema;
+export default metricsRepositorySchema;
