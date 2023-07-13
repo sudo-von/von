@@ -1,7 +1,7 @@
 import {
   User,
   CreateUserWithMetrics,
-  UpdateUserWithMetrics,
+  PartialUserWithMetrics,
 } from '../../../../domain/entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
@@ -41,7 +41,7 @@ class MongoUserRepository implements IUserRepository {
   };
 
   updateUser = async (
-    payload: Partial<UpdateUserWithMetrics>,
+    payload: Partial<PartialUserWithMetrics>,
     filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
     const query = createUserRepositoryQuery(filters);

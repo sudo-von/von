@@ -13,7 +13,7 @@ import {
 import IQuestionRepository from '../../../../domain/repositories/question-repository/question-repository';
 
 class MongoQuestionRepository implements IQuestionRepository {
-  getQuestion = async (filters?: QuestionRepositoryFilters): Promise<DetailedQuestion | null> => {
+  getDetailedQuestion = async (filters?: QuestionRepositoryFilters): Promise<DetailedQuestion | null> => {
     const query = createQuestionRepositoryQuery(filters);
     const questionDocument = await QuestionModel.findOne(query);
     if (!questionDocument) return null;
@@ -21,14 +21,14 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  getQuestions = async (filters?: QuestionRepositoryFilters): Promise<DetailedQuestion[]> => {
+  getDetailedQuestions = async (filters?: QuestionRepositoryFilters): Promise<DetailedQuestion[]> => {
     const query = createQuestionRepositoryQuery(filters);
     const questionDocuments = await QuestionModel.find(query);
     const questions = questionDocuments.map((model) => questionDocumentToQuestion(model));
     return questions;
   };
 
-  createQuestion = async (payload: CreateDetailedQuestion): Promise<DetailedQuestion> => {
+  createDetailedQuestion = async (payload: CreateDetailedQuestion): Promise<DetailedQuestion> => {
     const questionDocument = new QuestionModel({
       views: payload.views,
       asked_at: payload.askedAt,
@@ -42,7 +42,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  deleteAnswer = async (filters?: QuestionRepositoryFilters): Promise<DetailedQuestion | null> => {
+  deleteDetailedAnswer = async (filters?: QuestionRepositoryFilters): Promise<DetailedQuestion | null> => {
     const query = createQuestionRepositoryQuery(filters);
     const deletedAnswer = await QuestionModel.findOneAndUpdate(query, {
       $unset: {
@@ -56,7 +56,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  deleteQuestion = async (
+  deleteDetailedQuestion = async (
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion | null> => {
     const query = createQuestionRepositoryQuery(filters);
@@ -72,7 +72,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  createAnswer = async (payload: CreateDetailedAnswer): Promise<DetailedQuestion> => {
+  createDetailedAnswer = async (payload: CreateDetailedAnswer): Promise<DetailedQuestion> => {
     const questionDocument = new QuestionModel({
       answer: {
         answer: payload.answer,
@@ -84,7 +84,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateAnswer = async (
+  updateDetailedAnswer = async (
     payload: UpdateDetailedAnswer,
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion | null> => {
@@ -104,7 +104,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateQuestion = async (
+  updateDetailedQuestion = async (
     payload: Partial<UpdateDetailedQuestion>,
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion | null> => {
@@ -129,7 +129,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateQuestions = async (
+  updateDetailedQuestions = async (
     payload: Partial<UpdateDetailedQuestion>,
     filters?: QuestionRepositoryFilters,
   ): Promise<void> => {

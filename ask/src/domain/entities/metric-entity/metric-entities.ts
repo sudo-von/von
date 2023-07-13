@@ -4,12 +4,12 @@ export type DetailedMetrics = Readonly<{
   totalQuestions: number;
 }>;
 
+export type CreateDetailedMetrics = DetailedMetrics;
+
+export type UpdateDetailedMetrics = DetailedMetrics;
+
 export type Metrics = Pick<DetailedMetrics, 'totalViews'>;
 
 export type CreateMetrics = Metrics;
 
 export type UpdateMetrics = Metrics;
-
-export type CreateDetailedMetrics = DetailedMetrics;
-
-export type UpdateDetailedMetrics = DetailedMetrics;

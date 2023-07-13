@@ -14,33 +14,33 @@ import validateUserCreation from '../../domain/entities/user-entity/user-validat
 
 class UserUsecaseApplication extends UserUsecase {
   getUserByUserId = async (
-    username: string,
+    id: string,
   ): Promise<DetailedUser> => {
-    const userFoundByUsername = await this.userRepository.getUser({ username });
-    if (!userFoundByUsername) throw UserNotFoundError;
+    const user = await this.userRepository.getUser({ userId: id });
+    if (!user) throw UserNotFoundError;
 
-    const answers = await this.questionRepository.getQuestions({
-      username,
+    const answers = await this.questionRepository.getDetailedQuestions({
+      username: user.username,
       status: 'answered',
     });
 
-    const questions = await this.questionRepository.getQuestions({
-      username,
+    const questions = await this.questionRepository.getDetailedQuestions({
+      username: user.username,
       status: 'both',
     });
 
-    const user: DetailedUser = {
-      id: userFoundByUsername.id,
-      userId: userFoundByUsername.userId,
-      username: userFoundByUsername.username,
+    const detailedUser: DetailedUser = {
+      id: user.id,
+      userId: user.userId,
+      username: user.username,
       metrics: {
         totalAnswers: answers.length,
         totalQuestions: questions.length,
-        totalViews: userFoundByUsername.metrics.totalViews,
+        totalViews: user.metrics.totalViews,
       },
     };
 
-    return user;
+    return detailedUser;
   };
 
   createUser = async (
@@ -59,28 +59,18 @@ class UserUsecaseApplication extends UserUsecase {
       },
     });
 
-    const answers = await this.questionRepository.getQuestions({
-      username: payload.username,
-      status: 'answered',
-    });
-
-    const questions = await this.questionRepository.getQuestions({
-      username: payload.username,
-      status: 'both',
-    });
-
-    const user: DetailedUser = {
+    const detailedUser: DetailedUser = {
       id: createdUser.id,
       userId: createdUser.userId,
       username: createdUser.username,
       metrics: {
-        totalAnswers: answers.length,
-        totalQuestions: questions.length,
+        totalAnswers: 0,
+        totalQuestions: 0,
         totalViews: createdUser.metrics.totalViews,
       },
     };
 
-    return user;
+    return detailedUser;
   };
 
   updateUserByUserId = async (
@@ -89,33 +79,29 @@ class UserUsecaseApplication extends UserUsecase {
   ): Promise<DetailedUser> => {
     validateUserUpdate(payload);
 
-    const userFoundByUserId = await this.userRepository.getUser({ userId: id });
-    if (!userFoundByUserId) throw UserNotFoundError;
+    const user = await this.userRepository.getUser({ userId: id });
+    if (!user) throw UserNotFoundError;
 
     const updatedUser = await this.userRepository.updateUser({
-      userId: userFoundByUserId.id,
       username: payload.username,
-      metrics: {
-        totalViews: userFoundByUserId.metrics.totalViews,
-      },
-    }, { userId: userFoundByUserId.id });
+    }, { userId: id });
     if (!updatedUser) throw UserUpdateFailedError;
 
-    await this.questionRepository.updateQuestions({
+    await this.questionRepository.updateDetailedQuestions({
       username: payload.username,
     });
 
-    const answers = await this.questionRepository.getQuestions({
+    const answers = await this.questionRepository.getDetailedQuestions({
       username: payload.username,
       status: 'answered',
     });
 
-    const questions = await this.questionRepository.getQuestions({
+    const questions = await this.questionRepository.getDetailedQuestions({
       username: payload.username,
       status: 'both',
     });
 
-    const user: DetailedUser = {
+    const detailedUser: DetailedUser = {
       id: updatedUser.id,
       userId: updatedUser.userId,
       username: updatedUser.username,
@@ -126,7 +112,7 @@ class UserUsecaseApplication extends UserUsecase {
       },
     };
 
-    return user;
+    return detailedUser;
   };
 }
 

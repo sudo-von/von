@@ -1,7 +1,7 @@
 import {
   User,
   CreateUserWithMetrics,
-  UpdateUserWithMetrics,
+  PartialUserWithMetrics,
 } from '../../entities/user-entity/user-entities';
 import {
   UserRepositoryFilters,
@@ -19,7 +19,7 @@ interface IUserRepositoryWriter {
   createUser: (payload: CreateUserWithMetrics)
   => Promise<User>;
 
-  updateUser: (payload: UpdateUserWithMetrics, filters?: UserRepositoryFilters)
+  updateUser: (payload: PartialUserWithMetrics, filters?: UserRepositoryFilters)
   => Promise<User | null>;
 }
 

@@ -12,9 +12,7 @@ import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-
 import questionToQuestionResponse from '../../../dtos/question-dto/question-server-mappers';
 
 class AnswerController {
-  constructor(
-    private readonly answerUsecase: AnswerUsecase,
-  ) {}
+  constructor(private readonly answerUsecase: AnswerUsecase) {}
 
   deleteAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
     try {

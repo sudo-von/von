@@ -1,7 +1,7 @@
 import {
   DetailedQuestion,
 } from './question-entities';
-import formatAnswer from '../answer-entity/answer-formatters';
+import truncateAnswer from '../answer-entity/answer-formatters';
 
 type QuestionFormatOptions = Partial<{
   truncateAnswer: boolean;
@@ -18,7 +18,9 @@ const formatQuestion = (question: DetailedQuestion, options: QuestionFormatOptio
   question: question.question,
   answer: question.answer && {
     answeredAt: question.answer.answeredAt,
-    answer: options.truncateAnswer ? formatAnswer(question.answer.answer) : question.answer.answer,
+    answer: options.truncateAnswer
+      ? truncateAnswer(question.answer.answer)
+      : question.answer.answer,
   },
 });
 

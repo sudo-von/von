@@ -15,8 +15,6 @@ class MetricUsecaseApplication extends MetricUsecase {
     if (!user) throw UserNotFoundError;
 
     const updatedUser = await this.userRepository.updateUser({
-      userId: user.userId,
-      username: user.username,
       metrics: {
         totalViews: user.metrics.totalViews + 1,
       },

@@ -1,47 +1,49 @@
 import {
-  DetailedQuestion,
-  CreateDetailedQuestion,
-  UpdateDetailedQuestion,
-} from '../../entities/question-entity/question-entities';
-import {
-  CreateDetailedAnswer,
-  UpdateDetailedAnswer,
-} from '../../entities/answer-entity/answer-entities';
-import {
   QuestionRepositoryFilters,
 } from './question-repository-filters';
+import {
+  CreateDetailedAnswer,
+  PartialDetailedAnswer,
+} from '../../entities/answer-entity/answer-entities';
+import {
+  DetailedQuestion,
+  CreateDetailedQuestion,
+  PartialDetailedQuestion,
+} from '../../entities/question-entity/question-entities';
 
-interface IQuestionReader {
-  getQuestion: (filters?: QuestionRepositoryFilters)
+interface IAnswerWriter {
+  deleteDetailedAnswer: (filters?: QuestionRepositoryFilters)
   => Promise<DetailedQuestion | null>;
 
-  getQuestions: (filters?: QuestionRepositoryFilters)
+  createDetailedAnswer: (payload: CreateDetailedAnswer, filters?: QuestionRepositoryFilters)
+  => Promise<DetailedQuestion>;
+
+  updateDetailedAnswer: (payload: PartialDetailedAnswer, filters?: QuestionRepositoryFilters)
+  => Promise<DetailedQuestion | null>;
+}
+
+interface IQuestionReader {
+  getDetailedQuestion: (filters?: QuestionRepositoryFilters)
+  => Promise<DetailedQuestion | null>;
+
+  getDetailedQuestions: (filters?: QuestionRepositoryFilters)
   => Promise<DetailedQuestion[]>;
 }
 
 interface IQuestionWriter {
-  createQuestion: (payload: CreateDetailedQuestion)
+  createDetailedQuestion: (payload: CreateDetailedQuestion)
   => Promise<DetailedQuestion>;
 
-  deleteAnswer: (filters?: QuestionRepositoryFilters)
+  deleteDetailedQuestion: (filters?: QuestionRepositoryFilters)
   => Promise<DetailedQuestion | null>;
 
-  deleteQuestion: (filters?: QuestionRepositoryFilters)
+  updateDetailedQuestion: (payload: PartialDetailedQuestion, filters?: QuestionRepositoryFilters)
   => Promise<DetailedQuestion | null>;
 
-  createAnswer: (payload: CreateDetailedAnswer, filters?: QuestionRepositoryFilters)
-  => Promise<DetailedQuestion>;
-
-  updateAnswer: (payload: UpdateDetailedAnswer, filters?: QuestionRepositoryFilters)
-  => Promise<DetailedQuestion | null>;
-
-  updateQuestion: (payload: UpdateDetailedQuestion, filters?: QuestionRepositoryFilters)
-  => Promise<DetailedQuestion | null>;
-
-  updateQuestions: (payload: Partial<UpdateDetailedQuestion>, filters?: QuestionRepositoryFilters)
+  updateDetailedQuestions: (payload: PartialDetailedQuestion, filters?: QuestionRepositoryFilters)
   => Promise<void>;
 }
 
-interface IQuestion extends IQuestionReader, IQuestionWriter {}
+interface IQuestion extends IAnswerWriter, IQuestionReader, IQuestionWriter {}
 
 export default IQuestion;

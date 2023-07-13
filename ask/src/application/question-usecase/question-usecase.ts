@@ -17,10 +17,10 @@ class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (
     id: string,
   ): Promise<DetailedQuestion> => {
-    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
-    const deletedQuestion = await this.questionRepository.deleteQuestion({ id });
+    const deletedQuestion = await this.questionRepository.deleteDetailedQuestion({ id });
     if (!deletedQuestion) throw QuestionDeleteFailedError;
 
     return deletedQuestion;
@@ -32,9 +32,14 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
+    const questions = await this.questionRepository.getDetailedQuestions({
+      username,
+      status: 'both',
+    });
 
-    const formattedQuestions = questions.map((question) => formatQuestion(question));
+    const formattedQuestions = questions.map((question) => formatQuestion(question, {
+      truncateAnswer: true,
+    }));
     return formattedQuestions;
   };
 
@@ -46,7 +51,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const users = await this.userRepository.getUsers();
 
     await Promise.all(
-      users.map((user) => this.questionRepository.createQuestion({
+      users.map((user) => this.questionRepository.createDetailedQuestion({
         views: 0,
         askedAt: new Date(),
         username: user.username,
@@ -65,12 +70,12 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const createdQuestion = await this.questionRepository.createQuestion({
+    const createdQuestion = await this.questionRepository.createDetailedQuestion({
       views: 0,
+      username,
       askedAt: new Date(),
       askedBy: payload.askedBy,
       question: payload.question,
-      username,
     });
 
     return createdQuestion;

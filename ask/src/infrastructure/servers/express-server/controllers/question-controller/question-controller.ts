@@ -11,9 +11,7 @@ import questionToQuestionResponse from '../../../dtos/question-dto/question-serv
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
 
 class QuestionController {
-  constructor(
-    private readonly questionUsecase: QuestionUsecase,
-  ) {}
+  constructor(private readonly questionUsecase: QuestionUsecase) {}
 
   deleteQuestionById = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -29,28 +27,6 @@ class QuestionController {
     }
   };
 
-  createQuestionByUsername = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const username = req.params.username.toLowerCase();
-
-      const payload = CreateQuestionRequest.parse(req.body);
-
-      const createdQuestion = await this.questionUsecase.createQuestionByUsername(
-        username,
-        {
-          askedBy: req.ip,
-          question: payload.question,
-        },
-      );
-
-      const questionResponse = questionToQuestionResponse(createdQuestion);
-
-      res.status(statusCode.CREATED).send({ result: questionResponse });
-    } catch (e) {
-      next(e);
-    }
-  };
-
   getQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const username = req.params.username.toLowerCase();
@@ -60,6 +36,25 @@ class QuestionController {
       const questionResponses = questions.map((question) => questionToQuestionResponse(question));
 
       res.status(statusCode.OK).send({ result: questionResponses });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  createQuestionByUsername = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const username = req.params.username.toLowerCase();
+
+      const payload = CreateQuestionRequest.parse(req.body);
+
+      const createdQuestion = await this.questionUsecase.createQuestionByUsername(username, {
+        askedBy: req.ip,
+        question: payload.question,
+      });
+
+      const questionResponse = questionToQuestionResponse(createdQuestion);
+
+      res.status(statusCode.CREATED).send({ result: questionResponse });
     } catch (e) {
       next(e);
     }

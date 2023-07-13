@@ -9,7 +9,7 @@ const configureUserRouter = (userUsecase: UserUsecase) => {
 
   const router = Router();
 
-  router.get('/username/:username', userController.getUserByUsername);
+  router.get('/:id', userController.getUserByUserId);
 
   return router;
 };

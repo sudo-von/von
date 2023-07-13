@@ -10,7 +10,7 @@ import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecas
 class UserController {
   constructor(private readonly userUsecase: UserUsecase) {}
 
-  getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  getUserByUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const username = req.params.username.toLowerCase();
 

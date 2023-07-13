@@ -16,18 +16,13 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
   getAnsweredQuestionById = async (
     id: string,
   ): Promise<DetailedQuestion> => {
-    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const increasedViewsQuestion = await this.questionRepository.updateQuestion({
+    const increasedViewsQuestion = await this.questionRepository.updateDetailedQuestion({
       views: question.views + 1,
-      askedAt: question.askedAt,
-      askedBy: question.askedBy,
-      username: question.username,
-      question: question.question,
-      answer: question.answer,
     }, { id });
     if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
 
@@ -40,9 +35,14 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const answeredQuestions = await this.questionRepository.getQuestions({ username, status: 'answered' });
+    const answeredQuestions = await this.questionRepository.getDetailedQuestions({
+      username,
+      status: 'answered',
+    });
 
-    const formattedQuestions = answeredQuestions.map((question) => formatQuestion(question));
+    const formattedQuestions = answeredQuestions.map((question) => formatQuestion(question, {
+      truncateAnswer: true,
+    }));
     return formattedQuestions;
   };
 }

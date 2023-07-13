@@ -20,4 +20,4 @@ export type UpdateUser = Pick<User, 'username'>;
 
 export type CreateUserWithMetrics = Omit<User, 'id'>;
 
-export type UpdateUserWithMetrics = Omit<User, 'id'>;
+export type PartialUserWithMetrics = Partial<Omit<User, 'id'>>;

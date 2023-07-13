@@ -23,12 +23,12 @@ class AnswerUsecaseApplication extends AnswerUsecase {
   deleteAnswerByQuestionId = async (
     id: string,
   ): Promise<DetailedQuestion> => {
-    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const deletedAnswer = await this.questionRepository.deleteAnswer({ id });
+    const deletedAnswer = await this.questionRepository.deleteDetailedAnswer({ id });
     if (!deletedAnswer) throw AnswerDeleteFailedError;
 
     return deletedAnswer;
@@ -40,12 +40,12 @@ class AnswerUsecaseApplication extends AnswerUsecase {
   ): Promise<DetailedQuestion> => {
     validateAnswerCreation(payload);
 
-    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (question.answer) throw QuestionAlreadyAnsweredError;
 
-    const createdAnswer = await this.questionRepository.createAnswer({
+    const createdAnswer = await this.questionRepository.createDetailedAnswer({
       answer: payload.answer,
       answeredAt: new Date(),
     }, { id });
@@ -60,12 +60,12 @@ class AnswerUsecaseApplication extends AnswerUsecase {
   ): Promise<DetailedQuestion> => {
     validateAnswerUpdate(payload);
 
-    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const updatedAnswer = await this.questionRepository.updateAnswer({
+    const updatedAnswer = await this.questionRepository.updateDetailedAnswer({
       answer: payload.answer,
       answeredAt: new Date(),
     }, { id });
