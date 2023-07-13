@@ -5,7 +5,7 @@ import {
 import LoggerService from '../services/logger-service/logger-service';
 import WebScraperService from '../services/web-scraper-service/web-scraper-service';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
-import ScheduledQuestionService from '../services/scheduled-task-service/scheduled-question-service/scheduled-question-service';
+import ScheduledBroadcastQuestionService from '../services/scheduled-task-service/scheduled-broadcast-question-service/scheduled-broadcast-question-service';
 
 const configureScheduledTasks = async (
   loggerService: LoggerService,
@@ -15,7 +15,7 @@ const configureScheduledTasks = async (
   generatorWebScraperService: WebScraperService,
   createQuestionBroker: Broker<CreateBroadcastQuestionBroker>,
 ) => {
-  const morningScheduledQuestion = new ScheduledQuestionService(
+  const morningScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
     'morning-scheduled-question-starters-web',
     loggerService,
     questionUsecase,
@@ -23,7 +23,7 @@ const configureScheduledTasks = async (
     startersWebScraperService,
   );
 
-  const afternoonScheduledQuestion = new ScheduledQuestionService(
+  const afternoonScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
     'afternoon-scheduled-question-topics-web',
     loggerService,
     questionUsecase,
@@ -31,7 +31,7 @@ const configureScheduledTasks = async (
     topicsWebScraperService,
   );
 
-  const eveningScheduledQuestion = new ScheduledQuestionService(
+  const eveningScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
     'evening-scheduled-question-generator-web',
     loggerService,
     questionUsecase,
@@ -39,11 +39,11 @@ const configureScheduledTasks = async (
     generatorWebScraperService,
   );
 
-  await morningScheduledQuestion.scheduleTask('*/50 * * * * *');
+  await morningScheduledBroadcastQuestion.scheduleTask('*/50 * * * * *');
 
-  await afternoonScheduledQuestion.scheduleTask('*/50 * * * * *');
+  await afternoonScheduledBroadcastQuestion.scheduleTask('*/50 * * * * *');
 
-  await eveningScheduledQuestion.scheduleTask('*/50 * * * * *');
+  await eveningScheduledBroadcastQuestion.scheduleTask('*/50 * * * * *');
 };
 
 export default configureScheduledTasks;

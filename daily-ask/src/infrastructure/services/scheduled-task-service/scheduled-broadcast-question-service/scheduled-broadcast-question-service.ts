@@ -15,7 +15,7 @@ import {
 import WebScraperService from '../../web-scraper-service/web-scraper-service';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 
-class ScheduledQuestionService extends ScheduledTaskService {
+class ScheduledBroadcastQuestionService extends ScheduledTaskService {
   constructor(
     protected taskId: string,
     protected loggerService: LoggerService,
@@ -66,4 +66,4 @@ class ScheduledQuestionService extends ScheduledTaskService {
   };
 }
 
-export default ScheduledQuestionService;
+export default ScheduledBroadcastQuestionService;
