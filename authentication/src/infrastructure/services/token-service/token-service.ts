@@ -1,20 +1,16 @@
 import {
   UserToken,
-} from './dtos/user-token-dtos';
+} from './dtos/user-dto/user-token-dtos';
 import {
   RestrictedUser,
 } from '../../../domain/entities/user/user-entities';
-import LoggerService from '../logger-service/logger-service';
 
 abstract class TokenService {
-  constructor(
-    protected readonly SECRET_KEY: string,
-    protected readonly loggerService: LoggerService,
-  ) {}
+  constructor(protected readonly secret: string) {}
 
-  abstract decodeToken: (token: string) => UserToken;
+  abstract decode: (token: string) => Promise<UserToken>;
 
-  abstract generateToken: (payload: RestrictedUser) => string;
+  abstract generate: (payload: RestrictedUser) => Promise<string>;
 }
 
 export default TokenService;
