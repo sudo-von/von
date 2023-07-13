@@ -61,6 +61,8 @@ class PuppeteerWebScraperService extends WebScraperService {
 
       await this.page.goto(this.url);
 
+      await this.page.waitForSelector(this.selector, { visible: true });
+
       const element = await this.page.$(this.selector);
       if (!element) throw WebScraperServiceElementNotFoundError;
 
