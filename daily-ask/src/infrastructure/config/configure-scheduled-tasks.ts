@@ -1,6 +1,6 @@
 import Broker from '../brokers/broker';
 import {
-  CreateQuestionBroker,
+  CreateBroadcastQuestionBroker,
 } from '../brokers/dtos/question-dto/question-broker-dtos';
 import LoggerService from '../services/logger-service/logger-service';
 import WebScraperService from '../services/web-scraper-service/web-scraper-service';
@@ -13,7 +13,7 @@ const configureScheduledTasks = async (
   startersWebScraperService: WebScraperService,
   topicsWebScraperService: WebScraperService,
   generatorWebScraperService: WebScraperService,
-  createQuestionBroker: Broker<CreateQuestionBroker>,
+  createQuestionBroker: Broker<CreateBroadcastQuestionBroker>,
 ) => {
   const morningScheduledQuestion = new ScheduledQuestionService(
     'morning-scheduled-question-starters-web',
@@ -39,11 +39,11 @@ const configureScheduledTasks = async (
     generatorWebScraperService,
   );
 
-  await morningScheduledQuestion.scheduleTask('*/5 * * * * *');
+  await morningScheduledQuestion.scheduleTask('*/50 * * * * *');
 
-  await afternoonScheduledQuestion.scheduleTask('*/5 * * * * *');
+  await afternoonScheduledQuestion.scheduleTask('*/50 * * * * *');
 
-  await eveningScheduledQuestion.scheduleTask('*/5 * * * * *');
+  await eveningScheduledQuestion.scheduleTask('*/50 * * * * *');
 };
 
 export default configureScheduledTasks;

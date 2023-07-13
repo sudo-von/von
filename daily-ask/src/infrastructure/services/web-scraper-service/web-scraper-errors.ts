@@ -17,7 +17,7 @@ export const WebScraperServiceFailedToConnectError = createServiceErrorFactory({
   message: 'Failed to establish a connection.',
 });
 
-export const WebScraperServiceFailedToScrappeError = createServiceErrorFactory({
+export const WebScraperServiceFailedToScrappeError = (url: string) => createServiceErrorFactory({
   code: 'WEB_SCRAPER_SERVICE_FAILED_TO_SCRAPE',
-  message: 'Failed to scrape. Data extraction was unsuccessful.',
+  message: `Failed to scrape the following url: ${url}. Data extraction was unsuccessful.`,
 });

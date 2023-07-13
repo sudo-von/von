@@ -32,7 +32,7 @@ loggerService.info('📢 Logger service has been configured.');
 
     /* 📦 Brokers. */
     const {
-      createQuestionProducer,
+      createBroadcastQuestionProducer,
     } = await configureBrokers(MESSAGE_BROKER_URL, loggerService);
     loggerService.info('📦 Message brokers have been configured.');
 
@@ -43,7 +43,7 @@ loggerService.info('📢 Logger service has been configured.');
       topicsWebScraperService,
       startersWebScraperService,
       generatorWebScraperService,
-      createQuestionProducer,
+      createBroadcastQuestionProducer,
     );
     loggerService.info('⏰ Scheduled tasks have been configured.');
   } catch (e) {

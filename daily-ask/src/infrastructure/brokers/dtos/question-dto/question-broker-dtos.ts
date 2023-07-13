@@ -1,6 +1,6 @@
-type QuestionBroker = Readonly<{
+type BroadcastQuestionBroker = Readonly<{
   question: string;
   asked_by: string;
 }>;
 
-export type CreateQuestionBroker = QuestionBroker;
+export type CreateBroadcastQuestionBroker = BroadcastQuestionBroker;

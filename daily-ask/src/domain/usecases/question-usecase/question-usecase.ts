@@ -1,10 +1,10 @@
 import {
-  Question,
-  CreateQuestion,
+  BroadcastQuestion,
+  CreateBroadcastQuestion,
 } from '../../entities/question-entity/question-entities';
 
 abstract class QuestionUsecase {
-  abstract createQuestion: (payload: CreateQuestion) => Question;
+  abstract createBroadcastQuestion: (payload: CreateBroadcastQuestion) => BroadcastQuestion;
 }
 
 export default QuestionUsecase;

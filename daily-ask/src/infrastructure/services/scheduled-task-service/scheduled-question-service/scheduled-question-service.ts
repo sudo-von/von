@@ -3,14 +3,14 @@ import {
   schedule,
 } from 'node-cron';
 import {
-  ScheduledTaskServiceFailedToProcessError,
   ScheduledTaskServiceInvalidPatternError,
+  ScheduledTaskServiceFailedToProcessError,
 } from '../scheduled-task-errors';
 import Broker from '../../../brokers/broker';
 import ScheduledTaskService from '../scheduled-task-service';
 import LoggerService from '../../logger-service/logger-service';
 import {
-  CreateQuestionBroker,
+  CreateBroadcastQuestionBroker,
 } from '../../../brokers/dtos/question-dto/question-broker-dtos';
 import WebScraperService from '../../web-scraper-service/web-scraper-service';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
@@ -20,7 +20,7 @@ class ScheduledQuestionService extends ScheduledTaskService {
     protected taskId: string,
     protected loggerService: LoggerService,
     protected questionUsecase: QuestionUsecase,
-    protected createQuestionProducer: Broker<CreateQuestionBroker>,
+    protected createQuestionProducer: Broker<CreateBroadcastQuestionBroker>,
     protected questionWebScraperService: WebScraperService,
   ) {
     super(taskId, loggerService);
@@ -33,7 +33,7 @@ class ScheduledQuestionService extends ScheduledTaskService {
 
   scheduleTask = async (pattern: string): Promise<void> => {
     const isPatternValid = this.validatePattern(pattern);
-    if (!isPatternValid) throw ScheduledTaskServiceInvalidPatternError;
+    if (!isPatternValid) throw ScheduledTaskServiceInvalidPatternError(pattern);
 
     schedule(pattern, async () => {
       await this.processTask();
@@ -46,7 +46,7 @@ class ScheduledQuestionService extends ScheduledTaskService {
 
       const extractedQuestion = await this.questionWebScraperService.scrape();
 
-      const question = this.questionUsecase.createQuestion({
+      const question = this.questionUsecase.createBroadcastQuestion({
         askedBy: this.taskId,
         question: extractedQuestion,
       });
@@ -58,7 +58,10 @@ class ScheduledQuestionService extends ScheduledTaskService {
         question: question.question,
       });
     } catch (e) {
-      this.loggerService.error(ScheduledTaskServiceFailedToProcessError.message, e as Error);
+      this.loggerService.error(
+        ScheduledTaskServiceFailedToProcessError(this.taskId).message,
+        e as Error,
+      );
     }
   };
 }

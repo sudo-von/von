@@ -1,16 +1,16 @@
 import {
-  Question,
-} from '../question-entities';
-import {
   InvalidAskedByLengthError,
   InvalidQuestionLengthError,
 } from '../question-errors';
+import {
+  BroadcastQuestion,
+} from '../question-entities';
 import {
   validateAskedByLength,
   validateQuestionLength,
 } from './question-validations';
 
-const validateQuestionCreation = (payload: Question) => {
+const validateBroadcastQuestionCreation = (payload: BroadcastQuestion) => {
   const isAskedByLengthValid = validateAskedByLength(payload.askedBy);
   if (!isAskedByLengthValid) throw InvalidAskedByLengthError;
 
@@ -18,4 +18,4 @@ const validateQuestionCreation = (payload: Question) => {
   if (!isQuestionLengthValid) throw InvalidQuestionLengthError;
 };
 
-export default validateQuestionCreation;
+export default validateBroadcastQuestionCreation;

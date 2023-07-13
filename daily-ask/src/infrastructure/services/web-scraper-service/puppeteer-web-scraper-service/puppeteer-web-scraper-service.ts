@@ -70,8 +70,8 @@ class PuppeteerWebScraperService extends WebScraperService {
 
       return result;
     } catch (e) {
-      this.loggerService.error(WebScraperServiceFailedToScrappeError.message, e as Error);
-      throw WebScraperServiceFailedToScrappeError;
+      this.loggerService.error(WebScraperServiceFailedToScrappeError(this.url).message, e as Error);
+      throw WebScraperServiceFailedToScrappeError(this.url);
     }
   };
 }

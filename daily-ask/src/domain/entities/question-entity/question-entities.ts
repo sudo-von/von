@@ -1,6 +1,6 @@
-export type Question = Readonly<{
+export type BroadcastQuestion = Readonly<{
   askedBy: string;
   question: string;
 }>;
 
-export type CreateQuestion = Question;
+export type CreateBroadcastQuestion = BroadcastQuestion;
