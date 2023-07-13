@@ -5,7 +5,7 @@ import pino, {
 import LoggerService from '../logger-service';
 
 class PinoLoggerService extends LoggerService {
-  private logger: Logger;
+  private readonly logger: Logger;
 
   constructor(options: LoggerOptions) {
     super();
@@ -14,12 +14,7 @@ class PinoLoggerService extends LoggerService {
 
   info = (message: string) => this.logger.info(message);
 
-  warn = (message: string) => this.logger.warn(message);
-
-  error = (message: string, error: Error) => {
-    const formattedMessage = `⛔️ ${message} ${error.message}`;
-    this.logger.error(formattedMessage);
-  };
+  error = (message: string, error: Error) => this.logger.error(`⛔️ ${message} ${error.message}`);
 }
 
 export default PinoLoggerService;
