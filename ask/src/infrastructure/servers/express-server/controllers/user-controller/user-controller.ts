@@ -12,9 +12,9 @@ class UserController {
 
   getUserByUserId = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const username = req.params.username.toLowerCase();
+      const id = req.params.id.toLowerCase();
 
-      const user = await this.userUsecase.getUserByUserId(username);
+      const user = await this.userUsecase.getUserByUserId(id);
 
       const userResponse = userToDetailedUserResponse(user);
 
