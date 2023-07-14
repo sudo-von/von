@@ -12,7 +12,7 @@ import {
   UserPermissionDeniedError,
   InvalidPasswordLengthError,
   InvalidUsernameLengthError,
-} from '../../../domain/entities/user/user-errors';
+} from '../../../domain/entities/user-entity/user-errors';
 
 export const InvalidCredentialsControllerError = createControllerErrorFactory({
   code: 'INVALID_CREDENTIALS',

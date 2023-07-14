@@ -2,11 +2,11 @@ import {
   RestrictedUserController,
 } from '../dtos/user-controller-dtos';
 import {
-  RestrictedUser,
-} from '../../../domain/entities/user/user-entities';
+  SecureUser,
+} from '../../../domain/entities/user-entity/user-entities';
 
 const restrictedUserToRestrictedUserController = (
-  restrictedUser: RestrictedUser,
+  restrictedUser: SecureUser,
 ): RestrictedUserController => ({
   id: restrictedUser.id,
   name: restrictedUser.name,

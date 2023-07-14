@@ -4,7 +4,7 @@ import {
   InvalidProfilePictureNameLengthError,
 } from '../profile-picture-errors';
 import {
-  UpdateProfilePicture,
+  UpdateAvatar,
 } from '../profile-picture-entities';
 import {
   validateProfilePictureSize,
@@ -12,7 +12,7 @@ import {
   validateProfilePictureNameLength,
 } from './profile-picture-validations';
 
-const validateProfilePictureUpdate = (payload: UpdateProfilePicture) => {
+const validateProfilePictureUpdate = (payload: UpdateAvatar) => {
   const isProfilePictureNameLengthValid = validateProfilePictureNameLength(payload.name);
   if (!isProfilePictureNameLengthValid) throw InvalidProfilePictureNameLengthError;
 

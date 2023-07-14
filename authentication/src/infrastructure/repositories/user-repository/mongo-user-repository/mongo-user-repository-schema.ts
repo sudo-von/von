@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  User,
-} from '../../../../domain/entities/user/user-entities';
+  UserRepositorySchema,
+} from '../user-repository-schema';
 
-const userSchema = new Schema<User>({
+const userRepositorySchema = new Schema<UserRepositorySchema>({
   name: {
     type: String,
     required: true,
@@ -22,10 +22,10 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
-  profilePictureName: {
+  avatar: {
     type: String,
     required: true,
   },
 });
 
-export default userSchema;
+export default userRepositorySchema;

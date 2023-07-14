@@ -3,23 +3,23 @@ import {
 } from './user-repository-filters';
 import {
   User,
-  CreateUserWithMetrics,
-  PartialUserWithMetrics,
+  CreateUser,
+  UpdateUser,
 } from '../../entities/user-entity/user-entities';
 
 interface IUserRepositoryReader {
   getUser: (filters?: UserRepositoryFilters)
-  => Promise<User | null>;
+  => Promise<User | null>
 
   getUsers: (filters?: UserRepositoryFilters)
   => Promise<User[]>;
 }
 
 interface IUserRepositoryWriter {
-  createUser: (payload: CreateUserWithMetrics)
+  createUser: (payload: CreateUser)
   => Promise<User>;
 
-  updateUser: (payload: PartialUserWithMetrics, filters?: UserRepositoryFilters)
+  updateUser: (payload: UpdateUser, filters: UserRepositoryFilters)
   => Promise<User | null>;
 }
 

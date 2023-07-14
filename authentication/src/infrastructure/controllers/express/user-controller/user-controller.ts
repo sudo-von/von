@@ -13,7 +13,7 @@ import {
 import {
   InvalidFileParameterControllerError,
 } from '../../errors/request-controller-errors';
-import UserUsecase from '../../../../domain/usecases/user-usecase';
+import UserUsecase from '../../../../domain/usecases/user-usecase/user-usecase';
 import restrictedUserToRestrictedUserController from '../../mappers/user-controller-mappers';
 import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 
@@ -56,7 +56,7 @@ class ExpressUserController {
         email: payload.email,
         username: payload.username,
         password: payload.password,
-        profilePicture: {
+        profilePictureFile: {
           size: file.size,
           name: file.originalname,
           buffer: file.buffer,

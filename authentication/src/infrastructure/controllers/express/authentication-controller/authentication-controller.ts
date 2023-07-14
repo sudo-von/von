@@ -13,9 +13,9 @@ import {
 } from '../../errors/request-controller-errors';
 import {
   UserCredentials,
-} from '../../../../domain/entities/user/user-entities';
+} from '../../../../domain/entities/user-entity/user-entities';
 import TokenService from '../../../services/token-service/token-service';
-import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase';
+import AuthenticationUsecase from '../../../../domain/usecases/authentication-usecase/authentication-usecase';
 import restrictedUserToRestrictedUserController from '../../mappers/user-controller-mappers';
 import RabbitMQCreateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-create-user-producer';
 
@@ -35,7 +35,7 @@ class ExpressAuthenticationController {
         password,
       };
 
-      const restrictedUser = await this.authenticationUsecase.authenticate(userCredentials);
+      const restrictedUser = await this.authenticationUsecase.login(userCredentials);
 
       const token = this.tokenService.generateToken(restrictedUser);
 
@@ -58,7 +58,7 @@ class ExpressAuthenticationController {
         email: payload.email,
         username: payload.username,
         password: payload.password,
-        profilePicture: {
+        profilePictureFile: {
           size: file.size,
           name: file.originalname,
           buffer: file.buffer,

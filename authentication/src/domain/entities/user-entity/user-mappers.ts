@@ -1,9 +1,9 @@
 import {
   User,
-  RestrictedUser,
+  SecureUser,
 } from './user-entities';
 
-const userToRestrictedUser = (user: User): RestrictedUser => ({
+const userToSecureUser = (user: User): SecureUser => ({
   id: user.id,
   name: user.name,
   email: user.email,
@@ -11,4 +11,4 @@ const userToRestrictedUser = (user: User): RestrictedUser => ({
   profilePictureName: user.profilePictureName,
 });
 
-export default userToRestrictedUser;
+export default userToSecureUser;

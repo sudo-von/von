@@ -1,10 +1,10 @@
 import multer from 'multer';
 import express from 'express';
 import ExpressUserController from './user-controller';
-import UserUsecase from '../../../../domain/usecases/user-usecase';
+import UserUsecase from '../../../../domain/usecases/user-usecase/user-usecase';
 import TokenService from '../../../services/token-service/token-service';
 import LoggerService from '../../../services/logger-service/logger-service';
-import IUserRepository from '../../../../domain/repositories/user-repository';
+import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 import authenticationMiddleware from '../middlewares/authentication-middleware';
 import RabbitMQUpdateUserProducer from '../../../message-brokers/rabbitmq/producers/rabbitmq-update-user-producer';
 

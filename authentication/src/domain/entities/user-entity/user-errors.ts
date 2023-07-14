@@ -10,22 +10,22 @@ export const InvalidCredentialsError = createDomainErrorFactory({
 
 export const InvalidEmailLengthError = createDomainErrorFactory({
   code: 'INVALID_EMAIL_LENGTH',
-  message: `Please provide an email that consists of ${userRules.email.MIN_LENGTH} to ${userRules.email.MAX_LENGTH} characters.`,
+  message: `Please provide an email that consists of ${userRules.email.content.MIN_LENGTH} to ${userRules.email.content.MAX_LENGTH} characters.`,
 });
 
 export const InvalidNameLengthError = createDomainErrorFactory({
   code: 'INVALID_NAME_LENGTH',
-  message: `Please provide a name that consists of ${userRules.name.MIN_LENGTH} to ${userRules.name.MAX_LENGTH} characters.`,
+  message: `Please provide a name that consists of ${userRules.name.content.MIN_LENGTH} to ${userRules.name.content.MAX_LENGTH} characters.`,
 });
 
 export const InvalidPasswordLengthError = createDomainErrorFactory({
   code: 'INVALID_PASSWORD_LENGTH',
-  message: `Please provide a password that consists of ${userRules.password.MIN_LENGTH} to ${userRules.password.MAX_LENGTH} characters.`,
+  message: `Please provide a password that consists of ${userRules.password.content.MIN_LENGTH} to ${userRules.password.content.MAX_LENGTH} characters.`,
 });
 
 export const InvalidUsernameLengthError = createDomainErrorFactory({
   code: 'INVALID_USERNAME_LENGTH',
-  message: `Please provide a username that consists of ${userRules.username.MIN_LENGTH} to ${userRules.username.MAX_LENGTH} characters.`,
+  message: `Please provide a username that consists of ${userRules.username.content.MIN_LENGTH} to ${userRules.username.content.MAX_LENGTH} characters.`,
 });
 
 export const SingleUserOnlyError = createDomainErrorFactory({

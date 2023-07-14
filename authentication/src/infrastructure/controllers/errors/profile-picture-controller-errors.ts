@@ -6,7 +6,7 @@ import {
   InvalidProfilePictureSizeError,
   InvalidProfilePictureMimeTypeError,
   InvalidProfilePictureNameLengthError,
-} from '../../../domain/entities/profile-picture/profile-picture-errors';
+} from '../../../domain/entities/profile-picture-entity/profile-picture-errors';
 
 export const InvalidProfilePictureMimeTypeControllerError = createControllerErrorFactory({
   code: 'INVALID_PROFILE_PICTURE_MIME_TYPE',

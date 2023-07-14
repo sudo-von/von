@@ -1,40 +1,40 @@
-import UserModel from './mongo-user-model';
-import userModelToUser from './mongo-user-mapper';
+import UserModel from './mongo-user-repository-model';
 import {
   User,
-  UserPayload,
-} from '../../../../domain/entities/user/user-entities';
-import IUserRepository from '../../../../domain/repositories/user-repository';
+  CreateDetailedUser,
+} from '../../../../domain/entities/user-entity/user-entities';
+import userDocumentToUser from './mongo-user-repository-mapper';
+import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 class MongoUserRepository implements IUserRepository {
   getUsers = async (): Promise<User[]> => {
     const userModels = await UserModel.find();
-    const users = userModels.map((model) => userModelToUser(model));
+    const users = userModels.map((model) => userDocumentToUser(model));
     return users;
   };
 
   getUserById = async (id: string): Promise<User | null> => {
     const userModel = await UserModel.findById(id);
     if (!userModel) return null;
-    const user = userModelToUser(userModel);
+    const user = userDocumentToUser(userModel);
     return user;
   };
 
   getUserByEmail = async (email: string): Promise<User | null> => {
     const userModel = await UserModel.findOne({ email });
     if (!userModel) return null;
-    const user = userModelToUser(userModel);
+    const user = userDocumentToUser(userModel);
     return user;
   };
 
   getUserByUsername = async (username: string): Promise<User | null> => {
     const userModel = await UserModel.findOne({ username });
     if (!userModel) return null;
-    const user = userModelToUser(userModel);
+    const user = userDocumentToUser(userModel);
     return user;
   };
 
-  createUser = async (payload: UserPayload): Promise<User> => {
+  createUser = async (payload: CreateDetailedUser): Promise<User> => {
     const userModel = new UserModel({
       name: payload.name,
       email: payload.email,
@@ -43,13 +43,13 @@ class MongoUserRepository implements IUserRepository {
       profilePictureName: payload.profilePictureName,
     });
     const storedUser = await userModel.save();
-    const user = userModelToUser(storedUser);
+    const user = userDocumentToUser(storedUser);
     return user;
   };
 
   updateUserByUsername = async (
     username: string,
-    payload: UserPayload,
+    payload: CreateDetailedUser,
   ): Promise<User | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({ username }, {
       $set: {
@@ -63,7 +63,7 @@ class MongoUserRepository implements IUserRepository {
       new: true,
     });
     if (!updatedUser) return null;
-    const user = userModelToUser(updatedUser);
+    const user = userDocumentToUser(updatedUser);
     return user;
   };
 }

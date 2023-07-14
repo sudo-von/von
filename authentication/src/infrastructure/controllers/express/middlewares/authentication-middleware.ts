@@ -10,12 +10,12 @@ import {
 } from '../../errors/request-controller-errors';
 import {
   UserNotFoundError,
-} from '../../../../domain/entities/user/user-errors';
+} from '../../../../domain/entities/user-entity/user-errors';
 import {
   TokenServiceInvalidTokenControllerError,
 } from '../../errors/token-service-controller-errors';
 import TokenService from '../../../services/token-service/token-service';
-import IUserRepository from '../../../../domain/repositories/user-repository';
+import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 import LoggerService from '../../../services/logger-service/logger-service';
 
 const authenticationMiddleware = (
