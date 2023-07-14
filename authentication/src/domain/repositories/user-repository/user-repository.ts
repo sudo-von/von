@@ -19,7 +19,7 @@ interface IUserRepositoryWriter {
   createUser: (payload: CreateUser)
   => Promise<User>;
 
-  updateUser: (payload: UpdateUser, filters: UserRepositoryFilters)
+  updateUser: (payload: UpdateUser, filters?: UserRepositoryFilters)
   => Promise<User | null>;
 }
 

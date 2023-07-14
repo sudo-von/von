@@ -1,64 +1,62 @@
 import UserModel from './mongo-user-repository-model';
 import {
   User,
-  CreateDetailedUser,
+  CreateUser,
+  UpdateUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import userDocumentToUser from './mongo-user-repository-mapper';
+import createQuestionRepositoryQuery from './mongo-user-repository-query';
+import {
+  UserRepositoryFilters,
+} from '../../../../domain/repositories/user-repository/user-repository-filters';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 class MongoUserRepository implements IUserRepository {
-  getUsers = async (): Promise<User[]> => {
-    const userModels = await UserModel.find();
-    const users = userModels.map((model) => userDocumentToUser(model));
+  getUser = async (
+    filters?: UserRepositoryFilters,
+  ): Promise<User | null> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const userDocument = await UserModel.findById(query);
+    if (!userDocument) return null;
+    const user = userDocumentToUser(userDocument);
+    return user;
+  };
+
+  getUsers = async (
+    filters?: UserRepositoryFilters,
+  ): Promise<User[]> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const userDocuments = await UserModel.find(query);
+    const users = userDocuments.map((model) => userDocumentToUser(model));
     return users;
   };
 
-  getUserById = async (id: string): Promise<User | null> => {
-    const userModel = await UserModel.findById(id);
-    if (!userModel) return null;
-    const user = userDocumentToUser(userModel);
-    return user;
-  };
-
-  getUserByEmail = async (email: string): Promise<User | null> => {
-    const userModel = await UserModel.findOne({ email });
-    if (!userModel) return null;
-    const user = userDocumentToUser(userModel);
-    return user;
-  };
-
-  getUserByUsername = async (username: string): Promise<User | null> => {
-    const userModel = await UserModel.findOne({ username });
-    if (!userModel) return null;
-    const user = userDocumentToUser(userModel);
-    return user;
-  };
-
-  createUser = async (payload: CreateDetailedUser): Promise<User> => {
-    const userModel = new UserModel({
+  createUser = async (
+    payload: CreateUser,
+  ): Promise<User> => {
+    const userDocument = new UserModel({
       name: payload.name,
       email: payload.email,
+      avatar: payload.avatar,
       username: payload.username,
       password: payload.password,
-      profilePictureName: payload.profilePictureName,
     });
-    const storedUser = await userModel.save();
+    const storedUser = await userDocument.save();
     const user = userDocumentToUser(storedUser);
     return user;
   };
 
-  updateUserByUsername = async (
-    username: string,
-    payload: CreateDetailedUser,
+  updateUser = async (
+    payload: UpdateUser,
+    filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
-    const updatedUser = await UserModel.findOneAndUpdate({ username }, {
-      $set: {
-        name: payload.name,
-        email: payload.email,
-        username: payload.username,
-        password: payload.password,
-        profilePictureName: payload.profilePictureName,
-      },
+    const query = createQuestionRepositoryQuery(filters);
+    const updatedUser = await UserModel.findOneAndUpdate(query, {
+      name: payload.name,
+      email: payload.email,
+      avatar: payload.avatar,
+      username: payload.username,
+      password: payload.password,
     }, {
       new: true,
     });

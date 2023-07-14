@@ -5,25 +5,19 @@ import {
   UserRepositorySchema,
 } from '../user-repository-schema';
 import {
-  QuestionRepositoryFilters,
-} from '../../../../domain/repositories/question-repository/question-repository-filters';
+  UserRepositoryFilters,
+} from '../../../../domain/repositories/user-repository/user-repository-filters';
 
-const createQuestionRepositoryQuery = (filters?: QuestionRepositoryFilters) => {
-  const query: FilterQuery<UserRepositorySchema> = {
-    is_deleted: false,
-  };
+const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
+  const query: FilterQuery<UserRepositorySchema> = {};
 
   if (!filters) return query;
 
-  if (filters.id) query._id = filters.id;
+  if (filters.id) query._ = filters.id;
+
+  if (filters.email) query.email = filters.email;
 
   if (filters.username) query.username = filters.username;
-
-  if (filters.isDeleted) query.is_deleted = filters.isDeleted;
-
-  if (filters.status === 'answered') query.answer = { $exists: true };
-
-  if (filters.status === 'unanswered') query.answer = { $exists: false };
 
   return query;
 };
