@@ -4,8 +4,8 @@ export type UserToken = Readonly<{
   exp: number;
   name: string;
   email: string;
+  avatar: string;
   username: string;
-  profile_picture_name: string;
 }>;
 
 export type CreateUserToken = Omit<UserToken, 'iat' | 'exp'>;

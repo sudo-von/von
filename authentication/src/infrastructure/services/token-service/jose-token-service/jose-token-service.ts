@@ -6,7 +6,8 @@ import {
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
-  TokenServiceFailedTokenGeneration,
+  TokenServiceUnencodedPayloadError,
+  TokenServiceFailedTokenGenerationError,
 } from '../token-service-errors';
 import {
   UserToken,
@@ -26,9 +27,7 @@ class JoseTokenService extends TokenService {
 
       return payload as UserToken;
     } catch (e) {
-      const error = e as Error;
-
-      if (error instanceof errors.JWTExpired) {
+      if (e instanceof errors.JWTExpired) {
         throw TokenServiceExpiredTokenError;
       }
 
@@ -44,8 +43,8 @@ class JoseTokenService extends TokenService {
         id: payload.id,
         name: payload.name,
         email: payload.email,
+        avatar: payload.avatar,
         username: payload.username,
-        profile_picture_name: payload.profilePictureName,
       };
 
       const token = await new SignJWT(createUserToken)
@@ -55,7 +54,11 @@ class JoseTokenService extends TokenService {
 
       return token;
     } catch (e) {
-      throw TokenServiceFailedTokenGeneration;
+      if (e instanceof errors.JWTInvalid) {
+        throw TokenServiceUnencodedPayloadError;
+      }
+
+      throw TokenServiceFailedTokenGenerationError;
     }
   };
 }
