@@ -5,7 +5,6 @@ import {
 } from '../../domain/entities/user-entity/user-errors';
 import {
   SecureUser,
-  UpdateUser,
   UpdateUserWithFile,
 } from '../../domain/entities/user-entity/user-entities';
 import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
@@ -39,25 +38,24 @@ class UserUsecaseApplication extends UserUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const updateUser: UpdateUser = {
-      name: payload.name,
-      email: payload.email,
-      username: payload.username,
-    };
+    let avatarFilename;
 
     if (payload.avatar) {
       await this.fileService.delete(user.avatar);
 
       const usernameChecksum = this.securityService.computeChecksum(payload.username || username);
 
-      const avatarFilename = generateAvatarFilename(usernameChecksum, payload.avatar.mimetype);
+      avatarFilename = generateAvatarFilename(usernameChecksum, payload.avatar.mimetype);
 
       await this.fileService.upload(avatarFilename, payload.avatar.buffer);
-
-      updateUser.avatar = avatarFilename;
     }
 
-    const updatedUser = await this.userRepository.updateUser(updateUser, { username });
+    const updatedUser = await this.userRepository.updateUser({
+      name: payload.name,
+      email: payload.email,
+      username: payload.username,
+      avatar: avatarFilename,
+    }, { username });
     if (!updatedUser) throw UserUpdateFailedError;
 
     const secureUser = userToSecureUser(updatedUser);
