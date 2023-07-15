@@ -8,7 +8,6 @@ const userToSecureUser = (user: User): SecureUser => ({
   name: user.name,
   email: user.email,
   username: user.username,
-  profilePictureName: user.profilePictureName,
 });
 
 export default userToSecureUser;

@@ -4,7 +4,6 @@ import {
 import {
   User,
   CreateUser,
-  UpdateUser,
 } from '../../entities/user-entity/user-entities';
 
 interface IUserRepositoryReader {
@@ -19,7 +18,7 @@ interface IUserRepositoryWriter {
   createUser: (payload: CreateUser)
   => Promise<User>;
 
-  updateUser: (payload: UpdateUser, filters?: UserRepositoryFilters)
+  updateUser: (payload: Partial<User>, filters?: UserRepositoryFilters)
   => Promise<User | null>;
 }
 

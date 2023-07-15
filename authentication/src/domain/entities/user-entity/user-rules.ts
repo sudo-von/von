@@ -1,14 +1,20 @@
 const userRules = {
+  name: {
+    content: {
+      MIN_LENGTH: 3,
+      MAX_LENGTH: 30,
+    },
+  },
   email: {
     content: {
       MIN_LENGTH: 3,
       MAX_LENGTH: 250,
     },
   },
-  name: {
+  username: {
     content: {
       MIN_LENGTH: 3,
-      MAX_LENGTH: 30,
+      MAX_LENGTH: 12,
     },
   },
   password: {
@@ -16,12 +22,6 @@ const userRules = {
     {
       MIN_LENGTH: 10,
       MAX_LENGTH: 80,
-    },
-  },
-  username: {
-    content: {
-      MIN_LENGTH: 3,
-      MAX_LENGTH: 12,
     },
   },
 } as const;

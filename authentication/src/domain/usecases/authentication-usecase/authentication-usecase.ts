@@ -1,23 +1,36 @@
 import {
   SecureUser,
+  CreateUser,
   UserCredentials,
-  CreateUserWithFile,
 } from '../../entities/user-entity/user-entities';
-import FileService from '../../services/file-service';
 import SecurityService from '../../services/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class AuthenticationUsecase {
+  /**
+  * Creates an instance of UserUsecase.
+  * @param {IUserRepository} userRepository - The user repository.
+  * @param {SecurityService} securityService - The security service for cryptographic operations.
+  */
   constructor(
-    protected fileService: FileService,
     protected userRepository: IUserRepository,
     protected securityService: SecurityService,
   ) {}
 
-  abstract login: (credentials: UserCredentials)
+  /**
+  * Creates a new user account with the provided payload.
+  * @param payload The user object for account creation.
+  * @returns A promise that resolves with the secure user object.
+  */
+  abstract signup: (payload: CreateUser)
   => Promise<SecureUser>;
 
-  abstract signup: (payload: CreateUserWithFile)
+  /**
+  * Authenticates a user with the provided credentials.
+  * @param credentials The user credentials for authentication.
+  * @returns A promise that resolves with the secure user object.
+  */
+  abstract login: (credentials: UserCredentials)
   => Promise<SecureUser>;
 }
 
