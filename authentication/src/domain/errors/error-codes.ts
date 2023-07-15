@@ -8,9 +8,9 @@ export type DomainErrorCode =
 | UserDomainErrorCode;
 
 export type ProfilePictureDomainErrorCode =
-| 'INVALID_PROFILE_PICTURE_MIME_TYPE'
-| 'INVALID_PROFILE_PICTURE_NAME_LENGTH'
-| 'INVALID_PROFILE_PICTURE_SIZE';
+| 'INVALID_AVATAR_FILE_MIME_TYPE'
+| 'INVALID_AVATAR_FILE_NAME_LENGTH'
+| 'INVALID_AVATAR_FILE_SIZE';
 
 export type UserDomainErrorCode =
 | 'INVALID_CREDENTIALS'

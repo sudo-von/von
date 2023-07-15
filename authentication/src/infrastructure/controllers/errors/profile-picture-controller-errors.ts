@@ -3,25 +3,25 @@ import {
 } from './controller-error-factory';
 import statusCode from '../status-codes';
 import {
-  InvalidProfilePictureSizeError,
-  InvalidProfilePictureMimeTypeError,
-  InvalidProfilePictureNameLengthError,
-} from '../../../domain/entities/profile-picture-entity/profile-picture-errors';
+  InvalidAvatarFileSizeError,
+  InvalidAvatarFileMimeTypeError,
+  InvalidAvatarFileNameLengthError,
+} from '../../../domain/entities/avatar-entity/avatar-errors';
 
 export const InvalidProfilePictureMimeTypeControllerError = createControllerErrorFactory({
-  code: 'INVALID_PROFILE_PICTURE_MIME_TYPE',
-  message: InvalidProfilePictureMimeTypeError.message,
+  code: 'INVALID_AVATAR_FILE_MIME_TYPE',
+  message: InvalidAvatarFileMimeTypeError.message,
   statusCode: statusCode.clientSide.badRequest,
 });
 
 export const InvalidProfilePictureNameLengthControllerError = createControllerErrorFactory({
-  code: 'INVALID_PROFILE_PICTURE_NAME_LENGTH',
-  message: InvalidProfilePictureNameLengthError.message,
+  code: 'INVALID_AVATAR_FILE_NAME_LENGTH',
+  message: InvalidAvatarFileNameLengthError.message,
   statusCode: statusCode.clientSide.badRequest,
 });
 
 export const InvalidProfilePictureSizeControllerError = createControllerErrorFactory({
-  code: 'INVALID_PROFILE_PICTURE_SIZE',
-  message: InvalidProfilePictureSizeError.message,
+  code: 'INVALID_AVATAR_FILE_SIZE',
+  message: InvalidAvatarFileSizeError.message,
   statusCode: statusCode.clientSide.badRequest,
 });
