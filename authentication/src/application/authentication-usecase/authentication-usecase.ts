@@ -5,8 +5,8 @@ import {
 } from '../../domain/entities/user-entity/user-errors';
 import {
   SecureUser,
-  UserCredentials,
   CreateUser,
+  UserCredentials,
 } from '../../domain/entities/user-entity/user-entities';
 import userToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/authentication-usecase';

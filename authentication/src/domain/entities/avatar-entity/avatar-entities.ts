@@ -9,10 +9,6 @@ export type AvatarFile = Readonly<{
   mimetype: string;
 }>;
 
-export type CreateAvatar = Avatar;
-
-export type UpdateAvatar = Avatar;
-
 export type CreateAvatarFile = AvatarFile;
 
 export type UpdateAvatarFile = AvatarFile;

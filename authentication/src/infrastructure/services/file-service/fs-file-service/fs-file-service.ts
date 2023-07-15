@@ -17,10 +17,8 @@ class FSFileService extends FileService {
     } catch (e) {
       const error = e as Error;
       if (error.name === 'ENOENT') {
-        this.loggerService.error(FileServiceNoEntityError.message, error);
         throw FileServiceNoEntityError;
       }
-      this.loggerService.error(FileServiceFailedFileDeletion.message, error);
       throw FileServiceFailedFileDeletion;
     }
   };
@@ -32,10 +30,8 @@ class FSFileService extends FileService {
     } catch (e) {
       const error = e as Error;
       if (error.name === 'ENOENT') {
-        this.loggerService.error(FileServiceNoEntityError.message, error);
         throw FileServiceNoEntityError;
       }
-      this.loggerService.error(FileServiceFailedFileUploading.message, error);
       throw FileServiceFailedFileUploading;
     }
   };

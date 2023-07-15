@@ -16,7 +16,7 @@ const userRepositorySchema = new Schema<UserRepositorySchema>({
   },
   avatar: {
     type: String,
-    required: true,
+    required: false,
   },
   username: {
     type: String,

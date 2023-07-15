@@ -37,7 +37,6 @@ class MongoUserRepository implements IUserRepository {
     const userDocument = new UserModel({
       name: payload.name,
       email: payload.email,
-      avatar: payload.avatar,
       username: payload.username,
       password: payload.password,
     });
@@ -47,7 +46,7 @@ class MongoUserRepository implements IUserRepository {
   };
 
   updateUser = async (
-    payload: UpdateUser,
+    payload: Partial<User>,
     filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
     const query = createQuestionRepositoryQuery(filters);

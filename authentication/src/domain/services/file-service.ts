@@ -16,9 +16,9 @@ abstract class FileService {
   * Uploads a file provided as a data buffer.
   * @param filename The name of the file.
   * @param buffer The buffer containing the file data.
-  * @returns A promise that resolves with the path where the file was uploaded.
+  * @returns A promise that resolves when the file has been successfully uploaded.
   */
-  abstract upload: (filename: string, buffer: Buffer) => Promise<string>;
+  abstract upload: (filename: string, buffer: Buffer) => Promise<void>;
 }
 
 export default FileService;
