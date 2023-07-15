@@ -19,5 +19,5 @@ export const TokenServiceInvalidTokenError = createServiceErrorFactory({
 
 export const TokenServiceUnencodedPayloadError = createServiceErrorFactory({
   code: 'TOKEN_SERVICE_UNENCODED_PAYLOAD',
-  message: 'The provided token must not use unencoded payload',
+  message: 'The provided token must not use an unencoded payload',
 });

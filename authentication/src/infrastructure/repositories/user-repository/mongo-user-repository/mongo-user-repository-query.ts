@@ -13,7 +13,7 @@ const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
 
   if (!filters) return query;
 
-  if (filters.id) query._ = filters.id;
+  if (filters.id) query._id = filters.id;
 
   if (filters.name) query.name = filters.name;
 

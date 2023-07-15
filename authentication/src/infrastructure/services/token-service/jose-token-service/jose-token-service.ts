@@ -47,7 +47,9 @@ class JoseTokenService extends TokenService {
         username: payload.username,
       };
 
-      const token = await new SignJWT(createUserToken)
+      const jwt = new SignJWT(createUserToken);
+
+      const token = await jwt
         .setIssuedAt()
         .setExpirationTime('1h')
         .sign(key);
