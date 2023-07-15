@@ -13,7 +13,9 @@ import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
-  signup = async (payload: CreateUser): Promise<SecureUser> => {
+  signup = async (
+    payload: CreateUser,
+  ): Promise<SecureUser> => {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
@@ -32,7 +34,9 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     return secureUser;
   };
 
-  login = async (credentials: UserCredentials): Promise<SecureUser> => {
+  login = async (
+    credentials: UserCredentials,
+  ): Promise<SecureUser> => {
     const user = await this.userRepository.getUser({ email: credentials.email });
     if (!user) throw UserNotFoundError;
 

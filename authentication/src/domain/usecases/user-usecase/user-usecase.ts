@@ -19,7 +19,7 @@ abstract class UserUsecase {
   /**
   * Retrieves a user by their username.
   * @param username The username of the user.
-  * @returns A promise that resolves with the secure user object.
+  * @returns A promise with the secure user object.
   */
   abstract getUserByUsername: (username: string)
   => Promise<SecureUser>;
@@ -28,7 +28,7 @@ abstract class UserUsecase {
   * Updates a user by their username with the provided payload.
   * @param username The username of the user.
   * @param payload The updated user object.
-  * @returns A promise that resolves with the updated secure user object.
+  * @returns A promise with the updated secure user object.
   */
   abstract updateUserByUsername: (username: string, payload: UpdateUser)
   => Promise<SecureUser>;

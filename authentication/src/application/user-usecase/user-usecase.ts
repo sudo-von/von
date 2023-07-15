@@ -12,7 +12,9 @@ import userToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  getUserByUsername = async (username: string): Promise<SecureUser> => {
+  getUserByUsername = async (
+    username: string,
+  ): Promise<SecureUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
@@ -20,7 +22,10 @@ class UserUsecaseApplication extends UserUsecase {
     return secureUser;
   };
 
-  updateUserByUsername = async (username: string, payload: UpdateUser): Promise<SecureUser> => {
+  updateUserByUsername = async (
+    username: string,
+    payload: UpdateUser,
+  ): Promise<SecureUser> => {
     validateUserUpdate(payload);
 
     const user = await this.userRepository.getUser({ username });
