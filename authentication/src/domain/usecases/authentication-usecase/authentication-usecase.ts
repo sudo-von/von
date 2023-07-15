@@ -8,7 +8,7 @@ import IUserRepository from '../../repositories/user-repository/user-repository'
 
 abstract class AuthenticationUsecase {
   /**
-  * Creates an instance of UserUsecase.
+  * Creates an instance of AuthenticationUsecase.
   * @param {IUserRepository} userRepository - The user repository.
   * @param {SecurityService} securityService - The security service for cryptographic operations.
   */

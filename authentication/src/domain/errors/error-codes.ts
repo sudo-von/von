@@ -4,10 +4,10 @@ export type DomainError = {
 };
 
 export type DomainErrorCode =
-| ProfilePictureDomainErrorCode
+| AvatarDomainErrorCode
 | UserDomainErrorCode;
 
-export type ProfilePictureDomainErrorCode =
+export type AvatarDomainErrorCode =
 | 'INVALID_AVATAR_FILE_MIME_TYPE'
 | 'INVALID_AVATAR_FILE_NAME_LENGTH'
 | 'INVALID_AVATAR_FILE_SIZE';

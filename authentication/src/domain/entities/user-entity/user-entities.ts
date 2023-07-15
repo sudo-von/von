@@ -4,9 +4,10 @@ export type User = Readonly<{
   email: string;
   username: string;
   password: string;
+  avatar?: string;
 }>;
 
-export type CreateUser = Omit<User, 'id'>;
+export type CreateUser = Omit<User, 'id' | 'avatar'>;
 
 export type UpdateUserRequiredFields = Pick<User, 'password'>;
 

@@ -3,6 +3,16 @@ import {
 } from '../../errors/error-factory';
 import avatarRules from './avatar-rules';
 
+export const AvatarCreationFailedError = createDomainErrorFactory({
+  code: 'AVATAR_CREATION_FAILED',
+  message: 'The avatar you attempted to create could not be created.',
+});
+
+export const AvatarUpdateFailedError = createDomainErrorFactory({
+  code: 'AVATAR_UPDATE_FAILED',
+  message: 'The avatar you attempted to update could not be updated.',
+});
+
 export const InvalidAvatarFileMimeTypeError = createDomainErrorFactory({
   code: 'INVALID_AVATAR_FILE_MIME_TYPE',
   message: `Please provide an avatar file with one of the following MIME types: ${avatarRules.mimetype.content.ALLOWED_MIMETYPES.join(', ')}.`,
