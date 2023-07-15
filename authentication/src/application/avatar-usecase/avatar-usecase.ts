@@ -3,7 +3,9 @@ import {
 } from '../../domain/entities/user-entity/user-errors';
 import {
   AvatarUpdateFailedError,
+  AvatarNotCreatedYetError,
   AvatarCreationFailedError,
+  AvatarAlreadyCreatedError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   Avatar,
@@ -22,18 +24,16 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     mimetype: string,
   ): string => {
     const userIdChecksum = this.securityService.computeChecksum(id);
+    const defaultFilename = `${userIdChecksum}.jpg`;
 
     const extension = mimetype.split('/').pop();
 
-    if (!extension) {
-      return `${userIdChecksum}.jpg`;
+    if (!extension || !avatarRules.mimetype.content.ALLOWED_MIMETYPES.includes(extension)) {
+      return defaultFilename;
     }
 
-    if (!avatarRules.mimetype.content.ALLOWED_MIMETYPES.includes(extension)) {
-      return `${userIdChecksum}.jpg`;
-    }
-
-    return `${userIdChecksum}.${extension}`;
+    const filename = `${userIdChecksum}.${extension}`;
+    return filename;
   };
 
   createAvatarFileByUserId = async (
@@ -44,6 +44,8 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const user = await this.userRepository.getUser({ id });
     if (!user) throw UserNotFoundError;
+
+    if (user.avatar) throw AvatarAlreadyCreatedError;
 
     const avatarFilename = this.generateAvatarFilenameByUserId(id, payload.mimetype);
 
@@ -67,7 +69,9 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser({ id });
     if (!user) throw UserNotFoundError;
 
-    if (user.avatar) await this.fileService.delete(user.avatar);
+    if (!user.avatar) throw AvatarNotCreatedYetError;
+
+    await this.fileService.delete(user.avatar);
 
     const avatarFilename = this.generateAvatarFilenameByUserId(id, payload.mimetype);
 

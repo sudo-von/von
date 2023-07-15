@@ -3,9 +3,19 @@ import {
 } from '../../errors/error-factory';
 import avatarRules from './avatar-rules';
 
+export const AvatarAlreadyCreatedError = createDomainErrorFactory({
+  code: 'AVATAR_ALREADY_ANSWERED',
+  message: 'The avatar has already been created.',
+});
+
 export const AvatarCreationFailedError = createDomainErrorFactory({
   code: 'AVATAR_CREATION_FAILED',
   message: 'The avatar you attempted to create could not be created.',
+});
+
+export const AvatarNotCreatedYetError = createDomainErrorFactory({
+  code: 'AVATAR_NOT_CREATED_YET',
+  message: 'The avatar has not been created yet.',
 });
 
 export const AvatarUpdateFailedError = createDomainErrorFactory({
