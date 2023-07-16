@@ -12,7 +12,7 @@
     "rootDirs": ["src", "tests"],
     "forceConsistentCasingInFileNames": true,
     "typeRoots": [
-      "./src/infrastructure/controllers/types",
+      "src/infrastructure/servers/express-server/types",
       "./node_modules/@types"
     ]
   },

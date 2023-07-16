@@ -18,7 +18,7 @@ import {
   BrokerOnMessageNotImplementedError,
 } from '../errors/broker-errors';
 
-abstract class AMQPBRoker<T> extends Broker<T> {
+abstract class AMQPBroker<T> extends Broker<T> {
   protected channel?: Channel;
 
   protected connection?: Connection;
@@ -84,4 +84,4 @@ abstract class AMQPBRoker<T> extends Broker<T> {
   };
 }
 
-export default AMQPBRoker;
+export default AMQPBroker;

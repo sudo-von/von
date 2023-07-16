@@ -13,8 +13,8 @@ import {
   serve,
   setup,
 } from 'swagger-ui-express';
-import bodyMiddleware from '../controllers/express/middlewares/body-middleware';
-import errorMiddleware from '../controllers/express/middlewares/error-middleware';
+import bodyMiddleware from '../servers/express-server/middlewares/body-middleware';
+import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
 import LoggerService from '../services/logger-service/logger-service';
 
 const configureControllers = async (

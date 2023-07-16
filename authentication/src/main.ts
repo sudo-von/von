@@ -6,9 +6,9 @@ import configureTokenService from './infrastructure/config/configure-token-servi
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureSecurityService from './infrastructure/config/configure-security-service';
-import configureUserRouter from './infrastructure/controllers/express/user-controller/user-router';
+import configureUserRouter from './infrastructure/servers/express-server/user-controller/user-router';
 import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
-import configureAuthenticationRouter from './infrastructure/controllers/express/authentication-controller/authentication-router';
+import configureAuthenticationRouter from './infrastructure/servers/express-server/authentication-controller/authentication-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');

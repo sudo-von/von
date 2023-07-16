@@ -1,14 +1,25 @@
-import { z } from 'zod';
+import {
+  z,
+} from 'zod';
 
-export type RestrictedUserController = {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
-  profile_picture_name: string;
-};
+export const CreateUserCredentialsRequest = z.object({
+  email: z
+    .string({
+      required_error: 'email field is required',
+      invalid_type_error: 'email field must be a string',
+    })
+    .email('email field must contain a valid email')
+    .trim()
+    .toLowerCase(),
+  password: z
+    .string({
+      required_error: 'password field is required',
+      invalid_type_error: 'password field must be a string',
+    })
+    .trim(),
+});
 
-export const createUserController = z.object({
+export const CreateUserRequest = z.object({
   name: z
     .string({
       required_error: 'name field is required',
@@ -38,24 +49,7 @@ export const createUserController = z.object({
     .trim(),
 });
 
-export const createUserCredentialsController = z.object({
-  email: z
-    .string({
-      required_error: 'email field is required',
-      invalid_type_error: 'email field must be a string',
-    })
-    .email('email field must contain a valid email')
-    .trim()
-    .toLowerCase(),
-  password: z
-    .string({
-      required_error: 'password field is required',
-      invalid_type_error: 'password field must be a string',
-    })
-    .trim(),
-});
-
-export const updateUserController = z.object({
+export const UpdateUserRequest = z.object({
   name: z
     .string({
       required_error: 'name field is required',

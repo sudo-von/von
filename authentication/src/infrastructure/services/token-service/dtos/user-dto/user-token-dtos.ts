@@ -4,7 +4,7 @@ export type UserToken = Readonly<{
   exp: number;
   name: string;
   email: string;
-  avatar: string;
+  avatar?: string;
   username: string;
 }>;
 
