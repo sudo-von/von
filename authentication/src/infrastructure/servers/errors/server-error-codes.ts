@@ -29,7 +29,7 @@ export type AvatarServerErrorCode =
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
-| 'INVALID_FILE_PARAMETER_NAME'
+| 'INVALID_FILE_PARAMETER'
 | 'REQUIRED_FIELD'
 | 'REQUEST_RUNTIME_SERVER_ERROR';
 

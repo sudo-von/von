@@ -52,10 +52,10 @@ export const CreateUserRequest = z.object({
 export const UpdateUserRequest = z.object({
   name: z
     .string({
-      required_error: 'name field is required',
       invalid_type_error: 'name field must be a string',
     })
-    .trim(),
+    .trim()
+    .optional(),
   email: z
     .string({
       required_error: 'email field is required',
@@ -63,14 +63,16 @@ export const UpdateUserRequest = z.object({
     })
     .email('email field must contain a valid email')
     .trim()
-    .toLowerCase(),
+    .toLowerCase()
+    .optional(),
   username: z
     .string({
       required_error: 'username field is required',
       invalid_type_error: 'username field must be a string',
     })
     .trim()
-    .toLowerCase(),
+    .toLowerCase()
+    .optional(),
   password: z
     .string({
       required_error: 'password field is required',

@@ -6,6 +6,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
+import multer from 'multer';
 import {
   ServerErrorFactory,
 } from '../../errors/server-error-factory';
@@ -40,6 +41,7 @@ import {
   RequiredFieldServerError,
   InternalServerError,
   RequestRuntimeServerError,
+  InvalidFileParameterServerError,
 } from '../../dtos/common-dto/common-server-errors';
 import {
   ServiceErrorCode,
@@ -108,6 +110,13 @@ const errorMiddleware = (loggerService: LoggerService) => (
     return res.status(RequiredFieldServerError.statusCode).json({
       code: RequiredFieldServerError.code,
       errors: err.errors.map((e) => e.message),
+    });
+  }
+
+  if (err instanceof multer.MulterError) {
+    return res.status(InvalidFileParameterServerError.statusCode).json({
+      code: InvalidFileParameterServerError.code,
+      error: InvalidFileParameterServerError.error,
     });
   }
 
