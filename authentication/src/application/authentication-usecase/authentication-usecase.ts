@@ -4,8 +4,8 @@ import {
   InvalidCredentialsError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
-  SecureUser,
   CreateUser,
+  SecureUser,
   UserCredentials,
 } from '../../domain/entities/user-entity/user-entities';
 import userToSecureUser from '../../domain/entities/user-entity/user-mappers';

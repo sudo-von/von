@@ -46,12 +46,12 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     await this.fileService.upload(avatarFilename, payload.buffer);
 
-    const updatedAvatar = await this.userRepository.updateUser({
+    const createdAvatar = await this.userRepository.updateUser({
       avatar: avatarFilename,
     }, { id });
-    if (!updatedAvatar) throw AvatarCreationFailedError;
+    if (!createdAvatar) throw AvatarCreationFailedError;
 
-    const avatar = userToAvatar(updatedAvatar);
+    const avatar = userToAvatar(createdAvatar);
     return avatar;
   };
 
