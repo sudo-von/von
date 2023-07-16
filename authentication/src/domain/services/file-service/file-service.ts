@@ -10,7 +10,8 @@ abstract class FileService {
   * @param filename The name of the file to be deleted.
   * @returns A promise that resolves when the file has been successfully deleted.
   */
-  abstract delete: (filename: string) => Promise<void>;
+  abstract delete: (filename: string)
+  => Promise<void>;
 
   /**
   * Uploads a file provided as a data buffer.
@@ -18,7 +19,8 @@ abstract class FileService {
   * @param buffer The buffer containing the file data.
   * @returns A promise that resolves when the file has been successfully uploaded.
   */
-  abstract upload: (filename: string, buffer: Buffer) => Promise<void>;
+  abstract upload: (filename: string, buffer: Buffer)
+  => Promise<void>;
 }
 
 export default FileService;
