@@ -1,13 +1,12 @@
 import {
   resolve,
 } from 'path';
-import LoggerService from '../services/logger-service/logger-service';
 import AsyncFileService from '../services/file-service/async-file-service/async-file-service';
 
-const configureFileService = (loggerService: LoggerService) => {
-  const directory = resolve('src', '..', 'public');
+const configureFileService = () => {
+  const directory = resolve('public');
 
-  const tokenService = new AsyncFileService(directory, loggerService);
+  const tokenService = new AsyncFileService(directory);
 
   return tokenService;
 };

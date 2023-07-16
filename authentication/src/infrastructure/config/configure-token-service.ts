@@ -1,11 +1,7 @@
-import LoggerService from '../services/logger-service/logger-service';
-import JWTTokenService from '../services/token-service/jwt-token-service/jwt-token-service';
+import JoseTokenService from '../services/token-service/jose-token-service/jose-token-service';
 
-const configureTokenService = (
-  SECRET_KEY: string,
-  loggerService: LoggerService,
-) => {
-  const tokenService = new JWTTokenService(SECRET_KEY, loggerService);
+const configureTokenService = (secret: string) => {
+  const tokenService = new JoseTokenService(secret);
 
   return tokenService;
 };

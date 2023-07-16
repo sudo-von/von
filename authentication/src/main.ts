@@ -1,14 +1,16 @@
+import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
-import configureControllers from './infrastructure/config/configure-controllers';
+import configureServer from './infrastructure/config/configure-server';
 import configureFileService from './infrastructure/config/configure-file-service';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
-import configureMessageBrokers from './infrastructure/config/configure-message-brokers';
 import configureSecurityService from './infrastructure/config/configure-security-service';
-import configureUserRouter from './infrastructure/servers/express-server/user-controller/user-router';
 import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
-import configureAuthenticationRouter from './infrastructure/servers/express-server/authentication-controller/authentication-router';
+import configurePasswordManagerService from './infrastructure/config/configure-password-manager-service';
+import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
+import configureAvatarRouter from './infrastructure/servers/express-server/controllers/avatar-controller/avatar-router';
+import configureAuthenticationRouter from './infrastructure/servers/express-server/controllers/authentication-controller/authentication-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -39,36 +41,49 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('💽 Repositories have been configured.');
 
     /* 🔧 Services. */
-    const tokenService = configureTokenService(SECRET_KEY, loggerService);
+    const tokenService = configureTokenService(SECRET_KEY);
     loggerService.info('🔑 Token service has been configured.');
-    const securityService = configureSecurityService(loggerService);
+    const securityService = configureSecurityService();
     loggerService.info('🔒 Security service has been configured.');
-    const fileService = configureFileService(loggerService);
+    const fileService = configureFileService();
     loggerService.info('📂 File service has been configured.');
+    const passwordManagerService = configurePasswordManagerService();
+    loggerService.info('🕵️‍♂️ Password manager service has been configured.');
 
     /* 📖 Usecases. */
     const {
       userUsecase,
+      avatarUsecase,
       authenticationUsecase,
-    } = configureUsecases(fileService, userRepository, securityService);
+    } = configureUsecases(
+      fileService,
+      userRepository,
+      securityService,
+      passwordManagerService,
+    );
     loggerService.info('📖 Usecases have been configured.');
 
     /* 📦 Message brokers. */
     const {
       createUserProducer,
       updateUserProducer,
-    } = await configureMessageBrokers(MESSAGE_BROKER_URL, loggerService);
+    } = await configureBrokers(MESSAGE_BROKER_URL, loggerService);
     loggerService.info('📦 Message brokers have been configured.');
 
     /* 🔌 Routers. */
     const userRouter = configureUserRouter(
       userUsecase,
       tokenService,
-      loggerService,
       userRepository,
       updateUserProducer,
     );
     loggerService.info('🔌 User router has been configured.');
+    const avatarRouter = configureAvatarRouter(
+      tokenService,
+      avatarUsecase,
+      userRepository,
+    );
+    loggerService.info('🔌 Avatar router has been configured.');
     const authenticationRouter = configureAuthenticationRouter(
       tokenService,
       authenticationUsecase,
@@ -77,9 +92,10 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 Authentication router has been configured.');
 
     /* 🚀 Controllers. */
-    await configureControllers(
+    await configureServer(
       SERVER_PORT,
       userRouter,
+      avatarRouter,
       authenticationRouter,
       loggerService,
     );
