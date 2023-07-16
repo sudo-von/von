@@ -85,9 +85,9 @@ const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
   TOKEN_SERVICE_EXPIRED_TOKEN: ExpiredTokenServerError,
   TOKEN_SERVICE_INVALID_TOKEN: InvalidTokenServerError,
-  FILE_SERVICE_ERROR_NO_ENTITY: NoEntityFoundServerError,
-  FILE_SERVICE_FAILED_DELETION: FailedToDeleteServerError,
-  FILE_SERVICE_FAILED_FILE_UPLOADING: FailedToUploadingServerError,
+  FILE_SERVICE_NO_ENTITY_FOUND: NoEntityFoundServerError,
+  FILE_SERVICE_FAILED_TO_DELETE: FailedToDeleteServerError,
+  FILE_SERVICE_FAILED_TO_UPLOAD: FailedToUploadingServerError,
   PASSWORD_MANAGER_SERVICE_FAILED_PASSWORD_COMPARISON:
     PasswordManagerServiceFailedPasswordComparisonServerError,
   PASSWORD_MANAGER_SERVICE_FAILED_PASSWORD_HASHING:
