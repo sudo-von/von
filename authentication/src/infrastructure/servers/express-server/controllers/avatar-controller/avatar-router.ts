@@ -1,6 +1,7 @@
 import {
   Router,
 } from 'express';
+import multer from 'multer';
 import AvatarController from './avatar-controller';
 import TokenService from '../../../../services/token-service/token-service';
 import authenticationMiddleware from '../../middlewares/authentication-middleware';
@@ -16,10 +17,15 @@ const configureAvatarRouter = (
 
   const router = Router();
 
+  const uploadHandler = multer();
+
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 
-  router.get('/user/:id', authenticationHandler, avatarController.createAvatarFileByUserId);
-  router.patch('/user/:id', authenticationHandler, avatarController.updateAvatarFileByUserId);
+  const handlers = [uploadHandler.single('avatar'), authenticationHandler];
+
+  router.post('/user/:id', handlers, avatarController.createAvatarFileByUserId);
+
+  router.patch('/user/:id', handlers, avatarController.updateAvatarFileByUserId);
 
   return router;
 };

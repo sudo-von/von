@@ -23,6 +23,7 @@ const configureAuthenticationRouter = (
   const router = Router();
 
   router.post('/signup', authenticationController.signup);
+
   router.post('/login', authenticationController.login);
 
   return router;
