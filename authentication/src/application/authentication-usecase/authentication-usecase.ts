@@ -13,15 +13,13 @@ import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
-  signup = async (
-    payload: CreateUser,
-  ): Promise<SecureUser> => {
+  signup = async (payload: CreateUser): Promise<SecureUser> => {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
     if (users.length) throw SingleUserOnlyError;
 
-    const hashedPassword = await this.securityService.hashPassword(payload.password);
+    const hashedPassword = await this.passwordManagerService.hashPassword(payload.password);
 
     const createdUser = await this.userRepository.createUser({
       name: payload.name,
@@ -34,13 +32,11 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     return secureUser;
   };
 
-  login = async (
-    credentials: UserCredentials,
-  ): Promise<SecureUser> => {
+  login = async (credentials: UserCredentials): Promise<SecureUser> => {
     const user = await this.userRepository.getUser({ email: credentials.email });
     if (!user) throw UserNotFoundError;
 
-    const areCredentialsValid = await this.securityService.compareHashes(
+    const areCredentialsValid = await this.passwordManagerService.comparePasswords(
       credentials.password,
       user.password,
     );

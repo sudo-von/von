@@ -4,8 +4,8 @@ import {
 import {
   AvatarUpdateFailedError,
   AvatarNotCreatedYetError,
-  AvatarCreationFailedError,
   AvatarAlreadyCreatedError,
+  AvatarCreationFailedError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   Avatar,
@@ -19,27 +19,22 @@ import validateAvatarFileUpdate from '../../domain/entities/avatar-entity/avatar
 import validateAvatarFileCreation from '../../domain/entities/avatar-entity/avatar-validations/create-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
-  generateAvatarFilenameByUserId = (
-    id: string,
-    mimetype: string,
-  ): string => {
-    const userIdChecksum = this.securityService.hashData(id);
-    const defaultFilename = `${userIdChecksum}.jpg`;
+  generateAvatarFilenameByUserId = (id: string, mimetype: string): string => {
+    const userIdHash = this.securityService.hashData(id, 'md5');
+
+    const defaultFilename = `${userIdHash}.jpg`;
 
     const extension = mimetype.split('/').pop();
 
-    if (!extension || !avatarRules.mimetype.content.ALLOWED_MIMETYPES.includes(extension)) {
+    if (!extension || !avatarRules.mimetype.content.ALLOWED_MIMETYPES.includes(mimetype)) {
       return defaultFilename;
     }
 
-    const filename = `${userIdChecksum}.${extension}`;
+    const filename = `${userIdHash}.${extension}`;
     return filename;
   };
 
-  createAvatarFileByUserId = async (
-    id: string,
-    payload: CreateAvatarFile,
-  ): Promise<Avatar> => {
+  createAvatarFileByUserId = async (id: string, payload: CreateAvatarFile): Promise<Avatar> => {
     validateAvatarFileCreation(payload);
 
     const user = await this.userRepository.getUser({ id });
@@ -60,10 +55,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     return avatar;
   };
 
-  updateAvatarFileByUserId = async (
-    id: string,
-    payload: UpdateAvatarFile,
-  ): Promise<Avatar> => {
+  updateAvatarFileByUserId = async (id: string, payload: UpdateAvatarFile): Promise<Avatar> => {
     validateAvatarFileUpdate(payload);
 
     const user = await this.userRepository.getUser({ id });

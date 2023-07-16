@@ -2,18 +2,18 @@ import {
   SecureUser,
   UpdateUser,
 } from '../../entities/user-entity/user-entities';
-import SecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
+import IPasswordManagerService from '../../services/password-manager-service/password-manager-service';
 
 abstract class UserUsecase {
   /**
   * Creates an instance of UserUsecase.
   * @param {IUserRepository} userRepository - The user repository.
-  * @param {SecurityService} securityService - The security service for cryptographic operations.
+  * @param {IPasswordManagerService} passwordManagerService - The password manager service.
   */
   constructor(
-    protected userRepository: IUserRepository,
-    protected securityService: SecurityService,
+    protected readonly userRepository: IUserRepository,
+    protected readonly passwordManagerService: IPasswordManagerService,
   ) {}
 
   /**

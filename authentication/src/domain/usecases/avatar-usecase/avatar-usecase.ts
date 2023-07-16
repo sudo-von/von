@@ -15,9 +15,9 @@ abstract class AvatarUsecase {
   * @param {SecurityService} securityService - The security service for cryptographic operations.
   */
   constructor(
-    protected fileService: FileService,
-    protected userRepository: IUserRepository,
-    protected securityService: SecurityService,
+    protected readonly fileService: FileService,
+    protected readonly userRepository: IUserRepository,
+    protected readonly securityService: SecurityService,
   ) {}
 
   /**
