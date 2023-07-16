@@ -40,6 +40,7 @@ class UserController {
   updateUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { body, user, params } = req;
+
       if (!user) throw UserPermissionDeniedServerError;
 
       const username = params.username.toLowerCase();

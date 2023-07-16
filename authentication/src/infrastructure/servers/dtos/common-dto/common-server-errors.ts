@@ -3,10 +3,16 @@ import {
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
 
-export const InternalServerServerError = createServerErrorFactory({
+export const InternalServerError = createServerErrorFactory({
   code: 'INTERNAL_SERVER',
   error: 'An internal server error occurred. Please try again later.',
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
+});
+
+export const InvalidFileParameterServerError = createServerErrorFactory({
+  code: 'INVALID_FILE_PARAMETER_NAME',
+  error: 'The specified parameter for uploading a file is incorrect or empty.',
+  statusCode: statusCode.BAD_REQUEST,
 });
 
 export const RequiredFieldServerError = createServerErrorFactory({

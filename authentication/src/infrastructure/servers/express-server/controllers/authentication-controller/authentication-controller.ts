@@ -36,7 +36,7 @@ class AuthenticationController {
 
       const secureUserResponse = secureUserToSecureUserResponse(secureUser);
 
-      res.status(statusCodes.OK).send({ result: secureUserResponse });
+      res.status(statusCodes.CREATED).send({ result: secureUserResponse });
 
       await this.createUserProducer.produce('User:CreateUser', {
         user_id: secureUser.id,
@@ -56,7 +56,7 @@ class AuthenticationController {
         password: payload.password,
       });
 
-      const token = await this.tokenServiceINVALID_AVATAR_FILE_MIME_TYPE(secureUser);
+      const token = await this.tokenService.generate(secureUser, '6h');
 
       res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.OK);
     } catch (e) {

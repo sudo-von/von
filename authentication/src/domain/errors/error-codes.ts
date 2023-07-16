@@ -8,7 +8,7 @@ export type DomainErrorCode =
 | UserDomainErrorCode;
 
 export type AvatarDomainErrorCode =
-| 'AVATAR_ALREADY_ANSWERED'
+| 'AVATAR_ALREADY_CREATED'
 | 'AVATAR_CREATION_FAILED'
 | 'AVATAR_NOT_CREATED_YET'
 | 'AVATAR_UPDATE_FAILED'

@@ -6,6 +6,7 @@ import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
 } from '../../../services/token-service/token-service-errors';
+import { InternalServerError } from '../common-dto/common-server-errors';
 
 export const AuthorizationSchemeNotSupportedServerError = createServerErrorFactory({
   code: 'AUTHORIZATION_SCHEME_NOT_SUPPORTED',
@@ -35,4 +36,10 @@ export const InvalidTokenServerError = createServerErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
   error: TokenServiceInvalidTokenError.message,
   statusCode: statusCode.FORBIDDEN,
+});
+
+export const TokenServiceFailedTokenGenerationServerError = createServerErrorFactory({
+  code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION',
+  error: InternalServerError.message,
+  statusCode: InternalServerError.statusCode,
 });

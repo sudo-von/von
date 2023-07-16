@@ -1,9 +1,11 @@
 import {
-  UserErrorCode,
-  AnswerErrorCode,
-  QuestionErrorCode,
+  UserDomainErrorCode,
+  AvatarDomainErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
+  FileServiceErrorCode,
+  PasswordManagerServiceErrorCode,
+  SecurityServiceErrorCode,
   TokenServiceErrorCode,
 } from '../../services/errors/service-error-codes';
 
@@ -14,22 +16,31 @@ export type ServerError = {
 };
 
 export type ServerErrorCode =
-| AnswerServerErrorCode
+| AvatarServerErrorCode
 | CommonServerErrorCode
-| QuestionServerErrorCode
+| FileServerErrorCode
+| PasswordManagerServerErrorCode
+| SecurityServerErrorCode
 | TokenServerErrorCode
 | UserServerErrorCode;
 
-export type AnswerServerErrorCode =
-| AnswerErrorCode;
+export type AvatarServerErrorCode =
+| AvatarDomainErrorCode;
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
+| 'INVALID_FILE_PARAMETER_NAME'
 | 'REQUIRED_FIELD'
 | 'REQUEST_RUNTIME_SERVER_ERROR';
 
-export type QuestionServerErrorCode =
-| QuestionErrorCode;
+export type FileServerErrorCode =
+| FileServiceErrorCode;
+
+export type PasswordManagerServerErrorCode =
+| PasswordManagerServiceErrorCode;
+
+export type SecurityServerErrorCode =
+| SecurityServiceErrorCode;
 
 export type TokenServerErrorCode =
 | TokenServiceErrorCode
@@ -38,4 +49,4 @@ export type TokenServerErrorCode =
 | 'MISSING_TOKEN';
 
 export type UserServerErrorCode =
-| UserErrorCode;
+| UserDomainErrorCode;

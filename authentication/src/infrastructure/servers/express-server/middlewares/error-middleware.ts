@@ -13,10 +13,20 @@ import {
   DomainErrorCode,
 } from '../../../../domain/errors/error-codes';
 import {
+  NoEntityFoundServerError,
+  FailedToDeleteServerError,
+  FailedToUploadingServerError,
+} from '../../dtos/file-dto/file-server-errors';
+import {
   UserNotFoundServerError,
   SingleUserOnlyServerError,
   UserUpdateFailedServerError,
   InvalidUsernameLengthServerError,
+  InvalidCredentialsServerError,
+  InvalidEmailLengthServerError,
+  InvalidNameLengthServerError,
+  InvalidPasswordLengthServerError,
+  UserPermissionDeniedServerError,
 } from '../../dtos/user-dto/user-server-errors';
 import {
   DomainErrorFactory,
@@ -24,18 +34,13 @@ import {
 import {
   ExpiredTokenServerError,
   InvalidTokenServerError,
+  TokenServiceFailedTokenGenerationServerError,
 } from '../../dtos/token-dto/token-server-errors';
 import {
   RequiredFieldServerError,
-  InternalServerServerError,
+  InternalServerError,
   RequestRuntimeServerError,
 } from '../../dtos/common-dto/common-server-errors';
-import {
-  AnswerDeleteFailedServerError,
-  AnswerUpdateFailedServerError,
-  InvalidAnswerLengthServerError,
-  AnswerCreationFailedServerError,
-} from '../../dtos/answer-dto/answer-server-errors';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
@@ -43,28 +48,36 @@ import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
 import {
-  QuestionNotFoundServerError,
-  QuestionNotAnsweredServerError,
-  QuestionDeleteFailedServerError,
-  QuestionUpdateFailedServerError,
-  InvalidQuestionLengthServerError,
-  QuestionAlreadyAnsweredServerError,
-} from '../../dtos/question-dto/question-server-errors';
+  AvatarUpdateFailedServerError,
+  AvatarNotCreatedYetServerError,
+  AvatarAlreadyCreatedServerError,
+  AvatarCreationFailedServerError,
+  InvalidAvatarFileSizeServerError,
+  InvalidAvatarFileMimeTypeServerError,
+  InvalidAvatarFileNameLengthServerError,
+} from '../../dtos/avatar-dto/avatar-server-errors';
+import {
+  PasswordManagerServiceFailedToHashPasswordServerError,
+  PasswordManagerServiceFailedPasswordComparisonServerError,
+} from '../../dtos/password-manager-dto/password-manager-server-errors';
 import LoggerService from '../../../services/logger-service/logger-service';
+import SecurityServiceFailedToHashServerError from '../../dtos/security-dto/security-server-errors';
 
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
-  ANSWER_CREATION_FAILED: AnswerCreationFailedServerError,
-  ANSWER_DELETE_FAILED: AnswerDeleteFailedServerError,
-  ANSWER_UPDATE_FAILED: AnswerUpdateFailedServerError,
-  INVALID_ANSWER_LENGTH: InvalidAnswerLengthServerError,
-  INVALID_QUESTION_LENGTH: InvalidQuestionLengthServerError,
+  AVATAR_ALREADY_CREATED: AvatarAlreadyCreatedServerError,
+  AVATAR_CREATION_FAILED: AvatarCreationFailedServerError,
+  AVATAR_NOT_CREATED_YET: AvatarNotCreatedYetServerError,
+  AVATAR_UPDATE_FAILED: AvatarUpdateFailedServerError,
+  INVALID_AVATAR_FILE_MIME_TYPE: InvalidAvatarFileMimeTypeServerError,
+  INVALID_AVATAR_FILE_NAME_LENGTH: InvalidAvatarFileNameLengthServerError,
+  INVALID_AVATAR_FILE_SIZE: InvalidAvatarFileSizeServerError,
+  INVALID_CREDENTIALS: InvalidCredentialsServerError,
+  INVALID_EMAIL_LENGTH: InvalidEmailLengthServerError,
+  INVALID_NAME_LENGTH: InvalidNameLengthServerError,
+  INVALID_PASSWORD_LENGTH: InvalidPasswordLengthServerError,
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
-  QUESTION_ALREADY_ANSWERED: QuestionAlreadyAnsweredServerError,
-  QUESTION_DELETE_FAILED: QuestionDeleteFailedServerError,
-  QUESTION_NOT_ANSWERED: QuestionNotAnsweredServerError,
-  QUESTION_NOT_FOUND: QuestionNotFoundServerError,
-  QUESTION_UPDATE_FAILED: QuestionUpdateFailedServerError,
   SINGLE_USER_ONLY: SingleUserOnlyServerError,
+  USER_PERMISSION_DENIED: UserPermissionDeniedServerError,
   USER_NOT_FOUND: UserNotFoundServerError,
   USER_UPDATE_FAILED: UserUpdateFailedServerError,
 };
@@ -72,6 +85,15 @@ const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
   TOKEN_SERVICE_EXPIRED_TOKEN: ExpiredTokenServerError,
   TOKEN_SERVICE_INVALID_TOKEN: InvalidTokenServerError,
+  FILE_SERVICE_ERROR_NO_ENTITY: NoEntityFoundServerError,
+  FILE_SERVICE_FAILED_DELETION: FailedToDeleteServerError,
+  FILE_SERVICE_FAILED_FILE_UPLOADING: FailedToUploadingServerError,
+  PASSWORD_MANAGER_SERVICE_FAILED_PASSWORD_COMPARISON:
+    PasswordManagerServiceFailedPasswordComparisonServerError,
+  PASSWORD_MANAGER_SERVICE_FAILED_PASSWORD_HASHING:
+    PasswordManagerServiceFailedToHashPasswordServerError,
+  SECURITY_SERVICE_FAILED_TO_HASH: SecurityServiceFailedToHashServerError,
+  TOKEN_SERVICE_FAILED_TOKEN_GENERATION: TokenServiceFailedTokenGenerationServerError,
 };
 
 const errorMiddleware = (loggerService: LoggerService) => (
@@ -104,9 +126,9 @@ const errorMiddleware = (loggerService: LoggerService) => (
     return res.status(statusCode).json({ code, error });
   }
 
-  return res.status(InternalServerServerError.statusCode).json({
-    code: InternalServerServerError.code,
-    error: InternalServerServerError.error,
+  return res.status(InternalServerError.statusCode).json({
+    code: InternalServerError.code,
+    error: InternalServerError.error,
   });
 };
 

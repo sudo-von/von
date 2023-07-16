@@ -4,7 +4,7 @@ import {
 import avatarRules from './avatar-rules';
 
 export const AvatarAlreadyCreatedError = createDomainErrorFactory({
-  code: 'AVATAR_ALREADY_ANSWERED',
+  code: 'AVATAR_ALREADY_CREATED',
   message: 'The avatar has already been created.',
 });
 
