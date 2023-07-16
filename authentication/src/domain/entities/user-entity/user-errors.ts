@@ -30,12 +30,12 @@ export const InvalidUsernameLengthError = createDomainErrorFactory({
 
 export const SingleUserOnlyError = createDomainErrorFactory({
   code: 'SINGLE_USER_ONLY',
-  message: 'Only one user is allowed.',
+  message: 'Only one user registration per application is permitted.',
 });
 
 export const UserNotFoundError = createDomainErrorFactory({
   code: 'USER_NOT_FOUND',
-  message: 'User not found.',
+  message: 'The requested user could not be found.',
 });
 
 export const UserPermissionDeniedError = createDomainErrorFactory({
@@ -45,5 +45,5 @@ export const UserPermissionDeniedError = createDomainErrorFactory({
 
 export const UserUpdateFailedError = createDomainErrorFactory({
   code: 'USER_UPDATE_FAILED',
-  message: 'User update failed.',
+  message: 'The user you attempted to update could not be updated.',
 });

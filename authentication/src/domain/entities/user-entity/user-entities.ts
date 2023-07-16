@@ -2,9 +2,9 @@ export type User = Readonly<{
   id: string;
   name: string;
   email: string;
+  avatar?: string;
   username: string;
   password: string;
-  avatar?: string;
 }>;
 
 export type CreateUser = Omit<User, 'id' | 'avatar'>;

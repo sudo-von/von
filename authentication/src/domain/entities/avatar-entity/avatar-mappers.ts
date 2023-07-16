@@ -1,4 +1,6 @@
-import { Avatar } from './avatar-entities';
+import {
+  Avatar,
+} from './avatar-entities';
 import {
   User,
 } from '../user-entity/user-entities';
