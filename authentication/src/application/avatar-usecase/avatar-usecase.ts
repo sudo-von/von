@@ -23,7 +23,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     id: string,
     mimetype: string,
   ): string => {
-    const userIdChecksum = this.securityService.computeChecksum(id);
+    const userIdChecksum = this.securityService.hashData(id);
     const defaultFilename = `${userIdChecksum}.jpg`;
 
     const extension = mimetype.split('/').pop();

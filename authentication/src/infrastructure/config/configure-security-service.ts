@@ -1,8 +1,8 @@
 import LoggerService from '../services/logger-service/logger-service';
-import DataSecurityService from '../services/security-service/data-security-service/data-security-service';
+import CryptoSecurityService from '../services/security-service/crypto-security-service/crypto-security-service';
 
 const configureSecurityService = (loggerService: LoggerService) => {
-  const securityService = new DataSecurityService(loggerService);
+  const securityService = new CryptoSecurityService(loggerService);
 
   return securityService;
 };

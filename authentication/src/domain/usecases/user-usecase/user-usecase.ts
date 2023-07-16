@@ -2,7 +2,7 @@ import {
   SecureUser,
   UpdateUser,
 } from '../../entities/user-entity/user-entities';
-import SecurityService from '../../services/security-service';
+import SecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class UserUsecase {

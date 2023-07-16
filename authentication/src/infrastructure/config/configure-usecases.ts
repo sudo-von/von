@@ -1,6 +1,6 @@
-import FileService from '../../domain/services/file-service';
+import FileService from '../../domain/services/file-service/file-service';
 import UserUsecaseApplication from '../../application/user-usecase/user-usecase';
-import SecurityService from '../../domain/services/security-service';
+import SecurityService from '../../domain/services/security-service/security-service';
 import IUserRepository from '../../domain/repositories/user-repository/user-repository';
 import AuthenticationUsecaseApplication from '../../application/authentication-usecase/authentication-usecase';
 

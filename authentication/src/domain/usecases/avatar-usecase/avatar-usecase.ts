@@ -3,8 +3,8 @@ import {
   CreateAvatarFile,
   UpdateAvatarFile,
 } from '../../entities/avatar-entity/avatar-entities';
-import FileService from '../../services/file-service';
-import SecurityService from '../../services/security-service';
+import FileService from '../../services/file-service/file-service';
+import SecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class AvatarUsecase {

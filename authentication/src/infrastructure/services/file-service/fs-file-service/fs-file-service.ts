@@ -7,7 +7,7 @@ import {
   FileServiceFailedFileDeletion,
   FileServiceFailedFileUploading,
 } from '../file-service-errors';
-import FileService from '../../../../domain/services/file-service';
+import FileService from '../../../../domain/services/file-service/file-service';
 
 class FSFileService extends FileService {
   delete = async (filename: string): Promise<void> => {

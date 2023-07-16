@@ -4,19 +4,22 @@ export type ServiceError = {
 };
 
 export type ServiceErrorCode =
-| SecurityServiceErrorCode
 | FileServiceErrorCode
+| PasswordManagerServiceErrorCode
+| SecurityServiceErrorCode
 | TokenServiceErrorCode;
-
-export type SecurityServiceErrorCode =
-| 'SECURITY_SERVICE_FAILED_CHECKSUM_COMPUTING'
-| 'SECURITY_SERVICE_FAILED_HASH_COMPARISON'
-| 'SECURITY_SERVICE_FAILED_PASSWORD_HASHING';
 
 export type FileServiceErrorCode =
 | 'FILE_SERVICE_FAILED_DELETION'
 | 'FILE_SERVICE_FAILED_FILE_UPLOADING'
 | 'FILE_SERVICE_ERROR_NO_ENTITY';
+
+export type PasswordManagerServiceErrorCode =
+| 'PASSWORD_MANAGER_SERVICE_FAILED_PASSWORD_COMPARISON'
+| 'PASSWORD_MANAGER_SERVICE_FAILED_PASSWORD_HASHING';
+
+export type SecurityServiceErrorCode =
+| 'SECURITY_SERVICE_FAILED_TO_HASH';
 
 export type TokenServiceErrorCode =
 | 'TOKEN_SERVICE_EXPIRED_TOKEN'

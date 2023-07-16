@@ -1,8 +1,7 @@
-import path from 'path';
 import dotenv from 'dotenv';
 
 const configureEnvironmentVariables = () => {
-  dotenv.config({ path: path.join('src', '..', '.env') });
+  dotenv.config();
 
   const {
     PORT,
