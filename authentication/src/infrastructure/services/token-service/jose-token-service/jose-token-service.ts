@@ -52,6 +52,7 @@ class JoseTokenService extends TokenService {
 
       const token = await jwt
         .setIssuedAt()
+        .setProtectedHeader({ alg: 'HS256' })
         .setExpirationTime(expiration)
         .sign(key);
 
