@@ -2,7 +2,6 @@ import UserModel from './mongo-user-repository-model';
 import {
   User,
   CreateUser,
-  UpdateUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import userDocumentToUser from './mongo-user-repository-mapper';
 import createQuestionRepositoryQuery from './mongo-user-repository-query';
@@ -51,6 +50,7 @@ class MongoUserRepository implements IUserRepository {
   ): Promise<User | null> => {
     const query = createQuestionRepositoryQuery(filters);
     const updatedUser = await UserModel.findOneAndUpdate(query, {
+      id: payload.id,
       name: payload.name,
       email: payload.email,
       avatar: payload.avatar,
