@@ -30,7 +30,6 @@ class JoseTokenService extends TokenService {
       if (e instanceof errors.JWTExpired) {
         throw TokenServiceExpiredTokenError;
       }
-
       throw TokenServiceInvalidTokenError;
     }
   };
@@ -59,7 +58,6 @@ class JoseTokenService extends TokenService {
       if (e instanceof errors.JWTInvalid) {
         throw TokenServiceUnencodedPayloadError;
       }
-
       throw TokenServiceFailedTokenGenerationError;
     }
   };
