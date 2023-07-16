@@ -9,11 +9,10 @@ export type User = Readonly<{
 
 export type CreateUser = Omit<User, 'id' | 'avatar'>;
 
-export type UpdateUserRequiredFields = Pick<User, 'password'>;
-
-export type UpdateUserOptionalFields = Partial<Pick<User, 'name' | 'email' | 'username'>>;
-
-export type UpdateUser = Readonly<UpdateUserRequiredFields & UpdateUserOptionalFields>;
+export type UpdateUser = Readonly<
+Pick<User, 'password'> &
+Partial<Pick<User, 'name' | 'email' | 'username'>>
+>;
 
 export type SecureUser = Omit<User, 'password'>;
 
