@@ -15,7 +15,7 @@ class MongoUserRepository implements IUserRepository {
     filters?: UserRepositoryFilters,
   ): Promise<User | null> => {
     const query = createQuestionRepositoryQuery(filters);
-    const userDocument = await UserModel.findById(query);
+    const userDocument = await UserModel.findOne(query);
     if (!userDocument) return null;
     const user = userDocumentToUser(userDocument);
     return user;
