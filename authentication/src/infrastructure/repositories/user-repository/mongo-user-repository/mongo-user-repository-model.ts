@@ -1,10 +1,10 @@
 import {
   model,
 } from 'mongoose';
+import userRepositorySchema from './mongo-user-repository-schema';
 import {
   UserRepositorySchema,
-} from '../user-repository-schema';
-import userRepositorySchema from './mongo-user-repository-schema';
+} from '../../../../domain/repositories/user-repository/user-repository-schema';
 
 const UserModel = model<UserRepositorySchema>('user', userRepositorySchema);
 

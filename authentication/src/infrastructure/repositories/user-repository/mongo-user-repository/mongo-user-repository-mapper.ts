@@ -2,11 +2,11 @@ import {
   HydratedDocument,
 } from 'mongoose';
 import {
-  UserRepositorySchema,
-} from '../user-repository-schema';
-import {
   User,
 } from '../../../../domain/entities/user-entity/user-entities';
+import {
+  UserRepositorySchema,
+} from '../../../../domain/repositories/user-repository/user-repository-schema';
 
 const userDocumentToUser = (model: HydratedDocument<UserRepositorySchema>): User => ({
   id: model._id.toHexString(),
