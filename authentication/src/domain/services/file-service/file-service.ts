@@ -3,7 +3,7 @@ abstract class FileService {
   * Creates an instance of FileService.
   * @param directory The directory where the files are contained.
   */
-  constructor(protected directory: string) {}
+  constructor(protected readonly directory: string) {}
 
   /**
   * Deletes a file with the provided filename.
