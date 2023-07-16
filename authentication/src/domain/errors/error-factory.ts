@@ -4,13 +4,13 @@ import {
 } from './error-codes';
 
 export class DomainErrorFactory extends Error implements DomainError {
-  constructor(public code: DomainErrorCode, public message: string) {
-    super(message);
+  constructor(public code: DomainErrorCode, public error: string) {
+    super(error);
     Object.setPrototypeOf(this, DomainErrorFactory.prototype);
   }
 }
 
 export const createDomainErrorFactory = ({
   code,
-  message,
+  error: message,
 }: DomainError) => new DomainErrorFactory(code, message);

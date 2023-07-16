@@ -16,54 +16,54 @@ import {
 
 export const InvalidCredentialsServerError = createServerErrorFactory({
   code: 'INVALID_CREDENTIALS',
-  error: InvalidCredentialsError.message,
+  error: InvalidCredentialsError.error,
   statusCode: statusCodes.UNAUTHORIZED,
 });
 
 export const InvalidEmailLengthServerError = createServerErrorFactory({
   code: 'INVALID_EMAIL_LENGTH',
-  error: InvalidEmailLengthError.message,
+  error: InvalidEmailLengthError.error,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidNameLengthServerError = createServerErrorFactory({
   code: 'INVALID_NAME_LENGTH',
-  error: InvalidNameLengthError.message,
+  error: InvalidNameLengthError.error,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidPasswordLengthServerError = createServerErrorFactory({
   code: 'INVALID_PASSWORD_LENGTH',
-  error: InvalidPasswordLengthError.message,
+  error: InvalidPasswordLengthError.error,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidUsernameLengthServerError = createServerErrorFactory({
   code: 'INVALID_USERNAME_LENGTH',
-  error: InvalidUsernameLengthError.message,
+  error: InvalidUsernameLengthError.error,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const SingleUserOnlyServerError = createServerErrorFactory({
   code: 'SINGLE_USER_ONLY',
-  error: SingleUserOnlyError.message,
+  error: SingleUserOnlyError.error,
   statusCode: statusCodes.CONFLICT,
 });
 
 export const UserNotFoundServerError = createServerErrorFactory({
   code: 'USER_NOT_FOUND',
-  error: UserNotFoundError.message,
+  error: UserNotFoundError.error,
   statusCode: statusCodes.NOT_FOUND,
 });
 
 export const UserPermissionDeniedServerError = createServerErrorFactory({
   code: 'USER_PERMISSION_DENIED',
-  error: UserPermissionDeniedError.message,
+  error: UserPermissionDeniedError.error,
   statusCode: statusCodes.FORBIDDEN,
 });
 
 export const UserUpdateFailedServerError = createServerErrorFactory({
   code: 'USER_UPDATE_FAILED',
-  error: UserUpdateFailedError.message,
+  error: UserUpdateFailedError.error,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
