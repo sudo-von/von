@@ -9,17 +9,17 @@ import {
 } from '../file-service-errors';
 import FileService from '../../../../domain/services/file-service/file-service';
 
-class FSFileService extends FileService {
+class AsyncFileService extends FileService {
   delete = async (filename: string): Promise<void> => {
     try {
       const path = `${this.directory}/${filename}`;
       await unlink(path);
     } catch (e) {
-      const error = e as Error;
-      if (error.name === 'ENOENT') {
-        throw FileServiceNoEntityError;
+      const { name, message } = e as Error;
+      if (name === 'ENOENT') {
+        throw FileServiceNoEntityError(message);
       }
-      throw FileServiceFailedFileDeletion;
+      throw FileServiceFailedFileDeletion(message);
     }
   };
 
@@ -28,13 +28,13 @@ class FSFileService extends FileService {
       const path = `${this.directory}/${filename}`;
       await writeFile(path, buffer, 'utf8');
     } catch (e) {
-      const error = e as Error;
-      if (error.name === 'ENOENT') {
-        throw FileServiceNoEntityError;
+      const { name, message } = e as Error;
+      if (name === 'ENOENT') {
+        throw FileServiceNoEntityError(message);
       }
-      throw FileServiceFailedFileUploading;
+      throw FileServiceFailedFileUploading(message);
     }
   };
 }
 
-export default FSFileService;
+export default AsyncFileService;

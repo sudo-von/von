@@ -1,4 +1,7 @@
 import {
+  TokenExpiration,
+} from './dtos/token-dto/token-dtos';
+import {
   UserToken,
 } from './dtos/user-dto/user-token-dtos';
 import {
@@ -17,14 +20,17 @@ abstract class TokenService {
   * @param {string} token - The token to decode.
   * @returns {Promise<UserToken>} A promise with the UserToken.
   */
-  abstract decode: (token: string) => Promise<UserToken>;
+  abstract decode: (token: string)
+  => Promise<UserToken>;
 
   /**
   * Generates a token from a SecureUser object.
   * @param {SecureUser} payload - The SecureUser object to use as payload.
+  * @param {TokenExpiration} expiration - The expiration time for the token.
   * @returns {Promise<string>} A promise with the token.
   */
-  abstract generate: (payload: SecureUser) => Promise<string>;
+  abstract generate: (payload: SecureUser, expiration: TokenExpiration)
+  => Promise<string>;
 }
 
 export default TokenService;

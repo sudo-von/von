@@ -56,7 +56,7 @@ class AuthenticationController {
         password: payload.password,
       });
 
-      const token = await this.tokenService.generate(secureUser);
+      const token = await this.tokenServiceINVALID_AVATAR_FILE_MIME_TYPE(secureUser);
 
       res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.OK);
     } catch (e) {

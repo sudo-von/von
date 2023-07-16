@@ -7,17 +7,14 @@ export const TokenServiceExpiredTokenError = createServiceErrorFactory({
   message: 'Your session has expired.',
 });
 
-export const TokenServiceFailedTokenGenerationError = createServiceErrorFactory({
+export const TokenServiceFailedTokenGenerationError = (
+  details: string,
+) => createServiceErrorFactory({
   code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION',
-  message: 'An error occurred during token generation.',
+  message: `An error occurred during token generation: ${details}.`,
 });
 
 export const TokenServiceInvalidTokenError = createServiceErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
   message: 'The provided token is invalid.',
-});
-
-export const TokenServiceUnencodedPayloadError = createServiceErrorFactory({
-  code: 'TOKEN_SERVICE_UNENCODED_PAYLOAD',
-  message: 'The provided token must not use an unencoded payload',
 });

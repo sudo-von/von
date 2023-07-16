@@ -6,9 +6,11 @@ import {
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
-  TokenServiceUnencodedPayloadError,
   TokenServiceFailedTokenGenerationError,
 } from '../token-service-errors';
+import {
+  TokenExpiration,
+} from '../dtos/token-dto/token-dtos';
 import {
   UserToken,
   CreateUserToken,
@@ -34,7 +36,7 @@ class JoseTokenService extends TokenService {
     }
   };
 
-  generate = async (payload: SecureUser): Promise<string> => {
+  generate = async (payload: SecureUser, expiration: TokenExpiration): Promise<string> => {
     try {
       const key = new TextEncoder().encode(this.secret);
 
@@ -50,15 +52,12 @@ class JoseTokenService extends TokenService {
 
       const token = await jwt
         .setIssuedAt()
-        .setExpirationTime('1h')
+        .setExpirationTime(expiration)
         .sign(key);
 
       return token;
     } catch (e) {
-      if (e instanceof errors.JWTInvalid) {
-        throw TokenServiceUnencodedPayloadError;
-      }
-      throw TokenServiceFailedTokenGenerationError;
+      throw TokenServiceFailedTokenGenerationError((e as Error).message);
     }
   };
 }
