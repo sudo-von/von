@@ -1,7 +1,11 @@
 import statusCodes from 'http-status-codes';
 import {
+  ServerErrorFactory,
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
+import {
+  AvatarDomainErrorCode,
+} from '../../../../domain/errors/error-codes';
 import {
   AvatarUpdateFailedError,
   AvatarNotCreatedYetError,
@@ -9,7 +13,6 @@ import {
   AvatarCreationFailedError,
   InvalidAvatarFileSizeError,
   InvalidAvatarFileMimeTypeError,
-  InvalidAvatarFileNameLengthError,
 } from '../../../../domain/entities/avatar-entity/avatar-errors';
 
 export const AvatarAlreadyCreatedServerError = createServerErrorFactory({
@@ -27,7 +30,7 @@ export const AvatarCreationFailedServerError = createServerErrorFactory({
 export const AvatarNotCreatedYetServerError = createServerErrorFactory({
   code: 'AVATAR_NOT_CREATED_YET',
   error: AvatarNotCreatedYetError.error,
-  statusCode: statusCodes.ACCEPTED,
+  statusCode: statusCodes.CONFLICT,
 });
 
 export const AvatarUpdateFailedServerError = createServerErrorFactory({
@@ -42,14 +45,17 @@ export const InvalidAvatarFileMimeTypeServerError = createServerErrorFactory({
   statusCode: statusCodes.BAD_REQUEST,
 });
 
-export const InvalidAvatarFileNameLengthServerError = createServerErrorFactory({
-  code: 'INVALID_AVATAR_FILE_NAME_LENGTH',
-  error: InvalidAvatarFileNameLengthError.error,
-  statusCode: statusCodes.BAD_REQUEST,
-});
-
 export const InvalidAvatarFileSizeServerError = createServerErrorFactory({
   code: 'INVALID_AVATAR_FILE_SIZE',
   error: InvalidAvatarFileSizeError.error,
   statusCode: statusCodes.BAD_REQUEST,
 });
+
+export const avatarServerErrors: Record<AvatarDomainErrorCode, ServerErrorFactory> = {
+  AVATAR_ALREADY_CREATED: AvatarAlreadyCreatedServerError,
+  AVATAR_CREATION_FAILED: AvatarCreationFailedServerError,
+  AVATAR_NOT_CREATED_YET: AvatarNotCreatedYetServerError,
+  AVATAR_UPDATE_FAILED: AvatarUpdateFailedServerError,
+  INVALID_AVATAR_FILE_MIME_TYPE: InvalidAvatarFileMimeTypeServerError,
+  INVALID_AVATAR_FILE_SIZE: InvalidAvatarFileSizeServerError,
+};

@@ -1,12 +1,18 @@
 import statusCode from 'http-status-codes';
 import {
+  ServerErrorFactory,
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
+import {
+  InternalServerError,
+} from '../common-dto/common-server-errors';
+import {
+  TokenServiceErrorCode,
+} from '../../../services/errors/service-error-codes';
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
 } from '../../../services/token-service/token-service-errors';
-import { InternalServerError } from '../common-dto/common-server-errors';
 
 export const AuthorizationSchemeNotSupportedServerError = createServerErrorFactory({
   code: 'AUTHORIZATION_SCHEME_NOT_SUPPORTED',
@@ -26,20 +32,26 @@ export const MissingTokenServerError = createServerErrorFactory({
   statusCode: statusCode.UNAUTHORIZED,
 });
 
-export const ExpiredTokenServerError = createServerErrorFactory({
+export const TokenServiceExpiredTokenServerError = createServerErrorFactory({
   code: 'TOKEN_SERVICE_EXPIRED_TOKEN',
   error: TokenServiceExpiredTokenError.message,
   statusCode: statusCode.UNAUTHORIZED,
 });
 
-export const InvalidTokenServerError = createServerErrorFactory({
+export const TokenServiceFailedTokenGenerationServerError = createServerErrorFactory({
+  code: 'TOKEN_SERVICE_FAILED_TO_GENERATE_TOKEN',
+  error: InternalServerError.message,
+  statusCode: InternalServerError.statusCode,
+});
+
+export const TokenServiceInvalidTokenServerError = createServerErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',
   error: TokenServiceInvalidTokenError.message,
   statusCode: statusCode.FORBIDDEN,
 });
 
-export const TokenServiceFailedTokenGenerationServerError = createServerErrorFactory({
-  code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION',
-  error: InternalServerError.message,
-  statusCode: InternalServerError.statusCode,
-});
+export const tokenServerErrors: Record<TokenServiceErrorCode, ServerErrorFactory> = {
+  TOKEN_SERVICE_EXPIRED_TOKEN: TokenServiceExpiredTokenServerError,
+  TOKEN_SERVICE_FAILED_TO_GENERATE_TOKEN: TokenServiceFailedTokenGenerationServerError,
+  TOKEN_SERVICE_INVALID_TOKEN: TokenServiceInvalidTokenServerError,
+};

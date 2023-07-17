@@ -27,7 +27,6 @@ class AvatarController {
       const id = params.id.toLowerCase();
 
       const avatar = await this.avatarUsecase.createAvatarFileByUserId(id, {
-        name: file.originalname,
         size: file.size,
         buffer: file.buffer,
         mimetype: file.mimetype,
@@ -52,7 +51,6 @@ class AvatarController {
       const id = params.id.toLowerCase();
 
       const updatedAvatar = await this.avatarUsecase.updateAvatarFileByUserId(id, {
-        name: file.originalname,
         size: file.size,
         buffer: file.buffer,
         mimetype: file.mimetype,

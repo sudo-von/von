@@ -1,14 +1,20 @@
 import {
+  SecurityServerErrorCode,
+} from '../../errors/server-error-codes';
+import {
+  ServerErrorFactory,
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
 import {
   InternalServerError,
 } from '../common-dto/common-server-errors';
 
-const SecurityServiceFailedToHashServerError = createServerErrorFactory({
+export const SecurityServiceFailedToHashServerError = createServerErrorFactory({
   code: 'SECURITY_SERVICE_FAILED_TO_HASH',
   error: InternalServerError.message,
   statusCode: InternalServerError.statusCode,
 });
 
-export default SecurityServiceFailedToHashServerError;
+export const securityServerErrors: Record<SecurityServerErrorCode, ServerErrorFactory> = {
+  SECURITY_SERVICE_FAILED_TO_HASH: SecurityServiceFailedToHashServerError,
+};
