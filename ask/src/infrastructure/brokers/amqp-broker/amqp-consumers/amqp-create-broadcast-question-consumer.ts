@@ -1,14 +1,14 @@
 import {
   BrokerFailedToProcessMessageError,
 } from '../../errors/broker-errors';
-import AMQPBRoker from '../amqp-broker';
+import AMQPBroker from '../amqp-broker';
 import {
   CreateBroadcastQuestionBroker,
 } from '../../dtos/question-dto/question-broker-dtos';
 import LoggerService from '../../../services/logger-service/logger-service';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 
-class AMQPCreateBroadcastQuestionConsumer extends AMQPBRoker<CreateBroadcastQuestionBroker> {
+class AMQPCreateBroadcastQuestionConsumer extends AMQPBroker<CreateBroadcastQuestionBroker> {
   constructor(
     protected readonly url: string,
     protected readonly loggerService: LoggerService,
@@ -19,7 +19,7 @@ class AMQPCreateBroadcastQuestionConsumer extends AMQPBRoker<CreateBroadcastQues
 
   onMessage = async (data: CreateBroadcastQuestionBroker): Promise<void> => {
     try {
-      await this.questionUsecase.CreateBroadcastQuestion({
+      await this.questionUsecase.createBroadcastQuestion({
         askedBy: data.asked_by,
         question: data.question,
       });

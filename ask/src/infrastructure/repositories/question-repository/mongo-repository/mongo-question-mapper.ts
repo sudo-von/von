@@ -2,11 +2,11 @@ import {
   HydratedDocument,
 } from 'mongoose';
 import {
-  QuestionRepositorySchema,
-} from '../question-repository-schema';
-import {
   DetailedQuestion,
 } from '../../../../domain/entities/question-entity/question-entities';
+import {
+  QuestionRepositorySchema,
+} from '../../../../domain/repositories/question-repository/question-repository-schema';
 
 const questionDocumentToQuestion = (
   document: HydratedDocument<QuestionRepositorySchema>,

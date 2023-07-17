@@ -3,7 +3,7 @@ import {
 } from 'mongoose';
 import {
   UserRepositorySchema,
-} from '../user-repository-schema';
+} from '../../../../domain/repositories/user-repository/user-repository-schema';
 import metricsRepositorySchema from '../../metrics-repository/mongo-metrics-repository/mongo-metrics-repository-schema';
 
 const userRepositorySchema = new Schema<UserRepositorySchema>({

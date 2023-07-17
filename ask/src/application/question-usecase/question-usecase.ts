@@ -6,11 +6,11 @@ import {
   QuestionDeleteFailedError,
 } from '../../domain/entities/question-entity/question-errors';
 import {
-  DetailedQuestion,
   CreateQuestion,
+  DetailedQuestion,
 } from '../../domain/entities/question-entity/question-entities';
-import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import formatQuestion from '../../domain/entities/question-entity/question-utils';
+import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import validateQuestionCreation from '../../domain/entities/question-entity/question-validations/create-question-validations';
 import validateBroadcastQuestionCreation from '../../domain/entities/question-entity/question-validations/create-broadcast-question-validations';
 
@@ -44,7 +44,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     return formattedQuestions;
   };
 
-  CreateBroadcastQuestion = async (
+  createBroadcastQuestion = async (
     payload: CreateQuestion,
   ): Promise<void> => {
     validateBroadcastQuestionCreation(payload);

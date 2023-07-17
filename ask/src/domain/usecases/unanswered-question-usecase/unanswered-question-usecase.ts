@@ -5,11 +5,21 @@ import IUserRepository from '../../repositories/user-repository/user-repository'
 import IQuestionRepository from '../../repositories/question-repository/question-repository';
 
 abstract class UnansweredQuestionUsecase {
+  /**
+  * Creates an instance of UnansweredQuestionUsecase.
+  * @param {IUserRepository} userRepository - The user repository.
+  * @param {IQuestionRepository} questionRepository - The question repository.
+  */
   constructor(
     protected readonly userRepository: IUserRepository,
     protected readonly questionRepository: IQuestionRepository,
   ) {}
 
+  /**
+  * Retrieves unanswered questions by username.
+  * @param {string} username - The username of the user.
+  * @returns {Promise<DetailedQuestion[]>} A promise with an array of retrieved detailed questions.
+  */
   abstract getUnansweredQuestionsByUsername: (username: string)
   => Promise<DetailedQuestion[]>;
 }

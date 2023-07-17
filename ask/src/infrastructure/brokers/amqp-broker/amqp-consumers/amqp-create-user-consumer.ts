@@ -1,14 +1,14 @@
 import {
   BrokerFailedToProcessMessageError,
 } from '../../errors/broker-errors';
-import AMQPBRoker from '../amqp-broker';
+import AMQPBroker from '../amqp-broker';
 import {
   CreateUserBroker,
 } from '../../dtos/user-dto/user-broker-dtos';
 import LoggerService from '../../../services/logger-service/logger-service';
 import UserUsecase from '../../../../domain/usecases/user-usecase/user-usecase';
 
-class AMQPCreateUserConsumer extends AMQPBRoker<CreateUserBroker> {
+class AMQPCreateUserConsumer extends AMQPBroker<CreateUserBroker> {
   constructor(
     protected readonly url: string,
     protected readonly loggerService: LoggerService,

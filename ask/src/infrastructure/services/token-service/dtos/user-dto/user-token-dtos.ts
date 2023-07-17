@@ -1,6 +1,8 @@
+import {
+  Token,
+} from '../token-dto/token-dtos';
+
 export type UserToken = Readonly<{
   id: string;
-  iat: number;
-  exp: number;
   username: string;
-}>;
+} & Token>;

@@ -20,12 +20,9 @@ class JoseTokenService extends TokenService {
 
       return payload as UserToken;
     } catch (e) {
-      const error = e as Error;
-
-      if (error instanceof errors.JWTExpired) {
+      if (e instanceof errors.JWTExpired) {
         throw TokenServiceExpiredTokenError;
       }
-
       throw TokenServiceInvalidTokenError;
     }
   };
