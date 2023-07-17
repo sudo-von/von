@@ -13,7 +13,6 @@ export type AvatarDomainErrorCode =
 | 'AVATAR_NOT_CREATED_YET'
 | 'AVATAR_UPDATE_FAILED'
 | 'INVALID_AVATAR_FILE_MIME_TYPE'
-| 'INVALID_AVATAR_FILE_NAME_LENGTH'
 | 'INVALID_AVATAR_FILE_SIZE';
 
 export type UserDomainErrorCode =

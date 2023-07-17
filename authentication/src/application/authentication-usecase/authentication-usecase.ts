@@ -1,5 +1,4 @@
 import {
-  UserNotFoundError,
   SingleUserOnlyError,
   InvalidCredentialsError,
 } from '../../domain/entities/user-entity/user-errors';
@@ -34,7 +33,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
 
   login = async (credentials: UserCredentials): Promise<SecureUser> => {
     const user = await this.userRepository.getUser({ email: credentials.email });
-    if (!user) throw UserNotFoundError;
+    if (!user) throw InvalidCredentialsError;
 
     const areCredentialsValid = await this.passwordManagerService.comparePasswords(
       credentials.password,

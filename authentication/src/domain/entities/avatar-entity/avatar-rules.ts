@@ -1,13 +1,7 @@
 const avatarRules = {
-  name: {
-    content: {
-      MIN_LENGTH: 3,
-      MAX_LENGTH: 60,
-    },
-  },
   size: {
     content: {
-      MIN_BYTES: 100_000,
+      MIN_BYTES: 10_000,
       MAX_BYTES: 5_000_000,
     },
   },

@@ -3,7 +3,6 @@ export type Avatar = Readonly<{
 }>;
 
 export type AvatarFile = Readonly<{
-  name: string;
   size: number;
   buffer: Buffer;
   mimetype: string;
