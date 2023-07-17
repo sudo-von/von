@@ -1,17 +1,18 @@
 import bcrypt from 'bcrypt';
 import {
-  PasswordManagerServiceFailedToHashPasswordError,
-  PasswordManagerServiceFailedPasswordComparisonError,
+  PasswordManagerServiceFailedToHashError,
+  PasswordManagerServiceFailedToCompareError,
 } from '../password-manager-service-errors';
 import IPasswordManagerService from '../../../../domain/services/password-manager-service/password-manager-service';
 
 class BcryptPasswordManagerService implements IPasswordManagerService {
   hashPassword = async (password: string): Promise<string> => {
     try {
-      const hash = await bcrypt.hash(password, 10);
+      const salt = 10;
+      const hash = await bcrypt.hash(password, salt);
       return hash;
     } catch (e) {
-      throw PasswordManagerServiceFailedToHashPasswordError((e as Error).message);
+      throw PasswordManagerServiceFailedToHashError((e as Error).message);
     }
   };
 
@@ -20,7 +21,7 @@ class BcryptPasswordManagerService implements IPasswordManagerService {
       const result = await bcrypt.compare(plainData, hashedPassword);
       return result;
     } catch (e) {
-      throw PasswordManagerServiceFailedPasswordComparisonError((e as Error).message);
+      throw PasswordManagerServiceFailedToCompareError((e as Error).message);
     }
   };
 }

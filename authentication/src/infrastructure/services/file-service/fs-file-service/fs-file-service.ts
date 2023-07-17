@@ -3,13 +3,13 @@ import {
   writeFile,
 } from 'fs/promises';
 import {
-  FileServiceNoEntityError,
-  FileServiceFailedFileDeletion,
-  FileServiceFailedFileUploading,
+  FileServiceEntityNotFoundError,
+  FileServiceFailedToDeleteError,
+  FileServiceFailedToUploadError,
 } from '../file-service-errors';
 import FileService from '../../../../domain/services/file-service/file-service';
 
-class AsyncFileService extends FileService {
+class FsFileService extends FileService {
   delete = async (filename: string): Promise<void> => {
     try {
       const path = `${this.directory}/${filename}`;
@@ -17,9 +17,9 @@ class AsyncFileService extends FileService {
     } catch (e) {
       const { name, message } = e as Error;
       if (name === 'ENOENT') {
-        throw FileServiceNoEntityError(message);
+        throw FileServiceEntityNotFoundError(message);
       }
-      throw FileServiceFailedFileDeletion(message);
+      throw FileServiceFailedToDeleteError(message);
     }
   };
 
@@ -30,11 +30,11 @@ class AsyncFileService extends FileService {
     } catch (e) {
       const { name, message } = e as Error;
       if (name === 'ENOENT') {
-        throw FileServiceNoEntityError(message);
+        throw FileServiceEntityNotFoundError(message);
       }
-      throw FileServiceFailedFileUploading(message);
+      throw FileServiceFailedToUploadError(message);
     }
   };
 }
 
-export default AsyncFileService;
+export default FsFileService;

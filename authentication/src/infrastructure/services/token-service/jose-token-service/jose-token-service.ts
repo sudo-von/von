@@ -6,7 +6,7 @@ import {
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
-  TokenServiceFailedTokenGenerationError,
+  TokenServiceFailedToGenerateTokenError,
 } from '../token-service-errors';
 import {
   TokenExpiration,
@@ -58,7 +58,7 @@ class JoseTokenService extends TokenService {
 
       return token;
     } catch (e) {
-      throw TokenServiceFailedTokenGenerationError((e as Error).message);
+      throw TokenServiceFailedToGenerateTokenError((e as Error).message);
     }
   };
 }

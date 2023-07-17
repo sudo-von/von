@@ -7,10 +7,10 @@ export const TokenServiceExpiredTokenError = createServiceErrorFactory({
   message: 'Your session has expired.',
 });
 
-export const TokenServiceFailedTokenGenerationError = (
+export const TokenServiceFailedToGenerateTokenError = (
   details: string,
 ) => createServiceErrorFactory({
-  code: 'TOKEN_SERVICE_FAILED_TOKEN_GENERATION',
+  code: 'TOKEN_SERVICE_FAILED_TO_GENERATE_TOKEN',
   message: `An error occurred during token generation: ${details}.`,
 });
 
