@@ -1,7 +1,11 @@
 import statusCode from 'http-status-codes';
 import {
+  ServerErrorFactory,
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
+import {
+  QuestionErrorCode,
+} from '../../../../domain/errors/error-codes';
 import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
@@ -46,3 +50,12 @@ export const QuestionUpdateFailedServerError = createServerErrorFactory({
   error: QuestionUpdateFailedError.message,
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
+
+export const questionServerErrors: Record<QuestionErrorCode, ServerErrorFactory> = {
+  INVALID_QUESTION_LENGTH: InvalidQuestionLengthServerError,
+  QUESTION_ALREADY_ANSWERED: QuestionAlreadyAnsweredServerError,
+  QUESTION_DELETE_FAILED: QuestionDeleteFailedServerError,
+  QUESTION_NOT_ANSWERED: QuestionNotAnsweredServerError,
+  QUESTION_NOT_FOUND: QuestionNotFoundServerError,
+  QUESTION_UPDATE_FAILED: QuestionUpdateFailedServerError,
+};

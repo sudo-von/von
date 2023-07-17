@@ -13,17 +13,13 @@ import {
   DomainErrorCode,
 } from '../../../../domain/errors/error-codes';
 import {
-  UserNotFoundServerError,
-  SingleUserOnlyServerError,
-  UserUpdateFailedServerError,
-  InvalidUsernameLengthServerError,
+  userServerErrors,
 } from '../../dtos/user-dto/user-server-errors';
 import {
   DomainErrorFactory,
 } from '../../../../domain/errors/error-factory';
 import {
-  ExpiredTokenServerError,
-  InvalidTokenServerError,
+  tokenServerErrors,
 } from '../../dtos/token-dto/token-server-errors';
 import {
   RequiredFieldServerError,
@@ -31,10 +27,7 @@ import {
   RequestRuntimeServerError,
 } from '../../dtos/common-dto/common-server-errors';
 import {
-  AnswerDeleteFailedServerError,
-  AnswerUpdateFailedServerError,
-  InvalidAnswerLengthServerError,
-  AnswerCreationFailedServerError,
+  answerServerErrors,
 } from '../../dtos/answer-dto/answer-server-errors';
 import {
   ServiceErrorCode,
@@ -43,35 +36,18 @@ import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
 import {
-  QuestionNotFoundServerError,
-  QuestionNotAnsweredServerError,
-  QuestionDeleteFailedServerError,
-  QuestionUpdateFailedServerError,
-  InvalidQuestionLengthServerError,
-  QuestionAlreadyAnsweredServerError,
+  questionServerErrors,
 } from '../../dtos/question-dto/question-server-errors';
 import LoggerService from '../../../services/logger-service/logger-service';
 
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
-  ANSWER_CREATION_FAILED: AnswerCreationFailedServerError,
-  ANSWER_DELETE_FAILED: AnswerDeleteFailedServerError,
-  ANSWER_UPDATE_FAILED: AnswerUpdateFailedServerError,
-  INVALID_ANSWER_LENGTH: InvalidAnswerLengthServerError,
-  INVALID_QUESTION_LENGTH: InvalidQuestionLengthServerError,
-  INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
-  QUESTION_ALREADY_ANSWERED: QuestionAlreadyAnsweredServerError,
-  QUESTION_DELETE_FAILED: QuestionDeleteFailedServerError,
-  QUESTION_NOT_ANSWERED: QuestionNotAnsweredServerError,
-  QUESTION_NOT_FOUND: QuestionNotFoundServerError,
-  QUESTION_UPDATE_FAILED: QuestionUpdateFailedServerError,
-  SINGLE_USER_ONLY: SingleUserOnlyServerError,
-  USER_NOT_FOUND: UserNotFoundServerError,
-  USER_UPDATE_FAILED: UserUpdateFailedServerError,
+  ...answerServerErrors,
+  ...questionServerErrors,
+  ...userServerErrors,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
-  TOKEN_SERVICE_EXPIRED_TOKEN: ExpiredTokenServerError,
-  TOKEN_SERVICE_INVALID_TOKEN: InvalidTokenServerError,
+  ...tokenServerErrors,
 };
 
 const errorMiddleware = (loggerService: LoggerService) => (
@@ -89,13 +65,13 @@ const errorMiddleware = (loggerService: LoggerService) => (
     });
   }
 
-  if (err instanceof ServerErrorFactory) {
-    const { code, error, statusCode } = err;
+  if (err instanceof DomainErrorFactory) {
+    const { code, error, statusCode } = domainErrors[err.code];
     return res.status(statusCode).json({ code, error });
   }
 
-  if (err instanceof DomainErrorFactory) {
-    const { code, error, statusCode } = domainErrors[err.code];
+  if (err instanceof ServerErrorFactory) {
+    const { code, error, statusCode } = err;
     return res.status(statusCode).json({ code, error });
   }
 

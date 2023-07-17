@@ -1,7 +1,11 @@
 import statusCode from 'http-status-codes';
 import {
+  ServerErrorFactory,
   createServerErrorFactory,
 } from '../../errors/server-error-factory';
+import {
+  TokenServiceErrorCode,
+} from '../../../services/errors/service-error-codes';
 import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
@@ -36,3 +40,8 @@ export const InvalidTokenServerError = createServerErrorFactory({
   error: TokenServiceInvalidTokenError.message,
   statusCode: statusCode.FORBIDDEN,
 });
+
+export const tokenServerErrors: Record<TokenServiceErrorCode, ServerErrorFactory> = {
+  TOKEN_SERVICE_EXPIRED_TOKEN: ExpiredTokenServerError,
+  TOKEN_SERVICE_INVALID_TOKEN: InvalidTokenServerError,
+};

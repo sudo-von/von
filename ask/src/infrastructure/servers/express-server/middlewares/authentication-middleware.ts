@@ -42,7 +42,7 @@ const authenticationMiddleware = (
     if (!updatedUser) return next(UserNotFoundServerError);
 
     req.user = {
-      id: updatedUser.userId,
+      id: decodedToken.id,
       iat: decodedToken.iat,
       exp: decodedToken.exp,
       username: updatedUser.username,

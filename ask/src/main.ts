@@ -1,11 +1,15 @@
 import configureServer from './infrastructure/config/configure-server';
 import configureBrokers from './infrastructure/config/configure-brokers';
-import configureRouters from './infrastructure/config/configure-routers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
+import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
+import configureAnswerRouter from './infrastructure/servers/express-server/controllers/answer-controller/answer-router';
+import configureQuestionRouter from './infrastructure/servers/express-server/controllers/question-controller/question-router';
+import configureAnsweredQuestionRouter from './infrastructure/servers/express-server/controllers/answered-question-controller/answered-question-router';
+import configureUnansweredQuestionRouter from './infrastructure/servers/express-server/controllers/unanswered-question-controller/unanswered-question-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -56,23 +60,31 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📦 Brokers have been configured.');
 
     /* 🔌 Routers. */
-    const {
-      userRouter,
-      answerRouter,
-      questionRouter,
-      answeredQuestionRouter,
-      unansweredQuestionRouter,
-    } = configureRouters(
-      userUsecase,
-      answerUsecase,
-      metricUsecase,
-      questionUsecase,
-      answeredQuestionUsecase,
-      unansweredQuestionUsecase,
+    const userRouter = configureUserRouter(userUsecase);
+    loggerService.info('🔌 User router has been configured.');
+    const answerRouter = configureAnswerRouter(
       tokenService,
+      answerUsecase,
       userRepository,
     );
-    loggerService.info('🔌 Routers have been configured.');
+    loggerService.info('🔌 Answer router has been configured.');
+    const questionRouter = configureQuestionRouter(
+      tokenService,
+      userRepository,
+      questionUsecase,
+    );
+    loggerService.info('🔌 Question router has been configured.');
+    const answeredQuestionRouter = configureAnsweredQuestionRouter(
+      metricUsecase,
+      answeredQuestionUsecase,
+    );
+    loggerService.info('🔌 Answered question router has been configured.');
+    const unansweredQuestionRouter = configureUnansweredQuestionRouter(
+      tokenService,
+      userRepository,
+      unansweredQuestionUsecase,
+    );
+    loggerService.info('🔌 Unanswered question router have been configured.');
 
     /* 🚀 Server. */
     configureServer(
