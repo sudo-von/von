@@ -6,11 +6,28 @@ abstract class ScheduledTaskService {
     protected loggerService: LoggerService,
   ) {}
 
-  abstract processTask: () => Promise<void>;
+  /**
+  * Processes the scheduled task.
+  * @returns {Promise<void>} A promise that resolves when the task is processed.
+  */
+  abstract processTask: ()
+  => Promise<void>;
 
-  abstract validatePattern: (pattern: string) => boolean;
+  /**
+  * Validates the pattern for the scheduled task.
+  * @param {string} pattern - The pattern to validate.
+  * @returns {boolean} True if the pattern is valid, false otherwise.
+  */
+  abstract validatePattern: (pattern: string)
+  => boolean;
 
-  abstract scheduleTask: (pattern: string) => Promise<void>;
+  /**
+  * Schedules the task based on the provided pattern.
+  * @param {string} pattern - The pattern for scheduling the task.
+  * @returns {Promise<void>} A promise that resolves when the task is scheduled.
+  */
+  abstract scheduleTask: (pattern: string)
+  => Promise<void>;
 }
 
 export default ScheduledTaskService;

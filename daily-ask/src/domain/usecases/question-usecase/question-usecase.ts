@@ -3,8 +3,16 @@ import {
   CreateBroadcastQuestion,
 } from '../../entities/question-entity/question-entities';
 
-abstract class QuestionUsecase {
-  abstract createBroadcastQuestion: (payload: CreateBroadcastQuestion) => BroadcastQuestion;
+interface IQuestionUsecaseWriter {
+  /**
+  * Creates a broadcast question.
+  * @param {CreateBroadcastQuestion} payload - The payload for creating a broadcast question.
+  * @returns {BroadcastQuestion} The created broadcast question.
+  */
+  createBroadcastQuestion: (payload: CreateBroadcastQuestion)
+  => BroadcastQuestion;
 }
 
-export default QuestionUsecase;
+interface IQuestionUsecase extends IQuestionUsecaseWriter {}
+
+export default IQuestionUsecase;
