@@ -3,7 +3,7 @@ import { ComponentPropsWithoutRef, FC } from "react";
 type ButtonProps = ComponentPropsWithoutRef<"button">;
 
 const Button: FC<ButtonProps> = ({ type, onClick, children, disabled }) => {
-  const backgroundClassName = "bg-black-700 hover:bg-black-850";
+  const backgroundClassName = "bg-black-250 hover:bg-black-350";
   const textClassName = "text-white text-base text-center font-normal";
   const disabledClassName = disabled ? "opacity-50 cursor-not-allowed" : "";
   const className = `${backgroundClassName} ${textClassName} ${disabledClassName} rounded p-3`;

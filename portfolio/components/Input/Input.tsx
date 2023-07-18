@@ -11,9 +11,10 @@ const Input: FC<InputProps> = ({
   onChange,
   placeholder,
 }) => {
-  const textClassName = "text-primary placeholder-gray-150 font-light text-sm";
+  const textClassName =
+    "text-black-250 placeholder-gray-250 font-light text-sm";
   const borderClassName =
-    "border border-gray-50 focus:border-gray-100 focus:outline-none";
+    "border border-gray-50 focus:border-gray-150 focus:outline-none";
   const className = `${textClassName} ${borderClassName} rounded w-full p-3`;
   return (
     <input
