@@ -1,8 +1,10 @@
 import { NextPage } from "next";
-import UnderConstruction from "../components/UnderConstruction/UnderConstruction";
+import OutOfService from "../components/OutOfService/OutOfService";
 
 const Home: NextPage = () => {
-  return <UnderConstruction />;
+  return (
+    <OutOfService title="VoN" description="This page is under construction." />
+  );
 };
 
 export default Home;
