@@ -9,13 +9,11 @@ type OutOfServiceProps = {
 const OutOfService: FC<OutOfServiceProps> = ({ title, description }) => {
   return (
     <div className="flex justify-center items-center gap-4">
-      <Typography size="large">{title}</Typography>
-      <Typography weight="light" color="secondary">
-        |
+      <Typography variant="title" color="black">
+        {title}
       </Typography>
-      <Typography weight="light" color="secondary">
-        {description}
-      </Typography>
+      <Typography weight="light">|</Typography>
+      <Typography weight="light">{description}</Typography>
     </div>
   );
 };
