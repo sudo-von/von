@@ -14,11 +14,11 @@ const PasswordInput: FC<PasswordInputProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleVisibility = () => setIsVisible((currentState) => !currentState);
-
-  const type = isVisible ? "text" : "password";
+  const handleVisibility = () => setIsVisible((visibility) => !visibility);
 
   const PasswordIcon = isVisible ? AiFillEyeInvisible : AiFillEye;
+
+  const type = isVisible ? "text" : "password";
 
   return (
     <div className="relative">
