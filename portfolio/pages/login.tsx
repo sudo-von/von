@@ -9,10 +9,7 @@ const Login: NextPage = () => {
   const { onSubmit, credentials, onHandleChange } = useLogin();
   return (
     <AuthLayout>
-      <AuthBanner
-        title="Welcome back"
-        description="Sign in into your account"
-      />
+      <AuthBanner title="Welcome back" description="Log in into your account" />
       <LoginForm
         onSubmit={onSubmit}
         credentials={credentials}
