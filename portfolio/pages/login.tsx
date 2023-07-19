@@ -1,9 +1,9 @@
 import { NextPage } from "next";
-import useLogin from "../features/Login/hooks/useLogin";
-import AuthLayout from "../features/Auth/layouts/AuthLayout/AuthLayout";
-import LoginForm from "../features/Login/components/LoginForm/LoginForm";
-import AuthBanner from "../features/Auth/components/AuthBanner/AuthBanner";
-import AuthFramedLink from "../features/Auth/components/AuthFramedLink/AuthFramedLink";
+import useLogin from "../features/login/hooks/useLogin";
+import AuthLayout from "../features/auth/layouts/AuthLayout/AuthLayout";
+import LoginForm from "../features/login/components/LoginForm/LoginForm";
+import AuthBanner from "../features/auth/components/AuthBanner/AuthBanner";
+import AuthFramedLink from "../features/auth/components/AuthFramedLink/AuthFramedLink";
 
 const Login: NextPage = () => {
   const { onSubmit, credentials, onHandleChange } = useLogin();

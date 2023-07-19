@@ -2,6 +2,7 @@ import { ChangeEvent, FC, FormEvent } from "react";
 import { Credentials } from "../../hooks/useLogin";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
+import PasswordInput from "../../../../components/PasswordInput/PasswordInput";
 
 type LoginFormProps = {
   credentials: Credentials;
@@ -24,7 +25,7 @@ const LoginForm: FC<LoginFormProps> = ({
         onChange={onHandleChange}
         placeholder="Enter your email"
       />
-      <Input
+      <PasswordInput
         name="password"
         type="password"
         value={password}
