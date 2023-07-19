@@ -2,19 +2,19 @@ import { FC } from "react";
 import AuthLink from "../AuthLink/AuthLink";
 import AuthFramedText from "../AuthFramedText/AuthFramedText";
 
-type AuthRedirectProps = {
-  name: string;
+type AuthFramedLinkProps = {
   path: string;
+  name: string;
   message: string;
 };
 
-const AuthRedirect: FC<AuthRedirectProps> = ({ name, path, message }) => {
+const AuthFramedLink: FC<AuthFramedLinkProps> = ({ path, name, message }) => {
   return (
     <div className="flex flex-col">
       <AuthFramedText>{message}</AuthFramedText>
-      <AuthLink path={path}>{name}</AuthLink>
+      <AuthLink name={name} path={path} />
     </div>
   );
 };
 
-export default AuthRedirect;
+export default AuthFramedLink;

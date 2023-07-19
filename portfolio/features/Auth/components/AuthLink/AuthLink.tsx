@@ -1,16 +1,16 @@
+import { FC } from "react";
 import Link from "next/link";
-import { FC, ReactNode } from "react";
 import Typography from "../../../../components/Typography/Typography";
 
 type AuthLinkProps = {
   path: string;
-  children: ReactNode;
+  name: string;
 };
 
-const AuthLink: FC<AuthLinkProps> = ({ path, children }) => {
+const AuthLink: FC<AuthLinkProps> = ({ path, name }) => {
   return (
     <Typography align="center">
-      <Link href={path}>{children}</Link>
+      <Link href={path}>{name}</Link>
     </Typography>
   );
 };

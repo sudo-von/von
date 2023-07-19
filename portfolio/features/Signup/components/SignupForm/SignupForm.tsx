@@ -1,22 +1,25 @@
 import { ChangeEvent, FC, FormEvent } from "react";
-import { Credentials } from "../../hooks/useLogin";
+import { User } from "../../hooks/useSignup";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 
 type LoginFormProps = {
-  credentials: Credentials;
+  user: User;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   onHandleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const LoginForm: FC<LoginFormProps> = ({
-  onSubmit,
-  credentials,
-  onHandleChange,
-}) => {
-  const { email, password } = credentials;
+const SignupForm: FC<LoginFormProps> = ({ onSubmit, user, onHandleChange }) => {
+  const { name, email, username, password } = user;
   return (
     <form className="grid gap-4" onSubmit={onSubmit}>
+      <Input
+        name="name"
+        type="text"
+        value={name}
+        onChange={onHandleChange}
+        placeholder="Enter your name"
+      />
       <Input
         name="email"
         type="email"
@@ -25,15 +28,22 @@ const LoginForm: FC<LoginFormProps> = ({
         placeholder="Enter your email"
       />
       <Input
+        name="username"
+        type="text"
+        value={username}
+        onChange={onHandleChange}
+        placeholder="Enter your username"
+      />
+      <Input
         name="password"
         type="password"
         value={password}
         onChange={onHandleChange}
         placeholder="Enter your password"
       />
-      <Button>Sign in</Button>
+      <Button>Sign up</Button>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignupForm;
