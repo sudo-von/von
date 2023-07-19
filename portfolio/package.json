@@ -10,11 +10,13 @@
   "dependencies": {
     "next": "13.4.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.10.1"
   },
   "devDependencies": {
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
+    "@types/react-icons": "^3.0.0",
     "autoprefixer": "^10.4.14",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
