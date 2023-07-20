@@ -1,3 +1,4 @@
+import cors from 'cors';
 import 'express-async-errors';
 import {
   promises,
@@ -28,6 +29,7 @@ const configureServer = async (
   const publicPath = path.resolve('public');
   const swaggerPath = path.resolve('swagger.yaml');
 
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use('/static', express.static(publicPath));
