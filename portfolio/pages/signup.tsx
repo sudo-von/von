@@ -11,7 +11,7 @@ const Signup: NextPage = () => {
     <AuthLayout>
       <AuthBanner
         title="Create an account"
-        description="Register for a new account"
+        description="Sign up for a new account"
       />
       <SignupForm
         onSubmit={onSubmit}
