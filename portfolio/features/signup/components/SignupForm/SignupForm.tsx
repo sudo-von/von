@@ -2,6 +2,7 @@ import { ChangeEvent, FC, FormEvent } from "react";
 import { User } from "../../hooks/useSignup";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
+import PasswordInput from "../../../../components/PasswordInput/PasswordInput";
 
 type LoginFormProps = {
   user: User;
@@ -34,7 +35,7 @@ const SignupForm: FC<LoginFormProps> = ({ onSubmit, user, onHandleChange }) => {
         onChange={onHandleChange}
         placeholder="Enter your username"
       />
-      <Input
+      <PasswordInput
         name="password"
         type="password"
         value={password}
