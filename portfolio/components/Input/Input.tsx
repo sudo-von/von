@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef, FC } from "react";
-import InputHint from "./components/InputHint/InputHint";
+import InputHintWrapper from "./components/InputHintWrapper/InputHintWrapper";
 
 export type InputProps = ComponentPropsWithoutRef<"input"> & {
   hint?: string;
@@ -8,8 +8,8 @@ export type InputProps = ComponentPropsWithoutRef<"input"> & {
 
 const Input: FC<InputProps> = ({
   id,
-  name,
   hint,
+  name,
   type,
   error,
   value,
@@ -23,7 +23,7 @@ const Input: FC<InputProps> = ({
     "border border-slate-100 focus:border-slate-200 rounded focus:outline-none";
   const inputClassName = `${textClassName} ${borderClassName} w-full p-3 pr-11`;
   return (
-    <InputHint hint={hint} error={error}>
+    <InputHintWrapper hint={hint} error={error}>
       <input
         id={id}
         name={name}
@@ -34,7 +34,7 @@ const Input: FC<InputProps> = ({
         className={inputClassName}
         placeholder={placeholder}
       />
-    </InputHint>
+    </InputHintWrapper>
   );
 };
 
