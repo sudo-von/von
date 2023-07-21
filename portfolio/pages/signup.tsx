@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import useSignup from "../features/signup/hooks/useSignup";
-import CenteredLayout from "../layouts/CenteredLayout/CenteredLayout";
+import CenteredLayout from "../layouts/centered-layout/centered-layout";
 import AuthLayout from "../features/auth/layouts/AuthLayout/AuthLayout";
 import AuthBanner from "../features/auth/components/AuthBanner/AuthBanner";
 import SignupForm from "../features/signup/components/SignupForm/SignupForm";
