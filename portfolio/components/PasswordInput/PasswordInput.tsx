@@ -14,11 +14,8 @@ const PasswordInput: FC<PasswordInputProps> = ({
   placeholder,
 }) => {
   const { isVisible, handleVisibility } = usePassword();
-
-  const PasswordIcon = isVisible ? AiFillEyeInvisible : AiFillEye;
-
   const type = isVisible ? "text" : "password";
-
+  const PasswordIcon = isVisible ? AiFillEyeInvisible : AiFillEye;
   return (
     <div className="relative">
       <Input
