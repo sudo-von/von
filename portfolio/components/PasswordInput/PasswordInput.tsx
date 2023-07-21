@@ -1,8 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
+import usePassword from "./hooks/usePassword";
 import Input, { InputProps } from "../Input/Input";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-type PasswordInputProps = InputProps & {};
+type PasswordInputProps = InputProps;
 
 const PasswordInput: FC<PasswordInputProps> = ({
   id,
@@ -12,9 +13,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
   onChange,
   placeholder,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const handleVisibility = () => setIsVisible((visibility) => !visibility);
+  const { isVisible, handleVisibility } = usePassword();
 
   const PasswordIcon = isVisible ? AiFillEyeInvisible : AiFillEye;
 
