@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Typography from "../../../../components/Typography/Typography";
-import Card from "../../../../components/Card/Card";
+import Typography from "../../../../components/typography/typography";
+import Card from "../../../../components/card/card";
 
 type AskQuestionProps = {
   id: string;

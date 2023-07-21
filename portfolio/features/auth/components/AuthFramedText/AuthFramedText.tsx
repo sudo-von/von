@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../components/Typography/Typography";
+import Typography from "../../../../components/typography/typography";
 
 const AuthFramedText: FC<PropsWithChildren> = ({ children }) => {
   return (

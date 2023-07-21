@@ -8,7 +8,7 @@ import {
   TypographyVariant,
   TypographyComponent,
   TypographyWhitespace,
-} from "./Typography.types";
+} from "./typography.types";
 
 type TypographyProps = {
   children: ReactNode;

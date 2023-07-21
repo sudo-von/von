@@ -1,4 +1,4 @@
-import { Route } from "./route-entities";
+import { Route } from "./navbar.types";
 
 export const publicRoutes: Route[] = [
   { path: "/", name: "Home" },

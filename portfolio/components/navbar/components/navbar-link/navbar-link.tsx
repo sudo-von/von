@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
-import Typography from "../../../Typography/Typography";
-import { Route } from "../../../../features/route/route-entities";
+import { Route } from "../../navbar.types";
+import Typography from "../../../typography/typography";
 
 type NavbarLinkProps = Route & {
   isPathActive: boolean;

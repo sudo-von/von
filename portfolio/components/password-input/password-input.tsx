@@ -1,6 +1,6 @@
 import { FC } from "react";
-import usePassword from "./hooks/usePassword";
-import Input, { InputProps } from "../Input/Input";
+import usePassword from "./hooks/use-password";
+import Input, { InputProps } from "../input/input";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 type PasswordInputProps = InputProps;

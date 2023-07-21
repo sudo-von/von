@@ -1,7 +1,7 @@
 import { FC } from "react";
+import { Route } from "./navbar.types";
 import { useRouter } from "next/router";
-import { Route } from "../../features/route/route-entities";
-import NavbarLink from "./components/NavbarLink/NavbarLink";
+import NavbarLink from "./components/navbar-link/navbar-link";
 
 type NavbarProps = {
   routes: Route[];

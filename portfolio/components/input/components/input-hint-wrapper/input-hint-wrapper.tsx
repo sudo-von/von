@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
-import Typography from "../../../Typography/Typography";
+import Typography from "../../../typography/typography";
 
-type InputHintWrapperProps = {
+export type InputHintWrapperProps = {
   hint?: string;
   error?: boolean;
   children: ReactNode;
@@ -17,7 +17,7 @@ const InputHintWrapper: FC<InputHintWrapperProps> = ({
   return (
     <div className="flex flex-col gap-1">
       {children}
-      <Typography variant="legend" color={color} weight="light">
+      <Typography color={color} spacing="wide" variant="legend" weight="light">
         {hint}
       </Typography>
     </div>

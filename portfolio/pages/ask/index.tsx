@@ -1,13 +1,13 @@
 import { NextPage } from "next";
-import Button from "../../components/Button/Button";
-import AskLayout from "../../features/ask/layouts/AskLayout/AskLayout";
+import Input from "../../components/input/input";
+import Button from "../../components/button/button";
 import AskProfile from "../../features/ask/components/AskProfile/AskProfile";
 import AskQuestion from "../../features/ask/components/AskQuestion/AskQuestion";
-import Input from "../../components/Input/Input";
+import QuestionsLayout from "../../features/question/layouts/questions-layout/questions-layout";
 
 const Ask: NextPage = () => {
   return (
-    <AskLayout>
+    <QuestionsLayout>
       <AskProfile
         src="https://i.pinimg.com/564x/e2/55/be/e255be1da7c71138cec7648fa620a0df.jpg"
         name="Jesús Rodríguez"
@@ -19,7 +19,7 @@ const Ask: NextPage = () => {
           totalAnswers: 30,
         }}
       />
-      <Input placeholder="Ask me a question!" helper="0/300" />
+      <Input placeholder="Ask me a question!" label="Question" hint="0/100" />
       <Button>Send question</Button>
       <div className="flex flex-col mt-3 gap-3">
         <AskQuestion
@@ -30,7 +30,7 @@ const Ask: NextPage = () => {
             tempor incididunt ut labore. Lorem ipsum dolor sit..."
         />
       </div>
-    </AskLayout>
+    </QuestionsLayout>
   );
 };
 

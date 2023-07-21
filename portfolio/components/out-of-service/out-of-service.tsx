@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Typography from "../Typography/Typography";
+import Typography from "../typography/typography";
 
 type OutOfServiceProps = {
   title: string;

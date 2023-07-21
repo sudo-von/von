@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
-import Typography from "../../../../components/Typography/Typography";
+import Typography from "../../../../components/typography/typography";
 
 type AuthLinkProps = {
   path: string;

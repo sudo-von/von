@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent } from "react";
 import { User } from "../../hooks/useSignup";
-import Input from "../../../../components/Input/Input";
-import Button from "../../../../components/Button/Button";
-import PasswordInput from "../../../../components/PasswordInput/PasswordInput";
+import Input from "../../../../components/input/input";
+import Button from "../../../../components/button/button";
+import PasswordInput from "../../../../components/password-input/password-input";
 
 type LoginFormProps = {
   user: User;
