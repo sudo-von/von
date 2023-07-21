@@ -14,11 +14,13 @@ export type TypographyComponent =
   | "h6";
 
 export type TypographyVariant =
+  | "banner"
   | "heading"
   | "title"
   | "subtitle"
   | "paragraph"
-  | "caption";
+  | "caption"
+  | "legend";
 
 export type TypographySpacing = "normal" | "wide";
 

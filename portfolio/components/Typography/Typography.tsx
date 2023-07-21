@@ -32,11 +32,13 @@ const options: TypographyOptions = {
     slate: "text-slate-550",
   },
   variant: {
-    heading: "text-6xl",
+    banner: "text-6xl",
+    heading: "text-4xl",
     title: "text-2xl",
     subtitle: "text-xl",
     paragraph: "text-base",
     caption: "text-sm",
+    legend: "text-xs",
   },
   spacing: {
     normal: "tracking-normal",
@@ -54,9 +56,9 @@ const options: TypographyOptions = {
 };
 
 const Typography: React.FC<TypographyProps> = ({
+  align,
   children,
   component = "p",
-  align = "start",
   color = "black",
   weight = "regular",
   spacing = "normal",
@@ -65,7 +67,7 @@ const Typography: React.FC<TypographyProps> = ({
 }) => {
   const Component = component;
 
-  const alignClassName = options.align[align];
+  const alignClassName = align ? options.align[align] : "";
   const colorClassName = options.color[color];
   const variantClassName = options.variant[variant];
   const spacingClassName = options.spacing[spacing];
