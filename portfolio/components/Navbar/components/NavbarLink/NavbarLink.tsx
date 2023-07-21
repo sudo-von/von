@@ -1,14 +1,13 @@
 import { FC } from "react";
 import Link from "next/link";
 import Typography from "../../../Typography/Typography";
+import { Route } from "../../../../features/route/route-entities";
 
-type NavbarLinkProps = {
-  path: string;
-  name: string;
+type NavbarLinkProps = Route & {
   isPathActive: boolean;
 };
 
-const NavbarLink: FC<NavbarLinkProps> = ({ path, name, isPathActive }) => {
+const NavbarLink: FC<NavbarLinkProps> = ({ name, path, isPathActive }) => {
   const color = isPathActive ? "black" : "slate";
   const weight = isPathActive ? "regular" : "light";
   return (

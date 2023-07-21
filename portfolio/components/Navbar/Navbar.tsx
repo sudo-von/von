@@ -1,27 +1,21 @@
+import { FC } from "react";
 import { useRouter } from "next/router";
+import { Route } from "../../features/route/route-entities";
 import NavbarLink from "./components/NavbarLink/NavbarLink";
 
-type Route = {
-  path: string;
-  name: string;
+type NavbarProps = {
+  routes: Route[];
 };
 
-const routes: Route[] = [
-  { path: "/", name: "Home" },
-  { path: "/ask", name: "Ask" },
-  { path: "/blog", name: "Blog" },
-  { path: "/login", name: "Login" },
-];
-
-const Navbar = () => {
+const Navbar: FC<NavbarProps> = ({ routes = [] }) => {
   const { pathname } = useRouter();
   return (
-    <div className="flex justify-between md:justify-end md:gap-x-20">
-      {routes.map(({ path, name }) => (
+    <div className="flex justify-between sm:justify-end sm:gap-x-20">
+      {routes.map(({ name, path }) => (
         <NavbarLink
-          key={name}
           name={name}
           path={path}
+          key={`${path}-${name}`}
           isPathActive={pathname === path}
         />
       ))}
