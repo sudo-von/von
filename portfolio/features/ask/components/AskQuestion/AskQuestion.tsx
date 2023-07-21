@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Typography from "../../../../components/Typography/Typography";
+import Card from "../../../../components/Card/Card";
 
 type AskQuestionProps = {
   id: string;
@@ -18,7 +19,7 @@ const AskQuestion: FC<AskQuestionProps> = ({ answer, askedAt, question }) => {
     hour12: true,
   }).format(askedAt);
   return (
-    <div className="hover:shadow cursor-pointer flex flex-col gap-3 p-5 border border-slate-100 focus:border-slate-200 focus:outline-none rounded">
+    <Card>
       <Typography weight="bold" variant="caption">
         “{question}”
       </Typography>
@@ -28,7 +29,7 @@ const AskQuestion: FC<AskQuestionProps> = ({ answer, askedAt, question }) => {
       <Typography weight="light" variant="caption">
         {answer}
       </Typography>
-    </div>
+    </Card>
   );
 };
 
