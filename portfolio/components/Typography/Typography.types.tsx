@@ -1,6 +1,6 @@
 export type TypographyAlign = "center" | "start";
 
-export type TypographyColor = "white" | "black" | "slate";
+export type TypographyColor = "white" | "black" | "slate" | "red";
 
 export type TypographyComponent =
   | "p"
