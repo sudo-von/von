@@ -1,15 +1,15 @@
 import { NextPage } from "next";
-import VerticalAlignLayout from "../../layouts/VerticalAlignLayout/VerticalAlignLayout";
+import CenteredLayout from "../../layouts/CenteredLayout/CenteredLayout";
 import OutOfService from "../../components/OutOfService/OutOfService";
 
 const Blog: NextPage = () => {
   return (
-    <VerticalAlignLayout>
+    <CenteredLayout>
       <OutOfService
         title="VoN"
         description="This page is under construction."
       />
-    </VerticalAlignLayout>
+    </CenteredLayout>
   );
 };
 

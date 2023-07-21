@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import useSignup from "../features/signup/hooks/useSignup";
-import VerticalAlignLayout from "../layouts/VerticalAlignLayout/VerticalAlignLayout";
+import CenteredLayout from "../layouts/CenteredLayout/CenteredLayout";
 import AuthLayout from "../features/auth/layouts/AuthLayout/AuthLayout";
 import AuthBanner from "../features/auth/components/AuthBanner/AuthBanner";
 import SignupForm from "../features/signup/components/SignupForm/SignupForm";
@@ -9,7 +9,7 @@ import AuthFramedLink from "../features/auth/components/AuthFramedLink/AuthFrame
 const Signup: NextPage = () => {
   const { user, onSubmit, onHandleChange } = useSignup();
   return (
-    <VerticalAlignLayout>
+    <CenteredLayout>
       <AuthLayout>
         <AuthBanner
           title="Create an account"
@@ -26,7 +26,7 @@ const Signup: NextPage = () => {
           message="Have an account?"
         />
       </AuthLayout>
-    </VerticalAlignLayout>
+    </CenteredLayout>
   );
 };
 
