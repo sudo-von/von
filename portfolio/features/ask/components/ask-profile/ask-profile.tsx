@@ -6,8 +6,8 @@ import AskInterest from "./components/ask-interest/ask-interest";
 import AskPosition from "./components/ask-position/ask-position";
 
 type AskProfileProps = {
-  avatar: string;
   name: string;
+  avatar: string;
   position: string;
   interest: string;
   metrics: {

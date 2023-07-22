@@ -1,9 +1,9 @@
 import { NextPage } from "next";
 import useQuestion from "../../features/question/hooks/use-question";
-import AskProfile from "../../features/ask/components/ask-profile/ask-profile";
 import AskLayout from "../../features/ask/layouts/ask-layout/ask-layout";
+import AskProfile from "../../features/ask/components/ask-profile/ask-profile";
 import CreateQuestionForm from "../../features/question/components/create-question-form/create-question-form";
-import AnsweredQuestionList from "../../features/question/components/answered-question-list/answered-question-list";
+import AskAnsweredQuestionList from "../../features/ask/components/ask-answered-question-list/ask-answered-question-list";
 
 const user = {
   name: "Jesús Rodríguez",
@@ -53,7 +53,7 @@ const Ask: NextPage = () => {
         onChange={onHandleChange}
         onSubmit={onSubmit}
       />
-      <AnsweredQuestionList answeredQuestions={questions} />
+      <AskAnsweredQuestionList answeredQuestions={questions} />
     </AskLayout>
   );
 };

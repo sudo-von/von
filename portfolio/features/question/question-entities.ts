@@ -2,7 +2,7 @@ export type CreateQuestion = {
   question: string;
 };
 
-export type AnsweredQuestionEntity = {
+export type AnsweredQuestion = {
   id: string;
   answer: string;
   question: string;
