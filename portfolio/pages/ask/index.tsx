@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import useQuestion from "../../features/question/hooks/use-question";
-import AskProfile from "../../features/ask/components/AskProfile/AskProfile";
+import AskProfile from "../../features/ask/components/ask-profile/ask-profile";
 import AskLayout from "../../features/ask/layouts/ask-layout/ask-layout";
 import CreateQuestionForm from "../../features/question/components/create-question-form/create-question-form";
 import AnsweredQuestionList from "../../features/question/components/answered-question-list/answered-question-list";
@@ -48,7 +48,7 @@ const Ask: NextPage = () => {
         position={user.position}
       />
       <CreateQuestionForm
-        error={error}
+        error={false}
         question={question}
         onChange={onHandleChange}
         onSubmit={onSubmit}

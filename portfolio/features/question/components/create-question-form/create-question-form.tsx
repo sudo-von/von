@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, FormEvent } from "react";
+import { ChangeEvent, FC, FormEvent } from "react";
 import Input from "../../../../components/input/input";
 import Button from "../../../../components/button/button";
 

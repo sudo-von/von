@@ -1,9 +1,9 @@
 import { FC } from "react";
-import AskName from "../AskName/AskName";
-import AskAvatar from "../AskAvatar/AskAvatar";
-import AskMetrics from "../AskMetrics/AskMetrics";
-import AskInterest from "../AskInterest/AskInterest";
-import AskPosition from "../AskPosition/AskPosition";
+import AskName from "./components/ask-name/ask-name";
+import AskAvatar from "./components/ask-avatar/ask-avatar";
+import AskMetrics from "./components/ask-metrics/ask-metrics";
+import AskInterest from "./components/ask-interest/ask-interest";
+import AskPosition from "./components/ask-position/ask-position";
 
 type AskProfileProps = {
   avatar: string;
@@ -18,13 +18,12 @@ type AskProfileProps = {
 };
 
 const AskProfile: FC<AskProfileProps> = ({
-  avatar,
   name,
+  avatar,
   metrics,
   interest,
   position,
 }) => {
-  const { totalViews, totalQuestions, totalAnswers } = metrics;
   return (
     <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-10">
       <div className="relative grayscale w-36 h-36 md:w-40 md:h-40 lg:h-44 lg:w-44">
@@ -32,13 +31,13 @@ const AskProfile: FC<AskProfileProps> = ({
       </div>
       <div className="flex flex-row items-center">
         <div className="flex flex-col gap-2.5 sm:gap-4 text-center sm:text-start">
-          <AskName name={name} />
-          <AskPosition position={position} />
-          <AskInterest interest={interest} />
+          <AskName>{name}</AskName>
+          <AskPosition>{position}</AskPosition>
+          <AskInterest>{interest}</AskInterest>
           <AskMetrics
-            totalViews={totalViews}
-            totalQuestions={totalQuestions}
-            totalAnswers={totalAnswers}
+            totalViews={metrics.totalViews}
+            totalQuestions={metrics.totalQuestions}
+            totalAnswers={metrics.totalAnswers}
           />
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { FC } from "react";
-import Typography from "../../../../components/typography/typography";
+import { formatMetrics } from "./ask-metrics.utils";
+import Typography from "../../../../../../components/typography/typography";
 
 type AskMetricsProps = {
   totalViews: number;
@@ -12,13 +13,13 @@ const AskMetrics: FC<AskMetricsProps> = ({
   totalAnswers,
   totalQuestions,
 }) => {
-  const formattedViews = `${totalViews} ${totalViews === 1 ? "View" : "Views"}`;
-  const formattedAnswers = `${totalAnswers} ${
-    totalAnswers === 1 ? "Answer" : "Answers"
-  }`;
-  const formattedQuestions = `${totalQuestions} ${
-    totalQuestions === 1 ? "Question" : "Questions"
-  }`;
+  const formattedViews = formatMetrics(totalViews, "View", "Views");
+  const formattedAnswers = formatMetrics(totalAnswers, "Answer", "Answers");
+  const formattedQuestions = formatMetrics(
+    totalQuestions,
+    "Question",
+    "Questions"
+  );
   const formattedText = `${formattedViews} • ${formattedQuestions} • ${formattedAnswers}`;
   return (
     <Typography variant="caption" weight="light" color="black">

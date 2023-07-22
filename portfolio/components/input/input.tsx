@@ -1,14 +1,12 @@
 import { ComponentPropsWithoutRef, FC } from "react";
-import InputHintWrapper, {
-  InputHintWrapperProps,
-} from "./components/input-hint-wrapper/input-hint-wrapper";
-import InputLabelWrapper, {
-  InputLabelWrapperProps,
-} from "./components/input-label-wrapper/input-label-wrapper";
+import InputHintWrapper from "./components/input-hint-wrapper/input-hint-wrapper";
+import InputLabelWrapper from "./components/input-label-wrapper/input-label-wrapper";
 
-export type InputProps = ComponentPropsWithoutRef<"input"> &
-  Pick<InputLabelWrapperProps, "label"> &
-  Pick<InputHintWrapperProps, "hint" | "error">;
+export type InputProps = ComponentPropsWithoutRef<"input"> & {
+  hint?: string;
+  label?: string;
+  error?: boolean;
+};
 
 const Input: FC<InputProps> = ({
   id,
