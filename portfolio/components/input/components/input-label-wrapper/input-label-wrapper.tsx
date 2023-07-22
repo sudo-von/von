@@ -3,14 +3,20 @@ import Typography from "../../../typography/typography";
 
 export type InputLabelWrapperProps = {
   label?: string;
+  error?: boolean;
   children: ReactNode;
 };
 
-const InputLabelWrapper: FC<InputLabelWrapperProps> = ({ label, children }) => {
+const InputLabelWrapper: FC<InputLabelWrapperProps> = ({
+  label,
+  error,
+  children,
+}) => {
   if (!label) return children;
+  const color = error ? "red" : "slate";
   return (
     <div className="flex flex-col gap-1">
-      <Typography color="slate" spacing="wide" variant="legend" weight="light">
+      <Typography color={color} spacing="wide" variant="legend" weight="light">
         {label}
       </Typography>
       {children}

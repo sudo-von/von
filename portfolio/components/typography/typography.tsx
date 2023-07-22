@@ -27,7 +27,7 @@ const options: TypographyOptions = {
     start: "text-start",
   },
   color: {
-    red: "text-red",
+    red: "text-red-200",
     white: "text-slate-50",
     black: "text-slate-850",
     slate: "text-slate-550",

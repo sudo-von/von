@@ -13,7 +13,20 @@ module.exports = {
       "secondary-variant": "#9B9B9B",
       "white": "#ffffff",
       "black": "#000000",
-      "red": "#b91c1c",
+      "red": {
+        50: "#ff9999",
+        100: "#ff8080",
+        150: "#ff6666",
+        200: "#ff4d4d",
+        250: "#ff3333",
+        300: "#ff1a1a",
+        350: "#ff0000",
+        400: "#e60000",
+        450: "#cc0000",
+        500: "#b30000",
+        550: "#990000",
+        600: "#800000",        
+      },
       "slate": {
         50: "#f2f2f2",  // button-text-color
         100: "#e6e6e6", // input border

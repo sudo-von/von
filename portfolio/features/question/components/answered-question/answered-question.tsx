@@ -1,30 +1,32 @@
 import { FC } from "react";
+import { useRouter } from "next/router";
+import { formatQuestionDate } from "../../question-utils";
 import Typography from "../../../../components/typography/typography";
 import Card from "../../../../components/card/card";
 
-type AskQuestionProps = {
+type AnsweredQuestionProps = {
   id: string;
-  askedAt: Date;
   answer: string;
   question: string;
+  answeredAt: Date;
 };
 
-const AskQuestion: FC<AskQuestionProps> = ({ answer, askedAt, question }) => {
-  const formattedDate = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  }).format(askedAt);
+const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
+  id,
+  answer,
+  question,
+  answeredAt,
+}) => {
+  const router = useRouter();
+  const onClick = () => router.push(`/ask/${id}`);
+  const formattedAskedAt = formatQuestionDate(answeredAt);
   return (
-    <Card>
+    <Card onClick={onClick}>
       <Typography weight="bold" variant="caption">
         “{question}”
       </Typography>
       <Typography weight="light" variant="legend" color="slate">
-        {formattedDate}
+        {formattedAskedAt}
       </Typography>
       <Typography weight="light" variant="caption">
         {answer}
@@ -33,4 +35,4 @@ const AskQuestion: FC<AskQuestionProps> = ({ answer, askedAt, question }) => {
   );
 };
 
-export default AskQuestion;
+export default AnsweredQuestion;

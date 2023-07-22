@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import CenteredLayout from "../layouts/centered-layout/centered-layout";
 import OutOfService from "../components/out-of-service/out-of-service";
+import CenteredLayout from "../layouts/centered-layout/centered-layout";
 
 const Home: NextPage = () => {
   return (
