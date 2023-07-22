@@ -3,8 +3,8 @@ import Typography from "../../../typography/typography";
 
 export type InputHintWrapperProps = {
   hint?: string;
-  error?: boolean;
   children: ReactNode;
+  error?: string | null;
 };
 
 const InputHintWrapper: FC<InputHintWrapperProps> = ({

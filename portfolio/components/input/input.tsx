@@ -5,7 +5,7 @@ import InputLabelWrapper from "./components/input-label-wrapper/input-label-wrap
 export type InputProps = ComponentPropsWithoutRef<"input"> & {
   hint?: string;
   label?: string;
-  error?: boolean;
+  error?: string | null;
 };
 
 const Input: FC<InputProps> = ({
@@ -27,8 +27,8 @@ const Input: FC<InputProps> = ({
     : "border-slate-100 focus:border-slate-200";
   const inputClassName = `${textClassName} ${borderClassName} w-full p-3 pr-11 border rounded focus:outline-none`;
   return (
-    <InputLabelWrapper label={label} error={error}>
-      <InputHintWrapper hint={hint} error={error}>
+    <InputLabelWrapper error={error} htmlFor={id} label={label}>
+      <InputHintWrapper error={error} hint={hint}>
         <input
           id={id}
           name={name}

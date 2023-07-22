@@ -3,10 +3,14 @@ import { useRouter } from "next/router";
 import Card from "../../../../components/card/card";
 import AskAnswer from "./components/ask-answer/ask-answer";
 import AskQuestion from "./components/ask-question/ask-question";
-import { AnsweredQuestion } from "../../../question/question-entities";
 import AskAnsweredAt from "./components/ask-answered-at/ask-answered-at";
 
-type AskAnsweredQuestionProps = AnsweredQuestion;
+type AskAnsweredQuestionProps = {
+  id: string;
+  answer: string;
+  question: string;
+  answeredAt: Date;
+};
 
 const AskAnsweredQuestion: FC<AskAnsweredQuestionProps> = ({
   id,

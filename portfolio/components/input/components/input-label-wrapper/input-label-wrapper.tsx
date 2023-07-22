@@ -1,24 +1,25 @@
 import { FC, ReactNode } from "react";
-import Typography from "../../../typography/typography";
+import Label from "../../../label/label";
 
 export type InputLabelWrapperProps = {
   label?: string;
-  error?: boolean;
+  htmlFor?: string;
   children: ReactNode;
+  error?: string | null;
 };
 
 const InputLabelWrapper: FC<InputLabelWrapperProps> = ({
   label,
   error,
+  htmlFor,
   children,
 }) => {
   if (!label) return children;
-  const color = error ? "red" : "slate";
   return (
     <div className="flex flex-col gap-1">
-      <Typography color={color} spacing="wide" variant="legend" weight="light">
+      <Label htmlFor={htmlFor} error={error}>
         {label}
-      </Typography>
+      </Label>
       {children}
     </div>
   );
