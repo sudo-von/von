@@ -4,15 +4,11 @@ import Card from "../../../../components/card/card";
 import AskAnswer from "./components/ask-answer/ask-answer";
 import AskQuestion from "./components/ask-question/ask-question";
 import AskAnsweredAt from "./components/ask-answered-at/ask-answered-at";
+import { BasicAnsweredQuestion } from "../../question-entities";
 
-type AskAnsweredQuestionProps = {
-  id: string;
-  answer: string;
-  question: string;
-  answeredAt: Date;
-};
+type AnsweredQuestionProps = BasicAnsweredQuestion;
 
-const AskAnsweredQuestion: FC<AskAnsweredQuestionProps> = ({
+const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
   id,
   answer,
   question,
@@ -29,4 +25,4 @@ const AskAnsweredQuestion: FC<AskAnsweredQuestionProps> = ({
   );
 };
 
-export default AskAnsweredQuestion;
+export default AnsweredQuestion;

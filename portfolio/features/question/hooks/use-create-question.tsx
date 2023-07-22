@@ -18,12 +18,16 @@ const useCreateQuestion = () => {
   const onHandleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      setError(null);
-      validateQuestionCreation(question);
+      onHandleValidation(question);
       console.log("pasaste!", question.question);
     } catch (error) {
       setError((error as Error).message);
     }
+  };
+
+  const onHandleValidation = (payload: CreateQuestion) => {
+    setError(null);
+    validateQuestionCreation(payload);
   };
 
   useEffect(() => {
@@ -34,8 +38,7 @@ const useCreateQuestion = () => {
       }
 
       try {
-        setError("");
-        validateQuestionCreation(question);
+        onHandleValidation(question);
       } catch (error) {
         setError((error as Error).message);
       }

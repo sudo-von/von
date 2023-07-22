@@ -5,7 +5,7 @@ type ButtonProps = ComponentPropsWithoutRef<"button">;
 const Button: FC<ButtonProps> = ({ type, onClick, children, disabled }) => {
   const backgroundClassName = "bg-slate-850 hover:bg-slate-950";
   const textClassName = "text-slate-50 text-base text-center font-normal";
-  const disabledClassName = disabled ? "opacity-40 cursor-not-allowed" : "";
+  const disabledClassName = disabled ? "opacity-30 cursor-not-allowed" : "";
   const className = `${backgroundClassName} ${textClassName} ${disabledClassName} rounded p-3`;
   return (
     <button

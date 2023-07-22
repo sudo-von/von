@@ -7,7 +7,7 @@ type LabelProps = {
 };
 
 const Label: FC<LabelProps> = ({ htmlFor, children, error }) => {
-  const colorClassName = error ? "text-red-200" : "text-slate-550";
+  const colorClassName = error ? "text-red-150" : "text-slate-550";
   const textClassName = "text-xs tracking-wide font-light";
   const className = `${colorClassName} ${textClassName}`;
   return (

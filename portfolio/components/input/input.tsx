@@ -23,7 +23,7 @@ const Input: FC<InputProps> = ({
   const textClassName =
     "text-slate-850 placeholder-slate-300 font-light text-sm";
   const borderClassName = error
-    ? "border-red-100 focus:border-red-200"
+    ? "border-red-50 focus:border-red-150"
     : "border-slate-100 focus:border-slate-200";
   const inputClassName = `${textClassName} ${borderClassName} w-full p-3 pr-11 border rounded focus:outline-none`;
   return (

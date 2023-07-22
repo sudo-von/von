@@ -3,7 +3,9 @@ import AskLayout from "../../features/ask/layouts/ask-layout/ask-layout";
 import AskProfile from "../../features/ask/components/ask-profile/ask-profile";
 import useCreateQuestion from "../../features/question/hooks/use-create-question";
 import CreateQuestionForm from "../../features/question/components/create-question-form/create-question-form";
-import AskAnsweredQuestionList from "../../features/question/components/ask-answered-question-list/ask-answered-question-list";
+import AnsweredQuestionList from "../../features/question/components/answered-question-list/answered-question-list";
+import axios from "axios";
+import { DetailedUser, User } from "../../features/user/user-entities";
 
 const questions = [
   {
@@ -22,19 +24,11 @@ const questions = [
   },
 ];
 
-const Ask: NextPage<{
-  user: {
-    name: string;
-    avatar: string;
-    metrics: {
-      totalViews: number;
-      totalQuestions: number;
-      totalAnswers: number;
-    };
-    position: string;
-    interest: string;
-  };
-}> = ({ user }) => {
+type AskProps = {
+  user: DetailedUser;
+};
+
+const Ask: NextPage<AskProps> = ({ user }) => {
   const { error, question, onHandleChange, onHandleSubmit } =
     useCreateQuestion();
   return (
@@ -52,16 +46,22 @@ const Ask: NextPage<{
         onHandleChange={onHandleChange}
         onHandleSubmit={onHandleSubmit}
       />
-      <AskAnsweredQuestionList answeredQuestions={questions} />
+      <AnsweredQuestionList questions={questions} />
     </AskLayout>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const user = {
-    name: "Jesús Rodríguez",
-    avatar:
-      "https://i.pinimg.com/564x/e2/55/be/e255be1da7c71138cec7648fa620a0df.jpg",
+  const { data } = await axios.get<{ result: User }>(
+    "http://localhost:3000/api/v1/user/username/sudo_von"
+  );
+
+  const user: DetailedUser = {
+    id: data.result.id,
+    name: data.result.name,
+    email: data.result.email,
+    username: data.result.username,
+    avatar: `http://localhost:3000/static/${data.result.avatar}` || "",
     metrics: {
       totalViews: 10,
       totalQuestions: 20,
@@ -70,6 +70,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     position: "Software engineer",
     interest: "Passionate about ethical hacking",
   };
+  console.log(
+    "🚀 ~ file: index.tsx:73 ~ constgetStaticProps:GetStaticProps= ~ user:",
+    user
+  );
 
   return {
     props: {

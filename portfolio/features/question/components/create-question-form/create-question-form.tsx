@@ -17,20 +17,20 @@ const CreateQuestionForm: FC<CreateQuestionFormProps> = ({
   onHandleChange,
 }) => {
   const hint = `${question.question.length}/100`;
-
+  const isDisabled = Boolean(error);
   return (
     <form className="flex flex-col gap-5" onSubmit={onHandleSubmit}>
       <Input
         id="question"
         hint={hint}
-        label="Question"
         error={error}
         name="question"
+        label="Question"
         value={question.question}
         onChange={onHandleChange}
         placeholder="Ask me a question!"
       />
-      <Button disabled={!!error}>Send question</Button>
+      <Button disabled={isDisabled}>Send question</Button>
     </form>
   );
 };
