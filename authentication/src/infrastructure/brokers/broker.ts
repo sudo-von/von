@@ -1,6 +1,6 @@
 import {
-  Queue,
-} from './broker-queues';
+  Exchange,
+} from './broker-exchanges';
 import LoggerService from '../services/logger-service/logger-service';
 
 abstract class Broker<T> {
@@ -36,20 +36,20 @@ abstract class Broker<T> {
   => Promise<void>;
 
   /**
-  * Consumes messages from a specific queue.
-  * @param {Queue} queue - The queue to consume from.
+  * Consumes messages from a specific exchange.
+  * @param {Exchange} exchange - The exchange to consume from.
   * @returns {Promise<void>} A promise that resolves when the consumption is complete.
   */
-  abstract consume: (queue: Queue)
+  abstract consume: (exchange: Exchange)
   => Promise<void>;
 
   /**
-  * Produces a message to a specific queue.
-  * @param {Queue} queue - The queue to produce to.
+  * Produces a message to a specific exchange.
+  * @param {Exchange} exchange - The exchange to produce to.
   * @param {T} data - The data to produce.
   * @returns {Promise<void>} A promise that resolves when the production is complete.
   */
-  abstract produce: (queue: Queue, data: T)
+  abstract produce: (exchange: Exchange, data: T)
   => Promise<void>;
 }
 

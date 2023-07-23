@@ -54,7 +54,7 @@ loggerService.info('📢 Logger service has been configured.');
     /* 🚀 Server. */
     configureServer(SERVER_PORT, loggerService);
   } catch (e) {
-    console.log(`⛔️ An error occurred while configuring the application: ${(e as Error).message}`);
+    loggerService.error('There was an application error.', e as Error);
     process.exit(1);
   }
 })();
