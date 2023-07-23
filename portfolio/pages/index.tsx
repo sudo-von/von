@@ -1,10 +1,12 @@
 import { NextPage, GetStaticProps } from "next";
 import HomeVideo from "../features/home/components/home-video/home-video";
+import HomeLayout from "../features/home/layouts/home-layout/home-layout";
 import HomeProfile from "../features/home/components/home-profile/home-profile";
 import HomeSection from "../features/home/components/home-section/home-section";
-import axios from "axios";
-import HomeLayout from "../features/home/layouts/home-layout/home-layout";
 import HomeSectionLayout from "../features/home/layouts/home-section-layout/home-section-layout";
+import HomeAboutSection from "../features/home/components/home-about-section/home-about-section";
+import HomeCybersecuritySection from "../features/home/components/home-cybersecurity-section/home-cybersecurity-section";
+import HomeExperienceSection from "../features/home/components/home-experience-section/home-experience-section";
 
 type User = {
   name: string;
@@ -39,39 +41,23 @@ const Home: NextPage<HomeProps> = ({ user, sections }) => {
         position={user.position}
         interest={user.interest}
       />
-      <HomeSectionLayout>
-        <HomeSection
-          title={about.title}
-          subtitle={about.subtitle}
-          description={about.description}
-        />
-        <HomeVideo
-          title="About me"
-          src="https://www.youtube.com/embed/81H41vp96ag"
-        />
-      </HomeSectionLayout>
-      <HomeSectionLayout>
-        <HomeSection
-          title={experience.title}
-          subtitle={experience.subtitle}
-          description={experience.description}
-        />
-        <HomeVideo
-          title="Experience"
-          src="https://www.youtube.com/embed/81H41vp96ag"
-        />
-      </HomeSectionLayout>
-      <HomeSectionLayout>
-        <HomeSection
-          title={cybersecurity.title}
-          subtitle={cybersecurity.subtitle}
-          description={cybersecurity.description}
-        />
-        <HomeVideo
-          title="Cybersecurity"
-          src="https://www.youtube.com/embed/81H41vp96ag"
-        />
-      </HomeSectionLayout>
+      <HomeAboutSection
+        title={about.title}
+        subtitle={about.subtitle}
+        description={about.description}
+        src="https://www.youtube.com/embed/81H41vp96ag"
+      />
+      <HomeExperienceSection
+        title={experience.title}
+        subtitle={experience.subtitle}
+        description={experience.description}
+      />
+      <HomeCybersecuritySection
+        title={cybersecurity.title}
+        subtitle={cybersecurity.subtitle}
+        description={cybersecurity.description}
+        src="https://www.youtube.com/embed/81H41vp96ag"
+      />
       <HomeSectionLayout>
         <HomeSection
           title={technology.title}
