@@ -33,7 +33,7 @@ const options: TypographyOptions = {
     slate: "text-slate-550",
   },
   variant: {
-    banner: "text-6xl",
+    banner: "text-4xl sm:text-5xl md:text-6xl",
     heading: "text-4xl",
     title: "text-2xl",
     subtitle: "text-xl",
@@ -52,7 +52,7 @@ const options: TypographyOptions = {
   },
   whitespace: {
     normal: "whitespace-normal",
-    pre: "whitespace-pre",
+    pre: "whitespace-pre-line",
   },
 };
 

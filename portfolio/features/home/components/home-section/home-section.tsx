@@ -13,16 +13,16 @@ const HomeSection: FC<HomeSectionProps> = ({
   description,
 }) => {
   return (
-    <div className="flex flex-col gap-5">
-      <Typography variant="title" weight="regular">
+    <div className="flex flex-col justify-center text-center lg:text-start gap-8">
+      <Typography variant="title" weight="regular" whitespace="pre">
         {title}
       </Typography>
       <Typography variant="subtitle" weight="light" whitespace="pre">
         {subtitle}
       </Typography>
       <Typography
-        color="slate"
         variant="caption"
+        color="slate"
         weight="light"
         whitespace="pre"
       >

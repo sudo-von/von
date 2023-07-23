@@ -10,7 +10,7 @@ type NavbarProps = {
 const Navbar: FC<NavbarProps> = ({ routes = [] }) => {
   const { pathname } = useRouter();
   return (
-    <div className="flex justify-between sm:justify-end sm:gap-x-20">
+    <div className="flex justify-between lg:justify-end lg:gap-x-20">
       {routes.map(({ name, path }) => (
         <NavbarLink
           name={name}
