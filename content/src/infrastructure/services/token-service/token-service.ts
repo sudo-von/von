@@ -1,17 +1,21 @@
 import {
-  TokenUserDto,
-} from './dtos/token-user-dto';
+  UserToken,
+} from './dtos/user-dto/user-token-dtos';
 
-interface ITokenServiceReader {
-  decodeToken: (token: string) => TokenUserDto;
-}
+abstract class TokenService {
+  /**
+  * Creates an instance of TokenService.
+  * @param {string} secret - The secret key used to sign the token.
+  */
+  constructor(protected readonly secret: string) {}
 
-interface ITokenService extends ITokenServiceReader {}
-
-abstract class TokenService implements ITokenService {
-  constructor(protected SECRET_KEY: string) {}
-
-  abstract decodeToken: (token: string) => TokenUserDto;
+  /**
+  * Decodes a token and returns a UserToken object.
+  * @param {string} token - The token to decode.
+  * @returns {Promise<UserToken>} A promise with the UserToken.
+  */
+  abstract decode: (token: string)
+  => Promise<UserToken>;
 }
 
 export default TokenService;
