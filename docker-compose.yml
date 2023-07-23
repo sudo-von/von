@@ -36,6 +36,17 @@ services:
     restart: always
     logging:
       driver: none
+  content_database:
+    image: mongo:4.4
+    container_name: content_database
+    ports:
+      - 27019:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${CONTENT_DATABASE_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${CONTENT_DATABASE_PASSWORD}
+    restart: always
+    logging:
+      driver: none
   # 🔧 Services.
   authentication:
     build:
@@ -52,6 +63,14 @@ services:
     container_name: ask
     ports:
       - 3001:3001
+    restart: on-failure:10
+  content:
+    build:
+      context: ./content
+      dockerfile: Dockerfile
+    container_name: content
+    ports:
+      - 3002:3002
     restart: on-failure:10
   daily-ask:
     build:
