@@ -1,6 +1,6 @@
+import configureServer from './infrastructure/config/configure-server';
 import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
-import configureServer from './infrastructure/config/configure-server';
 import configureFileService from './infrastructure/config/configure-file-service';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureTokenService from './infrastructure/config/configure-token-service';

@@ -1,7 +1,7 @@
 {
-  "name": "details",
+  "name": "content",
   "version": "1.0.0",
-  "description": "details microservice implemented by von",
+  "description": "content microservice implemented by von",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -11,7 +11,7 @@
     "test:integration": "jest --testMatch 'tests/**/*.integration-test.ts'"
   },
   "keywords": [
-    "microservice, details, von"
+    "microservice, content, von"
   ],
   "author": "Jesús 'VoN' Rodríguez",
   "license": "ISC",
