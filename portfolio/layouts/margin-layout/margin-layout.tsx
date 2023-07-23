@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 
 const MarginLayout: FC<PropsWithChildren> = ({ children }) => {
-  return <div className="m-10 sm:m-20 md:m-28">{children}</div>;
+  return <div className="mx-10 sm:mx-20 md:mx-28 mt-20">{children}</div>;
 };
 
 export default MarginLayout;

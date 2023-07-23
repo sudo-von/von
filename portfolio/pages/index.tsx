@@ -1,12 +1,10 @@
 import { NextPage, GetStaticProps } from "next";
-import HomeVideo from "../features/home/components/home-video/home-video";
+import Profile from "../features/home/components/profile/profile";
 import HomeLayout from "../features/home/layouts/home-layout/home-layout";
-import HomeProfile from "../features/home/components/home-profile/home-profile";
-import HomeSection from "../features/home/components/home-section/home-section";
-import HomeSectionLayout from "../features/home/layouts/home-section-layout/home-section-layout";
-import HomeAboutSection from "../features/home/components/home-about-section/home-about-section";
-import HomeCybersecuritySection from "../features/home/components/home-cybersecurity-section/home-cybersecurity-section";
-import HomeExperienceSection from "../features/home/components/home-experience-section/home-experience-section";
+import AboutSection from "../features/home/components/about-section/about-section";
+import ExperienceSection from "../features/home/components/experience-section/experience-section";
+import TechnologySection from "../features/home/components/technology-section/technology-section";
+import CybersecuritySection from "../features/home/components/cybersecurity-section/cybersecurity-section";
 
 type User = {
   name: string;
@@ -35,40 +33,35 @@ const Home: NextPage<HomeProps> = ({ user, sections }) => {
   const { about, experience, cybersecurity, technology } = sections;
   return (
     <HomeLayout>
-      <HomeProfile
+      <Profile
         name={user.name}
         quote={user.quote}
         position={user.position}
         interest={user.interest}
       />
-      <HomeAboutSection
+      <AboutSection
         title={about.title}
         subtitle={about.subtitle}
         description={about.description}
         src="https://www.youtube.com/embed/81H41vp96ag"
       />
-      <HomeExperienceSection
+      <ExperienceSection
         title={experience.title}
         subtitle={experience.subtitle}
         description={experience.description}
       />
-      <HomeCybersecuritySection
+      <CybersecuritySection
         title={cybersecurity.title}
         subtitle={cybersecurity.subtitle}
         description={cybersecurity.description}
         src="https://www.youtube.com/embed/81H41vp96ag"
       />
-      <HomeSectionLayout>
-        <HomeSection
-          title={technology.title}
-          subtitle={technology.subtitle}
-          description={technology.description}
-        />
-        <HomeVideo
-          title="Technologies"
-          src="https://www.youtube.com/embed/81H41vp96ag"
-        />
-      </HomeSectionLayout>
+      <TechnologySection
+        title={technology.title}
+        subtitle={technology.subtitle}
+        description={technology.description}
+        src="https://www.youtube.com/embed/81H41vp96ag"
+      />
     </HomeLayout>
   );
 };
@@ -82,7 +75,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   };
 
   const aboutSection = {
-    title: "Introduction",
+    title: "About me",
     subtitle:
       "I was fortunate.\nI discovered what I wanted to do early in life.",
     description:

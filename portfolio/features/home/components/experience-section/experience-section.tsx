@@ -1,27 +1,23 @@
 import { FC } from "react";
-import HomeSectionLayout from "../../layouts/home-section-layout/home-section-layout";
-import HomeSection from "../home-section/home-section";
 import Image from "next/image";
+import Section from "../section/section";
 import Typography from "../../../../components/typography/typography";
+import SectionContainer from "../section/components/section-container/section-container";
 
-type HomeExperienceProps = {
+type ExperienceSectionProps = {
   title: string;
   subtitle: string;
   description: string;
 };
 
-const HomeExperienceSection: FC<HomeExperienceProps> = ({
+const ExperienceSection: FC<ExperienceSectionProps> = ({
   title,
   subtitle,
   description,
 }) => {
   return (
-    <HomeSectionLayout>
-      <HomeSection
-        title={title}
-        subtitle={subtitle}
-        description={description}
-      />
+    <SectionContainer>
+      <Section title={title} subtitle={subtitle} description={description} />
       <div className="flex flex-row justify-center">
         <div className="flex items-center gap-2 h-min">
           <div className="flex flex-col h-min">
@@ -44,8 +40,8 @@ const HomeExperienceSection: FC<HomeExperienceProps> = ({
           </div>
         </div>
       </div>
-    </HomeSectionLayout>
+    </SectionContainer>
   );
 };
 
-export default HomeExperienceSection;
+export default ExperienceSection;

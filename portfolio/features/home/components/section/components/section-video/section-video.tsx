@@ -1,11 +1,11 @@
 import { FC } from "react";
 
-type HomeVideoProps = {
+type SectionVideoProps = {
   src: string;
   title: string;
 };
 
-const HomeVideo: FC<HomeVideoProps> = ({ src, title }) => {
+const SectionVideo: FC<SectionVideoProps> = ({ src, title }) => {
   return (
     <div className="flex justify-center items-center">
       <iframe
@@ -19,4 +19,4 @@ const HomeVideo: FC<HomeVideoProps> = ({ src, title }) => {
   );
 };
 
-export default HomeVideo;
+export default SectionVideo;
