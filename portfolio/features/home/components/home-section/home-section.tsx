@@ -1,5 +1,7 @@
 import { FC } from "react";
-import Typography from "../../../../components/typography/typography";
+import HomeTitle from "./components/home-title/home-title";
+import HomeSubtitle from "./components/home-subtitle/home-subtitle";
+import HomeDescription from "./components/home-description/home-description";
 
 type HomeSectionProps = {
   title: string;
@@ -14,20 +16,9 @@ const HomeSection: FC<HomeSectionProps> = ({
 }) => {
   return (
     <div className="flex flex-col justify-center text-center lg:text-start gap-8">
-      <Typography variant="title" weight="regular" whitespace="pre">
-        {title}
-      </Typography>
-      <Typography variant="subtitle" weight="light" whitespace="pre">
-        {subtitle}
-      </Typography>
-      <Typography
-        variant="caption"
-        color="slate"
-        weight="light"
-        whitespace="pre"
-      >
-        {description}
-      </Typography>
+      <HomeTitle>{title}</HomeTitle>
+      <HomeSubtitle>{subtitle}</HomeSubtitle>
+      <HomeDescription>{description}</HomeDescription>
     </div>
   );
 };

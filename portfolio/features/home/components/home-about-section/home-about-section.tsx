@@ -23,10 +23,7 @@ const HomeAboutSection: FC<HomeAboutProps> = ({
         subtitle={subtitle}
         description={description}
       />
-      <HomeVideo
-        title={title}
-        src="https://www.youtube.com/embed/81H41vp96ag"
-      />
+      <HomeVideo src={src} title={title} />
     </HomeSectionLayout>
   );
 };
