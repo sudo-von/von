@@ -43,12 +43,32 @@ const Home: NextPage<HomeProps> = ({ user, sections }) => {
         title={about.title}
         subtitle={about.subtitle}
         description={about.description}
-        src="https://www.youtube.com/embed/81H41vp96ag"
+        src="https://www.youtube.com/embed/OifiVCnFKzM"
       />
       <ExperienceSection
         title={experience.title}
         subtitle={experience.subtitle}
         description={experience.description}
+        companies={[
+          {
+            name: "Intel corporation",
+            date: "Dec 2021 - Mar 2023",
+            position: "Full stack engineer",
+            src: "https://logodownload.org/wp-content/uploads/2014/04/intel-logo-1-1.png",
+          },
+          {
+            name: "Tredicom",
+            date: "Nov 2020 - Dec 2021",
+            position: "Full stack developer",
+            src: "https://scontent.fntr5-1.fna.fbcdn.net/v/t39.30808-6/300443824_168920352354407_1778796302346087197_n.png?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=AFeFYwEAO1YAX-sqqaC&_nc_ht=scontent.fntr5-1.fna&oh=00_AfADKTqwqkpPAH7GpLqZhdftMMgRtZxZ6iFvdUp3NXn3nw&oe=64C1BBEB",
+          },
+          {
+            name: "Evotek",
+            date: "Jun 2019 - Nov 2020",
+            position: "Full stack developer",
+            src: "https://evotek.vn/wp-content/uploads/2020/05/LinkedIn-Personal-Profile-Image-400x400-1.png",
+          },
+        ]}
       />
       <CybersecuritySection
         title={cybersecurity.title}

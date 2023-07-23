@@ -1,6 +1,6 @@
 import { FC } from "react";
-import SectionVideo from "../section/components/section-video/section-video";
 import Section from "../section/section";
+import SectionVideo from "../section/components/section-video/section-video";
 import SectionContainer from "../section/components/section-container/section-container";
 
 type CybersecuritySectionProps = {
