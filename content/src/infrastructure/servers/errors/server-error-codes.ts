@@ -1,7 +1,5 @@
 import {
   UserErrorCode,
-  AnswerErrorCode,
-  QuestionErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
   TokenServiceErrorCode,
@@ -14,22 +12,14 @@ export type ServerError = {
 };
 
 export type ServerErrorCode =
-| AnswerServerErrorCode
 | CommonServerErrorCode
-| QuestionServerErrorCode
 | TokenServerErrorCode
 | UserServerErrorCode;
-
-export type AnswerServerErrorCode =
-| AnswerErrorCode;
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
 | 'REQUIRED_FIELD'
 | 'REQUEST_RUNTIME_SERVER_ERROR';
-
-export type QuestionServerErrorCode =
-| QuestionErrorCode;
 
 export type TokenServerErrorCode =
 | TokenServiceErrorCode
