@@ -23,6 +23,7 @@ type Section = {
 type HomeProps = {
   user: User;
   sections: {
+    profile: Section;
     about: Section;
     experience: Section;
     cybersecurity: Section;
@@ -31,14 +32,14 @@ type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ user, sections }) => {
-  const { about, experience, cybersecurity, technology } = sections;
+  const { profile, about, experience, cybersecurity, technology } = sections;
   return (
     <HomeLayout>
       <Profile
         name={user.name}
-        quote={user.quote}
-        position={user.position}
-        interest={user.interest}
+        quote={profile.description}
+        position={profile.title}
+        interest={profile.subtitle}
       />
       <AboutSection
         title={about.title}
@@ -95,26 +96,31 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     quote: `At first, dreams seem impossible,\nthen improbable, and eventually inevitable.`,
   };
 
+  const { data: profileSection } = await axios.get<Section>(
+    "http://localhost:3002/api/v1/content/username/sudo_von/type/profile"
+  );
+
   const { data: aboutSection } = await axios.get<Section>(
-    "http://localhost:3002/api/v1/content?type=about-me"
+    "http://localhost:3002/api/v1/content/username/sudo_von/type/about-me"
   );
 
   const { data: experienceSection } = await axios.get<Section>(
-    "http://localhost:3002/api/v1/content?type=experience"
+    "http://localhost:3002/api/v1/content/username/sudo_von/type/experience"
   );
 
   const { data: cybersecuritySection } = await axios.get<Section>(
-    "http://localhost:3002/api/v1/content?type=cybersecurity"
+    "http://localhost:3002/api/v1/content/username/sudo_von/type/cybersecurity"
   );
 
   const { data: technologySection } = await axios.get<Section>(
-    "http://localhost:3002/api/v1/content?type=technologies"
+    "http://localhost:3002/api/v1/content/username/sudo_von/type/technologies"
   );
 
   return {
     props: {
       user,
       sections: {
+        profile: profileSection.result,
         about: aboutSection.result,
         experience: experienceSection.result,
         cybersecurity: cybersecuritySection.result,
