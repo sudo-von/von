@@ -4,7 +4,7 @@ import {
   UpdateAvatarFile,
 } from '../../entities/avatar-entity/avatar-entities';
 import FileService from '../../services/file-service/file-service';
-import SecurityService from '../../services/security-service/security-service';
+import ISecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class AvatarUsecase {
@@ -12,12 +12,12 @@ abstract class AvatarUsecase {
   * Creates an instance of AvatarUsecase.
   * @param {FileService} fileService - The file service for file operations.
   * @param {IUserRepository} userRepository - The user repository.
-  * @param {SecurityService} securityService - The security service for cryptographic operations.
+  * @param {ISecurityService} securityService - The security service for cryptographic operations.
   */
   constructor(
     protected readonly fileService: FileService,
     protected readonly userRepository: IUserRepository,
-    protected readonly securityService: SecurityService,
+    protected readonly securityService: ISecurityService,
   ) {}
 
   /**
