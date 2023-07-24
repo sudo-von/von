@@ -17,11 +17,11 @@ const createContentRepositoryQuery = (filters?: ContentRepositoryFilters) => {
 
   if (filters.type) query.type = filters.type;
 
+  if (filters.username) query.username = filters.username;
+
   if (filters.title) query.title = { $regex: filters.title, $options: 'i' };
 
   if (filters.subtitle) query.subtitle = { $regex: filters.subtitle, $options: 'i' };
-
-  if (filters.username) query.username = filters.username;
 
   if (filters.description) query.description = { $regex: filters.description, $options: 'i' };
 

@@ -14,6 +14,7 @@ export const CreateContentFiltersRequest = z.object({
       invalid_type_error: 'type field must be a string',
     })
     .trim()
+    .toLowerCase()
     .optional(),
   title: z
     .string({
@@ -48,7 +49,8 @@ export const CreateContentRequest = z.object({
       required_error: 'type field is required',
       invalid_type_error: 'type field must be a string',
     })
-    .trim(),
+    .trim()
+    .toLowerCase(),
   title: z
     .string({
       required_error: 'title field is required',
@@ -75,7 +77,8 @@ export const UpdateContentRequest = z.object({
       required_error: 'type field is required',
       invalid_type_error: 'type field must be a string',
     })
-    .trim(),
+    .trim()
+    .toLowerCase(),
   title: z
     .string({
       required_error: 'title field is required',

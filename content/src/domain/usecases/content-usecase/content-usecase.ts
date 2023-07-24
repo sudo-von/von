@@ -1,7 +1,4 @@
 import {
-  ContentUsecaseFilters,
-} from './content-usecase-filters';
-import {
   CreateContent,
   UpdateContent,
   DetailedContent,
@@ -21,12 +18,21 @@ abstract class ContentUsecase {
   ) {}
 
   /**
-  * Gets content based on the provided filters.
-  * @param {ContentUsecaseFilters} filters - The filters to apply when retrieving content.
+  * Retrieves a content given the type and username.
+  * @param {string} type - The type of the content.
+  * @param {string} username - The username of the user.
   * @returns {Promise<DetailedContent>} A promise with the retrieved content.
   */
-  abstract getContent: (filters: ContentUsecaseFilters)
+  abstract getContent: (type: string, username: string)
   => Promise<DetailedContent>;
+
+  /**
+  * Retrieves contents by username.
+  * @param {string} username - The username of the user.
+  * @returns {Promise<DetailedContent[]>} A promise with an array of DetailedContent objects.
+  */
+  abstract getContentsByUsername: (username: string)
+  => Promise<DetailedContent[]>;
 
   /**
   * Creates content for a user by username with the provided payload.

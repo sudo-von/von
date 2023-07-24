@@ -17,20 +17,28 @@ class ContentController {
 
   getContent = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const filters = CreateContentFiltersRequest.parse(req.query);
+      const type = req.params.type.toLowerCase();
+      const username = req.params.username.toLowerCase();
 
-      const content = await this.contentUsecase.getContent({
-        id: filters.id,
-        type: filters.type,
-        title: filters.title,
-        subtitle: filters.subtitle,
-        username: filters.username,
-        description: filters.description,
-      });
+      const content = await this.contentUsecase.getContent(type, username);
 
       const contentResponse = contentToDetailedContentResponse(content);
 
       res.status(statusCode.OK).send({ result: contentResponse });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  getContentsByUsername = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const username = req.params.username.toLowerCase();
+
+      const contents = await this.contentUsecase.getContentsByUsername(username);
+
+      const contentResponses = contents.map((content) => contentToDetailedContentResponse(content));
+
+      res.status(statusCode.OK).send({ result: contentResponses });
     } catch (e) {
       next(e);
     }

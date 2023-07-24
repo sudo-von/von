@@ -21,7 +21,8 @@ const configureContentRouter = (
     userRepository,
   );
 
-  router.get('/', contentController.getContent);
+  router.get('/username/:username', contentController.getContentsByUsername);
+  router.get('/username/:username/type/:type', contentController.getContent);
   router.post('/username/:username', authenticationHandler, contentController.createContentByUsername);
   router.patch('/:id', authenticationHandler, contentController.updateContentById);
 
