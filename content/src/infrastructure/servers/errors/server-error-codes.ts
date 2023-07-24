@@ -1,4 +1,5 @@
 import {
+  ContentErrorCode,
   UserErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
@@ -13,6 +14,7 @@ export type ServerError = {
 
 export type ServerErrorCode =
 | CommonServerErrorCode
+| ContentServerErrorCode
 | TokenServerErrorCode
 | UserServerErrorCode;
 
@@ -20,6 +22,9 @@ export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
 | 'REQUIRED_FIELD'
 | 'REQUEST_RUNTIME_SERVER_ERROR';
+
+export type ContentServerErrorCode =
+| ContentErrorCode;
 
 export type TokenServerErrorCode =
 | TokenServiceErrorCode

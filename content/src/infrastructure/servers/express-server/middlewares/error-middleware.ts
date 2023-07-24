@@ -27,6 +27,9 @@ import {
   RequestRuntimeServerError,
 } from '../../dtos/common-dto/common-server-errors';
 import {
+  contentServerErrors,
+} from '../../dtos/content-dto/content-server-errors';
+import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
 import {
@@ -36,6 +39,7 @@ import LoggerService from '../../../services/logger-service/logger-service';
 
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   ...userServerErrors,
+  ...contentServerErrors,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
