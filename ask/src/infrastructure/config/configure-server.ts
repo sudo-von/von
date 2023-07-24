@@ -1,6 +1,7 @@
 import express, {
   Router,
 } from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 import LoggerService from '../services/logger-service/logger-service';
 import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
@@ -16,6 +17,7 @@ const configureServer = (
 ) => {
   const app = express();
 
+  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
