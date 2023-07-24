@@ -82,7 +82,7 @@ class ContentUsecaseApplication extends ContentUsecase {
       title: payload.title,
       subtitle: payload.subtitle,
       description: payload.description,
-    });
+    }, { id });
     if (!updatedContent) throw ContentUpdateFailedError;
 
     return updatedContent;
