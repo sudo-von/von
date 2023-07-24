@@ -4,8 +4,8 @@ export type User = Readonly<{
   username: string;
 }>;
 
+export type PartialUser = Partial<User>;
+
 export type CreateUser = Omit<User, 'id'>;
 
 export type UpdateUser = Pick<User, 'username'>;
-
-export type PartialUser = Partial<User>;

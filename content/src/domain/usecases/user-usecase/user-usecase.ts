@@ -3,8 +3,8 @@ import {
   CreateUser,
   UpdateUser,
 } from '../../entities/user-entity/user-entities';
-import IContentRepository from '../../repositories/content-repository/content-repository';
 import IUserRepository from '../../repositories/user-repository/user-repository';
+import IContentRepository from '../../repositories/content-repository/content-repository';
 
 abstract class UserUsecase {
   /**

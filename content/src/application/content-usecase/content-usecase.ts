@@ -2,15 +2,15 @@ import {
   UserNotFoundError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
-  CreateContent,
-  UpdateContent,
-  DetailedContent,
-} from '../../domain/entities/content-entity/content-entities';
-import {
   ContentNotFoundError,
   ContentUpdateFailedError,
   ContentTypeAlreadyCreatedError,
 } from '../../domain/entities/content-entity/content-errors';
+import {
+  CreateContent,
+  UpdateContent,
+  DetailedContent,
+} from '../../domain/entities/content-entity/content-entities';
 import {
   ContentUsecaseFilters,
 } from '../../domain/usecases/content-usecase/content-usecase-filters';
