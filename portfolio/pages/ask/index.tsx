@@ -35,10 +35,12 @@ const Ask: NextPage<AskProps> = ({ user }) => {
     <AskLayout>
       <AskProfile
         name={user.name}
-        avatar={user.avatar}
+        avatar={
+          "https://pbs.twimg.com/media/FzTypIdaQAApdq3?format=jpg&name=900x900"
+        }
         metrics={user.metrics}
-        interest={user.interest}
-        position={user.position}
+        interest={user.email}
+        position={`@${user.username}`}
       />
       <CreateQuestionForm
         error={error}
