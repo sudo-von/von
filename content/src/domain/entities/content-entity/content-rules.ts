@@ -8,13 +8,13 @@ const userRules = {
   title: {
     content: {
       MIN_LENGTH: 4,
-      MAX_LENGTH: 60,
+      MAX_LENGTH: 80,
     },
   },
   subtitle: {
     content: {
       MIN_LENGTH: 4,
-      MAX_LENGTH: 60,
+      MAX_LENGTH: 80,
     },
   },
   description: {

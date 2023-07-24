@@ -4,7 +4,7 @@ import {
 import {
   ContentNotFoundError,
   ContentUpdateFailedError,
-  ContentTypeAlreadyCreatedError,
+  ContentTypeAlreadyInUseError,
 } from '../../domain/entities/content-entity/content-errors';
 import {
   CreateContent,
@@ -38,7 +38,7 @@ class ContentUsecaseApplication extends ContentUsecase {
     if (!user) throw UserNotFoundError;
 
     const content = await this.contentRepository.getContent({ username, type: payload.type });
-    if (content) throw ContentTypeAlreadyCreatedError;
+    if (content) throw ContentTypeAlreadyInUseError;
 
     const createdContent = await this.contentRepository.createContent({
       username,

@@ -12,13 +12,13 @@ import {
   InvalidTitleLengthError,
   ContentUpdateFailedError,
   InvalidSubtitleLengthError,
+  ContentTypeAlreadyInUseError,
   InvalidDescriptionLengthError,
-  ContentTypeAlreadyCreatedError,
 } from '../../../../domain/entities/content-entity/content-errors';
 
-export const ContentTypeAlreadyCreatedServerError = createServerErrorFactory({
-  code: 'CONTENT_TYPE_ALREADY_CREATED',
-  error: ContentTypeAlreadyCreatedError.message,
+export const ContentTypeAlreadyInUseServerError = createServerErrorFactory({
+  code: 'CONTENT_TYPE_ALREADY_IN_USE',
+  error: ContentTypeAlreadyInUseError.message,
   statusCode: statusCode.CONFLICT,
 });
 
@@ -59,7 +59,7 @@ export const InvalidTypeLengthServerError = createServerErrorFactory({
 });
 
 export const contentServerErrors: Record<ContentServerErrorCode, ServerErrorFactory> = {
-  CONTENT_TYPE_ALREADY_CREATED: ContentTypeAlreadyCreatedServerError,
+  CONTENT_TYPE_ALREADY_IN_USE: ContentTypeAlreadyInUseServerError,
   CONTENT_UPDATE_FAILED: ContentUpdateFailedServerError,
   CONTENT_NOT_FOUND: ContentNotFoundServerError,
   INVALID_DESCRIPTION_LENGTH: InvalidDescriptionLengthServerError,

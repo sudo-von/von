@@ -8,7 +8,7 @@ export type DomainErrorCode =
 | UserErrorCode;
 
 export type ContentErrorCode =
-| 'CONTENT_TYPE_ALREADY_CREATED'
+| 'CONTENT_TYPE_ALREADY_IN_USE'
 | 'CONTENT_UPDATE_FAILED'
 | 'CONTENT_NOT_FOUND'
 | 'INVALID_DESCRIPTION_LENGTH'

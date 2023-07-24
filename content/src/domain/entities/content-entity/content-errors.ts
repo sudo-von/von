@@ -3,9 +3,9 @@ import {
 } from '../../errors/error-factory';
 import contentRules from './content-rules';
 
-export const ContentTypeAlreadyCreatedError = createDomainErrorFactory({
-  code: 'CONTENT_TYPE_ALREADY_CREATED',
-  message: 'The content type has already been created.',
+export const ContentTypeAlreadyInUseError = createDomainErrorFactory({
+  code: 'CONTENT_TYPE_ALREADY_IN_USE',
+  message: 'The content type is already in use.',
 });
 
 export const ContentUpdateFailedError = createDomainErrorFactory({
