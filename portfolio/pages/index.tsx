@@ -5,6 +5,7 @@ import AboutSection from "../features/home/components/about-section/about-sectio
 import ExperienceSection from "../features/home/components/experience-section/experience-section";
 import TechnologySection from "../features/home/components/technology-section/technology-section";
 import CybersecuritySection from "../features/home/components/cybersecurity-section/cybersecurity-section";
+import axios from "axios";
 
 type User = {
   name: string;
@@ -94,44 +95,30 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     quote: `At first, dreams seem impossible,\nthen improbable, and eventually inevitable.`,
   };
 
-  const aboutSection = {
-    title: "About me",
-    subtitle:
-      "I was fortunate.\nI discovered what I wanted to do early in life.",
-    description:
-      "Since I was a child, I’ve had a dream in mind,\nthe dream of being able to live in the country I love.\n\nBut you can't live on dreams alone;\nyou have to work hard for them.\n\nThat's why I decided to embrace education\nas the driving force to achieve my dreams.",
-  };
+  const { data: aboutSection } = await axios.get<Section>(
+    "http://localhost:3002/api/v1/content?type=about-me"
+  );
 
-  const experienceSection = {
-    title: "Experience",
-    subtitle:
-      "Code is just a tool.\nTrue achievement lies in its impact on lives.",
-    description:
-      "In my journey as a developer, I've realized that code\nis not merely lines of instructions, but a means to\ncreate something meaningful.\n\nBy working closely with diverse companies and\nspecializing in full-stack development, with a primary\nfocus on front-end expertise.\n\nMy objective is to utilize the power of code to bring\nabout a positive change in people's lives.",
-  };
+  const { data: experienceSection } = await axios.get<Section>(
+    "http://localhost:3002/api/v1/content?type=experience"
+  );
 
-  const cybersecuritySection = {
-    title: "Cybersecurity",
-    subtitle: "Developer by day.\nEthical hacker by night.",
-    description:
-      "I’ve participated in multiple national-level\ncompetitions, achieving top positions by breaking\nthrough controlled systems.\n\nAs a developer, I utilize my security knowledge to\nuncover overlooked vulnerabilities.\n\nOne of my biggest achievements was discovering\nand successfully fixing multiple critical vulnerabilities\nat Intel Corporation.",
-  };
+  const { data: cybersecuritySection } = await axios.get<Section>(
+    "http://localhost:3002/api/v1/content?type=cybersecurity"
+  );
 
-  const technologySection = {
-    title: "Technologies",
-    subtitle: "Mastering the JavaScript tech stack.",
-    description:
-      "I’m a passionate JavaScript enthusiast,\nwith aspirations of becoming an expert one day.\n\nMy tech stack covers a wide range of resources that\nallow me to develop efficient and high-quality\napplications and websites.\n\nFrom architecture to implementation,\nI'm ready to take on challenges and make\nthe most of modern tools to deliver outstanding results.",
-  };
+  const { data: technologySection } = await axios.get<Section>(
+    "http://localhost:3002/api/v1/content?type=technologies"
+  );
 
   return {
     props: {
       user,
       sections: {
-        about: aboutSection,
-        experience: experienceSection,
-        cybersecurity: cybersecuritySection,
-        technology: technologySection,
+        about: aboutSection.result,
+        experience: experienceSection.result,
+        cybersecurity: cybersecuritySection.result,
+        technology: technologySection.result,
       },
     },
   };
