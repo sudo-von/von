@@ -1,4 +1,4 @@
-export type Content = Readonly<{
+export type DetailedContent = Readonly<{
   id: string;
   type: string;
   title: string;
@@ -7,8 +7,10 @@ export type Content = Readonly<{
   description: string;
 }>;
 
-export type CreateContent = Omit<Content, 'id' | 'username'>;
+export type PartialDetailedContent = Partial<DetailedContent>;
 
-export type UpdateContent = Omit<Content, 'id' | 'username'>;
+export type CreateDetailedContent = Omit<DetailedContent, 'id'>;
 
-export type PartialContent = Partial<Content>;
+export type CreateContent = Omit<DetailedContent, 'id' | 'username'>;
+
+export type UpdateContent = Omit<DetailedContent, 'id' | 'username'>;

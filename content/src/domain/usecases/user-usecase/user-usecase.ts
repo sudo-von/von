@@ -3,14 +3,19 @@ import {
   CreateUser,
   UpdateUser,
 } from '../../entities/user-entity/user-entities';
+import IContentRepository from '../../repositories/content-repository/content-repository';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 abstract class UserUsecase {
   /**
   * Creates an instance of UserUsecase.
   * @param {IUserRepository} userRepository - The user repository.
+  * @param {IContentRepository} contentRepository - The content repository.
   */
-  constructor(protected readonly userRepository: IUserRepository) {}
+  constructor(
+    protected readonly userRepository: IUserRepository,
+    protected readonly contentRepository: IContentRepository,
+  ) {}
 
   /**
   * Creates a user with the provided payload.

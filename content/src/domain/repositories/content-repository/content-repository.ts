@@ -2,46 +2,55 @@ import {
   ContentRepositoryFilters,
 } from './content-repository-filters';
 import {
-  Content,
-  CreateContent,
-  PartialContent,
+  DetailedContent,
+  CreateDetailedContent,
+  PartialDetailedContent,
 } from '../../entities/content-entity/content-entities';
 
 interface IContentRepositoryReader {
   /**
   * Retrieves a content based on the provided filters.
   * @param {ContentRepositoryFilters} [filters] - Optional filters for retrieving the content.
-  * @returns {Promise<Content | null>} A promise with the retrieved content or null if not found.
+  * @returns {Promise<DetailedContent | null>} A promise with the retrieved content if found.
   */
   getContent: (filters?: ContentRepositoryFilters)
-  => Promise<Content | null>;
+  => Promise<DetailedContent | null>;
 
   /**
   * Retrieves multiple contents based on the provided filters.
   * @param {ContentRepositoryFilters} [filters] - Optional filters for retrieving the contents.
-  * @returns {Promise<Content[]>} A promise with an array of retrieved contents.
+  * @returns {Promise<DetailedContent[]>} A promise with an array of retrieved contents.
   */
   getContents: (filters?: ContentRepositoryFilters)
-  => Promise<Content[]>;
+  => Promise<DetailedContent[]>;
 }
 
 interface IContentRepositoryWriter {
   /**
   * Creates a content with the provided payload.
-  * @param {CreateContent} payload - The payload for creating the content.
-  * @returns {Promise<Content>} A promise that resolves with the created content.
+  * @param {CreateDetailedContent} payload - The payload for creating the content.
+  * @returns {Promise<DetailedContent>} A promise that resolves with the created content.
   */
-  createContent: (payload: CreateContent)
-  => Promise<Content>;
+  createContent: (payload: CreateDetailedContent)
+  => Promise<DetailedContent>;
 
   /**
   * Updates a content with the provided partial payload and filters.
-  * @param {PartialContent} payload - The partial payload for updating the content.
+  * @param {PartialDetailedContent} payload - The partial payload for updating the content.
   * @param {ContentRepositoryFilters} [filters] - Optional filters for updating the content.
-  * @returns {Promise<Content | null>} A promise with the updated content or null if not found.
+  * @returns {Promise<DetailedContent | null>} A promise with the updated content if found.
   */
-  updateContent: (payload: PartialContent, filters?: ContentRepositoryFilters)
-  => Promise<Content | null>;
+  updateContent: (payload: PartialDetailedContent, filters?: ContentRepositoryFilters)
+  => Promise<DetailedContent | null>;
+
+  /**
+  * Updates multiple content items based on the provided payload and optional filters.
+  * @param {PartialDetailedContent} payload - The partial payload for updating the content items.
+  * @param {ContentRepositoryFilters} [filters] - Optional filters for updating the content items.
+  * @returns {Promise<void>} A promise that resolves when the update is successful.
+  */
+  updateContents: (payload: PartialDetailedContent, filters?: ContentRepositoryFilters)
+  => Promise<void>;
 }
 
 interface IContentRepository extends IContentRepositoryReader, IContentRepositoryWriter {}
