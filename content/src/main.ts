@@ -26,6 +26,7 @@ loggerService.info('📢 Logger service has been configured.');
     /* 💽 Repositories. */
     const {
       userRepository,
+      contentRepository,
     } = await configureRepositories(
       DATABASE_URL,
       DATABASE_NAME,
@@ -41,8 +42,10 @@ loggerService.info('📢 Logger service has been configured.');
     /* 📖 Usecases. */
     const {
       userUsecase,
+      contentUsecase,
     } = configureUsecases(
       userRepository,
+      contentRepository,
     );
     loggerService.info('📖 Usecases have been configured.');
 
