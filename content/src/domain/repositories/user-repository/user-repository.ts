@@ -29,7 +29,7 @@ interface IUserRepositoryWriter {
   /**
   * Creates a user with the provided payload.
   * @param {CreateUser} payload - The payload for creating the user.
-  * @returns {Promise<User>} A promise that resolves with the created user.
+  * @returns {Promise<User>} A promise with the created user.
   */
   createUser: (payload: CreateUser)
   => Promise<User>;

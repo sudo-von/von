@@ -2,15 +2,18 @@ import {
   VideoRepositoryFilters,
 } from './video-repository-filters';
 import {
+  CreateVideo,
+  PartialVideo,
+} from '../../entities/video-entity/video-entitites';
+import {
   DetailedContent,
 } from '../../entities/content-entity/content-entities';
-import { CreateVideo, PartialVideo } from '../../entities/video-entity/video-entitites';
 
 interface IVideoRepositoryWriter {
   /**
   * Creates a video with the provided payload.
   * @param {CreateVideo} payload - The payload for creating the video.
-  * @returns {Promise<DetailedContent>} A promise that resolves with the created video.
+  * @returns {Promise<DetailedContent>} A promise with the created video.
   */
   createVideo: (payload: CreateVideo)
   => Promise<DetailedContent>;

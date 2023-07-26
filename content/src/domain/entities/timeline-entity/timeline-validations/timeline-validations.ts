@@ -1,5 +1,11 @@
 import timelineRules from '../timeline-rules';
 
+export const validateTimelineDate = (startDate: Date, endDate: Date) => {
+  const startDateTime = startDate.getTime();
+  const endDateTime = endDate.getTime();
+  return startDateTime < endDateTime;
+};
+
 export const validateTimelineTitleLength = (title: string) => {
   const titleLength = title.trim().length;
   const { MIN_LENGTH, MAX_LENGTH } = timelineRules.title.content;

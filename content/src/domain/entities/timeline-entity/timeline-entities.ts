@@ -23,3 +23,5 @@ export type CreateTimelineFile = TimelineFile;
 export type UpdateTimelineFile = TimelineFile;
 
 export type CreateTimeline = Omit<Timeline, 'id'>;
+
+export type PartialTimeline = Partial<Timeline>;
