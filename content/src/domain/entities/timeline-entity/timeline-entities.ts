@@ -1,6 +1,10 @@
-export type TimelineCollection = Timeline[];
+export type TimelineCollection = {
+  timelines: Timeline[];
+  type: 'timeline-collection';
+};
 
 export type Timeline = {
+  id: string;
   title: string;
   endDate: Date;
   startDate: Date;
@@ -8,12 +12,14 @@ export type Timeline = {
   description: string;
 };
 
-export type TimelineFile = Readonly<Omit<Timeline, 'filename'> & {
+export type TimelineFile = Omit<Timeline, 'id' | 'filename'> & {
   size: number;
   buffer: Buffer;
   mimetype: string;
-}>;
+};
 
 export type CreateTimelineFile = TimelineFile;
 
 export type UpdateTimelineFile = TimelineFile;
+
+export type CreateTimeline = Omit<Timeline, 'id'>;

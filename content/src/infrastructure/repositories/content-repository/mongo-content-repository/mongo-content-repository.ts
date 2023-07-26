@@ -5,11 +5,13 @@ import {
   PartialDetailedContent,
 } from '../../../../domain/entities/content-entity/content-entities';
 import createContentRepositoryQuery from './mongo-content-repository-query';
-import contentDocumentToDetailedContent from './mongo-content-repository-mapper';
 import {
   ContentRepositoryFilters,
 } from '../../../../domain/repositories/content-repository/content-repository-filters';
 import IContentRepository from '../../../../domain/repositories/content-repository/content-repository';
+import { CreateVector } from '../../../../domain/entities/vector-entity/vector-entities';
+import contentDocumentToDetailedContent from './mongo-content-repository-mapper';
+import { CreateTimeline } from '../../../../domain/entities/timeline-entity/timeline-entities';
 
 class MongoContentRepository implements IContentRepository {
   getContent = async (
@@ -35,7 +37,6 @@ class MongoContentRepository implements IContentRepository {
     payload: CreateDetailedContent,
   ): Promise<DetailedContent> => {
     const contentDocument = new ContentModel({
-      type: payload.type,
       title: payload.title,
       subtitle: payload.subtitle,
       username: payload.username,
@@ -52,7 +53,6 @@ class MongoContentRepository implements IContentRepository {
   ): Promise<DetailedContent | null> => {
     const query = createContentRepositoryQuery(filters);
     const updatedDocument = await ContentModel.findOneAndUpdate(query, {
-      type: payload.type,
       title: payload.title,
       subtitle: payload.subtitle,
       username: payload.username,
@@ -71,12 +71,49 @@ class MongoContentRepository implements IContentRepository {
   ): Promise<void> => {
     const query = createContentRepositoryQuery(filters);
     await ContentModel.updateMany(query, {
-      type: payload.type,
       title: payload.title,
       subtitle: payload.subtitle,
       username: payload.username,
       description: payload.description,
     });
+  };
+
+  createVectorContent = async (
+    payload: CreateVector,
+    filters?: ContentRepositoryFilters,
+  ): Promise<DetailedContent | null> => {
+    const query = createContentRepositoryQuery(filters);
+    const updatedDocument = await ContentModel.findOneAndUpdate(query, {
+      $addToSet: {
+        media: {
+          vectors: [payload],
+        },
+      },
+    }, {
+      new: true,
+    });
+    if (!updatedDocument) return null;
+    const content = contentDocumentToDetailedContent(updatedDocument);
+    return content;
+  };
+
+  createTimelineContent = async (
+    payload: CreateTimeline,
+    filters?: ContentRepositoryFilters,
+  ): Promise<DetailedContent | null> => {
+    const query = createContentRepositoryQuery(filters);
+    const updatedDocument = await ContentModel.findOneAndUpdate(query, {
+      $addToSet: {
+        media: {
+          timelines: [payload],
+        },
+      },
+    }, {
+      new: true,
+    });
+    if (!updatedDocument) return null;
+    const content = contentDocumentToDetailedContent(updatedDocument);
+    return content;
   };
 }
 

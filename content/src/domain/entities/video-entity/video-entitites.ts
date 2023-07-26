@@ -1,8 +1,12 @@
 export type Video = {
+  id: string;
   alt: string;
   url: string;
+  type: 'video';
 };
 
-export type CreateVideo = Video;
+export type PartialVideo = Partial<Video>;
 
-export type UpdateVideo = Video;
+export type CreateVideo = Omit<Video, 'id' | 'type'>;
+
+export type UpdateVideo = Omit<Video, 'id' | 'type'>;

@@ -6,6 +6,7 @@ import {
 import FileService from '../../services/file-service/file-service';
 import ISecurityService from '../../services/security-service/security-service';
 import IContentRepository from '../../repositories/content-repository/content-repository';
+import { DetailedContent } from '../../entities/content-entity/content-entities';
 
 abstract class VectorUsecase {
   /**
@@ -35,7 +36,7 @@ abstract class VectorUsecase {
   * @returns {Promise<Vector>} - A promise with the created vector object.
   */
   abstract createVectorByContentId: (id: string, payload: CreateVectorFile)
-  => Promise<Vector>;
+  => Promise<DetailedContent>;
 
   /**
   * Updates a vector by ID.
@@ -44,7 +45,7 @@ abstract class VectorUsecase {
   * @returns {Promise<Vector>} - A promise with the updated vector object.
   */
   abstract updateVectorById: (id: string, payload: UpdateVectorFile)
-  => Promise<Vector>;
+  => Promise<DetailedContent>;
 }
 
 export default VectorUsecase;

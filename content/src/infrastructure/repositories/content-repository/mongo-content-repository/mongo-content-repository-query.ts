@@ -15,8 +15,6 @@ const createContentRepositoryQuery = (filters?: ContentRepositoryFilters) => {
 
   if (filters.id) query._id = filters.id;
 
-  if (filters.type) query.type = filters.type;
-
   if (filters.username) query.username = filters.username;
 
   if (filters.title) query.title = { $regex: filters.title, $options: 'i' };

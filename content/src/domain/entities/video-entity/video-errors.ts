@@ -28,6 +28,11 @@ export const VideoNotCreatedYetError = createDomainErrorFactory({
   error: 'The video has not been created yet.',
 });
 
+export const VideoNotFoundError = createDomainErrorFactory({
+  code: 'VIDEO_NOT_FOUND',
+  message: 'The requested video could not be found.',
+});
+
 export const VideoUpdateFailedError = createDomainErrorFactory({
   code: 'VIDEO_UPDATE_FAILED',
   error: 'The video you attempted to update could not be updated.',

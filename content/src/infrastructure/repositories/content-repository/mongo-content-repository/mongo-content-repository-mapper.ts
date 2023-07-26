@@ -1,8 +1,9 @@
 import {
   HydratedDocument,
 } from 'mongoose';
+import { MediaType } from 'express';
 import {
-  DetailedContent,
+  DetailedContent, DetailedContentMedia,
 } from '../../../../domain/entities/content-entity/content-entities';
 import {
   ContentRepositorySchema,
@@ -10,13 +11,33 @@ import {
 
 const contentDocumentToDetailedContent = (
   document: HydratedDocument<ContentRepositorySchema>,
-): DetailedContent => ({
-  id: document._id.toHexString(),
-  type: document.type,
-  title: document.title,
-  subtitle: document.subtitle,
-  username: document.username,
-  description: document.description,
-});
+): DetailedContent => {
+  const defaultDocument = {
+    id: document._id.toHexString(),
+    title: document.title,
+    subtitle: document.subtitle,
+    username: document.username,
+    description: document.description,
+  };
+
+  if (!document.media) return defaultDocument;
+
+  let media: DetailedContentMedia;
+
+  if (document.media.type === 'video') {
+    media = {
+      type: 'video',
+      id: document.media,
+    };
+  }
+
+  return ({
+    id: document._id.toHexString(),
+    title: document.title,
+    subtitle: document.subtitle,
+    username: document.username,
+    description: document.description,
+  });
+};
 
 export default contentDocumentToDetailedContent;

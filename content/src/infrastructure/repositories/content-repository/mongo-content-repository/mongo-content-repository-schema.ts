@@ -6,10 +6,6 @@ import {
 } from '../../../../domain/repositories/content-repository/content-repository-schema';
 
 const contentRepositorySchema = new Schema<ContentRepositorySchema>({
-  type: {
-    type: String,
-    required: true,
-  },
   title: {
     type: String,
     required: true,
@@ -26,6 +22,16 @@ const contentRepositorySchema = new Schema<ContentRepositorySchema>({
     type: String,
     required: true,
   },
+  media: {
+    type: {
+      type: String,
+      required: true,
+      enum: ['video', 'timeline-collection', 'vector-collection'],
+    },
+    mediaData: { type: Schema.Types.Mixed },
+  },
+}, {
+  discriminatorKey: 'type',
 });
 
 export default contentRepositorySchema;

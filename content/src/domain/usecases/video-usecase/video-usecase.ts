@@ -1,8 +1,10 @@
 import {
-  Video,
   CreateVideo,
   UpdateVideo,
 } from '../../entities/video-entity/video-entitites';
+import {
+  DetailedContent,
+} from '../../entities/content-entity/content-entities';
 import IContentRepository from '../../repositories/content-repository/content-repository';
 
 abstract class VideoUsecase {
@@ -16,19 +18,19 @@ abstract class VideoUsecase {
   * Creates a video by content ID.
   * @param {string} id - The ID of the content.
   * @param {CreateVideo} payload - The object containing the data to create the video.
-  * @returns {Promise<Video>} - A promise with the created video object.
+  * @returns {Promise<DetailedContent>} - A promise with the created content video object.
   */
   abstract createVideoByContentId: (id: string, payload: CreateVideo)
-  => Promise<Video>;
+  => Promise<DetailedContent>;
 
   /**
   * Updates a video by ID.
   * @param {string} id - The ID of the video.
   * @param {UpdateVideo} payload - The object containing the data to update the video.
-  * @returns {Promise<Video>} - A promise with the updated video object.
+  * @returns {Promise<DetailedContent>} - A promise with the updated content video object.
   */
   abstract updateVideoById: (id: string, payload: UpdateVideo)
-  => Promise<Video>;
+  => Promise<DetailedContent>;
 }
 
 export default VideoUsecase;
