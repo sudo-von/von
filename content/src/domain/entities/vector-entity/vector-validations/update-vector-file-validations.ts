@@ -16,11 +16,11 @@ const validateVectorFileUpdate = (payload: UpdateVectorFile) => {
   const isAltLengthValid = validateVectorAltLength(payload.alt);
   if (!isAltLengthValid) throw InvalidVectorAltLengthError;
 
-  const isVectorFileSizeValid = validateVectorFileSize(payload.size);
-  if (!isVectorFileSizeValid) throw InvalidVectorFileSizeError;
-
   const isVectorFileMimetypeValid = validateVectorFileMimetype(payload.mimetype);
   if (!isVectorFileMimetypeValid) throw InvalidVectorFileMimeTypeError;
+
+  const isVectorFileSizeValid = validateVectorFileSize(payload.size);
+  if (!isVectorFileSizeValid) throw InvalidVectorFileSizeError;
 };
 
 export default validateVectorFileUpdate;

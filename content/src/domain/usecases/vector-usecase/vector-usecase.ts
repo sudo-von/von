@@ -5,28 +5,29 @@ import {
 } from '../../entities/vector-entity/vector-entities';
 import FileService from '../../services/file-service/file-service';
 import ISecurityService from '../../services/security-service/security-service';
+import IVectorRepository from '../../repositories/vector-repository/vector-repository';
 import IContentRepository from '../../repositories/content-repository/content-repository';
-import { DetailedContent } from '../../entities/content-entity/content-entities';
 
 abstract class VectorUsecase {
   /**
   * Creates an instance of VectorUsecase.
   * @param {FileService} fileService - The file service for file operations.
   * @param {SecurityService} securityService - The security service for cryptographic operations.
+  * @param {IVectorRepository} vectorRepository - The vector repository.
   * @param {IContentRepository} contentRepository - The content repository.
   */
   constructor(
     protected readonly fileService: FileService,
     protected readonly securityService: ISecurityService,
+    protected readonly vectorRepository: IVectorRepository,
     protected readonly contentRepository: IContentRepository,
   ) {}
 
   /**
-  * Generates a vector filename for a vector.
-  * @param {string} mimetype - The mimetype of the vector file.
+  * Generates a filename for a vector.
   * @returns {string} The generated vector filename.
   */
-  abstract generateVectorFilename: (mimetype: string)
+  abstract generateVectorFilename: ()
   => string;
 
   /**
@@ -36,7 +37,7 @@ abstract class VectorUsecase {
   * @returns {Promise<Vector>} - A promise with the created vector object.
   */
   abstract createVectorByContentId: (id: string, payload: CreateVectorFile)
-  => Promise<DetailedContent>;
+  => Promise<Vector>;
 
   /**
   * Updates a vector by ID.
@@ -45,7 +46,7 @@ abstract class VectorUsecase {
   * @returns {Promise<Vector>} - A promise with the updated vector object.
   */
   abstract updateVectorById: (id: string, payload: UpdateVectorFile)
-  => Promise<DetailedContent>;
+  => Promise<Vector>;
 }
 
 export default VectorUsecase;

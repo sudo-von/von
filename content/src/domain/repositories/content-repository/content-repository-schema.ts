@@ -8,7 +8,7 @@ import {
   TimelineRepositorySchemaCollection,
 } from '../timeline-repository/timeline-repository-schema';
 
-export type DetailedContentMedia =
+export type DetailedContentRepositoryMedia =
 | VectorRepositorySchemaCollection
 | TimelineRepositorySchemaCollection
 | VideoRepositorySchema;
@@ -18,5 +18,5 @@ export type ContentRepositorySchema = {
   subtitle: string;
   username: string;
   description: string;
-  media?: DetailedContentMedia;
+  media?: DetailedContentRepositoryMedia;
 };

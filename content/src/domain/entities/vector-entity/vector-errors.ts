@@ -23,6 +23,11 @@ export const VectorCreationFailedError = createDomainErrorFactory({
   error: 'The vector you attempted to create could not be created.',
 });
 
+export const VectorNotFoundError = createDomainErrorFactory({
+  code: 'VECTOR_NOT_FOUND',
+  message: 'The requested vector could not be found.',
+});
+
 export const VectorUpdateFailedError = createDomainErrorFactory({
   code: 'VECTOR_UPDATE_FAILED',
   error: 'The vector you attempted to update could not be updated.',

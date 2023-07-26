@@ -6,8 +6,8 @@ import {
   CreateVideo,
 } from '../video-entitites';
 import {
-  validateUrlLength,
   validateAltLength,
+  validateUrlLength,
 } from './video-validations';
 
 const validateVideoCreation = (payload: CreateVideo) => {

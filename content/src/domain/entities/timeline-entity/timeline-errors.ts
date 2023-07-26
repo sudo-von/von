@@ -33,6 +33,11 @@ export const TimelineCreationFailedError = createDomainErrorFactory({
   error: 'The timeline you attempted to create could not be created.',
 });
 
+export const TimelineNotFoundError = createDomainErrorFactory({
+  code: 'TIMELINE_NOT_FOUND',
+  message: 'The requested timeline could not be found.',
+});
+
 export const TimelineUpdateFailedError = createDomainErrorFactory({
   code: 'TIMELINE_UPDATE_FAILED',
   error: 'The timeline you attempted to update could not be updated.',

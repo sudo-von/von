@@ -1,27 +1,21 @@
 import {
-  VideoNotFoundError,
-  VideoUpdateFailedError,
-  VideoCreationFailedError,
-} from '../../domain/entities/video-entity/video-errors';
-import {
-  CreateVideo,
-  UpdateVideo,
-} from '../../domain/entities/video-entity/video-entitites';
+  VectorNotFoundError,
+  VectorUpdateFailedError,
+} from '../../domain/entities/vector-entity/vector-errors';
 import {
   ContentNotFoundError,
 } from '../../domain/entities/content-entity/content-errors';
 import {
-  DetailedContent,
-} from '../../domain/entities/content-entity/content-entities';
+  Vector,
+  CreateVectorFile,
+  UpdateVectorFile,
+} from '../../domain/entities/vector-entity/vector-entities';
 import VectorUsecase from '../../domain/usecases/vector-usecase/vector-usecase';
-import validateVideoUpdate from '../../domain/entities/video-entity/video-validations/update-content-validations';
-import validateVideoCreation from '../../domain/entities/video-entity/video-validations/create-video-validations';
-import { CreateVectorFile, UpdateVectorFile, Vector } from '../../domain/entities/vector-entity/vector-entities';
-import validateVectorFileCreation from '../../domain/entities/vector-entity/vector-validations/create-vector-file-validations';
 import validateVectorFileUpdate from '../../domain/entities/vector-entity/vector-validations/update-vector-file-validations';
+import validateVectorFileCreation from '../../domain/entities/vector-entity/vector-validations/create-vector-file-validations';
 
 class VectorUsecaseApplication extends VectorUsecase {
-  generateVectorFilename = (mimetype: string): string => {
+  generateVectorFilename = ():string => {
     const hash = this.securityService.hashData(new Date().toISOString(), 'md5');
     const filename = `${hash}.svg`;
     return filename;
@@ -30,33 +24,20 @@ class VectorUsecaseApplication extends VectorUsecase {
   createVectorByContentId = async (
     id: string,
     payload: CreateVectorFile,
-  ): Promise<DetailedContent> => {
+  ): Promise<Vector> => {
     validateVectorFileCreation(payload);
 
     const content = await this.contentRepository.getContent({ id });
     if (!content) throw ContentNotFoundError;
 
-    const vectors: Vector[] = (content.media && content.media.type === 'vector-collection'
-    && content.media.vectors) ? content.media.vectors : [];
-
-    const vectorFilename = this.generateVectorFilename(payload.mimetype);
+    const vectorFilename = this.generateVectorFilename();
 
     await this.fileService.upload(vectorFilename, payload.buffer);
 
-    const createdVector = await this.contentRepository.updateContent({
-      media: {
-        type: 'vector-collection',
-        vectors: [
-          ...vectors,
-          {
-            id: '',
-            filename: vectorFilename,
-            alt: payload.alt,
-          },
-        ],
-      },
-    }, { id });
-    if (!createdVector) throw VideoCreationFailedError;
+    const createdVector = await this.vectorRepository.createVector({
+      alt: payload.alt,
+      filename: vectorFilename,
+    });
 
     return createdVector;
   };
@@ -64,22 +45,23 @@ class VectorUsecaseApplication extends VectorUsecase {
   updateVectorById = async (
     id: string,
     payload: UpdateVectorFile,
-  ): Promise<DetailedContent> => {
+  ): Promise<Vector> => {
     validateVectorFileUpdate(payload);
 
-    const content = await this.contentRepository.getContent({ vectorId: id });
-    if (!content) throw VideoNotFoundError;
+    const video = await this.vectorRepository.getVector({ id });
+    if (!video) throw VectorNotFoundError;
 
-    const updatedVideo = await this.contentRepository.updateContent({
-      media: {
-        type: 'video',
-        alt: payload.alt,
-        url: payload.url,
-      },
-    }, { media: { type: 'video', id } });
-    if (!updatedVideo) throw VideoUpdateFailedError;
+    await this.fileService.delete(video.filename);
 
-    return updatedVideo;
+    const vectorFilename = this.generateVectorFilename();
+
+    const updatedVector = await this.vectorRepository.updatevector({
+      alt: payload.alt,
+      filename: vectorFilename,
+    }, { id });
+    if (!updatedVector) throw VectorUpdateFailedError;
+
+    return updatedVector;
   };
 }
 

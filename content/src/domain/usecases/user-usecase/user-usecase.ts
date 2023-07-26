@@ -20,7 +20,7 @@ abstract class UserUsecase {
   /**
   * Creates a user with the provided payload.
   * @param {CreateUser} payload - The payload for creating the user.
-  * @returns {Promise<User>} A promise that resolves with the created detailed user.
+  * @returns {Promise<User>} A promise with the created detailed user.
   */
   abstract createUser: (payload: CreateUser)
   => Promise<User>;
@@ -29,7 +29,7 @@ abstract class UserUsecase {
   * Updates a user by user ID with the provided payload.
   * @param {string} id - The ID of the user.
   * @param {UpdateUser} payload - The payload for updating the user.
-  * @returns {Promise<User>} A promise that resolves with the updated detailed user.
+  * @returns {Promise<User>} A promise with the updated detailed user.
   */
   abstract updateUserByUserId: (id: string, payload: UpdateUser)
   => Promise<User>;

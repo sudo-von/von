@@ -5,7 +5,7 @@ export type Video = {
   type: 'video';
 };
 
-export type PartialVideo = Partial<Video>;
+export type PartialVideo = Partial<Omit<Video, 'type'>>;
 
 export type CreateVideo = Omit<Video, 'id' | 'type'>;
 

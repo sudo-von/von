@@ -2,4 +2,4 @@ import {
   PartialVideo,
 } from '../../entities/video-entity/video-entitites';
 
-export type VideoRepositoryFilters = PartialVideo;
+export type VideoRepositoryFilters = Omit<PartialVideo, 'type'>;

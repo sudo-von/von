@@ -6,6 +6,7 @@ import {
 import FileService from '../../services/file-service/file-service';
 import ISecurityService from '../../services/security-service/security-service';
 import IContentRepository from '../../repositories/content-repository/content-repository';
+import ITimelineRepository from '../../repositories/timeline-repository/timeline-repository';
 
 abstract class TimelineUsecase {
   /**
@@ -13,19 +14,20 @@ abstract class TimelineUsecase {
   * @param {FileService} fileService - The file service for file operations.
   * @param {SecurityService} securityService - The security service for cryptographic operations.
   * @param {IContentRepository} contentRepository - The content repository.
+  * @param {ITimelineRepository} timelineRepository - The timeline repository.
   */
   constructor(
     protected readonly fileService: FileService,
     protected readonly securityService: ISecurityService,
     protected readonly contentRepository: IContentRepository,
+    protected readonly timelineRepository: ITimelineRepository,
   ) {}
 
   /**
-  * Generates a timeline filename for a timeline.
-  * @param {string} mimetype - The mimetype of the timeline file.
+  * Generates a filename for a timeline.
   * @returns {string} The generated timeline filename.
   */
-  abstract generateTimelineFilename: (mimetype: string)
+  abstract generateTimelineFilename: ()
   => string;
 
   /**
