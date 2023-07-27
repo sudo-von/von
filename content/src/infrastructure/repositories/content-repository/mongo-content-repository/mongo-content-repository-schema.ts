@@ -4,6 +4,7 @@ import {
 import {
   ContentRepositorySchema,
 } from '../../../../domain/repositories/content-repository/content-repository-schema';
+import videoRepositorySchema from '../../video-repository/mongo-video-repository/mongo-video-repository-schema';
 
 const contentRepositorySchema = new Schema<ContentRepositorySchema>({
   title: {
@@ -28,10 +29,13 @@ const contentRepositorySchema = new Schema<ContentRepositorySchema>({
       required: true,
       enum: ['video', 'timeline-collection', 'vector-collection'],
     },
-    mediaData: { type: Schema.Types.Mixed },
+    video: {
+      type: videoRepositorySchema,
+      required: false,
+    },
   },
 }, {
-  discriminatorKey: 'type',
+  discriminatorKey: 'kind',
 });
 
 export default contentRepositorySchema;

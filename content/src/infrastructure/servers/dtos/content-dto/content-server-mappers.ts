@@ -9,11 +9,11 @@ const contentToDetailedContentResponse = (
   content: DetailedContent,
 ): DetailedContentResponse => ({
   id: content.id,
-  type: content.type,
   title: content.title,
   subtitle: content.subtitle,
   username: content.username,
   description: content.description,
+  media: content.media,
 });
 
 export default contentToDetailedContentResponse;

@@ -6,15 +6,15 @@ import {
   UpdateVideo,
 } from '../video-entitites';
 import {
-  validateAltLength,
-  validateUrlLength,
+  validateVideoAltLength,
+  validateVideoUrlLength,
 } from './video-validations';
 
 const validateVideoUpdate = (payload: UpdateVideo) => {
-  const isAltLengthValid = validateAltLength(payload.alt);
+  const isAltLengthValid = validateVideoAltLength(payload.alt);
   if (!isAltLengthValid) throw InvalidVideoAltLengthError;
 
-  const isUrlLengthValid = validateUrlLength(payload.url);
+  const isUrlLengthValid = validateVideoUrlLength(payload.url);
   if (!isUrlLengthValid) throw InvalidVideoUrlLengthError;
 };
 

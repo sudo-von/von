@@ -1,10 +1,4 @@
 const userRules = {
-  type: {
-    content: {
-      MIN_LENGTH: 4,
-      MAX_LENGTH: 20,
-    },
-  },
   title: {
     content: {
       MIN_LENGTH: 4,

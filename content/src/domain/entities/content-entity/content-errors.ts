@@ -3,11 +3,6 @@ import {
 } from '../../errors/error-factory';
 import contentRules from './content-rules';
 
-export const ContentTypeAlreadyInUseError = createDomainErrorFactory({
-  code: 'CONTENT_TYPE_ALREADY_IN_USE',
-  message: 'The content type is already in use.',
-});
-
 export const ContentUpdateFailedError = createDomainErrorFactory({
   code: 'CONTENT_UPDATE_FAILED',
   message: 'The content you attempted to update could not be updated.',
@@ -31,9 +26,4 @@ export const InvalidSubtitleLengthError = createDomainErrorFactory({
 export const InvalidTitleLengthError = createDomainErrorFactory({
   code: 'INVALID_TITLE_LENGTH',
   message: `Please provide a title that consists of ${contentRules.title.content.MIN_LENGTH} to ${contentRules.title.content.MAX_LENGTH} characters.`,
-});
-
-export const InvalidTypeLengthError = createDomainErrorFactory({
-  code: 'INVALID_TYPE_LENGTH',
-  message: `Please provide a type that consists of ${contentRules.type.content.MIN_LENGTH} to ${contentRules.type.content.MAX_LENGTH} characters.`,
 });

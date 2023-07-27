@@ -8,19 +8,11 @@ import {
 } from '../../errors/server-error-factory';
 import {
   ContentNotFoundError,
-  InvalidTypeLengthError,
   InvalidTitleLengthError,
   ContentUpdateFailedError,
   InvalidSubtitleLengthError,
-  ContentTypeAlreadyInUseError,
   InvalidDescriptionLengthError,
 } from '../../../../domain/entities/content-entity/content-errors';
-
-export const ContentTypeAlreadyInUseServerError = createServerErrorFactory({
-  code: 'CONTENT_TYPE_ALREADY_IN_USE',
-  error: ContentTypeAlreadyInUseError.message,
-  statusCode: statusCode.CONFLICT,
-});
 
 export const ContentUpdateFailedServerError = createServerErrorFactory({
   code: 'CONTENT_UPDATE_FAILED',
@@ -52,18 +44,10 @@ export const InvalidTitleLengthServerError = createServerErrorFactory({
   statusCode: statusCode.BAD_REQUEST,
 });
 
-export const InvalidTypeLengthServerError = createServerErrorFactory({
-  code: 'INVALID_TYPE_LENGTH',
-  error: InvalidTypeLengthError.message,
-  statusCode: statusCode.BAD_REQUEST,
-});
-
 export const contentServerErrors: Record<ContentServerErrorCode, ServerErrorFactory> = {
-  CONTENT_TYPE_ALREADY_IN_USE: ContentTypeAlreadyInUseServerError,
   CONTENT_UPDATE_FAILED: ContentUpdateFailedServerError,
   CONTENT_NOT_FOUND: ContentNotFoundServerError,
   INVALID_DESCRIPTION_LENGTH: InvalidDescriptionLengthServerError,
   INVALID_SUBTITLE_LENGTH: InvalidSubtitleLengthServerError,
   INVALID_TITLE_LENGTH: InvalidTitleLengthServerError,
-  INVALID_TYPE_LENGTH: InvalidTypeLengthServerError,
 };

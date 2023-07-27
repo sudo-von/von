@@ -1,18 +1,18 @@
 import {
   Router,
 } from 'express';
-import ContentController from './content-controller';
 import TokenService from '../../../../services/token-service/token-service';
 import authenticationMiddleware from '../../middlewares/authentication-middleware';
-import ContentUsecase from '../../../../../domain/usecases/content-usecase/content-usecase';
 import IUserRepository from '../../../../../domain/repositories/user-repository/user-repository';
+import VideoUsecase from '../../../../../domain/usecases/video-usecase/video-usecase';
+import VideoController from './video-controller';
 
-const configureContentRouter = (
+const configureVideoRouter = (
   tokenService: TokenService,
-  contentUsecase: ContentUsecase,
+  videoUsecase: VideoUsecase,
   userRepository: IUserRepository,
 ) => {
-  const contentController = new ContentController(contentUsecase);
+  const videoController = new VideoController(videoUsecase);
 
   const router = Router();
 
@@ -21,10 +21,9 @@ const configureContentRouter = (
     userRepository,
   );
 
-  router.get('/:id', authenticationHandler, contentController.getContentById);
-  router.get('/username/:username', contentController.getContentsByUsername);
+  router.post('/username/:username', authenticationHandler, videoController.createVideoContentByUsername);
 
   return router;
 };
 
-export default configureContentRouter;
+export default configureVideoRouter;

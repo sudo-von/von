@@ -6,6 +6,7 @@ import configureTokenService from './infrastructure/config/configure-token-servi
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
 import configureContentRouter from './infrastructure/servers/express-server/controllers/content-controller/content-router';
+import configureVideoRouter from './infrastructure/servers/express-server/controllers/video-controller/video-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -27,6 +28,7 @@ loggerService.info('📢 Logger service has been configured.');
     /* 💽 Repositories. */
     const {
       userRepository,
+      videoRepository,
       contentRepository,
     } = await configureRepositories(
       DATABASE_URL,
@@ -44,8 +46,10 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       userUsecase,
       contentUsecase,
+      videoUsecase,
     } = configureUsecases(
       userRepository,
+      videoRepository,
       contentRepository,
     );
     loggerService.info('📖 Usecases have been configured.');
@@ -57,9 +61,11 @@ loggerService.info('📢 Logger service has been configured.');
     /* 🔌 Routers. */
     const contentRouter = configureContentRouter(tokenService, contentUsecase, userRepository);
     loggerService.info('🔌 Content router has been configured.');
+    const videoRouter = configureVideoRouter(tokenService, videoUsecase, userRepository);
+    loggerService.info('🔌 Video router has been configured.');
 
     /* 🚀 Server. */
-    configureServer(SERVER_PORT, contentRouter, loggerService);
+    configureServer(SERVER_PORT, videoRouter, contentRouter, loggerService);
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

@@ -5,6 +5,8 @@ import {
 } from '../../entities/video-entity/video-entitites';
 import IVideoRepository from '../../repositories/video-repository/video-repository';
 import IContentRepository from '../../repositories/content-repository/content-repository';
+import IUserRepository from '../../repositories/user-repository/user-repository';
+import { CreateVideoContent, VideoContent } from '../../entities/content-entity/content-entities';
 
 abstract class VideoUsecase {
   /**
@@ -14,17 +16,9 @@ abstract class VideoUsecase {
   */
   constructor(
     protected readonly videoRepository: IVideoRepository,
+    protected readonly userRepository: IUserRepository,
     protected readonly contentRepository: IContentRepository,
   ) {}
-
-  /**
-  * Creates a video by content ID.
-  * @param {string} id - The ID of the content.
-  * @param {CreateVideo} payload - The object containing the data to create the video.
-  * @returns {Promise<Video>} - A promise with the created content video object.
-  */
-  abstract createVideoByContentId: (id: string, payload: CreateVideo)
-  => Promise<Video>;
 
   /**
   * Updates a video by ID.
@@ -34,6 +28,9 @@ abstract class VideoUsecase {
   */
   abstract updateVideoById: (id: string, payload: UpdateVideo)
   => Promise<Video>;
+
+  abstract createVideoContentByUsername: (username: string, payload: CreateVideoContent)
+  => Promise<VideoContent>;
 }
 
 export default VideoUsecase;

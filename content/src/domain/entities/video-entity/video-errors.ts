@@ -15,17 +15,12 @@ export const InvalidVideoUrlLengthError = createDomainErrorFactory({
 
 export const VideoAlreadyCreatedError = createDomainErrorFactory({
   code: 'VIDEO_ALREADY_CREATED',
-  error: 'The video has already been created.',
+  message: 'The video has already been created.',
 });
 
 export const VideoCreationFailedError = createDomainErrorFactory({
   code: 'VIDEO_CREATION_FAILED',
-  error: 'The video you attempted to create could not be created.',
-});
-
-export const VideoNotCreatedYetError = createDomainErrorFactory({
-  code: 'VIDEO_NOT_CREATED_YET',
-  error: 'The video has not been created yet.',
+  message: 'The video you attempted to create could not be created.',
 });
 
 export const VideoNotFoundError = createDomainErrorFactory({
@@ -35,5 +30,5 @@ export const VideoNotFoundError = createDomainErrorFactory({
 
 export const VideoUpdateFailedError = createDomainErrorFactory({
   code: 'VIDEO_UPDATE_FAILED',
-  error: 'The video you attempted to update could not be updated.',
+  message: 'The video you attempted to update could not be updated.',
 });
