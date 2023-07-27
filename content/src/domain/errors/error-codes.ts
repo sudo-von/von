@@ -6,6 +6,7 @@ export type DomainError = {
 export type DomainErrorCode =
 | ContentErrorCode
 | UserErrorCode
+| VectorErrorCode
 | VideoErrorCode;
 
 export type ContentErrorCode =
@@ -20,6 +21,14 @@ export type UserErrorCode =
 | 'SINGLE_USER_ONLY'
 | 'USER_NOT_FOUND'
 | 'USER_UPDATE_FAILED';
+
+export type VectorErrorCode =
+| 'INVALID_VECTOR_DESCRIPTION_LENGTH'
+| 'INVALID_VECTOR_FILE_MIME_TYPE'
+| 'INVALID_VECTOR_FILE_SIZE'
+| 'VECTOR_CREATION_FAILED'
+| 'VECTOR_NOT_FOUND'
+| 'VECTOR_UPDATE_FAILED';
 
 export type VideoErrorCode =
 | 'INVALID_VIDEO_DOMAIN'
