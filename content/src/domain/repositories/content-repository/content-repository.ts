@@ -24,6 +24,9 @@ interface IContentRepositoryWriter {
 
   updateContents: (payload: PartialDetailedContent, filters?: ContentRepositoryFilters)
   => Promise<void>;
+
+  deleteContentById: (id: string)
+  => Promise<void>;
 }
 
 interface IContentRepository extends IContentRepositoryReader, IContentRepositoryWriter {}

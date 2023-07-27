@@ -1,18 +1,18 @@
 import {
-  InvalidVideoAltLengthError,
+  InvalidVideoDomainError,
   InvalidVideoUrlLengthError,
 } from '../video-errors';
 import {
   UpdateVideo,
 } from '../video-entitites';
 import {
-  validateVideoAltLength,
+  validateVideoDomain,
   validateVideoUrlLength,
 } from './video-validations';
 
 const validateVideoUpdate = (payload: UpdateVideo) => {
-  const isAltLengthValid = validateVideoAltLength(payload.alt);
-  if (!isAltLengthValid) throw InvalidVideoAltLengthError;
+  const isDomainValid = validateVideoDomain(payload.url);
+  if (!isDomainValid) throw InvalidVideoDomainError;
 
   const isUrlLengthValid = validateVideoUrlLength(payload.url);
   if (!isUrlLengthValid) throw InvalidVideoUrlLengthError;

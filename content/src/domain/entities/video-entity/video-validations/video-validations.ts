@@ -1,9 +1,9 @@
 import videoRules from '../video-rules';
 
-export const validateVideoAltLength = (alt: string) => {
-  const altLength = alt.trim().length;
-  const { MIN_LENGTH, MAX_LENGTH } = videoRules.alt.content;
-  return altLength >= MIN_LENGTH && altLength <= MAX_LENGTH;
+export const validateVideoDomain = (url: string) => {
+  const trimmedUrl = url.trim();
+  const { ALLOWED_DOMAINS } = videoRules.url.content;
+  return ALLOWED_DOMAINS.some((domain) => trimmedUrl.startsWith(domain));
 };
 
 export const validateVideoUrlLength = (url: string) => {

@@ -10,7 +10,6 @@ const detailedContentDocumentToVideo = (
   document: HydratedDocument<ContentRepositorySchema>,
 ): Video => ({
   id: document._id.toHexString(),
-  alt: document.media.video.alt,
   url: document.media.video.url,
 });
 

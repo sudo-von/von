@@ -4,16 +4,15 @@ import {
   InvalidDescriptionLengthError,
 } from '../content-errors';
 import {
-  CreateVideoContent,
+  UpdateDetailedContent,
 } from '../content-entities';
 import {
   validateContentTitleLength,
   validateContentSubtitleLength,
   validateContentDescriptionLength,
 } from './content-validations';
-import validateVideoCreation from '../../video-entity/video-validations/create-video-validations';
 
-const validateVideoContentCreation = (payload: CreateVideoContent) => {
+const validateContentUpdate = (payload: UpdateDetailedContent) => {
   const isContentTitleValid = validateContentTitleLength(payload.title);
   if (!isContentTitleValid) throw InvalidTitleLengthError;
 
@@ -22,8 +21,6 @@ const validateVideoContentCreation = (payload: CreateVideoContent) => {
 
   const isContentDescriptionValid = validateContentDescriptionLength(payload.description);
   if (!isContentDescriptionValid) throw InvalidDescriptionLengthError;
-
-  validateVideoCreation(payload.media.video);
 };
 
-export default validateVideoContentCreation;
+export default validateContentUpdate;

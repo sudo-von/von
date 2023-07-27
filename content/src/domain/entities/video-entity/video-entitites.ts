@@ -1,16 +1,5 @@
-export type VideoMedia = {
-  type: 'video';
-  video: Video;
-};
-
-export type CreateVideoMedia = {
-  type: 'video';
-  video: CreateVideo;
-};
-
 export type Video = {
   id: string;
-  alt: string;
   url: string;
 };
 

@@ -1,6 +1,9 @@
+import {
+  DetailedContent,
+  UpdateDetailedContent,
+} from '../../entities/content-entity/content-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 import IContentRepository from '../../repositories/content-repository/content-repository';
-import { CreateVideoContent, DetailedContent } from '../../entities/content-entity/content-entities';
 
 abstract class ContentUsecase {
   constructor(
@@ -13,6 +16,12 @@ abstract class ContentUsecase {
 
   abstract getContentsByUsername: (username: string)
   => Promise<DetailedContent[]>;
+
+  abstract updateContentById: (id: string, payload: UpdateDetailedContent)
+  => Promise<DetailedContent>;
+
+  abstract deleteContentById: (id: string)
+  => Promise<void>;
 }
 
 export default ContentUsecase;

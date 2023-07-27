@@ -5,11 +5,11 @@ import {
   PartialDetailedContent,
 } from '../../../../domain/entities/content-entity/content-entities';
 import createContentRepositoryQuery from './mongo-content-repository-query';
+import contentDocumentToDetailedContent from './mongo-content-repository-mapper';
 import {
   ContentRepositoryFilters,
 } from '../../../../domain/repositories/content-repository/content-repository-filters';
 import IContentRepository from '../../../../domain/repositories/content-repository/content-repository';
-import contentDocumentToDetailedContent from './mongo-content-repository-mapper';
 
 class MongoContentRepository implements IContentRepository {
   getContent = async (
@@ -77,6 +77,12 @@ class MongoContentRepository implements IContentRepository {
       description: payload.description,
       media: payload.media,
     });
+  };
+
+  deleteContentById = async (
+    id: string,
+  ): Promise<void> => {
+    await ContentModel.findByIdAndDelete(id);
   };
 }
 

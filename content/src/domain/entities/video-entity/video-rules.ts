@@ -1,16 +1,11 @@
 const videoRules = {
-  alt: {
-    content: {
-      MIN_LENGTH: 3,
-      MAX_LENGTH: 20,
-    },
-  },
   url: {
     content: {
       MIN_LENGTH: 15,
       MAX_LENGTH: 80,
+      ALLOWED_DOMAINS: ['https://www.youtube.com/embed/'],
     },
   },
-} as const;
+};
 
 export default videoRules;

@@ -1,14 +1,11 @@
 import {
-  VideoRepositoryMediaSchema,
-} from '../video-repository/video-repository-schema';
-
-export type DetailedContentRepositoryMedia =
-| VideoRepositoryMediaSchema;
+  MediaRepositorySchema,
+} from '../media-repository/media-repository-schema';
 
 export type ContentRepositorySchema = {
   title: string;
   subtitle: string;
   username: string;
   description: string;
-  media: DetailedContentRepositoryMedia;
+  media: MediaRepositorySchema;
 };

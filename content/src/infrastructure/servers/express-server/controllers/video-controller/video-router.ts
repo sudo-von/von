@@ -22,6 +22,7 @@ const configureVideoRouter = (
   );
 
   router.post('/username/:username', authenticationHandler, videoController.createVideoContentByUsername);
+  router.patch('/:id', authenticationHandler, videoController.updateVideoById);
 
   return router;
 };

@@ -7,7 +7,6 @@ export type DetailedContentResponse = {
   media: {
     type: 'video';
     video: {
-      alt: string;
       url: string;
     }
   }

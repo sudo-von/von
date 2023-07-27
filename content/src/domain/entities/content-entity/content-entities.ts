@@ -1,7 +1,9 @@
 import {
+  Media,
   VideoMedia,
+  CreateMedia,
   CreateVideoMedia,
-} from '../video-entity/video-entitites';
+} from '../media-entity/media-entities';
 
 export type DetailedContent = {
   id: string;
@@ -9,12 +11,14 @@ export type DetailedContent = {
   subtitle: string;
   username: string;
   description: string;
-  media: VideoMedia;
+  media: Media;
 };
 
 export type CreateDetailedContent = Omit<DetailedContent, 'id' | 'media'> & {
-  media: CreateVideoMedia;
+  media: CreateMedia;
 };
+
+export type UpdateDetailedContent = Omit<DetailedContent, 'id' | 'media' | 'username'>;
 
 export type PartialDetailedContent = Partial<DetailedContent>;
 
@@ -23,5 +27,5 @@ export type VideoContent = Omit<DetailedContent, 'media'> & {
 };
 
 export type CreateVideoContent = Omit<DetailedContent, 'id' | 'media'> & {
-  media: CreateVideoMedia;
+  media: Omit<CreateVideoMedia, 'type'>;
 };

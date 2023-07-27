@@ -4,9 +4,9 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import ContentUsecase from '../../../../../domain/usecases/content-usecase/content-usecase';
-import contentToDetailedContentResponse from '../../../dtos/content-dto/content-server-mappers';
-import { CreateVideoContentRequest } from '../../../dtos/content-dto/content-server-request-dtos';
+import {
+  CreateVideoContentRequest,
+} from '../../../dtos/content-dto/content-server-request-dtos';
 import VideoUsecase from '../../../../../domain/usecases/video-usecase/video-usecase';
 
 class VideoController {
@@ -24,17 +24,29 @@ class VideoController {
         description: payload.description,
         username,
         media: {
-          type: 'video',
           video: {
-            alt: payload.video.alt,
             url: payload.video.url,
           },
         },
       });
 
-      const contentResponse = contentToDetailedContentResponse(createdContent);
+      res.status(statusCode.CREATED).send({ result: createdContent });
+    } catch (e) {
+      next(e);
+    }
+  };
 
-      res.status(statusCode.CREATED).send({ result: contentResponse });
+  updateVideoById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const id = req.params.id.toLowerCase();
+
+      const payload = CreateVideoContentRequest.parse(req.body);
+
+      const updatedVideo = await this.videoUsecase.updateVideoById(id, {
+        url: payload.video.url,
+      });
+
+      res.status(statusCode.OK).send({ result: updatedVideo });
     } catch (e) {
       next(e);
     }

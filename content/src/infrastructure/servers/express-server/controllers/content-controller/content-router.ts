@@ -21,8 +21,10 @@ const configureContentRouter = (
     userRepository,
   );
 
-  router.get('/:id', authenticationHandler, contentController.getContentById);
+  router.get('/:id', contentController.getContentById);
   router.get('/username/:username', contentController.getContentsByUsername);
+  router.patch('/:id', authenticationHandler, contentController.updateContentById);
+  router.delete('/:id', authenticationHandler, contentController.deleteContentById);
 
   return router;
 };
