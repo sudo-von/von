@@ -6,6 +6,7 @@ export type DomainError = {
 export type DomainErrorCode =
 | AboutErrorCode
 | ContentErrorCode
+| CybersecurityErrorCode
 | UserErrorCode;
 
 export type AboutErrorCode =
@@ -22,6 +23,14 @@ export type ContentErrorCode =
 | 'INVALID_DESCRIPTION_LENGTH'
 | 'INVALID_SUBTITLE_LENGTH'
 | 'INVALID_TITLE_LENGTH';
+
+export type CybersecurityErrorCode =
+| 'INVALID_CYBERSECURITY_DOMAIN'
+| 'INVALID_CYBERSECURITY_URL_LENGTH'
+| 'CYBERSECURITY_ALREADY_CREATED'
+| 'CYBERSECURITY_NOT_CREATED_YET'
+| 'CYBERSECURITY_NOT_FOUND'
+| 'CYBERSECURITY_UPDATE_FAILED';
 
 export type UserErrorCode =
 | 'INVALID_USERNAME_LENGTH'
