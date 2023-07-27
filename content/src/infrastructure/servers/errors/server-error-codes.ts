@@ -1,7 +1,7 @@
 import {
-  ContentErrorCode,
+  AboutErrorCode,
   UserErrorCode,
-  VideoErrorCode,
+  ContentErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
   TokenServiceErrorCode,
@@ -14,11 +14,14 @@ export type ServerError = {
 };
 
 export type ServerErrorCode =
+| AboutErrorCode
 | CommonServerErrorCode
 | ContentServerErrorCode
 | TokenServerErrorCode
-| VideoServerErrorCode
 | UserServerErrorCode;
+
+export type AboutServerErrorCode =
+| AboutErrorCode;
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
@@ -33,9 +36,6 @@ export type TokenServerErrorCode =
 | 'AUTHORIZATION_SCHEME_NOT_SUPPORTED'
 | 'MISSING_AUTHORIZATION_HEADER'
 | 'MISSING_TOKEN';
-
-export type VideoServerErrorCode =
-| VideoErrorCode;
 
 export type UserServerErrorCode =
 | UserErrorCode;

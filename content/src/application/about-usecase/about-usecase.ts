@@ -23,7 +23,7 @@ class AboutUsecaseApplication extends AboutUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const about = await this.aboutRepository.getAboutByUsername(username);
+    const about = await this.aboutRepository.getAbout({ username });
     if (!about) throw AboutNotFoundError;
 
     return about;
@@ -38,7 +38,7 @@ class AboutUsecaseApplication extends AboutUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const about = await this.aboutRepository.getAboutByUsername(username);
+    const about = await this.aboutRepository.getAbout({ username });
     if (about) throw AboutAlreadyCreatedError;
 
     const createdAbout = await this.aboutRepository.createAbout({
@@ -63,17 +63,17 @@ class AboutUsecaseApplication extends AboutUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const about = await this.aboutRepository.getAboutByUsername(username);
+    const about = await this.aboutRepository.getAbout({ username });
     if (!about) throw AboutNotCreatedYetError;
 
-    const updatedAbout = await this.aboutRepository.updateAboutById(about.id, {
+    const updatedAbout = await this.aboutRepository.updateAbout({
       title: payload.title,
       subtitle: payload.subtitle,
       description: payload.description,
       media: {
         url: payload.media.url,
       },
-    });
+    }, { username });
     if (!updatedAbout) throw AboutUpdateFailedError;
 
     return updatedAbout;

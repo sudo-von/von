@@ -5,8 +5,7 @@ import configureRepositories from './infrastructure/config/configure-repositorie
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
-import configureContentRouter from './infrastructure/servers/express-server/controllers/content-controller/content-router';
-import configureVideoRouter from './infrastructure/servers/express-server/controllers/video-controller/video-router';
+import configureAboutRouter from './infrastructure/servers/express-server/controllers/about-controller/about-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -28,8 +27,7 @@ loggerService.info('📢 Logger service has been configured.');
     /* 💽 Repositories. */
     const {
       userRepository,
-      videoRepository,
-      contentRepository,
+      aboutRepository,
     } = await configureRepositories(
       DATABASE_URL,
       DATABASE_NAME,
@@ -45,12 +43,10 @@ loggerService.info('📢 Logger service has been configured.');
     /* 📖 Usecases. */
     const {
       userUsecase,
-      contentUsecase,
-      videoUsecase,
+      aboutUsecase,
     } = configureUsecases(
       userRepository,
-      videoRepository,
-      contentRepository,
+      aboutRepository,
     );
     loggerService.info('📖 Usecases have been configured.');
 
@@ -59,13 +55,11 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📦 Brokers have been configured.');
 
     /* 🔌 Routers. */
-    const contentRouter = configureContentRouter(tokenService, contentUsecase, userRepository);
-    loggerService.info('🔌 Content router has been configured.');
-    const videoRouter = configureVideoRouter(tokenService, videoUsecase, userRepository);
-    loggerService.info('🔌 Video router has been configured.');
+    const aboutRouter = configureAboutRouter(tokenService, aboutUsecase, userRepository);
+    loggerService.info('🔌 About router has been configured.');
 
     /* 🚀 Server. */
-    configureServer(SERVER_PORT, videoRouter, contentRouter, loggerService);
+    configureServer(SERVER_PORT, aboutRouter, loggerService);
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

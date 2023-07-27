@@ -2,7 +2,7 @@ import {
   z,
 } from 'zod';
 
-export const CreateVideoContentRequest = z.object({
+export const CreateAboutRequest = z.object({
   title: z
     .string({
       required_error: 'title field is required',
@@ -21,21 +21,21 @@ export const CreateVideoContentRequest = z.object({
       invalid_type_error: 'description field must be a string',
     })
     .trim(),
-  video: z.object({
+  media: z.object({
     url: z
       .string({
         required_error: 'url field is required',
         invalid_type_error: 'url field must be a string',
       })
       .trim()
-      .url('url field must be a valid url'),
+      .url('url field must contain a valid url'),
   }, {
-    required_error: 'video field is required',
-    invalid_type_error: 'video field must be an object',
+    required_error: 'media field is required',
+    invalid_type_error: 'media field must be an object',
   }),
 });
 
-export const UpdateContentRequest = z.object({
+export const UpdateAboutRequest = z.object({
   title: z
     .string({
       required_error: 'title field is required',
@@ -54,4 +54,16 @@ export const UpdateContentRequest = z.object({
       invalid_type_error: 'description field must be a string',
     })
     .trim(),
+  media: z.object({
+    url: z
+      .string({
+        required_error: 'url field is required',
+        invalid_type_error: 'url field must be a string',
+      })
+      .trim()
+      .url('url field must contain a valid url'),
+  }, {
+    required_error: 'media field is required',
+    invalid_type_error: 'media field must be an object',
+  }),
 });

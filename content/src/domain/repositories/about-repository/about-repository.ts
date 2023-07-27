@@ -1,11 +1,14 @@
 import {
+  AboutRepositoryFilters,
+} from './about-repository-filters';
+import {
   About,
   CreateAbout,
   PartialAbout,
 } from '../../entities/about-entity/about-entities';
 
 interface IAboutRepositoryReader {
-  getAboutByUsername: (username: string)
+  getAbout: (filters?: AboutRepositoryFilters)
   => Promise<About | null>;
 }
 
@@ -13,8 +16,11 @@ interface IAboutRepositoryWriter {
   createAbout: (payload: CreateAbout)
   => Promise<About>;
 
-  updateAboutById: (id: string, payload: PartialAbout)
+  updateAbout: (payload: PartialAbout, filters?: AboutRepositoryFilters)
   => Promise<About | null>;
+
+  updateAbouts: (payload: PartialAbout, filters?: AboutRepositoryFilters)
+  => Promise<void>;
 }
 
 interface IAboutRepository extends IAboutRepositoryReader, IAboutRepositoryWriter {}

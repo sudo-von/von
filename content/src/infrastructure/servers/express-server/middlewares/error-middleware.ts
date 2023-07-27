@@ -30,8 +30,8 @@ import {
   contentServerErrors,
 } from '../../dtos/content-dto/content-server-errors';
 import {
-  videoServerErrors,
-} from '../../dtos/video-dto/video-server-errors';
+  aboutServerErrors,
+} from '../../dtos/about-dto/about-server-errors';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
@@ -43,7 +43,7 @@ import LoggerService from '../../../services/logger-service/logger-service';
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   ...userServerErrors,
   ...contentServerErrors,
-  ...videoServerErrors,
+  ...aboutServerErrors,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {

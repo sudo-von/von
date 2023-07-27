@@ -15,12 +15,12 @@ export const InvalidAboutUrlLengthError = createDomainErrorFactory({
 
 export const AboutAlreadyCreatedError = createDomainErrorFactory({
   code: 'ABOUT_ALREADY_CREATED',
-  error: 'The about has already been created.',
+  message: 'The about has already been created.',
 });
 
 export const AboutNotCreatedYetError = createDomainErrorFactory({
   code: 'ABOUT_NOT_CREATED_YET',
-  error: 'The about has not been created yet.',
+  message: 'The about has not been created yet.',
 });
 
 export const AboutNotFoundError = createDomainErrorFactory({

@@ -1,13 +1,10 @@
-export type DetailedContentResponse = {
+export type AboutResponse = {
   id: string;
   title: string;
   subtitle: string;
   username: string;
   description: string;
   media: {
-    type: 'video';
-    video: {
-      url: string;
-    }
+    url: string;
   }
 };

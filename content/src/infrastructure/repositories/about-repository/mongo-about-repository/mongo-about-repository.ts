@@ -5,13 +5,18 @@ import {
   PartialAbout,
 } from '../../../../domain/entities/about-entity/about-entities';
 import aboutDocumentToAbout from './mongo-about-repository-mapper';
+import createAboutRepositoryQuery from './mongo-about-repository-query';
+import {
+  AboutRepositoryFilters,
+} from '../../../../domain/repositories/about-repository/about-repository-filters';
 import IAboutRepository from '../../../../domain/repositories/about-repository/about-repository';
 
 class MongoAboutRepository implements IAboutRepository {
-  getAboutByUsername = async (
-    username: string,
+  getAbout = async (
+    filters?: AboutRepositoryFilters,
   ): Promise<About | null> => {
-    const aboutDocument = await AboutModel.findOne({ username });
+    const query = createAboutRepositoryQuery(filters);
+    const aboutDocument = await AboutModel.findOne(query);
     if (!aboutDocument) return null;
     const about = aboutDocumentToAbout(aboutDocument);
     return about;
@@ -34,11 +39,12 @@ class MongoAboutRepository implements IAboutRepository {
     return about;
   };
 
-  updateAboutById = async (
-    id: string,
+  updateAbout = async (
     payload: PartialAbout,
+    filters?: AboutRepositoryFilters,
   ): Promise<About | null> => {
-    const aboutDocument = await AboutModel.findByIdAndUpdate(id, {
+    const query = createAboutRepositoryQuery(filters);
+    const aboutDocument = await AboutModel.findOneAndUpdate(query, {
       title: payload.title,
       media: payload.media,
       subtitle: payload.subtitle,
@@ -50,6 +56,20 @@ class MongoAboutRepository implements IAboutRepository {
     if (!aboutDocument) return null;
     const about = aboutDocumentToAbout(aboutDocument);
     return about;
+  };
+
+  updateAbouts = async (
+    payload: PartialAbout,
+    filters?: AboutRepositoryFilters,
+  ): Promise<void> => {
+    const query = createAboutRepositoryQuery(filters);
+    await AboutModel.updateMany(query, {
+      title: payload.title,
+      media: payload.media,
+      subtitle: payload.subtitle,
+      username: payload.username,
+      description: payload.description,
+    });
   };
 }
 

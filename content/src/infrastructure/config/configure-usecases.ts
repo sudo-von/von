@@ -1,29 +1,19 @@
 import UserUsecaseApplication from '../../application/user-usecase/user-usecase';
+import AboutUsecaseApplication from '../../application/about-usecase/about-usecase';
 import IUserRepository from '../../domain/repositories/user-repository/user-repository';
-import ContentUsecaseApplication from '../../application/content-usecase/content-usecase';
-import IContentRepository from '../../domain/repositories/content-repository/content-repository';
-import VideoUsecaseApplication from '../../application/video-usecase/video-usecase';
-import IVideoRepository from '../../domain/repositories/video-repository/video-repository';
+import IAboutRepository from '../../domain/repositories/about-repository/about-repository';
 
 const configureUsecases = (
   userRepository: IUserRepository,
-  videoRepository: IVideoRepository,
-  contentRepository: IContentRepository,
+  aboutRepository: IAboutRepository,
 ) => {
-  const userUsecase = new UserUsecaseApplication(userRepository, contentRepository);
+  const userUsecase = new UserUsecaseApplication(userRepository, aboutRepository);
 
-  const contentUsecase = new ContentUsecaseApplication(userRepository, contentRepository);
-
-  const videoUsecase = new VideoUsecaseApplication(
-    videoRepository,
-    userRepository,
-    contentRepository,
-  );
+  const aboutUsecase = new AboutUsecaseApplication(userRepository, aboutRepository);
 
   return {
     userUsecase,
-    contentUsecase,
-    videoUsecase,
+    aboutUsecase,
   };
 };
 
