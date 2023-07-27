@@ -1,6 +1,6 @@
 import videoRules from '../video-rules';
 
-export const validateVideoDomain = (url: string) => {
+export const validateVideoUrlDomain = (url: string) => {
   const trimmedUrl = url.trim();
   const { ALLOWED_DOMAINS } = videoRules.url.content;
   return ALLOWED_DOMAINS.some((domain) => trimmedUrl.startsWith(domain));
