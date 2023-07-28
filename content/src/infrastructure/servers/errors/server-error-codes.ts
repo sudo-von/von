@@ -1,5 +1,5 @@
 import {
-  AboutErrorCode,
+  VideoErrorCode,
   UserErrorCode,
   ContentErrorCode,
 } from '../../../domain/errors/error-codes';
@@ -14,14 +14,14 @@ export type ServerError = {
 };
 
 export type ServerErrorCode =
-| AboutErrorCode
+| VideoServerErrorCode
 | CommonServerErrorCode
 | ContentServerErrorCode
 | TokenServerErrorCode
 | UserServerErrorCode;
 
-export type AboutServerErrorCode =
-| AboutErrorCode;
+export type VideoServerErrorCode =
+| VideoErrorCode;
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'

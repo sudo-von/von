@@ -8,7 +8,7 @@ import errorMiddleware from '../servers/express-server/middlewares/error-middlew
 
 const configureServer = (
   serverPort: number,
-  aboutRouter: Router,
+  videoRouter: Router,
   loggerService: LoggerService,
 ) => {
   const app = express();
@@ -17,7 +17,7 @@ const configureServer = (
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  app.use('/api/v1/about', aboutRouter);
+  app.use('/api/v1/video-content', videoRouter);
 
   app.use(errorMiddleware(loggerService));
 

@@ -38,7 +38,7 @@ class UserUsecaseApplication extends UserUsecase {
     const user = await this.userRepository.getUser({ userId: id });
     if (!user) throw UserNotFoundError;
 
-    await this.aboutRepository.updateAbout({
+    await this.aboutRepository.updateVideo({
       username: payload.username,
     }, { username: user.username });
 

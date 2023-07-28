@@ -4,7 +4,7 @@ import {
   UpdateUser,
 } from '../../entities/user-entity/user-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
-import IAboutRepository from '../../repositories/about-repository/about-repository';
+import IAboutRepository from '../../repositories/video-repository/video-repository';
 
 abstract class UserUsecase {
   /**
