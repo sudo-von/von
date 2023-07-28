@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import MongoUserRepository from '../repositories/user-repository/mongo-user-repository/mongo-user-repository';
 import MongoVideoRepository from '../repositories/video-repository/mongo-video-repository/mongo-video-repository';
 import MongoVectorRepository from '../repositories/vector-repository/mongo-vector-repository/mongo-video-repository';
+import MongoContentRepository from '../repositories/content-repository/mongo-content-repository/mongo-content-repository';
 
 const configureRepositories = async (
   DATABASE_URL: string,
@@ -21,10 +22,13 @@ const configureRepositories = async (
 
   const vectorRepository = new MongoVectorRepository();
 
+  const contentRepository = new MongoContentRepository();
+
   return {
     userRepository,
     videoRepository,
     vectorRepository,
+    contentRepository,
   };
 };
 

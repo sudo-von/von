@@ -1,6 +1,6 @@
 import {
-  ContentRepositorySchema,
-} from '../content-repository/content-repository-schema';
+  GenericContentRepositorySchema,
+} from '../generic-content-repository/generic-content-repository-schema';
 
 export type VectorMediaRepositorySchema = {
   type: 'vector-collection',
@@ -13,4 +13,4 @@ export type VectorSchema = {
   description: string;
 };
 
-export type VectorRepositorySchema = ContentRepositorySchema<VectorMediaRepositorySchema>;
+export type VectorRepositorySchema = GenericContentRepositorySchema<VectorMediaRepositorySchema>;

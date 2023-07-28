@@ -1,16 +1,20 @@
-export type Content<T> = {
-  id: string;
-  title: string;
-  subtitle: string;
-  username: string;
-  description: string;
-  media: T;
-};
+import {
+  Media,
+} from '../media-entity/media-entities';
+import {
+  EmptyMedia,
+} from '../media-entity/empty-media-entities';
+import {
+  GenericContent,
+  CreateGenericContent,
+} from '../generic-content-entity/generic-content-entities';
 
-export type CreateContent<T> = Omit<Content<T>, 'id'>;
+export type Content = GenericContent<Media>;
 
-export type UpdateContent<T> = Omit<Content<T>, 'id'>;
+export type CreateContent = CreateGenericContent<EmptyMedia>;
 
-export type CreateBasicContent<T> = Omit<CreateContent<T>, 'username'>;
+export type PartialContent = Partial<GenericContent<Partial<Media>>>;
 
-export type UpdateBasicContent<T> = Omit<UpdateContent<T>, 'username'>;
+export type CreateBasicContent = Pick<Content, 'title' | 'subtitle' | 'description'>;
+
+export type UpdateBasicContent = Pick<Content, 'title' | 'subtitle' | 'description'>;

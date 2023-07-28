@@ -3,20 +3,20 @@ import {
   CreateVideoMedia,
 } from '../media-entity/media-entities';
 import {
-  Content,
-  CreateContent,
-  CreateBasicContent,
-  UpdateBasicContent,
-} from '../content-entity/content-entities';
+  GenericContent,
+  CreateGenericContent,
+  CreateBasicGenericContent,
+  UpdateBasicGenericContent,
+} from '../generic-content-entity/generic-content-entities';
 
 /* Repositories. */
-export type Video = Content<VideoMedia>;
+export type Video = GenericContent<VideoMedia>;
 
-export type CreateVideo = CreateContent<CreateVideoMedia>;
+export type CreateVideo = CreateGenericContent<CreateVideoMedia>;
 
 export type PartialVideo = Partial<Video>;
 
 /* Usecases. */
-export type CreateBasicVideo = CreateBasicContent<Omit<CreateVideoMedia, 'type'>>;
+export type CreateBasicVideo = CreateBasicGenericContent<Omit<CreateVideoMedia, 'type'>>;
 
-export type UpdateBasicVideo = UpdateBasicContent<Omit<CreateVideoMedia, 'type'>>;
+export type UpdateBasicVideo = UpdateBasicGenericContent<Omit<CreateVideoMedia, 'type'>>;

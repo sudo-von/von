@@ -9,6 +9,7 @@ import configureVideoRouter from './infrastructure/servers/express-server/contro
 import configureSecurityService from './infrastructure/config/configure-security-service';
 import configureFileService from './infrastructure/config/configure-file-service';
 import configureVectorRouter from './infrastructure/servers/express-server/controllers/vector-controller/vector-router';
+import configureContentRouter from './infrastructure/servers/express-server/controllers/content-controller/content-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -32,6 +33,7 @@ loggerService.info('📢 Logger service has been configured.');
       userRepository,
       videoRepository,
       vectorRepository,
+      contentRepository,
     } = await configureRepositories(
       DATABASE_URL,
       DATABASE_NAME,
@@ -53,12 +55,14 @@ loggerService.info('📢 Logger service has been configured.');
       userUsecase,
       videoUsecase,
       vectorUsecase,
+      contentUsecase,
     } = configureUsecases(
       fileService,
       userRepository,
       securityService,
       videoRepository,
       vectorRepository,
+      contentRepository,
     );
     loggerService.info('📖 Usecases have been configured.');
 
@@ -71,9 +75,11 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 Video router has been configured.');
     const vectorRouter = configureVectorRouter(tokenService, vectorUsecase, userRepository);
     loggerService.info('🔌 Vector router has been configured.');
+    const contentRouter = configureContentRouter(tokenService, contentUsecase, userRepository);
+    loggerService.info('🔌 Content router has been configured.');
 
     /* 🚀 Server. */
-    configureServer(SERVER_PORT, videoRouter, vectorRouter, loggerService);
+    configureServer(SERVER_PORT, contentRouter, videoRouter, vectorRouter, loggerService);
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

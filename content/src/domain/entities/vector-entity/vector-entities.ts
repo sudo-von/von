@@ -5,18 +5,18 @@ import {
   UpdateVectorMediaFileCollection,
 } from '../media-entity/media-entities';
 import {
-  Content,
-  CreateContent,
-  CreateBasicContent,
-  UpdateBasicContent,
-} from '../content-entity/content-entities';
+  GenericContent,
+  CreateGenericContent,
+  CreateBasicGenericContent,
+  UpdateBasicGenericContent,
+} from '../generic-content-entity/generic-content-entities';
 
-export type VectorCollection = Content<VectorMediaCollection>;
+export type VectorCollection = GenericContent<VectorMediaCollection>;
 
-export type CreateVectorCollection = CreateContent<CreateVectorMediaCollection>;
+export type CreateVectorCollection = CreateGenericContent<CreateVectorMediaCollection>;
 
 export type PartialVectorCollection = Partial<VectorCollection>;
 
-export type CreateVectorFileCollection = CreateBasicContent<CreateVectorMediaFileCollection>;
+export type CreateVectorFileCollection = CreateBasicGenericContent<CreateVectorMediaFileCollection>;
 
-export type UpdateVectorFileCollection = UpdateBasicContent<UpdateVectorMediaFileCollection>;
+export type UpdateVectorFileCollection = UpdateBasicGenericContent<UpdateVectorMediaFileCollection>;

@@ -1,10 +1,8 @@
 import {
-  ContentRepositorySchema,
-} from '../content-repository/content-repository-schema';
+  VideoMediaRepositorySchema,
+} from '../media-repository/video-media-repository-schema';
+import {
+  GenericContentRepositorySchema,
+} from '../generic-content-repository/generic-content-repository-schema';
 
-export type VideoMediaRepositorySchema = {
-  url: string;
-  type: 'video';
-};
-
-export type VideoRepositorySchema = ContentRepositorySchema<VideoMediaRepositorySchema>;
+export type VideoRepositorySchema = GenericContentRepositorySchema<VideoMediaRepositorySchema>;

@@ -10,6 +10,8 @@ export type DomainErrorCode =
 | VectorErrorCode;
 
 export type ContentErrorCode =
+| 'CONTENT_NOT_FOUND'
+| 'CONTENT_UPDATE_FAILED'
 | 'INVALID_DESCRIPTION_LENGTH'
 | 'INVALID_SUBTITLE_LENGTH'
 | 'INVALID_TITLE_LENGTH';

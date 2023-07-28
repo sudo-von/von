@@ -12,7 +12,7 @@ import {
   validateContentDescriptionLength,
 } from './content-validations';
 
-const validateContentCreation = <T>(payload: CreateBasicContent<T>) => {
+const validateContentCreation = (payload: CreateBasicContent) => {
   const isContentTitleValid = validateContentTitleLength(payload.title);
   if (!isContentTitleValid) throw InvalidTitleLengthError;
 

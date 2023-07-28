@@ -1,3 +1,7 @@
+import { EmptyMedia } from './empty-media-entities';
+
+export type Media = EmptyMedia | VideoMedia;
+
 export type VideoMedia = {
   url: string;
   type: 'video';
