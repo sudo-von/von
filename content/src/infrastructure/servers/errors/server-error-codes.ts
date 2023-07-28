@@ -2,8 +2,11 @@ import {
   VideoErrorCode,
   UserErrorCode,
   ContentErrorCode,
+  VectorErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
+  FileServiceErrorCode,
+  SecurityServiceErrorCode,
   TokenServiceErrorCode,
 } from '../../services/errors/service-error-codes';
 
@@ -18,7 +21,10 @@ export type ServerErrorCode =
 | CommonServerErrorCode
 | ContentServerErrorCode
 | TokenServerErrorCode
-| UserServerErrorCode;
+| UserServerErrorCode
+| FileServerErrorCode
+| SecurityServerErrorCode
+| VectorServerErrorCode;
 
 export type VideoServerErrorCode =
 | VideoErrorCode;
@@ -39,3 +45,12 @@ export type TokenServerErrorCode =
 
 export type UserServerErrorCode =
 | UserErrorCode;
+
+export type FileServerErrorCode =
+| FileServiceErrorCode;
+
+export type SecurityServerErrorCode =
+| SecurityServiceErrorCode;
+
+export type VectorServerErrorCode =
+| VectorErrorCode;

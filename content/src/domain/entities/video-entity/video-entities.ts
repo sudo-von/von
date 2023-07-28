@@ -1,21 +1,22 @@
 import {
+  VideoMedia,
+  CreateVideoMedia,
+} from '../media-entity/media-entities';
+import {
   Content,
   CreateContent,
   CreateBasicContent,
   UpdateBasicContent,
 } from '../content-entity/content-entities';
 
-export type VideoMedia = {
-  url: string;
-  type: 'video';
-};
-
+/* Repositories. */
 export type Video = Content<VideoMedia>;
 
-export type CreateVideo = CreateContent<VideoMedia>;
+export type CreateVideo = CreateContent<CreateVideoMedia>;
 
 export type PartialVideo = Partial<Video>;
 
-export type CreateBasicVideo = CreateBasicContent<Omit<VideoMedia, 'type'>>;
+/* Usecases. */
+export type CreateBasicVideo = CreateBasicContent<Omit<CreateVideoMedia, 'type'>>;
 
-export type UpdateBasicVideo = UpdateBasicContent<Omit<VideoMedia, 'type'>>;
+export type UpdateBasicVideo = UpdateBasicContent<Omit<CreateVideoMedia, 'type'>>;

@@ -6,6 +6,9 @@ import configureTokenService from './infrastructure/config/configure-token-servi
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
 import configureVideoRouter from './infrastructure/servers/express-server/controllers/video-controller/video-router';
+import configureSecurityService from './infrastructure/config/configure-security-service';
+import configureFileService from './infrastructure/config/configure-file-service';
+import configureVectorRouter from './infrastructure/servers/express-server/controllers/vector-controller/vector-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -28,6 +31,7 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       userRepository,
       videoRepository,
+      vectorRepository,
     } = await configureRepositories(
       DATABASE_URL,
       DATABASE_NAME,
@@ -39,14 +43,22 @@ loggerService.info('📢 Logger service has been configured.');
     /* 🔧 Services. */
     const tokenService = configureTokenService(SECRET_KEY);
     loggerService.info('🔑 Token service has been configured.');
+    const securityService = configureSecurityService();
+    loggerService.info('🔒 Security service has been configured.');
+    const fileService = configureFileService();
+    loggerService.info('📂 File service has been configured.');
 
     /* 📖 Usecases. */
     const {
       userUsecase,
       videoUsecase,
+      vectorUsecase,
     } = configureUsecases(
+      fileService,
       userRepository,
+      securityService,
       videoRepository,
+      vectorRepository,
     );
     loggerService.info('📖 Usecases have been configured.');
 
@@ -55,11 +67,13 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📦 Brokers have been configured.');
 
     /* 🔌 Routers. */
-    const aboutRouter = configureVideoRouter(tokenService, videoUsecase, userRepository);
-    loggerService.info('🔌 About router has been configured.');
+    const videoRouter = configureVideoRouter(tokenService, videoUsecase, userRepository);
+    loggerService.info('🔌 Video router has been configured.');
+    const vectorRouter = configureVectorRouter(tokenService, vectorUsecase, userRepository);
+    loggerService.info('🔌 Vector router has been configured.');
 
     /* 🚀 Server. */
-    configureServer(SERVER_PORT, aboutRouter, loggerService);
+    configureServer(SERVER_PORT, videoRouter, vectorRouter, loggerService);
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);

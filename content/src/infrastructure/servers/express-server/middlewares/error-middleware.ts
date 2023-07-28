@@ -22,6 +22,12 @@ import {
   tokenServerErrors,
 } from '../../dtos/token-dto/token-server-errors';
 import {
+  securityServerErrors,
+} from '../../dtos/security-dto/security-server-errors';
+import {
+  fileServerErrors,
+} from '../../dtos/file-dto/file-server-errors';
+import {
   RequiredFieldServerError,
   InternalServerServerError,
   RequestRuntimeServerError,
@@ -32,6 +38,9 @@ import {
 import {
   videoServerErrors,
 } from '../../dtos/video-dto/video-server-errors';
+import {
+  vectorServerErrors,
+} from '../../dtos/vector-dto/vector-server-errors';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
@@ -44,10 +53,13 @@ const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   ...userServerErrors,
   ...contentServerErrors,
   ...videoServerErrors,
+  ...vectorServerErrors,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
+  ...fileServerErrors,
   ...tokenServerErrors,
+  ...securityServerErrors,
 };
 
 const errorMiddleware = (loggerService: LoggerService) => (

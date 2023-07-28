@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import MongoUserRepository from '../repositories/user-repository/mongo-user-repository/mongo-user-repository';
 import MongoVideoRepository from '../repositories/video-repository/mongo-video-repository/mongo-video-repository';
+import MongoVectorRepository from '../repositories/vector-repository/mongo-vector-repository/mongo-video-repository';
 
 const configureRepositories = async (
   DATABASE_URL: string,
@@ -18,9 +19,12 @@ const configureRepositories = async (
 
   const videoRepository = new MongoVideoRepository();
 
+  const vectorRepository = new MongoVectorRepository();
+
   return {
     userRepository,
     videoRepository,
+    vectorRepository,
   };
 };
 
