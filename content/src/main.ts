@@ -5,7 +5,7 @@ import configureRepositories from './infrastructure/config/configure-repositorie
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
-import configureVideoRouter from './infrastructure/servers/express-server/controllers/video-controller/video-router';
+import configureVideoMediaRouter from './infrastructure/servers/express-server/controllers/video-media-controller/video-media-router';
 import configureSecurityService from './infrastructure/config/configure-security-service';
 import configureFileService from './infrastructure/config/configure-file-service';
 import configureVectorRouter from './infrastructure/servers/express-server/controllers/vector-controller/vector-router';
@@ -31,7 +31,6 @@ loggerService.info('📢 Logger service has been configured.');
     /* 💽 Repositories. */
     const {
       userRepository,
-      videoRepository,
       vectorRepository,
       contentRepository,
     } = await configureRepositories(
@@ -53,14 +52,13 @@ loggerService.info('📢 Logger service has been configured.');
     /* 📖 Usecases. */
     const {
       userUsecase,
-      videoUsecase,
+      videoMediaUsecase,
       vectorUsecase,
       contentUsecase,
     } = configureUsecases(
       fileService,
       userRepository,
       securityService,
-      videoRepository,
       vectorRepository,
       contentRepository,
     );
@@ -71,15 +69,19 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('📦 Brokers have been configured.');
 
     /* 🔌 Routers. */
-    const videoRouter = configureVideoRouter(tokenService, videoUsecase, userRepository);
-    loggerService.info('🔌 Video router has been configured.');
+    const videoMediaRouter = configureVideoMediaRouter(
+      tokenService,
+      videoMediaUsecase,
+      userRepository,
+    );
+    loggerService.info('🔌 Video media router has been configured.');
     const vectorRouter = configureVectorRouter(tokenService, vectorUsecase, userRepository);
     loggerService.info('🔌 Vector router has been configured.');
     const contentRouter = configureContentRouter(tokenService, contentUsecase, userRepository);
     loggerService.info('🔌 Content router has been configured.');
 
     /* 🚀 Server. */
-    configureServer(SERVER_PORT, contentRouter, videoRouter, vectorRouter, loggerService);
+    configureServer(SERVER_PORT, contentRouter, videoMediaRouter, vectorRouter, loggerService);
   } catch (e) {
     loggerService.error('There was an application error.', e as Error);
     process.exit(1);
