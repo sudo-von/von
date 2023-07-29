@@ -1,11 +1,21 @@
 import {
   UserNotFoundError,
 } from '../../domain/entities/user-entity/user-errors';
+import {
+  MediaType,
+} from '../../domain/entities/media-entity/media-entities';
+import {
+  ContentNotFoundError,
+  ContentUpdateFailedError,
+} from '../../domain/entities/content-entity/content-errors';
+import {
+  Content,
+  CreateBasicContent,
+  UpdateBasicContent,
+} from '../../domain/entities/content-entity/content-entities';
 import ContentUsecase from '../../domain/usecases/content-usecase/content-usecase';
-import { Content, CreateBasicContent, UpdateBasicContent } from '../../domain/entities/content-entity/content-entities';
-import { ContentNotFoundError, ContentUpdateFailedError } from '../../domain/entities/content-entity/content-errors';
-import validateContentCreation from '../../domain/entities/content-entity/content-validations/create-content-validations';
 import validateContentUpdate from '../../domain/entities/content-entity/content-validations/update-content-validations';
+import validateContentCreation from '../../domain/entities/content-entity/content-validations/create-content-validations';
 
 class ContentUsecaseApplication extends ContentUsecase {
   getContentById = async (
@@ -24,7 +34,6 @@ class ContentUsecaseApplication extends ContentUsecase {
     if (!user) throw UserNotFoundError;
 
     const contents = await this.contentRepository.getContents({ username });
-    console.log('🚀 ~ file: content-usecase.ts:27 ~ ContentUsecaseApplication ~ contents:', contents);
     return contents;
   };
 
@@ -71,7 +80,7 @@ class ContentUsecaseApplication extends ContentUsecase {
 
   updateContentMediaTypeById = async (
     id: string,
-    type: Content['media']['type'],
+    type: MediaType,
   ): Promise<Content> => {
     const content = await this.contentRepository.getContent({ id });
     if (!content) throw ContentNotFoundError;

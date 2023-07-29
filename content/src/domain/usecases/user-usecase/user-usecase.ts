@@ -4,17 +4,17 @@ import {
   UpdateUser,
 } from '../../entities/user-entity/user-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
-import IAboutRepository from '../../repositories/video-repository/video-repository';
+import IContentRepository from '../../repositories/content-repository/content-repository';
 
 abstract class UserUsecase {
   /**
   * Creates an instance of UserUsecase.
   * @param {IUserRepository} userRepository - The user repository.
-  * @param {IAboutRepository} aboutRepository - The about repository.
+  * @param {IContentRepository} contentRepository - The content repository.
   */
   constructor(
     protected readonly userRepository: IUserRepository,
-    protected readonly aboutRepository: IAboutRepository,
+    protected readonly contentRepository: IContentRepository,
   ) {}
 
   /**

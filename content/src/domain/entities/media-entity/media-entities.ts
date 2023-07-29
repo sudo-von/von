@@ -1,10 +1,12 @@
 import { EmptyMedia } from './empty-media-entities';
 
+export type MediaType = 'empty-media' | 'video-media';
+
 export type Media = EmptyMedia | VideoMedia;
 
 export type VideoMedia = {
   url: string;
-  type: 'video';
+  type: 'video-media';
 };
 
 export type CreateVideoMedia = VideoMedia;

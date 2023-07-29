@@ -1,4 +1,7 @@
 export type VideoMediaRepositorySchema = {
-  url: string;
-  type: 'video';
+  type: 'video-media';
+  video: {
+    id: string;
+    url: string;
+  };
 };

@@ -14,14 +14,13 @@ import {
 const contentDocumentToContent = (
   document: HydratedDocument<ContentRepositorySchema>,
 ): Content => {
-  console.log('🚀 ~ file: mongo-content-repository-mapper.ts:17 ~ document:', document);
   let media: Media = {
     type: 'empty-media',
   };
 
-  if (document.media.type === 'video') {
+  if (document.media.type === 'video-media') {
     media = {
-      type: 'video',
+      type: 'video-media',
       url: document.media.url,
     };
   }

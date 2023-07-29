@@ -9,7 +9,7 @@ import {
   CreateGenericContent,
   CreateBasicGenericContent,
   UpdateBasicGenericContent,
-} from '../generic-content-entity/generic-content-entities';
+} from '../content-entity/content-generics';
 
 export type VectorCollection = GenericContent<VectorMediaCollection>;
 

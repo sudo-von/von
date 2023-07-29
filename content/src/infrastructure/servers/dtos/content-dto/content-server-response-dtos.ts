@@ -6,5 +6,5 @@ export type ContentResponse = {
   description: string;
   media: {
     type: 'empty-media';
-  } | { type: 'video', url: string }
+  } | { type: 'video-media', url: string }
 };

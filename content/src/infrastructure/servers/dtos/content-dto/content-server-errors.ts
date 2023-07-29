@@ -15,13 +15,13 @@ import {
 } from '../../../../domain/entities/content-entity/content-errors';
 
 export const ContentNotFoundServerError = createServerErrorFactory({
-  code: 'VIDEO_NOT_FOUND',
+  code: 'CONTENT_NOT_FOUND',
   error: ContentNotFoundError.message,
   statusCode: statusCode.NOT_FOUND,
 });
 
 export const ContentUpdateFailedServerError = createServerErrorFactory({
-  code: 'VIDEO_UPDATE_FAILED',
+  code: 'CONTENT_UPDATE_FAILED',
   error: ContentUpdateFailedError.message,
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });

@@ -1,10 +1,13 @@
 import {
+  MediaType,
+} from '../../entities/media-entity/media-entities';
+import {
   Content,
   CreateBasicContent,
   UpdateBasicContent,
 } from '../../entities/content-entity/content-entities';
-import IContentRepository from '../../repositories/content-repository/content-repository';
 import IUserRepository from '../../repositories/user-repository/user-repository';
+import IContentRepository from '../../repositories/content-repository/content-repository';
 
 abstract class ContentUsecase {
   constructor(
@@ -24,7 +27,7 @@ abstract class ContentUsecase {
   abstract createContentByUsername: (username: string, payload: CreateBasicContent)
   => Promise<Content>;
 
-  abstract updateContentMediaTypeById: (id: string, type: Content['media']['type'])
+  abstract updateContentMediaTypeById: (id: string, type: MediaType)
   => Promise<Content>;
 }
 

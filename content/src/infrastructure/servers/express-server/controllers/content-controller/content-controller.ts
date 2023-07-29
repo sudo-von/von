@@ -83,7 +83,7 @@ class ContentController {
     try {
       const id = req.params.id.toLowerCase();
 
-      const updatedContent = await this.contentUsecase.updateContentMediaTypeById(id, 'video');
+      const updatedContent = await this.contentUsecase.updateContentMediaTypeById(id, 'video-media');
 
       const contentResponse = contentToContentResponse(updatedContent);
 

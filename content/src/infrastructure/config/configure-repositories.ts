@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import MongoUserRepository from '../repositories/user-repository/mongo-user-repository/mongo-user-repository';
-import MongoVideoRepository from '../repositories/video-repository/mongo-video-repository/mongo-video-repository';
 import MongoVectorRepository from '../repositories/vector-repository/mongo-vector-repository/mongo-video-repository';
 import MongoContentRepository from '../repositories/content-repository/mongo-content-repository/mongo-content-repository';
 
@@ -18,15 +17,12 @@ const configureRepositories = async (
 
   const userRepository = new MongoUserRepository();
 
-  const videoRepository = new MongoVideoRepository();
-
   const vectorRepository = new MongoVectorRepository();
 
   const contentRepository = new MongoContentRepository();
 
   return {
     userRepository,
-    videoRepository,
     vectorRepository,
     contentRepository,
   };

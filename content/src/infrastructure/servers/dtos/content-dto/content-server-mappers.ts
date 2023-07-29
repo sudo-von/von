@@ -9,14 +9,13 @@ import { Media } from '../../../../domain/entities/media-entity/media-entities';
 const contentToContentResponse = (
   content: Content,
 ): ContentResponse => {
-  console.log('🚀 ~ file: content-server-mappers.ts:12 ~ content:', content);
   let media: Media = {
     type: 'empty-media',
   };
 
-  if (content.media.type === 'video') {
+  if (content.media.type === 'video-media') {
     media = {
-      type: 'video',
+      type: 'video-media',
       url: content.media.url,
     };
   }

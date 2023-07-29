@@ -1,13 +1,13 @@
 import {
+  GenericContent,
+  CreateGenericContent,
+} from './content-generics';
+import {
   Media,
 } from '../media-entity/media-entities';
 import {
   EmptyMedia,
 } from '../media-entity/empty-media-entities';
-import {
-  GenericContent,
-  CreateGenericContent,
-} from '../generic-content-entity/generic-content-entities';
 
 export type Content = GenericContent<Media>;
 

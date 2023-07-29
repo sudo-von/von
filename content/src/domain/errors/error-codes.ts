@@ -24,9 +24,7 @@ export type UserErrorCode =
 
 export type VideoErrorCode =
 | 'INVALID_VIDEO_DOMAIN'
-| 'INVALID_VIDEO_URL_LENGTH'
-| 'VIDEO_NOT_FOUND'
-| 'VIDEO_UPDATE_FAILED';
+| 'INVALID_VIDEO_URL_LENGTH';
 
 export type VectorErrorCode =
 | 'INVALID_VECTOR_DESCRIPTION_LENGTH'
