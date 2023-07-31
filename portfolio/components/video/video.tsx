@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-type VideoProps = {
+export type VideoProps = {
   src: string;
   title: string;
 };
@@ -11,8 +11,8 @@ const Video: FC<VideoProps> = ({ src, title }) => {
       src={src}
       title={title}
       allowFullScreen
-      className="outline-none rounded-lg h-full w-full"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      className="rounded-lg h-full w-full"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share"
     />
   );
 };

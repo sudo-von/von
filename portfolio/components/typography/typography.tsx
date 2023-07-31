@@ -33,8 +33,8 @@ const options: TypographyOptions = {
     slate: "text-slate-550",
   },
   variant: {
-    banner: "text-4xl sm:text-5xl lg:text-6xl",
-    heading: "text-2xl sm:text-3xl text-4xl",
+    banner: "text-3xl sm:text-5xl lg:text-6xl",
+    heading: "text-xl sm:text-3xl text-4xl",
     title: "text-lg sm:text-xl lg:text-2xl",
     subtitle: "text-base sm:text-lg lg:text-xl",
     paragraph: "text-xs sm:text-base lg:text-base",

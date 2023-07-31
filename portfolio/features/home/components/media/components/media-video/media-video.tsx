@@ -1,15 +1,14 @@
 import { FC } from "react";
-import Video from "../../../../../../components/video/video";
+import Video, { VideoProps } from "../../../../../../components/video/video";
 
 export type MediaVideoProps = {
-  src: string;
-  title: string;
+  video: VideoProps;
 };
 
-const MediaVideo: FC<MediaVideoProps> = ({ src, title }) => {
+const MediaVideo: FC<MediaVideoProps> = ({ video }) => {
   return (
-    <div className="w-full lg:w-11/12 xl:w-10/12 h-60 sm:h-72 md:h-80 lg:h-96">
-      <Video src={src} title={title} />
+    <div className="w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl aspect-video">
+      <Video src={video.src} title={video.title} />
     </div>
   );
 };

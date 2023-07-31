@@ -1,11 +1,10 @@
 import { FC } from "react";
-import Media from "../media/media";
-import Section from "../section/section";
-import { IContent } from "../../entities/content-entity/content-entity";
+import Media, { MediaProps } from "../media/media";
+import Section, { SectionProps } from "../section/section";
 
-type ContentProps = IContent;
+export type ContentProps = SectionProps & MediaProps;
 
-const Content: FC<ContentProps> = ({ title, subtitle, description, media }) => {
+const Content: FC<ContentProps> = ({ media, title, subtitle, description }) => {
   return (
     <>
       <Section title={title} subtitle={subtitle} description={description} />

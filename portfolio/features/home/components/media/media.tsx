@@ -1,26 +1,29 @@
-import React, { FC } from "react";
-import { Media } from "../../entities/media-entity/media-entity";
-import MediaVideo from "./components/media-video/media-video";
-import ContentTimelineCollection from "./components/content-timeline-collection/content-timeline-collection";
+import { FC } from "react";
+import MediaVideo, {
+  MediaVideoProps,
+} from "./components/media-video/media-video";
+import MediaTimelineList, {
+  MediaTimelineListProps,
+} from "./components/media-timeline-list/media-timeline-list";
 
-type MediaProps = {
-  media: Media;
+export type MediaProps = {
+  media: MediaVideoProps | MediaTimelineListProps;
 };
 
 const Media: FC<MediaProps> = ({ media }) => {
-  let Content = null;
+  let Component = null;
 
-  if (media.type === "timeline-media") {
-    Content = <ContentTimelineCollection timelines={media.timelines} />;
+  if ("timelines" in media) {
+    Component = <MediaTimelineList timelines={media.timelines} />;
   }
 
-  if (media.type === "video-media") {
-    Content = <MediaVideo src={media.video.src} title={media.video.title} />;
+  if ("video" in media) {
+    Component = <MediaVideo video={media.video} />;
   }
 
   return (
-    <div className="flex justify-center items-center mt-16 md:mt-10">
-      {Content}
+    <div className="flex justify-center lg:justify-end xl:justify-center items-center mt-4 lg:mt-0">
+      {Component}
     </div>
   );
 };

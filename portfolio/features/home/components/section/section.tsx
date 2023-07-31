@@ -1,10 +1,13 @@
 import { FC } from "react";
 import SectionTitle from "./components/section-title/section-title";
-import { ISection } from "../../entities/section-entity/section-entity";
 import SectionSubtitle from "./components/section-subtitle/section-subtitle";
 import SectionDescription from "./components/section-description/section-description";
 
-type SectionProps = ISection;
+export type SectionProps = {
+  title: string;
+  subtitle: string;
+  description: string;
+};
 
 const Section: FC<SectionProps> = ({ title, subtitle, description }) => {
   return (
