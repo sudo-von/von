@@ -9,7 +9,7 @@ export type MediaTimelineListProps = {
 
 const MediaTimelineList: FC<MediaTimelineListProps> = ({ timelines }) => {
   return (
-    <div className="flex flex-col justify-center items-center lg:items-end xl:items-center gap-4 md:gap-6 lg:gap-4">
+    <div className="flex flex-col justify-center items-center gap-4">
       {timelines.map(({ src, title, endDate, startDate, description }) => (
         <Timeline
           src={src}

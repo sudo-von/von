@@ -3,12 +3,7 @@ import Typography from "../../../../../../components/typography/typography";
 
 const SectionTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Typography
-      component="h1"
-      variant="title"
-      weight="regular"
-      whitespace="pre"
-    >
+    <Typography component="h1" variant="title" whitespace="pre">
       {children}
     </Typography>
   );

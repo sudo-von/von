@@ -1,12 +1,12 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../typography/typography";
 
-const TimelineDescription: FC<PropsWithChildren> = ({ children }) => {
+const VideoTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Typography weight="light" component="h6">
+    <Typography weight="light" color="slate" align="center">
       {children}
     </Typography>
   );
 };
 
-export default TimelineDescription;
+export default VideoTitle;

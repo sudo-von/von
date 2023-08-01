@@ -9,8 +9,8 @@ export const contents: ContentProps[] = [
       "Since I was a child, I’ve had a dream in mind,\nthe dream of being able to live in Canada. \n\nBut you can't live on dreams alone;\nyou have to work hard for them.\n\nThat's why I decided to embrace education\nas the driving force to achieve my dreams.",
     media: {
       video: {
-        title: "about me",
-        src: "https://www.youtube.com/embed/wdgg7pv5OTQ",
+        title: "Meet the person behind the code.",
+        src: "https://www.youtube.com/embed/bfv-VaaAlxc",
       },
     },
   },
@@ -53,8 +53,8 @@ export const contents: ContentProps[] = [
       "I’ve participated in multiple national-level\ncompetitions, achieving top positions by breaking\nthrough controlled systems.\n\nAs a developer, I use my security knowledge to\nuncover overlooked vulnerabilities.\n\nOne of my biggest achievements was discovering\nand successfully fixing multiple critical vulnerabilities\nat Intel Corporation,  being the bridge between the\ncybersecurity area and the development team.",
     media: {
       video: {
-        title: "about-me",
-        src: "https://www.youtube.com/embed/2Qftkzf8VKI",
+        title: "Interview conducted by a national television station.",
+        src: "https://www.youtube.com/embed/bfv-VaaAlxc",
       },
     },
   },
@@ -64,10 +64,36 @@ export const contents: ContentProps[] = [
     description:
       "I’m a passionate JavaScript enthusiast,\nwith aspirations of becoming an expert one day.\n\nMy tech stack covers a wide range of resources that\nallow me to develop efficient and high-quality\napplications and websites.\n\nFrom architecture to implementation,\nI'm ready to take on challenges and make\nthe most of modern tools to deliver outstanding results.",
     media: {
-      video: {
-        title: "about-me",
-        src: "https://www.youtube.com/embed/oBEgjI0Wxaw",
-      },
+      vectors: [
+        { alt: 'javascript', src: 'javascript.svg'},
+        { alt: 'typescript', src: 'typescript.svg'},
+        { alt: 'nextjs', src: 'nextjs.svg'},
+        { alt: 'nodejs', src: 'nodejs.svg'},
+        { alt: 'express', src: 'express.svg'},
+        { alt: 'react', src: 'react.svg'},
+        { alt: 'redux', src: 'redux.svg'},
+        { alt: 'graphql', src: 'graphql.svg'},
+        { alt: 'npm', src: 'npm.svg'},
+        { alt: 'jest', src: 'jest.svg'},
+        { alt: 'react testing library', src: 'testing-library.svg'},
+        { alt: 'docker', src: 'docker.svg'},
+        { alt: 'kubernetes', src: 'kubernetes.svg'},
+        { alt: 'git', src: 'git.svg'},
+        { alt: 'jenkins', src: 'jenkins.svg'},
+        { alt: 'docker compose', src: 'docker-compose.svg'},
+        { alt: 'storybook', src: 'storybook.svg'},
+        { alt: 'sass', src: 'sass.svg'},
+        { alt: 'tailwindcss', src: 'tailwindcss.svg'},
+        { alt: 'bootstrap', src: 'bootstrap.svg'},
+        { alt: 'materialui', src: 'materialui.svg'},
+        { alt: 'webpack', src: 'webpack.svg'},
+        { alt: 'eslint', src: 'eslint.svg'},
+        { alt: 'babel', src: 'babel.svg'},
+        { alt: 'jquery', src: 'jquery.svg'},
+        { alt: 'mysql', src: 'mysql.svg'},
+        { alt: 'postgresql', src: 'postgresql.svg'},  
+        { alt: 'mongodb', src: 'mongodb.svg'},
+      ]
     },
   },
 ];

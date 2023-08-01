@@ -1,32 +1,10 @@
 import { FC } from "react";
 import Typography from "../../../typography/typography";
+import { formatTimelineDate } from "./timeline-date.utils";
 
 type TimelineDateProps = {
   endDate: Date;
   startDate: Date;
-};
-
-const formatTimelineDate = (date: Date) => {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  const month = date.getMonth();
-  const year = date.getFullYear();
-
-  const formattedDate = `${months[month]} ${year}`;
-  return formattedDate;
 };
 
 const TimelineDate: FC<TimelineDateProps> = ({ endDate, startDate }) => {
@@ -34,7 +12,7 @@ const TimelineDate: FC<TimelineDateProps> = ({ endDate, startDate }) => {
   const formattedStartDate = formatTimelineDate(startDate);
   const formattedDates = `${formattedStartDate} - ${formattedEndDate}`;
   return (
-    <Typography variant="legend" color="slate" weight="light">
+    <Typography variant="legend" color="slate" weight="light" component="h5">
       {formattedDates}
     </Typography>
   );
