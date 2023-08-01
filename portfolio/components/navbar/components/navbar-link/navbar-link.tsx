@@ -11,7 +11,7 @@ const NavbarLink: FC<NavbarLinkProps> = ({ name, path, isPathActive }) => {
   const color = isPathActive ? "black" : "slate";
   const weight = isPathActive ? "regular" : "light";
   return (
-    <Typography color={color} weight={weight}>
+    <Typography color={color} component="p" variant="paragraph" weight={weight}>
       <Link href={path} className="hover:text-slate-850">
         {name}
       </Link>

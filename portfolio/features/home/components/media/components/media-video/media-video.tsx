@@ -7,7 +7,7 @@ export type MediaVideoProps = {
 
 const MediaVideo: FC<MediaVideoProps> = ({ video }) => {
   return (
-    <div className="w-full max-w-xs sm:max-w-md lg:max-w-md xl:max-w-lg aspect-video">
+    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl aspect-video">
       <Video src={video.src} title={video.title} />
     </div>
   );

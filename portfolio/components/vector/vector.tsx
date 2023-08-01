@@ -1,39 +1,26 @@
-import { FC, useRef } from "react";
+import { forwardRef } from "react";
 import Image from "next/image";
 
 export type VectorProps = {
-  src: string;
   alt: string;
+  src: string;
+  onClick?: VoidFunction;
 };
 
-const Vector: FC<VectorProps> = ({ src, alt }) => {
-  const ref = useRef<HTMLImageElement | null>(null);
-
-  const className = "object-contain h-full w-full cursor-pointer";
-
-  const handleOnMouseOver = () => {
-    if (ref.current) {
-      ref.current.className = `${className} object-contain h-full w-full saturate-100 animate-pulse`;
-    }
-  };
-
-  const handleOnMouseLeave = () => {
-    if (ref.current) {
-      ref.current.className = className;
-    }
-  };
-
-  return (
-    <Image
-      onMouseOver={handleOnMouseOver}
-      onMouseLeave={handleOnMouseLeave}
-      alt={alt}
-      src={src}
-      ref={ref}
-      className={className}
-      fill
-    />
-  );
-};
+const Vector = forwardRef<HTMLImageElement, VectorProps>(
+  ({ alt, src, onClick }, ref) => {
+    return (
+      <Image
+        className="object-contain h-full w-full cursor-pointer"
+        onClick={onClick}
+        alt={alt}
+        src={src}
+        ref={ref}
+        fill
+      />
+    );
+  }
+);
+Vector.displayName = "Vector";
 
 export default Vector;

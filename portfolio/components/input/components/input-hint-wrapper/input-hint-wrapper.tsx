@@ -17,7 +17,13 @@ const InputHintWrapper: FC<InputHintWrapperProps> = ({
   return (
     <div className="flex flex-col gap-1">
       {children}
-      <Typography color={color} spacing="wide" variant="legend" weight="light">
+      <Typography
+        color={color}
+        component="small"
+        spacing="wide"
+        variant="legend"
+        weight="light"
+      >
         {hint}
       </Typography>
     </div>

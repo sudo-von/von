@@ -26,7 +26,7 @@ const Timeline: FC<TimelineProps> = ({
       <div className="relative h-16 md:h-20 lg:h-20 w-32 md:w-36 lg:w-20">
         <TimelineImage alt={title} src={src} />
       </div>
-      <div className="flex flex-col gap-1 w-40">
+      <div className="flex flex-col gap-1 w-44 md:w-52 lg:w-60">
         <TimelineTitle>{title}</TimelineTitle>
         <TimelineDate startDate={castedStartDate} endDate={castedEndDate} />
         <TimelineDescription>{description}</TimelineDescription>

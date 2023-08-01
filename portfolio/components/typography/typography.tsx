@@ -13,11 +13,11 @@ import {
 type TypographyProps = {
   children: ReactNode;
   align?: TypographyAlign;
-  color?: TypographyColor;
-  weight?: TypographyWeight;
+  color: TypographyColor;
+  weight: TypographyWeight;
   spacing?: TypographySpacing;
-  variant?: TypographyVariant;
-  component?: TypographyComponent;
+  variant: TypographyVariant;
+  component: TypographyComponent;
   whitespace?: TypographyWhitespace;
 };
 
@@ -59,11 +59,11 @@ const options: TypographyOptions = {
 const Typography: React.FC<TypographyProps> = ({
   align,
   children,
-  component = "p",
-  color = "black",
+  component,
+  color,
   weight = "regular",
   spacing = "normal",
-  variant = "paragraph",
+  variant,
   whitespace = "normal",
 }) => {
   const Component = component;

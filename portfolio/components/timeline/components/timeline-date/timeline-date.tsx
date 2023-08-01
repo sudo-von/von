@@ -12,7 +12,7 @@ const TimelineDate: FC<TimelineDateProps> = ({ endDate, startDate }) => {
   const formattedStartDate = formatTimelineDate(startDate);
   const formattedDates = `${formattedStartDate} - ${formattedEndDate}`;
   return (
-    <Typography variant="legend" color="slate" weight="light" component="h5">
+    <Typography color="slate" component="h5" variant="caption" weight="light">
       {formattedDates}
     </Typography>
   );

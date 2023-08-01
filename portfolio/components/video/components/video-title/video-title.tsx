@@ -3,7 +3,13 @@ import Typography from "../../../typography/typography";
 
 const VideoTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Typography weight="light" color="slate" align="center">
+    <Typography
+      align="center"
+      color="slate"
+      component="p"
+      weight="light"
+      variant="paragraph"
+    >
       {children}
     </Typography>
   );

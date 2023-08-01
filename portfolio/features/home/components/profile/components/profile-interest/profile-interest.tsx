@@ -3,7 +3,7 @@ import Typography from "../../../../../../components/typography/typography";
 
 const ProfileInterest: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Typography variant="subtitle" weight="light" component="h3">
+    <Typography color="black" component="h3" variant="subtitle" weight="light">
       {children}
     </Typography>
   );
