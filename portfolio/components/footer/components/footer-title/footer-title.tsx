@@ -1,18 +1,18 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../typography/typography";
 
-const TimelineTitle: FC<PropsWithChildren> = ({ children }) => {
+const FooterTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="black"
-      component="h4"
-      spacing="wide"
-      variant="paragraph"
+      component="h1"
+      variant="title"
       weight="regular"
+      whitespace="pre"
     >
       {children}
     </Typography>
   );
 };
 
-export default TimelineTitle;
+export default FooterTitle;

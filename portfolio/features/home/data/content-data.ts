@@ -6,7 +6,7 @@ export const contents: ContentProps[] = [
     subtitle:
       "I was fortunate.\nI found my passion early in life.",
     description:
-      "Since I was a child, I’ve had a dream in mind,\nthe dream of being able to live in Canada. \n\nBut you can't live on dreams alone;\nyou have to work hard for them.\n\nThat's why I decided to embrace education\nas the driving force to achieve my dreams.",
+      "Since I was a child, I’ve had a dream in mind,\nthe dream of being able to live in the country\nI highly respect and aspire to be a part of. \n\nBut you can't live on dreams alone;\nyou have to work hard for them.\n\nThat's why I decided to embrace education\nas the driving force to achieve my dreams.",
     media: {
       video: {
         title: "Meet the person behind the code.",
@@ -17,9 +17,9 @@ export const contents: ContentProps[] = [
   {
     title: "Experience",
     subtitle:
-      "Code is just a tool.\nTrue achievement lies in its impact on lives.",
+      "Code is just a tool.\nTrue impact lies in changing lives.",
     description:
-      "In my journey as a developer, I've realized\nthat code is not merely lines of instructions,\nbut a means to create something meaningful.\n\nBy working with diverse companies\nI've been fortunate to make a positive\nimpact on the lives of many.\n\nMy biggest goal as a developer is to use the power\n of code to bring a positive change in people's lives.",
+      "In my journey as a developer, I've realized\nthat code is not merely lines of instructions,\nbut a means to create something meaningful.\n\nBy working closely with diverse companies\nI've had the privilege of positively impacting many lives.\n\nMy biggest goal as a developer is to use the\npower of code to bring a positive change in people's lives.",
     media: {
       timelines: [
         {
@@ -50,7 +50,7 @@ export const contents: ContentProps[] = [
     title: "Cybersecurity",
     subtitle: "Developer by day.\nEthical hacker by night.",
     description:
-      "I’ve participated in multiple national-level\ncompetitions, achieving top positions by breaking\nthrough controlled systems.\n\nAs a developer, I use my security knowledge to\nuncover overlooked vulnerabilities.\n\nOne of my biggest achievements was discovering\nand successfully fixing multiple critical vulnerabilities\nat Intel Corporation,  being the bridge between the\ncybersecurity area and the development team.",
+      "I’ve participated in multiple national-level\ncompetitions, achieving top positions by\nbreaking through controlled systems.\n\nMy cybersecurity experience has allowed me\nto view development from a different angle.\n\nOne of my biggest achievements was\ndiscovering and successfully fixing multiple\ncritical vulnerabilities at Intel Corporation.",
     media: {
       video: {
         title: "Interview conducted by a national television station.",
@@ -60,9 +60,9 @@ export const contents: ContentProps[] = [
   },
   {
     title: "Technologies",
-    subtitle: "Mastering the JavaScript tech stack.",
+    subtitle: "Interactivity, dynamism, creativity.\nI'm talking about Javascript.",
     description:
-      "I’m a passionate JavaScript enthusiast,\nwith aspirations of becoming an expert one day.\n\nMy tech stack covers a wide range of resources that\nallow me to develop efficient and high-quality\napplications and websites.\n\nFrom architecture to implementation,\nI'm ready to take on challenges and make\nthe most of modern tools to deliver outstanding results.",
+      "I’m a passionate JavaScript enthusiast,\nwith aspirations of becoming an expert.\n\nMy tech stack covers a wide range of\nresources that allow me to develop efficient\nand high-quality applications and websites.\n\nFrom architecture to implementation,\nI'm ready to take on challenges to deliver\nthe most outstanding results.",
     media: {
       vectors: [
         { alt: 'javascript', src: 'javascript.svg'},

@@ -15,11 +15,9 @@ export type TypographyComponent =
 
 export type TypographyVariant =
   | "banner"
-  | "heading"
   | "title"
   | "subtitle"
   | "paragraph"
-  | "caption"
   | "legend";
 
 export type TypographySpacing = "normal" | "wide";

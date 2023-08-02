@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { FC } from "react";
 import Image from "next/image";
 
 export type VectorProps = {
@@ -7,20 +7,16 @@ export type VectorProps = {
   onClick?: VoidFunction;
 };
 
-const Vector = forwardRef<HTMLImageElement, VectorProps>(
-  ({ alt, src, onClick }, ref) => {
-    return (
-      <Image
-        className="object-contain h-full w-full cursor-pointer"
-        onClick={onClick}
-        alt={alt}
-        src={src}
-        ref={ref}
-        fill
-      />
-    );
-  }
-);
-Vector.displayName = "Vector";
+const Vector: FC<VectorProps> = ({ alt, src, onClick }) => {
+  return (
+    <Image
+      className="object-contain h-full rounded w-full cursor-pointer hover:animate-pulse"
+      onClick={onClick}
+      alt={alt}
+      src={src}
+      fill
+    />
+  );
+};
 
 export default Vector;

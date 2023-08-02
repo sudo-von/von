@@ -7,8 +7,9 @@ const VideoTitle: FC<PropsWithChildren> = ({ children }) => {
       align="center"
       color="slate"
       component="p"
+      spacing="wide"
+      variant="legend"
       weight="light"
-      variant="paragraph"
     >
       {children}
     </Typography>

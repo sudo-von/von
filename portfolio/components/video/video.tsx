@@ -16,7 +16,7 @@ const Video: FC<VideoProps> = ({ src, title }) => {
         className="rounded-lg h-full w-full"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share"
       />
-      <div className="p-2">
+      <div className="p-4">
         <VideoTitle>{title}</VideoTitle>
       </div>
     </>

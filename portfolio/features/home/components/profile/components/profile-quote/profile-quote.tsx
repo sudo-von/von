@@ -7,8 +7,8 @@ const ProfileQuote: FC<PropsWithChildren> = ({ children }) => {
       color="slate"
       component="small"
       variant="paragraph"
-      whitespace="pre"
       weight="light"
+      whitespace="pre"
     >
       “{children}”
     </Typography>

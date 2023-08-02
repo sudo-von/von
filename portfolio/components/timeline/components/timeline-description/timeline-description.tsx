@@ -3,7 +3,13 @@ import Typography from "../../../typography/typography";
 
 const TimelineDescription: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Typography color="black" component="h6" variant="caption" weight="light">
+    <Typography
+      color="black"
+      component="h6"
+      variant="legend"
+      weight="light"
+      whitespace="pre"
+    >
       {children}
     </Typography>
   );

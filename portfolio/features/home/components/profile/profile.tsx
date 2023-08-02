@@ -4,7 +4,7 @@ import ProfileQuote from "./components/profile-quote/profile-quote";
 import ProfileInterest from "./components/profile-interest/profile-interest";
 import ProfilePosition from "./components/profile-position/profile-position";
 
-type ProfileProps = {
+export type ProfileProps = {
   name: string;
   quote: string;
   interest: string;

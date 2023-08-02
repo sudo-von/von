@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { profile } from "../features/home/data/profile-data";
 import { contents } from "../features/home/data/content-data";
 import Content from "../features/home/components/content/content";
 import Profile from "../features/home/components/profile/profile";
@@ -8,10 +9,10 @@ const Home: NextPage = () => {
     <>
       <div className="grid gap-8 mb-64 lg:mb-96 mt-48 text-center lg:text-start">
         <Profile
-          name="Jesús Rodríguez"
-          position="Software engineer"
-          interest="Passionate about ethical hacking"
-          quote={`At first, dreams seem impossible,\n then improbable, and eventually inevitable.`}
+          name={profile.name}
+          quote={profile.quote}
+          position={profile.position}
+          interest={profile.interest}
         />
       </div>
       {contents.map(({ media, title, subtitle, description }) => (

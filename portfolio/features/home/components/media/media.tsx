@@ -22,7 +22,9 @@ const Media: FC<MediaProps> = ({ media }) => {
     Component = <MediaVectorList vectors={media.vectors} />;
   } else if ("video" in media) {
     Component = <MediaVideo video={media.video} />;
-  } else return null;
+  } else {
+    return null;
+  }
 
   return (
     <div className="flex justify-center items-center mt-4 lg:mt-0">

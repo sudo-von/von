@@ -7,7 +7,7 @@ const SectionTitle: FC<PropsWithChildren> = ({ children }) => {
       color="black"
       component="h1"
       variant="title"
-      weight="bold"
+      weight="regular"
       whitespace="pre"
     >
       {children}
