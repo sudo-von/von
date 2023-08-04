@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../../components/typography/typography";
+import Typography from "../typography/typography";
 
-const SectionTitle: FC<PropsWithChildren> = ({ children }) => {
+const Title: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="black"
@@ -15,4 +15,4 @@ const SectionTitle: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default SectionTitle;
+export default Title;

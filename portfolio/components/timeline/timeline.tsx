@@ -1,8 +1,9 @@
 import { FC } from "react";
-import TimelineDate from "./components/timeline-date/timeline-date";
 import TimelineImage from "./components/timeline-image/timeline-image";
 import TimelineTitle from "./components/timeline-title/timeline-title";
+import TimelineChronology from "./components/timeline-date/timeline-chronology";
 import TimelineDescription from "./components/timeline-description/timeline-description";
+import Typography from "../typography/typography";
 
 export type TimelineProps = {
   src: string;
@@ -22,16 +23,14 @@ const Timeline: FC<TimelineProps> = ({
   const castedEndDate = new Date(endDate);
   const castedStartDate = new Date(startDate);
   return (
-    <div className="flex flex-row justify-center items-center gap-4">
-      <div className="relative h-16 md:h-20 lg:h-20 w-32 md:w-36 lg:w-20">
+    <li className="flex flex-col w-full gap-1 pl-8 sm:pl-10 md:pl-12 lg:pl-14">
+      <span className="absolute flex items-center justify-center w-11 h-11 sm:w-14 sm:h-14 md:w-16 md:h-16 -left-6 sm:-left-8 md:-left-8">
         <TimelineImage alt={title} src={src} />
-      </div>
-      <div className="flex flex-col gap-1 w-44 md:w-52 lg:w-60">
-        <TimelineTitle>{title}</TimelineTitle>
-        <TimelineDate startDate={castedStartDate} endDate={castedEndDate} />
-        <TimelineDescription>{description}</TimelineDescription>
-      </div>
-    </div>
+      </span>
+      <TimelineTitle>{title}</TimelineTitle>
+      <TimelineChronology startDate={castedStartDate} endDate={castedEndDate} />
+      <TimelineDescription>{description}</TimelineDescription>
+    </li>
   );
 };
 

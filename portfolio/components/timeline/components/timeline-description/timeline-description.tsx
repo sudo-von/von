@@ -4,8 +4,9 @@ import Typography from "../../../typography/typography";
 const TimelineDescription: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="black"
-      component="h6"
+      color="slate"
+      component="p"
+      spacing="wide"
       variant="legend"
       weight="light"
       whitespace="pre"

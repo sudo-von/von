@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Legend from "../../../../../../components/legend/legend";
 import Video, { VideoProps } from "../../../../../../components/video/video";
 
 export type MediaVideoProps = {
@@ -9,6 +10,9 @@ const MediaVideo: FC<MediaVideoProps> = ({ video }) => {
   return (
     <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl aspect-video">
       <Video src={video.src} title={video.title} />
+      <div className="p-4 text-center">
+        <Legend>{video.title}</Legend>
+      </div>
     </div>
   );
 };

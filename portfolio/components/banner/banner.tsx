@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../../components/typography/typography";
+import Typography from "../typography/typography";
 
-const ProfileName: FC<PropsWithChildren> = ({ children }) => {
+const Banner: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="black"
@@ -15,4 +15,4 @@ const ProfileName: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default ProfileName;
+export default Banner;

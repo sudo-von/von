@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../../components/typography/typography";
+import Typography from "../typography/typography";
 
-const ProfileQuote: FC<PropsWithChildren> = ({ children }) => {
+const Description: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="slate"
@@ -10,9 +10,9 @@ const ProfileQuote: FC<PropsWithChildren> = ({ children }) => {
       weight="light"
       whitespace="pre"
     >
-      “{children}”
+      {children}
     </Typography>
   );
 };
 
-export default ProfileQuote;
+export default Description;

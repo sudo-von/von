@@ -26,11 +26,7 @@ const Media: FC<MediaProps> = ({ media }) => {
     return null;
   }
 
-  return (
-    <div className="flex justify-center items-center mt-4 lg:mt-0">
-      {Component}
-    </div>
-  );
+  return <div className="flex justify-center items-center">{Component}</div>;
 };
 
 export default Media;

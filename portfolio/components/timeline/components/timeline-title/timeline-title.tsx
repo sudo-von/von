@@ -5,10 +5,11 @@ const TimelineTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="black"
-      component="h4"
+      component="h5"
       spacing="wide"
       variant="paragraph"
       weight="regular"
+      whitespace="pre"
     >
       {children}
     </Typography>

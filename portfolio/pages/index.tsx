@@ -1,18 +1,18 @@
 import { NextPage } from "next";
-import { profile } from "../features/home/data/profile-data";
+import { resume } from "../features/home/data/profile-data";
 import { contents } from "../features/home/data/content-data";
+import Resume from "../features/home/components/resume/resume";
 import Content from "../features/home/components/content/content";
-import Profile from "../features/home/components/profile/profile";
 
 const Home: NextPage = () => {
   return (
     <>
-      <div className="grid gap-8 mb-64 lg:mb-96 mt-48 text-center lg:text-start">
-        <Profile
-          name={profile.name}
-          quote={profile.quote}
-          position={profile.position}
-          interest={profile.interest}
+      <div className="flex flex-col gap-8 mb-64 lg:mb-96 mt-48 text-center lg:text-start">
+        <Resume
+          name={resume.name}
+          quote={resume.quote}
+          position={resume.position}
+          interest={resume.interest}
         />
       </div>
       {contents.map(({ media, title, subtitle, description }) => (

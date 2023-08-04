@@ -1,6 +1,6 @@
-import { ProfileProps } from "../components/profile/profile";
+import { ResumeProps } from "../components/resume/resume";
 
-export const profile: ProfileProps = {
+export const resume: ResumeProps = {
   name: "Jesús Rodríguez",
   position: "Software engineer",
   interest: "Passionate about ethical hacking",

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import SectionTitle from "./components/section-title/section-title";
-import SectionSubtitle from "./components/section-subtitle/section-subtitle";
-import SectionDescription from "./components/section-description/section-description";
+import Title from "../../../../components/title/title";
+import Subtitle from "../../../../components/subtitle/subtitle";
+import Description from "../../../../components/description/description";
 
 export type SectionProps = {
   title: string;
@@ -12,9 +12,9 @@ export type SectionProps = {
 const Section: FC<SectionProps> = ({ title, subtitle, description }) => {
   return (
     <section className="flex flex-col gap-8 justify-center text-center lg:text-start">
-      <SectionTitle>{title}</SectionTitle>
-      <SectionSubtitle>{subtitle}</SectionSubtitle>
-      <SectionDescription>{description}</SectionDescription>
+      <Title>{title}</Title>
+      <Subtitle>{subtitle}</Subtitle>
+      <Description>{description}</Description>
     </section>
   );
 };

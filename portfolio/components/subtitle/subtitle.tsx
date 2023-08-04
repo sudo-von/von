@@ -1,11 +1,11 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../../components/typography/typography";
+import Typography from "../typography/typography";
 
-const ProfileInterest: FC<PropsWithChildren> = ({ children }) => {
+const Subtitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="black"
-      component="h3"
+      component="h2"
       variant="subtitle"
       weight="light"
       whitespace="pre"
@@ -15,4 +15,4 @@ const ProfileInterest: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default ProfileInterest;
+export default Subtitle;

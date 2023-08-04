@@ -10,7 +10,7 @@ import {
   TypographyWhitespace,
 } from "./typography.types";
 
-type TypographyProps = {
+export type TypographyProps = {
   children: ReactNode;
   align?: TypographyAlign;
   color: TypographyColor;

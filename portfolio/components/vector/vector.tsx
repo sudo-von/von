@@ -10,7 +10,7 @@ export type VectorProps = {
 const Vector: FC<VectorProps> = ({ alt, src, onClick }) => {
   return (
     <Image
-      className="object-contain h-full rounded w-full cursor-pointer hover:animate-pulse"
+      className="object-contain h-full rounded w-full cursor-pointer hover:animate-pulse saturate-0 hover:saturate-100"
       onClick={onClick}
       alt={alt}
       src={src}
