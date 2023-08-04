@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, FormEvent } from "react";
-import Input from "../../../../components/input/input";
-import Button from "../../../../components/button/button";
+import Input from "../../../common/components/input/input";
+import Button from "../../../common/components/button/button";
 import { CreateQuestion } from "../../question-entities";
 
 type CreateQuestionFormProps = {

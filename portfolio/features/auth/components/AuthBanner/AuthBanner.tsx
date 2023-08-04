@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Typography from "../../../../components/typography/typography";
+import Typography from "../../../common/components/typography/typography";
 
 type AuthBannerProps = {
   title: string;

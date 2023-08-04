@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { formatMetrics } from "./ask-metrics.utils";
-import Typography from "../../../../../../components/typography/typography";
+import Typography from "../../../../../common/components/typography/typography";
 
 type AskMetricsProps = {
   totalViews: number;

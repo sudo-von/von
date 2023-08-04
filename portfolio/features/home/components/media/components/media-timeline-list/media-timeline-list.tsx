@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Timeline, {
   TimelineProps,
-} from "../../../../../../components/timeline/timeline";
+} from "../../../../../common/components/timeline/timeline";
 
 export type MediaTimelineListProps = {
   timelines: TimelineProps[];

@@ -1,11 +1,11 @@
 import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { Lexend } from "next/font/google";
-import Navbar from "../components/navbar/navbar";
+import Navbar from "../features/common/components/navbar/navbar";
 import MarginLayout from "../layouts/margin-layout/margin-layout";
-import { publicRoutes } from "../components/navbar/navbar.routes";
+import { publicRoutes } from "../features/common/components/navbar/navbar.routes";
 import { MDXProvider } from "@mdx-js/react";
-import Footer from "../components/footer/footer";
+import Footer from "../features/common/components/footer/footer";
 
 const font = Lexend({ subsets: ["latin"] });
 

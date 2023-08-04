@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../../components/typography/typography";
+import Typography from "../../../../../common/components/typography/typography";
 
 const AskQuestion: FC<PropsWithChildren> = ({ children }) => {
   const formattedQuestion = `“${children}”`;

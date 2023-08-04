@@ -1,6 +1,8 @@
 import { FC } from "react";
-import Legend from "../../../../../../components/legend/legend";
-import Video, { VideoProps } from "../../../../../../components/video/video";
+import Legend from "../../../../../common/components/legend/legend";
+import Video, {
+  VideoProps,
+} from "../../../../../common/components/video/video";
 
 export type MediaVideoProps = {
   video: VideoProps;

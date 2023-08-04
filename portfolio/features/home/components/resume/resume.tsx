@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Section from "../section/section";
-import Banner from "../../../../components/banner/banner";
+import Banner from "../../../common/components/banner/banner";
 
 export type ResumeProps = {
   name: string;

@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import OutOfService from "../components/out-of-service/out-of-service";
+import OutOfService from "../features/common/components/out-of-service/out-of-service";
 import CenteredLayout from "../layouts/centered-layout/centered-layout";
 
 const NotFound: NextPage = () => {

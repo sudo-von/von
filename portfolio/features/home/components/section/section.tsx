@@ -1,7 +1,7 @@
 import { FC } from "react";
-import Title from "../../../../components/title/title";
-import Subtitle from "../../../../components/subtitle/subtitle";
-import Description from "../../../../components/description/description";
+import Title from "../../../common/components/title/title";
+import Subtitle from "../../../common/components/subtitle/subtitle";
+import Description from "../../../common/components/description/description";
 
 export type SectionProps = {
   title: string;

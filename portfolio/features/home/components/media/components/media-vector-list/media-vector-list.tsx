@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Vector, {
   VectorProps,
-} from "../../../../../../components/vector/vector";
+} from "../../../../../common/components/vector/vector";
 
 export type MediaVectorListProps = {
   vectors: VectorProps[];

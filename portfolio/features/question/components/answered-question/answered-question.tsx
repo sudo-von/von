@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
-import Card from "../../../../components/card/card";
+import Card from "../../../common/components/card/card";
 import AskAnswer from "./components/ask-answer/ask-answer";
 import AskQuestion from "./components/ask-question/ask-question";
 import AskAnsweredAt from "./components/ask-answered-at/ask-answered-at";
