@@ -34,20 +34,15 @@ export const contents: ContentProps[] = [
           description: `As a UI subject matter expert:
 
           - Established frontend code guidelines for best practices.
-
           - Participated in code reviews and story refining processes.
-
           - Presented frontend and security topics in dev sync meetings.
-
           - Led the migration and refactoring of legacy react code using hooks.
-
           - Conducted pair programming sessions to train team members on new features.
           
           As a cyber security researcher:
 
-          - Discovered critical vulnerabilities in multiple projects, prompting immediate hotfixes.
-
-          - Presented findings to the organization, offering guidance on fixing and preventing issues.
+          - Discovered critical flaws in multiple projects, prompting quick hotfixes.
+          - Presented findings to the corporation to address and prevent security issues.
           `,
           src: "https://logodownload.org/wp-content/uploads/2014/04/intel-logo-1-1.png",
         },
@@ -58,7 +53,6 @@ export const contents: ContentProps[] = [
           description: `As a full stack developer:
 
           - Worked on microservices development.
-
           - Presented frontend topics in dev sync meetings.
           `,
           src: "https://scontent.fntr5-1.fna.fbcdn.net/v/t39.30808-6/300443824_168920352354407_1778796302346087197_n.png?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=T7UVAHk-Xh8AX_F6TvR&_nc_ht=scontent.fntr5-1.fna&oh=00_AfA1ivJ9oPWt3BlHB_q5NPHnEHejdrmujfB213GrafOpgg&oe=64CF93AB",
@@ -70,7 +64,6 @@ export const contents: ContentProps[] = [
           description: `As a full stack developer:
           
           - Developed custom systems to meet the needs of clients.
-
           - Gathered requirements from various clients for system planning and development.
           `,
           src: "https://evotek.vn/wp-content/uploads/2020/05/LinkedIn-Personal-Profile-Image-400x400-1.png",

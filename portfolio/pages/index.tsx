@@ -11,7 +11,7 @@ const Home: NextPage = () => {
         <Banner>{user.name}</Banner>
       </div>
       {contents.map(({ media, title, subtitle, description }) => (
-        <div key={title} className="grid lg:grid-cols-2 gap-8 mb-64 lg:mb-96">
+        <div key={title} className="grid lg:grid-cols-2 gap-8 mb-56 lg:mb-96">
           <Content
             media={media}
             title={title}

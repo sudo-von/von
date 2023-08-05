@@ -9,7 +9,7 @@ export type MediaTimelineListProps = {
 
 const MediaTimelineList: FC<MediaTimelineListProps> = ({ timelines }) => {
   return (
-    <ol className="flex flex-col justify-center items-center w-full max-w-xs sm:max-w-md md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl gap-4 2xl:gap-8 mt-4 lg:mt-0 relative border-l border-slate-100">
+    <ol className="flex flex-col w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-max lg:bg-primary xl:max-w-1xl 2xl:max-w-1xl gap-8 mt-4 lg:mt-0 lg:relative lg:border-l lg:border-slate-100">
       {timelines.map(({ src, title, endDate, startDate, description }) => (
         <Timeline
           src={src}

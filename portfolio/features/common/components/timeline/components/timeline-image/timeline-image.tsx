@@ -9,10 +9,10 @@ type TimelineImageProps = {
 const TimelineImage: FC<TimelineImageProps> = ({ alt, src }) => {
   return (
     <Image
-      className="rounded-full object-cover h-full w-full"
-      src={src}
-      alt={alt}
       fill
+      alt={alt}
+      src={src}
+      className="rounded lg:rounded-full object-contain h-full w-full"
     />
   );
 };
