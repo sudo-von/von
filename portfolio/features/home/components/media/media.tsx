@@ -10,12 +10,13 @@ import MediaTimelineList, {
 } from "./components/media-timeline-list/media-timeline-list";
 
 export type MediaProps = {
-  media: MediaTimelineListProps | MediaVectorListProps | MediaVideoProps;
+  media?: MediaTimelineListProps | MediaVectorListProps | MediaVideoProps;
 };
 
 const Media: FC<MediaProps> = ({ media }) => {
-  let Component;
+  if (!media) return null;
 
+  let Component;
   if ("timelines" in media) {
     Component = <MediaTimelineList timelines={media.timelines} />;
   } else if ("vectors" in media) {

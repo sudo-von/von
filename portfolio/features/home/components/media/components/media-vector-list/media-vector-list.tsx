@@ -9,7 +9,7 @@ export type MediaVectorListProps = {
 
 const MediaVectorList: FC<MediaVectorListProps> = ({ vectors }) => {
   return (
-    <div className="flex flex-wrap w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl gap-4 2xl:gap-8">
+    <div className="flex flex-wrap w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl gap-4 2xl:gap-8 mt-4 lg:mt-0">
       {vectors.map((vector) => (
         <div
           key={vector.src}

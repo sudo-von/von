@@ -7,12 +7,12 @@ const useSaturation = <T extends HTMLElement>() => {
     if (ref.current) {
       ref.current.classList.remove("saturate-0");
     }
-  }
+  };
 
   return {
     ref,
     handleOnMouseEnter,
-  }
+  };
 };
 
 export default useSaturation;

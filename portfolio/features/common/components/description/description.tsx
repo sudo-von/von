@@ -5,7 +5,7 @@ const Description: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="slate"
-      component="small"
+      component="p"
       variant="paragraph"
       weight="light"
       whitespace="pre"

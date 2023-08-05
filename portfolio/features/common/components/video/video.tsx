@@ -4,6 +4,7 @@ import useSaturation from "../../hooks/useSaturation/useSaturation";
 export type VideoProps = {
   src: string;
   title: string;
+  onMouseEnter?: VoidFunction;
 };
 
 const Video: FC<VideoProps> = ({ src, title }) => {

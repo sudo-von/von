@@ -1,6 +1,9 @@
 import { ComponentPropsWithoutRef, FC } from "react";
 
-type ButtonProps = ComponentPropsWithoutRef<"button">;
+type ButtonProps = Pick<
+  ComponentPropsWithoutRef<"button">,
+  "type" | "onClick" | "children" | "disabled"
+>;
 
 const Button: FC<ButtonProps> = ({ type, onClick, children, disabled }) => {
   const backgroundClassName = "bg-slate-850 hover:bg-slate-950";

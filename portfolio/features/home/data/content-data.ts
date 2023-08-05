@@ -2,6 +2,11 @@ import { ContentProps } from "../components/content/content";
 
 export const contents: ContentProps[] = [
   {
+    title: "Software engineer",
+    subtitle: "Passionate about ethical hacking",
+    description: "At first, dreams seem impossible,\nthen improbable, and eventually inevitable.",
+  },
+  {
     title: "Introduction",
     subtitle:
       "I was fortunate.\nI found my passion early in life.",
