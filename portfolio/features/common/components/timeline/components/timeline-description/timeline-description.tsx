@@ -1,19 +1,8 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../typography/typography";
+import Description from "../../../description/description";
 
 const TimelineDescription: FC<PropsWithChildren> = ({ children }) => {
-  return (
-    <Typography
-      color="slate"
-      component="p"
-      spacing="wide"
-      variant="legend"
-      weight="light"
-      whitespace="pre"
-    >
-      {children}
-    </Typography>
-  );
+  return <Description>{children}</Description>;
 };
 
 export default TimelineDescription;
