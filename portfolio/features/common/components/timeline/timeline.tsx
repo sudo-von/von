@@ -25,17 +25,19 @@ const Timeline: FC<TimelineProps> = ({
   const castedEndDate = new Date(endDate);
   const castedStartDate = new Date(startDate);
   return (
-    <li className="border-slate-50 text-center lg:text-start py-10 lg:py-0 border-b last:border-b-0 lg:border-b-0 lg:pl-12">
-      <div className="flex flex-col lg:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-0 justify-center lg:justify-start items-center lg:items-start">
-        <div className="relative lg:absolute w-14 h-14 lg:w-16 lg:h-16 lg:-left-8">
+    <li className="flex flex-col border-slate-100 py-10 lg:py-0 border-b last:border-b-0 lg:border-b-0 lg:pl-12">
+      <div className="flex flex-row gap-4 lg:gap-0 justify-start items-center lg:items-start">
+        <div className="relative lg:absolute w-16 h-16 lg:w-16 lg:h-16 lg:-left-8">
           <TimelineImage alt={company} src={src} />
         </div>
-        <div className="flex flex-col justify-center gap-1.5 lg:gap-1">
+        <div className="flex flex-col justify-center items-start gap-0.5">
           <TimelineCompany>{company}</TimelineCompany>
           <TimelineDate startDate={castedStartDate} endDate={castedEndDate} />
           <TimelinePosition>{position}</TimelinePosition>
-          <TimelineDescription>{description}</TimelineDescription>
         </div>
+      </div>
+      <div className="mt-4">
+        <TimelineDescription>{description}</TimelineDescription>
       </div>
     </li>
   );

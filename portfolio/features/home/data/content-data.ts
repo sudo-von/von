@@ -38,8 +38,7 @@ export const contents: ContentProps[] = [
           - Led the migration and refactoring of legacy react code using hooks.
           - Conducted pair programming sessions to train team members on new features.
           - Discovered critical flaws in multiple projects, prompting quick hotfixes.
-          - Presented findings to the corporation to address and prevent security issues.
-          `,
+          - Presented findings to the corporation to address and prevent security issues.`,
           src: "https://logodownload.org/wp-content/uploads/2014/04/intel-logo-1-1.png",
         },
         {
@@ -48,8 +47,7 @@ export const contents: ContentProps[] = [
           startDate: new Date("November 1, 2020").toISOString(),
           endDate: new Date("November 30, 2021").toISOString(),
           description: `- Worked on microservices development.
-          - Presented frontend topics in dev sync meetings.
-          `,
+          - Presented frontend topics in dev sync meetings.`,
           src: "https://scontent.fntr5-1.fna.fbcdn.net/v/t39.30808-6/300443824_168920352354407_1778796302346087197_n.png?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=T7UVAHk-Xh8AX_F6TvR&_nc_ht=scontent.fntr5-1.fna&oh=00_AfA1ivJ9oPWt3BlHB_q5NPHnEHejdrmujfB213GrafOpgg&oe=64CF93AB",
         },
         {
@@ -58,8 +56,7 @@ export const contents: ContentProps[] = [
           startDate: new Date("June 1, 2019").toISOString(),
           endDate: new Date("November 30, 2020").toISOString(),
           description: `- Developed custom systems to meet the needs of clients.
-          - Gathered requirements from various clients for system planning and development.
-          `,
+          - Gathered requirements from various clients for system planning and development.`,
           src: "https://evotek.vn/wp-content/uploads/2020/05/LinkedIn-Personal-Profile-Image-400x400-1.png",
         },
       ],
@@ -89,15 +86,15 @@ export const contents: ContentProps[] = [
         { alt: 'nextjs', src: 'nextjs.svg'},
         { alt: 'nodejs', src: 'nodejs.svg'},
         { alt: 'express', src: 'express.svg'},
+        { alt: 'npm', src: 'npm.svg'},
+        { alt: 'git', src: 'git.svg'},
         { alt: 'react', src: 'react.svg'},
         { alt: 'redux', src: 'redux.svg'},
         { alt: 'graphql', src: 'graphql.svg'},
-        { alt: 'npm', src: 'npm.svg'},
         { alt: 'jest', src: 'jest.svg'},
         { alt: 'react testing library', src: 'testing-library.svg'},
         { alt: 'docker', src: 'docker.svg'},
         { alt: 'kubernetes', src: 'kubernetes.svg'},
-        { alt: 'git', src: 'git.svg'},
         { alt: 'jenkins', src: 'jenkins.svg'},
         { alt: 'docker compose', src: 'docker-compose.svg'},
         { alt: 'storybook', src: 'storybook.svg'},

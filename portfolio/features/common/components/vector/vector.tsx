@@ -18,7 +18,7 @@ const Vector: FC<VectorProps> = ({ alt, src, onClick }) => {
       ref={ref}
       onClick={onClick}
       onMouseEnter={handleOnMouseEnter}
-      className="object-contain h-full rounded w-full cursor-pointer saturate-0 duration-1000 transition-all"
+      className="rounded-lg object-contain h-full w-full cursor-pointer saturate-0 duration-1000 transition"
     />
   );
 };

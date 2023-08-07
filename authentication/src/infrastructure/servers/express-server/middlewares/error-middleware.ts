@@ -44,6 +44,9 @@ import {
   securityServerErrors,
 } from '../../dtos/security-dto/security-server-errors';
 import {
+  userDetailsServerErrors,
+} from '../../dtos/user-details-dto/user-details-server-errors';
+import {
   passwordManagerServerErrors,
 } from '../../dtos/password-manager-dto/password-manager-server-errors';
 import LoggerService from '../../../services/logger-service/logger-service';
@@ -51,6 +54,7 @@ import LoggerService from '../../../services/logger-service/logger-service';
 const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
   ...avatarServerErrors,
   ...userServerErrors,
+  ...userDetailsServerErrors,
 };
 
 const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {

@@ -5,7 +5,7 @@ import {
   UserToken,
 } from './dtos/user-dto/user-token-dtos';
 import {
-  SecureUser,
+  DetailedSecureUser,
 } from '../../../domain/entities/user-entity/user-entities';
 
 abstract class TokenService {
@@ -25,11 +25,11 @@ abstract class TokenService {
 
   /**
   * Generates a token from a SecureUser object.
-  * @param {SecureUser} payload - The SecureUser object to use as payload.
+  * @param {DetailedSecureUser} payload - The SecureUser object to use as payload.
   * @param {TokenExpiration} expiration - The expiration time for the token.
   * @returns {Promise<string>} A promise with the token.
   */
-  abstract generate: (payload: SecureUser, expiration: TokenExpiration)
+  abstract generate: (payload: DetailedSecureUser, expiration: TokenExpiration)
   => Promise<string>;
 }
 

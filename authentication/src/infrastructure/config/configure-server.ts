@@ -21,6 +21,7 @@ const configureServer = async (
   serverPort: number,
   userRouter: Router,
   avatarRouter: Router,
+  userDetailsRouter: Router,
   authenticationRouter: Router,
   loggerService: LoggerService,
 ) => {
@@ -40,6 +41,7 @@ const configureServer = async (
   app.use('/api/v1/docs', serve, setup(swaggerYaml));
   app.use('/api/v1/user', userRouter);
   app.use('/api/v1/avatar', avatarRouter);
+  app.use('/api/v1/user-details', userDetailsRouter);
   app.use('/api/v1/authentication', authenticationRouter);
 
   app.use(errorMiddleware(loggerService));

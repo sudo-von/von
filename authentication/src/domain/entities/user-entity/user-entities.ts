@@ -1,19 +1,28 @@
-export type User = Readonly<{
+import {
+  UserDetails,
+} from '../user-details-entity/user-details-entities';
+
+export type User = {
   id: string;
   name: string;
   email: string;
-  avatar?: string;
   username: string;
   password: string;
-}>;
+};
 
-export type CreateUser = Omit<User, 'id' | 'avatar'>;
+export type DetailedUser = User & {
+  avatar?: string;
+  details?: UserDetails;
+};
 
-export type UpdateUser = Readonly<
-Pick<User, 'password'> &
-Partial<Pick<User, 'name' | 'email' | 'username'>>
->;
+export type CreateUser = Omit<User, 'id'>;
 
-export type SecureUser = Omit<User, 'password'>;
+export type UpdateUser = Omit<User, 'id'>;
+
+export type CreateDetailedUser = Omit<DetailedUser, 'id'>;
+
+export type PartialDetailedUser = Partial<Omit<DetailedUser, 'id'>>;
 
 export type UserCredentials = Pick<User, 'email' | 'password'>;
+
+export type DetailedSecureUser = Omit<DetailedUser, 'password'>;

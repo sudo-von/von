@@ -4,6 +4,11 @@ import FooterSubtitle from "./components/footer-subtitle/footer-subtitle";
 import FooterLinkList from "./components/footer-link-list/footer-link-list";
 import FooterCopyright from "./components/footer-copyright/footer-copyright";
 import FooterDescription from "./components/footer-description/footer-description";
+import { profile } from "console";
+import { user } from "../../../home/data/profile-data";
+import Title from "../title/title";
+import Subtitle from "../subtitle/subtitle";
+import Description from "../description/description";
 
 export const links: FooterLinkProps[] = [
   {
@@ -15,11 +20,6 @@ export const links: FooterLinkProps[] = [
     alt: "github",
     src: "github.svg",
     href: "https://github.com/sudo-von",
-  },
-  {
-    alt: "spotify",
-    src: "spotify.svg",
-    href: "https://open.spotify.com/user/mq7i4ip2xbf7m8ar1xe6ogtlo",
   },
   {
     alt: "email",
@@ -37,15 +37,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer className="grid lg:grid-cols-2 gap-4">
-      <div className="flex flex-col items-center lg:items-start justify-center gap-3 text-center md:text-start">
-        <FooterTitle>Jesús Rodríguez</FooterTitle>
-        <FooterSubtitle>Help others achieve their dreams.</FooterSubtitle>
-        <FooterDescription>
-          By doing so, you will achieve yours.
-        </FooterDescription>
-        <div className="flex flex-row gap-4 mt-1">
-          <FooterLinkList links={links} />
-        </div>
+      <div className="flex flex-col gap-4 mt-1">
+        <Title>Contact</Title>
+        <Subtitle>Let's connect.{"\n"}Let's create together</Subtitle>
+        <Description>
+          Get in touch with me for any inquiries,{"\n"}collaborations, or just
+          to say hello!{"\n"}I'm always excited to connect.{"\n"}Feel free to
+          drop me a message,{"\n"}and I'll get back to you as soon as possible.
+        </Description>
       </div>
       <div className="flex flex-row justify-center items-center lg:justify-end lg:items-end">
         <FooterCopyright name="Jesús Rodríguez" year={currentYear} />

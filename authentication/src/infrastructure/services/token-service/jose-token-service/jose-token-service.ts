@@ -17,7 +17,7 @@ import {
 } from '../dtos/user-dto/user-token-dtos';
 import TokenService from '../token-service';
 import {
-  SecureUser,
+  DetailedSecureUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 
 class JoseTokenService extends TokenService {
@@ -36,7 +36,7 @@ class JoseTokenService extends TokenService {
     }
   };
 
-  generate = async (payload: SecureUser, expiration: TokenExpiration): Promise<string> => {
+  generate = async (payload: DetailedSecureUser, expiration: TokenExpiration): Promise<string> => {
     try {
       const key = new TextEncoder().encode(this.secret);
 

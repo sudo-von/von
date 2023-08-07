@@ -16,7 +16,6 @@ const App = ({ Component, pageProps }: AppProps) => {
         <main className={font.className}>
           <Navbar routes={publicRoutes} />
           <Component {...pageProps} />
-          <Footer />
         </main>
       </MarginLayout>
     </MDXProvider>

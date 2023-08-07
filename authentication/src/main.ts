@@ -11,6 +11,7 @@ import configurePasswordManagerService from './infrastructure/config/configure-p
 import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
 import configureAvatarRouter from './infrastructure/servers/express-server/controllers/avatar-controller/avatar-router';
 import configureAuthenticationRouter from './infrastructure/servers/express-server/controllers/authentication-controller/authentication-router';
+import configureUserDetailsRouter from './infrastructure/servers/express-server/controllers/user-details-controller/user-details-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -54,6 +55,7 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       userUsecase,
       avatarUsecase,
+      userDetailsUsecase,
       authenticationUsecase,
     } = configureUsecases(
       fileService,
@@ -78,6 +80,12 @@ loggerService.info('📢 Logger service has been configured.');
       updateUserProducer,
     );
     loggerService.info('🔌 User router has been configured.');
+    const userDetailsRouter = configureUserDetailsRouter(
+      tokenService,
+      userRepository,
+      userDetailsUsecase,
+    );
+    loggerService.info('🔌 User details router has been configured.');
     const avatarRouter = configureAvatarRouter(
       tokenService,
       avatarUsecase,
@@ -96,6 +104,7 @@ loggerService.info('📢 Logger service has been configured.');
       SERVER_PORT,
       userRouter,
       avatarRouter,
+      userDetailsRouter,
       authenticationRouter,
       loggerService,
     );

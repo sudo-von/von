@@ -54,23 +54,20 @@ export const UpdateUserRequest = z.object({
     .string({
       invalid_type_error: 'name field must be a string',
     })
-    .trim()
-    .optional(),
+    .trim(),
   email: z
     .string({
       invalid_type_error: 'email field must be a string',
     })
     .email('email field must contain a valid email')
     .trim()
-    .toLowerCase()
-    .optional(),
+    .toLowerCase(),
   username: z
     .string({
       invalid_type_error: 'username field must be a string',
     })
     .trim()
-    .toLowerCase()
-    .optional(),
+    .toLowerCase(),
   password: z
     .string({
       required_error: 'password field is required',

@@ -5,6 +5,7 @@ export type DomainError = {
 
 export type DomainErrorCode =
 | AvatarDomainErrorCode
+| UserDetailsDomainErrorCode
 | UserDomainErrorCode;
 
 export type AvatarDomainErrorCode =
@@ -14,6 +15,12 @@ export type AvatarDomainErrorCode =
 | 'AVATAR_UPDATE_FAILED'
 | 'INVALID_AVATAR_FILE_MIME_TYPE'
 | 'INVALID_AVATAR_FILE_SIZE';
+
+export type UserDetailsDomainErrorCode =
+| 'INVALID_QUOTE_LENGTH'
+| 'INVALID_INTEREST_LENGTH'
+| 'INVALID_POSITION_LENGTH'
+| 'USER_DETAILS_REPLACEMENT_FAILED';
 
 export type UserDomainErrorCode =
 | 'INVALID_CREDENTIALS'

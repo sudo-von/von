@@ -3,7 +3,12 @@ import Typography from "../../../../../common/components/typography/typography";
 
 const AskPosition: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Typography variant="subtitle" weight="regular" color="black">
+    <Typography
+      component="h2"
+      variant="subtitle"
+      weight="regular"
+      color="black"
+    >
       {children}
     </Typography>
   );

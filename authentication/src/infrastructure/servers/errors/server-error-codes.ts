@@ -1,12 +1,13 @@
 import {
   UserDomainErrorCode,
   AvatarDomainErrorCode,
+  UserDetailsDomainErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
   FileServiceErrorCode,
-  PasswordManagerServiceErrorCode,
-  SecurityServiceErrorCode,
   TokenServiceErrorCode,
+  SecurityServiceErrorCode,
+  PasswordManagerServiceErrorCode,
 } from '../../services/errors/service-error-codes';
 
 export type ServerError = {
@@ -22,6 +23,7 @@ export type ServerErrorCode =
 | PasswordManagerServerErrorCode
 | SecurityServerErrorCode
 | TokenServerErrorCode
+| UserDetailsServerErrorCode
 | UserServerErrorCode;
 
 export type AvatarServerErrorCode =
@@ -47,6 +49,9 @@ export type TokenServerErrorCode =
 | 'AUTHORIZATION_SCHEME_NOT_SUPPORTED'
 | 'MISSING_AUTHORIZATION_HEADER'
 | 'MISSING_TOKEN';
+
+export type UserDetailsServerErrorCode =
+| UserDetailsDomainErrorCode;
 
 export type UserServerErrorCode =
 | UserDomainErrorCode;

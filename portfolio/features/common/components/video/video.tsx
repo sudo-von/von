@@ -16,8 +16,7 @@ const Video: FC<VideoProps> = ({ src, title }) => {
       title={title}
       allowFullScreen
       onMouseEnter={handleOnMouseEnter}
-      className="rounded-lg h-full w-full saturate-0 duration-1000 transition-all"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; web-share"
+      className="rounded-lg h-full w-full saturate-0 duration-1000 transition"
     />
   );
 };

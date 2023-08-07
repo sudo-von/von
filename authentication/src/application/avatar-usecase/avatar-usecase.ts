@@ -26,7 +26,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const extension = mimetype.split('/').pop();
 
-    if (!extension || !avatarRules.mimetype.content.ALLOWED_MIMETYPES.includes(mimetype)) {
+    if (!extension || !avatarRules.mimetype.ALLOWED_MIMETYPES.includes(mimetype)) {
       return defaultFilename;
     }
 

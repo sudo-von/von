@@ -22,7 +22,7 @@ const AskMetrics: FC<AskMetricsProps> = ({
   );
   const formattedText = `${formattedViews} • ${formattedQuestions} • ${formattedAnswers}`;
   return (
-    <Typography variant="caption" weight="light" color="black">
+    <Typography component="h4" variant="paragraph" weight="light" color="black">
       {formattedText}
     </Typography>
   );

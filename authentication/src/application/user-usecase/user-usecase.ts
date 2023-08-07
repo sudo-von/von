@@ -4,23 +4,23 @@ import {
   InvalidCredentialsError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
-  SecureUser,
+  DetailedSecureUser,
   UpdateUser,
 } from '../../domain/entities/user-entity/user-entities';
 import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
-import userToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  getUserByUsername = async (username: string): Promise<SecureUser> => {
+  getUserByUsername = async (username: string): Promise<DetailedSecureUser> => {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const secureUser = userToSecureUser(user);
+    const secureUser = detailedUserToDetailedSecureUser(user);
     return secureUser;
   };
 
-  updateUserByUsername = async (username: string, payload: UpdateUser): Promise<SecureUser> => {
+  updateUserByUsername = async (username: string, payload: UpdateUser): Promise<DetailedSecureUser> => {
     validateUserUpdate(payload);
 
     const user = await this.userRepository.getUser({ username });
@@ -39,7 +39,7 @@ class UserUsecaseApplication extends UserUsecase {
     }, { username });
     if (!updatedUser) throw UserUpdateFailedError;
 
-    const secureUser = userToSecureUser(updatedUser);
+    const secureUser = detailedUserToDetailedSecureUser(updatedUser);
     return secureUser;
   };
 }

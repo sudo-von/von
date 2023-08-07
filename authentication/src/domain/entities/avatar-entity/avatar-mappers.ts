@@ -2,10 +2,10 @@ import {
   Avatar,
 } from './avatar-entities';
 import {
-  User,
+  DetailedUser,
 } from '../user-entity/user-entities';
 
-const userToAvatar = (user: User): Avatar => ({
+const userToAvatar = (user: DetailedUser): Avatar => ({
   name: user.avatar ?? '',
 });
 

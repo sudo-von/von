@@ -25,10 +25,10 @@ export const AvatarUpdateFailedError = createDomainErrorFactory({
 
 export const InvalidAvatarFileMimeTypeError = createDomainErrorFactory({
   code: 'INVALID_AVATAR_FILE_MIME_TYPE',
-  error: `Please provide an avatar file with one of the following MIME types: ${avatarRules.mimetype.content.ALLOWED_MIMETYPES.join(', ')}.`,
+  error: `Please provide an avatar file with one of the following MIME types: ${avatarRules.mimetype.ALLOWED_MIMETYPES.join(', ')}.`,
 });
 
 export const InvalidAvatarFileSizeError = createDomainErrorFactory({
   code: 'INVALID_AVATAR_FILE_SIZE',
-  error: `Please provide an avatar file that consists of ${avatarRules.size.content.MIN_BYTES.toLocaleString()} to ${avatarRules.size.content.MAX_BYTES.toLocaleString()} bytes.`,
+  error: `Please provide an avatar file that consists of ${avatarRules.size.MIN_BYTES.toLocaleString()} to ${avatarRules.size.MAX_BYTES.toLocaleString()} bytes.`,
 });

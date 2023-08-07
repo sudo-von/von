@@ -15,11 +15,7 @@ const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
 
   if (filters.id) query._id = filters.id;
 
-  if (filters.name) query.name = filters.name;
-
   if (filters.email) query.email = filters.email;
-
-  if (filters.avatar) query.avatar = filters.avatar;
 
   if (filters.username) query.username = filters.username;
 

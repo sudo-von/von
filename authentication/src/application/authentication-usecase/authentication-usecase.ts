@@ -4,15 +4,15 @@ import {
 } from '../../domain/entities/user-entity/user-errors';
 import {
   CreateUser,
-  SecureUser,
+  DetailedSecureUser,
   UserCredentials,
 } from '../../domain/entities/user-entity/user-entities';
-import userToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
 import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/authentication-usecase';
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
-  signup = async (payload: CreateUser): Promise<SecureUser> => {
+  signup = async (payload: CreateUser): Promise<DetailedSecureUser> => {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
@@ -27,11 +27,11 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       password: hashedPassword,
     });
 
-    const secureUser = userToSecureUser(createdUser);
+    const secureUser = detailedUserToDetailedSecureUser(createdUser);
     return secureUser;
   };
 
-  login = async (credentials: UserCredentials): Promise<SecureUser> => {
+  login = async (credentials: UserCredentials): Promise<DetailedSecureUser> => {
     const user = await this.userRepository.getUser({ email: credentials.email });
     if (!user) throw InvalidCredentialsError;
 
@@ -41,7 +41,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const secureUser = userToSecureUser(user);
+    const secureUser = detailedUserToDetailedSecureUser(user);
     return secureUser;
   };
 }

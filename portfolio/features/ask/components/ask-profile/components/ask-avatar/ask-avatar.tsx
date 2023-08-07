@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Image from "next/image";
+import Img from "../../../../../common/components/img/img";
 
 type AskAvatarProps = {
   alt: string;
@@ -7,9 +7,7 @@ type AskAvatarProps = {
 };
 
 const AskAvatar: FC<AskAvatarProps> = ({ alt, src }) => {
-  return (
-    <Image className="object-cover rounded-full" alt={alt} src={src} fill />
-  );
+  return <Img alt={alt} src={src} rounded="full" />;
 };
 
 export default AskAvatar;
