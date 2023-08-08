@@ -1,4 +1,7 @@
 import {
+  Avatar,
+} from '../avatar-entity/avatar-entities';
+import {
   UserDetails,
 } from '../user-details-entity/user-details-entities';
 
@@ -11,7 +14,7 @@ export type User = {
 };
 
 export type DetailedUser = User & {
-  avatar?: string;
+  avatar?: Avatar;
   details?: UserDetails;
 };
 

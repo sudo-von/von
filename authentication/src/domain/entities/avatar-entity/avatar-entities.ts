@@ -1,12 +1,10 @@
-export type Avatar = Readonly<{
-  name: string;
-}>;
+export type Avatar = string;
 
-export type AvatarFile = Readonly<{
+export type AvatarFile = {
   size: number;
   buffer: Buffer;
   mimetype: string;
-}>;
+};
 
 export type CreateAvatarFile = AvatarFile;
 
