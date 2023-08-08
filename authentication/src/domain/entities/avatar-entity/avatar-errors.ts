@@ -3,24 +3,9 @@ import {
 } from '../../errors/error-factory';
 import avatarRules from './avatar-rules';
 
-export const AvatarAlreadyCreatedError = createDomainErrorFactory({
-  code: 'AVATAR_ALREADY_CREATED',
-  error: 'The avatar has already been created.',
-});
-
-export const AvatarCreationFailedError = createDomainErrorFactory({
-  code: 'AVATAR_CREATION_FAILED',
-  error: 'The avatar you attempted to create could not be created.',
-});
-
-export const AvatarNotCreatedYetError = createDomainErrorFactory({
-  code: 'AVATAR_NOT_CREATED_YET',
-  error: 'The avatar has not been created yet.',
-});
-
-export const AvatarUpdateFailedError = createDomainErrorFactory({
-  code: 'AVATAR_UPDATE_FAILED',
-  error: 'The avatar you attempted to update could not be updated.',
+export const AvatarReplacementFailedError = createDomainErrorFactory({
+  code: 'AVATAR_REPLACEMENT_FAILED',
+  error: 'The avatar you attempted to replace could not be replaced.',
 });
 
 export const InvalidAvatarFileMimeTypeError = createDomainErrorFactory({

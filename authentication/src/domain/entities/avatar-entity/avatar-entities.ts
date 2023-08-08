@@ -10,4 +10,4 @@ export type AvatarFile = Readonly<{
 
 export type CreateAvatarFile = AvatarFile;
 
-export type UpdateAvatarFile = AvatarFile;
+export type ReplaceAvatarFile = AvatarFile;

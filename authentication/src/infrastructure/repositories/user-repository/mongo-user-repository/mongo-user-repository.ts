@@ -1,7 +1,7 @@
 import UserModel from './mongo-user-repository-model';
 import {
-  DetailedUser,
   CreateUser,
+  DetailedUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import userDocumentToUser from './mongo-user-repository-mapper';
 import createQuestionRepositoryQuery from './mongo-user-repository-query';

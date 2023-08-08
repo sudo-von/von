@@ -1,12 +1,17 @@
 import {
-  Avatar,
-  CreateAvatarFile,
-  UpdateAvatarFile,
+  DetailedSecureUser,
+} from '../../entities/user-entity/user-entities';
+import {
+  ReplaceAvatarFile,
 } from '../../entities/avatar-entity/avatar-entities';
 import FileService from '../../services/file-service/file-service';
 import ISecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
+/**
+* Abstract class representing an avatar use case.
+* @abstract
+*/
 abstract class AvatarUsecase {
   /**
   * Creates an instance of AvatarUsecase.
@@ -21,31 +26,22 @@ abstract class AvatarUsecase {
   ) {}
 
   /**
-  * Generates an avatar filename for a user based on the user ID and mimetype.
-  * @param {string} id - The ID of the user.
+  * Abstract method to generate an avatar filename based on the user's username and mimetype.
+  * @param {string} username - The username of the user.
   * @param {string} mimetype - The mimetype of the avatar file.
   * @returns {string} The generated avatar filename.
   */
-  abstract generateAvatarFilenameByUserId: (id: string, mimetype: string)
+  abstract generateAvatarFilenameByUsername: (username: string, mimetype: string)
   => string;
 
   /**
-  * Creates an avatar file for a user with the provided user ID and payload.
-  * @param {string} id - The ID of the user.
-  * @param {CreateAvatarFile} payload - The payload containing the avatar file data.
-  * @returns {Promise<Avatar>} A promise with the created avatar file.
+  * Abstract method to replace the avatar file for a user by username.
+  * @param {string} username - The username of the user to replace details for.
+  * @param {ReplaceAvatarFile} payload - The data to replace the avatar's file with.
+  * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
   */
-  abstract createAvatarFileByUserId: (id: string, payload: CreateAvatarFile)
-  => Promise<Avatar>;
-
-  /**
-  * Updates the avatar file for a user with the provided user ID and payload.
-  * @param {string} id - The ID of the user.
-  * @param {UpdateAvatarFile} payload - The payload containing the updated avatar file data.
-  * @returns {Promise<Avatar>} A promise with the updated avatar file.
-  */
-  abstract updateAvatarFileByUserId: (id: string, payload: UpdateAvatarFile)
-  => Promise<Avatar>;
+  abstract replaceAvatarFileByUsername: (username: string, payload: ReplaceAvatarFile)
+  => Promise<DetailedSecureUser>;
 }
 
 export default AvatarUsecase;

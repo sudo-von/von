@@ -1,7 +1,5 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCodes from 'http-status-codes';
 import {
@@ -13,7 +11,7 @@ import {
 } from '../../../../brokers/dtos/user-dto/user-broker-dtos';
 import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import TokenService from '../../../../services/token-service/token-service';
-import secureUserToSecureUserResponse from '../../../dtos/user-dto/user-server-mappers';
+import detailedSecureUserToResponse from '../../../dtos/user-dto/user-server-mappers';
 import AuthenticationUsecase from '../../../../../domain/usecases/authentication-usecase/authentication-usecase';
 
 class AuthenticationController {
@@ -23,31 +21,7 @@ class AuthenticationController {
     private readonly createUserProducer: AMQPBroker<CreateUserBroker>,
   ) {}
 
-  signup = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const payload = CreateUserRequest.parse(req.body);
-
-      const secureUser = await this.authenticationUsecase.signup({
-        name: payload.name,
-        email: payload.email,
-        username: payload.username,
-        password: payload.password,
-      });
-
-      const secureUserResponse = secureUserToSecureUserResponse(secureUser);
-
-      res.status(statusCodes.CREATED).send({ result: secureUserResponse });
-
-      await this.createUserProducer.produce('User:CreateUser', {
-        user_id: secureUser.id,
-        username: secureUser.username,
-      });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  login = async (req: Request, res: Response, next: NextFunction) => {
+  login: RequestHandler = async (req, res, next) => {
     try {
       const payload = CreateUserCredentialsRequest.parse(req.body);
 
@@ -59,6 +33,30 @@ class AuthenticationController {
       const token = await this.tokenService.generate(secureUser, '6h');
 
       res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.OK);
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  signup: RequestHandler = async (req, res, next) => {
+    try {
+      const payload = CreateUserRequest.parse(req.body);
+
+      const secureUser = await this.authenticationUsecase.signup({
+        name: payload.name,
+        email: payload.email,
+        username: payload.username,
+        password: payload.password,
+      });
+
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
+
+      res.status(statusCodes.CREATED).send({ result: secureUserResponse });
+
+      await this.createUserProducer.produce('User:CreateUser', {
+        user_id: secureUser.id,
+        username: secureUser.username,
+      });
     } catch (e) {
       next(e);
     }

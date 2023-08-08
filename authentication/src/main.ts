@@ -1,8 +1,8 @@
 import configureServer from './infrastructure/config/configure-server';
 import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
-import configureFileService from './infrastructure/config/configure-file-service';
 import configureRepositories from './infrastructure/config/configure-repositories';
+import configureFileServices from './infrastructure/config/configure-file-services';
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureSecurityService from './infrastructure/config/configure-security-service';
@@ -10,8 +10,8 @@ import configureEnvironmentVariables from './infrastructure/config/configure-env
 import configurePasswordManagerService from './infrastructure/config/configure-password-manager-service';
 import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
 import configureAvatarRouter from './infrastructure/servers/express-server/controllers/avatar-controller/avatar-router';
-import configureAuthenticationRouter from './infrastructure/servers/express-server/controllers/authentication-controller/authentication-router';
 import configureUserDetailsRouter from './infrastructure/servers/express-server/controllers/user-details-controller/user-details-router';
+import configureAuthenticationRouter from './infrastructure/servers/express-server/controllers/authentication-controller/authentication-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -42,12 +42,14 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('💽 Repositories have been configured.');
 
     /* 🔧 Services. */
+    const {
+      avatarFileService,
+    } = configureFileServices();
+    loggerService.info('📂 File services have been configured.');
     const tokenService = configureTokenService(SECRET_KEY);
     loggerService.info('🔑 Token service has been configured.');
     const securityService = configureSecurityService();
     loggerService.info('🔒 Security service has been configured.');
-    const fileService = configureFileService();
-    loggerService.info('📂 File service has been configured.');
     const passwordManagerService = configurePasswordManagerService();
     loggerService.info('🕵️‍♂️ Password manager service has been configured.');
 
@@ -58,7 +60,7 @@ loggerService.info('📢 Logger service has been configured.');
       userDetailsUsecase,
       authenticationUsecase,
     } = configureUsecases(
-      fileService,
+      avatarFileService,
       userRepository,
       securityService,
       passwordManagerService,
@@ -85,13 +87,13 @@ loggerService.info('📢 Logger service has been configured.');
       userRepository,
       userDetailsUsecase,
     );
-    loggerService.info('🔌 User details router has been configured.');
+    loggerService.info('🔌 Avatar router has been configured.');
     const avatarRouter = configureAvatarRouter(
       tokenService,
       avatarUsecase,
       userRepository,
     );
-    loggerService.info('🔌 Avatar router has been configured.');
+    loggerService.info('🔌 User details router has been configured.');
     const authenticationRouter = configureAuthenticationRouter(
       tokenService,
       authenticationUsecase,

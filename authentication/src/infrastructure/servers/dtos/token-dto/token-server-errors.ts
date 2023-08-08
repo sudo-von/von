@@ -38,11 +38,7 @@ export const TokenServiceExpiredTokenServerError = createServerErrorFactory({
   statusCode: statusCode.UNAUTHORIZED,
 });
 
-export const TokenServiceFailedTokenGenerationServerError = createServerErrorFactory({
-  code: 'TOKEN_SERVICE_FAILED_TO_GENERATE_TOKEN',
-  error: InternalServerError.message,
-  statusCode: InternalServerError.statusCode,
-});
+export const TokenServiceFailedTokenGenerationServerError = InternalServerError;
 
 export const TokenServiceInvalidTokenServerError = createServerErrorFactory({
   code: 'TOKEN_SERVICE_INVALID_TOKEN',

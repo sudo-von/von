@@ -15,10 +15,6 @@ const userRepositorySchema = new Schema<UserRepositorySchema>({
     type: String,
     required: true,
   },
-  avatar: {
-    type: String,
-    required: false,
-  },
   username: {
     type: String,
     required: true,
@@ -26,6 +22,10 @@ const userRepositorySchema = new Schema<UserRepositorySchema>({
   password: {
     type: String,
     required: true,
+  },
+  avatar: {
+    type: String,
+    required: false,
   },
   details: {
     type: userDetailsRepositorySchema,

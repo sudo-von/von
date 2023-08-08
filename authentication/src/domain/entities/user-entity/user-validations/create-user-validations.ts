@@ -1,8 +1,8 @@
 import {
   InvalidNameLengthError,
   InvalidEmailLengthError,
-  InvalidPasswordLengthError,
   InvalidUsernameLengthError,
+  InvalidPasswordLengthError,
 } from '../user-errors';
 import {
   CreateUser,
@@ -10,8 +10,8 @@ import {
 import {
   validateNameLength,
   validateEmailLength,
-  validatePasswordLength,
   validateUsernameLength,
+  validatePasswordLength,
 } from './user-validations';
 
 const validateUserCreation = (payload: CreateUser) => {

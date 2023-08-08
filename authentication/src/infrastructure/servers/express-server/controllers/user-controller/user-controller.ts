@@ -1,7 +1,5 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCodes from 'http-status-codes';
 import {
@@ -15,7 +13,7 @@ import {
 } from '../../../../brokers/dtos/user-dto/user-broker-dtos';
 import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
-import secureUserToSecureUserResponse from '../../../dtos/user-dto/user-server-mappers';
+import detailedSecureUserToResponse from '../../../dtos/user-dto/user-server-mappers';
 
 class UserController {
   constructor(
@@ -23,13 +21,13 @@ class UserController {
     private readonly updateUserProducer: AMQPBroker<UpdateUserBroker>,
   ) {}
 
-  getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  getUserByUsername: RequestHandler = async (req, res, next) => {
     try {
       const username = req.params.username.toLowerCase();
 
       const secureUser = await this.userUsecase.getUserByUsername(username);
 
-      const secureUserResponse = secureUserToSecureUserResponse(secureUser);
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
 
       res.status(statusCodes.OK).send({ result: secureUserResponse });
     } catch (e) {
@@ -37,7 +35,7 @@ class UserController {
     }
   };
 
-  updateUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  updateUserByUsername: RequestHandler = async (req, res, next) => {
     try {
       const { body, user, params } = req;
 
@@ -54,7 +52,7 @@ class UserController {
         password: payload.password,
       });
 
-      const secureUserResponse = secureUserToSecureUserResponse(secureUser);
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
 
       res.status(statusCodes.OK).send({ result: secureUserResponse });
 

@@ -9,13 +9,17 @@ import {
 } from '../../../../domain/repositories/user-repository/user-repository-schema';
 
 const userDocumentToUser = (model: HydratedDocument<UserRepositorySchema>): DetailedUser => ({
-  id: model._id.toHexString(),
+  id: model.id.toString(),
   name: model.name,
   email: model.email,
   avatar: model.avatar,
-  details: model.details,
   username: model.username,
   password: model.password,
+  details: model.details && {
+    quote: model.details.quote,
+    interest: model.details.interest,
+    position: model.details.position,
+  },
 });
 
 export default userDocumentToUser;

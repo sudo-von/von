@@ -1,20 +1,18 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCodes from 'http-status-codes';
 import {
   UserPermissionDeniedServerError,
 } from '../../../dtos/user-dto/user-server-errors';
-import secureUserToSecureUserResponse from '../../../dtos/user-dto/user-server-mappers';
+import detailedSecureUserToResponse from '../../../dtos/user-dto/user-server-mappers';
 import ReplaceUserDetailsRequest from '../../../dtos/user-details-dto/user-details-server-request-dtos';
 import UserDetailsUsecase from '../../../../../domain/usecases/user-details-usecase/user-details-usecase';
 
 class UserDetailsController {
   constructor(private readonly userDetailsUsecase: UserDetailsUsecase) {}
 
-  replaceUserDetailsByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  replaceUserDetailsByUsername: RequestHandler = async (req, res, next) => {
     try {
       const { body, user, params } = req;
 
@@ -30,7 +28,7 @@ class UserDetailsController {
         position: payload.position,
       });
 
-      const secureUserResponse = secureUserToSecureUserResponse(secureUser);
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
 
       res.status(statusCodes.OK).send({ result: secureUserResponse });
     } catch (e) {

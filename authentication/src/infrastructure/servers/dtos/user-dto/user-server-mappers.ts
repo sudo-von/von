@@ -5,15 +5,19 @@ import {
   DetailedSecureUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 
-const secureUserToSecureUserResponse = (
-  secureUser: DetailedSecureUser,
+const detailedSecureUserToResponse = (
+  detailedSecureUser: DetailedSecureUser,
 ): SecureUserResponse => ({
-  id: secureUser.id,
-  name: secureUser.name,
-  email: secureUser.email,
-  avatar: secureUser.avatar,
-  username: secureUser.username,
-  details: secureUser.details,
+  id: detailedSecureUser.id,
+  name: detailedSecureUser.name,
+  email: detailedSecureUser.email,
+  avatar: detailedSecureUser.avatar,
+  username: detailedSecureUser.username,
+  details: detailedSecureUser.details && {
+    quote: detailedSecureUser.details.quote,
+    interest: detailedSecureUser.details.interest,
+    position: detailedSecureUser.details.position,
+  },
 });
 
-export default secureUserToSecureUserResponse;
+export default detailedSecureUserToResponse;

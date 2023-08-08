@@ -1,6 +1,5 @@
 import {
   ServerErrorFactory,
-  createServerErrorFactory,
 } from '../../errors/server-error-factory';
 import {
   InternalServerError,
@@ -9,23 +8,11 @@ import {
   FileServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
 
-export const NoEntityFoundServerError = createServerErrorFactory({
-  code: 'FILE_SERVICE_ENTITY_NOT_FOUND',
-  error: InternalServerError.message,
-  statusCode: InternalServerError.statusCode,
-});
+export const NoEntityFoundServerError = InternalServerError;
 
-export const FailedToDeleteServerError = createServerErrorFactory({
-  code: 'FILE_SERVICE_FAILED_TO_DELETE',
-  error: InternalServerError.message,
-  statusCode: InternalServerError.statusCode,
-});
+export const FailedToDeleteServerError = InternalServerError;
 
-export const FailedToUploadingServerError = createServerErrorFactory({
-  code: 'FILE_SERVICE_FAILED_TO_UPLOAD',
-  error: InternalServerError.message,
-  statusCode: InternalServerError.statusCode,
-});
+export const FailedToUploadingServerError = InternalServerError;
 
 export const fileServerErrors: Record<FileServiceErrorCode, ServerErrorFactory> = {
   FILE_SERVICE_ENTITY_NOT_FOUND: NoEntityFoundServerError,

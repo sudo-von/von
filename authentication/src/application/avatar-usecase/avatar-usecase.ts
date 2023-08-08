@@ -2,80 +2,59 @@ import {
   UserNotFoundError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
-  AvatarUpdateFailedError,
-  AvatarNotCreatedYetError,
-  AvatarAlreadyCreatedError,
-  AvatarCreationFailedError,
+  DetailedSecureUser,
+} from '../../domain/entities/user-entity/user-entities';
+import {
+  AvatarReplacementFailedError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
-  Avatar,
-  CreateAvatarFile,
-  UpdateAvatarFile,
+  ReplaceAvatarFile,
 } from '../../domain/entities/avatar-entity/avatar-entities';
 import avatarRules from '../../domain/entities/avatar-entity/avatar-rules';
-import userToAvatar from '../../domain/entities/avatar-entity/avatar-mappers';
 import AvatarUsecase from '../../domain/usecases/avatar-usecase/avatar-usecase';
-import validateAvatarFileUpdate from '../../domain/entities/avatar-entity/avatar-validations/update-avatar-file-validations';
-import validateAvatarFileCreation from '../../domain/entities/avatar-entity/avatar-validations/create-avatar-file-validations';
+import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
+import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
-  generateAvatarFilenameByUserId = (id: string, mimetype: string): string => {
-    const userIdHash = this.securityService.hashData(id, 'md5');
+  generateAvatarFilenameByUsername = (username: string, mimetype: string): string => {
+    const usernameHash = this.securityService.hashData(username, 'md5');
 
-    const defaultFilename = `${userIdHash}.jpg`;
+    const defaultFilename = `${usernameHash}.jpg`;
 
     const extension = mimetype.split('/').pop();
 
-    if (!extension || !avatarRules.mimetype.ALLOWED_MIMETYPES.includes(mimetype)) {
+    if (!extension || !avatarRules.mimetype.ALLOWED_MIMETYPES.includes(mimetype.toLowerCase())) {
       return defaultFilename;
     }
 
-    const filename = `${userIdHash}.${extension}`;
+    const filename = `${usernameHash}.${extension}`;
     return filename;
   };
 
-  createAvatarFileByUserId = async (id: string, payload: CreateAvatarFile): Promise<Avatar> => {
-    validateAvatarFileCreation(payload);
+  replaceAvatarFileByUsername = async (
+    username: string,
+    payload: ReplaceAvatarFile,
+  ): Promise<DetailedSecureUser> => {
+    validateAvatarFileReplacement(payload);
 
-    const user = await this.userRepository.getUser({ id });
+    const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    if (user.avatar) throw AvatarAlreadyCreatedError;
+    if (user.avatar) {
+      await this.fileService.delete(user.avatar);
+    }
 
-    const avatarFilename = this.generateAvatarFilenameByUserId(id, payload.mimetype);
+    const avatar = this.generateAvatarFilenameByUsername(username, payload.mimetype);
 
-    await this.fileService.upload(avatarFilename, payload.buffer);
+    await this.fileService.upload(avatar, payload.buffer);
 
-    const createdAvatar = await this.userRepository.updateUser({
-      avatar: avatarFilename,
-    }, { id });
-    if (!createdAvatar) throw AvatarCreationFailedError;
+    const updatedUser = await this.userRepository.updateUser({
+      avatar,
+    }, { username });
+    if (!updatedUser) throw AvatarReplacementFailedError;
 
-    const avatar = userToAvatar(createdAvatar);
-    return avatar;
-  };
-
-  updateAvatarFileByUserId = async (id: string, payload: UpdateAvatarFile): Promise<Avatar> => {
-    validateAvatarFileUpdate(payload);
-
-    const user = await this.userRepository.getUser({ id });
-    if (!user) throw UserNotFoundError;
-
-    if (!user.avatar) throw AvatarNotCreatedYetError;
-
-    await this.fileService.delete(user.avatar);
-
-    const avatarFilename = this.generateAvatarFilenameByUserId(id, payload.mimetype);
-
-    await this.fileService.upload(avatarFilename, payload.buffer);
-
-    const updatedAvatar = await this.userRepository.updateUser({
-      avatar: avatarFilename,
-    }, { id });
-    if (!updatedAvatar) throw AvatarUpdateFailedError;
-
-    const avatar = userToAvatar(updatedAvatar);
-    return avatar;
+    const secureUser = detailedUserToDetailedSecureUser(updatedUser);
+    return secureUser;
   };
 }
 

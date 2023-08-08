@@ -1,6 +1,6 @@
 const avatarRules = {
   size: {
-    MIN_BYTES: 10_000,
+    MIN_BYTES: 1_000,
     MAX_BYTES: 5_000_000,
   },
   mimetype: {

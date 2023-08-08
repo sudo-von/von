@@ -3,14 +3,14 @@ import {
   InvalidAvatarFileMimeTypeError,
 } from '../avatar-errors';
 import {
-  UpdateAvatarFile,
+  ReplaceAvatarFile,
 } from '../avatar-entities';
 import {
   validateAvatarFileSize,
   validateAvatarFileMimetype,
 } from './avatar-validations';
 
-const validateAvatarFileUpdate = (payload: UpdateAvatarFile) => {
+const validateAvatarFileReplacement = (payload: ReplaceAvatarFile) => {
   const isAvatarFileSizeValid = validateAvatarFileSize(payload.size);
   if (!isAvatarFileSizeValid) throw InvalidAvatarFileSizeError;
 
@@ -18,4 +18,4 @@ const validateAvatarFileUpdate = (payload: UpdateAvatarFile) => {
   if (!isAvatarFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
 };
 
-export default validateAvatarFileUpdate;
+export default validateAvatarFileReplacement;

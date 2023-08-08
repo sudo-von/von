@@ -17,15 +17,13 @@ const configureAvatarRouter = (
 
   const router = Router();
 
-  const uploadHandler = multer();
+  const fileHandler = multer().single('avatar');
 
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 
-  const handlers = [uploadHandler.single('avatar'), authenticationHandler];
+  const handlers = [authenticationHandler, fileHandler];
 
-  router.post('/user/:id', handlers, avatarController.createAvatarFileByUserId);
-
-  router.patch('/user/:id', handlers, avatarController.updateAvatarFileByUserId);
+  router.put('/username/:username', handlers, avatarController.replaceAvatarFileByUsername);
 
   return router;
 };

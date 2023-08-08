@@ -1,7 +1,5 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCodes from 'http-status-codes';
 import {
@@ -10,13 +8,13 @@ import {
 import {
   InvalidFileParameterServerError,
 } from '../../../dtos/common-dto/common-server-errors';
-import avatarToAvatarResponse from '../../../dtos/avatar-dto/avatar-server-mappers';
+import detailedSecureUserToResponse from '../../../dtos/user-dto/user-server-mappers';
 import AvatarUsecase from '../../../../../domain/usecases/avatar-usecase/avatar-usecase';
 
 class AvatarController {
   constructor(private readonly avatarUsecase: AvatarUsecase) {}
 
-  createAvatarFileByUserId = async (req: Request, res: Response, next: NextFunction) => {
+  replaceAvatarFileByUsername: RequestHandler = async (req, res, next) => {
     try {
       const { file, user, params } = req;
 
@@ -24,41 +22,17 @@ class AvatarController {
 
       if (!file) throw InvalidFileParameterServerError;
 
-      const id = params.id.toLowerCase();
+      const username = params.username.toLowerCase();
 
-      const avatar = await this.avatarUsecase.createAvatarFileByUserId(id, {
+      const secureUser = await this.avatarUsecase.replaceAvatarFileByUsername(username, {
         size: file.size,
         buffer: file.buffer,
         mimetype: file.mimetype,
       });
 
-      const avataResponse = avatarToAvatarResponse(avatar);
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
 
-      res.status(statusCodes.CREATED).send({ result: avataResponse });
-    } catch (e) {
-      next(e);
-    }
-  };
-
-  updateAvatarFileByUserId = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { file, user, params } = req;
-
-      if (!user) throw UserPermissionDeniedServerError;
-
-      if (!file) throw InvalidFileParameterServerError;
-
-      const id = params.id.toLowerCase();
-
-      const updatedAvatar = await this.avatarUsecase.updateAvatarFileByUserId(id, {
-        size: file.size,
-        buffer: file.buffer,
-        mimetype: file.mimetype,
-      });
-
-      const avataResponse = avatarToAvatarResponse(updatedAvatar);
-
-      res.status(statusCodes.OK).send({ result: avataResponse });
+      res.status(statusCodes.CREATED).send({ result: secureUserResponse });
     } catch (e) {
       next(e);
     }
