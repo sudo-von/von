@@ -15,10 +15,7 @@ const MediaVectorList: FC<MediaVectorListProps> = ({ vectors }) => {
           key={vector.src}
           className="relative w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 2xl:w-16 2xl:h-16"
         >
-          <Vector
-            alt={vector.alt}
-            src={`/svg/media/technologies/${vector.src}`}
-          />
+          <Vector alt={vector.alt} src={`http://localhost:1337${vector.src}`} />
         </div>
       ))}
     </div>

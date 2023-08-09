@@ -10,18 +10,20 @@ import MediaTimelineList, {
 } from "./components/media-timeline-list/media-timeline-list";
 
 export type MediaProps = {
-  media?: MediaTimelineListProps | MediaVectorListProps | MediaVideoProps;
+  media:
+    | MediaTimelineListProps
+    | MediaVectorListProps
+    | Partial<MediaVideoProps>;
 };
 
 const Media: FC<MediaProps> = ({ media }) => {
-  if (!media) return null;
-
   let Component;
-  if ("timelines" in media) {
+
+  if ("timelines" in media && media.timelines.length) {
     Component = <MediaTimelineList timelines={media.timelines} />;
-  } else if ("vectors" in media) {
+  } else if ("vectors" in media && media.vectors.length) {
     Component = <MediaVectorList vectors={media.vectors} />;
-  } else if ("video" in media) {
+  } else if ("video" in media && media.video) {
     Component = <MediaVideo video={media.video} />;
   } else {
     return null;

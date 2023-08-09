@@ -20,7 +20,7 @@ const MediaTimelineList: FC<MediaTimelineListProps> = ({ timelines }) => {
           description,
         }) => (
           <Timeline
-            src={src}
+            src={`http://localhost:1337${src}`}
             key={company}
             company={company}
             endDate={endDate}

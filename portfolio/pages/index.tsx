@@ -1,12 +1,18 @@
 import { NextPage } from "next";
-import { user } from "../features/home/data/profile-data";
-import { contents } from "../features/home/data/content-data";
-import Banner from "../features/common/components/banner/banner";
+import { GetStaticProps } from "next";
 import Content, {
   ContentProps,
 } from "../features/home/components/content/content";
+import { user } from "../features/home/data/profile-data";
+import Banner from "../features/common/components/banner/banner";
+import { getStrapiContents } from "../services/content-service/content.service";
+import { contentResponseToProps } from "../services/content-service/content.service.mappers";
 
-const Home: NextPage = () => {
+type HomeProps = {
+  contents: ContentProps[];
+};
+
+const Home: NextPage<HomeProps> = ({ contents = [] }) => {
   return (
     <div className="flex flex-col gap-8 mt-48">
       <div className="text-center lg:text-start">
@@ -26,22 +32,15 @@ const Home: NextPage = () => {
   );
 };
 
-import { GetStaticProps } from "next";
-import axios from "axios";
-
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const url = `http://localhost:1337/api/contents?populate[0]=media&populate[1]=media.timelines.src,media.vectors.src,media.video`;
+  const { data } = await getStrapiContents();
 
-  const { data } = await axios.get(url);
-
-  console.log(data);
-
-  const content: ContentProps[] = data.data.map((d: any) => ({
-    title: "a",
-  }));
+  const contents = data.map((d) => contentResponseToProps(d));
 
   return {
-    props: {},
+    props: {
+      contents,
+    },
   };
 };
 

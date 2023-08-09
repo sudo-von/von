@@ -15,8 +15,6 @@ export type StrapiData<T> = {
 }
 
 export type StrapiResponse<T> = {
-  data: StrapiData<T>;
+  data: T;
   meta: StrapiMeta;
 };
-
-export type StrapiContentResponse = StrapiResponse<ContentResponse>;
