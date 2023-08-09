@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "timelines",
+  "info": {
+    "singularName": "timeline",
+    "pluralName": "timelines",
+    "displayName": "Timeline",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "company": {
+      "type": "string",
+      "required": true,
+      "maxLength": 30
+    },
+    "position": {
+      "type": "string",
+      "required": true,
+      "maxLength": 40
+    },
+    "start_date": {
+      "type": "date",
+      "required": true
+    },
+    "end_date": {
+      "type": "date",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 700,
+      "required": true
+    },
+    "src": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

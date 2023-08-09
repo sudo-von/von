@@ -2,7 +2,9 @@ import { NextPage } from "next";
 import { user } from "../features/home/data/profile-data";
 import { contents } from "../features/home/data/content-data";
 import Banner from "../features/common/components/banner/banner";
-import Content from "../features/home/components/content/content";
+import Content, {
+  ContentProps,
+} from "../features/home/components/content/content";
 
 const Home: NextPage = () => {
   return (
@@ -22,6 +24,25 @@ const Home: NextPage = () => {
       ))}
     </div>
   );
+};
+
+import { GetStaticProps } from "next";
+import axios from "axios";
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const url = `http://localhost:1337/api/contents?populate[0]=media&populate[1]=media.timelines.src,media.vectors.src,media.video`;
+
+  const { data } = await axios.get(url);
+
+  console.log(data);
+
+  const content: ContentProps[] = data.data.map((d: any) => ({
+    title: "a",
+  }));
+
+  return {
+    props: {},
+  };
 };
 
 export default Home;

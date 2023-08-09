@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vectors",
+  "info": {
+    "singularName": "vector",
+    "pluralName": "vectors",
+    "displayName": "Vector",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "alt": {
+      "type": "string",
+      "required": true,
+      "maxLength": 30
+    },
+    "src": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

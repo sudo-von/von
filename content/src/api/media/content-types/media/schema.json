@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "medias",
+  "info": {
+    "singularName": "media",
+    "pluralName": "medias",
+    "displayName": "Media"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "vectors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::vector.vector"
+    },
+    "video": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::video.video"
+    },
+    "timelines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::timeline.timeline"
+    }
+  }
+}

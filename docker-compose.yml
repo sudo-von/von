@@ -36,6 +36,18 @@ services:
     restart: always
     logging:
       driver: none
+  content_database:
+    image: postgres:alpine3.18
+    container_name: content_database
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${CONTENT_DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${CONTENT_DATABASE_PASSWORD}
+      - POSTGRES_DB=${CONTENT_DATABASE_NAME}
+    restart: always
+    logging:
+      driver: none
   # 🔧 Services.
   authentication:
     build:
