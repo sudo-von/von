@@ -7,9 +7,9 @@ import IUserRepository from '../../repositories/user-repository/user-repository'
 import IPasswordManagerService from '../../services/password-manager-service/password-manager-service';
 
 /**
- * Abstract class representing an authentication use case.
- * @abstract
- */
+* Abstract class representing an authentication use case.
+* @abstract
+*/
 abstract class AuthenticationUsecase {
   /**
   * Creates an instance of AuthenticationUsecase.

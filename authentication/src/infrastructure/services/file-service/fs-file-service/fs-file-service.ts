@@ -10,7 +10,7 @@ import {
 import FileService from '../../../../domain/services/file-service/file-service';
 
 class FsFileService extends FileService {
-  delete = async (filename: string): Promise<void> => {
+  deleteFile = async (filename: string): Promise<void> => {
     try {
       const path = `${this.directory}/${filename}`;
       await unlink(path);
@@ -23,7 +23,7 @@ class FsFileService extends FileService {
     }
   };
 
-  upload = async (filename: string, buffer: Buffer): Promise<void> => {
+  uploadFile = async (filename: string, buffer: Buffer): Promise<void> => {
     try {
       const path = `${this.directory}/${filename}`;
       await writeFile(path, buffer, 'utf8');

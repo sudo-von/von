@@ -1,4 +1,6 @@
-import { AvatarRepositorySchema } from '../avatar-repository/avatar-repository-schema';
+import {
+  AvatarRepositorySchema,
+} from '../avatar-repository/avatar-repository-schema';
 import {
   UserDetailsRepositorySchema,
 } from '../user-details-repository/user-details-repository-schema';

@@ -40,11 +40,11 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    if (user.avatar) await this.fileService.delete(user.avatar);
+    if (user.avatar) await this.fileService.deleteFile(user.avatar);
 
     const avatar = this.generateAvatarFilenameByUsername(username, payload.mimetype);
 
-    await this.fileService.upload(avatar, payload.buffer);
+    await this.fileService.uploadFile(avatar, payload.buffer);
 
     const updatedUser = await this.userRepository.updateUser({
       avatar,

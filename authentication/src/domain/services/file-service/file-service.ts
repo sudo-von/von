@@ -1,3 +1,7 @@
+/**
+* Abstract class representing a service for managing file operations.
+* @abstract
+*/
 abstract class FileService {
   /**
   * Creates an instance of FileService.
@@ -10,7 +14,7 @@ abstract class FileService {
   * @param filename The name of the file to be deleted.
   * @returns A promise that resolves when the file has been successfully deleted.
   */
-  abstract delete: (filename: string)
+  abstract deleteFile: (filename: string)
   => Promise<void>;
 
   /**
@@ -19,7 +23,7 @@ abstract class FileService {
   * @param buffer The buffer containing the file data.
   * @returns A promise that resolves when the file has been successfully uploaded.
   */
-  abstract upload: (filename: string, buffer: Buffer)
+  abstract uploadFile: (filename: string, buffer: Buffer)
   => Promise<void>;
 }
 

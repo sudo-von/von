@@ -4,6 +4,7 @@ import { ContentProps } from "../../features/home/components/content/content";
 export const contentResponseToProps = (contentResponse: ContentResponse): ContentProps => {
 
   const { title, subtitle, description, media } = contentResponse.attributes;
+  console.log("🚀 ~ file: content.service.mappers.ts:7 ~ contentResponseToProps ~ attributes:", media.data)
   const { video, vectors, timelines } = media.data.attributes;
 
   const videoMedia = video.data && {

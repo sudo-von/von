@@ -1,3 +1,7 @@
+/**
+* A service interface for hashing and comparing passwords.
+* @interface
+*/
 interface IPasswordManagerServiceWriter {
   /**
   * Hashes the provided password.
@@ -17,6 +21,10 @@ interface IPasswordManagerServiceWriter {
   => Promise<boolean>;
 }
 
+/**
+* A service interface for managing passwords that extends the writing capabilities.
+* @interface
+*/
 interface IPasswordManagerService extends IPasswordManagerServiceWriter {}
 
 export default IPasswordManagerService;

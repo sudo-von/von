@@ -13,7 +13,6 @@ import {
   InvalidNameLengthError,
   InvalidCredentialsError,
   InvalidEmailLengthError,
-  UserPermissionDeniedError,
   InvalidPasswordLengthError,
   InvalidUsernameLengthError,
 } from '../../../../domain/entities/user-entity/user-errors';
@@ -60,12 +59,6 @@ export const UserNotFoundServerError = createServerErrorFactory({
   statusCode: statusCodes.NOT_FOUND,
 });
 
-export const UserPermissionDeniedServerError = createServerErrorFactory({
-  code: 'USER_PERMISSION_DENIED',
-  error: UserPermissionDeniedError.error,
-  statusCode: statusCodes.FORBIDDEN,
-});
-
 export const UserUpdateFailedServerError = createServerErrorFactory({
   code: 'USER_UPDATE_FAILED',
   error: UserUpdateFailedError.error,
@@ -79,7 +72,6 @@ export const userServerErrors: Record<UserDomainErrorCode, ServerErrorFactory> =
   INVALID_PASSWORD_LENGTH: InvalidPasswordLengthServerError,
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
   SINGLE_USER_ONLY: SingleUserOnlyServerError,
-  USER_PERMISSION_DENIED: UserPermissionDeniedServerError,
   USER_NOT_FOUND: UserNotFoundServerError,
   USER_UPDATE_FAILED: UserUpdateFailedServerError,
 };

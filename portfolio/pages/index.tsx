@@ -33,15 +33,24 @@ const Home: NextPage<HomeProps> = ({ contents = [] }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { data } = await getStrapiContents();
+  try {
+    const { data } = await getStrapiContents();
 
-  const contents = data.map((d) => contentResponseToProps(d));
+    const contents = data.map((content) => contentResponseToProps(content));
 
-  return {
-    props: {
-      contents,
-    },
-  };
+    return {
+      props: {
+        contents,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/500",
+      },
+    };
+  }
 };
 
 export default Home;

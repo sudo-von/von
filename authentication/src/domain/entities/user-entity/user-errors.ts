@@ -38,11 +38,6 @@ export const UserNotFoundError = createDomainErrorFactory({
   error: 'The requested user could not be found.',
 });
 
-export const UserPermissionDeniedError = createDomainErrorFactory({
-  code: 'USER_PERMISSION_DENIED',
-  error: 'You do not have sufficient permissions to perform this action.',
-});
-
 export const UserUpdateFailedError = createDomainErrorFactory({
   code: 'USER_UPDATE_FAILED',
   error: 'The user you attempted to update could not be updated.',

@@ -2,6 +2,10 @@ import {
   SupportedAlgorithms,
 } from './security-service-algorithms';
 
+/**
+* An interface for hashing plain data using specified algorithms.
+* @interface
+*/
 interface ISecurityServiceWriter {
   /**
   * Hashes the provided plain data using the specified algorithm.
@@ -13,6 +17,10 @@ interface ISecurityServiceWriter {
   => string;
 }
 
+/**
+* An interface for security services that extends the writing capabilities.
+* @interface
+*/
 interface ISecurityService extends ISecurityServiceWriter {}
 
 export default ISecurityService;
