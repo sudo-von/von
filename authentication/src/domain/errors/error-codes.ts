@@ -6,7 +6,8 @@ export type DomainError = {
 export type DomainErrorCode =
 | AvatarDomainErrorCode
 | UserDetailsDomainErrorCode
-| UserDomainErrorCode;
+| UserDomainErrorCode
+| SocialNetworkErrorCode;
 
 export type AvatarDomainErrorCode =
 | 'AVATAR_REPLACEMENT_FAILED'
@@ -28,3 +29,11 @@ export type UserDomainErrorCode =
 | 'SINGLE_USER_ONLY'
 | 'USER_NOT_FOUND'
 | 'USER_UPDATE_FAILED';
+
+export type SocialNetworkErrorCode =
+| 'INVALID_SOCIAL_NETWORK_FILE_MIME_TYPE'
+| 'INVALID_SOCIAL_NETWORK_FILE_SIZE'
+| 'INVALID_SOCIAL_NETWORK_NAME_LENGTH'
+| 'SOCIAL_NETWORK_CREATE_FAILED'
+| 'SOCIAL_NETWORK_DELETE_FAILED'
+| 'SOCIAL_NETWORK_UPDATE_FAILED';

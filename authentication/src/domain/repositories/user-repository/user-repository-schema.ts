@@ -4,6 +4,9 @@ import {
 import {
   UserDetailsRepositorySchema,
 } from '../user-details-repository/user-details-repository-schema';
+import {
+  SocialNetworkRepositorySchema,
+} from '../social-network-repository/social-network-repository-schema';
 
 export type UserRepositorySchema = {
   id: string;
@@ -13,4 +16,5 @@ export type UserRepositorySchema = {
   password: string;
   avatar?: AvatarRepositorySchema;
   details?: UserDetailsRepositorySchema;
+  socialNetworks?: SocialNetworkRepositorySchema[];
 };

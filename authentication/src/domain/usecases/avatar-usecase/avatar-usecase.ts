@@ -36,7 +36,7 @@ abstract class AvatarUsecase {
 
   /**
   * Abstract method to replace the avatar file for a user by username.
-  * @param {string} username - The username of the user to replace details for.
+  * @param {string} username - The username of the user to replace avatar for.
   * @param {ReplaceAvatarFile} payload - The data to replace the avatar's file with.
   * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
   */

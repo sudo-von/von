@@ -1,4 +1,8 @@
 const avatarRules = {
+  name: {
+    MIN_LENGTH: 3,
+    MAX_LENGTH: 20,
+  },
   mimetype: {
     ALLOWED_MIMETYPES: ['image/svg+xml'],
   },

@@ -4,6 +4,9 @@ import {
 import {
   UserDetails,
 } from '../user-details-entity/user-details-entities';
+import {
+  SocialNetwork,
+} from '../social-network-entity/social-network-entities';
 
 export type User = {
   id: string;
@@ -16,6 +19,7 @@ export type User = {
 export type DetailedUser = User & {
   avatar?: Avatar;
   details?: UserDetails;
+  socialNetworks?: SocialNetwork[];
 };
 
 export type CreateUser = Omit<User, 'id'>;
