@@ -8,7 +8,7 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
-import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
@@ -18,7 +18,7 @@ class UserUsecaseApplication extends UserUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const secureUser = detailedUserToDetailedSecureUser(user);
+    const secureUser = detailedUserToSecureUser(user);
     return secureUser;
   };
 
@@ -44,7 +44,7 @@ class UserUsecaseApplication extends UserUsecase {
     }, { username });
     if (!updatedUser) throw UserUpdateFailedError;
 
-    const secureUser = detailedUserToDetailedSecureUser(updatedUser);
+    const secureUser = detailedUserToSecureUser(updatedUser);
     return secureUser;
   };
 }

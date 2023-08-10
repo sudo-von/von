@@ -6,6 +6,4 @@ export type AvatarFile = {
   mimetype: string;
 };
 
-export type CreateAvatarFile = AvatarFile;
-
 export type ReplaceAvatarFile = AvatarFile;

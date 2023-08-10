@@ -4,10 +4,10 @@ import {
 } from '../../domain/entities/user-entity/user-errors';
 import {
   CreateUser,
-  DetailedSecureUser,
   UserCredentials,
+  DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
-import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/authentication-usecase';
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
@@ -27,7 +27,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       password: hashedPassword,
     });
 
-    const secureUser = detailedUserToDetailedSecureUser(createdUser);
+    const secureUser = detailedUserToSecureUser(createdUser);
     return secureUser;
   };
 
@@ -41,7 +41,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const secureUser = detailedUserToDetailedSecureUser(user);
+    const secureUser = detailedUserToSecureUser(user);
     return secureUser;
   };
 }

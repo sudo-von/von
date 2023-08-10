@@ -7,7 +7,7 @@ import {
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 /**
-* Abstract class representing a user details use case that interacts with a user repository.
+* Abstract class representing a user details use case.
 * @abstract
 */
 abstract class UserDetailsUsecase {

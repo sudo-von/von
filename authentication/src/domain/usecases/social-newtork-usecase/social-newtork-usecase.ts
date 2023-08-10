@@ -31,7 +31,7 @@ abstract class SocialNetworkUsecase {
   * @param {string} mimetype - The mimetype of the social network file.
   * @returns {string} The generated social network filename.
   */
-  abstract generateSocialNetworkFilename: (mimetype: string)
+  abstract generateRandomSocialNetworkFilename: (mimetype: string)
   => string;
 
   /**
@@ -40,7 +40,7 @@ abstract class SocialNetworkUsecase {
   * @param {CreateSocialNetworkFile} payload - The data to create the social network's file with.
   * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
   */
-  abstract createSocialNetworkFile: (username: string, payload: CreateSocialNetworkFile)
+  abstract createSocialNetworkFileByUsername: (username: string, payload: CreateSocialNetworkFile)
   => Promise<DetailedSecureUser>;
 
   /**

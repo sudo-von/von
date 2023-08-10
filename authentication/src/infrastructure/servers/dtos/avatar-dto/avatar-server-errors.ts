@@ -8,13 +8,13 @@ import {
 } from '../../../../domain/errors/error-codes';
 import {
   InvalidAvatarFileSizeError,
-  AvatarReplacementFailedError,
+  AvatarReplaceFailedError,
   InvalidAvatarFileMimeTypeError,
 } from '../../../../domain/entities/avatar-entity/avatar-errors';
 
 export const AvatarReplacementFailedServerError = createServerErrorFactory({
-  code: 'AVATAR_REPLACEMENT_FAILED',
-  error: AvatarReplacementFailedError.error,
+  code: 'AVATAR_REPLACE_FAILED',
+  error: AvatarReplaceFailedError.error,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 
@@ -31,7 +31,7 @@ export const InvalidAvatarFileSizeServerError = createServerErrorFactory({
 });
 
 export const avatarServerErrors: Record<AvatarDomainErrorCode, ServerErrorFactory> = {
-  AVATAR_REPLACEMENT_FAILED: AvatarReplacementFailedServerError,
+  AVATAR_REPLACE_FAILED: AvatarReplacementFailedServerError,
   INVALID_AVATAR_FILE_MIME_TYPE: InvalidAvatarFileMimeTypeServerError,
   INVALID_AVATAR_FILE_SIZE: InvalidAvatarFileSizeServerError,
 };

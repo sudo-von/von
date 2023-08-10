@@ -2,7 +2,7 @@ import avatarRules from '../avatar-rules';
 
 export const validateAvatarFileMimetype = (mimetype: string) => {
   const { ALLOWED_MIMETYPES } = avatarRules.mimetype;
-  return ALLOWED_MIMETYPES.includes(mimetype);
+  return ALLOWED_MIMETYPES.includes(mimetype.toLowerCase());
 };
 
 export const validateAvatarFileSize = (size: number) => {

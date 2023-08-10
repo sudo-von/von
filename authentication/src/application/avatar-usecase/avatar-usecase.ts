@@ -5,29 +5,21 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import {
-  AvatarReplacementFailedError,
+  AvatarReplaceFailedError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   ReplaceAvatarFile,
 } from '../../domain/entities/avatar-entity/avatar-entities';
-import avatarRules from '../../domain/entities/avatar-entity/avatar-rules';
 import AvatarUsecase from '../../domain/usecases/avatar-usecase/avatar-usecase';
-import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
   generateAvatarFilenameByUsername = (username: string, mimetype: string): string => {
-    const usernameHash = this.securityService.hashData(username, 'md5');
+    const usernameHash = this.securityService.generateHash(username, 'sha256');
+    const fileExtension = mimetype.split('/').pop();
 
-    const defaultFilename = `${usernameHash}.jpg`;
-
-    const extension = mimetype.split('/').pop();
-
-    if (!extension || !avatarRules.mimetype.ALLOWED_MIMETYPES.includes(mimetype.toLowerCase())) {
-      return defaultFilename;
-    }
-
-    const filename = `${usernameHash}.${extension}`;
+    const filename = `${usernameHash}.${fileExtension}`;
     return filename;
   };
 
@@ -49,9 +41,9 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const updatedUser = await this.userRepository.updateUser({
       avatar,
     }, { username });
-    if (!updatedUser) throw AvatarReplacementFailedError;
+    if (!updatedUser) throw AvatarReplaceFailedError;
 
-    const secureUser = detailedUserToDetailedSecureUser(updatedUser);
+    const secureUser = detailedUserToSecureUser(updatedUser);
     return secureUser;
   };
 }

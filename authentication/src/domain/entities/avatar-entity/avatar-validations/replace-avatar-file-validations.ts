@@ -11,11 +11,11 @@ import {
 } from './avatar-validations';
 
 const validateAvatarFileReplacement = (payload: ReplaceAvatarFile) => {
-  const isAvatarFileSizeValid = validateAvatarFileSize(payload.size);
-  if (!isAvatarFileSizeValid) throw InvalidAvatarFileSizeError;
-
   const isAvatarFileMimetypeValid = validateAvatarFileMimetype(payload.mimetype);
   if (!isAvatarFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
+
+  const isAvatarFileSizeValid = validateAvatarFileSize(payload.size);
+  if (!isAvatarFileSizeValid) throw InvalidAvatarFileSizeError;
 };
 
 export default validateAvatarFileReplacement;

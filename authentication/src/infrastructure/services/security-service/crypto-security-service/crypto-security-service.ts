@@ -8,7 +8,7 @@ import {
 import ISecurityService from '../../../../domain/services/security-service/security-service';
 
 class CryptoSecurityService implements ISecurityService {
-  hashData = (plainData: string, algorithm: SupportedAlgorithms): string => {
+  generateHash = (plainData: string, algorithm: SupportedAlgorithms): string => {
     try {
       const hash = createHash(algorithm).update(plainData).digest('hex');
       return hash;

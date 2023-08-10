@@ -1,5 +1,6 @@
 import {
   InvalidSocialNetworkFileSizeError,
+  InvalidSocialNetworkUrlLengthError,
   InvalidSocialNetworkNameLengthError,
   InvalidSocialNetworkFileMimeTypeError,
 } from '../social-network-errors';
@@ -7,20 +8,24 @@ import {
   CreateSocialNetworkFile,
 } from '../social-network-entities';
 import {
-  validateSocialNetworkFileSize,
-  validateSocialNetworkNameLength,
-  validateSocialNetworkFileMimetype,
+  validateFileSize,
+  validateUrlLength,
+  validateNameLength,
+  validateFileMimetype,
 } from './social-network-validations';
 
-const validateSocialNetworkCreation = (payload: CreateSocialNetworkFile) => {
-  const isSocialNetworkFileSizeValid = validateSocialNetworkFileSize(payload.size);
-  if (!isSocialNetworkFileSizeValid) throw InvalidSocialNetworkFileSizeError;
+const validateSocialNetworkFileCreation = (payload: CreateSocialNetworkFile) => {
+  const isFileMimetypeValid = validateFileMimetype(payload.mimetype);
+  if (!isFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
 
-  const isSocialNetworkFileMimetypeValid = validateSocialNetworkFileMimetype(payload.mimetype);
-  if (!isSocialNetworkFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
+  const isFileSizeValid = validateFileSize(payload.size);
+  if (!isFileSizeValid) throw InvalidSocialNetworkFileSizeError;
 
-  const isSocialNetworkNameLengthValid = validateSocialNetworkNameLength(payload.name);
-  if (!isSocialNetworkNameLengthValid) throw InvalidSocialNetworkNameLengthError;
+  const isNameLengthValid = validateNameLength(payload.name);
+  if (!isNameLengthValid) throw InvalidSocialNetworkNameLengthError;
+
+  const isUrlLengthValid = validateUrlLength(payload.url);
+  if (!isUrlLengthValid) throw InvalidSocialNetworkUrlLengthError;
 };
 
-export default validateSocialNetworkCreation;
+export default validateSocialNetworkFileCreation;

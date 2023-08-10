@@ -24,6 +24,7 @@ interface IPasswordManagerServiceWriter {
 /**
 * A service interface for managing passwords that extends the writing capabilities.
 * @interface
+* @extends {IPasswordManagerServiceWriter}
 */
 interface IPasswordManagerService extends IPasswordManagerServiceWriter {}
 

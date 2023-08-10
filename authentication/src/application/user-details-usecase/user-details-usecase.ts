@@ -5,12 +5,12 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import {
-  UserDetailsReplacementFailedError,
+  UserDetailsReplaceFailedError,
 } from '../../domain/entities/user-details-entity/user-details-errors';
 import {
   ReplaceUserDetails,
 } from '../../domain/entities/user-details-entity/user-details-entities';
-import detailedUserToDetailedSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import UserDetailsUsecase from '../../domain/usecases/user-details-usecase/user-details-usecase';
 import validateUserDetailsReplacement from '../../domain/entities/user-details-entity/user-details-validations/replace-user-details-validations';
 
@@ -31,9 +31,9 @@ class UserDetailsUsecaseApplication extends UserDetailsUsecase {
         position: payload.position,
       },
     }, { username });
-    if (!updatedUser) throw UserDetailsReplacementFailedError;
+    if (!updatedUser) throw UserDetailsReplaceFailedError;
 
-    const detailedSecureUser = detailedUserToDetailedSecureUser(updatedUser);
+    const detailedSecureUser = detailedUserToSecureUser(updatedUser);
     return detailedSecureUser;
   };
 }

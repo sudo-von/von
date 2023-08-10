@@ -3,8 +3,8 @@ import {
 } from '../../errors/error-factory';
 import avatarRules from './avatar-rules';
 
-export const AvatarReplacementFailedError = createDomainErrorFactory({
-  code: 'AVATAR_REPLACEMENT_FAILED',
+export const AvatarReplaceFailedError = createDomainErrorFactory({
+  code: 'AVATAR_REPLACE_FAILED',
   error: 'The avatar you attempted to replace could not be replaced.',
 });
 

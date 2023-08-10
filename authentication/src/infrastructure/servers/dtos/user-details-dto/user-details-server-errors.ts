@@ -10,7 +10,7 @@ import {
   InvalidQuoteLengthError,
   InvalidInterestLengthError,
   InvalidPositionLengthError,
-  UserDetailsReplacementFailedError,
+  UserDetailsReplaceFailedError,
 } from '../../../../domain/entities/user-details-entity/user-details-errors';
 
 export const InvalidInterestLengthServerError = createServerErrorFactory({
@@ -32,8 +32,8 @@ export const InvalidQuotetLengthServerError = createServerErrorFactory({
 });
 
 export const UserDetailsReplacementFailedServerError = createServerErrorFactory({
-  code: 'USER_DETAILS_REPLACEMENT_FAILED',
-  error: UserDetailsReplacementFailedError.error,
+  code: 'USER_DETAILS_REPLACE_FAILED',
+  error: UserDetailsReplaceFailedError.error,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 
@@ -41,5 +41,5 @@ export const userDetailsServerErrors: Record<UserDetailsDomainErrorCode, ServerE
   INVALID_INTEREST_LENGTH: InvalidInterestLengthServerError,
   INVALID_POSITION_LENGTH: InvalidPositionLengthServerError,
   INVALID_QUOTE_LENGTH: InvalidQuotetLengthServerError,
-  USER_DETAILS_REPLACEMENT_FAILED: UserDetailsReplacementFailedServerError,
+  USER_DETAILS_REPLACE_FAILED: UserDetailsReplacementFailedServerError,
 };

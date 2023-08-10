@@ -10,6 +10,14 @@ abstract class FileService {
   constructor(protected readonly directory: string) {}
 
   /**
+  * Checks if a file with the provided filename exists.
+  * @param {string} filename - The name of the file to check.
+  * @returns {Promise<boolean>} A promise resolving to true if the file exists, otherwise false.
+  */
+  abstract fileExists: (filename: string)
+  => Promise<boolean>;
+
+  /**
   * Deletes a file with the provided filename.
   * @param filename The name of the file to be deleted.
   * @returns A promise that resolves when the file has been successfully deleted.

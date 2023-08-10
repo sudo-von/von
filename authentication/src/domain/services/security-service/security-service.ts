@@ -8,18 +8,27 @@ import {
 */
 interface ISecurityServiceWriter {
   /**
-  * Hashes the provided plain data using the specified algorithm.
-  * @param {string} plainData - The plain data to be hashed.
+  * Generates a random hash using the specified algorithm.
+  * @param {SupportedAlgorithms} algorithm - The algorithm to use for hashing.
+  * @returns {string} The generated random hash.
+  */
+  generateRandomHash: (algorithm: SupportedAlgorithms)
+  => string;
+
+  /**
+  * Hashes the provided data using the specified algorithm.
+  * @param {string} data - The data to be hashed.
   * @param {SupportedAlgorithms} algorithm - The algorithm to use for hashing.
   * @returns {string} The resulting hash.
   */
-  hashData: (plainData: string, algorithm: SupportedAlgorithms)
+  generateHash: (data: string, algorithm: SupportedAlgorithms)
   => string;
 }
 
 /**
 * An interface for security services that extends the writing capabilities.
 * @interface
+* @extends {ISecurityServiceWriter}
 */
 interface ISecurityService extends ISecurityServiceWriter {}
 
