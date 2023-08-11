@@ -28,11 +28,6 @@ export const SocialNetworkCreateFailedError = createDomainErrorFactory({
   error: 'The social network you attempted to create could not be created.',
 });
 
-export const SocialNetworkDeleteFailedError = createDomainErrorFactory({
-  code: 'SOCIAL_NETWORK_DELETE_FAILED',
-  error: 'The social network you attempted to delete could not be deleted.',
-});
-
 export const SocialNetworkNotFoundError = createDomainErrorFactory({
   code: 'SOCIAL_NETWORK_NOT_FOUND',
   error: 'The requested social network could not be found.',

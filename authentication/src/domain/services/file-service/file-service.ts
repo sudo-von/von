@@ -10,12 +10,20 @@ abstract class FileService {
   constructor(protected readonly directory: string) {}
 
   /**
+  * Retrieves the file path for a given filename.
+  * @param {string} filename - The name of the file.
+  * @returns {string} The file path for the provided filename.
+  */
+  abstract getFilePath: (filename: string)
+  => string;
+
+  /**
   * Checks if a file with the provided filename exists.
   * @param {string} filename - The name of the file to check.
-  * @returns {Promise<boolean>} A promise resolving to true if the file exists, otherwise false.
+  * @returns {Promise<void>} A promise resolving if the file exists.
   */
   abstract fileExists: (filename: string)
-  => Promise<boolean>;
+  => Promise<void>;
 
   /**
   * Deletes a file with the provided filename.

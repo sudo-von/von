@@ -1,3 +1,7 @@
+/**
+* Abstract class representing a service for logging messages.
+* @abstract
+*/
 abstract class LoggerService {
   /**
   * Logs an informational message.

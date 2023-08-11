@@ -1,5 +1,5 @@
 /**
-* A service interface for hashing and comparing passwords.
+* An interface for hashing and comparing passwords.
 * @interface
 */
 interface IPasswordManagerServiceWriter {
@@ -22,7 +22,7 @@ interface IPasswordManagerServiceWriter {
 }
 
 /**
-* A service interface for managing passwords that extends the writing capabilities.
+* An interface for managing passwords that extends the writing capabilities.
 * @interface
 * @extends {IPasswordManagerServiceWriter}
 */

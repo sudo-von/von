@@ -3,7 +3,7 @@ import {
 } from './security-service-algorithms';
 
 /**
-* An interface for hashing plain data using specified algorithms.
+* An interface for hashing data using specified algorithms.
 * @interface
 */
 interface ISecurityServiceWriter {

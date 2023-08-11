@@ -11,6 +11,7 @@ export type ServiceErrorCode =
 
 export type FileServiceErrorCode =
 | 'FILE_SERVICE_ENTITY_NOT_FOUND'
+| 'FILE_SERVICE_FAILED_TO_CHECK_IF_EXISTS'
 | 'FILE_SERVICE_FAILED_TO_DELETE'
 | 'FILE_SERVICE_FAILED_TO_UPLOAD';
 
@@ -19,7 +20,8 @@ export type PasswordManagerServiceErrorCode =
 | 'PASSWORD_MANAGER_SERVICE_FAILED_TO_HASH';
 
 export type SecurityServiceErrorCode =
-| 'SECURITY_SERVICE_FAILED_TO_HASH';
+| 'SECURITY_SERVICE_FAILED_TO_HASH'
+| 'SECURITY_SERVICE_FAILED_TO_RANDOM_HASH';
 
 export type TokenServiceErrorCode =
 | 'TOKEN_SERVICE_EXPIRED_TOKEN'

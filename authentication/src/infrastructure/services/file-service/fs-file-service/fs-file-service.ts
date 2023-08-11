@@ -1,4 +1,5 @@
 import {
+  access,
   unlink,
   writeFile,
 } from 'fs/promises';
@@ -6,32 +7,43 @@ import {
   FileServiceEntityNotFoundError,
   FileServiceFailedToDeleteError,
   FileServiceFailedToUploadError,
+  FileServiceFailedToCheckIfExistsError,
 } from '../file-service-errors';
 import FileService from '../../../../domain/services/file-service/file-service';
 
 class FsFileService extends FileService {
-  deleteFile = async (filename: string): Promise<void> => {
+  getFilePath = (filename: string): string => `${this.directory}/${filename}`;
+
+  fileExists = async (filename: string): Promise<void> => {
     try {
-      const path = `${this.directory}/${filename}`;
-      await unlink(path);
+      const path = this.getFilePath(filename);
+      await access(path);
     } catch (e) {
       const { name, message } = e as Error;
       if (name === 'ENOENT') {
         throw FileServiceEntityNotFoundError(message);
       }
+      throw FileServiceFailedToCheckIfExistsError(message);
+    }
+  };
+
+  deleteFile = async (filename: string): Promise<void> => {
+    try {
+      const path = this.getFilePath(filename);
+      await this.fileExists(path);
+      await unlink(path);
+    } catch (e) {
+      const { message } = e as Error;
       throw FileServiceFailedToDeleteError(message);
     }
   };
 
   uploadFile = async (filename: string, buffer: Buffer): Promise<void> => {
     try {
-      const path = `${this.directory}/${filename}`;
+      const path = this.getFilePath(filename);
       await writeFile(path, buffer, 'utf8');
     } catch (e) {
-      const { name, message } = e as Error;
-      if (name === 'ENOENT') {
-        throw FileServiceEntityNotFoundError(message);
-      }
+      const { message } = e as Error;
       throw FileServiceFailedToUploadError(message);
     }
   };

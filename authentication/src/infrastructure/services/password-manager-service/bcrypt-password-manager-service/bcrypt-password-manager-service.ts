@@ -8,7 +8,7 @@ import IPasswordManagerService from '../../../../domain/services/password-manage
 class BcryptPasswordManagerService implements IPasswordManagerService {
   hashPassword = async (password: string): Promise<string> => {
     try {
-      const salt = 10;
+      const salt = 16;
       const hash = await bcrypt.hash(password, salt);
       return hash;
     } catch (e) {

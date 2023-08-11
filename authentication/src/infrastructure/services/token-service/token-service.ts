@@ -8,6 +8,10 @@ import {
   DetailedSecureUser,
 } from '../../../domain/entities/user-entity/user-entities';
 
+/**
+* Abstract class representing a service for token management.
+* @abstract
+*/
 abstract class TokenService {
   /**
   * Creates an instance of TokenService.
