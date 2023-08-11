@@ -22,6 +22,7 @@ const configureServer = async (
   userRouter: Router,
   avatarRouter: Router,
   userDetailsRouter: Router,
+  socialNetworkRouter: Router,
   authenticationRouter: Router,
   loggerService: LoggerService,
 ) => {
@@ -42,6 +43,7 @@ const configureServer = async (
   app.use('/api/v1/user', userRouter);
   app.use('/api/v1/avatar', avatarRouter);
   app.use('/api/v1/user-details', userDetailsRouter);
+  app.use('/api/v1/social-network', socialNetworkRouter);
   app.use('/api/v1/authentication', authenticationRouter);
 
   app.use(errorMiddleware(loggerService));

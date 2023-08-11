@@ -14,11 +14,11 @@ import {
   UpdateSocialNetworkFile,
 } from '../../domain/entities/social-network-entity/social-network-entities';
 import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
-import SocialNetworksUsecase from '../../domain/usecases/social-newtorks-usecase/social-newtorks-usecase';
+import SocialNetworkUsecase from '../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
 import validateSocialNetworkFileUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
-class SocialNetworksUsecaseApplication extends SocialNetworksUsecase {
+class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
   generateRandomSocialNetworkFilename = (mimetype: string): string => {
     const randomHash = this.securityService.generateRandomHash('sha256');
     const fileExtension = mimetype.split('/').pop();
@@ -81,4 +81,4 @@ class SocialNetworksUsecaseApplication extends SocialNetworksUsecase {
   };
 }
 
-export default SocialNetworksUsecaseApplication;
+export default SocialNetworkUsecaseApplication;

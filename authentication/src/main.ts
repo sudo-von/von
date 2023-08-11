@@ -12,6 +12,7 @@ import configureUserRouter from './infrastructure/servers/express-server/control
 import configureAvatarRouter from './infrastructure/servers/express-server/controllers/avatar-controller/avatar-router';
 import configureUserDetailsRouter from './infrastructure/servers/express-server/controllers/user-details-controller/user-details-router';
 import configureAuthenticationRouter from './infrastructure/servers/express-server/controllers/authentication-controller/authentication-router';
+import configureSocialNetworkRouter from './infrastructure/servers/express-server/controllers/social-network-controller/social-network-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
@@ -59,6 +60,7 @@ loggerService.info('📢 Logger service has been configured.');
       userUsecase,
       avatarUsecase,
       userDetailsUsecase,
+      socialNetworkUsecase,
       authenticationUsecase,
     } = configureUsecases(
       avatarFileService,
@@ -89,13 +91,19 @@ loggerService.info('📢 Logger service has been configured.');
       userRepository,
       userDetailsUsecase,
     );
-    loggerService.info('🔌 Avatar router has been configured.');
+    loggerService.info('🔌 User details router has been configured.');
     const avatarRouter = configureAvatarRouter(
       tokenService,
       avatarUsecase,
       userRepository,
     );
-    loggerService.info('🔌 User details router has been configured.');
+    loggerService.info('🔌 Avatar router has been configured.');
+    const socialNetworkRouter = configureSocialNetworkRouter(
+      tokenService,
+      userRepository,
+      socialNetworkUsecase,
+    );
+    loggerService.info('🔌 Social network router has been configured.');
     const authenticationRouter = configureAuthenticationRouter(
       tokenService,
       authenticationUsecase,
@@ -109,6 +117,7 @@ loggerService.info('📢 Logger service has been configured.');
       userRouter,
       avatarRouter,
       userDetailsRouter,
+      socialNetworkRouter,
       authenticationRouter,
       loggerService,
     );

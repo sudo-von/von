@@ -18,6 +18,13 @@ const detailedSecureUserToResponse = (
     interest: detailedSecureUser.details.interest,
     position: detailedSecureUser.details.position,
   },
+  social_networks: detailedSecureUser.socialNetworks && detailedSecureUser
+    .socialNetworks.map((sn) => ({
+      id: sn.id,
+      src: sn.src,
+      url: sn.url,
+      name: sn.name,
+    })),
 });
 
 export default detailedSecureUserToResponse;

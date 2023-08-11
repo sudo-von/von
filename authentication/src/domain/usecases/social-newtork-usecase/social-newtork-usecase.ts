@@ -13,9 +13,9 @@ import IUserRepository from '../../repositories/user-repository/user-repository'
 * Abstract class representing a social network use case.
 * @abstract
 */
-abstract class SocialNetworksUsecase {
+abstract class SocialNetworkUsecase {
   /**
-  * Creates an instance of SocialNetworksUsecase.
+  * Creates an instance of SocialNetworkUsecase.
   * @param {FileService} fileService - The file service for file operations.
   * @param {IUserRepository} userRepository - The user repository.
   * @param {ISecurityService} securityService - The security service for cryptographic operations.
@@ -53,4 +53,4 @@ abstract class SocialNetworksUsecase {
   => Promise<DetailedSecureUser>;
 }
 
-export default SocialNetworksUsecase;
+export default SocialNetworkUsecase;

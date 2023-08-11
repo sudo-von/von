@@ -1,6 +1,7 @@
 import {
   UserDomainErrorCode,
   AvatarDomainErrorCode,
+  SocialNetworkDomainErrorCode,
   UserDetailsDomainErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
@@ -22,6 +23,7 @@ export type ServerErrorCode =
 | FileServerErrorCode
 | PasswordManagerServerErrorCode
 | SecurityServerErrorCode
+| SocialNetworkServerErrorCode
 | TokenServerErrorCode
 | UserDetailsServerErrorCode
 | UserServerErrorCode;
@@ -43,6 +45,9 @@ export type PasswordManagerServerErrorCode =
 
 export type SecurityServerErrorCode =
 | SecurityServiceErrorCode;
+
+export type SocialNetworkServerErrorCode =
+| SocialNetworkDomainErrorCode;
 
 export type TokenServerErrorCode =
 | TokenServiceErrorCode

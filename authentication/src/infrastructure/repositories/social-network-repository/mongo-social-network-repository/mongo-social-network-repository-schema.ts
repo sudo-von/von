@@ -5,7 +5,7 @@ import {
   SocialNetworkRepositorySchema,
 } from '../../../../domain/repositories/social-network-repository/social-network-repository-schema';
 
-const socialNetworksRepositorySchema = new Schema<SocialNetworkRepositorySchema>({
+const socialNetworkRepositorySchema = new Schema<SocialNetworkRepositorySchema>({
   src: {
     type: String,
     required: true,
@@ -20,4 +20,4 @@ const socialNetworksRepositorySchema = new Schema<SocialNetworkRepositorySchema>
   },
 });
 
-export default socialNetworksRepositorySchema;
+export default socialNetworkRepositorySchema;
