@@ -14,9 +14,8 @@ import FileService from '../../../../domain/services/file-service/file-service';
 class FsFileService extends FileService {
   getFilePath = (filename: string): string => `${this.directory}/${filename}`;
 
-  fileExists = async (filename: string): Promise<void> => {
+  fileExists = async (path: string): Promise<void> => {
     try {
-      const path = this.getFilePath(filename);
       await access(path);
     } catch (e) {
       const { name, message } = e as Error;

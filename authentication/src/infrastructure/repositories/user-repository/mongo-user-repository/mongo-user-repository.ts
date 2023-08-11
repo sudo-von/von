@@ -95,7 +95,7 @@ class MongoUserRepository implements IUserRepository {
     payload: PartialSocialNetwork,
   ): Promise<DetailedUser | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({
-      'social_networks.id': id,
+      'social_networks._id': id,
     }, {
       $set: {
         'social_networks.$.src': payload.src,

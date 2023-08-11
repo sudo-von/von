@@ -1,4 +1,5 @@
 import {
+  Types,
   FilterQuery,
 } from 'mongoose';
 import {
@@ -21,7 +22,9 @@ const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
 
   if (!filters.socialNetworks) return query;
 
-  if (filters.socialNetworks.id) query.social_networks = { $in: [filters.socialNetworks.id] };
+  if (filters.socialNetworks.id) {
+    query['social_networks._id'] = filters.socialNetworks.id;
+  }
 
   return query;
 };

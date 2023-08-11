@@ -1,6 +1,7 @@
 import {
   Router,
 } from 'express';
+import multer from 'multer';
 import SocialNetworkController from './social-network-controller';
 import TokenService from '../../../../services/token-service/token-service';
 import authenticationMiddleware from '../../middlewares/authentication-middleware';
@@ -16,10 +17,14 @@ const configureSocialNetworkRouter = (
 
   const router = Router();
 
+  const fileHandler = multer().single('social_network');
+
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 
-  router.post('/username/:username', authenticationHandler, socialNetworkController.createSocialNetworkFileByUsername);
-  router.patch('/:id', authenticationHandler, socialNetworkController.updateSocialNetworkFileById);
+  const handlers = [authenticationHandler, fileHandler];
+
+  router.post('/username/:username', handlers, socialNetworkController.createSocialNetworkFileByUsername);
+  router.patch('/:id', handlers, socialNetworkController.updateSocialNetworkFileById);
 
   return router;
 };

@@ -9,3 +9,4 @@ volumes
 
 # Public files.
 authentication/public/avatars
+authentication/public/social-networks
