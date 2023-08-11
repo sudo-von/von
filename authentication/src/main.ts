@@ -44,6 +44,7 @@ loggerService.info('📢 Logger service has been configured.');
     /* 🔧 Services. */
     const {
       avatarFileService,
+      socialNetworksFileService,
     } = configureFileServices();
     loggerService.info('📂 File services have been configured.');
     const tokenService = configureTokenService(SECRET_KEY);
@@ -63,6 +64,7 @@ loggerService.info('📢 Logger service has been configured.');
       avatarFileService,
       userRepository,
       securityService,
+      socialNetworksFileService,
       passwordManagerService,
     );
     loggerService.info('📖 Usecases have been configured.');

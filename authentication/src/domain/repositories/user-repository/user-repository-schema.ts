@@ -16,5 +16,5 @@ export type UserRepositorySchema = {
   password: string;
   avatar?: AvatarRepositorySchema;
   details?: UserDetailsRepositorySchema;
-  socialNetworks?: SocialNetworkRepositorySchema[];
+  social_networks?: SocialNetworkRepositorySchema[];
 };

@@ -8,6 +8,10 @@ import createQuestionRepositoryQuery from './mongo-user-repository-query';
 import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
+import {
+  CreateSocialNetwork,
+  PartialSocialNetwork,
+} from '../../../../domain/entities/social-network-entity/social-network-entities';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 class MongoUserRepository implements IUserRepository {
@@ -57,6 +61,47 @@ class MongoUserRepository implements IUserRepository {
       details: payload.details,
       username: payload.username,
       password: payload.password,
+    }, {
+      new: true,
+    });
+    if (!updatedUser) return null;
+    const user = userDocumentToUser(updatedUser);
+    return user;
+  };
+
+  createSocialNetwork = async (
+    payload: CreateSocialNetwork,
+    filters?: UserRepositoryFilters,
+  ): Promise<DetailedUser | null> => {
+    const query = createQuestionRepositoryQuery(filters);
+    const updatedUser = await UserModel.findOneAndUpdate(query, {
+      $push: {
+        social_networks: {
+          src: payload.src,
+          url: payload.url,
+          name: payload.name,
+        },
+      },
+    }, {
+      new: true,
+    });
+    if (!updatedUser) return null;
+    const user = userDocumentToUser(updatedUser);
+    return user;
+  };
+
+  updateSocialNetworkById = async (
+    id: string,
+    payload: PartialSocialNetwork,
+  ): Promise<DetailedUser | null> => {
+    const updatedUser = await UserModel.findOneAndUpdate({
+      'social_networks.id': id,
+    }, {
+      $set: {
+        'social_networks.$.src': payload.src,
+        'social_networks.$.url': payload.url,
+        'social_networks.$.name': payload.name,
+      },
     }, {
       new: true,
     });

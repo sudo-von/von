@@ -5,10 +5,15 @@ import FsFileService from '../services/file-service/fs-file-service/fs-file-serv
 
 const configureFileServices = () => {
   const avatarDirectory = resolve('public', 'avatars');
+  const socialNetworkDirectory = resolve('public', 'social-networks');
 
   const avatarFileService = new FsFileService(avatarDirectory);
+  const socialNetworksFileService = new FsFileService(socialNetworkDirectory);
 
-  return { avatarFileService };
+  return {
+    avatarFileService,
+    socialNetworksFileService,
+  };
 };
 
 export default configureFileServices;

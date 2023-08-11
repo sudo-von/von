@@ -24,11 +24,11 @@ export interface ISocialNetworkRepositoryWriter {
   => Promise<DetailedUser | null>;
 
   /**
-  * Updates a social network with optional filters.
-  * @param {PartialSocialNetwork} payload - The partial data to update the social network with.
-  * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
+  * Updates a social network entry for a user by its ID.
+  * @param {string} id - The ID of the social network entry to update.
+  * @param {PartialSocialNetwork} payload - The updated data for the social network entry.
   * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
   */
-  updateSocialNetworkBy: (payload: PartialSocialNetwork, filters?: UserRepositoryFilters)
+  updateSocialNetworkById: (id: string, payload: PartialSocialNetwork)
   => Promise<DetailedUser | null>;
 }

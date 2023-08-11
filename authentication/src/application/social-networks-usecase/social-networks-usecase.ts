@@ -14,11 +14,11 @@ import {
   UpdateSocialNetworkFile,
 } from '../../domain/entities/social-network-entity/social-network-entities';
 import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
-import SocialNetworkUsecase from '../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
+import SocialNetworksUsecase from '../../domain/usecases/social-newtorks-usecase/social-newtorks-usecase';
 import validateSocialNetworkFileUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
-class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
+class SocialNetworksUsecaseApplication extends SocialNetworksUsecase {
   generateRandomSocialNetworkFilename = (mimetype: string): string => {
     const randomHash = this.securityService.generateRandomHash('sha256');
     const fileExtension = mimetype.split('/').pop();
@@ -57,20 +57,23 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
   ): Promise<DetailedSecureUser> => {
     validateSocialNetworkFileUpdate(payload);
 
-    const user = await this.userRepository.getUser({ socialNetworks: { id } });
-    if (!user) throw SocialNetworkNotFoundError;
+    const userFoundBySnId = await this.userRepository.getUser({ socialNetworks: { id } });
+    if (!userFoundBySnId || !userFoundBySnId.socialNetworks) throw SocialNetworkNotFoundError;
 
-    if (user.avatar) await this.fileService.deleteFile(user.avatar);
+    const socialNetwork = userFoundBySnId.socialNetworks.find((sn) => sn.id === id);
+    if (!socialNetwork) throw SocialNetworkNotFoundError;
+
+    if (socialNetwork.src) await this.fileService.deleteFile(socialNetwork.src);
 
     const filename = this.generateRandomSocialNetworkFilename(payload.mimetype);
 
     await this.fileService.uploadFile(filename, payload.buffer);
 
-    const updatedUser = await this.userRepository.createSocialNetwork({
+    const updatedUser = await this.userRepository.updateSocialNetworkById(id, {
       src: filename,
       url: payload.url,
       name: payload.name,
-    }, { username: user.username });
+    });
     if (!updatedUser) throw SocialNetworkUpdateFailedError;
 
     const secureUser = detailedUserToSecureUser(updatedUser);
@@ -78,4 +81,4 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
   };
 }
 
-export default SocialNetworkUsecaseApplication;
+export default SocialNetworksUsecaseApplication;

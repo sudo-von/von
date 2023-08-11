@@ -19,6 +19,10 @@ const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
 
   if (filters.username) query.username = filters.username;
 
+  if (!filters.socialNetworks) return query;
+
+  if (filters.socialNetworks.id) query.social_networks = { $in: [filters.socialNetworks.id] };
+
   return query;
 };
 

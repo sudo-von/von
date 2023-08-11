@@ -6,11 +6,13 @@ import IUserRepository from '../../domain/repositories/user-repository/user-repo
 import UserDetailsUsecaseApplication from '../../application/user-details-usecase/user-details-usecase';
 import IPasswordManagerService from '../../domain/services/password-manager-service/password-manager-service';
 import AuthenticationUsecaseApplication from '../../application/authentication-usecase/authentication-usecase';
+import SocialNetworksUsecaseApplication from '../../application/social-networks-usecase/social-networks-usecase';
 
 const configureUsecases = (
-  fileService: FileService,
+  avatarFileService: FileService,
   userRepository: IUserRepository,
   securityService: SecurityService,
+  socialNetworksFileService: FileService,
   passwordManagerService: IPasswordManagerService,
 ) => {
   const userUsecase = new UserUsecaseApplication(
@@ -19,7 +21,7 @@ const configureUsecases = (
   );
 
   const avatarUsecase = new AvatarUsecaseApplication(
-    fileService,
+    avatarFileService,
     userRepository,
     securityService,
   );
@@ -33,10 +35,17 @@ const configureUsecases = (
     passwordManagerService,
   );
 
+  const socialNetworkUsecase = new SocialNetworksUsecaseApplication(
+    socialNetworksFileService,
+    userRepository,
+    securityService,
+  );
+
   return {
     userUsecase,
     avatarUsecase,
     userDetailsUsecase,
+    socialNetworkUsecase,
     authenticationUsecase,
   };
 };

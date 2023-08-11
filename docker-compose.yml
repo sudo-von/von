@@ -58,6 +58,7 @@ services:
       - 3000:3000
     volumes:
       - ./authentication/public/avatars:/usr/app/public/avatars
+      - ./authentication/public/social-networks:/usr/app/public/social-networks
     restart: on-failure:10
   ask:
     build:
