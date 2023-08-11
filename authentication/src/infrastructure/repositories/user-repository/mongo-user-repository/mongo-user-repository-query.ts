@@ -1,5 +1,4 @@
 import {
-  Types,
   FilterQuery,
 } from 'mongoose';
 import {
