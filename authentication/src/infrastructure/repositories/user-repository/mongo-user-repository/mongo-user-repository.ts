@@ -4,13 +4,14 @@ import {
   DetailedUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import userDocumentToUser from './mongo-user-repository-mapper';
-import createQuestionRepositoryQuery from './mongo-user-repository-query';
+import createUserRepositoryQuery from './mongo-user-repository-query';
 import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
 import {
   CreateSocialNetwork,
   PartialSocialNetwork,
+  SocialNetwork,
 } from '../../../../domain/entities/social-network-entity/social-network-entities';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
@@ -18,7 +19,7 @@ class MongoUserRepository implements IUserRepository {
   getUser = async (
     filters?: UserRepositoryFilters,
   ): Promise<DetailedUser | null> => {
-    const query = createQuestionRepositoryQuery(filters);
+    const query = createUserRepositoryQuery(filters);
     const userDocument = await UserModel.findOne(query);
     if (!userDocument) return null;
     const user = userDocumentToUser(userDocument);
@@ -28,7 +29,7 @@ class MongoUserRepository implements IUserRepository {
   getUsers = async (
     filters?: UserRepositoryFilters,
   ): Promise<DetailedUser[]> => {
-    const query = createQuestionRepositoryQuery(filters);
+    const query = createUserRepositoryQuery(filters);
     const userDocuments = await UserModel.find(query);
     const users = userDocuments.map((model) => userDocumentToUser(model));
     return users;
@@ -52,7 +53,7 @@ class MongoUserRepository implements IUserRepository {
     payload: Partial<DetailedUser>,
     filters?: UserRepositoryFilters,
   ): Promise<DetailedUser | null> => {
-    const query = createQuestionRepositoryQuery(filters);
+    const query = createUserRepositoryQuery(filters);
     const updatedUser = await UserModel.findOneAndUpdate(query, {
       id: payload.id,
       name: payload.name,
@@ -69,11 +70,22 @@ class MongoUserRepository implements IUserRepository {
     return user;
   };
 
+  getSocialNetworkById = async (
+    id: string,
+  ): Promise<SocialNetwork | null> => {
+    const userDocument = await UserModel.findOne({
+      'social_networks._id': id,
+    });
+    if (!userDocument) return null;
+    const user = userDocumentToUser(userDocument);
+    return user.socialNetworks.find((sn) => sn.id === id) || null;
+  };
+
   createSocialNetwork = async (
     payload: CreateSocialNetwork,
     filters?: UserRepositoryFilters,
   ): Promise<DetailedUser | null> => {
-    const query = createQuestionRepositoryQuery(filters);
+    const query = createUserRepositoryQuery(filters);
     const updatedUser = await UserModel.findOneAndUpdate(query, {
       $push: {
         social_networks: {

@@ -14,11 +14,11 @@ const detailedUserToSecureUser = (user: DetailedUser): DetailedSecureUser => ({
     interest: user.details.interest,
     position: user.details.position,
   },
-  socialNetworks: user.socialNetworks && user.socialNetworks.map((network) => ({
-    id: network.id,
-    src: network.src,
-    url: network.url,
-    name: network.name,
+  socialNetworks: user.socialNetworks.map((sn) => ({
+    id: sn.id,
+    src: sn.src,
+    url: sn.url,
+    name: sn.name,
   })),
 });
 

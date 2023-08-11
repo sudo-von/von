@@ -12,5 +12,5 @@ export class DomainErrorFactory extends Error implements DomainError {
 
 export const createDomainErrorFactory = ({
   code,
-  error: message,
-}: DomainError) => new DomainErrorFactory(code, message);
+  error,
+}: DomainError) => new DomainErrorFactory(code, error);

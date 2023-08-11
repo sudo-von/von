@@ -6,9 +6,7 @@ import {
   CreateDetailedUser,
   PartialDetailedUser,
 } from '../../entities/user-entity/user-entities';
-import {
-  ISocialNetworkRepositoryWriter,
-} from '../social-network-repository/social-network-repository';
+import ISocialNetworkRepository from '../social-network-repository/social-network-repository';
 
 /**
 * Represents a reader interface for accessing user data in a repository.
@@ -60,11 +58,11 @@ interface IUserRepositoryWriter {
 * @interface
 * @extends {IUserRepositoryReader}
 * @extends {IUserRepositoryWriter}
-* @extends {ISocialNetworkRepositoryWriter}
+* @extends {ISocialNetworkRepository}
 */
 interface IUserRepository extends
   IUserRepositoryReader,
   IUserRepositoryWriter,
-  ISocialNetworkRepositoryWriter {}
+  ISocialNetworkRepository {}
 
 export default IUserRepository;

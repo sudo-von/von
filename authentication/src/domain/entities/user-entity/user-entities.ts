@@ -19,7 +19,7 @@ export type User = {
 export type DetailedUser = User & {
   avatar?: Avatar;
   details?: UserDetails;
-  socialNetworks?: SocialNetwork[];
+  socialNetworks: SocialNetwork[];
 };
 
 export type CreateUser = Omit<User, 'id'>;

@@ -20,7 +20,7 @@ const userDocumentToUser = (model: HydratedDocument<UserRepositorySchema>): Deta
     interest: model.details.interest,
     position: model.details.position,
   },
-  socialNetworks: model.social_networks && model.social_networks.map((sn) => ({
+  socialNetworks: model.social_networks.map((sn) => ({
     id: sn.id.toString(),
     name: sn.name,
     src: sn.src,

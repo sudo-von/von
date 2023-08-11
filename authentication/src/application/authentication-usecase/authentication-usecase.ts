@@ -12,7 +12,9 @@ import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class AuthenticationUsecaseApplication extends AuthenticationUsecase {
-  signup = async (payload: CreateUser): Promise<DetailedSecureUser> => {
+  signup = async (
+    payload: CreateUser,
+  ): Promise<DetailedSecureUser> => {
     validateUserCreation(payload);
 
     const users = await this.userRepository.getUsers();
@@ -25,13 +27,16 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       email: payload.email,
       username: payload.username,
       password: hashedPassword,
+      socialNetworks: [],
     });
 
     const secureUser = detailedUserToSecureUser(createdUser);
     return secureUser;
   };
 
-  login = async (credentials: UserCredentials): Promise<DetailedSecureUser> => {
+  login = async (
+    credentials: UserCredentials,
+  ): Promise<DetailedSecureUser> => {
     const user = await this.userRepository.getUser({ email: credentials.email });
     if (!user) throw InvalidCredentialsError;
 

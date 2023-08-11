@@ -36,14 +36,14 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const filename = this.generateRandomSocialNetworkFilename(payload.mimetype);
+    const socialNetworkFilename = this.generateRandomSocialNetworkFilename(payload.mimetype);
 
-    await this.fileService.uploadFile(filename, payload.buffer);
+    await this.fileService.uploadFile(socialNetworkFilename, payload.buffer);
 
     const updatedUser = await this.userRepository.createSocialNetwork({
-      src: filename,
       url: payload.url,
       name: payload.name,
+      src: socialNetworkFilename,
     }, { username });
     if (!updatedUser) throw SocialNetworkCreateFailedError;
 
@@ -57,22 +57,19 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
   ): Promise<DetailedSecureUser> => {
     validateSocialNetworkFileUpdate(payload);
 
-    const userFoundBySnId = await this.userRepository.getUser({ socialNetworks: { id } });
-    if (!userFoundBySnId || !userFoundBySnId.socialNetworks) throw SocialNetworkNotFoundError;
-
-    const socialNetwork = userFoundBySnId.socialNetworks.find((sn) => sn.id === id);
+    const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
-    if (socialNetwork.src) await this.fileService.deleteFile(socialNetwork.src);
+    await this.fileService.deleteFile(socialNetwork.src);
 
-    const filename = this.generateRandomSocialNetworkFilename(payload.mimetype);
+    const socialNetworkFilename = this.generateRandomSocialNetworkFilename(payload.mimetype);
 
-    await this.fileService.uploadFile(filename, payload.buffer);
+    await this.fileService.uploadFile(socialNetworkFilename, payload.buffer);
 
     const updatedUser = await this.userRepository.updateSocialNetworkById(id, {
-      src: filename,
       url: payload.url,
       name: payload.name,
+      src: socialNetworkFilename,
     });
     if (!updatedUser) throw SocialNetworkUpdateFailedError;
 

@@ -8,7 +8,7 @@ import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
 
-const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
+const createUserRepositoryQuery = (filters?: UserRepositoryFilters) => {
   const query: FilterQuery<UserRepositorySchema> = {};
 
   if (!filters) return query;
@@ -19,13 +19,7 @@ const createQuestionRepositoryQuery = (filters?: UserRepositoryFilters) => {
 
   if (filters.username) query.username = filters.username;
 
-  if (!filters.socialNetworks) return query;
-
-  if (filters.socialNetworks.id) {
-    query['social_networks._id'] = filters.socialNetworks.id;
-  }
-
   return query;
 };
 
-export default createQuestionRepositoryQuery;
+export default createUserRepositoryQuery;
