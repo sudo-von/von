@@ -9,16 +9,16 @@ import ISecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 /**
-* Abstract class representing an avatar use case.
-* @abstract
-*/
+ * Abstract class representing an avatar use case.
+ * @abstract
+ */
 abstract class AvatarUsecase {
   /**
-  * Creates an instance of AvatarUsecase.
-  * @param {FileService} fileService - The file service for file operations.
-  * @param {IUserRepository} userRepository - The user repository.
-  * @param {ISecurityService} securityService - The security service for cryptographic operations.
-  */
+   * Creates an instance of AvatarUsecase.
+   * @param {FileService} fileService - The file service.
+   * @param {IUserRepository} userRepository - The user repository.
+   * @param {ISecurityService} securityService - The security service.
+   */
   constructor(
     protected readonly fileService: FileService,
     protected readonly userRepository: IUserRepository,
@@ -26,20 +26,22 @@ abstract class AvatarUsecase {
   ) {}
 
   /**
-  * Abstract method to generate an avatar filename based on the user's username and mimetype.
-  * @param {string} username - The username of the user.
-  * @param {string} mimetype - The mimetype of the avatar file.
-  * @returns {string} The generated avatar filename.
-  */
+   * Abstract method to generate an avatar filename based on the user's username and mimetype.
+   * @authentication Requires authentication to access this method.
+   * @param {string} username - The username of the user.
+   * @param {string} mimetype - The mimetype of the avatar file.
+   * @returns {string} The generated avatar filename.
+   */
   abstract generateAvatarFilenameByUsername: (username: string, mimetype: string)
   => string;
 
   /**
-  * Abstract method to replace the avatar file for a user by username.
-  * @param {string} username - The username of the user to replace avatar for.
-  * @param {ReplaceAvatarFile} payload - The data to replace the avatar's file with.
-  * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
-  */
+   * Abstract method to replace the avatar file for a user by username.
+   * @authentication Requires authentication to access this method.
+   * @param {string} username - The username of the user to replace avatar for.
+   * @param {ReplaceAvatarFile} payload - The data to replace the avatar's file with.
+   * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
+   */
   abstract replaceAvatarFileByUsername: (username: string, payload: ReplaceAvatarFile)
   => Promise<DetailedSecureUser>;
 }

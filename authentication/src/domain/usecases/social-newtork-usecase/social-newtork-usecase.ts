@@ -10,16 +10,16 @@ import ISecurityService from '../../services/security-service/security-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
 /**
-* Abstract class representing a social network use case.
-* @abstract
-*/
+ * Abstract class representing a social network use case.
+ * @abstract
+ */
 abstract class SocialNetworkUsecase {
   /**
-  * Creates an instance of SocialNetworkUsecase.
-  * @param {FileService} fileService - The file service for file operations.
-  * @param {IUserRepository} userRepository - The user repository.
-  * @param {ISecurityService} securityService - The security service for cryptographic operations.
-  */
+   * Creates an instance of SocialNetworkUsecase.
+   * @param {FileService} fileService - The file service.
+   * @param {IUserRepository} userRepository - The user repository.
+   * @param {ISecurityService} securityService - The security service.
+   */
   constructor(
     protected readonly fileService: FileService,
     protected readonly userRepository: IUserRepository,
@@ -27,28 +27,31 @@ abstract class SocialNetworkUsecase {
   ) {}
 
   /**
-  * Abstract method to generate a random social network filename.
-  * @param {string} mimetype - The mimetype of the social network file.
-  * @returns {string} The generated social network filename.
-  */
+   * Abstract method to generate a random social network filename.
+   * @authentication Requires authentication to access this method.
+   * @param {string} mimetype - The mimetype of the social network file.
+   * @returns {string} The generated social network filename.
+   */
   abstract generateRandomSocialNetworkFilename: (mimetype: string)
   => string;
 
   /**
-  * Abstract method to create the social network file for a user by username.
-  * @param {string} username - The username of the user to create social network for.
-  * @param {CreateSocialNetworkFile} payload - The data to create the social network's file with.
-  * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
-  */
+   * Abstract method to create the social network file for a user by username.
+   * @authentication Requires authentication to access this method.
+   * @param {string} username - The username of the user to create social network for.
+   * @param {CreateSocialNetworkFile} payload - The data to create the social network's file with.
+   * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
+   */
   abstract createSocialNetworkFileByUsername: (username: string, payload: CreateSocialNetworkFile)
   => Promise<DetailedSecureUser>;
 
   /**
-  * Abstract method for updating a social network file by its ID.
-  * @param {string} id - The ID of the social network file to update.
-  * @param {UpdateSocialNetworkFile} payload - The data to update the social network file with.
-  * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
-  */
+   * Abstract method for updating a social network file by its ID.
+   * @authentication Requires authentication to access this method.
+   * @param {string} id - The ID of the social network file to update.
+   * @param {UpdateSocialNetworkFile} payload - The data to update the social network file with.
+   * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
+   */
   abstract updateSocialNetworkFileById: (id: string, payload: UpdateSocialNetworkFile)
   => Promise<DetailedSecureUser>;
 }

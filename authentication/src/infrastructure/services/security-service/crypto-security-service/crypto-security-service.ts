@@ -22,7 +22,7 @@ class CryptoSecurityService implements ISecurityService {
     }
   };
 
-  generateHash = (plainData: string, algorithm: SupportedAlgorithms): string => {
+  generateDataHash = (plainData: string, algorithm: SupportedAlgorithms): string => {
     try {
       const hash = createHash(algorithm).update(plainData).digest('hex');
       return hash;

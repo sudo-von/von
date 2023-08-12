@@ -16,7 +16,7 @@ import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/a
 
 class AvatarUsecaseApplication extends AvatarUsecase {
   generateAvatarFilenameByUsername = (username: string, mimetype: string): string => {
-    const usernameHash = this.securityService.generateHash(username, 'sha256');
+    const usernameHash = this.securityService.generateDataHash(username, 'sha256');
     const fileExtension = mimetype.split('/').pop();
 
     const filename = `${usernameHash}.${fileExtension}`;
