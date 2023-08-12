@@ -4,7 +4,7 @@ import {
 import UserController from './user-controller';
 import {
   UpdateUserBroker,
-} from '../../../../brokers/dtos/user-dto/user-broker-dtos';
+} from '../../../../brokers/entities/user-entity/user-broker-entities';
 import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import TokenService from '../../../../services/token-service/token-service';
 import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';

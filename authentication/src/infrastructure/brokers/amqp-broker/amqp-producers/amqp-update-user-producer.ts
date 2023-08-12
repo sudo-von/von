@@ -1,7 +1,7 @@
 import AMQPBroker from '../amqp-broker';
 import {
   UpdateUserBroker,
-} from '../../dtos/user-dto/user-broker-dtos';
+} from '../../entities/user-entity/user-broker-entities';
 
 class AMQPUpdateUserProducer extends AMQPBroker<UpdateUserBroker> {}
 

@@ -33,8 +33,8 @@ class UserDetailsUsecaseApplication extends UserDetailsUsecase {
     }, { username });
     if (!updatedUser) throw UserDetailsReplaceFailedError;
 
-    const detailedSecureUser = detailedUserToSecureUser(updatedUser);
-    return detailedSecureUser;
+    const secureUser = detailedUserToSecureUser(updatedUser);
+    return secureUser;
   };
 }
 

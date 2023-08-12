@@ -12,7 +12,9 @@ import {
 import ISecurityService from '../../../../domain/services/security-service/security-service';
 
 class CryptoSecurityService implements ISecurityService {
-  generateRandomHash = (algorithm: SupportedAlgorithms): string => {
+  generateRandomHash = (
+    algorithm: SupportedAlgorithms,
+  ): string => {
     try {
       const salt = randomBytes(16).toString('hex');
       const hash = createHash(algorithm).update(salt).digest('hex');
@@ -22,7 +24,10 @@ class CryptoSecurityService implements ISecurityService {
     }
   };
 
-  generateDataHash = (plainData: string, algorithm: SupportedAlgorithms): string => {
+  generateDataHash = (
+    plainData: string,
+    algorithm: SupportedAlgorithms,
+  ): string => {
     try {
       const hash = createHash(algorithm).update(plainData).digest('hex');
       return hash;

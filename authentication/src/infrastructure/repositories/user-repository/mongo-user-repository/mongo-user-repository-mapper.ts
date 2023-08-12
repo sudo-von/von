@@ -22,9 +22,9 @@ const userDocumentToUser = (model: HydratedDocument<UserRepositorySchema>): Deta
   },
   socialNetworks: model.social_networks.map((sn) => ({
     id: sn.id.toString(),
-    name: sn.name,
     src: sn.src,
     url: sn.url,
+    name: sn.name,
   })),
 });
 

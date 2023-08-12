@@ -4,7 +4,7 @@ import SecurityService from '../../domain/services/security-service/security-ser
 import AvatarUsecaseApplication from '../../application/avatar-usecase/avatar-usecase';
 import IUserRepository from '../../domain/repositories/user-repository/user-repository';
 import UserDetailsUsecaseApplication from '../../application/user-details-usecase/user-details-usecase';
-import IPasswordManagerService from '../../domain/services/password-manager-service/password-manager-service';
+import IPasswordService from '../../domain/services/password-service/password-service';
 import AuthenticationUsecaseApplication from '../../application/authentication-usecase/authentication-usecase';
 import SocialNetworkUsecaseApplication from '../../application/social-network-usecase/social-network-usecase';
 
@@ -13,7 +13,7 @@ const configureUsecases = (
   userRepository: IUserRepository,
   securityService: SecurityService,
   socialNetworksFileService: FileService,
-  passwordManagerService: IPasswordManagerService,
+  passwordManagerService: IPasswordService,
 ) => {
   const userUsecase = new UserUsecaseApplication(
     userRepository,

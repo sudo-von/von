@@ -3,8 +3,8 @@ import {
   UserCredentials,
   DetailedSecureUser,
 } from '../../entities/user-entity/user-entities';
+import IPasswordService from '../../services/password-service/password-service';
 import IUserRepository from '../../repositories/user-repository/user-repository';
-import IPasswordManagerService from '../../services/password-manager-service/password-manager-service';
 
 /**
  * Abstract class representing an authentication use case.
@@ -15,11 +15,11 @@ abstract class AuthenticationUsecase {
    * Creates an instance of AuthenticationUsecase.
    * @constructor
    * @param {IUserRepository} userRepository - The user repository.
-   * @param {IPasswordManagerService} passwordManagerService - The password manager service.
+   * @param {IPasswordService} passwordService - The password service.
    */
   constructor(
     protected readonly userRepository: IUserRepository,
-    protected readonly passwordManagerService: IPasswordManagerService,
+    protected readonly passwordService: IPasswordService,
   ) {}
 
   /**

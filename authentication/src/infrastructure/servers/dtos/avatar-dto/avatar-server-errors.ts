@@ -7,26 +7,26 @@ import {
   AvatarDomainErrorCode,
 } from '../../../../domain/errors/error-codes';
 import {
-  InvalidAvatarFileSizeError,
   AvatarReplaceFailedError,
+  InvalidAvatarFileSizeError,
   InvalidAvatarFileMimeTypeError,
 } from '../../../../domain/entities/avatar-entity/avatar-errors';
 
 export const AvatarReplacementFailedServerError = createServerErrorFactory({
   code: 'AVATAR_REPLACE_FAILED',
-  error: AvatarReplaceFailedError.error,
+  message: AvatarReplaceFailedError.message,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 
 export const InvalidAvatarFileMimeTypeServerError = createServerErrorFactory({
   code: 'INVALID_AVATAR_FILE_MIME_TYPE',
-  error: InvalidAvatarFileMimeTypeError.error,
+  message: InvalidAvatarFileMimeTypeError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidAvatarFileSizeServerError = createServerErrorFactory({
   code: 'INVALID_AVATAR_FILE_SIZE',
-  error: InvalidAvatarFileSizeError.error,
+  message: InvalidAvatarFileSizeError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 

@@ -3,7 +3,7 @@ import {
 } from 'express';
 import {
   CreateUserBroker,
-} from '../../../../brokers/dtos/user-dto/user-broker-dtos';
+} from '../../../../brokers/entities/user-entity/user-broker-entities';
 import AuthenticationController from './authentication-controller';
 import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import TokenService from '../../../../services/token-service/token-service';

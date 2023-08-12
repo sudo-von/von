@@ -20,7 +20,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     const users = await this.userRepository.getUsers();
     if (users.length) throw SingleUserOnlyError;
 
-    const hashedPassword = await this.passwordManagerService.hashPassword(payload.password);
+    const hashedPassword = await this.passwordService.hashPassword(payload.password);
 
     const createdUser = await this.userRepository.createUser({
       name: payload.name,
@@ -40,7 +40,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     const user = await this.userRepository.getUser({ email: credentials.email });
     if (!user) throw InvalidCredentialsError;
 
-    const areCredentialsValid = await this.passwordManagerService.comparePasswords(
+    const areCredentialsValid = await this.passwordService.comparePasswords(
       credentials.password,
       user.password,
     );

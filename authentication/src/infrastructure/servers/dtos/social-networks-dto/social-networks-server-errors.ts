@@ -18,43 +18,43 @@ import {
 
 export const InvalidSocialNetworkFileMimeTypeServerError = createServerErrorFactory({
   code: 'INVALID_SOCIAL_NETWORK_FILE_MIME_TYPE',
-  error: InvalidSocialNetworkFileMimeTypeError.error,
+  message: InvalidSocialNetworkFileMimeTypeError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidSocialNetworkFileSizeServerError = createServerErrorFactory({
   code: 'INVALID_SOCIAL_NETWORK_FILE_SIZE',
-  error: InvalidSocialNetworkFileSizeError.error,
+  message: InvalidSocialNetworkFileSizeError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidSocialNetworkNameLengthServerError = createServerErrorFactory({
   code: 'INVALID_SOCIAL_NETWORK_NAME_LENGTH',
-  error: InvalidSocialNetworkNameLengthError.error,
+  message: InvalidSocialNetworkNameLengthError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidSocialNetworkUrlLengthServerError = createServerErrorFactory({
   code: 'INVALID_SOCIAL_NETWORK_URL_LENGTH',
-  error: InvalidSocialNetworkUrlLengthError.error,
+  message: InvalidSocialNetworkUrlLengthError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const SocialNetworkCreateFailedServerError = createServerErrorFactory({
   code: 'SOCIAL_NETWORK_CREATE_FAILED',
-  error: SocialNetworkCreateFailedError.error,
+  message: SocialNetworkCreateFailedError.message,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 
 export const SocialNetworkNotFoundServerError = createServerErrorFactory({
   code: 'SOCIAL_NETWORK_NOT_FOUND',
-  error: SocialNetworkNotFoundError.error,
+  message: SocialNetworkNotFoundError.message,
   statusCode: statusCodes.NOT_FOUND,
 });
 
 export const SocialNetworkUpdateFailedServerError = createServerErrorFactory({
   code: 'SOCIAL_NETWORK_UPDATE_FAILED',
-  error: SocialNetworkUpdateFailedError.error,
+  message: SocialNetworkUpdateFailedError.message,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 

@@ -1,7 +1,7 @@
 import AMQPBroker from '../amqp-broker';
 import {
   CreateUserBroker,
-} from '../../dtos/user-dto/user-broker-dtos';
+} from '../../entities/user-entity/user-broker-entities';
 
 class AMQPCreateUserProducer extends AMQPBroker<CreateUserBroker> {}
 

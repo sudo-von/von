@@ -10,8 +10,8 @@ import {
 import {
   validateNameLength,
   validateEmailLength,
-  validateUsernameLength,
   validatePasswordLength,
+  validateUsernameLength,
 } from './user-validations';
 
 const validateUserCreation = (payload: CreateUser) => {

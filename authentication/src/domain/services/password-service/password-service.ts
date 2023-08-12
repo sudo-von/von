@@ -1,8 +1,8 @@
 /**
- * Interface for a password manager service with read operations.
+ * Interface for a password service with read operations.
  * @interface
  */
-export interface IPasswordManagerServiceReader {
+export interface IPasswordServiceReader {
   /**
    * Compares the plain password with the provided password hash.
    * @param {string} plainPassword - The plain password to compare.
@@ -14,10 +14,10 @@ export interface IPasswordManagerServiceReader {
 }
 
 /**
-* Interface for a password manager service with write operations.
-* @interface
-*/
-export interface IPasswordManagerServiceWriter {
+ * Interface for a password service with write operations.
+ * @interface
+ */
+export interface IPasswordServiceWriter {
   /**
    * Hashes the provided password.
    * @param {string} password - The password to be hashed.
@@ -30,11 +30,11 @@ export interface IPasswordManagerServiceWriter {
 /**
  * An interface for managing passwords, combining both reader and writer capabilities.
  * @interface
- * @extends {IPasswordManagerServiceReader}
- * @extends {IPasswordManagerServiceWriter}
+ * @extends {IPasswordServiceReader}
+ * @extends {IPasswordServiceWriter}
  */
-interface IPasswordManagerService extends
-  IPasswordManagerServiceReader,
-  IPasswordManagerServiceWriter {}
+interface IPasswordService extends
+  IPasswordServiceReader,
+  IPasswordServiceWriter {}
 
-export default IPasswordManagerService;
+export default IPasswordService;

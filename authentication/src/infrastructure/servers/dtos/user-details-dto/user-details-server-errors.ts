@@ -15,25 +15,25 @@ import {
 
 export const InvalidInterestLengthServerError = createServerErrorFactory({
   code: 'INVALID_INTEREST_LENGTH',
-  error: InvalidInterestLengthError.error,
+  message: InvalidInterestLengthError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidPositionLengthServerError = createServerErrorFactory({
   code: 'INVALID_POSITION_LENGTH',
-  error: InvalidPositionLengthError.error,
+  message: InvalidPositionLengthError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const InvalidQuotetLengthServerError = createServerErrorFactory({
   code: 'INVALID_QUOTE_LENGTH',
-  error: InvalidQuoteLengthError.error,
+  message: InvalidQuoteLengthError.message,
   statusCode: statusCodes.BAD_REQUEST,
 });
 
 export const UserDetailsReplacementFailedServerError = createServerErrorFactory({
   code: 'USER_DETAILS_REPLACE_FAILED',
-  error: UserDetailsReplaceFailedError.error,
+  message: UserDetailsReplaceFailedError.message,
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 

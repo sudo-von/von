@@ -6,16 +6,16 @@ import {
 export class ServerErrorFactory extends Error implements ServerError {
   constructor(
     public code: ServerErrorCode,
-    public error: string,
+    public message: string,
     public statusCode: number,
   ) {
-    super(error);
+    super(message);
     Object.setPrototypeOf(this, ServerErrorFactory.prototype);
   }
 }
 
 export const createServerErrorFactory = ({
   code,
-  error,
+  message: error,
   statusCode,
 }: ServerError) => new ServerErrorFactory(code, error, statusCode);

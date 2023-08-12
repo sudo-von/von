@@ -5,21 +5,26 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import {
-  AvatarReplaceFailedError,
+  AvatarReplaceFailedError, InvalidAvatarFileMimeTypeError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   ReplaceAvatarFile,
 } from '../../domain/entities/avatar-entity/avatar-entities';
 import AvatarUsecase from '../../domain/usecases/avatar-usecase/avatar-usecase';
+import {
+  validateFileMimetype,
+} from '../../domain/entities/avatar-entity/avatar-validations/avatar-validations';
 import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
   generateAvatarFilenameByUsername = (username: string, mimetype: string): string => {
     const usernameHash = this.securityService.generateDataHash(username, 'sha256');
-    const fileExtension = mimetype.split('/').pop();
 
-    const filename = `${usernameHash}.${fileExtension}`;
+    const isFileMimetypeValid = validateFileMimetype(mimetype);
+    if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
+
+    const filename = `${usernameHash}.${mimetype.split('/').pop()}`;
     return filename;
   };
 
@@ -32,7 +37,10 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    if (user.avatar) await this.fileService.deleteFile(user.avatar);
+    if (user.avatar) {
+      const avatarFileExists = await this.fileService.fileExists(user.avatar);
+      if (avatarFileExists) await this.fileService.deleteFile(user.avatar);
+    }
 
     const avatar = this.generateAvatarFilenameByUsername(username, payload.mimetype);
 

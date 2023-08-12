@@ -20,10 +20,10 @@ abstract class FileService {
   /**
    * Checks if a file with the provided filename exists.
    * @param {string} filename - The name of the file to check.
-   * @returns {Promise<void>} A promise resolving if the file exists.
+   * @returns {Promise<boolean>} A promise resolving to true if the file exists.
    */
   abstract fileExists: (filename: string)
-  => Promise<void>;
+  => Promise<boolean>;
 
   /**
    * Deletes a file with the provided filename.

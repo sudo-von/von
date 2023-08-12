@@ -1,6 +1,6 @@
 export type DomainError = {
   code: DomainErrorCode;
-  error: string;
+  message: string;
 };
 
 export type DomainErrorCode =

@@ -12,9 +12,14 @@ class PinoLoggerService extends LoggerService {
     this.logger = pino(options);
   }
 
-  info = (message: string) => this.logger.info(message);
+  info = (
+    message: string,
+  ) => this.logger.info(message);
 
-  error = (message: string, error: Error) => this.logger.error(`⛔️ ${message} ${error.message}`);
+  error = (
+    message: string,
+    error: Error,
+  ) => this.logger.error(`⛔️ ${message} ${error.message}`);
 }
 
 export default PinoLoggerService;

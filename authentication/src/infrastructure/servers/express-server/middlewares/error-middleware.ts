@@ -86,28 +86,28 @@ const errorMiddleware = (loggerService: LoggerService) => (
   if (err instanceof multer.MulterError) {
     return res.status(InvalidFileParameterServerError.statusCode).json({
       code: InvalidFileParameterServerError.code,
-      error: InvalidFileParameterServerError.error,
+      error: InvalidFileParameterServerError.message,
     });
   }
 
   if (err instanceof DomainErrorFactory) {
-    const { code, error, statusCode } = domainErrors[err.code];
+    const { code, message: error, statusCode } = domainErrors[err.code];
     return res.status(statusCode).json({ code, error });
   }
 
   if (err instanceof ServerErrorFactory) {
-    const { code, error, statusCode } = err;
+    const { code, message: error, statusCode } = err;
     return res.status(statusCode).json({ code, error });
   }
 
   if (err instanceof ServiceErrorFactory) {
-    const { code, error, statusCode } = serviceErrors[err.code];
+    const { code, message: error, statusCode } = serviceErrors[err.code];
     return res.status(statusCode).json({ code, error });
   }
 
   return res.status(InternalServerError.statusCode).json({
     code: InternalServerError.code,
-    error: InternalServerError.error,
+    error: InternalServerError.message,
   });
 };
 

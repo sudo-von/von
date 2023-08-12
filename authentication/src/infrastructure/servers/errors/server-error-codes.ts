@@ -13,7 +13,7 @@ import {
 
 export type ServerError = {
   code: ServerErrorCode;
-  error: string;
+  message: string;
   statusCode: number;
 };
 

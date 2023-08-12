@@ -10,7 +10,7 @@ import {
 } from '../../../dtos/user-dto/user-server-request-dtos';
 import {
   UpdateUserBroker,
-} from '../../../../brokers/dtos/user-dto/user-broker-dtos';
+} from '../../../../brokers/entities/user-entity/user-broker-entities';
 import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
 import detailedSecureUserToResponse from '../../../dtos/user-dto/user-server-mappers';

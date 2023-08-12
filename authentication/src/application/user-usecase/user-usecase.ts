@@ -31,7 +31,7 @@ class UserUsecaseApplication extends UserUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const areCredentialsValid = await this.passwordManagerService.comparePasswords(
+    const areCredentialsValid = await this.passwordService.comparePasswords(
       payload.password,
       user.password,
     );

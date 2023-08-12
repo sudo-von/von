@@ -8,7 +8,7 @@ import {
 } from '../../../dtos/user-dto/user-server-request-dtos';
 import {
   CreateUserBroker,
-} from '../../../../brokers/dtos/user-dto/user-broker-dtos';
+} from '../../../../brokers/entities/user-entity/user-broker-entities';
 import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import TokenService from '../../../../services/token-service/token-service';
 import detailedSecureUserToResponse from '../../../dtos/user-dto/user-server-mappers';
@@ -30,7 +30,7 @@ class AuthenticationController {
         password: payload.password,
       });
 
-      const token = await this.tokenService.generate(secureUser, '6h');
+      const token = await this.tokenService.generateToken(secureUser, '6h');
 
       res.setHeader('Authorization', `Bearer ${token}`).sendStatus(statusCodes.OK);
     } catch (e) {

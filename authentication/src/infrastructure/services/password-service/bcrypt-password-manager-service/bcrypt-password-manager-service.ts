@@ -3,10 +3,12 @@ import {
   PasswordManagerServiceFailedToHashError,
   PasswordManagerServiceFailedToCompareError,
 } from '../password-manager-service-errors';
-import IPasswordManagerService from '../../../../domain/services/password-manager-service/password-manager-service';
+import IPasswordService from '../../../../domain/services/password-service/password-service';
 
-class BcryptPasswordManagerService implements IPasswordManagerService {
-  hashPassword = async (password: string): Promise<string> => {
+class BcryptPasswordManagerService implements IPasswordService {
+  hashPassword = async (
+    password: string,
+  ): Promise<string> => {
     try {
       const salt = 10;
       const hash = await bcrypt.hash(password, salt);
@@ -16,7 +18,10 @@ class BcryptPasswordManagerService implements IPasswordManagerService {
     }
   };
 
-  comparePasswords = async (plainData: string, hashedPassword: string): Promise<boolean> => {
+  comparePasswords = async (
+    plainData: string,
+    hashedPassword: string,
+  ): Promise<boolean> => {
     try {
       const result = await bcrypt.compare(plainData, hashedPassword);
       return result;

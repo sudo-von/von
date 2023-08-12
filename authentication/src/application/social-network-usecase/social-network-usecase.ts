@@ -8,6 +8,7 @@ import {
   SocialNetworkNotFoundError,
   SocialNetworkCreateFailedError,
   SocialNetworkUpdateFailedError,
+  InvalidSocialNetworkFileMimeTypeError,
 } from '../../domain/entities/social-network-entity/social-network-errors';
 import {
   CreateSocialNetworkFile,
@@ -15,15 +16,20 @@ import {
 } from '../../domain/entities/social-network-entity/social-network-entities';
 import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import SocialNetworkUsecase from '../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
+import {
+  validateFileMimetype,
+} from '../../domain/entities/social-network-entity/social-network-validations/social-network-validations';
 import validateSocialNetworkFileUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
 class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
   generateRandomSocialNetworkFilename = (mimetype: string): string => {
     const randomHash = this.securityService.generateRandomHash('sha256');
-    const fileExtension = mimetype.split('/').pop();
 
-    const filename = `${randomHash}.${fileExtension}`;
+    const isFileMimetypeValid = validateFileMimetype(mimetype);
+    if (!isFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
+
+    const filename = `${randomHash}.${mimetype.split('/').pop()}`;
     return filename;
   };
 
@@ -60,7 +66,9 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
-    await this.fileService.deleteFile(socialNetwork.src);
+    const socialNetworkFileExists = await this.fileService.fileExists(socialNetwork.src);
+
+    if (socialNetworkFileExists) await this.fileService.deleteFile(socialNetwork.src);
 
     const socialNetworkFilename = this.generateRandomSocialNetworkFilename(payload.mimetype);
 

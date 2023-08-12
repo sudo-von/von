@@ -6,16 +6,16 @@ import {
   ReplaceAvatarFile,
 } from '../avatar-entities';
 import {
-  validateAvatarFileSize,
-  validateAvatarFileMimetype,
+  validateFileSize,
+  validateFileMimetype,
 } from './avatar-validations';
 
 const validateAvatarFileReplacement = (payload: ReplaceAvatarFile) => {
-  const isAvatarFileMimetypeValid = validateAvatarFileMimetype(payload.mimetype);
-  if (!isAvatarFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
+  const isFileMimetypeValid = validateFileMimetype(payload.mimetype);
+  if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
 
-  const isAvatarFileSizeValid = validateAvatarFileSize(payload.size);
-  if (!isAvatarFileSizeValid) throw InvalidAvatarFileSizeError;
+  const isFileSizeValid = validateFileSize(payload.size);
+  if (!isFileSizeValid) throw InvalidAvatarFileSizeError;
 };
 
 export default validateAvatarFileReplacement;

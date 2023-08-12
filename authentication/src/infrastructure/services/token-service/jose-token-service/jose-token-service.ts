@@ -8,24 +8,28 @@ import {
   TokenServiceInvalidTokenError,
   TokenServiceFailedToGenerateTokenError,
 } from '../token-service-errors';
+import TokenService from '../token-service';
 import {
-  TokenExpiration,
-} from '../dtos/token-dto/token-dtos';
+  Expiration,
+} from '../entities/expiration-entity/expiration-entities';
 import {
   UserToken,
   CreateUserToken,
-} from '../dtos/user-dto/user-token-dtos';
-import TokenService from '../token-service';
+} from '../entities/user-token-entity/user-token-entities';
 import {
   DetailedSecureUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 
 class JoseTokenService extends TokenService {
-  decode = async (token: string): Promise<UserToken> => {
-    try {
-      const key = new TextEncoder().encode(this.secret);
+  getSecretKey = (): Uint8Array => new TextEncoder().encode(this.secret);
 
-      const { payload } = await jwtVerify(token, key);
+  decodeToken = async (
+    token: string,
+  ): Promise<UserToken> => {
+    try {
+      const secretKey = this.getSecretKey();
+
+      const { payload } = await jwtVerify(token, secretKey);
 
       return payload as UserToken;
     } catch (e) {
@@ -36,15 +40,17 @@ class JoseTokenService extends TokenService {
     }
   };
 
-  generate = async (payload: DetailedSecureUser, expiration: TokenExpiration): Promise<string> => {
+  generateToken = async (
+    payload: DetailedSecureUser,
+    expiration: Expiration,
+  ): Promise<string> => {
     try {
-      const key = new TextEncoder().encode(this.secret);
+      const secretKey = this.getSecretKey();
 
       const createUserToken: CreateUserToken = {
         id: payload.id,
         name: payload.name,
         email: payload.email,
-        avatar: payload.avatar,
         username: payload.username,
       };
 
@@ -54,7 +60,7 @@ class JoseTokenService extends TokenService {
         .setIssuedAt()
         .setProtectedHeader({ alg: 'HS256' })
         .setExpirationTime(expiration)
-        .sign(key);
+        .sign(secretKey);
 
       return token;
     } catch (e) {

@@ -9,9 +9,9 @@ import {
   UserRepositoryFilters,
 } from '../../../../domain/repositories/user-repository/user-repository-filters';
 import {
+  SocialNetwork,
   CreateSocialNetwork,
   PartialSocialNetwork,
-  SocialNetwork,
 } from '../../../../domain/entities/social-network-entity/social-network-entities';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
