@@ -1,2 +1,2 @@
-export type SupportedAlgorithms =
+export type Algorithms =
 | 'sha256';

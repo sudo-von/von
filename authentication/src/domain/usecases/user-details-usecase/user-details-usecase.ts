@@ -19,7 +19,7 @@ abstract class UserDetailsUsecase {
   constructor(protected readonly userRepository: IUserRepository) {}
 
   /**
-   * Abstract method to replace a user's details by username.
+   * Replaces a user's details by username.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user to replace details for.
    * @param {ReplaceUserDetails} payload - The data to replace the user's details with.

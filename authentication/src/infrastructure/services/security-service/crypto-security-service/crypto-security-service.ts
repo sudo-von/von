@@ -7,13 +7,13 @@ import {
   SecurityServiceFailedToRandomHashError,
 } from '../security-service-errors';
 import {
-  SupportedAlgorithms,
+  Algorithms,
 } from '../../../../domain/services/security-service/security-service-algorithms';
 import ISecurityService from '../../../../domain/services/security-service/security-service';
 
 class CryptoSecurityService implements ISecurityService {
   generateRandomHash = (
-    algorithm: SupportedAlgorithms,
+    algorithm: Algorithms,
   ): string => {
     try {
       const salt = randomBytes(16).toString('hex');
@@ -26,7 +26,7 @@ class CryptoSecurityService implements ISecurityService {
 
   generateDataHash = (
     plainData: string,
-    algorithm: SupportedAlgorithms,
+    algorithm: Algorithms,
   ): string => {
     try {
       const hash = createHash(algorithm).update(plainData).digest('hex');

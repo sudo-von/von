@@ -27,7 +27,7 @@ abstract class SocialNetworkUsecase {
   ) {}
 
   /**
-   * Abstract method to generate a random social network filename.
+   * Generates a random social network filename.
    * @authentication Requires authentication to access this method.
    * @param {string} mimetype - The mimetype of the social network file.
    * @returns {string} The generated social network filename.
@@ -36,7 +36,7 @@ abstract class SocialNetworkUsecase {
   => string;
 
   /**
-   * Abstract method to create the social network file for a user by username.
+   * Creates a social network file for a user by username.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user to create social network for.
    * @param {CreateSocialNetworkFile} payload - The data to create the social network's file with.
@@ -46,7 +46,7 @@ abstract class SocialNetworkUsecase {
   => Promise<DetailedSecureUser>;
 
   /**
-   * Abstract method for updating a social network file by its ID.
+   * Updates a social network file by its ID.
    * @authentication Requires authentication to access this method.
    * @param {string} id - The ID of the social network file to update.
    * @param {UpdateSocialNetworkFile} payload - The data to update the social network file with.

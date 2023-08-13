@@ -23,7 +23,7 @@ abstract class AuthenticationUsecase {
   ) {}
 
   /**
-   * Abstract method for user signup.
+   * Creates a new user account.
    * @param {CreateUser} payload - The user creation data.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
@@ -31,7 +31,7 @@ abstract class AuthenticationUsecase {
   => Promise<DetailedSecureUser>;
 
   /**
-   * Abstract method for user login.
+   * Logs in a user.
    * @param {UserCredentials} credentials - The user login credentials.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */

@@ -26,7 +26,7 @@ abstract class AvatarUsecase {
   ) {}
 
   /**
-   * Abstract method to generate an avatar filename based on the user's username and mimetype.
+   * Generates an avatar filename based on the user's username and mimetype.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user.
    * @param {string} mimetype - The mimetype of the avatar file.
@@ -36,7 +36,7 @@ abstract class AvatarUsecase {
   => string;
 
   /**
-   * Abstract method to replace the avatar file for a user by username.
+   * Replaces an avatar file for a user by username.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user to replace avatar for.
    * @param {ReplaceAvatarFile} payload - The data to replace the avatar's file with.
