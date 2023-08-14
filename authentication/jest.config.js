@@ -8,7 +8,7 @@ module.exports = {
   displayName: { name: 'authentication', color: 'blue' },
   testMatch: [
     "<rootDir>/tests/**/*.test.ts",
-    "<rootDir>/tests/**/*.unit-test.ts",
-    "<rootDir>/tests/**/*.integration-test.ts"
+    "<rootDir>/tests/**/*.unit.test.ts",
+    "<rootDir>/tests/**/*.integration.test.ts"
   ],
 };

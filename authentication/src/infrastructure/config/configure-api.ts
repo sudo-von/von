@@ -17,7 +17,7 @@ import {
 import LoggerService from '../services/logger-service/logger-service';
 import errorMiddleware from '../apis/express-api/middlewares/error-middleware';
 
-const configureServer = async (
+const configureAPI = async (
   serverPort: number,
   userRouter: Router,
   avatarRouter: Router,
@@ -53,4 +53,4 @@ const configureServer = async (
   });
 };
 
-export default configureServer;
+export default configureAPI;
