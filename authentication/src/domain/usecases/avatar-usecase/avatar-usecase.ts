@@ -26,6 +26,14 @@ abstract class AvatarUsecase {
   ) {}
 
   /**
+   * Deletes an avatar file by filename.
+   * @param {string} filename - The filename of the avatar file to delete.
+   * @returns {Promise<void>} A promise that resolves upon successful file deletion.
+   */
+  abstract deleteAvatarFileByFilename: (filename: string)
+  => Promise<void>;
+
+  /**
    * Generates an avatar filename based on the user's username and mimetype.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user.

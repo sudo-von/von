@@ -23,6 +23,13 @@ import validateSocialNetworkFileUpdate from '../../domain/entities/social-networ
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
 class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
+  deleteSocialNetworkFileByFilename = async (
+    filename: string,
+  ): Promise<void> => {
+    const fileExists = await this.fileService.fileExists(filename);
+    if (!fileExists) await this.fileService.deleteFile(filename);
+  };
+
   generateRandomSocialNetworkFilename = (mimetype: string): string => {
     const randomHash = this.securityService.generateRandomHash('sha256');
 
@@ -66,9 +73,7 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
-    const socialNetworkFileExists = await this.fileService.fileExists(socialNetwork.src);
-
-    if (socialNetworkFileExists) await this.fileService.deleteFile(socialNetwork.src);
+    await this.deleteSocialNetworkFileByFilename(socialNetwork.src);
 
     const socialNetworkFilename = this.generateRandomSocialNetworkFilename(payload.mimetype);
 

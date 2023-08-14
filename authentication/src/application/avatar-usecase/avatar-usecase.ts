@@ -5,7 +5,8 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import {
-  AvatarReplaceFailedError, InvalidAvatarFileMimeTypeError,
+  AvatarReplaceFailedError,
+  InvalidAvatarFileMimeTypeError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   ReplaceAvatarFile,
@@ -18,6 +19,13 @@ import detailedUserToSecureUser from '../../domain/entities/user-entity/user-map
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
+  deleteAvatarFileByFilename = async (
+    filename: string,
+  ): Promise<void> => {
+    const fileExists = await this.fileService.fileExists(filename);
+    if (!fileExists) await this.fileService.deleteFile(filename);
+  };
+
   generateAvatarFilenameByUsername = (username: string, mimetype: string): string => {
     const usernameHash = this.securityService.generateDataHash(username, 'sha256');
 
@@ -37,10 +45,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    if (user.avatar) {
-      const avatarFileExists = await this.fileService.fileExists(user.avatar);
-      if (avatarFileExists) await this.fileService.deleteFile(user.avatar);
-    }
+    if (user.avatar) this.deleteAvatarFileByFilename(user.avatar);
 
     const avatar = this.generateAvatarFilenameByUsername(username, payload.mimetype);
 
