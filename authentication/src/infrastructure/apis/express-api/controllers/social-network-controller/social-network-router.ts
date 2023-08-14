@@ -4,6 +4,7 @@ import {
 import multer from 'multer';
 import SocialNetworkController from './social-network-controller';
 import TokenService from '../../../../services/token-service/token-service';
+import validateIdMiddleware from '../../middlewares/validate-id-middleware';
 import authenticationMiddleware from '../../middlewares/authentication-middleware';
 import IUserRepository from '../../../../../domain/repositories/user-repository/user-repository';
 import SocialNetworkUsecase from '../../../../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
@@ -24,7 +25,7 @@ const configureSocialNetworkRouter = (
   const handlers = [authenticationHandler, fileHandler];
 
   router.post('/username/:username', handlers, socialNetworkController.createSocialNetworkFileByUsername);
-  router.patch('/:id', handlers, socialNetworkController.updateSocialNetworkFileById);
+  router.patch('/:id', validateIdMiddleware, handlers, socialNetworkController.updateSocialNetworkFileById);
 
   return router;
 };

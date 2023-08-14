@@ -8,6 +8,7 @@ import {
   FileServiceEntityNotFoundError,
   FileServiceFailedToDeleteError,
   FileServiceFailedToUploadError,
+  FileServiceFailedToCheckIfExistsError,
 } from '../file-service-errors';
 import FileService from '../../../../domain/services/file-service/file-service';
 
@@ -22,7 +23,11 @@ class FsFileService extends FileService {
     try {
       await access(path, constants.F_OK);
       return true;
-    } catch {
+    } catch (e) {
+      const { name, message } = e as Error;
+      if (name !== 'ENOENT') {
+        throw FileServiceFailedToCheckIfExistsError(message);
+      }
       return false;
     }
   };

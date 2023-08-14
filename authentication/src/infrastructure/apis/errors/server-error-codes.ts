@@ -30,8 +30,10 @@ export type ServerErrorCode =
 
 export type APIServerErrorCode =
 | 'INTERNAL_SERVER'
+| 'INVALID_ID_PARAMETER'
 | 'INVALID_FILE_PARAMETER'
 | 'REQUIRED_FIELD'
+| 'REQUIRED_ID_PARAMETER'
 | 'REQUEST_RUNTIME_SERVER_ERROR';
 
 export type AvatarServerErrorCode =
