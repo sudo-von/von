@@ -17,7 +17,7 @@ const configureAvatarRouter = (
 
   const router = Router();
 
-  const fileHandler = multer().single('avatar');
+  const fileHandler = multer().single('file');
 
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 

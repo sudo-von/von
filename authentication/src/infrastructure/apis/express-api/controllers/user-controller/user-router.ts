@@ -2,10 +2,10 @@ import {
   Router,
 } from 'express';
 import UserController from './user-controller';
+import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import {
   UpdateUserBroker,
 } from '../../../../brokers/entities/user-entity/user-broker-entities';
-import AMQPBroker from '../../../../brokers/amqp-broker/amqp-broker';
 import TokenService from '../../../../services/token-service/token-service';
 import UserUsecase from '../../../../../domain/usecases/user-usecase/user-usecase';
 import authenticationMiddleware from '../../middlewares/authentication-middleware';

@@ -14,14 +14,14 @@ import {
   DomainErrorCode,
 } from '../../../../domain/errors/error-codes';
 import {
-  DomainErrorFactory,
-} from '../../../../domain/errors/error-factory';
-import {
   InternalServerError,
   RequiredFieldServerError,
   RequestRuntimeServerError,
   InvalidFileParameterServerError,
 } from '../../entities/api-entities/api-errors';
+import {
+  DomainErrorFactory,
+} from '../../../../domain/errors/error-factory';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';
@@ -79,7 +79,7 @@ const errorMiddleware = (loggerService: LoggerService) => (
   if (err instanceof ZodError) {
     return res.status(RequiredFieldServerError.statusCode).json({
       code: RequiredFieldServerError.code,
-      errors: err.errors.map((e) => e.message),
+      error: err.errors.map((e) => e.message).shift(),
     });
   }
 
@@ -91,18 +91,18 @@ const errorMiddleware = (loggerService: LoggerService) => (
   }
 
   if (err instanceof DomainErrorFactory) {
-    const { code, message: error, statusCode } = domainErrors[err.code];
-    return res.status(statusCode).json({ code, error });
+    const { code, message, statusCode } = domainErrors[err.code];
+    return res.status(statusCode).json({ code, error: message });
   }
 
   if (err instanceof ServerErrorFactory) {
-    const { code, message: error, statusCode } = err;
-    return res.status(statusCode).json({ code, error });
+    const { code, message, statusCode } = err;
+    return res.status(statusCode).json({ code, error: message });
   }
 
   if (err instanceof ServiceErrorFactory) {
-    const { code, message: error, statusCode } = serviceErrors[err.code];
-    return res.status(statusCode).json({ code, error });
+    const { code, message, statusCode } = serviceErrors[err.code];
+    return res.status(statusCode).json({ code, error: message });
   }
 
   return res.status(InternalServerError.statusCode).json({

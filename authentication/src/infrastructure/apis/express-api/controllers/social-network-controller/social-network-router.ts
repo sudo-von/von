@@ -17,7 +17,7 @@ const configureSocialNetworkRouter = (
 
   const router = Router();
 
-  const fileHandler = multer().single('social_network');
+  const fileHandler = multer().single('file');
 
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 

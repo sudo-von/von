@@ -11,7 +11,7 @@ export const InternalServerError = createServerErrorFactory({
 
 export const InvalidFileParameterServerError = createServerErrorFactory({
   code: 'INVALID_FILE_PARAMETER',
-  message: 'The specified parameter for uploading a file is incorrect or empty.',
+  message: 'The file parameter is incorrect or empty.',
   statusCode: statusCode.BAD_REQUEST,
 });
 

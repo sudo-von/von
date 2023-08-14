@@ -5,6 +5,7 @@ import {
   writeFile,
 } from 'fs/promises';
 import {
+  FileServiceEntityNotFoundError,
   FileServiceFailedToDeleteError,
   FileServiceFailedToUploadError,
 } from '../file-service-errors';
@@ -33,7 +34,11 @@ class FsFileService extends FileService {
       const path = this.getFilePath(filename);
       await unlink(path);
     } catch (e) {
-      throw FileServiceFailedToDeleteError((e as Error).message);
+      const { name, message } = e as Error;
+      if (name === 'ENOENT') {
+        throw FileServiceEntityNotFoundError(message);
+      }
+      throw FileServiceFailedToDeleteError(message);
     }
   };
 
@@ -45,7 +50,11 @@ class FsFileService extends FileService {
       const path = this.getFilePath(filename);
       await writeFile(path, buffer, 'utf8');
     } catch (e) {
-      throw FileServiceFailedToUploadError((e as Error).message);
+      const { name, message } = e as Error;
+      if (name === 'ENOENT') {
+        throw FileServiceEntityNotFoundError(message);
+      }
+      throw FileServiceFailedToUploadError(message);
     }
   };
 }

@@ -1,12 +1,12 @@
 import FileService from '../../domain/services/file-service/file-service';
 import UserUsecaseApplication from '../../application/user-usecase/user-usecase';
 import SecurityService from '../../domain/services/security-service/security-service';
+import IPasswordService from '../../domain/services/password-service/password-service';
 import AvatarUsecaseApplication from '../../application/avatar-usecase/avatar-usecase';
 import IUserRepository from '../../domain/repositories/user-repository/user-repository';
 import UserDetailsUsecaseApplication from '../../application/user-details-usecase/user-details-usecase';
-import IPasswordService from '../../domain/services/password-service/password-service';
-import AuthenticationUsecaseApplication from '../../application/authentication-usecase/authentication-usecase';
 import SocialNetworkUsecaseApplication from '../../application/social-network-usecase/social-network-usecase';
+import AuthenticationUsecaseApplication from '../../application/authentication-usecase/authentication-usecase';
 
 const configureUsecases = (
   avatarFileService: FileService,

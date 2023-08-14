@@ -9,13 +9,6 @@ export const FileServiceEntityNotFoundError = (
   message: `The file path does not exist: ${details}.`,
 });
 
-export const FileServiceFailedToCheckIfExistsError = (
-  details: string,
-) => createServiceErrorFactory({
-  code: 'FILE_SERVICE_FAILED_TO_CHECK_IF_EXISTS',
-  message: `An error occurred while checking if the file exists ${details}.`,
-});
-
 export const FileServiceFailedToDeleteError = (
   details: string,
 ) => createServiceErrorFactory({
