@@ -11,9 +11,13 @@ import {
 import FileService from '../../../../domain/services/file-service/file-service';
 
 class FsFileService extends FileService {
-  getFilePath = (filename: string): string => `${this.directory}/${filename}`;
+  getFilePath = (
+    filename: string,
+  ): string => `${this.directory}/${filename}`;
 
-  fileExists = async (path: string): Promise<boolean> => {
+  fileExists = async (
+    path: string,
+  ): Promise<boolean> => {
     try {
       await access(path, constants.F_OK);
       return true;
@@ -22,7 +26,9 @@ class FsFileService extends FileService {
     }
   };
 
-  deleteFile = async (filename: string): Promise<void> => {
+  deleteFile = async (
+    filename: string,
+  ): Promise<void> => {
     try {
       const path = this.getFilePath(filename);
       await unlink(path);
@@ -31,7 +37,10 @@ class FsFileService extends FileService {
     }
   };
 
-  uploadFile = async (filename: string, buffer: Buffer): Promise<void> => {
+  uploadFile = async (
+    filename: string,
+    buffer: Buffer,
+  ): Promise<void> => {
     try {
       const path = this.getFilePath(filename);
       await writeFile(path, buffer, 'utf8');

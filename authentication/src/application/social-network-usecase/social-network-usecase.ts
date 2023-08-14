@@ -27,10 +27,12 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     filename: string,
   ): Promise<void> => {
     const fileExists = await this.fileService.fileExists(filename);
-    if (!fileExists) await this.fileService.deleteFile(filename);
+    if (fileExists) await this.fileService.deleteFile(filename);
   };
 
-  generateRandomSocialNetworkFilename = (mimetype: string): string => {
+  generateRandomSocialNetworkFilename = (
+    mimetype: string,
+  ): string => {
     const randomHash = this.securityService.generateRandomHash('sha256');
 
     const isFileMimetypeValid = validateFileMimetype(mimetype);
@@ -49,14 +51,14 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const socialNetworkFilename = this.generateRandomSocialNetworkFilename(payload.mimetype);
+    const filename = this.generateRandomSocialNetworkFilename(payload.mimetype);
 
-    await this.fileService.uploadFile(socialNetworkFilename, payload.buffer);
+    await this.fileService.uploadFile(filename, payload.buffer);
 
     const updatedUser = await this.userRepository.createSocialNetwork({
       url: payload.url,
       name: payload.name,
-      src: socialNetworkFilename,
+      src: filename,
     }, { username });
     if (!updatedUser) throw SocialNetworkCreateFailedError;
 

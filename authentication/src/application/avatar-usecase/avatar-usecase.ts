@@ -23,10 +23,13 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     filename: string,
   ): Promise<void> => {
     const fileExists = await this.fileService.fileExists(filename);
-    if (!fileExists) await this.fileService.deleteFile(filename);
+    if (fileExists) await this.fileService.deleteFile(filename);
   };
 
-  generateAvatarFilenameByUsername = (username: string, mimetype: string): string => {
+  generateAvatarFilenameByUsername = (
+    username: string,
+    mimetype: string,
+  ): string => {
     const usernameHash = this.securityService.generateDataHash(username, 'sha256');
 
     const isFileMimetypeValid = validateFileMimetype(mimetype);

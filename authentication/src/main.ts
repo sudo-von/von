@@ -8,11 +8,11 @@ import configureLoggerService from './infrastructure/config/configure-logger-ser
 import configureSecurityService from './infrastructure/config/configure-security-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
 import configurePasswordManagerService from './infrastructure/config/configure-password-manager-service';
-import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
-import configureAvatarRouter from './infrastructure/servers/express-server/controllers/avatar-controller/avatar-router';
-import configureUserDetailsRouter from './infrastructure/servers/express-server/controllers/user-details-controller/user-details-router';
-import configureAuthenticationRouter from './infrastructure/servers/express-server/controllers/authentication-controller/authentication-router';
-import configureSocialNetworkRouter from './infrastructure/servers/express-server/controllers/social-network-controller/social-network-router';
+import configureUserRouter from './infrastructure/apis/express-api/controllers/user-controller/user-router';
+import configureAvatarRouter from './infrastructure/apis/express-api/controllers/avatar-controller/avatar-router';
+import configureUserDetailsRouter from './infrastructure/apis/express-api/controllers/user-details-controller/user-details-router';
+import configureAuthenticationRouter from './infrastructure/apis/express-api/controllers/authentication-controller/authentication-router';
+import configureSocialNetworkRouter from './infrastructure/apis/express-api/controllers/social-network-controller/social-network-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');

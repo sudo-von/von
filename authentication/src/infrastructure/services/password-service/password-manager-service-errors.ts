@@ -5,13 +5,13 @@ import {
 export const PasswordManagerServiceFailedToCompareError = (
   details: string,
 ) => createServiceErrorFactory({
-  code: 'PASSWORD_MANAGER_SERVICE_FAILED_TO_COMPARE',
+  code: 'PASSWORD_SERVICE_FAILED_TO_COMPARE',
   message: `An error occurred during password comparison: ${details}.`,
 });
 
 export const PasswordManagerServiceFailedToHashError = (
   details: string,
 ) => createServiceErrorFactory({
-  code: 'PASSWORD_MANAGER_SERVICE_FAILED_TO_HASH',
+  code: 'PASSWORD_SERVICE_FAILED_TO_HASH',
   message: `An error occurred during password hashing: ${details}.`,
 });

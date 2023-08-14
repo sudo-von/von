@@ -12,7 +12,7 @@
     "rootDirs": ["src", "tests"],
     "forceConsistentCasingInFileNames": true,
     "typeRoots": [
-      "src/infrastructure/servers/express-server/index.d.ts",
+      "src/infrastructure/apis/express-api/index.d.ts",
       "./node_modules/@types"
     ]
   },

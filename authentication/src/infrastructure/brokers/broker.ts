@@ -11,7 +11,7 @@ abstract class Broker<T> {
   /**
    * Creates an instance of Broker.
    * @param {string} url - The URL for communication.
-   * @param {LoggerService} loggerService - The logger service to use.
+   * @param {LoggerService} loggerService - The logger service.
    */
   constructor(
     protected readonly url: string,
