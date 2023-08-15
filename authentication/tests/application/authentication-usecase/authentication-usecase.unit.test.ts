@@ -1,6 +1,6 @@
 import {
-  InvalidCredentialsError,
   SingleUserOnlyError,
+  InvalidCredentialsError,
 } from '../../../src/domain/entities/user-entity/user-errors';
 import {
   CreateUser,
@@ -44,8 +44,26 @@ describe('authentication usecase', () => {
         name: 'fake-name-1',
         email: 'fake-email-1',
         username: 'fake-username-1',
-        password: 'fake-password-1',
+        password: 'fake-unhashed-password-1',
       };
+
+      const storedUsers: DetailedUser[] = [{
+        id: 'fake-id-0',
+        name: 'fake-name-0',
+        email: 'fake-email-0',
+        username: 'fake-username-0',
+        password: 'fake-hashed-password-0',
+        socialNetworks: [],
+      }];
+
+      const expectedUser: DetailedSecureUser = {
+        id: 'fake-id-1',
+        name: 'fake-id-1',
+        email: 'fake-email-1',
+        username: 'fake-username-1',
+        socialNetworks: [],
+      };
+
       describe('when user is invalid', () => {
         it('should throw an exception', async () => {
           validateUserCreationMock.mockImplementationOnce(() => { throw new Error(); });
@@ -57,18 +75,9 @@ describe('authentication usecase', () => {
       });
 
       describe('when user is valid', () => {
-        describe('when there is a user registered', () => {
+        describe('when there is a user already registered', () => {
           it('should throw a specific exception', async () => {
-            const users: DetailedUser[] = [{
-              id: 'fake-id-0',
-              name: 'fake-name-0',
-              email: 'fake-email-0',
-              username: 'fake-username-0',
-              password: 'fake-password-0',
-              socialNetworks: [],
-            }];
-
-            getUsersMock.mockResolvedValueOnce(users);
+            getUsersMock.mockResolvedValueOnce(storedUsers);
 
             await expect(authenticationUseCase.signup(payload))
               .rejects.toThrowError(SingleUserOnlyError);
@@ -78,20 +87,12 @@ describe('authentication usecase', () => {
 
         describe('when there is no user registered', () => {
           it('should return the expected created user', async () => {
-            const expectedResult: DetailedSecureUser = {
-              id: 'fake-id-1',
-              name: 'fake-id-1',
-              email: 'fake-email-1',
-              username: 'fake-username-1',
-              socialNetworks: [],
-            };
-
             getUsersMock.mockResolvedValueOnce([]);
             hashPasswordMock.mockResolvedValueOnce(payload.password);
-            createUserMock.mockResolvedValueOnce(expectedResult);
+            createUserMock.mockResolvedValueOnce(expectedUser);
 
             await expect(authenticationUseCase.signup(payload))
-              .resolves.toEqual(expectedResult);
+              .resolves.toEqual(expectedUser);
             expect(hashPasswordMock).toBeCalledTimes(1);
             expect(hashPasswordMock).toBeCalledWith(payload.password);
             expect(createUserMock).toBeCalledTimes(1);
@@ -105,6 +106,24 @@ describe('authentication usecase', () => {
         email: 'fake-email-1',
         password: 'fake-password-1',
       };
+
+      const storedUser: DetailedUser = {
+        id: 'fake-id-0',
+        name: 'fake-name-0',
+        email: 'fake-email-0',
+        username: 'fake-username-0',
+        password: 'fake-hashed-password-0',
+        socialNetworks: [],
+      };
+
+      const expectedUser: DetailedSecureUser = {
+        id: 'fake-id-0',
+        name: 'fake-name-0',
+        email: 'fake-email-0',
+        username: 'fake-username-0',
+        socialNetworks: [],
+      };
+
       describe('when user is not found', () => {
         it('should throw a specific exception', async () => {
           getUserMock.mockResolvedValueOnce(null);
@@ -119,50 +138,24 @@ describe('authentication usecase', () => {
       describe('when user is found', () => {
         describe('when credentials are invalid', () => {
           it('should throw a specific exception', async () => {
-            const detailedUser: DetailedUser = {
-              id: 'fake-id-0',
-              name: 'fake-name-0',
-              email: 'fake-email-0',
-              username: 'fake-username-0',
-              password: 'fake-hashed-password-0',
-              socialNetworks: [],
-            };
-
-            getUserMock.mockResolvedValueOnce(detailedUser);
+            getUserMock.mockResolvedValueOnce(storedUser);
 
             comparePasswordsMock.mockResolvedValueOnce(false);
 
             await expect(authenticationUseCase.login(payload)).rejects
               .toThrowError(InvalidCredentialsError);
             expect(comparePasswordsMock).toBeCalledTimes(1);
-            expect(comparePasswordsMock).toBeCalledWith(payload.password, detailedUser.password);
+            expect(comparePasswordsMock).toBeCalledWith(payload.password, storedUser.password);
           });
         });
 
         describe('when credentials are valid', () => {
           it('should return the expected user', async () => {
-            const detailedUser: DetailedUser = {
-              id: 'fake-id-0',
-              name: 'fake-name-0',
-              email: 'fake-email-0',
-              username: 'fake-username-0',
-              password: 'fake-hashed-password-0',
-              socialNetworks: [],
-            };
-
-            const expectedResult: DetailedSecureUser = {
-              id: detailedUser.id,
-              name: detailedUser.name,
-              email: detailedUser.email,
-              username: detailedUser.username,
-              socialNetworks: detailedUser.socialNetworks,
-            };
-
-            getUserMock.mockResolvedValueOnce(detailedUser);
+            getUserMock.mockResolvedValueOnce(storedUser);
             comparePasswordsMock.mockResolvedValueOnce(true);
 
             await expect(authenticationUseCase.login(payload))
-              .resolves.toEqual(expectedResult);
+              .resolves.toEqual(expectedUser);
           });
         });
       });
