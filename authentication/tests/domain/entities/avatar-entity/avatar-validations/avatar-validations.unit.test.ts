@@ -12,7 +12,7 @@ describe('avatar validations', () => {
         expect(validateFileMimetype(mimetype)).toBeTruthy();
       });
     });
-    it('should return false when mimetype are invalid', () => {
+    it('should return false when mimetypes are invalid', () => {
       const mimetypes = avatarRules.mimetype.ALLOWED_MIMETYPES;
       mimetypes.forEach((mimetype) => {
         expect(validateFileMimetype(`invalid-${mimetype}`)).toBeFalsy();
