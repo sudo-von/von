@@ -5,7 +5,7 @@ import {
   InvalidSocialNetworkFileMimeTypeError,
 } from '../../../../../src/domain/entities/social-network-entity/social-network-errors';
 import {
-  CreateSocialNetworkFile,
+  UpdateSocialNetworkFile,
 } from '../../../../../src/domain/entities/social-network-entity/social-network-entities';
 import {
   validateFileSizeMock,
@@ -13,7 +13,7 @@ import {
   validateNameLengthMock,
   validateFileMimetypeMock,
 } from '../../../../__mocks__/domain/entities/social-network-entity/social-network-validations/social-network-validations-mocks';
-import validateSocialNetworkFileCreation from '../../../../../src/domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
+import validateSocialNetworkFileUpdate from '../../../../../src/domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
 
 jest.mock('../../../../../src/domain/entities/social-network-entity/social-network-validations/social-network-validations', () => ({
   validateFileMimetype: validateFileMimetypeMock,
@@ -22,8 +22,8 @@ jest.mock('../../../../../src/domain/entities/social-network-entity/social-netwo
   validateUrlLength: validateUrlLengthMock,
 }));
 
-describe('create social network file validations', () => {
-  const payload: CreateSocialNetworkFile = {
+describe('update social network file validations', () => {
+  const payload: UpdateSocialNetworkFile = {
     url: '',
     name: '',
     size: 0,
@@ -42,7 +42,7 @@ describe('create social network file validations', () => {
       validateNameLengthMock.mockImplementationOnce(() => true);
       validateUrlLengthMock.mockImplementationOnce(() => true);
 
-      expect(() => validateSocialNetworkFileCreation(payload)).not.toThrow();
+      expect(() => validateSocialNetworkFileUpdate(payload)).not.toThrow();
 
       expect(validateFileMimetypeMock).toBeCalledWith(payload.mimetype);
       expect(validateFileSizeMock).toBeCalledWith(payload.size);
@@ -60,7 +60,7 @@ describe('create social network file validations', () => {
     it('should throw a specific exception when mimetype is invalid', () => {
       validateFileMimetypeMock.mockImplementationOnce(() => false);
 
-      expect(() => validateSocialNetworkFileCreation(payload))
+      expect(() => validateSocialNetworkFileUpdate(payload))
         .toThrowError(InvalidSocialNetworkFileMimeTypeError);
       expect(validateFileMimetypeMock).toBeCalledWith(payload.mimetype);
       expect(validateFileMimetypeMock).toBeCalledTimes(1);
@@ -70,7 +70,7 @@ describe('create social network file validations', () => {
       validateFileMimetypeMock.mockImplementationOnce(() => true);
       validateFileSizeMock.mockImplementationOnce(() => false);
 
-      expect(() => validateSocialNetworkFileCreation(payload))
+      expect(() => validateSocialNetworkFileUpdate(payload))
         .toThrowError(InvalidSocialNetworkFileSizeError);
       expect(validateFileSizeMock).toBeCalledWith(payload.size);
       expect(validateFileSizeMock).toBeCalledTimes(1);
@@ -81,7 +81,7 @@ describe('create social network file validations', () => {
       validateFileSizeMock.mockImplementationOnce(() => true);
       validateNameLengthMock.mockImplementationOnce(() => false);
 
-      expect(() => validateSocialNetworkFileCreation(payload))
+      expect(() => validateSocialNetworkFileUpdate(payload))
         .toThrowError(InvalidSocialNetworkNameLengthError);
       expect(validateNameLengthMock).toBeCalledWith(payload.name);
       expect(validateNameLengthMock).toBeCalledTimes(1);
@@ -93,7 +93,7 @@ describe('create social network file validations', () => {
       validateNameLengthMock.mockImplementationOnce(() => true);
       validateUrlLengthMock.mockImplementationOnce(() => false);
 
-      expect(() => validateSocialNetworkFileCreation(payload))
+      expect(() => validateSocialNetworkFileUpdate(payload))
         .toThrowError(InvalidSocialNetworkUrlLengthError);
       expect(validateUrlLengthMock).toBeCalledWith(payload.url);
       expect(validateUrlLengthMock).toBeCalledTimes(1);
