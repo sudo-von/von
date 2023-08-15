@@ -16,18 +16,18 @@ jest.mock('../../../../../src/domain/entities/avatar-entity/avatar-validations/a
   validateFileSize: validateFileSizeMock,
 }));
 
-describe('replace avatar validations', () => {
+describe('replace avatar file validations', () => {
   const payload: ReplaceAvatarFile = {
-    buffer: Buffer.from([]),
-    mimetype: '',
     size: 0,
+    mimetype: '',
+    buffer: Buffer.from([]),
   };
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('when avatar is valid', () => {
+  describe('when avatar file is valid', () => {
     it('should not throw an exception', () => {
       validateFileMimetypeMock.mockImplementationOnce(() => true);
       validateFileSizeMock.mockImplementationOnce(() => true);
@@ -42,7 +42,7 @@ describe('replace avatar validations', () => {
     });
   });
 
-  describe('when avatar is invalid', () => {
+  describe('when avatar file is invalid', () => {
     it('should throw a specific exception when mimetype is invalid', () => {
       validateFileMimetypeMock.mockImplementationOnce(() => false);
 
