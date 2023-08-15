@@ -74,8 +74,8 @@ describe('create user validations', () => {
     });
 
     it('should throw a specific exception when password is invalid', () => {
-      validateNameLengthMock.mockImplementationOnce(() => true);
       validateEmailLengthMock.mockImplementationOnce(() => true);
+      validateNameLengthMock.mockImplementationOnce(() => true);
       validatePasswordLengthMock.mockImplementationOnce(() => false);
 
       expect(() => validateUserCreation(payload)).toThrowError(InvalidPasswordLengthError);
@@ -84,8 +84,8 @@ describe('create user validations', () => {
     });
 
     it('should throw a specific exception when username is invalid', () => {
-      validateNameLengthMock.mockImplementationOnce(() => true);
       validateEmailLengthMock.mockImplementationOnce(() => true);
+      validateNameLengthMock.mockImplementationOnce(() => true);
       validatePasswordLengthMock.mockImplementationOnce(() => true);
       validateUsernameLengthMock.mockImplementationOnce(() => false);
 

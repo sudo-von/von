@@ -68,8 +68,8 @@ describe('update user validations', () => {
     });
 
     it('should throw a specific exception when username is invalid', () => {
-      validateNameLengthMock.mockImplementationOnce(() => true);
       validateEmailLengthMock.mockImplementationOnce(() => true);
+      validateNameLengthMock.mockImplementationOnce(() => true);
       validateUsernameLengthMock.mockImplementationOnce(() => false);
 
       expect(() => validateUserUpdate(payload)).toThrowError(InvalidUsernameLengthError);

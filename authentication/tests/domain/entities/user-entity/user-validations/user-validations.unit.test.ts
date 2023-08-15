@@ -8,14 +8,14 @@ import {
 
 describe('user validations', () => {
   describe('when minimum length is valid', () => {
-    it('should return true when name is validated', () => {
-      const name = 'a'.repeat(userRules.name.MIN_LENGTH);
-      expect(validateNameLength(name)).toBeTruthy();
-    });
-
     it('should return true when email is validated', () => {
       const email = 'a'.repeat(userRules.email.MIN_LENGTH);
       expect(validateEmailLength(email)).toBeTruthy();
+    });
+
+    it('should return true when name is validated', () => {
+      const name = 'a'.repeat(userRules.name.MIN_LENGTH);
+      expect(validateNameLength(name)).toBeTruthy();
     });
 
     it('should return true when password is validated', () => {
@@ -30,14 +30,14 @@ describe('user validations', () => {
   });
 
   describe('when maximum length is valid', () => {
-    it('should return true when name is validated', () => {
-      const name = 'a'.repeat(userRules.name.MAX_LENGTH);
-      expect(validateNameLength(name)).toBeTruthy();
-    });
-
     it('should return true when email is validated', () => {
       const email = 'a'.repeat(userRules.email.MAX_LENGTH);
       expect(validateEmailLength(email)).toBeTruthy();
+    });
+
+    it('should return true when name is validated', () => {
+      const name = 'a'.repeat(userRules.name.MAX_LENGTH);
+      expect(validateNameLength(name)).toBeTruthy();
     });
 
     it('should return true when password is validated', () => {
@@ -52,14 +52,14 @@ describe('user validations', () => {
   });
 
   describe('when minimum length is invalid', () => {
-    it('should return false when name is validated', () => {
-      const name = 'a'.repeat(userRules.name.MIN_LENGTH - 1);
-      expect(validateNameLength(name)).toBeFalsy();
-    });
-
     it('should return false when email is validated', () => {
       const email = 'a'.repeat(userRules.email.MIN_LENGTH - 1);
       expect(validateEmailLength(email)).toBeFalsy();
+    });
+
+    it('should return false when name is validated', () => {
+      const name = 'a'.repeat(userRules.name.MIN_LENGTH - 1);
+      expect(validateNameLength(name)).toBeFalsy();
     });
 
     it('should return false when password is validated', () => {
@@ -74,14 +74,14 @@ describe('user validations', () => {
   });
 
   describe('when maximum length is invalid', () => {
-    it('should return false when name is validated', () => {
-      const name = 'a'.repeat(userRules.name.MAX_LENGTH + 1);
-      expect(validateNameLength(name)).toBeFalsy();
-    });
-
     it('should return false when email is validated', () => {
       const email = 'a'.repeat(userRules.email.MAX_LENGTH + 1);
       expect(validateEmailLength(email)).toBeFalsy();
+    });
+
+    it('should return false when name is validated', () => {
+      const name = 'a'.repeat(userRules.name.MAX_LENGTH + 1);
+      expect(validateNameLength(name)).toBeFalsy();
     });
 
     it('should return false when password is validated', () => {
