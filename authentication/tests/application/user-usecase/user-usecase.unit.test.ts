@@ -141,7 +141,7 @@ describe('user use case', () => {
           });
         });
 
-        describe('when updated succeeded', () => {
+        describe('when update succeeded', () => {
           it('should return the expected user', async () => {
             getUserMock.mockResolvedValueOnce(storedUser);
             comparePasswordsMock.mockResolvedValueOnce(true);
