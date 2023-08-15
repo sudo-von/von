@@ -13,10 +13,10 @@ import {
 import UserRepositoryMock, {
   getUserByUsernameMock,
   updateUserByUsernameMock,
-} from '../__mocks__/repositories/user-repository-mocks';
+} from '../../__mocks__/domain/repositories/user-repository/user-repository-mocks';
 import CryptographyServiceMock, {
   comparePlainAndHashMock,
-} from '../__mocks__/services/cryptography-service-mock';
+} from '../../__mocks__/services/cryptography-service-mock';
 import {
   validateUserUpdateMock,
 } from '../__mocks__/entities/user/user-validation-mocks';
