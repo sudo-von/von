@@ -58,7 +58,7 @@ describe('replace user details validations', () => {
       expect(validateInterestLengthMock).toBeCalledTimes(1);
     });
 
-    it('should throw a specific exception when name is invalid', () => {
+    it('should throw a specific exception when position is invalid', () => {
       validateInterestLengthMock.mockImplementationOnce(() => true);
       validatePositionLengthMock.mockImplementationOnce(() => false);
 
@@ -68,7 +68,7 @@ describe('replace user details validations', () => {
       expect(validatePositionLengthMock).toBeCalledTimes(1);
     });
 
-    it('should throw a specific exception when password is invalid', () => {
+    it('should throw a specific exception when quote is invalid', () => {
       validateInterestLengthMock.mockImplementationOnce(() => true);
       validatePositionLengthMock.mockImplementationOnce(() => true);
       validateQuoteLengthMock.mockImplementationOnce(() => false);

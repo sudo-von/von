@@ -19,7 +19,7 @@ jest.mock('../../../../../src/domain/entities/user-entity/user-validations/user-
   validateUsernameLength: validateUsernameLengthMock,
 }));
 
-describe('create user validations', () => {
+describe('update user validations', () => {
   const payload: CreateUser = {
     name: '',
     email: '',
