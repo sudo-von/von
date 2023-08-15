@@ -25,7 +25,7 @@ jest.mock('../../../src/domain/entities/user-entity/user-validations/create-user
   default: validateUserCreationMock,
 }));
 
-describe('authentication usecase', () => {
+describe('authentication use case', () => {
   const userRepositoryMock = new UserRepositoryMock();
   const passwordServiceMock = new PasswordServiceMock();
 
