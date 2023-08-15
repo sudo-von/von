@@ -6,22 +6,28 @@ import {
   DetailedSecureUser,
 } from '../../../src/domain/entities/user-entity/user-entities';
 import {
-  UserDetailsReplaceFailedError,
-} from '../../../src/domain/entities/user-details-entity/user-details-errors';
+  AvatarReplaceFailedError,
+  InvalidAvatarFileMimeTypeError,
+} from '../../../src/domain/entities/avatar-entity/avatar-errors';
 import {
-  ReplaceUserDetails,
-} from '../../../src/domain/entities/user-details-entity/user-details-entities';
+  ReplaceAvatarFile,
+} from '../../../src/domain/entities/avatar-entity/avatar-entities';
+import FileServiceMock, {
+  fileExistsMock,
+} from '../../__mocks__/domain/services/file-service/file-service-mocks';
+import SecurityServiceMock, {
+  generateDataHashMock,
+} from '../../__mocks__/domain/services/security-service/security-service-mocks';
 import UserRepositoryMock, {
   getUserMock,
   updateUserMock,
 } from '../../__mocks__/domain/repositories/user-repository/user-repository-mocks';
-import FileServiceMock, { fileExistsMock } from '../../__mocks__/domain/services/file-service/file-service-mocks';
-import SecurityServiceMock, { generateDataHashMock } from '../../__mocks__/domain/services/security-service/security-service-mocks';
+import {
+  validateFileSizeMock,
+  validateFileMimetypeMock,
+} from '../../__mocks__/domain/entities/avatar-entity/avatar-validations/avatar-validations-mocks';
 import validateAvatarReplacementMock from '../../__mocks__/domain/entities/avatar-entity/avatar-validations/replace-avatar-validations-mocks';
-import { ReplaceAvatarFile } from '../../../src/domain/entities/avatar-entity/avatar-entities';
-import { validateFileMimetypeMock, validateFileSizeMock } from '../../__mocks__/domain/entities/avatar-entity/avatar-validations/avatar-validations-mocks';
 import AvatarUsecaseApplication from '../../../src/application/avatar-usecase/avatar-usecase';
-import { AvatarReplaceFailedError, InvalidAvatarFileMimeTypeError } from '../../../src/domain/entities/avatar-entity/avatar-errors';
 
 jest.mock('../../../src/domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations', () => ({
   __esModule: true,
@@ -49,7 +55,7 @@ describe('avatar use case', () => {
   });
 
   describe('replace avatar file by username', () => {
-    const username = 'fake-username-1';
+    const username = 'fake-username-0';
 
     const payload: ReplaceAvatarFile = {
       size: 0,
