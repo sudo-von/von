@@ -55,14 +55,17 @@ describe('social network validations', () => {
     });
   });
 
-  describe('when mimetype is validated', () => {
-    it('should return true when mimetypes are valid', () => {
+  describe('when mimetypes are valid', () => {
+    it('should return true when mimetypes are validated', () => {
       const mimetypes = socialNetworkValidations.mimetype.ALLOWED_MIMETYPES;
       mimetypes.forEach((mimetype) => {
         expect(validateFileMimetype(mimetype)).toBeTruthy();
       });
     });
-    it('should return false when mimetypes are invalid', () => {
+  });
+
+  describe('when mimetypes are invalid', () => {
+    it('should return false when mimetypes are validated', () => {
       const mimetypes = socialNetworkValidations.mimetype.ALLOWED_MIMETYPES;
       mimetypes.forEach((mimetype) => {
         expect(validateFileMimetype(`invalid-${mimetype}`)).toBeFalsy();
@@ -70,29 +73,29 @@ describe('social network validations', () => {
     });
   });
 
-  describe('when minimum bytes are valid', () => {
-    it('should return true when bytes are valid', () => {
+  describe('when minimum byte size is valid', () => {
+    it('should return true when byte size is validated', () => {
       const size = socialNetworkValidations.size.MIN_BYTES;
       expect(validateFileSize(size)).toBeTruthy();
     });
   });
 
-  describe('when maximum bytes are valid', () => {
-    it('should return true when bytes are valid', () => {
+  describe('when maximum byte size is valid', () => {
+    it('should return true when byte size is validated', () => {
       const size = socialNetworkValidations.size.MAX_BYTES;
       expect(validateFileSize(size)).toBeTruthy();
     });
   });
 
-  describe('when minimum bytes are invalid', () => {
-    it('should return false when bytes are invalid', () => {
+  describe('when minimum byte size is invalid', () => {
+    it('should return false when byte size is validated', () => {
       const size = socialNetworkValidations.size.MIN_BYTES - 1;
       expect(validateFileSize(size)).toBeFalsy();
     });
   });
 
-  describe('when maximum bytes are invalid', () => {
-    it('should return false when bytes are invalid', () => {
+  describe('when maximum byte size is invalid', () => {
+    it('should return false when byte size is validated', () => {
       const size = socialNetworkValidations.size.MAX_BYTES + 1;
       expect(validateFileSize(size)).toBeFalsy();
     });
