@@ -12,7 +12,7 @@ import {
   validateEmailLengthMock,
   validateUsernameLengthMock,
   validatePasswordLengthMock,
-} from '../../../../__mocks__/domain/entities/user/validations/user-validation-mocks';
+} from '../../../../__mocks__/domain/entities/user-entity/user-validations/user-validations-mocks';
 import validateUserCreation from '../../../../../src/domain/entities/user-entity/user-validations/create-user-validations';
 
 jest.mock('../../../../../src/domain/entities/user-entity/user-validations/user-validations', () => ({
