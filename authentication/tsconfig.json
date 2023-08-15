@@ -13,7 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "typeRoots": [
       "src/infrastructure/apis/express-api/index.d.ts",
-      "./node_modules/@types"
+      "node_modules/@types"
     ]
   },
   "include": ["src"],

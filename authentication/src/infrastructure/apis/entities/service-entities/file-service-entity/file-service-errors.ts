@@ -10,12 +10,15 @@ import {
 
 export const FileServiceNoEntityFoundServerError = InternalServerError;
 
+export const FileServiceFailedToCheckIfExistsServerError = InternalServerError;
+
 export const FileServiceFailedToDeleteServerError = InternalServerError;
 
 export const FileServiceFailedToUploadingServerError = InternalServerError;
 
 export const fileServiceServerErrors: Record<FileServiceErrorCode, ServerErrorFactory> = {
   FILE_SERVICE_ENTITY_NOT_FOUND: FileServiceNoEntityFoundServerError,
+  FILE_SERVICE_FAILED_TO_CHECK_IF_EXISTS: FileServiceFailedToCheckIfExistsServerError,
   FILE_SERVICE_FAILED_TO_DELETE: FileServiceFailedToDeleteServerError,
   FILE_SERVICE_FAILED_TO_UPLOAD: FileServiceFailedToUploadingServerError,
 };
