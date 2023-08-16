@@ -8,40 +8,18 @@ import {
   SocialNetworkNotFoundError,
   SocialNetworkCreateFailedError,
   SocialNetworkUpdateFailedError,
-  InvalidSocialNetworkFileMimeTypeError,
 } from '../../domain/entities/social-network-entity/social-network-errors';
 import {
   CreateSocialNetworkFile,
   UpdateSocialNetworkFile,
 } from '../../domain/entities/social-network-entity/social-network-entities';
 import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import generateFilename from '../../domain/entities/social-network-entity/social-network-utils';
 import SocialNetworkUsecase from '../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
-import {
-  validateFileMimetype,
-} from '../../domain/entities/social-network-entity/social-network-validations/social-network-validations';
 import validateSocialNetworkFileUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
 class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
-  deleteSocialNetworkFileByFilename = async (
-    filename: string,
-  ): Promise<void> => {
-    const fileExists = await this.fileService.fileExists(filename);
-    if (fileExists) await this.fileService.deleteFile(filename);
-  };
-
-  generateRandomSocialNetworkFilename = (
-    mimetype: string,
-  ): string => {
-    const randomHash = this.securityService.generateRandomHash('sha256');
-
-    const isFileMimetypeValid = validateFileMimetype(mimetype);
-    if (!isFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
-
-    const filename = `${randomHash}.${mimetype.split('/').pop()}`;
-    return filename;
-  };
-
   createSocialNetworkFileByUsername = async (
     username: string,
     payload: CreateSocialNetworkFile,
@@ -51,14 +29,16 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const filename = this.generateRandomSocialNetworkFilename(payload.mimetype);
+    const hashedFilename = this.securityService.generateRandomHash('sha256');
 
-    await this.fileService.uploadFile(filename, payload.buffer);
+    const secureFilename = generateFilename(hashedFilename, payload.mimetype);
+
+    await this.fileService.uploadFile(secureFilename, payload.buffer);
 
     const updatedUser = await this.userRepository.createSocialNetwork({
       url: payload.url,
       name: payload.name,
-      src: filename,
+      src: secureFilename,
     }, { username });
     if (!updatedUser) throw SocialNetworkCreateFailedError;
 
@@ -75,16 +55,19 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
-    await this.deleteSocialNetworkFileByFilename(socialNetwork.src);
+    const fileExists = await this.fileService.fileExists(socialNetwork.src);
+    if (fileExists) await this.fileService.deleteFile(socialNetwork.src);
 
-    const socialNetworkFilename = this.generateRandomSocialNetworkFilename(payload.mimetype);
+    const hashedFilename = this.securityService.generateRandomHash('sha256');
 
-    await this.fileService.uploadFile(socialNetworkFilename, payload.buffer);
+    const secureFilename = generateFilename(hashedFilename, payload.mimetype);
+
+    await this.fileService.uploadFile(secureFilename, payload.buffer);
 
     const updatedUser = await this.userRepository.updateSocialNetworkById(id, {
       url: payload.url,
       name: payload.name,
-      src: socialNetworkFilename,
+      src: secureFilename,
     });
     if (!updatedUser) throw SocialNetworkUpdateFailedError;
 

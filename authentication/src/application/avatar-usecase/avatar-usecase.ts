@@ -6,39 +6,16 @@ import {
 } from '../../domain/entities/user-entity/user-entities';
 import {
   AvatarReplaceFailedError,
-  InvalidAvatarFileMimeTypeError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   ReplaceAvatarFile,
 } from '../../domain/entities/avatar-entity/avatar-entities';
 import AvatarUsecase from '../../domain/usecases/avatar-usecase/avatar-usecase';
-import {
-  validateFileMimetype,
-} from '../../domain/entities/avatar-entity/avatar-validations/avatar-validations';
+import generateFilename from '../../domain/entities/avatar-entity/avatar-utils';
 import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
-  deleteAvatarFileByFilename = async (
-    filename: string,
-  ): Promise<void> => {
-    const fileExists = await this.fileService.fileExists(filename);
-    if (fileExists) await this.fileService.deleteFile(filename);
-  };
-
-  generateAvatarFilenameByUsername = (
-    username: string,
-    mimetype: string,
-  ): string => {
-    const usernameHash = this.securityService.generateDataHash(username, 'sha256');
-
-    const isFileMimetypeValid = validateFileMimetype(mimetype);
-    if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
-
-    const filename = `${usernameHash}.${mimetype.split('/').pop()}`;
-    return filename;
-  };
-
   replaceAvatarFileByUsername = async (
     username: string,
     payload: ReplaceAvatarFile,
@@ -48,14 +25,19 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    if (user.avatar) this.deleteAvatarFileByFilename(user.avatar);
+    if (user.avatar) {
+      const fileExists = await this.fileService.fileExists(user.avatar);
+      if (fileExists) await this.fileService.deleteFile(user.avatar);
+    }
 
-    const avatar = this.generateAvatarFilenameByUsername(username, payload.mimetype);
+    const hashedFilename = this.securityService.generateDataHash(user.username, 'sha256');
 
-    await this.fileService.uploadFile(avatar, payload.buffer);
+    const secureFilename = generateFilename(hashedFilename, payload.mimetype);
+
+    await this.fileService.uploadFile(secureFilename, payload.buffer);
 
     const updatedUser = await this.userRepository.updateUser({
-      avatar,
+      avatar: secureFilename,
     }, { username });
     if (!updatedUser) throw AvatarReplaceFailedError;
 

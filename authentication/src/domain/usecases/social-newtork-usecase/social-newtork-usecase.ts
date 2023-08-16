@@ -27,23 +27,6 @@ abstract class SocialNetworkUsecase {
   ) {}
 
   /**
-   * Deletes a social network file by filename.
-   * @param {string} filename - The filename of the social network file to delete.
-   * @returns {Promise<void>} A promise that resolves upon successful file deletion.
-   */
-  abstract deleteSocialNetworkFileByFilename: (filename: string)
-  => Promise<void>;
-
-  /**
-   * Generates a random social network filename.
-   * @authentication Requires authentication to access this method.
-   * @param {string} mimetype - The mimetype of the social network file.
-   * @returns {string} The generated social network filename.
-   */
-  abstract generateRandomSocialNetworkFilename: (mimetype: string)
-  => string;
-
-  /**
    * Creates a social network file for a user by username.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user to create social network for.
