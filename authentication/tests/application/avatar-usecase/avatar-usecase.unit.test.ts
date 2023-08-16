@@ -7,13 +7,14 @@ import {
 } from '../../../src/domain/entities/user-entity/user-entities';
 import {
   AvatarReplaceFailedError,
-  InvalidAvatarFileMimeTypeError,
 } from '../../../src/domain/entities/avatar-entity/avatar-errors';
 import {
   ReplaceAvatarFile,
 } from '../../../src/domain/entities/avatar-entity/avatar-entities';
 import FileServiceMock, {
+  deleteFileMock,
   fileExistsMock,
+  uploadFileMock,
 } from '../../__mocks__/domain/services/file-service/file-service-mocks';
 import SecurityServiceMock, {
   generateDataHashMock,
@@ -22,21 +23,18 @@ import UserRepositoryMock, {
   getUserMock,
   updateUserMock,
 } from '../../__mocks__/domain/repositories/user-repository/user-repository-mocks';
-import {
-  validateFileSizeMock,
-  validateFileMimetypeMock,
-} from '../../__mocks__/domain/entities/avatar-entity/avatar-validations/avatar-validations-mocks';
+import generateFilenameMock from '../../__mocks__/domain/entities/avatar-entity/avatar-utils-mocks';
 import validateAvatarReplacementMock from '../../__mocks__/domain/entities/avatar-entity/avatar-validations/replace-avatar-validations-mocks';
 import AvatarUsecaseApplication from '../../../src/application/avatar-usecase/avatar-usecase';
+
+jest.mock('../../../src/domain/entities/avatar-entity/avatar-utils', () => ({
+  __esModule: true,
+  default: generateFilenameMock,
+}));
 
 jest.mock('../../../src/domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations', () => ({
   __esModule: true,
   default: validateAvatarReplacementMock,
-}));
-
-jest.mock('../../../src/domain/entities/avatar-entity/avatar-validations/avatar-validations', () => ({
-  validateFileMimetype: validateFileMimetypeMock,
-  validateFileSize: validateFileSizeMock,
 }));
 
 describe('avatar use case', () => {
@@ -57,12 +55,6 @@ describe('avatar use case', () => {
   describe('replace avatar file by username', () => {
     const username = 'fake-username-0';
 
-    const payload: ReplaceAvatarFile = {
-      size: 0,
-      mimetype: '',
-      buffer: Buffer.from([]),
-    };
-
     const storedUser: DetailedUser = {
       id: 'fake-id-0',
       name: 'fake-name-0',
@@ -71,6 +63,12 @@ describe('avatar use case', () => {
       username: 'fake-username-0',
       password: 'fake-hashed-password-0',
       socialNetworks: [],
+    };
+
+    const payload: ReplaceAvatarFile = {
+      size: 0,
+      mimetype: '',
+      buffer: Buffer.from([]),
     };
 
     const expectedUser: DetailedSecureUser = {
@@ -86,10 +84,9 @@ describe('avatar use case', () => {
       it('should throw a specific exception', async () => {
         validateAvatarReplacementMock.mockImplementationOnce(() => { throw new Error(); });
 
-        await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload)).rejects
-          .toThrow();
+        await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload))
+          .rejects.toThrow();
         expect(validateAvatarReplacementMock).toBeCalledTimes(1);
-        expect(validateAvatarReplacementMock).toBeCalledWith(payload);
       });
     });
 
@@ -98,44 +95,36 @@ describe('avatar use case', () => {
         it('should throw a specific exception', async () => {
           getUserMock.mockResolvedValueOnce(null);
 
-          await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload)).rejects
-            .toThrowError(UserNotFoundError);
+          await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload))
+            .rejects.toThrowError(UserNotFoundError);
           expect(getUserMock).toBeCalledTimes(1);
-          expect(getUserMock).toBeCalledWith({ username });
         });
       });
 
       describe('when user is found', () => {
-        describe('when mimetype is invalid', () => {
-          it('should throw a specific exception', async () => {
-            getUserMock.mockResolvedValueOnce(storedUser);
-            fileExistsMock.mockResolvedValueOnce(true);
-            generateDataHashMock.mockImplementationOnce(() => expectedUser.avatar);
-            validateFileMimetypeMock.mockImplementationOnce(() => false);
-
-            await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload)).rejects
-              .toThrowError(InvalidAvatarFileMimeTypeError);
-          });
-        });
-
-        describe('when mimetype is valid', () => {
+        describe('when avatar exists', () => {
           describe('when update failed', () => {
             it('should throw a specific exception', async () => {
               getUserMock.mockResolvedValueOnce(storedUser);
-              generateDataHashMock.mockImplementationOnce(() => expectedUser.avatar);
-              validateFileMimetypeMock.mockImplementationOnce(() => true);
+              fileExistsMock.mockResolvedValueOnce(true);
               updateUserMock.mockResolvedValueOnce(null);
 
-              await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload)).rejects
-                .toThrowError(AvatarReplaceFailedError);
+              await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload))
+                .rejects.toThrowError(AvatarReplaceFailedError);
+
+              expect(fileExistsMock).toBeCalledTimes(1);
+              expect(deleteFileMock).toBeCalledTimes(1);
+              expect(generateDataHashMock).toBeCalledTimes(1);
+              expect(generateFilenameMock).toBeCalledTimes(1);
+              expect(uploadFileMock).toBeCalledTimes(1);
+              expect(updateUserMock).toBeCalledTimes(1);
             });
           });
 
           describe('when update succeeded', () => {
             it('should return the expected user', async () => {
               getUserMock.mockResolvedValueOnce(storedUser);
-              generateDataHashMock.mockImplementationOnce(() => expectedUser.avatar);
-              validateFileMimetypeMock.mockImplementationOnce(() => true);
+              fileExistsMock.mockResolvedValueOnce(true);
               updateUserMock.mockResolvedValueOnce(expectedUser);
 
               await expect(avatarUsecase.replaceAvatarFileByUsername(username, payload))

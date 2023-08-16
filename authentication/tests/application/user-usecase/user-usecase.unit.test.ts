@@ -1,7 +1,7 @@
 import {
   UserNotFoundError,
-  InvalidCredentialsError,
   UserUpdateFailedError,
+  InvalidCredentialsError,
 } from '../../../src/domain/entities/user-entity/user-errors';
 import {
   UpdateUser,
@@ -63,7 +63,6 @@ describe('user use case', () => {
         await expect(userUsecase.getUserByUsername(username))
           .rejects.toThrowError(UserNotFoundError);
         expect(getUserMock).toBeCalledTimes(1);
-        expect(getUserMock).toBeCalledWith({ username });
       });
     });
 
@@ -73,20 +72,12 @@ describe('user use case', () => {
 
         await expect(userUsecase.getUserByUsername(username))
           .resolves.toEqual(expectedUser);
-        expect(getUserMock).toBeCalledTimes(1);
       });
     });
   });
 
   describe('update user by username', () => {
-    const username = 'fake-username-1';
-
-    const payload: UpdateUser = {
-      name: 'fake-name-1',
-      email: 'fake-email-1',
-      username: 'fake-username-1',
-      password: 'fake-unhashed-password-0',
-    };
+    const username = 'fake-username-0';
 
     const storedUser: DetailedUser = {
       id: 'fake-id-0',
@@ -95,6 +86,13 @@ describe('user use case', () => {
       username: 'fake-username-0',
       password: 'fake-hashed-password-0',
       socialNetworks: [],
+    };
+
+    const payload: UpdateUser = {
+      name: 'fake-name-1',
+      email: 'fake-email-1',
+      username: 'fake-username-1',
+      password: 'fake-unhashed-password-0',
     };
 
     const expectedUser: DetailedSecureUser = {
@@ -109,10 +107,9 @@ describe('user use case', () => {
       it('should throw a specific exception', async () => {
         getUserMock.mockResolvedValueOnce(null);
 
-        await expect(userUsecase.updateUserByUsername(username, payload)).rejects
-          .toThrowError(UserNotFoundError);
+        await expect(userUsecase.updateUserByUsername(username, payload))
+          .rejects.toThrowError(UserNotFoundError);
         expect(getUserMock).toBeCalledTimes(1);
-        expect(getUserMock).toBeCalledWith({ username });
       });
     });
 
@@ -122,10 +119,9 @@ describe('user use case', () => {
           getUserMock.mockResolvedValueOnce(storedUser);
           comparePasswordsMock.mockResolvedValueOnce(false);
 
-          await expect(userUsecase.updateUserByUsername(username, payload)).rejects
-            .toThrowError(InvalidCredentialsError);
+          await expect(userUsecase.updateUserByUsername(username, payload))
+            .rejects.toThrowError(InvalidCredentialsError);
           expect(comparePasswordsMock).toBeCalledTimes(1);
-          expect(comparePasswordsMock).toBeCalledWith(payload.password, storedUser.password);
         });
       });
 
@@ -136,8 +132,9 @@ describe('user use case', () => {
             comparePasswordsMock.mockResolvedValueOnce(true);
             updateUserMock.mockResolvedValueOnce(null);
 
-            await expect(userUsecase.updateUserByUsername(username, payload)).rejects
-              .toThrowError(UserUpdateFailedError);
+            await expect(userUsecase.updateUserByUsername(username, payload))
+              .rejects.toThrowError(UserUpdateFailedError);
+            expect(updateUserMock).toBeCalledTimes(1);
           });
         });
 

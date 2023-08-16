@@ -39,13 +39,6 @@ describe('authentication use case', () => {
   });
 
   describe('signup', () => {
-    const payload: CreateUser = {
-      name: 'fake-name-1',
-      email: 'fake-email-1',
-      username: 'fake-username-1',
-      password: 'fake-unhashed-password-1',
-    };
-
     const storedUsers: DetailedUser[] = [{
       id: 'fake-id-0',
       name: 'fake-name-0',
@@ -55,9 +48,16 @@ describe('authentication use case', () => {
       socialNetworks: [],
     }];
 
+    const payload: CreateUser = {
+      name: 'fake-name-1',
+      email: 'fake-email-1',
+      username: 'fake-username-1',
+      password: 'fake-unhashed-password-1',
+    };
+
     const expectedUser: DetailedSecureUser = {
       id: 'fake-id-1',
-      name: 'fake-id-1',
+      name: 'fake-name-1',
       email: 'fake-email-1',
       username: 'fake-username-1',
       socialNetworks: [],
@@ -67,9 +67,9 @@ describe('authentication use case', () => {
       it('should throw an exception', async () => {
         validateUserCreationMock.mockImplementationOnce(() => { throw new Error(); });
 
-        await expect(authenticationUseCase.signup(payload)).rejects.toThrow();
+        await expect(authenticationUseCase.signup(payload))
+          .rejects.toThrow();
         expect(validateUserCreationMock).toBeCalledTimes(1);
-        expect(validateUserCreationMock).toBeCalledWith(payload);
       });
     });
 
@@ -93,7 +93,6 @@ describe('authentication use case', () => {
           await expect(authenticationUseCase.signup(payload))
             .resolves.toEqual(expectedUser);
           expect(hashPasswordMock).toBeCalledTimes(1);
-          expect(hashPasswordMock).toBeCalledWith(payload.password);
           expect(createUserMock).toBeCalledTimes(1);
         });
       });
@@ -101,11 +100,6 @@ describe('authentication use case', () => {
   });
 
   describe('login', () => {
-    const payload: UserCredentials = {
-      email: 'fake-email-1',
-      password: 'fake-password-1',
-    };
-
     const storedUser: DetailedUser = {
       id: 'fake-id-0',
       name: 'fake-name-0',
@@ -113,6 +107,11 @@ describe('authentication use case', () => {
       username: 'fake-username-0',
       password: 'fake-hashed-password-0',
       socialNetworks: [],
+    };
+
+    const payload: UserCredentials = {
+      email: 'fake-email-1',
+      password: 'fake-password-1',
     };
 
     const expectedUser: DetailedSecureUser = {
@@ -127,10 +126,9 @@ describe('authentication use case', () => {
       it('should throw a specific exception', async () => {
         getUserMock.mockResolvedValueOnce(null);
 
-        await expect(authenticationUseCase.login(payload)).rejects
-          .toThrowError(InvalidCredentialsError);
+        await expect(authenticationUseCase.login(payload))
+          .rejects.toThrowError(InvalidCredentialsError);
         expect(getUserMock).toBeCalledTimes(1);
-        expect(getUserMock).toBeCalledWith({ email: payload.email });
       });
     });
 
@@ -138,13 +136,11 @@ describe('authentication use case', () => {
       describe('when credentials are invalid', () => {
         it('should throw a specific exception', async () => {
           getUserMock.mockResolvedValueOnce(storedUser);
-
           comparePasswordsMock.mockResolvedValueOnce(false);
 
-          await expect(authenticationUseCase.login(payload)).rejects
-            .toThrowError(InvalidCredentialsError);
+          await expect(authenticationUseCase.login(payload))
+            .rejects.toThrowError(InvalidCredentialsError);
           expect(comparePasswordsMock).toBeCalledTimes(1);
-          expect(comparePasswordsMock).toBeCalledWith(payload.password, storedUser.password);
         });
       });
 

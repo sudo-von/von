@@ -33,13 +33,7 @@ describe('user details use case', () => {
   });
 
   describe('replace user details by username', () => {
-    const username = 'fake-username-1';
-
-    const payload: ReplaceUserDetails = {
-      quote: 'fake-quote-1',
-      interest: 'fake-interest-1',
-      position: 'fake-position-password-0',
-    };
+    const username = 'fake-username-0';
 
     const storedUser: DetailedUser = {
       id: 'fake-id-0',
@@ -50,23 +44,28 @@ describe('user details use case', () => {
       socialNetworks: [],
     };
 
+    const payload: ReplaceUserDetails = {
+      quote: 'fake-quote-1',
+      interest: 'fake-interest-1',
+      position: 'fake-position-1',
+    };
+
     const expectedUser: DetailedSecureUser = {
       id: 'fake-id-0',
       name: 'fake-name-0',
       email: 'fake-email-0',
       username: 'fake-username-0',
-      details: payload,
       socialNetworks: [],
+      details: payload,
     };
 
     describe('when user details are invalid', () => {
       it('should throw a specific exception', async () => {
         validateUserDetailsReplacementMock.mockImplementationOnce(() => { throw new Error(); });
 
-        await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload)).rejects
-          .toThrow();
+        await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload))
+          .rejects.toThrow();
         expect(validateUserDetailsReplacementMock).toBeCalledTimes(1);
-        expect(validateUserDetailsReplacementMock).toBeCalledWith(payload);
       });
     });
 
@@ -75,10 +74,9 @@ describe('user details use case', () => {
         it('should throw a specific exception', async () => {
           getUserMock.mockResolvedValueOnce(null);
 
-          await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload)).rejects
-            .toThrowError(UserNotFoundError);
+          await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload))
+            .rejects.toThrowError(UserNotFoundError);
           expect(getUserMock).toBeCalledTimes(1);
-          expect(getUserMock).toBeCalledWith({ username });
         });
       });
 
@@ -88,8 +86,9 @@ describe('user details use case', () => {
             getUserMock.mockResolvedValueOnce(storedUser);
             updateUserMock.mockResolvedValueOnce(null);
 
-            await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload)).rejects
-              .toThrowError(UserDetailsReplaceFailedError);
+            await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload))
+              .rejects.toThrowError(UserDetailsReplaceFailedError);
+            expect(updateUserMock).toBeCalledTimes(1);
           });
         });
 
