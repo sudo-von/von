@@ -15,56 +15,26 @@ externalDocs:
 tags:
   - name: authentication
     description: Everything about authentication.
+  - name: avatar
+    description: Everything about avatars.
+  - name: social-network
+    description: Everything about social networks.
+  - name: user-details
+    description: Everything about user details.
   - name: user
     description: Everything about a specific user.
 
 paths:
-  /api/v1/authentication/signup:
+  /api/v1/authentication/login:
     post:
       tags:
         - authentication
-      summary: Create a new user.
+      summary: Authenticates a user.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUserControllerDto'
-        required: true
-      responses:
-        '201':
-          description: Created.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestrictedUserControllerDto'
-        '400':
-          description: Bad request.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '409':
-          description: Conflict.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Internal server.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /api/v1/authentication/authenticate:
-    post:
-      tags:
-        - authentication
-      summary: Authenticate a user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateUserCredentialsControllerDto'
+              $ref: '#/components/schemas/CreateUserCredentialsRequest'
         required: true
       responses:
         '200':
@@ -87,25 +57,62 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /api/v1/user/username/{username}:
-    get:
+  /api/v1/authentication/signup:
+    post:
       tags:
-        - user
-      summary: Get user by username.
-      parameters:
-        - name: username
-          in: path
-          description: 'The username that needs to be fetched.'
-          required: true
-          schema:
-            type: string
+        - authentication
+      summary: Creates a new user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        required: true
       responses:
         '201':
           description: Created.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestrictedUserControllerDto'
+                $ref: '#/components/schemas/SecureUserResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/user/username/{username}:
+    get:
+      tags:
+        - user
+      summary: Retrieves user by username.
+      parameters:
+        - name: username
+          in: path
+          description: 'The username that needs to be retrieved.'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureUserResponse'
         '404':
           description: Not found.
           content:
@@ -123,7 +130,7 @@ paths:
         - user
       security:
         - Authorization: []
-      summary: Update a user.
+      summary: Updates a user.
       parameters:
         - name: username
           in: path
@@ -135,7 +142,163 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUserControllerDto'
+              $ref: '#/components/schemas/UpdateUserRequest'
+        required: true
+      responses:
+        '200':
+          description: Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureUserResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/user-details/username/{username}:
+    put:
+      tags:
+        - user-details
+      security:
+        - Authorization: []
+      summary: Replaces a user detail.
+      parameters:
+        - name: username
+          in: path
+          description: 'The username of the user you want to update.'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserDetailsRequest'
+        required: true
+      responses:
+        '200':
+          description: Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureUserResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/avatar/username/{username}:
+    put:
+      tags:
+        - avatar
+      security:
+        - Authorization: []
+      summary: Replaces an avatar.
+      parameters:
+        - name: username
+          in: path
+          description: 'The username of the user you want to update.'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ReplaceAvatarRequest'
+        required: true
+      responses:
+        '200':
+          description: Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureUserResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/social-network/username/{username}:
+    post:
+      tags:
+        - social-network
+      security:
+        - Authorization: []
+      summary: Creates a social network.
+      parameters:
+        - name: username
+          in: path
+          description: 'The username of the user you want to update.'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSocialNetworkRequest'
         required: true
       responses:
         '201':
@@ -143,7 +306,59 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RestrictedUserControllerDto'
+                $ref: '#/components/schemas/SecureUserResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/v1/social-network/{id}:
+    patch:
+      tags:
+        - social-network
+      security:
+        - Authorization: []
+      summary: Updates a social network.
+      parameters:
+        - name: id
+          in: path
+          description: 'The id of the social network you want to update.'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateSocialNetworkRequest'
+        required: true
+      responses:
+        '200':
+          description: Ok.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecureUserResponse'
         '400':
           description: Bad request.
           content:
@@ -171,27 +386,14 @@ paths:
 
 components:
   schemas:
-    CreateUserCredentialsControllerDto:
+    CreateUserCredentialsRequest:
       type: object
       properties:
         email:
           type: string
         password:
           type: string
-    CreateUserControllerDto:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-        profile_picture:
-          type: string
-    UpdateUserControllerDto:
+    CreateUserRequest:
       type: object
       properties:
         name:
@@ -202,9 +404,18 @@ components:
           type: string
         password:
           type: string
-        profile_picture:
+    UpdateUserRequest:
+      type: object
+      properties:
+        name:
           type: string
-    RestrictedUserControllerDto:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+    SecureUserResponse:
       type: object
       properties:
         id:
@@ -215,10 +426,65 @@ components:
           type: string
         username:
           type: string
-        password:
+        avatar:
           type: string
-        profile_picture:
+        details:
+          type: object
+          properties:
+            quote:
+              type: string
+            interest:
+              type: string
+            position:
+              type: string
+        social_networks:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              src:
+                type: string
+              url:
+                type: string
+              name:
+                type: string
+    UpdateUserDetailsRequest:
+      type: object
+      properties:
+        quote:
           type: string
+        interest:
+          type: string
+        position:
+          type: string
+    ReplaceAvatarRequest:
+      type: object
+      properties:
+        file:
+          type: string
+          format: binary
+    CreateSocialNetworkRequest:
+      type: object
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+        file:
+          type: string
+          format: binary
+    UpdateSocialNetworkRequest:
+      type: object
+      properties:
+        url:
+          type: string
+        name:
+          type: string
+        file:
+          type: string
+          format: binary
     Error:
       type: object
       properties:
