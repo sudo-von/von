@@ -1,15 +1,17 @@
 import {
-  BroadcastQuestion,
-  CreateBroadcastQuestion,
+  DailyQuestion,
+  CreateDailyQuestion,
 } from '../../domain/entities/question-entity/question-entities';
 import IQuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
-import validateBroadcastQuestionCreation from '../../domain/entities/question-entity/question-validations/create-broadcast-question-validations';
+import validateDailyQuestionCreation from '../../domain/entities/question-entity/question-validations/create-daily-question-validations';
 
 class QuestionUsecaseApplication implements IQuestionUsecase {
-  createBroadcastQuestion = (payload: CreateBroadcastQuestion): BroadcastQuestion => {
-    validateBroadcastQuestionCreation(payload);
+  createDailyQuestion = (
+    payload: CreateDailyQuestion,
+  ): DailyQuestion => {
+    validateDailyQuestionCreation(payload);
 
-    const question: BroadcastQuestion = {
+    const question: DailyQuestion = {
       askedBy: payload.askedBy,
       question: payload.question,
     };

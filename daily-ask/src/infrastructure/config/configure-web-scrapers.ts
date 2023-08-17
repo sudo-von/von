@@ -2,7 +2,7 @@ import {
   PuppeteerLaunchOptions,
 } from 'puppeteer';
 import LoggerService from '../services/logger-service/logger-service';
-import PuppeteerWebScraperService from '../services/web-scraper-service/puppeteer-web-scraper-service/puppeteer-web-scraper-service';
+import PuppeteerScraperService from '../services/scraper-service/puppeteer-scraper-service/puppeteer-scraper-service';
 
 const configureWebScraperServices = (loggerService: LoggerService) => {
   const options: PuppeteerLaunchOptions = {
@@ -14,21 +14,21 @@ const configureWebScraperServices = (loggerService: LoggerService) => {
     ],
   };
 
-  const generatorWebScraperService = new PuppeteerWebScraperService(
+  const generatorWebScraperService = new PuppeteerScraperService(
     'https://questionsgenerator.com/ice-breaker.php',
     '.support-sentence',
     loggerService,
     options,
   );
 
-  const startersWebScraperService = new PuppeteerWebScraperService(
+  const startersWebScraperService = new PuppeteerScraperService(
     'https://www.conversationstarters.com/generator.php',
     '#random',
     loggerService,
     options,
   );
 
-  const topicsWebScraperService = new PuppeteerWebScraperService(
+  const topicsWebScraperService = new PuppeteerScraperService(
     'https://eslconversationtopics.com/random-question-generator/',
     '.the-question',
     loggerService,

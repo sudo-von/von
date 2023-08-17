@@ -10,9 +10,9 @@ import Broker from '../../../brokers/broker';
 import ScheduledTaskService from '../scheduled-task-service';
 import LoggerService from '../../logger-service/logger-service';
 import {
-  CreateBroadcastQuestionBroker,
-} from '../../../brokers/dtos/question-dto/question-broker-dtos';
-import WebScraperService from '../../web-scraper-service/web-scraper-service';
+  CreateDailyQuestionBroker,
+} from '../../../brokers/entities/question-entity/question-broker-entities';
+import ScraperService from '../../scraper-service/scraper-service';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 
 class ScheduledBroadcastQuestionService extends ScheduledTaskService {
@@ -20,8 +20,8 @@ class ScheduledBroadcastQuestionService extends ScheduledTaskService {
     protected taskId: string,
     protected loggerService: LoggerService,
     protected questionUsecase: QuestionUsecase,
-    protected createQuestionProducer: Broker<CreateBroadcastQuestionBroker>,
-    protected questionWebScraperService: WebScraperService,
+    protected createQuestionProducer: Broker<CreateDailyQuestionBroker>,
+    protected questionWebScraperService: ScraperService,
   ) {
     super(taskId, loggerService);
   }
@@ -46,14 +46,15 @@ class ScheduledBroadcastQuestionService extends ScheduledTaskService {
 
       const extractedQuestion = await this.questionWebScraperService.scrape();
 
-      const question = this.questionUsecase.createBroadcastQuestion({
+      const question = this.questionUsecase.createDailyQuestion({
         askedBy: this.taskId,
         question: extractedQuestion,
       });
+      console.log(question);
 
       await this.questionWebScraperService.close();
 
-      this.createQuestionProducer.produce('Question:CreateBroadcastQuestion', {
+      this.createQuestionProducer.produce('Question:CreateDailyQuestion', {
         asked_by: question.askedBy,
         question: question.question,
       });

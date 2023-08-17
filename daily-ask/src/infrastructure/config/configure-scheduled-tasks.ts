@@ -1,19 +1,19 @@
 import Broker from '../brokers/broker';
 import {
-  CreateBroadcastQuestionBroker,
-} from '../brokers/dtos/question-dto/question-broker-dtos';
+  CreateDailyQuestionBroker,
+} from '../brokers/entities/question-entity/question-broker-entities';
 import LoggerService from '../services/logger-service/logger-service';
-import WebScraperService from '../services/web-scraper-service/web-scraper-service';
+import ScraperService from '../services/scraper-service/scraper-service';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import ScheduledBroadcastQuestionService from '../services/scheduled-task-service/scheduled-broadcast-question-service/scheduled-broadcast-question-service';
 
 const configureScheduledTasks = async (
   loggerService: LoggerService,
   questionUsecase: QuestionUsecase,
-  startersWebScraperService: WebScraperService,
-  topicsWebScraperService: WebScraperService,
-  generatorWebScraperService: WebScraperService,
-  createQuestionBroker: Broker<CreateBroadcastQuestionBroker>,
+  startersWebScraperService: ScraperService,
+  topicsWebScraperService: ScraperService,
+  generatorWebScraperService: ScraperService,
+  createQuestionBroker: Broker<CreateDailyQuestionBroker>,
 ) => {
   const morningScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
     'morning-scheduled-question-starters-web',
@@ -39,11 +39,11 @@ const configureScheduledTasks = async (
     generatorWebScraperService,
   );
 
-  await morningScheduledBroadcastQuestion.scheduleTask('* 10 * * *');
+  await morningScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
 
-  await afternoonScheduledBroadcastQuestion.scheduleTask('* 15 * * *');
+  await afternoonScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
 
-  await eveningScheduledBroadcastQuestion.scheduleTask('* 20 * * *');
+  await eveningScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
 };
 
 export default configureScheduledTasks;

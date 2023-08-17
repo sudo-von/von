@@ -5,8 +5,8 @@ import {
   ConsumeMessage,
 } from 'amqplib';
 import {
-  Queue,
-} from '../broker-queues';
+  Exchange,
+} from '../broker-exchanges';
 import Broker from '../broker';
 import {
   BrokerFailedToAckError,
@@ -47,11 +47,17 @@ abstract class AMQPBroker<T> extends Broker<T> {
     }
   };
 
-  consume = async (queue: Queue): Promise<void> => {
+  consume = async (exchange: Exchange): Promise<void> => {
     try {
       if (!this.channel) throw BrokerChannelIsClosedError;
 
-      await this.channel.assertQueue(queue);
+      await this.channel.assertExchange(exchange, 'fanout', { durable: false });
+
+      const { queue } = await this.channel.assertQueue('', {
+        exclusive: true,
+      });
+
+      this.channel.bindQueue(queue, exchange, '');
 
       this.channel.consume(queue, (message) => {
         if (!message) throw BrokerNoMessageAvailableError;
@@ -66,14 +72,15 @@ abstract class AMQPBroker<T> extends Broker<T> {
     }
   };
 
-  produce = async (queue: Queue, data: T): Promise<void> => {
+  produce = async (exchange: Exchange, data: T): Promise<void> => {
     try {
       if (!this.channel) throw BrokerChannelIsClosedError;
 
-      await this.channel.assertQueue(queue);
+      await this.channel.assertExchange(exchange, 'fanout', { durable: false });
 
       const buffer = Buffer.from(JSON.stringify(data));
-      this.channel.sendToQueue(queue, buffer);
+
+      this.channel.publish(exchange, '', buffer);
     } catch (e) {
       this.loggerService.error(BrokerFailedToSendMessageError.message, e as Error);
     }

@@ -1,15 +1,12 @@
 const questionRules = {
   askedBy: {
-    content: {
-      MIN_LENGTH: 1,
-    },
+    MIN_LENGTH: 1,
+    MAX_LENGTH: 150,
   },
   question: {
-    content: {
-      MIN_LENGTH: 3,
-      MAX_LENGTH: 100,
-    },
+    MIN_LENGTH: 3,
+    MAX_LENGTH: 150,
   },
-} as const;
+};
 
 export default questionRules;

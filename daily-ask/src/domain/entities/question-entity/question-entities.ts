@@ -1,6 +1,6 @@
-export type BroadcastQuestion = Readonly<{
+export type DailyQuestion = {
   askedBy: string;
   question: string;
-}>;
+};
 
-export type CreateBroadcastQuestion = BroadcastQuestion;
+export type CreateDailyQuestion = DailyQuestion;
