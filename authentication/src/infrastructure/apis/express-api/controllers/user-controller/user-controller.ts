@@ -56,7 +56,7 @@ class UserController {
 
       res.status(statusCodes.OK).send({ result: secureUserResponse });
 
-      await this.updateUserProducer.produce('User:UpdateUser', {
+      await this.updateUserProducer.produce('Authentication:UpdateUser', {
         user_id: secureUser.id,
         username: secureUser.username,
       });

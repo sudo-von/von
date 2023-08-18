@@ -1,6 +1,6 @@
 export type Exchange =
-| UserExchange;
+| AuthenticationExchange;
 
-export type UserExchange =
-| 'User:CreateUser'
-| 'User:UpdateUser';
+export type AuthenticationExchange =
+| 'Authentication:CreateUser'
+| 'Authentication:UpdateUser';

@@ -53,7 +53,7 @@ class AuthenticationController {
 
       res.status(statusCodes.CREATED).send({ result: secureUserResponse });
 
-      await this.createUserProducer.produce('User:CreateUser', {
+      await this.createUserProducer.produce('Authentication:CreateUser', {
         user_id: secureUser.id,
         username: secureUser.username,
       });
