@@ -5,9 +5,8 @@ module.exports = {
   collectCoverage: true,
   testEnvironment: 'node',
   coverageReporters: ['text'],
-  displayName: { name: 'ask', color: 'yellow' },
+  displayName: { name: 'ask', color: 'blue' },
   testMatch: [
-    "<rootDir>/tests/**/*.test.ts",
     "<rootDir>/tests/**/*.unit-test.ts"
   ],
 };

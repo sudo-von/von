@@ -1,0 +1,13 @@
+openapi: 3.0.0
+info:
+  title: Ask microservice
+  description: |-
+    Provides endpoints for questions and answers within the application.
+  contact:
+    name: Jesús Ángel Rodríguez Martínez.
+    email: sudo.von.contact@gmail.com
+  version: 1.0.0
+
+externalDocs:
+  description: Discover more in the repository.
+  url: https://github.com/sudo-von/von/tree/master/ask
