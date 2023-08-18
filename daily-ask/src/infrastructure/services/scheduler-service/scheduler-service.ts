@@ -16,7 +16,7 @@ interface ISchedulerServiceReader {
    * @param {string} pattern - The scheduling pattern for the task.
    * @param {Function} task - The callback function representing the task to be scheduled.
    */
-  scheduleTask: (pattern: string, task: Function)
+  schedule: (pattern: string, task: Function)
   => void;
 }
 

@@ -9,13 +9,6 @@ export const SchedulerServiceCallbackFailedError = (
   message: `Callback execution failed: '${details}'.`,
 });
 
-export const SchedulerServiceUnexpectedError = (
-  details: string,
-) => createServiceErrorFactory({
-  code: 'SCHEDULER_SERVICE_UNEXPECTED',
-  message: `Failed to schedule: '${details}'.`,
-});
-
 export const SchedulerServiceInvalidPatternError = (
   pattern: string,
 ) => createServiceErrorFactory({

@@ -1,7 +1,7 @@
 import AMQPBroker from '../amqp-broker';
 import {
   CreateDailyQuestionBroker,
-} from '../../entities/question-entity/question-broker-entities';
+} from '../../entities/daily-question-entity/daily-question-broker-entities';
 
 class AMQPCreateDailyQuestionProducer extends AMQPBroker<CreateDailyQuestionBroker> {}
 

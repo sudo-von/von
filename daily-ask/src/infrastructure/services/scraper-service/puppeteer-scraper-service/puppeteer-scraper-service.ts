@@ -15,7 +15,7 @@ import {
   ScraperServiceMissingConnectionError,
   ScraperServiceUnexpectedStatusCodeError,
 } from '../scraper-errors';
-import ScraperService from '../scraper-service';
+import ScraperService from '../../../../domain/services/scraper-service/scraper-service';
 
 class PuppeteerScraperService extends ScraperService {
   private browser?: Browser;

@@ -9,7 +9,6 @@ export type ServiceErrorCode =
 
 export type SchedulerServiceErrorCode =
 | 'SCHEDULER_SERVICE_CALLBACK_FAILED'
-| 'SCHEDULER_SERVICE_UNEXPECTED'
 | 'SCHEDULER_SERVICE_INVALID_PATTERN';
 
 export type ScraperServiceErrorCode =

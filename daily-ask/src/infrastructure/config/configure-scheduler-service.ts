@@ -1,43 +1,31 @@
 import Broker from '../brokers/broker';
+import LoggerService from '../services/logger-service/logger-service';
 import {
   CreateDailyQuestionBroker,
-} from '../brokers/entities/question-entity/question-broker-entities';
-import LoggerService from '../services/logger-service/logger-service';
-import ScraperService from '../services/scraper-service/scraper-service';
+} from '../brokers/entities/daily-question-entity/daily-question-broker-entities';
 import DailyQuestionUsecase from '../../domain/usecases/daily-question-usecase/daily-question-usecase';
-import NodeCronSchedulerService from '../services/scheduler-service/node-cron-scheduler-service/node-cron-scheduler-service';
+import CronSchedulerService from '../services/scheduler-service/cron-scheduler-service/cron-scheduler-service';
 
 const configureSchedulerService = async (
   loggerService: LoggerService,
   questionUsecase: DailyQuestionUsecase,
-  startersWebScraperService: ScraperService,
-  topicsWebScraperService: ScraperService,
-  generatorWebScraperService: ScraperService,
-  createQuestionBroker: Broker<CreateDailyQuestionBroker>,
+  createDailyQuestionBroker: Broker<CreateDailyQuestionBroker>,
 ) => {
-  const schedulerService = new NodeCronSchedulerService();
+  const schedulerService = new CronSchedulerService();
 
-  const afternoonScheduledBroadcastQuestion = new NodeCronSchedulerService(
-    'afternoon-scheduled-question-topics-web',
-    loggerService,
-    questionUsecase,
-    createQuestionBroker,
-    topicsWebScraperService,
-  );
+  schedulerService.schedule('*/10 * * * * *', async () => {
+    try {
+      const dailyQuestion = await questionUsecase.createDailyQuestion('daily-question-microservice');
+      console.log('🚀 ~ file: configure-scheduler-service.ts:19 ~ schedulerService.schedule ~ dailyQuestion:', dailyQuestion);
 
-  const eveningScheduledBroadcastQuestion = new NodeCronSchedulerService(
-    'evening-scheduled-question-generator-web',
-    loggerService,
-    questionUsecase,
-    createQuestionBroker,
-    generatorWebScraperService,
-  );
-
-  await morningScheduledBroadcastQuestion.schedule('*/5 * * * * *');
-
-  await afternoonScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
-
-  await eveningScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
+      await createDailyQuestionBroker.produce('DailyQuestion:CreateDailyQuestion', {
+        asked_by: dailyQuestion.askedBy,
+        question: dailyQuestion.question,
+      });
+    } catch (e) {
+      loggerService.error('There was a scheduler error.', e as Error);
+    }
+  });
 };
 
 export default configureSchedulerService;

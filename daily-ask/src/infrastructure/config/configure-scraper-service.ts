@@ -13,15 +13,13 @@ const configureScraperService = () => {
     ],
   };
 
-  const questionScraperService = new PuppeteerScraperService(
+  const scraperService = new PuppeteerScraperService(
     'https://questionsgenerator.com/ice-breaker.php',
     '.support-sentence',
     options,
   );
 
-  return {
-    questionScraperService,
-  };
+  return scraperService;
 };
 
 export default configureScraperService;

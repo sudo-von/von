@@ -1,22 +1,29 @@
 import {
-  DailyQuestion,
   CreateDailyQuestion,
 } from '../../domain/entities/daily-question-entity/daily-question-entities';
 import IDailyQuestionUsecase from '../../domain/usecases/daily-question-usecase/daily-question-usecase';
 import validateDailyQuestionCreation from '../../domain/entities/daily-question-entity/daily-question-validations/create-daily-question-validations';
 
-class DailyQuestionUsecaseApplication implements IDailyQuestionUsecase {
-  createDailyQuestion = (
-    payload: CreateDailyQuestion,
-  ): DailyQuestion => {
-    validateDailyQuestionCreation(payload);
+class DailyQuestionUsecaseApplication extends IDailyQuestionUsecase {
+  createDailyQuestion = async (
+    askedBy: string,
+  ): Promise<CreateDailyQuestion> => {
+    try {
+      await this.scraperService.connect();
 
-    const question: DailyQuestion = {
-      askedBy: payload.askedBy,
-      question: payload.question,
-    };
+      const question = await this.scraperService.scrape();
 
-    return question;
+      const createdDailyQuestion: CreateDailyQuestion = {
+        askedBy,
+        question,
+      };
+
+      validateDailyQuestionCreation(createdDailyQuestion);
+
+      return createdDailyQuestion;
+    } finally {
+      await this.scraperService.close();
+    }
   };
 }
 

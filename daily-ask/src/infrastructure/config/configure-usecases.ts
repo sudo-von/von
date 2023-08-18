@@ -1,8 +1,8 @@
-import ScraperService from '../services/scraper-service/scraper-service';
+import ScraperService from '../../domain/services/scraper-service/scraper-service';
 import DailyQuestionUsecaseApplication from '../../application/daily-question-usecase/daily-question-usecase';
 
-const configureUsecases = (scrapperService: ScraperService) => {
-  const questionUsecase = new DailyQuestionUsecaseApplication(scrapperService);
+const configureUsecases = (scraperService: ScraperService) => {
+  const questionUsecase = new DailyQuestionUsecaseApplication(scraperService);
 
   return {
     questionUsecase,

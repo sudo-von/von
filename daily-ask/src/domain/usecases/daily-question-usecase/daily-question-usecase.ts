@@ -1,27 +1,27 @@
 import {
-  DailyQuestion,
   CreateDailyQuestion,
 } from '../../entities/daily-question-entity/daily-question-entities';
+import ScraperService from '../../services/scraper-service/scraper-service';
 
 /**
- * Interface for a daily question use case with write operations.
- * @interface
+ * Abstract class representing a daily question use case.
+ * @abstract
  */
-interface IDailyQuestionUsecaseWriter {
+abstract class DailyQuestionUsecase {
   /**
-   * Creates a daily question.
-   * @param {CreateDailyQuestion} payload - The payload for creating a daily question.
-   * @returns {DailyQuestion} The created daily question.
+   * Creates an instance of DailyQuestionUsecase.
+   * @constructor
+   * @param {ScraperService} scraperService - The scraper service.
    */
-  createDailyQuestion: (payload: CreateDailyQuestion)
-  => DailyQuestion;
+  constructor(protected readonly scraperService: ScraperService) {}
+
+  /**
+   * Creates a daily question requested by an asker..
+   * @param {string} askedBy - The name of the asker requesting the daily question.
+   * @returns {CreateDailyQuestion} A promise with the created daily question.
+   */
+  abstract createDailyQuestion: (askedBy: string)
+  => Promise<CreateDailyQuestion>;
 }
 
-/**
- * Interface for a daily question use case that extends the writing capabilities.
- * @interface
- * @extends {IDailyQuestionUsecaseWriter}
- */
-interface IDailyQuestionUsecase extends IDailyQuestionUsecaseWriter {}
-
-export default IDailyQuestionUsecase;
+export default DailyQuestionUsecase;
