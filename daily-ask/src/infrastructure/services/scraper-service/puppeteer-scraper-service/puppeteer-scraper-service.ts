@@ -86,6 +86,8 @@ class PuppeteerScraperService extends ScraperService {
         throw ScraperServiceEmptyContentError(this.url, this.selector);
       }
 
+      await selector.dispose();
+
       return content;
     } catch (e) {
       throw ScraperServiceFailedToScrapeError((e as Error).message);

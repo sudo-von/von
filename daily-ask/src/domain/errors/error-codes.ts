@@ -4,8 +4,8 @@ export type DomainError = {
 };
 
 export type DomainErrorCode =
-| QuestionErrorCode;
+| DailyQuestionErrorCode;
 
-export type QuestionErrorCode =
+export type DailyQuestionErrorCode =
 | 'INVALID_ASKED_BY_LENGTH'
 | 'INVALID_QUESTION_LENGTH';

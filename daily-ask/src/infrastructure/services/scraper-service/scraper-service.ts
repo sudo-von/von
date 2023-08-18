@@ -4,9 +4,9 @@
  */
 abstract class ScraperService {
   /**
-   * Creates an instance of WebScraperService.
+   * Creates an instance of ScraperService.
    * @constructor
-   * @param {string} url - The URL to scrape.
+   * @param {string} url - The url to scrape.
    * @param {string} selector - The selector for the desired content.
    */
   constructor(

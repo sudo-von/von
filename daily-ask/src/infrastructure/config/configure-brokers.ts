@@ -5,15 +5,12 @@ const configureBrokers = async (
   url: string,
   loggerService: LoggerService,
 ) => {
-  const createBroadcastQuestionProducer = new AMQPCreateDailyQuestionProducer(
-    url,
-    loggerService,
-  );
+  const createDailyQuestionProducer = new AMQPCreateDailyQuestionProducer(url, loggerService);
 
-  await createBroadcastQuestionProducer.connect();
+  await createDailyQuestionProducer.connect();
 
   return {
-    createBroadcastQuestionProducer,
+    createDailyQuestionProducer,
   };
 };
 

@@ -4,12 +4,13 @@ export type ServiceError = {
 };
 
 export type ServiceErrorCode =
-| ScheduledTaskService
+| SchedulerServiceErrorCode
 | ScraperServiceErrorCode;
 
-export type ScheduledTaskService =
-| 'SCHEDULED_TASK_SERVICE_FAILED_TO_PROCESS'
-| 'SCHEDULED_TASK_SERVICE_INVALID_PATTERN';
+export type SchedulerServiceErrorCode =
+| 'SCHEDULER_SERVICE_CALLBACK_FAILED'
+| 'SCHEDULER_SERVICE_UNEXPECTED'
+| 'SCHEDULER_SERVICE_INVALID_PATTERN';
 
 export type ScraperServiceErrorCode =
 | 'SCRAPER_SERVICE_EMPTY_CONTENT'

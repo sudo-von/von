@@ -1,4 +1,4 @@
-const questionRules = {
+const dailyQuestionRules = {
   askedBy: {
     MIN_LENGTH: 1,
     MAX_LENGTH: 150,
@@ -9,4 +9,4 @@ const questionRules = {
   },
 };
 
-export default questionRules;
+export default dailyQuestionRules;

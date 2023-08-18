@@ -4,26 +4,20 @@ import {
 } from '../brokers/entities/question-entity/question-broker-entities';
 import LoggerService from '../services/logger-service/logger-service';
 import ScraperService from '../services/scraper-service/scraper-service';
-import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
-import ScheduledBroadcastQuestionService from '../services/scheduled-task-service/scheduled-broadcast-question-service/scheduled-broadcast-question-service';
+import DailyQuestionUsecase from '../../domain/usecases/daily-question-usecase/daily-question-usecase';
+import NodeCronSchedulerService from '../services/scheduler-service/node-cron-scheduler-service/node-cron-scheduler-service';
 
-const configureScheduledTasks = async (
+const configureSchedulerService = async (
   loggerService: LoggerService,
-  questionUsecase: QuestionUsecase,
+  questionUsecase: DailyQuestionUsecase,
   startersWebScraperService: ScraperService,
   topicsWebScraperService: ScraperService,
   generatorWebScraperService: ScraperService,
   createQuestionBroker: Broker<CreateDailyQuestionBroker>,
 ) => {
-  const morningScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
-    'morning-scheduled-question-starters-web',
-    loggerService,
-    questionUsecase,
-    createQuestionBroker,
-    startersWebScraperService,
-  );
+  const schedulerService = new NodeCronSchedulerService();
 
-  const afternoonScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
+  const afternoonScheduledBroadcastQuestion = new NodeCronSchedulerService(
     'afternoon-scheduled-question-topics-web',
     loggerService,
     questionUsecase,
@@ -31,7 +25,7 @@ const configureScheduledTasks = async (
     topicsWebScraperService,
   );
 
-  const eveningScheduledBroadcastQuestion = new ScheduledBroadcastQuestionService(
+  const eveningScheduledBroadcastQuestion = new NodeCronSchedulerService(
     'evening-scheduled-question-generator-web',
     loggerService,
     questionUsecase,
@@ -39,11 +33,11 @@ const configureScheduledTasks = async (
     generatorWebScraperService,
   );
 
-  await morningScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
+  await morningScheduledBroadcastQuestion.schedule('*/5 * * * * *');
 
   await afternoonScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
 
   await eveningScheduledBroadcastQuestion.scheduleTask('*/5 * * * * *');
 };
 
-export default configureScheduledTasks;
+export default configureSchedulerService;

@@ -1,14 +1,14 @@
 import {
   InvalidAskedByLengthError,
   InvalidQuestionLengthError,
-} from '../question-errors';
+} from '../daily-question-errors';
 import {
   CreateDailyQuestion,
-} from '../question-entities';
+} from '../daily-question-entities';
 import {
   validateAskedByLength,
   validateQuestionLength,
-} from './question-validations';
+} from './daily-question-validations';
 
 const validateDailyQuestionCreation = (payload: CreateDailyQuestion) => {
   const isAskedByLengthValid = validateAskedByLength(payload.askedBy);

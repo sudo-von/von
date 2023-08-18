@@ -6,7 +6,6 @@
     "build": "tsc",
     "start": "node build/index.js",
     "start:dev": "nodemon",
-    "test": "jest",
     "test:unit": "jest --testMatch '<rootDir>/tests/**/*.unit.test.ts'"
   },
   "keywords": [

@@ -15,14 +15,14 @@ export const ScraperServiceFailedToCloseError = (
   details: string,
 ) => createServiceErrorFactory({
   code: 'SCRAPER_SERVICE_FAILED_TO_CLOSE',
-  message: `Failed to close the connection: ${details}`,
+  message: `Failed to close the connection: '${details}'.`,
 });
 
 export const ScraperServiceFailedToConnectError = (
   details: string,
 ) => createServiceErrorFactory({
   code: 'SCRAPER_SERVICE_FAILED_TO_CONNECT',
-  message: `Failed to establish a connection: ${details}.`,
+  message: `Failed to establish a connection: '${details}'.`,
 });
 
 export const ScraperServiceFailedToScrapeError = (

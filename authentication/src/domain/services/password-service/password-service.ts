@@ -1,5 +1,5 @@
 /**
- * Interface for a password service with read operations.
+ * An Interface for a password service with read operations.
  * @interface
  */
 export interface IPasswordServiceReader {
@@ -14,7 +14,7 @@ export interface IPasswordServiceReader {
 }
 
 /**
- * Interface for a password service with write operations.
+ * An Interface for a password service with write operations.
  * @interface
  */
 export interface IPasswordServiceWriter {
