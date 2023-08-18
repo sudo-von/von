@@ -21,7 +21,7 @@ interface ISchedulerServiceReader {
 }
 
 /**
- * An interface for a scheduler service that extends the reading capabilities.
+ * Interface for a scheduler service that extends the reading capabilities.
  * @interface
  * @extends {ISchedulerServiceReader}
  */

@@ -13,10 +13,9 @@ const configureSchedulerService = async (
 ) => {
   const schedulerService = new CronSchedulerService();
 
-  schedulerService.schedule('*/10 * * * * *', async () => {
+  schedulerService.schedule('0 12 * * *', async () => {
     try {
       const dailyQuestion = await questionUsecase.createDailyQuestion('daily-question-microservice');
-      console.log('🚀 ~ file: configure-scheduler-service.ts:19 ~ schedulerService.schedule ~ dailyQuestion:', dailyQuestion);
 
       await createDailyQuestionBroker.produce('DailyQuestion:CreateDailyQuestion', {
         asked_by: dailyQuestion.askedBy,
