@@ -42,7 +42,7 @@ describe('create daily question validations', () => {
   });
 
   describe('when daily question is invalid', () => {
-    it('should throw a specific exception when asked by is invalid', () => {
+    it('should throw a specific exception when asked by is validated', () => {
       validateAskedByLengthMock.mockImplementationOnce(() => false);
 
       expect(() => validateDailyQuestionCreation(payload)).toThrowError(InvalidAskedByLengthError);
@@ -50,7 +50,7 @@ describe('create daily question validations', () => {
       expect(validateAskedByLengthMock).toBeCalledTimes(1);
     });
 
-    it('should throw a specific exception when question is invalid', () => {
+    it('should throw a specific exception when question is validated', () => {
       validateAskedByLengthMock.mockImplementationOnce(() => true);
       validateQuestionLengthMock.mockImplementationOnce(() => false);
 

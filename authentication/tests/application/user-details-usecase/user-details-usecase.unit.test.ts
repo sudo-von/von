@@ -60,7 +60,7 @@ describe('user details use case', () => {
     };
 
     describe('when user details are invalid', () => {
-      it('should throw a specific exception', async () => {
+      it('should throw an exception', async () => {
         validateUserDetailsReplacementMock.mockImplementationOnce(() => { throw new Error(); });
 
         await expect(userDetailsUsecase.replaceUserDetailsByUsername(username, payload))
