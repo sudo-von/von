@@ -3,7 +3,7 @@ import {
 } from './security-service-algorithms';
 
 /**
- * An interface for a security service with write operations.
+ * Interface for a security service with write operations.
  * @interface
  */
 interface ISecurityServiceWriter {
@@ -26,7 +26,7 @@ interface ISecurityServiceWriter {
 }
 
 /**
- * An interface for security services that extends the writing capabilities.
+ * Interface for security services that extends the writing capabilities.
  * @interface
  * @extends {ISecurityServiceWriter}
  */

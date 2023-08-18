@@ -11,7 +11,7 @@ export const TokenServiceFailedToGenerateTokenError = (
   details: string,
 ) => createServiceErrorFactory({
   code: 'TOKEN_SERVICE_FAILED_TO_GENERATE_TOKEN',
-  message: `An error occurred during token generation: ${details}.`,
+  message: `An error occurred during token generation: '${details}'.`,
 });
 
 export const TokenServiceInvalidTokenError = createServiceErrorFactory({
