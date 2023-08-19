@@ -3,16 +3,16 @@ import {
   DetailedMetrics,
 } from '../metric-entity/metric-entities';
 
-export type DetailedUser = Readonly<{
+export type DetailedUser = {
   id: string;
   userId: string;
   username: string;
   metrics: DetailedMetrics;
-}>;
+};
 
-export type User = Readonly<Omit<DetailedUser, 'metrics'> & {
+export type User = Omit<DetailedUser, 'metrics'> & {
   metrics: Metrics;
-}>;
+};
 
 export type CreateUser = Pick<User, 'userId' | 'username'>;
 
