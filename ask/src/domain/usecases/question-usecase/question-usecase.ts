@@ -24,9 +24,10 @@ abstract class QuestionUsecase {
    * Deletes a question by its ID.
    * @authentication Requires authentication to access this method.
    * @param {string} id - The ID of the question.
+   * @returns {Promise<DetailedQuestion>} A promise with the detailed question.
    */
   abstract deleteQuestionById: (id: string)
-  => Promise<void>;
+  => Promise<DetailedQuestion>;
 
   /**
    * Retrieves questions by username.

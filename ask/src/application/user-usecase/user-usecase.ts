@@ -9,25 +9,10 @@ import {
   DetailedUser,
 } from '../../domain/entities/user-entity/user-entities';
 import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
-import basicUserToDetailedUser from '../../domain/entities/user-entity/user-mappers';
 import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  getUserByUsername = async (
-    username: string,
-  ): Promise<DetailedUser> => {
-    const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
-
-    const answers = await this.questionRepository.getQuestions({ username, status: 'answered' });
-
-    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
-
-    const detailedUser = basicUserToDetailedUser(user, answers.length, questions.length);
-    return detailedUser;
-  };
-
   createUser = async (
     payload: CreateUser,
   ): Promise<DetailedUser> => {
@@ -46,7 +31,39 @@ class UserUsecaseApplication extends UserUsecase {
       },
     });
 
-    const detailedUser = basicUserToDetailedUser(createdUser, initialTotal, initialTotal);
+    const detailedUser: DetailedUser = {
+      id: createdUser.id,
+      userId: createdUser.userId,
+      username: createdUser.username,
+      metrics: {
+        totalAnswers: initialTotal,
+        totalQuestions: initialTotal,
+        totalViews: createdUser.metrics.totalViews,
+      },
+    };
+    return detailedUser;
+  };
+
+  getUserByUsername = async (
+    username: string,
+  ): Promise<DetailedUser> => {
+    const user = await this.userRepository.getUser({ username });
+    if (!user) throw UserNotFoundError;
+
+    const answers = await this.questionRepository.getQuestions({ username, status: 'answered' });
+
+    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
+
+    const detailedUser: DetailedUser = {
+      id: user.id,
+      userId: user.userId,
+      username: user.username,
+      metrics: {
+        totalAnswers: answers.length,
+        totalQuestions: questions.length,
+        totalViews: user.metrics.totalViews,
+      },
+    };
     return detailedUser;
   };
 
@@ -68,7 +85,16 @@ class UserUsecaseApplication extends UserUsecase {
 
     const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
 
-    const detailedUser = basicUserToDetailedUser(updatedUser, answers.length, questions.length);
+    const detailedUser: DetailedUser = {
+      id: updatedUser.id,
+      userId: updatedUser.userId,
+      username: updatedUser.username,
+      metrics: {
+        totalAnswers: answers.length,
+        totalQuestions: questions.length,
+        totalViews: updatedUser.metrics.totalViews,
+      },
+    };
     return detailedUser;
   };
 }

@@ -1,5 +1,5 @@
 import {
-  PartialUser,
+  User,
 } from '../../entities/user-entity/user-entities';
 
-export type UserRepositoryFilters = PartialUser;
+export type UserRepositoryFilters = Partial<User>;

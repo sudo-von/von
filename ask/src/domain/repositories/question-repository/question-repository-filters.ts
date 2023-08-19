@@ -1,13 +1,11 @@
-import {
-  DetailedQuestion,
-} from '../../entities/question-entity/question-entities';
-
 type QuestionRepositoryStatus =
 | 'answered'
 | 'unanswered'
 | 'both';
 
-export type QuestionRepositoryFilters = Partial<Pick<DetailedQuestion, 'id' | 'username'> & {
+export type QuestionRepositoryFilters = Partial<{
+  id: string;
+  username: string;
   isDeleted: boolean;
   status: QuestionRepositoryStatus;
 }>;

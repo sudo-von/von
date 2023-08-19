@@ -17,11 +17,9 @@ export type DetailedUser = User & {
   metrics: DetailedMetrics;
 };
 
-export type PartialUser = Partial<User>;
-
 export type CreateUser = Omit<User, 'id'>;
 
-export type UpdateUser = Omit<User, 'id' | 'userId'>;
+export type UpdateUser = Pick<User, 'username'>;
 
 export type CreateBasicUser = Omit<BasicUser, 'id'>;
 

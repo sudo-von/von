@@ -18,12 +18,14 @@ import validateQuestionCreation from '../../domain/entities/question-entity/ques
 class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (
     id: string,
-  ): Promise<void> => {
+  ): Promise<DetailedQuestion> => {
     const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     const deletedQuestion = await this.questionRepository.deleteQuestion({ id });
     if (!deletedQuestion) throw QuestionDeleteFailedError;
+
+    return deletedQuestion;
   };
 
   getQuestionsByUsername = async (
