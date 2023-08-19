@@ -14,6 +14,7 @@ import {
 } from '../../domain/entities/question-entity/question-entities';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import validateQuestionCreation from '../../domain/entities/question-entity/question-validations/create-question-validations';
+import validateDailyQuestionCreation from '../../domain/entities/question-entity/question-validations/create-daily-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (
@@ -38,6 +39,24 @@ class QuestionUsecaseApplication extends QuestionUsecase {
 
     const formatedQuestions = formatQuestions(questions);
     return formatedQuestions;
+  };
+
+  createDailyQuestion = async (
+    payload: CreateQuestion,
+  ): Promise<void> => {
+    validateDailyQuestionCreation(payload);
+
+    const users = await this.userRepository.getUsers();
+
+    await Promise.all(
+      users.map((user) => this.questionRepository.createQuestion({
+        views: 0,
+        askedAt: new Date(),
+        username: user.username,
+        askedBy: payload.askedBy,
+        question: payload.question,
+      })),
+    );
   };
 
   createQuestionByUsername = async (

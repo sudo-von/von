@@ -16,7 +16,6 @@ abstract class MetricUsecase {
 
   /**
    * Increases the total views for a user by username.
-   * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user.
    * @returns {Promise<User>} A promise that resolves with the updated user.
    */

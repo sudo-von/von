@@ -15,8 +15,10 @@ export type DetailedQuestion = Question & {
   answer?: DetailedAnswer;
 };
 
+export type CreateQuestion = Omit<Question, 'id'>;
+
+export type CreateDailyQuestion = Omit<Question, 'id'>;
+
 export type CreateDetailedQuestion = Omit<DetailedQuestion, 'id'>;
 
-export type PartialDetailedQuestion = Partial<DetailedQuestion>;
-
-export type CreateQuestion = Omit<Question, 'id'>;
+export type PartialDetailedQuestion = Partial<Omit<DetailedQuestion, 'id'>>;

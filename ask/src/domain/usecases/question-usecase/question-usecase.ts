@@ -1,6 +1,7 @@
 import {
   CreateQuestion,
   DetailedQuestion,
+  CreateDailyQuestion,
 } from '../../entities/question-entity/question-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 import IQuestionRepository from '../../repositories/question-repository/question-repository';
@@ -37,6 +38,15 @@ abstract class QuestionUsecase {
    */
   abstract getQuestionsByUsername: (username: string)
   => Promise<DetailedQuestion[]>;
+
+  /**
+   * Creates a daily question with the provided payload.
+   * @broker Can only be consumed through a broker.
+   * @param {CreateDailyQuestion} payload - The payload for creating the daily question.
+   * @returns {Promise<void>} A promise that resolves when the daily question is created.
+   */
+  abstract createDailyQuestion: (payload: CreateDailyQuestion)
+  => Promise<void>;
 
   /**
    * Creates a question for a user by its username.

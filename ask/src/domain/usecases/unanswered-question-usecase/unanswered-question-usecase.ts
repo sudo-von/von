@@ -21,6 +21,7 @@ abstract class UnansweredQuestionUsecase {
 
   /**
    * Retrieves unanswered questions by username.
+   * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user.
    * @returns {Promise<DetailedQuestion[]>} A promise with an array of detailed questions.
    */

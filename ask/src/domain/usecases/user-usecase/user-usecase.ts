@@ -23,6 +23,7 @@ abstract class UserUsecase {
 
   /**
    * Creates a user with the provided payload.
+   * @broker Can only be consumed through a broker.
    * @param {CreateUser} payload - The payload for creating the user.
    * @returns {Promise<DetailedUser>} A promise with the detailed user.
    */
@@ -39,6 +40,7 @@ abstract class UserUsecase {
 
   /**
    * Updates a user by user ID.
+   * @broker Can only be consumed through a broker.
    * @param {string} userId - The user ID of the user to update.
    * @param {UpdateUser} payload - The payload for updating the user.
    * @returns {Promise<DetailedUser>} A promise with the detailed user.
