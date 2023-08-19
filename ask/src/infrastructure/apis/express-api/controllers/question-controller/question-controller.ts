@@ -1,23 +1,28 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCode from 'http-status-codes';
-import CreateQuestionRequest from '../../../entities/question-dto/question-server-request-dtos';
+import {
+  UserPermissionDeniedServerError,
+} from '../../../entities/domain-entities/user-entity/user-errors';
 import QuestionUsecase from '../../../../../domain/usecases/question-usecase/question-usecase';
-import questionToDetailedQuestionResponse from '../../../entities/question-dto/question-server-mappers';
+import detailedQuestionToResponse from '../../../entities/domain-entities/question-entity/question-mappers';
+import CreateQuestionRequest from '../../../entities/domain-entities/question-entity/question-request-entities';
 
 class QuestionController {
   constructor(private readonly questionUsecase: QuestionUsecase) {}
 
-  deleteQuestionById = async (req: Request, res: Response, next: NextFunction) => {
+  deleteQuestionById: RequestHandler = async (req, res, next) => {
     try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
       const id = req.params.id.toLowerCase();
 
       const question = await this.questionUsecase.deleteQuestionById(id);
 
-      const questionResponse = questionToDetailedQuestionResponse(question);
+      const questionResponse = detailedQuestionToResponse(question);
 
       res.status(statusCode.ACCEPTED).send({ result: questionResponse });
     } catch (e) {
@@ -25,14 +30,18 @@ class QuestionController {
     }
   };
 
-  getQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  getQuestionsByUsername: RequestHandler = async (req, res, next) => {
     try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
       const username = req.params.username.toLowerCase();
 
       const questions = await this.questionUsecase.getQuestionsByUsername(username);
 
       const questionResponses = questions.map(
-        (question) => questionToDetailedQuestionResponse(question),
+        (question) => detailedQuestionToResponse(question),
       );
 
       res.status(statusCode.OK).send({ result: questionResponses });
@@ -41,7 +50,7 @@ class QuestionController {
     }
   };
 
-  createQuestionByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  createQuestionByUsername: RequestHandler = async (req, res, next) => {
     try {
       const username = req.params.username.toLowerCase();
 
@@ -52,7 +61,7 @@ class QuestionController {
         question: payload.question,
       });
 
-      const questionResponse = questionToDetailedQuestionResponse(createdQuestion);
+      const questionResponse = detailedQuestionToResponse(createdQuestion);
 
       res.status(statusCode.CREATED).send({ result: questionResponse });
     } catch (e) {

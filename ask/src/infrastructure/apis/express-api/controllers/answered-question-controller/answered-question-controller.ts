@@ -1,11 +1,9 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCode from 'http-status-codes';
 import MetricUsecase from '../../../../../domain/usecases/metric-usecase/metric-usecase';
-import questionToDetailedQuestionResponse from '../../../entities/question-dto/question-server-mappers';
+import detailedQuestionToResponse from '../../../entities/domain-entities/question-entity/question-mappers';
 import AnsweredQuestionUsecase from '../../../../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionController {
@@ -14,7 +12,7 @@ class AnsweredQuestionController {
     private readonly answeredQuestionUsecase: AnsweredQuestionUsecase,
   ) {}
 
-  getAnsweredQuestionById = async (req: Request, res: Response, next: NextFunction) => {
+  getAnsweredQuestionById: RequestHandler = async (req, res, next) => {
     try {
       const id = req.params.id.toLowerCase();
 
@@ -22,7 +20,7 @@ class AnsweredQuestionController {
 
       await this.metricUsecase.increaseTotalViewsByUsername(question.username);
 
-      const questionResponse = questionToDetailedQuestionResponse(question);
+      const questionResponse = detailedQuestionToResponse(question);
 
       res.status(statusCode.OK).send({ result: questionResponse });
     } catch (e) {
@@ -30,7 +28,7 @@ class AnsweredQuestionController {
     }
   };
 
-  getAnsweredQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  getAnsweredQuestionsByUsername: RequestHandler = async (req, res, next) => {
     try {
       const username = req.params.username.toLowerCase();
 
@@ -39,7 +37,7 @@ class AnsweredQuestionController {
       await this.metricUsecase.increaseTotalViewsByUsername(username);
 
       const questionResponses = questions.map(
-        (question) => questionToDetailedQuestionResponse(question),
+        (question) => detailedQuestionToResponse(question),
       );
 
       res.status(statusCode.OK).send({ result: questionResponses });

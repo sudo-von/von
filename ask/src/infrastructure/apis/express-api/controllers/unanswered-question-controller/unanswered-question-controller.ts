@@ -4,7 +4,10 @@ import {
   NextFunction,
 } from 'express';
 import statusCode from 'http-status-codes';
-import questionToDetailedQuestionResponse from '../../../entities/question-dto/question-server-mappers';
+import {
+  UserPermissionDeniedServerError,
+} from '../../../entities/domain-entities/user-entity/user-errors';
+import detailedQuestionToResponse from '../../../entities/domain-entities/question-entity/question-mappers';
 import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered-question-usecase/unanswered-question-usecase';
 
 class UnansweredQuestionController {
@@ -12,6 +15,10 @@ class UnansweredQuestionController {
 
   getUnansweredQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
       const username = req.params.username.toLowerCase();
 
       const questions = await this.unansweredQuestionUsecase.getUnansweredQuestionsByUsername(
@@ -19,7 +26,7 @@ class UnansweredQuestionController {
       );
 
       const questionResponses = questions.map(
-        (question) => questionToDetailedQuestionResponse(question),
+        (question) => detailedQuestionToResponse(question),
       );
 
       res.status(statusCode.OK).send({ result: questionResponses });

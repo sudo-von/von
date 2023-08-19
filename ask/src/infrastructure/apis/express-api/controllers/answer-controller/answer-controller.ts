@@ -1,26 +1,31 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCode from 'http-status-codes';
+import {
+  UserPermissionDeniedServerError,
+} from '../../../entities/domain-entities/user-entity/user-errors';
 import {
   CreateAnswerRequest,
   UpdateAnswerRequest,
 } from '../../../entities/domain-entities/answer-entity/answer-request-entities';
 import AnswerUsecase from '../../../../../domain/usecases/answer-usecase/answer-usecase';
-import questionToDetailedQuestionResponse from '../../../entities/question-dto/question-server-mappers';
+import detailedQuestionToResponse from '../../../entities/domain-entities/question-entity/question-mappers';
 
 class AnswerController {
   constructor(private readonly answerUsecase: AnswerUsecase) {}
 
-  deleteAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
+  deleteAnswerByQuestionId: RequestHandler = async (req, res, next) => {
     try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
       const id = req.params.id.toLowerCase();
 
       const deletedAnswer = await this.answerUsecase.deleteAnswerByQuestionId(id);
 
-      const questionResponse = questionToDetailedQuestionResponse(deletedAnswer);
+      const questionResponse = detailedQuestionToResponse(deletedAnswer);
 
       res.status(statusCode.ACCEPTED).send({ result: questionResponse });
     } catch (e) {
@@ -28,8 +33,12 @@ class AnswerController {
     }
   };
 
-  createAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
+  createAnswerByQuestionId: RequestHandler = async (req, res, next) => {
     try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
       const id = req.params.id.toLowerCase();
 
       const payload = CreateAnswerRequest.parse(req.body);
@@ -38,7 +47,7 @@ class AnswerController {
         answer: payload.answer,
       });
 
-      const questionResponse = questionToDetailedQuestionResponse(createdAnswer);
+      const questionResponse = detailedQuestionToResponse(createdAnswer);
 
       res.status(statusCode.CREATED).send({ result: questionResponse });
     } catch (e) {
@@ -46,8 +55,12 @@ class AnswerController {
     }
   };
 
-  updateAnswerByQuestionId = async (req: Request, res: Response, next: NextFunction) => {
+  updateAnswerByQuestionId: RequestHandler = async (req, res, next) => {
     try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
       const id = req.params.id.toLowerCase();
 
       const payload = UpdateAnswerRequest.parse(req.body);
@@ -56,7 +69,7 @@ class AnswerController {
         answer: payload.answer,
       });
 
-      const questionResponse = questionToDetailedQuestionResponse(updatedAnswer);
+      const questionResponse = detailedQuestionToResponse(updatedAnswer);
 
       res.status(statusCode.OK).send({ result: questionResponse });
     } catch (e) {
