@@ -1,5 +1,5 @@
 export type Exchange =
-| DailyQuestionExchange;
+| DailyAskExchange;
 
-export type DailyQuestionExchange =
-| 'DailyQuestion:CreateDailyQuestion';
+export type DailyAskExchange =
+| 'DailyAsk:CreateDailyQuestion';

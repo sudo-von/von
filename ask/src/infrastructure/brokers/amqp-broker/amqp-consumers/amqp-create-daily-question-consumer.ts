@@ -3,12 +3,12 @@ import {
 } from '../../errors/broker-errors';
 import AMQPBroker from '../amqp-broker';
 import {
-  CreateBroadcastQuestionBroker,
-} from '../../dtos/question-dto/question-broker-dtos';
+  CreateDailyQuestionBroker,
+} from '../../entities/question-entity/question-broker-entities';
 import LoggerService from '../../../services/logger-service/logger-service';
 import QuestionUsecase from '../../../../domain/usecases/question-usecase/question-usecase';
 
-class AMQPCreateBroadcastQuestionConsumer extends AMQPBroker<CreateBroadcastQuestionBroker> {
+class AMQPCreateDailyQuestionConsumer extends AMQPBroker<CreateDailyQuestionBroker> {
   constructor(
     protected readonly url: string,
     protected readonly loggerService: LoggerService,
@@ -17,7 +17,7 @@ class AMQPCreateBroadcastQuestionConsumer extends AMQPBroker<CreateBroadcastQues
     super(url, loggerService);
   }
 
-  onMessage = async (data: CreateBroadcastQuestionBroker): Promise<void> => {
+  onMessage = async (data: CreateDailyQuestionBroker): Promise<void> => {
     try {
       await this.questionUsecase.createDailyQuestion({
         askedBy: data.asked_by,
@@ -30,4 +30,4 @@ class AMQPCreateBroadcastQuestionConsumer extends AMQPBroker<CreateBroadcastQues
   };
 }
 
-export default AMQPCreateBroadcastQuestionConsumer;
+export default AMQPCreateDailyQuestionConsumer;

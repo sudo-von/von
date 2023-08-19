@@ -4,7 +4,7 @@ import {
 import AMQPBroker from '../amqp-broker';
 import {
   CreateUserBroker,
-} from '../../dtos/user-dto/user-broker-dtos';
+} from '../../entities/user-entity/user-broker-entities';
 import LoggerService from '../../../services/logger-service/logger-service';
 import UserUsecase from '../../../../domain/usecases/user-usecase/user-usecase';
 

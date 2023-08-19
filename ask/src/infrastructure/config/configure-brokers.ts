@@ -3,7 +3,7 @@ import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import AMQPCreateUserConsumer from '../brokers/amqp-broker/amqp-consumers/amqp-create-user-consumer';
 import AMQPUpdateUserConsumer from '../brokers/amqp-broker/amqp-consumers/amqp-update-user-consumer';
-import AMQPCreateBroadcastQuestionConsumer from '../brokers/amqp-broker/amqp-consumers/amqp-create-broadcast-question-consumer';
+import AMQPCreateDailyQuestionConsumer from '../brokers/amqp-broker/amqp-consumers/amqp-create-daily-question-consumer';
 
 const configureBrokers = async (
   url: string,
@@ -23,7 +23,7 @@ const configureBrokers = async (
     userUsecase,
   );
 
-  const createQuestionConsumer = new AMQPCreateBroadcastQuestionConsumer(
+  const createQuestionConsumer = new AMQPCreateDailyQuestionConsumer(
     url,
     loggerService,
     questionUsecase,

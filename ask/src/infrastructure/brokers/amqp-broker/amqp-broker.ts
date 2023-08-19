@@ -53,13 +53,13 @@ abstract class AMQPBroker<T> extends Broker<T> {
 
       await this.channel.assertExchange(exchange, 'fanout', { durable: false });
 
-      const q = await this.channel.assertQueue('', {
+      const { queue } = await this.channel.assertQueue('', {
         exclusive: true,
       });
 
-      this.channel.bindQueue(q.queue, exchange, '');
+      this.channel.bindQueue(queue, exchange, '');
 
-      this.channel.consume(q.queue, (message) => {
+      this.channel.consume(queue, (message) => {
         if (!message) throw BrokerNoMessageAvailableError;
 
         const data = JSON.parse(message.content.toString());

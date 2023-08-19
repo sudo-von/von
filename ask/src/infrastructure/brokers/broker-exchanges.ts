@@ -1,10 +1,10 @@
 export type Exchange =
-| QuestionExchange
-| UserExchange;
+| AuthenticationExchange
+| DailyAskExchange;
 
-export type QuestionExchange =
-| 'Question:CreateBroadcastQuestion';
+export type AuthenticationExchange =
+| 'Authentication:CreateUser'
+| 'Authentication:UpdateUser';
 
-export type UserExchange =
-| 'User:CreateUser'
-| 'User:UpdateUser';
+export type DailyAskExchange =
+| 'DailyAsk:CreateDailyQuestion';
