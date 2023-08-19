@@ -12,16 +12,16 @@ import {
 import formatQuestion from '../../domain/entities/question-entity/question-utils';
 import QuestionUsecase from '../../domain/usecases/question-usecase/question-usecase';
 import validateQuestionCreation from '../../domain/entities/question-entity/question-validations/create-question-validations';
-import validateBroadcastQuestionCreation from '../../domain/entities/question-entity/question-validations/create-broadcast-question-validations';
+import validateDailyQuestionCreation from '../../domain/entities/question-entity/question-validations/create-daily-question-validations';
 
 class QuestionUsecaseApplication extends QuestionUsecase {
   deleteQuestionById = async (
     id: string,
   ): Promise<DetailedQuestion> => {
-    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
-    const deletedQuestion = await this.questionRepository.deleteDetailedQuestion({ id });
+    const deletedQuestion = await this.questionRepository.deleteQuestion({ id });
     if (!deletedQuestion) throw QuestionDeleteFailedError;
 
     return deletedQuestion;
@@ -33,7 +33,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const questions = await this.questionRepository.getDetailedQuestions({
+    const questions = await this.questionRepository.getQuestions({
       username,
       status: 'both',
     });
@@ -44,15 +44,15 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     return formattedQuestions;
   };
 
-  createBroadcastQuestion = async (
+  createDailyQuestion = async (
     payload: CreateQuestion,
   ): Promise<void> => {
-    validateBroadcastQuestionCreation(payload);
+    validateDailyQuestionCreation(payload);
 
     const users = await this.userRepository.getUsers();
 
     await Promise.all(
-      users.map((user) => this.questionRepository.createDetailedQuestion({
+      users.map((user) => this.questionRepository.createQuestion({
         views: 0,
         askedAt: new Date(),
         username: user.username,
@@ -71,7 +71,7 @@ class QuestionUsecaseApplication extends QuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const createdQuestion = await this.questionRepository.createDetailedQuestion({
+    const createdQuestion = await this.questionRepository.createQuestion({
       views: 0,
       username,
       askedAt: new Date(),

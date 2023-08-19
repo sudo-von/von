@@ -9,37 +9,22 @@ import {
   DetailedUser,
 } from '../../domain/entities/user-entity/user-entities';
 import UserUsecase from '../../domain/usecases/user-usecase/user-usecase';
+import basicUserToDetailedUser from '../../domain/entities/user-entity/user-mappers';
 import validateUserUpdate from '../../domain/entities/user-entity/user-validations/update-user-validations';
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
 class UserUsecaseApplication extends UserUsecase {
-  getUserByUserId = async (
-    id: string,
+  getUserByUsername = async (
+    username: string,
   ): Promise<DetailedUser> => {
-    const user = await this.userRepository.getUser({ userId: id });
+    const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const answers = await this.questionRepository.getDetailedQuestions({
-      username: user.username,
-      status: 'answered',
-    });
+    const answers = await this.questionRepository.getQuestions({ username, status: 'answered' });
 
-    const questions = await this.questionRepository.getDetailedQuestions({
-      username: user.username,
-      status: 'both',
-    });
+    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
 
-    const detailedUser: DetailedUser = {
-      id: user.id,
-      userId: user.userId,
-      username: user.username,
-      metrics: {
-        totalAnswers: answers.length,
-        totalQuestions: questions.length,
-        totalViews: user.metrics.totalViews,
-      },
-    };
-
+    const detailedUser = basicUserToDetailedUser(user, answers.length, questions.length);
     return detailedUser;
   };
 
@@ -51,67 +36,39 @@ class UserUsecaseApplication extends UserUsecase {
     const users = await this.userRepository.getUsers();
     if (users.length) throw SingleUserOnlyError;
 
+    const initialTotal = 0;
+
     const createdUser = await this.userRepository.createUser({
       userId: payload.userId,
       username: payload.username,
       metrics: {
-        totalViews: 0,
+        totalViews: initialTotal,
       },
     });
 
-    const detailedUser: DetailedUser = {
-      id: createdUser.id,
-      userId: createdUser.userId,
-      username: createdUser.username,
-      metrics: {
-        totalAnswers: 0,
-        totalQuestions: 0,
-        totalViews: createdUser.metrics.totalViews,
-      },
-    };
-
+    const detailedUser = basicUserToDetailedUser(createdUser, initialTotal, initialTotal);
     return detailedUser;
   };
 
   updateUserByUserId = async (
-    id: string,
-    payload: UpdateUser,
+    userId: string,
+    { username }: UpdateUser,
   ): Promise<DetailedUser> => {
-    validateUserUpdate(payload);
+    validateUserUpdate({ username });
 
-    const user = await this.userRepository.getUser({ userId: id });
+    const user = await this.userRepository.getUser({ userId });
     if (!user) throw UserNotFoundError;
 
-    const updatedUser = await this.userRepository.updateUser({
-      username: payload.username,
-    }, { userId: id });
+    const updatedUser = await this.userRepository.updateUser({ username }, { userId });
     if (!updatedUser) throw UserUpdateFailedError;
 
-    await this.questionRepository.updateDetailedQuestions({
-      username: payload.username,
-    });
+    await this.questionRepository.updateQuestions({ username });
 
-    const answers = await this.questionRepository.getDetailedQuestions({
-      username: payload.username,
-      status: 'answered',
-    });
+    const answers = await this.questionRepository.getQuestions({ username, status: 'answered' });
 
-    const questions = await this.questionRepository.getDetailedQuestions({
-      username: payload.username,
-      status: 'both',
-    });
+    const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
 
-    const detailedUser: DetailedUser = {
-      id: updatedUser.id,
-      userId: updatedUser.userId,
-      username: updatedUser.username,
-      metrics: {
-        totalAnswers: answers.length,
-        totalQuestions: questions.length,
-        totalViews: updatedUser.metrics.totalViews,
-      },
-    };
-
+    const detailedUser = basicUserToDetailedUser(user, answers.length, questions.length);
     return detailedUser;
   };
 }

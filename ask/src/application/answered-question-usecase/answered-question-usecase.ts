@@ -16,12 +16,12 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
   getAnsweredQuestionById = async (
     id: string,
   ): Promise<DetailedQuestion> => {
-    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const increasedViewsQuestion = await this.questionRepository.updateDetailedQuestion({
+    const increasedViewsQuestion = await this.questionRepository.updateQuestion({
       views: question.views + 1,
     }, { id });
     if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
@@ -35,7 +35,7 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const answeredQuestions = await this.questionRepository.getDetailedQuestions({
+    const answeredQuestions = await this.questionRepository.getQuestions({
       username,
       status: 'answered',
     });

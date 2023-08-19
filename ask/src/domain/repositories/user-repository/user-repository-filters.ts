@@ -1,5 +1,5 @@
 import {
-  User,
+  PartialUser,
 } from '../../entities/user-entity/user-entities';
 
-export type UserRepositoryFilters = Partial<Omit<User, 'metrics'>>;
+export type UserRepositoryFilters = PartialUser;

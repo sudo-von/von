@@ -1,6 +1,6 @@
 import {
-  CreateAnswer,
-  UpdateAnswer,
+  CreateDetailedAnswer,
+  UpdateDetailedAnswer,
 } from '../../entities/answer-entity/answer-entities';
 import {
   DetailedQuestion,
@@ -25,19 +25,19 @@ abstract class AnswerUsecase {
   /**
   * Creates an answer for a question by question ID.
   * @param {string} id - The ID of the question.
-  * @param {CreateAnswer} payload - The payload for creating the answer.
+  * @param {CreateDetailedAnswer} payload - The payload for creating the answer.
   * @returns {Promise<DetailedQuestion>} A promise that resolves with the updated detailed question.
   */
-  abstract createAnswerByQuestionId: (id: string, payload: CreateAnswer)
+  abstract createAnswerByQuestionId: (id: string, payload: CreateDetailedAnswer)
   => Promise<DetailedQuestion>;
 
   /**
   * Updates an answer for a question by question ID.
   * @param {string} id - The ID of the question.
-  * @param {UpdateAnswer} payload - The payload for updating the answer.
+  * @param {UpdateDetailedAnswer} payload - The payload for updating the answer.
   * @returns {Promise<DetailedQuestion>} A promise that resolves with the updated detailed question.
   */
-  abstract updateAnswerByQuestionId: (id: string, payload: UpdateAnswer)
+  abstract updateAnswerByQuestionId: (id: string, payload: UpdateDetailedAnswer)
   => Promise<DetailedQuestion>;
 }
 

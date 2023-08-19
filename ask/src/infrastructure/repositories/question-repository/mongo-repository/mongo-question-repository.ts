@@ -12,7 +12,7 @@ import {
 import IQuestionRepository from '../../../../domain/repositories/question-repository/question-repository';
 
 class MongoQuestionRepository implements IQuestionRepository {
-  getDetailedQuestion = async (
+  getQuestion = async (
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion | null> => {
     const query = createQuestionRepositoryQuery(filters);
@@ -22,7 +22,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  getDetailedQuestions = async (
+  getQuestions = async (
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion[]> => {
     const query = createQuestionRepositoryQuery(filters);
@@ -31,7 +31,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return questions;
   };
 
-  createDetailedQuestion = async (
+  createQuestion = async (
     payload: CreateDetailedQuestion,
   ): Promise<DetailedQuestion> => {
     const questionDocument = new QuestionModel({
@@ -47,7 +47,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  deleteDetailedQuestion = async (
+  deleteQuestion = async (
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion | null> => {
     const query = createQuestionRepositoryQuery(filters);
@@ -61,7 +61,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateDetailedQuestion = async (
+  updateQuestion = async (
     payload: PartialDetailedQuestion,
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion | null> => {
@@ -84,7 +84,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     return question;
   };
 
-  updateDetailedQuestions = async (
+  updateQuestions = async (
     payload: PartialDetailedQuestion,
     filters?: QuestionRepositoryFilters,
   ): Promise<void> => {

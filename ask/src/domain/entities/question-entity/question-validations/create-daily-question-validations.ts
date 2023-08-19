@@ -2,13 +2,13 @@ import {
   InvalidQuestionLengthError,
 } from '../question-errors';
 import {
-  CreateBroadcastQuestion,
+  CreateDailyQuestion,
 } from '../question-entities';
 import validateQuestionLength from './question-validations';
 
-const validateBroadcastQuestionCreation = (payload: CreateBroadcastQuestion) => {
+const validateDailyQuestionCreation = (payload: CreateDailyQuestion) => {
   const isQuestionLengthValid = validateQuestionLength(payload.question);
   if (!isQuestionLengthValid) throw InvalidQuestionLengthError;
 };
 
-export default validateBroadcastQuestionCreation;
+export default validateDailyQuestionCreation;

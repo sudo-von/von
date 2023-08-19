@@ -14,7 +14,7 @@ class UnansweredQuestionUsecaseApplication extends UnansweredQuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const questions = await this.questionRepository.getDetailedQuestions({
+    const questions = await this.questionRepository.getQuestions({
       username,
       status: 'unanswered',
     });

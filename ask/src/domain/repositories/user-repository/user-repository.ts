@@ -2,48 +2,62 @@ import {
   UserRepositoryFilters,
 } from './user-repository-filters';
 import {
-  User,
-  CreateUserWithMetrics,
-  PartialUserWithMetrics,
+  BasicUser,
+  CreateBasicUser,
+  PartialBasicUser,
 } from '../../entities/user-entity/user-entities';
 
+/**
+ * Represents a reader interface for accessing user data in a repository.
+ * @interface
+ */
 interface IUserRepositoryReader {
   /**
-  * Retrieves a user based on the provided filters.
-  * @param {UserRepositoryFilters} [filters] - Optional filters for retrieving the user.
-  * @returns {Promise<User | null>} A promise with the retrieved user or null if not found.
-  */
+   * Retrieves a user with optional filters.
+   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
+   * @returns {Promise<BasicUser | null>} A promise with the basic user if found.
+   */
   getUser: (filters?: UserRepositoryFilters)
-  => Promise<User | null>;
+  => Promise<BasicUser | null>;
 
   /**
-  * Retrieves multiple users based on the provided filters.
-  * @param {UserRepositoryFilters} [filters] - Optional filters for retrieving the users.
-  * @returns {Promise<User[]>} A promise with an array of retrieved users.
-  */
+   * Retrieves a list of users with optional filters.
+   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
+   * @returns {Promise<BasicUser[]>} A promise with an array of basic users.
+   */
   getUsers: (filters?: UserRepositoryFilters)
-  => Promise<User[]>;
+  => Promise<BasicUser[]>;
 }
 
+/**
+ * Represents a writer interface for managing user data in a repository.
+ * @interface
+ */
 interface IUserRepositoryWriter {
   /**
-  * Creates a user with the provided payload and metrics.
-  * @param {CreateUserWithMetrics} payload - The payload for creating the user.
-  * @returns {Promise<User>} A promise that resolves with the created user.
-  */
-  createUser: (payload: CreateUserWithMetrics)
-  => Promise<User>;
+   * Creates a new basic user.
+   * @param {CreateBasicUser} payload - The payload for creating the basic user.
+   * @returns {Promise<BasicUser>} A promise resolving to the created basic user.
+   */
+  createUser: (payload: CreateBasicUser)
+  => Promise<BasicUser>;
 
   /**
-  * Updates a user with the provided partial payload and filters.
-  * @param {PartialUserWithMetrics} payload - The partial payload for updating the user.
-  * @param {UserRepositoryFilters} [filters] - Optional filters for updating the user.
-  * @returns {Promise<User | null>} A promise with the updated user or null if not found.
-  */
-  updateUser: (payload: PartialUserWithMetrics, filters?: UserRepositoryFilters)
-  => Promise<User | null>;
+   * Updates a user with optional filters.
+   * @param {PartialBasicUser} payload - The partial data to update the user with.
+   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
+   * @returns {Promise<BasicUser | null>} A promise with the updated basic user if found.
+   */
+  updateUser: (payload: PartialBasicUser, filters?: UserRepositoryFilters)
+  => Promise<BasicUser | null>;
 }
 
+/**
+ * Represents a combined user repository interface, combining both reader and writer capabilities.
+ * @interface
+ * @extends {IUserRepositoryReader}
+ * @extends {IUserRepositoryWriter}
+ */
 interface IUserRepository extends IUserRepositoryReader, IUserRepositoryWriter {}
 
 export default IUserRepository;

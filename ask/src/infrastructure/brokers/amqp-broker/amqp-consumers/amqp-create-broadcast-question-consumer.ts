@@ -19,7 +19,7 @@ class AMQPCreateBroadcastQuestionConsumer extends AMQPBroker<CreateBroadcastQues
 
   onMessage = async (data: CreateBroadcastQuestionBroker): Promise<void> => {
     try {
-      await this.questionUsecase.createBroadcastQuestion({
+      await this.questionUsecase.createDailyQuestion({
         askedBy: data.asked_by,
         question: data.question,
       });

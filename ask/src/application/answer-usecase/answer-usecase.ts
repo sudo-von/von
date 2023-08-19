@@ -4,8 +4,8 @@ import {
   AnswerCreationFailedError,
 } from '../../domain/entities/answer-entity/answer-errors';
 import {
-  CreateAnswer,
-  UpdateAnswer,
+  CreateDetailedAnswer,
+  UpdateDetailedAnswer,
 } from '../../domain/entities/answer-entity/answer-entities';
 import {
   QuestionNotFoundError,
@@ -23,7 +23,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
   deleteAnswerByQuestionId = async (
     id: string,
   ): Promise<DetailedQuestion> => {
-    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (!question.answer) throw QuestionNotAnsweredError;
@@ -36,16 +36,16 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
   createAnswerByQuestionId = async (
     id: string,
-    payload: CreateAnswer,
+    payload: CreateDetailedAnswer,
   ): Promise<DetailedQuestion> => {
     validateAnswerCreation(payload);
 
-    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (question.answer) throw QuestionAlreadyAnsweredError;
 
-    const createdAnswer = await this.questionRepository.updateDetailedQuestion({
+    const createdAnswer = await this.questionRepository.updateQuestion({
       answer: {
         answer: payload.answer,
         answeredAt: new Date(),
@@ -58,16 +58,16 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
   updateAnswerByQuestionId = async (
     id: string,
-    payload: UpdateAnswer,
+    payload: UpdateDetailedAnswer,
   ): Promise<DetailedQuestion> => {
     validateAnswerUpdate(payload);
 
-    const question = await this.questionRepository.getDetailedQuestion({ id, status: 'both' });
+    const question = await this.questionRepository.getQuestion({ id, status: 'both' });
     if (!question) throw QuestionNotFoundError;
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const updatedAnswer = await this.questionRepository.updateDetailedQuestion({
+    const updatedAnswer = await this.questionRepository.updateQuestion({
       answer: {
         answer: payload.answer,
         answeredAt: new Date(),

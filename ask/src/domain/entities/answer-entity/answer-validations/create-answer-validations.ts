@@ -2,11 +2,11 @@ import {
   InvalidAnswerLengthError,
 } from '../answer-errors';
 import {
-  CreateAnswer,
+  CreateDetailedAnswer,
 } from '../answer-entities';
 import validateAnswerLength from './answer-validations';
 
-const validateAnswerCreation = (payload: CreateAnswer) => {
+const validateAnswerCreation = (payload: CreateDetailedAnswer) => {
   const isAnswerLengthValid = validateAnswerLength(payload.answer);
   if (!isAnswerLengthValid) throw InvalidAnswerLengthError;
 };

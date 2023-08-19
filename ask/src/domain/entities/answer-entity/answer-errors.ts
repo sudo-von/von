@@ -20,5 +20,5 @@ export const AnswerUpdateFailedError = createDomainErrorFactory({
 
 export const InvalidAnswerLengthError = createDomainErrorFactory({
   code: 'INVALID_ANSWER_LENGTH',
-  message: `Please provide an answer that consists of ${answerRules.answer.content.MIN_LENGTH} to ${answerRules.answer.content.MAX_LENGTH} characters.`,
+  message: `Please provide an answer that consists of ${answerRules.answer.MIN_LENGTH} to ${answerRules.answer.MAX_LENGTH} characters.`,
 });

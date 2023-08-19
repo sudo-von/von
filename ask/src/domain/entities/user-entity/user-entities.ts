@@ -1,23 +1,28 @@
 import {
-  Metrics,
+  BasicMetrics,
   DetailedMetrics,
 } from '../metric-entity/metric-entities';
 
-export type DetailedUser = {
+export type User = {
   id: string;
   userId: string;
   username: string;
+};
+
+export type BasicUser = User & {
+  metrics: BasicMetrics;
+};
+
+export type DetailedUser = User & {
   metrics: DetailedMetrics;
 };
 
-export type User = Omit<DetailedUser, 'metrics'> & {
-  metrics: Metrics;
-};
+export type PartialUser = Partial<User>;
 
-export type CreateUser = Pick<User, 'userId' | 'username'>;
+export type CreateUser = Omit<User, 'id'>;
 
-export type UpdateUser = Pick<User, 'username'>;
+export type UpdateUser = Omit<User, 'id' | 'userId'>;
 
-export type CreateUserWithMetrics = Omit<User, 'id'>;
+export type CreateBasicUser = Omit<BasicUser, 'id'>;
 
-export type PartialUserWithMetrics = Partial<Omit<User, 'id'>>;
+export type PartialBasicUser = Partial<Omit<BasicUser, 'id'>>;

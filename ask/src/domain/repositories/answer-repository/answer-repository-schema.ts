@@ -1,4 +1,4 @@
 export type AnswerRepositorySchema = {
-  answer: string,
-  answered_at: Date,
+  answer: string;
+  answered_at: Date;
 };
