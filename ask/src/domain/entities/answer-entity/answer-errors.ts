@@ -4,7 +4,7 @@ import {
 import answerRules from './answer-rules';
 
 export const AnswerCreateFailedError = createDomainErrorFactory({
-  code: 'ANSWER_CREATION_FAILED',
+  code: 'ANSWER_CREATE_FAILED',
   message: 'The answer you attempted to created could not be created.',
 });
 

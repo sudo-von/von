@@ -4,7 +4,7 @@ import express, {
 import cors from 'cors';
 import 'express-async-errors';
 import LoggerService from '../services/logger-service/logger-service';
-import errorMiddleware from '../servers/express-server/middlewares/error-middleware';
+import errorMiddleware from '../apis/express-api/middlewares/error-middleware';
 
 const configureServer = (
   serverPort: number,

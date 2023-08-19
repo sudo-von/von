@@ -5,11 +5,11 @@ import configureRepositories from './infrastructure/config/configure-repositorie
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables';
-import configureUserRouter from './infrastructure/servers/express-server/controllers/user-controller/user-router';
-import configureAnswerRouter from './infrastructure/servers/express-server/controllers/answer-controller/answer-router';
-import configureQuestionRouter from './infrastructure/servers/express-server/controllers/question-controller/question-router';
-import configureAnsweredQuestionRouter from './infrastructure/servers/express-server/controllers/answered-question-controller/answered-question-router';
-import configureUnansweredQuestionRouter from './infrastructure/servers/express-server/controllers/unanswered-question-controller/unanswered-question-router';
+import configureUserRouter from './infrastructure/apis/express-api/controllers/user-controller/user-router';
+import configureAnswerRouter from './infrastructure/apis/express-api/controllers/answer-controller/answer-router';
+import configureQuestionRouter from './infrastructure/apis/express-api/controllers/question-controller/question-router';
+import configureAnsweredQuestionRouter from './infrastructure/apis/express-api/controllers/answered-question-controller/answered-question-router';
+import configureUnansweredQuestionRouter from './infrastructure/apis/express-api/controllers/unanswered-question-controller/unanswered-question-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
