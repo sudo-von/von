@@ -3,7 +3,7 @@ import {
 } from '../../errors/error-factory';
 import answerRules from './answer-rules';
 
-export const AnswerCreationFailedError = createDomainErrorFactory({
+export const AnswerCreateFailedError = createDomainErrorFactory({
   code: 'ANSWER_CREATION_FAILED',
   message: 'The answer you attempted to created could not be created.',
 });

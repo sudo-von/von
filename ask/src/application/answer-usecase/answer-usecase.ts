@@ -1,7 +1,7 @@
 import {
+  AnswerCreateFailedError,
   AnswerDeleteFailedError,
   AnswerUpdateFailedError,
-  AnswerCreationFailedError,
 } from '../../domain/entities/answer-entity/answer-errors';
 import {
   CreateDetailedAnswer,
@@ -28,7 +28,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const deletedAnswer = await this.questionRepository.deleteDetailedAnswer({ id });
+    const deletedAnswer = await this.questionRepository.deleteAnswer({ id });
     if (!deletedAnswer) throw AnswerDeleteFailedError;
 
     return deletedAnswer;
@@ -51,7 +51,7 @@ class AnswerUsecaseApplication extends AnswerUsecase {
         answeredAt: new Date(),
       },
     }, { id });
-    if (!createdAnswer) throw AnswerCreationFailedError;
+    if (!createdAnswer) throw AnswerCreateFailedError;
 
     return createdAnswer;
   };

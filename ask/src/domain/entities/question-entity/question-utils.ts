@@ -3,13 +3,7 @@ import {
 } from './question-entities';
 import truncateAnswer from '../answer-entity/answer-utils';
 
-type QuestionFormatOptions = Partial<{
-  truncateAnswer: boolean;
-}>;
-
-const formatQuestion = (question: DetailedQuestion, options: QuestionFormatOptions = {
-  truncateAnswer: false,
-}): DetailedQuestion => ({
+export const formatQuestion = (question: DetailedQuestion): DetailedQuestion => ({
   id: question.id,
   views: question.views,
   askedAt: question.askedAt,
@@ -18,10 +12,10 @@ const formatQuestion = (question: DetailedQuestion, options: QuestionFormatOptio
   question: question.question,
   answer: question.answer && {
     answeredAt: question.answer.answeredAt,
-    answer: options.truncateAnswer
-      ? truncateAnswer(question.answer.answer)
-      : question.answer.answer,
+    answer: truncateAnswer(question.answer.answer),
   },
 });
 
-export default formatQuestion;
+export const formatQuestions = (questions: DetailedQuestion[]) => questions.map(
+  (question) => formatQuestion(question),
+);

@@ -2,6 +2,9 @@ import {
   UserNotFoundError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
+  formatQuestions,
+} from '../../domain/entities/question-entity/question-utils';
+import {
   QuestionNotFoundError,
   QuestionNotAnsweredError,
   QuestionUpdateFailedError,
@@ -9,7 +12,6 @@ import {
 import {
   DetailedQuestion,
 } from '../../domain/entities/question-entity/question-entities';
-import formatQuestion from '../../domain/entities/question-entity/question-utils';
 import AnsweredQuestionUsecase from '../../domain/usecases/answered-question-usecase/answered-question-usecase';
 
 class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
@@ -21,12 +23,12 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
 
     if (!question.answer) throw QuestionNotAnsweredError;
 
-    const increasedViewsQuestion = await this.questionRepository.updateQuestion({
+    const updatedAnswer = await this.questionRepository.updateQuestion({
       views: question.views + 1,
     }, { id });
-    if (!increasedViewsQuestion) throw QuestionUpdateFailedError;
+    if (!updatedAnswer) throw QuestionUpdateFailedError;
 
-    return increasedViewsQuestion;
+    return updatedAnswer;
   };
 
   getAnsweredQuestionsByUsername = async (
@@ -35,15 +37,10 @@ class AnsweredQuestionUsecaseApplication extends AnsweredQuestionUsecase {
     const user = await this.userRepository.getUser({ username });
     if (!user) throw UserNotFoundError;
 
-    const answeredQuestions = await this.questionRepository.getQuestions({
-      username,
-      status: 'answered',
-    });
+    const questions = await this.questionRepository.getQuestions({ username, status: 'answered' });
 
-    const formattedQuestions = answeredQuestions.map((question) => formatQuestion(question, {
-      truncateAnswer: true,
-    }));
-    return formattedQuestions;
+    const formatedQuestions = formatQuestions(questions);
+    return formatedQuestions;
   };
 }
 

@@ -10,12 +10,12 @@ import {
   AnswerUpdateFailedError,
   AnswerDeleteFailedError,
   InvalidAnswerLengthError,
-  AnswerCreationFailedError,
+  AnswerCreateFailedError,
 } from '../../../../domain/entities/answer-entity/answer-errors';
 
 export const AnswerCreationFailedServerError = createServerErrorFactory({
   code: 'ANSWER_CREATION_FAILED',
-  error: AnswerCreationFailedError.message,
+  error: AnswerCreateFailedError.message,
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 

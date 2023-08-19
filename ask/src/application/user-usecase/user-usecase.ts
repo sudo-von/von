@@ -68,7 +68,7 @@ class UserUsecaseApplication extends UserUsecase {
 
     const questions = await this.questionRepository.getQuestions({ username, status: 'both' });
 
-    const detailedUser = basicUserToDetailedUser(user, answers.length, questions.length);
+    const detailedUser = basicUserToDetailedUser(updatedUser, answers.length, questions.length);
     return detailedUser;
   };
 }
