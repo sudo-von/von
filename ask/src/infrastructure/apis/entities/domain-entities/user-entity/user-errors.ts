@@ -15,25 +15,25 @@ import {
 
 export const InvalidUsernameLengthServerError = createServerErrorFactory({
   code: 'INVALID_USERNAME_LENGTH',
-  error: InvalidUsernameLengthError.message,
+  message: InvalidUsernameLengthError.message,
   statusCode: statusCode.BAD_REQUEST,
 });
 
 export const SingleUserOnlyServerError = createServerErrorFactory({
   code: 'SINGLE_USER_ONLY',
-  error: SingleUserOnlyError.message,
+  message: SingleUserOnlyError.message,
   statusCode: statusCode.CONFLICT,
 });
 
 export const UserNotFoundServerError = createServerErrorFactory({
   code: 'USER_NOT_FOUND',
-  error: UserNotFoundError.message,
+  message: UserNotFoundError.message,
   statusCode: statusCode.NOT_FOUND,
 });
 
 export const UserUpdateFailedServerError = createServerErrorFactory({
   code: 'USER_UPDATE_FAILED',
-  error: UserUpdateFailedError.message,
+  message: UserUpdateFailedError.message,
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 

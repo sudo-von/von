@@ -56,7 +56,7 @@ const errorMiddleware = (loggerService: LoggerService) => (
   res: Response,
   _next: NextFunction,
 ) => {
-  loggerService.error(RequestRuntimeServerError.error, err);
+  loggerService.error(RequestRuntimeServerError.message, err);
 
   if (err instanceof ZodError) {
     return res.status(RequiredFieldServerError.statusCode).json({
@@ -66,23 +66,23 @@ const errorMiddleware = (loggerService: LoggerService) => (
   }
 
   if (err instanceof DomainErrorFactory) {
-    const { code, error, statusCode } = domainErrors[err.code];
+    const { code, message: error, statusCode } = domainErrors[err.code];
     return res.status(statusCode).json({ code, error });
   }
 
   if (err instanceof ServerErrorFactory) {
-    const { code, error, statusCode } = err;
+    const { code, message: error, statusCode } = err;
     return res.status(statusCode).json({ code, error });
   }
 
   if (err instanceof ServiceErrorFactory) {
-    const { code, error, statusCode } = serviceErrors[err.code];
+    const { code, message: error, statusCode } = serviceErrors[err.code];
     return res.status(statusCode).json({ code, error });
   }
 
   return res.status(InternalServerServerError.statusCode).json({
     code: InternalServerServerError.code,
-    error: InternalServerServerError.error,
+    error: InternalServerServerError.message,
   });
 };
 

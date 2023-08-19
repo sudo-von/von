@@ -9,7 +9,7 @@ import {
 
 export type ServerError = {
   code: ServerErrorCode;
-  error: string;
+  message: string;
   statusCode: number;
 };
 
@@ -25,6 +25,7 @@ export type AnswerServerErrorCode =
 
 export type CommonServerErrorCode =
 | 'INTERNAL_SERVER'
+| 'INVALID_ID_PARAMETER'
 | 'REQUIRED_FIELD'
 | 'REQUIRED_ID_PARAMETER'
 | 'REQUEST_RUNTIME_SERVER_ERROR';

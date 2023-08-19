@@ -5,13 +5,13 @@ import {
 } from 'express';
 import {
   UserNotFoundServerError,
-} from '../../entities/user-dto/user-server-errors';
+} from '../../entities/domain-entities/user-entity/user-errors';
+import TokenService from '../../../services/token-service/token-service';
 import {
   MissingTokenServerError,
   MissingAuthorizationHeaderServerError,
   AuthorizationSchemeNotSupportedServerError,
-} from '../../entities/token-dto/token-server-errors';
-import TokenService from '../../../services/token-service/token-service';
+} from '../../entities/service-entities/token-service-entity/token-service-errors';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
 const authenticationMiddleware = (
@@ -38,7 +38,7 @@ const authenticationMiddleware = (
   try {
     const decodedToken = await tokenService.decodeToken(token);
 
-    const updatedUser = await userRepository.getUser({ userId: decodedToken.id });
+    const updatedUser = await userRepository.getUser({ id: decodedToken.id });
     if (!updatedUser) return next(UserNotFoundServerError);
 
     req.user = {
