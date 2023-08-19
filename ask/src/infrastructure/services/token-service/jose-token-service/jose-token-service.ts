@@ -6,17 +6,21 @@ import {
   TokenServiceExpiredTokenError,
   TokenServiceInvalidTokenError,
 } from '../token-service-errors';
+import TokenService from '../token-service';
 import {
   UserToken,
-} from '../dtos/user-dto/user-token-dtos';
-import TokenService from '../token-service';
+} from '../entities/user-token-entity/user-token-entities';
 
 class JoseTokenService extends TokenService {
-  decode = async (token: string): Promise<UserToken> => {
-    try {
-      const key = new TextEncoder().encode(this.secret);
+  getSecretKey = (): Uint8Array => new TextEncoder().encode(this.secret);
 
-      const { payload } = await jwtVerify(token, key);
+  decodeToken = async (
+    token: string,
+  ): Promise<UserToken> => {
+    try {
+      const secretKey = this.getSecretKey();
+
+      const { payload } = await jwtVerify(token, secretKey);
 
       return payload as UserToken;
     } catch (e) {
