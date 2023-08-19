@@ -2,7 +2,7 @@ import {
   HydratedDocument,
 } from 'mongoose';
 import {
-  User,
+  BasicUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import {
   UserRepositorySchema,
@@ -10,7 +10,7 @@ import {
 
 const userDocumentToUser = (
   document: HydratedDocument<UserRepositorySchema>,
-): User => ({
+): BasicUser => ({
   id: document._id.toHexString(),
   userId: document.user_id,
   username: document.username,

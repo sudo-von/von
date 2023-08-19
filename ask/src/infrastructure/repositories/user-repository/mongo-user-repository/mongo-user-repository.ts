@@ -1,8 +1,8 @@
 import UserModel from './mongo-user-repository-model';
 import {
-  User,
-  CreateUserWithMetrics,
-  PartialUserWithMetrics,
+  BasicUser,
+  CreateBasicUser,
+  PartialBasicUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import userDocumentToUser from './mongo-user-repository-mapper';
 import createUserRepositoryQuery from './mongo-user-repository-query';
@@ -14,7 +14,7 @@ import IUserRepository from '../../../../domain/repositories/user-repository/use
 class MongoUserRepository implements IUserRepository {
   getUser = async (
     filters?: UserRepositoryFilters,
-  ): Promise<User | null> => {
+  ): Promise<BasicUser | null> => {
     const query = createUserRepositoryQuery(filters);
     const userDocument = await UserModel.findOne(query);
     if (!userDocument) return null;
@@ -24,7 +24,7 @@ class MongoUserRepository implements IUserRepository {
 
   getUsers = async (
     filters?: UserRepositoryFilters,
-  ): Promise<User[]> => {
+  ): Promise<BasicUser[]> => {
     const query = createUserRepositoryQuery(filters);
     const userDocuments = await UserModel.find(query);
     const users = userDocuments.map((document) => userDocumentToUser(document));
@@ -32,8 +32,8 @@ class MongoUserRepository implements IUserRepository {
   };
 
   createUser = async (
-    payload: CreateUserWithMetrics,
-  ): Promise<User> => {
+    payload: CreateBasicUser,
+  ): Promise<BasicUser> => {
     const userDocument = new UserModel({
       user_id: payload.userId,
       username: payload.username,
@@ -47,9 +47,9 @@ class MongoUserRepository implements IUserRepository {
   };
 
   updateUser = async (
-    payload: PartialUserWithMetrics,
+    payload: PartialBasicUser,
     filters?: UserRepositoryFilters,
-  ): Promise<User | null> => {
+  ): Promise<BasicUser | null> => {
     const query = createUserRepositoryQuery(filters);
     const updatedUser = await UserModel.findOneAndUpdate(query, {
       user_id: payload.userId,
