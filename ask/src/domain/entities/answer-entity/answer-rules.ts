@@ -5,6 +5,6 @@ const answerRules = {
     MAX_LENGTH: 500,
     MIN_LENGTH: 3,
   },
-} as const;
+};
 
 export default answerRules;

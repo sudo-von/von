@@ -1,10 +1,10 @@
-import QuestionModel from './mongo-question-model';
-import questionDocumentToQuestion from './mongo-question-mapper';
+import QuestionModel from './mongo-question-repository-model';
 import {
   DetailedQuestion,
   CreateDetailedQuestion,
   PartialDetailedQuestion,
 } from '../../../../domain/entities/question-entity/question-entities';
+import questionDocumentToQuestion from './mongo-question-repository-mapper';
 import createQuestionRepositoryQuery from './mongo-question-repository-query';
 import {
   QuestionRepositoryFilters,
