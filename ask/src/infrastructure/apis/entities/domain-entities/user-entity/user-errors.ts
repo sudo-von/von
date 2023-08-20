@@ -1,8 +1,8 @@
 import statusCode from 'http-status-codes';
 import {
-  ServerErrorFactory,
+  APIErrorFactory,
   createServerErrorFactory,
-} from '../../../errors/server-error-factory';
+} from '../../../errors/api-error-factory';
 import {
   UserErrorCode,
 } from '../../../../../domain/errors/error-codes';
@@ -44,7 +44,7 @@ export const UserUpdateFailedServerError = createServerErrorFactory({
   statusCode: statusCode.INTERNAL_SERVER_ERROR,
 });
 
-export const userServerErrors: Record<UserErrorCode, ServerErrorFactory> = {
+export const userAPIErrors: Record<UserErrorCode, APIErrorFactory> = {
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
   SINGLE_USER_ONLY: SingleUserOnlyServerError,
   USER_NOT_FOUND: UserNotFoundServerError,

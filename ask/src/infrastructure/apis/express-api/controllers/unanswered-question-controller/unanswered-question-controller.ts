@@ -1,7 +1,5 @@
 import {
-  Request,
-  Response,
-  NextFunction,
+  RequestHandler,
 } from 'express';
 import statusCode from 'http-status-codes';
 import {
@@ -13,7 +11,7 @@ import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered
 class UnansweredQuestionController {
   constructor(private readonly unansweredQuestionUsecase: UnansweredQuestionUsecase) {}
 
-  getUnansweredQuestionsByUsername = async (req: Request, res: Response, next: NextFunction) => {
+  getUnansweredQuestionsByUsername: RequestHandler = async (req, res, next) => {
     try {
       const { user } = req;
 

@@ -1,8 +1,8 @@
 import statusCode from 'http-status-codes';
 import {
-  ServerErrorFactory,
+  APIErrorFactory,
   createServerErrorFactory,
-} from '../../../errors/server-error-factory';
+} from '../../../errors/api-error-factory';
 import {
   AnswerErrorCode,
 } from '../../../../../domain/errors/error-codes';
@@ -37,7 +37,7 @@ export const InvalidAnswerLengthServerError = createServerErrorFactory({
   statusCode: statusCode.BAD_REQUEST,
 });
 
-export const answerServerErrors: Record<AnswerErrorCode, ServerErrorFactory> = {
+export const answerAPIErrors: Record<AnswerErrorCode, APIErrorFactory> = {
   ANSWER_CREATE_FAILED: AnswerCreateFailedServerError,
   ANSWER_DELETE_FAILED: AnswerDeleteFailedServerError,
   ANSWER_UPDATE_FAILED: AnswerUpdateFailedServerError,

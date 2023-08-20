@@ -5,7 +5,9 @@ import {
   formatAnswer,
 } from '../answer-entity/answer-utils';
 
-export const formatQuestion = (question: DetailedQuestion): DetailedQuestion => ({
+export const formatQuestion = (
+  question: DetailedQuestion,
+): DetailedQuestion => ({
   id: question.id,
   views: question.views,
   askedAt: question.askedAt,

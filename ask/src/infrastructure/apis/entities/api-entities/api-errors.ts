@@ -1,7 +1,7 @@
 import statusCode from 'http-status-codes';
 import {
   createServerErrorFactory,
-} from '../../errors/server-error-factory';
+} from '../../errors/api-error-factory';
 
 export const InternalServerServerError = createServerErrorFactory({
   code: 'INTERNAL_SERVER',

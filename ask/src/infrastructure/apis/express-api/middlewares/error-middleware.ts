@@ -7,8 +7,8 @@ import {
   NextFunction,
 } from 'express';
 import {
-  ServerErrorFactory,
-} from '../../errors/server-error-factory';
+  APIErrorFactory,
+} from '../../errors/api-error-factory';
 import {
   DomainErrorCode,
 } from '../../../../domain/errors/error-codes';
@@ -27,27 +27,27 @@ import {
   ServiceErrorFactory,
 } from '../../../services/errors/service-error-factory';
 import {
-  userServerErrors,
+  userAPIErrors,
 } from '../../entities/domain-entities/user-entity/user-errors';
 import {
-  answerServerErrors,
+  answerAPIErrors,
 } from '../../entities/domain-entities/answer-entity/answer-errors';
 import {
-  questionServerErrors,
+  questionAPIErrors,
 } from '../../entities/domain-entities/question-entity/question-errors';
 import LoggerService from '../../../services/logger-service/logger-service';
 import {
-  tokenServerErrors,
+  tokenAPIErrors,
 } from '../../entities/service-entities/token-service-entity/token-service-errors';
 
-const domainErrors: Record<DomainErrorCode, ServerErrorFactory> = {
-  ...answerServerErrors,
-  ...questionServerErrors,
-  ...userServerErrors,
+const domainErrors: Record<DomainErrorCode, APIErrorFactory> = {
+  ...answerAPIErrors,
+  ...questionAPIErrors,
+  ...userAPIErrors,
 };
 
-const serviceErrors: Record<ServiceErrorCode, ServerErrorFactory> = {
-  ...tokenServerErrors,
+const serviceErrors: Record<ServiceErrorCode, APIErrorFactory> = {
+  ...tokenAPIErrors,
 };
 
 const errorMiddleware = (loggerService: LoggerService) => (
@@ -70,7 +70,7 @@ const errorMiddleware = (loggerService: LoggerService) => (
     return res.status(statusCode).json({ code, error: message });
   }
 
-  if (err instanceof ServerErrorFactory) {
+  if (err instanceof APIErrorFactory) {
     const { code, message, statusCode } = err;
     return res.status(statusCode).json({ code, error: message });
   }

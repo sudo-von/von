@@ -7,20 +7,20 @@ import {
   TokenServiceErrorCode,
 } from '../../services/errors/service-error-codes';
 
-export type ServerError = {
-  code: ServerErrorCode;
+export type APIError = {
+  code: APIErrorCode;
   message: string;
   statusCode: number;
 };
 
-export type ServerErrorCode =
-| AnswerServerErrorCode
+export type APIErrorCode =
+| AnswerAPIErrorCode
 | CommonServerErrorCode
-| QuestionServerErrorCode
-| TokenServerErrorCode
-| UserServerErrorCode;
+| QuestionAPIErrorCode
+| TokenAPIErrorCode
+| UserAPIErrorCode;
 
-export type AnswerServerErrorCode =
+export type AnswerAPIErrorCode =
 | AnswerErrorCode;
 
 export type CommonServerErrorCode =
@@ -30,14 +30,14 @@ export type CommonServerErrorCode =
 | 'REQUIRED_ID_PARAMETER'
 | 'REQUEST_RUNTIME_SERVER_ERROR';
 
-export type QuestionServerErrorCode =
+export type QuestionAPIErrorCode =
 | QuestionErrorCode;
 
-export type TokenServerErrorCode =
+export type TokenAPIErrorCode =
 | TokenServiceErrorCode
 | 'AUTHORIZATION_SCHEME_NOT_SUPPORTED'
 | 'MISSING_AUTHORIZATION_HEADER'
 | 'MISSING_TOKEN';
 
-export type UserServerErrorCode =
+export type UserAPIErrorCode =
 | UserErrorCode;
