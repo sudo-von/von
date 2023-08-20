@@ -4,7 +4,7 @@ import {
 import {
   UserRepositorySchema,
 } from '../../../../domain/repositories/user-repository/user-repository-schema';
-import metricsRepositorySchema from '../../metrics-repository/mongo-metrics-repository/mongo-metrics-repository-schema';
+import metricRepositorySchema from '../../metric-repository/mongo-metric-repository/mongo-metric-repository-schema';
 
 const userRepositorySchema = new Schema<UserRepositorySchema>({
   user_id: {
@@ -16,7 +16,7 @@ const userRepositorySchema = new Schema<UserRepositorySchema>({
     required: true,
   },
   metrics: {
-    type: metricsRepositorySchema,
+    type: metricRepositorySchema,
     required: true,
   },
 });

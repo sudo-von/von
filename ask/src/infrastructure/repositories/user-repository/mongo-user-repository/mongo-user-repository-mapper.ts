@@ -1,22 +1,18 @@
 import {
-  HydratedDocument,
-} from 'mongoose';
-import {
   BasicUser,
 } from '../../../../domain/entities/user-entity/user-entities';
 import {
   UserRepositorySchema,
 } from '../../../../domain/repositories/user-repository/user-repository-schema';
+import metricDocumentToMetric from '../../metric-repository/mongo-metric-repository/mongo-metric-repository-mapper';
 
 const userDocumentToUser = (
-  document: HydratedDocument<UserRepositorySchema>,
+  document: UserRepositorySchema,
 ): BasicUser => ({
-  id: document._id.toHexString(),
+  id: document.id,
   userId: document.user_id,
   username: document.username,
-  metrics: {
-    totalViews: document.metrics.total_views,
-  },
+  metrics: metricDocumentToMetric(document.metrics),
 });
 
 export default userDocumentToUser;
