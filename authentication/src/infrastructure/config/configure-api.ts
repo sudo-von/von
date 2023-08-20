@@ -1,5 +1,3 @@
-import cors from 'cors';
-import 'express-async-errors';
 import {
   promises,
 } from 'fs';
@@ -9,11 +7,13 @@ import {
 import express, {
   Router,
 } from 'express';
+import cors from 'cors';
 import path from 'path';
 import {
   serve,
   setup,
 } from 'swagger-ui-express';
+import 'express-async-errors';
 import LoggerService from '../services/logger-service/logger-service';
 import errorMiddleware from '../apis/express-api/middlewares/error-middleware';
 

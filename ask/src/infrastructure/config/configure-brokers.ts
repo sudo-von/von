@@ -33,9 +33,9 @@ const configureBrokers = async (
   await updateUserConsumer.connect();
   await createQuestionConsumer.connect();
 
-  await createUserConsumer.consume('User:CreateUser');
-  await updateUserConsumer.consume('User:UpdateUser');
-  await createQuestionConsumer.consume('Question:CreateBroadcastQuestion');
+  await createUserConsumer.consume('Authentication:CreateUser');
+  await updateUserConsumer.consume('Authentication:UpdateUser');
+  await createQuestionConsumer.consume('DailyAsk:CreateDailyQuestion');
 };
 
 export default configureBrokers;

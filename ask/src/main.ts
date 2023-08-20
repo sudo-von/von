@@ -1,4 +1,4 @@
-import configureServer from './infrastructure/config/configure-server';
+import configureAPI from './infrastructure/config/configure-api';
 import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
@@ -87,7 +87,7 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 Unanswered question router have been configured.');
 
     /* 🚀 Server. */
-    configureServer(
+    await configureAPI(
       SERVER_PORT,
       userRouter,
       answerRouter,

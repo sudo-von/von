@@ -15,7 +15,7 @@ const configureSchedulerService = async (
 
   schedulerService.schedule('0 12 * * *', async () => {
     try {
-      const dailyQuestion = await questionUsecase.createDailyQuestion('daily-question-microservice');
+      const dailyQuestion = await questionUsecase.createDailyQuestion('daily-ask-microservice');
 
       await createDailyQuestionBroker.produce('DailyAsk:CreateDailyQuestion', {
         asked_by: dailyQuestion.askedBy,

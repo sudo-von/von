@@ -1,6 +1,7 @@
 import {
   DetailedQuestionResponse,
 } from './question-response-entities';
+import detailedAnswerToResponse from '../answer-entity/answer-mappers';
 import {
   DetailedQuestion,
 } from '../../../../../domain/entities/question-entity/question-entities';
@@ -13,10 +14,7 @@ const detailedQuestionToResponse = (
   asked_at: question.askedAt,
   username: question.username,
   question: question.question,
-  answer: question.answer && {
-    answer: question.answer.answer,
-    answered_at: question.answer.answeredAt,
-  },
+  answer: question.answer && detailedAnswerToResponse(question.answer),
 });
 
 export default detailedQuestionToResponse;
