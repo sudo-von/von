@@ -3,28 +3,24 @@ import { GetStaticProps } from "next";
 import Content, {
   ContentProps,
 } from "../features/home/components/content/content";
-import Profile from "../features/home/components/profile/profile";
-import { User } from "../features/home/entities/user-entity/user.entities";
+import Profile, {
+  ProfileProps,
+} from "../features/home/components/profile/profile";
 import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
-import { userResponseToEntity } from "../services/authentication-service/user-service/user.service.mappers";
+import { userResponseToProfileProps } from "../services/authentication-service/user-service/user.service.mappers";
+import { getContents } from "../services/content-service/content-service/content.service";
+import { contentResponseToContentProps } from "../services/content-service/content-service/content.service.mappers";
 
 type HomeProps = {
-  user: User;
+  profile: ProfileProps;
   contents: ContentProps[];
 };
 
-const Home: NextPage<HomeProps> = ({ user, contents = [] }) => {
+const Home: NextPage<HomeProps> = ({ profile, contents = [] }) => {
   return (
-    <div className="flex flex-col mt-48">
-      <div className="grid gap-8 text-center lg:text-start">
-        {user.details && (
-          <Profile
-            name={user.name}
-            quote={user.details.quote}
-            position={user.details.position}
-            interest={user.details.interest}
-          />
-        )}
+    <div className="flex flex-col gap-8 mt-48">
+      <div className="grid grid-cols-1 gap-8  mb-56 lg:mb-96 text-center lg:text-start">
+        <Profile name={profile.name} details={profile.details} />
       </div>
       {contents.map(({ media, title, subtitle, description }) => (
         <div key={title} className="grid lg:grid-cols-2 gap-8 mb-56 lg:mb-96">
@@ -43,12 +39,17 @@ const Home: NextPage<HomeProps> = ({ user, contents = [] }) => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
   try {
     const { result: userResponse } = await getUserByUsername("sudo_von");
-    const user = userResponseToEntity(userResponse);
+    const { data: contentResponses } = await getContents();
+
+    const profile = userResponseToProfileProps(userResponse);
+    const contents = contentResponses.map((contentResponse) =>
+      contentResponseToContentProps(contentResponse)
+    );
 
     return {
       props: {
-        user,
-        contents: [],
+        profile,
+        contents,
       },
     };
   } catch (e) {

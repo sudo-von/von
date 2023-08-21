@@ -1,19 +1,25 @@
 import { FC } from "react";
-import Section from "../section/section";
+import ProfileDetails, {
+  ProfileDetailsProps,
+} from "./profile-details/profile-details";
 import Banner from "../../../common/components/banner/banner";
 
 export type ProfileProps = {
   name: string;
-  quote: string;
-  interest: string;
-  position: string;
+  details?: ProfileDetailsProps;
 };
 
-const Profile: FC<ProfileProps> = ({ name, quote, interest, position }) => {
+const Profile: FC<ProfileProps> = ({ name, details }) => {
   return (
     <>
       <Banner>{name}</Banner>
-      <Section title={position} subtitle={interest} description={quote} />
+      {details && (
+        <ProfileDetails
+          quote={details.quote}
+          interest={details.interest}
+          position={details.position}
+        />
+      )}
     </>
   );
 };

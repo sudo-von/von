@@ -3,16 +3,16 @@ export type StrapiPagination = {
   total: number;
   pageSize: number;
   pageCount: number;
-}
+};
 
 export type StrapiMeta = {
   pagination: StrapiPagination;
-}
+};
 
 export type StrapiData<T> = {
   id: number;
   attributes: T;
-}
+};
 
 export type StrapiAPIResponse<T> = {
   data: T;
