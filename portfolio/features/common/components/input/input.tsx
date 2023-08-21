@@ -2,9 +2,12 @@ import { ComponentPropsWithoutRef, FC } from "react";
 import InputHintWrapper from "./components/input-hint-wrapper/input-hint-wrapper";
 import InputLabelWrapper from "./components/input-label-wrapper/input-label-wrapper";
 
-export type InputProps = ComponentPropsWithoutRef<"input"> & {
+export type InputProps = Pick<
+  ComponentPropsWithoutRef<"input">,
+  "id" | "name" | "type" | "value" | "required" | "onChange" | "placeholder"
+> & {
   hint?: string;
-  label?: string;
+  label: string;
   error?: string | null;
 };
 

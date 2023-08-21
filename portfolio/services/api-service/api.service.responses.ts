@@ -1,4 +1,5 @@
 export type APIError = {
+  code: string;
   error: string;
 };
 

@@ -1,22 +1,15 @@
 import { NextPage } from "next";
-import CenteredLayout from "../layouts/centered-layout/centered-layout";
+import Header from "../features/common/components/header/header";
 import AuthLayout from "../features/auth/layouts/AuthLayout/AuthLayout";
-import AuthBanner from "../features/auth/components/AuthBanner/AuthBanner";
-import AuthFramedLink from "../features/auth/components/AuthFramedLink/AuthFramedLink";
+import CenteredLayout from "../layouts/centered-layout/centered-layout";
+import LoginForm from "../features/login/components/login-form/login-form";
 
 const Login: NextPage = () => {
   return (
     <CenteredLayout>
       <AuthLayout>
-        <AuthBanner
-          title="Welcome back"
-          description="Sign in into your account"
-        />
-        <AuthFramedLink
-          path="/signup"
-          name="Sign up"
-          message="Don't have an account?"
-        />
+        <Header heading="Welcome back" subheading="Sign in into your account" />
+        <LoginForm />
       </AuthLayout>
     </CenteredLayout>
   );

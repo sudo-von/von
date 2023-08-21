@@ -5,9 +5,7 @@ import OutOfService from "../features/common/components/out-of-service/out-of-se
 const Blog: NextPage = () => {
   return (
     <CenteredLayout>
-      <OutOfService
-        title="VoN"
-        description="This page is under construction."
+      <OutOfService title="VoN" description="This page is under construction."
       />
     </CenteredLayout>
   );

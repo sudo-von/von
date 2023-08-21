@@ -8,6 +8,7 @@ type PasswordInputProps = InputProps;
 const PasswordInput: FC<PasswordInputProps> = ({
   id,
   name,
+  label,
   value,
   required,
   onChange,
@@ -22,6 +23,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
         id={id}
         name={name}
         type={type}
+        label={label}
         value={value}
         required={required}
         onChange={onChange}
@@ -29,7 +31,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
       />
       <PasswordIcon
         onClick={handleVisibility}
-        className="absolute top-3 right-3 cursor-pointer fill-slate-350 text-2xl"
+        className="absolute top-8 right-2 cursor-pointer fill-slate-350 text-2xl"
       />
     </div>
   );
