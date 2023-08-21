@@ -1,6 +1,6 @@
 import axios from "axios";
-import { APIOptions } from "./api.service.responses";
 import { getAPIVersion } from "./api.service.utils";
+import { APIOptions } from "./api.service.response";
 
 const createAPIService = ({ base, port, version }: APIOptions) => {
   const apiVersion = version ? getAPIVersion(version) : "";

@@ -4,8 +4,9 @@ import Content, {
   ContentProps,
 } from "../features/home/components/content/content";
 import Profile from "../features/home/components/profile/profile";
-import { User } from "../features/home/entities/user-entity/user-entities";
+import { User } from "../features/home/entities/user-entity/user.entities";
 import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
+import { userResponseToEntity } from "../services/authentication-service/user-service/user.service.mappers";
 
 type HomeProps = {
   user: User;
@@ -41,7 +42,8 @@ const Home: NextPage<HomeProps> = ({ user, contents = [] }) => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   try {
-    const { result: user } = await getUserByUsername("sudo_von");
+    const { result: userResponse } = await getUserByUsername("sudo_von");
+    const user = userResponseToEntity(userResponse);
 
     return {
       props: {
