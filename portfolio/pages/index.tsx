@@ -3,20 +3,34 @@ import { GetStaticProps } from "next";
 import Content, {
   ContentProps,
 } from "../features/home/components/content/content";
-import { user } from "../features/home/data/profile-data";
-import Banner from "../features/common/components/banner/banner";
-import { getStrapiContents } from "../services/content-service/content.service";
-import { contentResponseToProps } from "../services/content-service/content.service.mappers";
+import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
+import { User } from "../features/home/entities/user-entity/user-entities";
+import Profile from "../features/home/components/profile/profile";
+
+type ProfileProps = {
+  name: string;
+  quote: string;
+  interest: string;
+  position: string;
+};
 
 type HomeProps = {
+  user: User;
   contents: ContentProps[];
 };
 
-const Home: NextPage<HomeProps> = ({ contents = [] }) => {
+const Home: NextPage<HomeProps> = ({ user, contents = [] }) => {
   return (
-    <div className="flex flex-col gap-8 mt-48">
-      <div className="text-center lg:text-start">
-        <Banner>{user.name}</Banner>
+    <div className="flex flex-col mt-48">
+      <div className="grid gap-8 text-center lg:text-start">
+        {user.details && (
+          <Profile
+            name={user.name}
+            quote={user.details.quote}
+            position={user.details.position}
+            interest={user.details.interest}
+          />
+        )}
       </div>
       {contents.map(({ media, title, subtitle, description }) => (
         <div key={title} className="grid lg:grid-cols-2 gap-8 mb-56 lg:mb-96">
@@ -33,14 +47,12 @@ const Home: NextPage<HomeProps> = ({ contents = [] }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  const { result: user } = await getUserByUsername("sudo_von");
   try {
-    const { data } = await getStrapiContents();
-
-    const contents = data.map((content) => contentResponseToProps(content));
-
     return {
       props: {
-        contents,
+        user,
+        contents: [],
       },
     };
   } catch (e) {
