@@ -6,9 +6,9 @@ import Content, {
 import Profile, {
   ProfileProps,
 } from "../features/home/components/profile/profile";
+import { getContents } from "../services/content-service/content-service/content.service";
 import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
 import { userResponseToProfileProps } from "../services/authentication-service/user-service/user.service.mappers";
-import { getContents } from "../services/content-service/content-service/content.service";
 import { contentResponseToContentProps } from "../services/content-service/content-service/content.service.mappers";
 
 type HomeProps = {
@@ -42,6 +42,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     const { data: contentResponses } = await getContents();
 
     const profile = userResponseToProfileProps(userResponse);
+
     const contents = contentResponses.map((contentResponse) =>
       contentResponseToContentProps(contentResponse)
     );

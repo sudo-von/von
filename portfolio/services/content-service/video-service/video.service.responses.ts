@@ -1,4 +1,4 @@
-import { StrapiData } from "../strapi-service/strapi.service.response";
+import { StrapiData } from "../strapi-service/strapi.service.responses";
 
 type VideoAttributes = {
   url: string;

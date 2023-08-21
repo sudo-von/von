@@ -1,5 +1,5 @@
 import createAPIService from "../../api-service/api.service";
-import { ContentAPIResponse } from "./content.service.response";
+import { ContentAPIResponse } from "./content.service.responses";
 
 const contentService = createAPIService({
   base: "contents",

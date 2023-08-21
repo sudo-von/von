@@ -1,4 +1,4 @@
-import { APIResponse } from "../../api-service/api.service.response";
+import { APIResponse } from "../../api-service/api.service.responses";
 import { AvatarResponse } from "../avatar-service/avatar.service.responses";
 import { UserDetailsResponse } from "../user-details-service/user-details.service.responses";
 import { SocialNetworkResponse } from "../social-network-service/social-network.service.responses";

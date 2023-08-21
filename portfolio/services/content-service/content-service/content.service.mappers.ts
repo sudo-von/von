@@ -1,4 +1,4 @@
-import { ContentResponse } from "./content.service.response";
+import { ContentResponse } from "./content.service.responses";
 import { ContentProps } from "../../../features/home/components/content/content";
 
 export const contentResponseToContentProps = (

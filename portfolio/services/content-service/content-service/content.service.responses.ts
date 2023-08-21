@@ -1,7 +1,7 @@
-import { VideoResponse } from "../video-service/video.service.response";
-import { VectorsResponse } from "../vector-service/vector.service.response";
-import { TimelinesResponse } from "../timeline-service/timeline.service.response";
-import { StrapiData, StrapiAPIResponse } from "../strapi-service/strapi.service.response";
+import { VideoResponse } from "../video-service/video.service.responses";
+import { VectorsResponse } from "../vector-service/vector.service.responses";
+import { TimelinesResponse } from "../timeline-service/timeline.service.responses";
+import { StrapiData, StrapiAPIResponse } from "../strapi-service/strapi.service.responses";
 
 type ContentData = {
   video: VideoResponse;

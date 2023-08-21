@@ -3,8 +3,8 @@ export type APIError = {
 };
 
 export type APIOptions = {
+  base: string;
   port: number;
-  base?: string;
   version?: number;
 };
 
