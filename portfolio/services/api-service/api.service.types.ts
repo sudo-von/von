@@ -4,7 +4,7 @@ export type APIError = {
 
 export type APIOptions = {
   port: number;
-  base: string;
+  base?: string;
   version?: number;
 };
 

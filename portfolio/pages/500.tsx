@@ -5,10 +5,7 @@ import OutOfService from "../features/common/components/out-of-service/out-of-se
 const InternalServer: NextPage = () => {
   return (
     <CenteredLayout>
-      <OutOfService
-        title="500"
-        description="Oops, something went wrong. Please try again later."
-      />
+      <OutOfService title="500" description="Oops, something went wrong." />
     </CenteredLayout>
   );
 };

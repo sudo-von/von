@@ -3,16 +3,9 @@ import { GetStaticProps } from "next";
 import Content, {
   ContentProps,
 } from "../features/home/components/content/content";
-import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
-import { User } from "../features/home/entities/user-entity/user-entities";
 import Profile from "../features/home/components/profile/profile";
-
-type ProfileProps = {
-  name: string;
-  quote: string;
-  interest: string;
-  position: string;
-};
+import { User } from "../features/home/entities/user-entity/user-entities";
+import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
 
 type HomeProps = {
   user: User;
@@ -47,8 +40,9 @@ const Home: NextPage<HomeProps> = ({ user, contents = [] }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { result: user } = await getUserByUsername("sudo_von");
   try {
+    const { result: user } = await getUserByUsername("sudo_von");
+
     return {
       props: {
         user,

@@ -1,8 +1,8 @@
 import { FC } from "react";
-import Banner from "../../../common/components/banner/banner";
 import Section from "../section/section";
+import Banner from "../../../common/components/banner/banner";
 
-type ProfileProps = {
+export type ProfileProps = {
   name: string;
   quote: string;
   interest: string;
