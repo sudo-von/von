@@ -1,34 +1,48 @@
-import useLogin from "../../hooks/use-login/use-login";
+import { ChangeEventHandler, FC, FormEventHandler } from "react";
 import Input from "../../../common/components/input/input";
 import Button from "../../../common/components/button/button";
+import { UserCredentials } from "../../hooks/use-login/use-login.types";
 import PasswordInput from "../../../common/components/password-input/password-input";
 
-const LoginForm = () => {
-  const { credentials, error, loading, handleOnChange, handleOnSubmit } =
-    useLogin();
+type LoginFormProps = {
+  isLoading: boolean;
+  userCredentials: UserCredentials;
+  handleOnSubmit: FormEventHandler<HTMLFormElement>;
+  handleOnChange: ChangeEventHandler<HTMLInputElement>;
+};
+
+const LoginForm: FC<LoginFormProps> = ({
+  isLoading,
+  handleOnChange,
+  handleOnSubmit,
+  userCredentials,
+}) => {
+  const { email, password } = userCredentials;
   return (
-    <form className="flex flex-col gap-2 my-4" onSubmit={handleOnSubmit}>
+    <form className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
-        label="Email"
+        id="email"
         name="email"
-        placeholder="Enter your email"
         type="email"
-        value={credentials.email}
+        label="Email"
+        value={email}
         onChange={handleOnChange}
+        placeholder="Enter your email"
         required
       />
       <PasswordInput
-        label="Password"
+        id="password"
         name="password"
-        placeholder="Enter your password"
         type="password"
-        value={credentials.password}
+        label="Password"
+        value={password}
         onChange={handleOnChange}
+        placeholder="Enter your password"
         required
       />
       <div className="flex flex-col mt-4 mb-1.5">
-        <Button type="submit" disabled={loading}>
-          {loading ? "Signing in..." : "Sign in"}
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? "Signing in..." : "Sign in"}
         </Button>
       </div>
     </form>

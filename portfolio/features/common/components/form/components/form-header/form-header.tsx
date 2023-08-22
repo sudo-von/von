@@ -1,10 +1,10 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import FormHeading from "../form-heading/form-heading";
 import FormSubheading from "../form-subheading/form-subheading";
 
 type FormHeaderProps = {
-  heading: ReactNode;
-  subheading: ReactNode;
+  heading: string;
+  subheading: string;
 };
 
 const FormHeader: FC<FormHeaderProps> = ({ heading, subheading }) => {

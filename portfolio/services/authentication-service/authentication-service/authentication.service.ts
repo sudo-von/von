@@ -8,6 +8,6 @@ const authenticationService = createAPIService({
 });
 
 export const login = async (userCredentials: UserCredentialsRequest): Promise<void> => {
-  const { headers } = await authenticationService.post('login', userCredentials);
-  console.log(headers);
+  const res = await authenticationService.post('login', userCredentials);
+  console.log(res);
 };

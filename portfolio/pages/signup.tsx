@@ -1,24 +1,36 @@
 import { NextPage } from "next";
-import CenteredLayout from "../layouts/centered-layout/centered-layout";
-import AuthLayout from "../features/auth/layouts/AuthLayout/AuthLayout";
-import AuthBanner from "../features/auth/components/AuthBanner/AuthBanner";
-import AuthFramedLink from "../features/auth/components/AuthFramedLink/AuthFramedLink";
+import Error from "../features/common/components/error/error";
+import useLogin from "../features/login/hooks/use-login/use-login";
+import LoginForm from "../features/login/components/login-form/login-form";
+import FormFooter from "../features/common/components/form/components/form-footer/form-footer";
+import FormHeader from "../features/common/components/form/components/form-header/form-header";
 
 const Signup: NextPage = () => {
+  const { error, isLoading, handleOnChange, handleOnSubmit, userCredentials } =
+    useLogin();
   return (
-    <CenteredLayout>
-      <AuthLayout>
-        <AuthBanner
-          title="Create an account"
-          description="Sign up for a new account"
+    <div className="flex flex-col items-center mt-48">
+      <div className="flex flex-col w-full sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12">
+        <FormHeader
+          heading="Create an account"
+          subheading="Register for a new account"
         />
-        <AuthFramedLink
-          path="/login"
-          name="Sign in"
-          message="Have an account?"
+        <LoginForm
+          isLoading={isLoading}
+          handleOnChange={handleOnChange}
+          handleOnSubmit={handleOnSubmit}
+          userCredentials={userCredentials}
         />
-      </AuthLayout>
-    </CenteredLayout>
+        <div className="flex flex-col mb-4">
+          <FormFooter
+            path="login"
+            heading="Log in"
+            subheading="Have an account?"
+          />
+        </div>
+        {error && <Error>{error}</Error>}
+      </div>
+    </div>
   );
 };
 

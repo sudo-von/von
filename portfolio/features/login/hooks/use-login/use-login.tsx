@@ -5,15 +5,15 @@ import { login } from "../../../../services/authentication-service/authenticatio
 
 const useLogin = () => {
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [credentials, setCredentials] = useState<UserCredentials>({
+  const [isLoading, setIsLoading] = useState(false);
+  const [userCredentials, setUserCredentials] = useState<UserCredentials>({
     email: "",
     password: "",
   });
 
   const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
-    setCredentials((currentCredentials) => ({
+    setUserCredentials((currentCredentials) => ({
       ...currentCredentials,
       [name]: value,
     }));
@@ -23,21 +23,28 @@ const useLogin = () => {
     e.preventDefault();
     try {
       setError("");
-      setLoading(true);
-      await login({ email: credentials.email, password: credentials.password });
+      setIsLoading(true);
+      const headers = await login({
+        email: userCredentials.email,
+        password: userCredentials.password,
+      });
+      console.log(
+        "🚀 ~ file: use-login.tsx:31 ~ handleOnSubmit ~ headers:",
+        headers
+      );
     } catch (e) {
       setError((e as APIError).error);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return {
     error,
-    loading,
-    credentials,
+    isLoading,
     handleOnChange,
     handleOnSubmit,
+    userCredentials,
   };
 };
 

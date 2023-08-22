@@ -31,7 +31,7 @@ const PasswordInput: FC<PasswordInputProps> = ({
       />
       <PasswordIcon
         onClick={handleVisibility}
-        className="absolute top-8 right-2 cursor-pointer fill-slate-350 text-2xl"
+        className="absolute top-8 right-2 cursor-pointer text-slate-350 text-2xl"
       />
     </div>
   );
