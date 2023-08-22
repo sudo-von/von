@@ -1,14 +1,14 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../typography/typography";
 
-const Heading: FC<PropsWithChildren> = ({ children }) => {
+const FormSubheading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       align="center"
-      color="black"
-      component="h1"
-      variant="title"
-      weight="regular"
+      color="slate"
+      component="h2"
+      variant="paragraph"
+      weight="light"
       whitespace="pre"
     >
       {children}
@@ -16,4 +16,4 @@ const Heading: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default Heading;
+export default FormSubheading;

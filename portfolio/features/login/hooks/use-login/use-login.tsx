@@ -4,12 +4,12 @@ import { APIError } from "../../../../services/api-service/api.service.responses
 import { login } from "../../../../services/authentication-service/authentication-service/authentication.service";
 
 const useLogin = () => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [credentials, setCredentials] = useState<UserCredentials>({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
@@ -22,14 +22,11 @@ const useLogin = () => {
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      setError(null);
+      setError("");
       setLoading(true);
-      await login({
-        email: credentials.email,
-        password: credentials.password,
-      });
+      await login({ email: credentials.email, password: credentials.password });
     } catch (e) {
-      setError((e as APIError).error)
+      setError((e as APIError).error);
     } finally {
       setLoading(false);
     }
