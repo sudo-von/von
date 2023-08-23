@@ -1,5 +1,6 @@
 import createAPIService from "../../api-service/api.service";
-import { UserCredentialsRequest } from "./authentication.service.requests";
+import { UserAPIResponse } from "../user-service/user.service.responses";
+import { AccountRequest, CredentialsRequest } from "./authentication.service.requests";
 
 const authenticationService = createAPIService({
   base: "authentication",
@@ -7,8 +8,13 @@ const authenticationService = createAPIService({
   version: 1,
 });
 
-export const login = async (userCredentials: UserCredentialsRequest): Promise<string> => {
-  const { headers } = await authenticationService.post('login', userCredentials);
+export const login = async (credentials: CredentialsRequest): Promise<string> => {
+  const { headers } = await authenticationService.post('login', credentials);
   const { authorization } = headers;
   return authorization;
+};
+
+export const signup = async (account: AccountRequest): Promise<UserAPIResponse> => {
+  const { data } = await authenticationService.post<UserAPIResponse>('signup', account);
+  return data;
 };
