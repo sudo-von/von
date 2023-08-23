@@ -1,10 +1,7 @@
 import { FC, PropsWithChildren, useReducer } from "react";
-import {
-  AuthContext,
-  authenticationInitialState,
-} from "../../contexts/authentication-context/authentication-context";
+import { AuthenticationContext } from "../../contexts/authentication-context/authentication-context";
 import { authenticationReducer } from "../../reducers/authentication-reducer/authentication-reducer";
-import { AuthenticationContext } from "../../contexts/authentication-context/authentication-context.types";
+import { authenticationInitialState } from "../../contexts/authentication-context/authentication-context.data";
 
 const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(
@@ -12,12 +9,10 @@ const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
     authenticationInitialState
   );
 
-  const authenticationContext: AuthenticationContext = { state, dispatch };
-
   return (
-    <AuthContext.Provider value={authenticationContext}>
+    <AuthenticationContext.Provider value={{ state, dispatch }}>
       {children}
-    </AuthContext.Provider>
+    </AuthenticationContext.Provider>
   );
 };
 

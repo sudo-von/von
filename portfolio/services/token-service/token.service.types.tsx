@@ -13,8 +13,6 @@ export type TokenPayload = {
 
 export type TokenSignature = string;
 
-export type EncodedToken = string;
-
 export type DecodedToken = {
   header: TokenHeader;
   payload: TokenPayload;

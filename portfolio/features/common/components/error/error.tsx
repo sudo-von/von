@@ -4,7 +4,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 
 const Alert: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="flex flex-row justify-center items-center gap-2">
+    <div className="flex flex-row justify-center items-center gap-2 border border-red-150 p-3">
       <AiFillCloseCircle className="text-red-150 text-2xl" />
       <Typography
         align="center"

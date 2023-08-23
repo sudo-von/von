@@ -1,4 +1,3 @@
-import { createContext } from "react";
 import {
   AuthenticationState,
   AuthenticationContext,
@@ -9,11 +8,7 @@ export const authenticationInitialState: AuthenticationState = {
   user: null,
 };
 
-const authenticationInitialContext: AuthenticationContext = {
+export const authenticationInitialContext: AuthenticationContext = {
   state: authenticationInitialState,
   dispatch: () => {},
 };
-
-export const AuthContext = createContext<AuthenticationContext>(
-  authenticationInitialContext
-);

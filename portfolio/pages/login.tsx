@@ -1,18 +1,13 @@
 import { NextPage } from "next";
 import Error from "../features/common/components/error/error";
-import useLogin from "../features/login/hooks/use-login/use-login";
 import LoginForm from "../features/login/components/login-form/login-form";
 import FormFooter from "../features/common/components/form/components/form-footer/form-footer";
 import FormHeader from "../features/common/components/form/components/form-header/form-header";
-import { useContext } from "react";
-import { AuthContext } from "../features/login/contexts/authentication-context/authentication-context";
+import useAuthentication from "../features/login/hooks/use-login/use-login";
 
 const Login: NextPage = () => {
-  const { error, isLoading, handleOnChange, handleOnSubmit, userCredentials } =
-    useLogin();
-
-  const { state } = useContext(AuthContext);
-  console.log(state.isLoggedIn, state.user);
+  const { error, loading, handleOnChange, handleOnSubmit, credentials } =
+    useAuthentication();
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12">
@@ -21,10 +16,10 @@ const Login: NextPage = () => {
           subheading="Sign in into your account"
         />
         <LoginForm
-          isLoading={isLoading}
+          loading={loading}
+          credentials={credentials}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmit}
-          userCredentials={userCredentials}
         />
         <FormFooter
           path="signup"

@@ -1,23 +1,23 @@
 import { ChangeEventHandler, FC, FormEventHandler } from "react";
 import Input from "../../../common/components/input/input";
 import Button from "../../../common/components/button/button";
-import { UserCredentials } from "../../hooks/use-login/use-login.types";
 import PasswordInput from "../../../common/components/password-input/password-input";
+import { Credentials } from "../../hooks/use-login/use-login.types";
 
 type LoginFormProps = {
-  isLoading: boolean;
-  userCredentials: UserCredentials;
+  loading: boolean;
+  credentials: Credentials;
   handleOnSubmit: FormEventHandler<HTMLFormElement>;
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
 };
 
 const LoginForm: FC<LoginFormProps> = ({
-  isLoading,
+  loading,
+  credentials,
   handleOnChange,
   handleOnSubmit,
-  userCredentials,
 }) => {
-  const { email, password } = userCredentials;
+  const { email, password } = credentials;
   return (
     <form className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
@@ -41,8 +41,8 @@ const LoginForm: FC<LoginFormProps> = ({
         required
       />
       <div className="flex flex-col mt-4 mb-1.5">
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Signing in..." : "Sign in"}
+        <Button type="submit" disabled={loading}>
+          {loading ? "Signing in..." : "Sign in"}
         </Button>
       </div>
     </form>

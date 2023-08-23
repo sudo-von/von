@@ -5,7 +5,7 @@ import { MDXProvider } from "@mdx-js/react";
 import Navbar from "../features/common/components/navbar/navbar";
 import MarginLayout from "../layouts/margin-layout/margin-layout";
 import { publicRoutes } from "../features/common/components/navbar/navbar.routes";
-import AuthenticationProvider from "../features/login/providers/authentication-provider/authentication-provider";
+import AuthenticationProvider from "../features/authentication/providers/authentication-provider/authentication-provider";
 
 const font = Lexend({ subsets: ["latin"] });
 

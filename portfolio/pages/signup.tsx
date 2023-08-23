@@ -16,10 +16,10 @@ const Signup: NextPage = () => {
           subheading="Register for a new account"
         />
         <LoginForm
-          isLoading={isLoading}
+          loading={isLoading}
           handleOnChange={handleOnChange}
-          handleOnSubmit={handleOnSubmit}
-          userCredentials={userCredentials}
+          handleLogin={handleOnSubmit}
+          credentials={userCredentials}
         />
         <div className="flex flex-col mb-4">
           <FormFooter
