@@ -1,7 +1,8 @@
 import { UserCredentials } from "./use-login.types";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { APIError } from "../../../../services/api-service/api.service.responses";
 import { login } from "../../../../services/authentication-service/authentication-service/authentication.service";
+import { AuthContext } from "../../contexts/authentication-context/authentication-context";
 
 const useLogin = () => {
   const [error, setError] = useState("");
@@ -10,6 +11,7 @@ const useLogin = () => {
     email: "",
     password: "",
   });
+  const { dispatch } = useContext(AuthContext);
 
   const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
@@ -24,14 +26,19 @@ const useLogin = () => {
     try {
       setError("");
       setIsLoading(true);
-      const headers = await login({
+      await login({
         email: userCredentials.email,
         password: userCredentials.password,
       });
-      console.log(
-        "🚀 ~ file: use-login.tsx:31 ~ handleOnSubmit ~ headers:",
-        headers
-      );
+      dispatch({
+        type: "LOG_IN",
+        payload: {
+          id: "1",
+          email: "a",
+          name: "b",
+          username: "c",
+        },
+      });
     } catch (e) {
       setError((e as APIError).error);
     } finally {
