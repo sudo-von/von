@@ -12,7 +12,7 @@ type FormFooterProps = {
 
 const FormFooter: FC<FormFooterProps> = ({ path, heading, subheading }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-center">
       <FramedBox>
         <FormSubheading>{subheading}</FormSubheading>
       </FramedBox>

@@ -25,7 +25,7 @@ const useSignup = () => {
       setError("");
       setLoading(true);
       await signup(account);
-      setSuccess("Registration successful! Welcome aboard!");
+      setSuccess("Registration successful!");
     } catch (e) {
       setError((e as APIError).error);
     } finally {

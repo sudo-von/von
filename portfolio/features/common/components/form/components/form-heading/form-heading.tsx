@@ -4,12 +4,12 @@ import Typography from "../../../typography/typography";
 const FormHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      align="center"
       color="dark"
       component="h1"
-      size="medium"
+      size="normal"
+      spacing="normal"
       weight="normal"
-      whitespace="pre"
+      whitespace="normal"
     >
       {children}
     </Typography>
