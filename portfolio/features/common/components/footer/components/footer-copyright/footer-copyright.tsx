@@ -9,9 +9,9 @@ type FooterCopyrightProps = {
 const FooterCopyright: FC<FooterCopyrightProps> = ({ name, year }) => {
   return (
     <Typography
-      color="slate"
+      color="neutral"
       component="p"
-      variant="paragraph"
+      size="normal"
       weight="light"
       whitespace="pre"
     >

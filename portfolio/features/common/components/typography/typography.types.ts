@@ -1,48 +1,41 @@
-export type TypographyAlign = "center" | "start";
-
-export type TypographyColor = "white" | "black" | "slate" | "red";
+export type TypographyColor = 
+  | "dark"
+  | "error"
+  | "light"
+  | "normal"
+  | "success";
 
 export type TypographyComponent =
-  | "p"
-  | "span"
-  | "small"
   | "h1"
   | "h2"
   | "h3"
   | "h4"
   | "h5"
-  | "h6";
+  | "h6"
+  | "p"
+  | "small"
+  | "span";
 
-export type TypographyVariant =
-  | "banner"
-  | "title"
-  | "subtitle"
-  | "paragraph"
-  | "legend";
+export type TypographySize = 
+  | "huge"
+  | "large"
+  | "medium"
+  | "normal"
+  | "small";
 
-export type TypographySpacing = "normal" | "wide";
+export type TypographySpacing = 
+  | "normal"
+  | "wide";
 
-export type TypographyWeight = "light" | "regular" | "bold";
+export type TypographyWeight = 
+  | "bold"
+  | "light"
+  | "normal";
 
-export type TypographyWhitespace = "normal" | "pre";
+export type TypographyWhitespace = 
+  | "normal"
+  | "pre";
 
-export type TypographyOptions = {
-  align: {
-    [key in TypographyAlign]: string;
-  };
-  color: {
-    [key in TypographyColor]: string;
-  };
-  spacing: {
-    [key in TypographySpacing]: string;
-  };
-  variant: {
-    [key in TypographyVariant]: string;
-  };
-  weight: {
-    [key in TypographyWeight]: string;
-  };
-  whitespace: {
-    [key in TypographyWhitespace]: string;
-  };
+export type TypographyOption<T extends string> = {
+  [key in T]: string;
 };

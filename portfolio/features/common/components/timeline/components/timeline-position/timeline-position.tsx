@@ -7,9 +7,9 @@ const TimelinePosition: FC<PropsWithChildren> = ({ children }) => {
     <div className="flex flex-row gap-2 items-center justify-center lg:justify-start">
       <TbBriefcase className="text-slate-850" />
       <Typography
-        color="black"
+        color="dark"
         component="h6"
-        variant="paragraph"
+        size="normal"
         weight="light"
         whitespace="pre"
       >

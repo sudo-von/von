@@ -5,10 +5,10 @@ const FormHeading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       align="center"
-      color="black"
+      color="dark"
       component="h1"
-      variant="subtitle"
-      weight="regular"
+      size="medium"
+      weight="normal"
       whitespace="pre"
     >
       {children}

@@ -5,9 +5,9 @@ const FormSubheading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       align="center"
-      color="slate"
+      color="neutral"
       component="h2"
-      variant="paragraph"
+      size="normal"
       weight="light"
       whitespace="pre"
     >

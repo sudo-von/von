@@ -10,7 +10,7 @@ const Legend: FC<LegendProps> = ({ color = "slate", children }) => {
       color={color}
       component="small"
       spacing="wide"
-      variant="paragraph"
+      size="normal"
       weight="light"
       whitespace="pre"
     >

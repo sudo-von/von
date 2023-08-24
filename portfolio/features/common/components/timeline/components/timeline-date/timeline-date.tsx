@@ -15,9 +15,9 @@ const TimelineDate: FC<TimelineDateProps> = ({ endDate, startDate }) => {
     <div className="flex flex-row gap-2 items-center justify-center lg:justify-start">
       <TbCalendar className="text-slate-850" />
       <Typography
-        color="black"
+        color="dark"
         component="h6"
-        variant="paragraph"
+        size="normal"
         weight="light"
         whitespace="pre"
       >

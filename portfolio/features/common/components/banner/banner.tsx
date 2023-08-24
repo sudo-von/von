@@ -4,9 +4,9 @@ import Typography from "../../../common/components/typography/typography";
 const Banner: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="black"
+      color="dark"
       component="h1"
-      variant="banner"
+      size="huge"
       weight="bold"
       whitespace="pre"
     >

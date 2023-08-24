@@ -4,9 +4,9 @@ import Typography from "../../../typography/typography";
 const FooterSubtitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="black"
+      color="dark"
       component="h2"
-      variant="paragraph"
+      size="normal"
       weight="light"
       whitespace="pre"
     >

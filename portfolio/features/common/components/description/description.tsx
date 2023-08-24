@@ -4,9 +4,9 @@ import Typography from "../typography/typography";
 const Description: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="slate"
+      color="neutral"
       component="p"
-      variant="paragraph"
+      size="normal"
       weight="light"
       whitespace="pre"
     >

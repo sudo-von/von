@@ -21,7 +21,7 @@ const InputHintWrapper: FC<InputHintWrapperProps> = ({
         color={color}
         component="small"
         spacing="wide"
-        variant="legend"
+        size="small"
         weight="light"
       >
         {hint}

@@ -8,10 +8,10 @@ type NavbarLinkProps = Route & {
 };
 
 const NavbarLink: FC<NavbarLinkProps> = ({ name, path, isPathActive }) => {
-  const color = isPathActive ? "black" : "slate";
-  const weight = isPathActive ? "regular" : "light";
+  const color = isPathActive ? "dark" : "normal";
+  const weight = isPathActive ? "normal" : "light";
   return (
-    <Typography color={color} component="p" variant="paragraph" weight={weight}>
+    <Typography color={color} component="p" size="normal" weight={weight}>
       <Link href={path} className="hover:text-slate-850">
         {name}
       </Link>

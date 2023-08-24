@@ -4,6 +4,7 @@ import { signup } from "../../../../services/authentication-service/authenticati
 
 const useSignup = () => {
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState({
     name: "",
@@ -20,9 +21,11 @@ const useSignup = () => {
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      setSuccess("");
       setError("");
       setLoading(true);
       await signup(account);
+      setSuccess("Registration successful! Welcome aboard!");
     } catch (e) {
       setError((e as APIError).error);
     } finally {
@@ -34,6 +37,7 @@ const useSignup = () => {
     error,
     account,
     loading,
+    success,
     handleOnSubmit,
     handleOnChange,
   };

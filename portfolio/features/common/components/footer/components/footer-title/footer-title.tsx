@@ -4,10 +4,10 @@ import Typography from "../../../typography/typography";
 const FooterTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="black"
+      color="dark"
       component="h1"
-      variant="title"
-      weight="regular"
+      size="large"
+      weight="normal"
       whitespace="pre"
     >
       {children}
