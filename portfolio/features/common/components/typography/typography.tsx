@@ -36,13 +36,7 @@ const Typography: React.FC<TypographyProps> = ({
 }) => {
   const Component = component;
 
-  const className = `
-    ${typographyColor[color]}
-    ${typographySize[size]}
-    ${typographySpacing[spacing]}
-    ${typographyWeight[weight]}
-    ${typographyWhitespace[whitespace]}
-  `;
+  const className = `${typographyColor[color]} ${typographySize[size]} ${typographySpacing[spacing]} ${typographyWeight[weight]} ${typographyWhitespace[whitespace]}`;
 
   return <Component className={className}>{children}</Component>;
 };

@@ -19,7 +19,7 @@ type HomeProps = {
 const Home: NextPage<HomeProps> = ({ profile, contents = [] }) => {
   return (
     <div className="flex flex-col gap-8 mt-48">
-      <div className="grid grid-cols-1 gap-8  mb-56 lg:mb-96 text-center lg:text-start">
+      <div className="grid grid-cols-1 gap-8 mb-56 lg:mb-96 text-center lg:text-start">
         <Profile name={profile.name} details={profile.details} />
       </div>
       {contents.map(({ media, title, subtitle, description }) => (

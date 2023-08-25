@@ -25,7 +25,7 @@ const Img: FC<ImgProps> = ({ alt, src, rounded, onClick }) => {
 
   const roundedClassName = rounded ? options.rounded[rounded] : "";
   const filterClassName = "saturate-0 duration-1000 transition";
-  const imgClassName = "object-contain h-full w-full cursor-pointer";
+  const imgClassName = "object-cover h-full w-full cursor-pointer";
   const className = `${roundedClassName} ${imgClassName} ${filterClassName}`;
   return (
     <Image
