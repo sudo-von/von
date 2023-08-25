@@ -26,7 +26,7 @@ const Login: NextPage = () => {
           subheading="Don't have an account?"
         />
         {error && (
-          <div className="mt-4">
+          <div className="mt-5">
             <Alert variant="error">{error}</Alert>
           </div>
         )}

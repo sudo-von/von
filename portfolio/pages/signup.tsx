@@ -26,12 +26,12 @@ const Signup: NextPage = () => {
           subheading="Have an account?"
         />
         {error && (
-          <div className="mt-4">
+          <div className="mt-5">
             <Alert variant="error">{error}</Alert>
           </div>
         )}
         {success && (
-          <div className="mt-4">
+          <div className="mt-5">
             <Alert variant="success">{success}</Alert>
           </div>
         )}
