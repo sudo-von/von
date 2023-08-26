@@ -4,5 +4,5 @@ export const publicRoutes: Route[] = [
   { path: "/", name: "Home" },
   { path: "/ask", name: "Ask" },
   { path: "/blog", name: "Blog" },
-  { path: "/login", name: "Login" },
+  { path: "/signin", name: "Sign in" },
 ];

@@ -6,7 +6,7 @@ const ProfileInterest: FC<PropsWithChildren> = ({ children }) => {
     <Typography
       color="dark"
       component="h3"
-      size="normal"
+      size="small"
       spacing="normal"
       weight="light"
       whitespace="normal"

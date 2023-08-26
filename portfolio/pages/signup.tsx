@@ -6,7 +6,7 @@ import FormHeader from "../features/common/components/form/components/form-heade
 import FormFooter from "../features/common/components/form/components/form-footer/form-footer";
 
 const Signup: NextPage = () => {
-  const { account, error, handleOnChange, handleOnSubmit, loading, success } = useSignup();
+  const { account, error, handleOnChange, handleOnSubmit, loading } = useSignup();
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12">
@@ -21,18 +21,13 @@ const Signup: NextPage = () => {
           handleOnSubmit={handleOnSubmit}
         />
         <FormFooter
-          path="login"
+          path="signin"
           heading="Sign in"
           subheading="Have an account?"
         />
         {error && (
           <div className="mt-5">
             <Alert variant="error">{error}</Alert>
-          </div>
-        )}
-        {success && (
-          <div className="mt-5">
-            <Alert variant="success">{success}</Alert>
           </div>
         )}
       </div>

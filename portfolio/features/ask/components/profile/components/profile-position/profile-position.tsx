@@ -6,9 +6,9 @@ const ProfilePosition: FC<PropsWithChildren> = ({ children }) => {
     <Typography
       color="dark"
       component="h2"
-      size="medium"
+      size="normal"
       spacing="normal"
-      weight="light"
+      weight="normal"
       whitespace="normal"
     >
       {children}

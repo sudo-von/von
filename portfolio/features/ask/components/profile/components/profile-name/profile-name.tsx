@@ -1,8 +1,19 @@
 import { FC, PropsWithChildren } from "react";
-import Banner from "../../../../../common/components/banner/banner";
+import Typography from "../../../../../common/components/typography/typography";
 
 const ProfileName: FC<PropsWithChildren> = ({ children }) => {
-  return <Banner>{children}</Banner>;
+  return (
+    <Typography
+      color="dark"
+      component="h1"
+      size="huge"
+      spacing="normal"
+      weight="bold"
+      whitespace="normal"
+    >
+      {children}
+    </Typography>
+  );
 };
 
 export default ProfileName;

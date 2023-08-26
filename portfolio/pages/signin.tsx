@@ -1,12 +1,12 @@
 import { NextPage } from "next";
 import Alert from "../features/common/components/alert/alert";
-import useLogin from "../features/login/hooks/use-login/use-login";
-import LoginForm from "../features/login/components/login-form/login-form";
+import useSignin from "../features/signin/hooks/use-signin/use-signin";
+import SigninForm from "../features/signin/components/signin-form/signin-form";
 import FormHeader from "../features/common/components/form/components/form-header/form-header";
 import FormFooter from "../features/common/components/form/components/form-footer/form-footer";
 
-const Login: NextPage = () => {
-  const { credentials, error, handleOnChange, handleOnSubmit, loading } = useLogin();
+const Signin: NextPage = () => {
+  const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:w-8/12 md:w-6/12 lg:w-4/12 xl:w-3/12">
@@ -14,7 +14,7 @@ const Login: NextPage = () => {
           heading="Welcome back"
           subheading="Sign in into your account"
         />
-        <LoginForm
+        <SigninForm
           loading={loading}
           credentials={credentials}
           handleOnChange={handleOnChange}
@@ -35,4 +35,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Signin;

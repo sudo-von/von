@@ -1,17 +1,24 @@
 import { ComponentPropsWithoutRef, FC } from "react";
-import Typography from "../typography/typography";
+import ButtonContent, {
+  ButtonContentProps,
+} from "./components/button-content/button-content";
 
 type ButtonProps = Pick<
   ComponentPropsWithoutRef<"button">,
   "children" | "disabled" | "onClick" | "type"
->;
+> &
+  ButtonContentProps;
 
-const Button: FC<ButtonProps> = ({ children, disabled, onClick, type }) => {
-  const borderClassName = "border-b-4 border-slate-900";
-  const backgroundClassName = "bg-slate-850 hover:bg-slate-900";
-  const textClassName = "text-slate-50 text-base text-center font-normal";
-  const disabledClassName = disabled ? "opacity-30 cursor-not-allowed" : "";
-  const className = `${borderClassName} ${backgroundClassName} ${textClassName} ${disabledClassName} rounded p-3`;
+const Button: FC<ButtonProps> = ({
+  type,
+  loading,
+  onClick,
+  children,
+  disabled,
+}) => {
+  const backgroundClassName = "bg-slate-850 hover:bg-slate-950";
+  const disabledClassName = "disabled:opacity-30 disabled:cursor-not-allowed";
+  const className = `${backgroundClassName} ${disabledClassName} text-center rounded p-3`;
   return (
     <button
       type={type}
@@ -19,7 +26,7 @@ const Button: FC<ButtonProps> = ({ children, disabled, onClick, type }) => {
       disabled={disabled}
       className={className}
     >
-      {children}
+      <ButtonContent loading={loading}>{children}</ButtonContent>
     </button>
   );
 };

@@ -19,10 +19,10 @@ const ProfileMetrics: FC<ProfileMetricsProps> = ({
 
   return (
     <Typography
-      color="normal"
+      color="dark"
       component="small"
       size="small"
-      spacing="wide"
+      spacing="normal"
       weight="light"
       whitespace="normal"
     >

@@ -7,6 +7,7 @@ const Banner: FC<PropsWithChildren> = ({ children }) => {
       color="dark"
       component="h1"
       size="huge"
+      spacing="normal"
       weight="bold"
       whitespace="pre"
     >
