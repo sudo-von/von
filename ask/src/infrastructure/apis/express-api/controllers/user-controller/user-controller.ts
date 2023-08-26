@@ -10,11 +10,11 @@ import detailedUserToResponse from '../../../entities/domain-entities/user-entit
 class UserController {
   constructor(private readonly userUsecase: UserUsecase) {}
 
-  getUserByUserId = async (req: Request, res: Response, next: NextFunction) => {
+  getUserByUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const id = req.params.id.toLowerCase();
+      const username = req.params.username.toLowerCase();
 
-      const user = await this.userUsecase.getUserByUsername(id);
+      const user = await this.userUsecase.getUserByUsername(username);
 
       const userResponse = detailedUserToResponse(user);
 

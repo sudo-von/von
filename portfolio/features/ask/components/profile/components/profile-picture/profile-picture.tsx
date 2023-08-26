@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Img, { ImgProps } from "../../../../../common/components/img/img";
 
-type ProfilePictureProps = Omit<ImgProps, "rounded">;
+export type ProfilePictureProps = Omit<ImgProps, "rounded">;
 
 const ProfilePicture: FC<ProfilePictureProps> = ({ alt, src, onClick }) => {
   return (

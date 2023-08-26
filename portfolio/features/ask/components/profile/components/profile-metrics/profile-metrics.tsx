@@ -1,8 +1,8 @@
 import { FC } from "react";
-import Typography from "../../../../../common/components/typography/typography";
 import { formatMetrics } from "./profile-metrics.utils";
+import Typography from "../../../../../common/components/typography/typography";
 
-type ProfileMetricsProps = {
+export type ProfileMetricsProps = {
   totalViews: number;
   totalAnswers: number;
   totalQuestions: number;
@@ -15,11 +15,7 @@ const ProfileMetrics: FC<ProfileMetricsProps> = ({
 }) => {
   const formatedViews = formatMetrics(totalViews, "View", "Views");
   const formatedAnswers = formatMetrics(totalAnswers, "Answer", "Answers");
-  const formatedQuestions = formatMetrics(
-    totalQuestions,
-    "Question",
-    "Questions"
-  );
+  const formatedQuestions = formatMetrics(totalQuestions, "Question", "Questions");
 
   return (
     <Typography
@@ -28,6 +24,7 @@ const ProfileMetrics: FC<ProfileMetricsProps> = ({
       size="small"
       spacing="wide"
       weight="light"
+      whitespace="normal"
     >
       {formatedViews} • {formatedAnswers} • {formatedQuestions}
     </Typography>
