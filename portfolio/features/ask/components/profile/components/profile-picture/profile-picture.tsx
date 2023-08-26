@@ -1,9 +1,9 @@
 import { FC } from "react";
 import Img, { ImgProps } from "../../../../../common/components/img/img";
 
-export type ProfilePictureProps = Omit<ImgProps, "rounded">;
+export type ProfileAvatarProps = Omit<ImgProps, "rounded">;
 
-const ProfilePicture: FC<ProfilePictureProps> = ({ alt, src, onClick }) => {
+const ProfileAvatar: FC<ProfileAvatarProps> = ({ alt, src, onClick }) => {
   return (
     <div className="relative w-44 h-44">
       <Img alt={alt} onClick={onClick} src={src} rounded="full" />
@@ -11,4 +11,4 @@ const ProfilePicture: FC<ProfilePictureProps> = ({ alt, src, onClick }) => {
   );
 };
 
-export default ProfilePicture;
+export default ProfileAvatar;

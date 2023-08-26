@@ -11,7 +11,7 @@ const detailedSecureUserToResponse = (
   id: detailedSecureUser.id,
   name: detailedSecureUser.name,
   email: detailedSecureUser.email,
-  avatar: detailedSecureUser.avatar,
+  avatar: detailedSecureUser.avatar ? `http://localhost:3000/static/avatars/${detailedSecureUser.avatar}` : undefined,
   username: detailedSecureUser.username,
   details: detailedSecureUser.details && {
     quote: detailedSecureUser.details.quote,
