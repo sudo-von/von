@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { decodeToken } from "../../../../services/token-service/token.service";
 import { setCookie } from "../../../../services/cookie-service/cookie.service";
 import { APIError } from "../../../../services/api-service/api.service.responses";
-import { login } from "../../../../services/auth-service/authentication-service/authentication.service";
+import { authLogin } from "../../../../services/api-service/auth-service/auth.service";
 import { AuthenticationContext } from "../../../authentication/contexts/authentication-context/authentication-context";
 
 const useSignin = () => {
@@ -28,7 +28,7 @@ const useSignin = () => {
       setError("");
       setLoading(true);
 
-      const token = await login(credentials);
+      const token = await authLogin(credentials);
 
       setCookie("token", token);
 

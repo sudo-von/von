@@ -7,9 +7,7 @@ export const getAPIURL = ({ port, version, base }: APIOptions) => {
   return formatedURL;
 };
 
-export const getAPIVersion = (version: number) => {
-  "v" + version + "/";
-};
+export const getAPIVersion = (version: number) => "v" + version + "/";
 
 export const setAPIRequestErrorInterceptor = (error: Error) => {
   if (!isAxiosError(error) || !error.response)

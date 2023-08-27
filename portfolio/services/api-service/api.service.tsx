@@ -4,7 +4,7 @@ import { getAPIURL, setAPIRequestErrorInterceptor } from "./api.service.utils";
 
 const createAPIService = ({ base, port, version }: APIOptions) => {
   const service = axios.create({
-    baseURL: getAPIURL({ port, version, base }),
+    baseURL: getAPIURL({ base, port, version }),
     headers: {
       "Content-Type": "application/json",
     },

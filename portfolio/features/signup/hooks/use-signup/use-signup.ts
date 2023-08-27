@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import { Account } from "./use-signup.types";
 import { APIError } from "../../../../services/api-service/api.service.responses";
-import { signup } from "../../../../services/auth-service/authentication-service/authentication.service";
+import { authSignup } from "../../../../services/api-service/auth-service/auth.service";
 
 const useSignup = () => {
   const [error, setError] = useState("");
@@ -26,7 +26,7 @@ const useSignup = () => {
     try {
       setError("");
       setLoading(true);
-      await signup(account);
+      await authSignup(account);
       push("/ask");
     } catch (e) {
       setError((e as APIError).error);

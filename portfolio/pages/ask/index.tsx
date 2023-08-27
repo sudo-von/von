@@ -7,10 +7,11 @@ import useQuestion from "../../features/ask/hooks/use-question/use-question";
 import QuestionForm from "../../features/ask/components/question-form/question-form";
 
 type AskProps = {
+  answeredQuestionsList: AnsweredQuestionCardProps[];
   profile: ProfileProps;
 };
 
-const Ask: NextPage<AskProps> = ({ profile }) => {
+const Ask: NextPage<AskProps> = ({ answeredQuestionsList, profile }) => {
   const { avatar, details, metrics, name, username } = profile;
   const {
     error,
@@ -37,28 +38,40 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
           handleOnSubmit={handleOnSubmit}
         />
         {error && (
-          <div className="mt-5">
+          <div className="my-5">
             <Alert variant="error">{error}</Alert>
           </div>
         )}
         {success && (
-          <div className="mt-5">
+          <div className="my-5">
             <Alert variant="success">{success}</Alert>
           </div>
         )}
+        <AnsweredQuestionList answeredQuestions={answeredQuestionsList} />
       </div>
     </div>
   );
 };
 
 import { GetServerSideProps } from "next";
-import { getAuthUserByUsername } from "../../services/auth-service/user-service/auth-user.service";
+import { getAuthUserByUsername } from "../../services/api-service/auth-service/user-service/auth-user.service";
 import { getAskUserByUsername } from "../../services/api-service/ask-service/ask-user-service/ask-user.service";
+import { getAskAnsweredQuestionListByUsername } from "../../services/api-service/ask-service/ask-answered-question-service/ask-answered-question.service";
+import AnsweredQuestionList, {
+  AnsweredQuestionListProps,
+} from "../../features/ask/components/answered-question-list/answered-question-list";
+import { AnsweredQuestionCardProps } from "../../features/ask/components/answered-question-card/answered-question-card";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");
   const { result: authenticationUser } = await getAuthUserByUsername(
     "sudo_von"
+  );
+  const { result: answeredQuestions } =
+    await getAskAnsweredQuestionListByUsername("sudo_von");
+  console.log(
+    "🚀 ~ file: index.tsx:63 ~ constgetServerSideProps:GetServerSideProps<AskProps>= ~ answeredQuestions:",
+    answeredQuestions
   );
 
   const profile: ProfileProps = {
@@ -75,9 +88,18 @@ export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
     },
   };
 
+  const answeredQuestionsList: AnsweredQuestionCardProps[] =
+    answeredQuestions.map((answeredQuestion) => ({
+      id: answeredQuestion.id,
+      question: answeredQuestion.question,
+      answer: answeredQuestion.answer.answer,
+      answered_at: answeredQuestion.answer.answered_at,
+    }));
+
   return {
     props: {
       profile,
+      answeredQuestionsList,
     },
   };
 };

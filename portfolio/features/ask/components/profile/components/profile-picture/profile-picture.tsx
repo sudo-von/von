@@ -5,7 +5,7 @@ export type ProfileAvatarProps = Omit<ImgProps, "rounded">;
 
 const ProfileAvatar: FC<ProfileAvatarProps> = ({ alt, src, onClick }) => {
   return (
-    <div className="relative w-44 h-44">
+    <div className="relative w-40 h-40">
       <Img alt={alt} onClick={onClick} src={src} rounded="full" />
     </div>
   );
