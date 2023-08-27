@@ -12,7 +12,14 @@ type AskProps = {
 
 const Ask: NextPage<AskProps> = ({ profile }) => {
   const { avatar, details, metrics, name, username } = profile;
-  const { error, loading, handleOnChange, handleOnSubmit, questionForm, success } = useQuestion(username);
+  const {
+    error,
+    loading,
+    handleOnChange,
+    handleOnSubmit,
+    questionForm,
+    success,
+  } = useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -45,12 +52,14 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
 };
 
 import { GetServerSideProps } from "next";
-import { getUserByUsername } from "../../services/authentication-service/user-service/user.service";
+import { getAuthUserByUsername } from "../../services/auth-service/user-service/auth-user.service";
 import { getAskUserByUsername } from "../../services/ask-service/ask-user-service/ask-user.service";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");
-  const { result: authenticationUser } = await getUserByUsername("sudo_von");
+  const { result: authenticationUser } = await getAuthUserByUsername(
+    "sudo_von"
+  );
 
   const profile: ProfileProps = {
     name: authenticationUser.name,

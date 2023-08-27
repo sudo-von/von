@@ -9,3 +9,5 @@ export type AskQuestionResponse = {
 };
 
 export type AskQuestionAPIResponse = APIResponse<AskQuestionResponse>;
+
+export type AskQuestionListAPIResponse = APIResponse<AskQuestionResponse[]>;

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { decodeToken } from "../../../../services/token-service/token.service";
 import { setCookie } from "../../../../services/cookie-service/cookie.service";
 import { APIError } from "../../../../services/api-service/api.service.responses";
-import { login } from "../../../../services/authentication-service/authentication-service/authentication.service";
+import { login } from "../../../../services/auth-service/authentication-service/authentication.service";
 import { AuthenticationContext } from "../../../authentication/contexts/authentication-context/authentication-context";
 
 const useSignin = () => {

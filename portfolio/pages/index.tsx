@@ -7,8 +7,8 @@ import Profile, {
   ProfileProps,
 } from "../features/home/components/profile/profile";
 import { getContents } from "../services/content-service/content-service/content.service";
-import { getUserByUsername } from "../services/authentication-service/user-service/user.service";
-import { userResponseToProfileProps } from "../services/authentication-service/user-service/user.service.mappers";
+import { getAuthUserByUsername } from "../services/auth-service/user-service/auth-user.service";
+import { userResponseToProfileProps } from "../services/auth-service/user-service/user.service.mappers";
 import { contentResponseToContentProps } from "../services/content-service/content-service/content.service.mappers";
 
 type HomeProps = {
@@ -38,7 +38,7 @@ const Home: NextPage<HomeProps> = ({ profile, contents = [] }) => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   try {
-    const { result: userResponse } = await getUserByUsername("sudo_von");
+    const { result: userResponse } = await getAuthUserByUsername("sudo_von");
     const { data: contentResponses } = await getContents();
 
     const profile = userResponseToProfileProps(userResponse);
