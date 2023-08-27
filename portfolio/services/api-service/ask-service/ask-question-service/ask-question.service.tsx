@@ -1,4 +1,4 @@
-import createAPIService from "../../api-service/api.service";
+import createAPIService from "../../api.service";
 import { CreateQuestionRequest } from "./ask-question.requests";
 import { AskQuestionAPIResponse } from "./ask-question.service.responses";
 
@@ -13,9 +13,6 @@ export const createAskQuestionByUsername = async (
   payload: CreateQuestionRequest
 ): Promise<AskQuestionAPIResponse> => {
   const query = `username/${username}`;
-  const { data } = await askQuestionService.post<AskQuestionAPIResponse>(
-    query,
-    payload
-  );
+  const { data } = await askQuestionService.post<AskQuestionAPIResponse>(query, payload);
   return data;
 };

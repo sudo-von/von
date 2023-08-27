@@ -1,4 +1,4 @@
-import createAPIService from "../../api-service/api.service";
+import createAPIService from "../../../api-service/api.service";
 import { AuthUserAPIResponse } from "./auth-user.service.responses";
 
 const authUserService = createAPIService({

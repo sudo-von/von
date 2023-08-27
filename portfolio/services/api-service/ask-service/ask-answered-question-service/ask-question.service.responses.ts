@@ -1,12 +1,8 @@
-import { APIResponse } from "../../api-service/api.service.responses";
+import { APIResponse } from "../../api.service.responses";
 import { AskAnswerResponse } from "../ask-answer-service/ask-answer.service.responses";
+import { AskQuestionResponse } from "../ask-question-service/ask-question.service.responses";
 
-export type AskAnsweredQuestionResponse = {
-  id: string;
-  views: number;
-  asked_at: string;
-  username: string;
-  question: string;
+export type AskAnsweredQuestionResponse = AskQuestionResponse & {
   answer: AskAnswerResponse;
 };
 

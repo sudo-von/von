@@ -1,4 +1,4 @@
-import { APIResponse } from "../../api-service/api.service.responses";
+import { APIResponse } from "../../api.service.responses";
 
 export type AskQuestionResponse = {
   id: string;

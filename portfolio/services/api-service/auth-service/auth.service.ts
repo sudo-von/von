@@ -1,4 +1,4 @@
-import createAPIService from "../api-service/api.service";
+import createAPIService from "../../api-service/api.service";
 import {
   AuthAccountRequest,
   AuthCredentialsRequest,
@@ -11,7 +11,7 @@ const authService = createAPIService({
   version: 1,
 });
 
-export const login = async (
+export const authLogin = async (
   credentials: AuthCredentialsRequest
 ): Promise<string> => {
   const { headers } = await authService.post("login", credentials);
@@ -19,7 +19,7 @@ export const login = async (
   return authorization;
 };
 
-export const signup = async (
+export const authSignup = async (
   account: AuthAccountRequest
 ): Promise<AuthUserAPIResponse> => {
   const { data } = await authService.post<AuthUserAPIResponse>("signup", account);

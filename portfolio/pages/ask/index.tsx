@@ -53,7 +53,7 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
 
 import { GetServerSideProps } from "next";
 import { getAuthUserByUsername } from "../../services/auth-service/user-service/auth-user.service";
-import { getAskUserByUsername } from "../../services/ask-service/ask-user-service/ask-user.service";
+import { getAskUserByUsername } from "../../services/api-service/ask-service/ask-user-service/ask-user.service";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");

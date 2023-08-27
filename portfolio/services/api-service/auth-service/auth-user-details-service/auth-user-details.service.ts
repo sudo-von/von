@@ -1,4 +1,4 @@
-import createAPIService from "../../api-service/api.service";
+import createAPIService from "../../../api-service/api.service";
 import { AuthUserDetailsRequest } from "./auth-user-details.service.requests";
 import { AuthUserAPIResponse } from "../user-service/auth-user.service.responses";
 
