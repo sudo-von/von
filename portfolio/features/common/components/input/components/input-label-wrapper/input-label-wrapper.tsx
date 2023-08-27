@@ -15,9 +15,16 @@ const InputLabelWrapper: FC<InputLabelWrapperProps> = ({
   children,
 }) => {
   if (!label) return children;
+  const color = error ? "error" : "normal";
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor={htmlFor} error={error}>
+      <Label
+        htmlFor={htmlFor}
+        color={color}
+        size="tiny"
+        spacing="wide"
+        weight="light"
+      >
         {label}
       </Label>
       {children}

@@ -1,4 +1,4 @@
-export type TypographyColor = 
+export type TypographyColor =
   | "dark"
   | "error"
   | "light"
@@ -16,23 +16,24 @@ export type TypographyComponent =
   | "small"
   | "span";
 
-export type TypographySize = 
+export type TypographySize =
   | "huge"
   | "large"
   | "medium"
   | "normal"
-  | "small";
+  | "small"
+  | "tiny";
 
-export type TypographySpacing = 
+export type TypographySpacing =
   | "normal"
   | "wide";
 
-export type TypographyWeight = 
+export type TypographyWeight =
   | "bold"
   | "light"
   | "normal";
 
-export type TypographyWhitespace = 
+export type TypographyWhitespace =
   | "normal"
   | "pre";
 

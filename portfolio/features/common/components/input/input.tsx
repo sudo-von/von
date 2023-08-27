@@ -31,7 +31,7 @@ const Input: FC<InputProps> = ({
   const inputClassName = `${textClassName} ${borderClassName} w-full p-3 pr-11 border rounded focus:outline-none`;
   return (
     <InputLabelWrapper error={error} htmlFor={id} label={label}>
-      <InputHintWrapper error={error} hint={hint}>
+      <InputHintWrapper error={error} htmlFor={id} hint={hint}>
         <input
           id={id}
           name={name}

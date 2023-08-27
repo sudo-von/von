@@ -17,10 +17,10 @@ import {
 
 export type TypographyProps = {
   children: ReactNode;
+  size?: TypographySize;
   color?: TypographyColor;
   weight?: TypographyWeight;
   spacing?: TypographySpacing;
-  size?: TypographySize;
   component?: TypographyComponent;
   whitespace?: TypographyWhitespace;
 };

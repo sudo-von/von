@@ -15,6 +15,7 @@ const QuestionForm: FC<QuestionFormProps> = ({
   handleOnChange,
   handleOnSubmit,
 }) => {
+  const hint = `${question.length}/300`;
   return (
     <form className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
@@ -22,6 +23,7 @@ const QuestionForm: FC<QuestionFormProps> = ({
         name="question"
         type="question"
         label="Question"
+        hint={hint}
         value={question}
         onChange={handleOnChange}
         placeholder="Enter your question"

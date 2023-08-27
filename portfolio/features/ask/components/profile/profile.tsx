@@ -11,6 +11,7 @@ import ProfileAvatar from "./components/profile-picture/profile-picture";
 export type ProfileProps = {
   name: string;
   avatar: string;
+  username: string;
   metrics: ProfileMetricsProps;
   details: ProfileDetailsProps | null;
 };

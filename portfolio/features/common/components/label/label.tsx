@@ -1,15 +1,29 @@
-import { FC, ReactNode } from "react";
+import { ComponentPropsWithoutRef, FC, ReactNode } from "react";
+import {
+  LabelSize,
+  LabelColor,
+  LabelWeight,
+  LabelSpacing,
+} from "./label.types";
+import { labelColor, labelSize, labelSpacing, labelWeight } from "./label.data";
 
-type LabelProps = {
-  htmlFor?: string;
+type LabelProps = Pick<ComponentPropsWithoutRef<"label">, "htmlFor"> & {
+  size?: LabelSize;
+  color?: LabelColor;
   children: ReactNode;
-  error?: string | null;
+  weight?: LabelWeight;
+  spacing?: LabelSpacing;
 };
 
-const Label: FC<LabelProps> = ({ htmlFor, children, error }) => {
-  const colorClassName = error ? "text-red-150" : "text-slate-550";
-  const textClassName = "text-xs tracking-wide font-light";
-  const className = `${colorClassName} ${textClassName}`;
+const Label: FC<LabelProps> = ({
+  htmlFor,
+  children,
+  color = "normal",
+  size = "tiny",
+  spacing = "wide",
+  weight = "light",
+}) => {
+  const className = `${labelColor[color]} ${labelSize[size]} ${labelSpacing[spacing]} ${labelWeight[weight]}`;
   return (
     <label htmlFor={htmlFor} className={className}>
       {children}

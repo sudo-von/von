@@ -21,6 +21,7 @@ export const typographySize: TypographyOption<TypographySize> = {
   medium: "text-lg",
   normal: "text-base",
   small: "text-sm",
+  tiny: "text-xs",
 };
 
 export const typographySpacing: TypographyOption<TypographySpacing> = {

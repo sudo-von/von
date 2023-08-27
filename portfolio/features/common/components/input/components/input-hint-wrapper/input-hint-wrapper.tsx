@@ -1,8 +1,9 @@
 import { FC, ReactNode } from "react";
-import Typography from "../../../typography/typography";
+import Label from "../../../label/label";
 
 export type InputHintWrapperProps = {
   hint?: string;
+  htmlFor?: string;
   children: ReactNode;
   error?: string | null;
 };
@@ -10,22 +11,23 @@ export type InputHintWrapperProps = {
 const InputHintWrapper: FC<InputHintWrapperProps> = ({
   hint,
   error,
+  htmlFor,
   children,
 }) => {
   if (!hint) return children;
-  const color = error ? "red" : "slate";
+  const color = error ? "error" : "normal";
   return (
     <div className="flex flex-col gap-1">
       {children}
-      <Typography
+      <Label
+        htmlFor={htmlFor}
         color={color}
-        component="small"
+        size="tiny"
         spacing="wide"
-        size="small"
         weight="light"
       >
         {hint}
-      </Typography>
+      </Label>
     </div>
   );
 };

@@ -13,9 +13,9 @@ type AskProps = {
 };
 
 const Ask: NextPage<AskProps> = ({ profile }) => {
-  const { avatar, details, metrics, name } = profile;
-  const { error, loading, handleOnChange, handleOnSubmit, question } =
-    useQuestion();
+  const { avatar, details, metrics, name, username } = profile;
+  const { error, loading, handleOnChange, handleOnSubmit, question, success } =
+    useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -24,6 +24,7 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
           avatar={avatar}
           details={details}
           metrics={metrics}
+          username={username}
         />
         <QuestionForm
           loading={loading}
@@ -34,6 +35,11 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
         {error && (
           <div className="mt-5">
             <Alert variant="error">{error}</Alert>
+          </div>
+        )}
+        {success && (
+          <div className="mt-5">
+            <Alert variant="success">{success}</Alert>
           </div>
         )}
       </div>
@@ -50,6 +56,7 @@ export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
     avatar:
       authenticationUser.avatar ||
       "https://neantvert.eu/minorin/wp-content/uploads/2014/08/ZankyouNoTerror-E06-S08.jpg",
+    username: authenticationUser.username,
     details: authenticationUser.details || null,
     metrics: {
       totalViews: askUser.metrics.total_views,
