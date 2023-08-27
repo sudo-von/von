@@ -1,12 +1,10 @@
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage } from "next";
 import Profile, {
   ProfileProps,
 } from "../../features/ask/components/profile/profile";
 import Alert from "../../features/common/components/alert/alert";
 import useQuestion from "../../features/ask/hooks/use-question/use-question";
 import QuestionForm from "../../features/ask/components/question-form/question-form";
-import { getUserByUsername } from "../../services/authentication-service/user-service/user.service";
-import { getAskUserByUsername } from "../../services/ask-service/ask-user-service/ask-user.service";
 
 type AskProps = {
   profile: ProfileProps;
@@ -14,8 +12,7 @@ type AskProps = {
 
 const Ask: NextPage<AskProps> = ({ profile }) => {
   const { avatar, details, metrics, name, username } = profile;
-  const { error, loading, handleOnChange, handleOnSubmit, question, success } =
-    useQuestion(username);
+  const { error, loading, handleOnChange, handleOnSubmit, questionForm, success } = useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -28,7 +25,7 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
         />
         <QuestionForm
           loading={loading}
-          question={question}
+          questionForm={questionForm}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmit}
         />
@@ -46,6 +43,10 @@ const Ask: NextPage<AskProps> = ({ profile }) => {
     </div>
   );
 };
+
+import { GetServerSideProps } from "next";
+import { getUserByUsername } from "../../services/authentication-service/user-service/user.service";
+import { getAskUserByUsername } from "../../services/ask-service/ask-user-service/ask-user.service";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");

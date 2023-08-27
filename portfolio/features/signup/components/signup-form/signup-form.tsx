@@ -17,7 +17,7 @@ const SignupForm: FC<SignupFormProps> = ({
   handleOnChange,
   handleOnSubmit,
 }) => {
-  const { name, email, username, password } = account;
+  const { email, name, password, username } = account;
   return (
     <form className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input

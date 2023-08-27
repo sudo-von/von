@@ -5,7 +5,7 @@ export type InputHintWrapperProps = {
   hint?: string;
   htmlFor?: string;
   children: ReactNode;
-  error?: string | null;
+  error?: boolean;
 };
 
 const InputHintWrapper: FC<InputHintWrapperProps> = ({

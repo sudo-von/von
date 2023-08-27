@@ -8,7 +8,7 @@ export type InputProps = Pick<
 > & {
   hint?: string;
   label: string;
-  error?: string | null;
+  error?: boolean;
 };
 
 const Input: FC<InputProps> = ({

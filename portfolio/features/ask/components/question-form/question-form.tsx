@@ -1,21 +1,22 @@
 import { ChangeEventHandler, FC, FormEventHandler } from "react";
 import Input from "../../../common/components/input/input";
 import Button from "../../../common/components/button/button";
+import { QuestionForm } from "../../hooks/use-question/use-question.types";
 
 type QuestionFormProps = {
   loading: boolean;
-  question: string;
+  questionForm: QuestionForm;
   handleOnSubmit: FormEventHandler<HTMLFormElement>;
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
 };
 
 const QuestionForm: FC<QuestionFormProps> = ({
   loading,
-  question,
+  questionForm,
   handleOnChange,
   handleOnSubmit,
 }) => {
-  const hint = `${question.length}/300`;
+  const { question } = questionForm;
   return (
     <form className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
@@ -23,15 +24,16 @@ const QuestionForm: FC<QuestionFormProps> = ({
         name="question"
         type="question"
         label="Question"
-        hint={hint}
-        value={question}
+        hint={question.hint}
+        error={question.error}
+        value={question.value}
         onChange={handleOnChange}
         placeholder="Enter your question"
         required
       />
       <div className="flex flex-col mt-4 mb-1.5">
         <Button type="submit" disabled={loading} loading={loading}>
-          {loading ? "Sending question..." : "Send question"}
+          {loading ? "Sending..." : "Send question"}
         </Button>
       </div>
     </form>

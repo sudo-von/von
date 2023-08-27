@@ -5,7 +5,7 @@ export type InputLabelWrapperProps = {
   label?: string;
   htmlFor?: string;
   children: ReactNode;
-  error?: string | null;
+  error?: boolean;
 };
 
 const InputLabelWrapper: FC<InputLabelWrapperProps> = ({
