@@ -1,4 +1,4 @@
-export const formatAskedAt = (askedAt: Date) => {
+export const formatAnsweredAt = (answeredAt: Date) => {
   const { format } = new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
@@ -8,5 +8,5 @@ export const formatAskedAt = (askedAt: Date) => {
     hour12: true,
   });
 
-  return format(askedAt);
+  return format(answeredAt);
 };

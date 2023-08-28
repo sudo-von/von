@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { formatAskedAt } from "./asked-at.utils";
+import { formatAnsweredAt } from "./answered-at.utils";
 import Typography from "../../../../../common/components/typography/typography";
 
-type AskedAt = {
-  date: Date;
+type AnsweredAtProps = {
+  answeredAt: Date;
 };
 
-const AskedAt: FC<AskedAt> = ({ date }) => {
-  const formatedAskedAt = formatAskedAt(date);
+const AnsweredAt: FC<AnsweredAtProps> = ({ answeredAt }) => {
+  const formatedAskedAt = formatAnsweredAt(answeredAt);
   return (
     <Typography
       color="normal"
@@ -22,4 +22,4 @@ const AskedAt: FC<AskedAt> = ({ date }) => {
   );
 };
 
-export default AskedAt;
+export default AnsweredAt;

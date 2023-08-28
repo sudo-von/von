@@ -1,8 +1,8 @@
 import { FC, ReactNode } from "react";
+import Question from "../question/question";
 import Answer from "./components/answer/answer";
-import Question from "./components/question/question";
 import Card from "../../../common/components/card/card";
-import AnsweredQuestionDate from "./components/asked-at/asked-at";
+import AnsweredAt from "./components/answered-at/answered-at";
 
 export type AnsweredQuestionProps = {
   id: string;
@@ -18,10 +18,11 @@ const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
   answeredAt,
   handleOnClick,
 }) => {
+  const castedAnsweredAt = new Date(answeredAt);
   return (
     <Card onClick={handleOnClick}>
       <Question>{question}</Question>
-      <AnsweredQuestionDate date={new Date(answeredAt)} />
+      <AnsweredAt answeredAt={castedAnsweredAt} />
       <Answer>{answer}</Answer>
     </Card>
   );

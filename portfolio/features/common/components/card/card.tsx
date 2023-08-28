@@ -11,7 +11,7 @@ const Card: FC<CardProps> = ({ children, onClick }) => {
       onClick={onClick}
       className="flex flex-col hover:shadow cursor-pointer rounded border border-slate-100 focus:border-slate-200"
     >
-      <div className="flex flex-col gap-3 p-5 break-all">{children}</div>
+      <div className="flex flex-col gap-2.5 p-5 break-all">{children}</div>
     </div>
   );
 };

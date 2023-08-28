@@ -8,34 +8,36 @@ import { APIError } from "../../../../services/api-service/api.service.responses
 import { createAskQuestionByUsername } from "../../../../services/api-service/ask-service/ask-question-service/ask-question.service";
 
 const useQuestion = (username: string) => {
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
   const [questionForm, setQuestionForm] = useState<QuestionForm>(initialState);
 
-  const router = useRouter();
+  const { replace, asPath } = useRouter();
 
   const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
+    const { value } = target;
 
-    if (name === "question")
-      setQuestionForm((prevState) => ({
-        ...prevState,
-        question: { ...prevState[name], value },
-      }));
+    setQuestionForm((prevState) => ({
+      ...prevState,
+      question: { ...prevState.question, value },
+    }));
   };
 
   const handleOnSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
-    setLoading(true);
 
     try {
+      setError("");
+      setSuccess("");
+      setLoading(true);
+
       await createAskQuestionByUsername(username, {
         question: questionForm.question.value,
       });
-      router.replace(router.asPath);
+
+      replace(asPath);
+
       setQuestionForm(initialState);
       setSuccess("Question created successfully!");
     } catch (e) {
@@ -46,15 +48,17 @@ const useQuestion = (username: string) => {
   };
 
   useEffect(() => {
+    questionForm.question.value ? setSuccess("") : setError("");
+
     const hint = getQuestionHint(questionForm.question.value);
 
     const error = questionForm.question.value.trim().length
       ? validateQuestionLength(questionForm.question.value)
       : false;
 
-    setQuestionForm((state) => ({
-      ...state,
-      question: { ...state.question, hint, error },
+    setQuestionForm((prevState) => ({
+      ...prevState,
+      question: { ...prevState.question, hint, error },
     }));
   }, [questionForm.question.value]);
 

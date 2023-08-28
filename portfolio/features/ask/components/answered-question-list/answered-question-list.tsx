@@ -15,9 +15,7 @@ const AnsweredQuestionList: FC<AnsweredQuestionListProps> = ({
   return (
     <div className="flex flex-col w-full gap-3.5">
       {answeredQuestions.map(({ id, answer, answeredAt, question }) => {
-        const handleOnClick = () => {
-          push(id);
-        };
+        const handleOnClick = () => { push(`/ask/${id}`); };
         return (
           <AnsweredQuestion
             id={id}
