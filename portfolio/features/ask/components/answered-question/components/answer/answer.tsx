@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../../../common/components/typography/typography";
 
-const QuestionAnswer: FC<PropsWithChildren> = ({ children }) => {
+const Answer: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="dark"
@@ -16,4 +16,4 @@ const QuestionAnswer: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default QuestionAnswer;
+export default Answer;

@@ -26,7 +26,7 @@ class MongoQuestionRepository implements IQuestionRepository {
     filters?: QuestionRepositoryFilters,
   ): Promise<DetailedQuestion[]> => {
     const query = createQuestionRepositoryQuery(filters);
-    const questionDocuments = await QuestionModel.find(query).sort('answer.answered_at').sort('asked_at');
+    const questionDocuments = await QuestionModel.find(query).sort({ 'answer.answered_at': -1 }).sort({ asked_at: -1 });
     const questions = questionDocuments.map((model) => questionDocumentToQuestion(model));
     return questions;
   };

@@ -1,27 +1,28 @@
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
+import Answer from "./components/answer/answer";
+import Question from "./components/question/question";
 import Card from "../../../common/components/card/card";
-import QuestionDate from "./components/question-date/question-date";
-import QuestionTitle from "./components/question-title/question-title";
-import QuestionAnswer from "./components/question-answer/question-answer";
+import AnsweredQuestionDate from "./components/asked-at/asked-at";
 
 export type AnsweredQuestionProps = {
   id: string;
-  answer: string;
+  answer: ReactNode;
+  answeredAt: string;
   question: ReactNode;
-  answered_at: string;
+  handleOnClick?: VoidFunction;
 };
 
 const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
-  id,
   answer,
   question,
-  answered_at,
+  answeredAt,
+  handleOnClick,
 }) => {
   return (
-    <Card>
-      <QuestionTitle>{question}</QuestionTitle>
-      <QuestionDate>{answered_at}</QuestionDate>
-      <QuestionAnswer>{answer}</QuestionAnswer>
+    <Card onClick={handleOnClick}>
+      <Question>{question}</Question>
+      <AnsweredQuestionDate date={new Date(answeredAt)} />
+      <Answer>{answer}</Answer>
     </Card>
   );
 };

@@ -10,9 +10,12 @@ import AuthenticationProvider from "../features/authentication/providers/authent
 const font = Lexend({ subsets: ["latin"] });
 
 const App = ({ Component, pageProps }: AppProps) => {
-  console.log("hey");
   return (
     <AuthenticationProvider>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      ></meta>
       <MDXProvider components={{}}>
         <MarginLayout>
           <main className={font.className}>

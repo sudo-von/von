@@ -1,19 +1,19 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../../../common/components/typography/typography";
 
-const QuestionDate: FC<PropsWithChildren> = ({ children }) => {
+const Question: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="normal"
-      component="small"
+      color="dark"
+      component="h5"
       size="small"
       spacing="normal"
-      weight="light"
+      weight="normal"
       whitespace="normal"
     >
-      {children}
+      “{children}”
     </Typography>
   );
 };
 
-export default QuestionDate;
+export default Question;

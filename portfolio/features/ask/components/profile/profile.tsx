@@ -18,7 +18,7 @@ export type ProfileProps = {
 
 const Profile: FC<ProfileProps> = ({ name, avatar, details, metrics }) => {
   return (
-    <div className="flex flex-col lg:flex-row justify-start items-center gap-6">
+    <div className="flex flex-col lg:flex-row justify-start items-center gap-5">
       <ProfileAvatar alt="profile-avatar" src={avatar} />
       <div className="flex flex-col justify-center items-center lg:items-start gap-2.5">
         <ProfileName>{name}</ProfileName>
