@@ -9,7 +9,7 @@ const Signin: NextPage = () => {
   const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();
   return (
     <div className="flex flex-col items-center mt-48">
-      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md">
+      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
         <FormHeader
           heading="Welcome back"
           subheading="Sign in into your account"

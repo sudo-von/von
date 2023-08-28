@@ -5,13 +5,15 @@ import Profile, {
 import Alert from "../../features/common/components/alert/alert";
 import useQuestion from "../../features/ask/hooks/use-question/use-question";
 import QuestionForm from "../../features/ask/components/question-form/question-form";
+import AnsweredQuestions from "../../features/ask/components/answered-questions/answered-questions";
+import { AnsweredQuestionProps } from "../../features/ask/components/answered-question/answered-question";
 
 type AskProps = {
-  answeredQuestionsList: AnsweredQuestionCardProps[];
   profile: ProfileProps;
+  answeredQuestions: AnsweredQuestionProps[];
 };
 
-const Ask: NextPage<AskProps> = ({ answeredQuestionsList, profile }) => {
+const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
   const { avatar, details, metrics, name, username } = profile;
   const {
     error,
@@ -38,16 +40,16 @@ const Ask: NextPage<AskProps> = ({ answeredQuestionsList, profile }) => {
           handleOnSubmit={handleOnSubmit}
         />
         {error && (
-          <div className="my-5">
+          <div className="mb-7">
             <Alert variant="error">{error}</Alert>
           </div>
         )}
         {success && (
-          <div className="my-5">
+          <div className="mb-7">
             <Alert variant="success">{success}</Alert>
           </div>
         )}
-        <AnsweredQuestionList answeredQuestions={answeredQuestionsList} />
+        <AnsweredQuestions answeredQuestions={answeredQuestions} />
       </div>
     </div>
   );
@@ -57,28 +59,19 @@ import { GetServerSideProps } from "next";
 import { getAuthUserByUsername } from "../../services/api-service/auth-service/user-service/auth-user.service";
 import { getAskUserByUsername } from "../../services/api-service/ask-service/ask-user-service/ask-user.service";
 import { getAskAnsweredQuestionListByUsername } from "../../services/api-service/ask-service/ask-answered-question-service/ask-answered-question.service";
-import AnsweredQuestionList, {
-  AnsweredQuestionListProps,
-} from "../../features/ask/components/answered-question-list/answered-question-list";
-import { AnsweredQuestionCardProps } from "../../features/ask/components/answered-question-card/answered-question-card";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");
   const { result: authenticationUser } = await getAuthUserByUsername(
     "sudo_von"
   );
-  const { result: answeredQuestions } =
+  const { result: askAnsweredQuestions } =
     await getAskAnsweredQuestionListByUsername("sudo_von");
-  console.log(
-    "🚀 ~ file: index.tsx:63 ~ constgetServerSideProps:GetServerSideProps<AskProps>= ~ answeredQuestions:",
-    answeredQuestions
-  );
 
   const profile: ProfileProps = {
     name: authenticationUser.name,
     avatar:
-      authenticationUser.avatar ||
-      "https://neantvert.eu/minorin/wp-content/uploads/2014/08/ZankyouNoTerror-E06-S08.jpg",
+      "https://64.media.tumblr.com/ae04468c064954188d57dd3a75916043/tumblr_n9zrj52cBP1s8jr81o3_500.gifv",
     username: authenticationUser.username,
     details: authenticationUser.details || null,
     metrics: {
@@ -88,18 +81,19 @@ export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
     },
   };
 
-  const answeredQuestionsList: AnsweredQuestionCardProps[] =
-    answeredQuestions.map((answeredQuestion) => ({
+  const answeredQuestions: AnsweredQuestionProps[] = askAnsweredQuestions.map(
+    (answeredQuestion) => ({
       id: answeredQuestion.id,
       question: answeredQuestion.question,
       answer: answeredQuestion.answer.answer,
       answered_at: answeredQuestion.answer.answered_at,
-    }));
+    })
+  );
 
   return {
     props: {
       profile,
-      answeredQuestionsList,
+      answeredQuestions,
     },
   };
 };

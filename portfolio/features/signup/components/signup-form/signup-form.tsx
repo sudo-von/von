@@ -1,8 +1,8 @@
 import { ChangeEventHandler, FC, FormEventHandler } from "react";
 import Input from "../../../common/components/input/input";
 import Button from "../../../common/components/button/button";
-import { Account } from "../../hooks/use-signup/use-signup.types";
 import PasswordInput from "../../../common/components/password-input/password-input";
+import { Account } from "../../hooks/use-signup/use-signup.types";
 
 type SignupFormProps = {
   account: Account;

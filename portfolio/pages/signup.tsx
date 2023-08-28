@@ -9,7 +9,7 @@ const Signup: NextPage = () => {
   const { account, error, handleOnChange, handleOnSubmit, loading } = useSignup();
   return (
     <div className="flex flex-col items-center mt-48">
-      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md">
+      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
         <FormHeader
           heading="Create an account"
           subheading="Sign up for a new account"

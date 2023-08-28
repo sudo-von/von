@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useRouter } from "next/router";
+import { authSignup } from "../../../../services/api-service/auth-service/auth.service";
 import { Account } from "./use-signup.types";
 import { APIError } from "../../../../services/api-service/api.service.responses";
-import { authSignup } from "../../../../services/api-service/auth-service/auth.service";
 
 const useSignup = () => {
   const [error, setError] = useState("");

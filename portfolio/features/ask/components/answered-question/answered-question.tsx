@@ -4,14 +4,14 @@ import QuestionDate from "./components/question-date/question-date";
 import QuestionTitle from "./components/question-title/question-title";
 import QuestionAnswer from "./components/question-answer/question-answer";
 
-export type AnsweredQuestionCardProps = {
+export type AnsweredQuestionProps = {
   id: string;
   answer: string;
   question: ReactNode;
   answered_at: string;
 };
 
-const QuestionCard: FC<AnsweredQuestionCardProps> = ({
+const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
   id,
   answer,
   question,
@@ -26,4 +26,4 @@ const QuestionCard: FC<AnsweredQuestionCardProps> = ({
   );
 };
 
-export default QuestionCard;
+export default AnsweredQuestion;

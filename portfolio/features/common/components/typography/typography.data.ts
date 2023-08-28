@@ -17,7 +17,7 @@ export const typographyColor: TypographyOption<TypographyColor> = {
 
 export const typographySize: TypographyOption<TypographySize> = {
   huge: "text-4xl",
-  large: "text-xl",
+  large: "text-3xl",
   medium: "text-lg",
   normal: "text-base",
   small: "text-sm",
