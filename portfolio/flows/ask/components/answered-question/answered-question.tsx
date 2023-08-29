@@ -18,12 +18,11 @@ const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
   question,
   answeredAt,
 }) => {
-  const castedAnsweredAt = new Date(answeredAt);
   return (
     <Link id={id} href={`/ask/${id}`} scroll={false}>
       <Card>
         <Question>{question}</Question>
-        <AnsweredAt answeredAt={castedAnsweredAt} />
+        <AnsweredAt answeredAt={answeredAt} />
         <Answer>{answer}</Answer>
       </Card>
     </Link>

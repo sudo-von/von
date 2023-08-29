@@ -55,14 +55,14 @@ import { getAskAnsweredQuestionListByUsername } from "../../services/api-service
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");
-  const { result: authenticationUser } = await getAuthUserByUsername("sudo_von");
+  const { result: authUser } = await getAuthUserByUsername("sudo_von");
   const { result: askAnsweredQuestions } = await getAskAnsweredQuestionListByUsername("sudo_von");
 
   const profile: ProfileProps = {
-    name: authenticationUser.name,
-    avatar: authenticationUser.avatar || "/avatar/default-avatar.jpg",
-    username: authenticationUser.username,
-    details: authenticationUser.details || null,
+    name: authUser.name,
+    avatar: authUser.avatar || "/avatar/default-avatar.jpg",
+    username: authUser.username,
+    details: authUser.details || null,
     metrics: {
       totalViews: askUser.metrics.total_views,
       totalAnswers: askUser.metrics.total_answers,

@@ -1,12 +1,12 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../../../common/components/typography/typography";
 
-const HyperlinkDescription: FC<PropsWithChildren> = ({ children }) => {
+const Metric: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="dark"
-      component="p"
-      size="small"
+      color="normal"
+      component="small"
+      size="tiny"
       spacing="normal"
       weight="light"
       whitespace="normal"
@@ -16,4 +16,4 @@ const HyperlinkDescription: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default HyperlinkDescription;
+export default Metric;

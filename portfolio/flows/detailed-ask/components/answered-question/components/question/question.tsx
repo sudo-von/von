@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import Typography from "../../../../../common/components/typography/typography";
 
-const DetailedQuestion: FC<PropsWithChildren> = ({ children }) => {
+const Question: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="dark"
@@ -9,11 +9,11 @@ const DetailedQuestion: FC<PropsWithChildren> = ({ children }) => {
       size="medium"
       spacing="normal"
       weight="bold"
-      whitespace="normal"
+      whitespace="pre"
     >
       “{children}”
     </Typography>
   );
 };
 
-export default DetailedQuestion;
+export default Question;

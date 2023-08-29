@@ -1,4 +1,4 @@
-import createAPIService from "../../api-service/api.service";
+import createAPIService from "../../api.service";
 import { ContentAPIResponse } from "./content.service.responses";
 
 const contentService = createAPIService({

@@ -1,13 +1,11 @@
 import { FC } from "react";
-import { formatAnsweredAt } from "./answered-at.utils";
 import Typography from "../../../common/components/typography/typography";
 
 export type AnsweredAtProps = {
-  answeredAt: Date;
+  answeredAt: string;
 };
 
 const AnsweredAt: FC<AnsweredAtProps> = ({ answeredAt }) => {
-  const formatedAskedAt = formatAnsweredAt(answeredAt);
   return (
     <Typography
       color="normal"
@@ -17,7 +15,7 @@ const AnsweredAt: FC<AnsweredAtProps> = ({ answeredAt }) => {
       weight="light"
       whitespace="normal"
     >
-      {formatedAskedAt}
+      {answeredAt}
     </Typography>
   );
 };

@@ -1,15 +1,10 @@
 import { NextPage } from "next";
-import { GetStaticProps } from "next";
 import Content, {
   ContentProps,
 } from "../flows/home/components/content/content";
 import Profile, {
   ProfileProps,
 } from "../flows/home/components/profile/profile";
-import { getContents } from "../services/content-service/content-service/content.service";
-import { getAuthUserByUsername } from "../services/auth-service/user-service/auth-user.service";
-import { userResponseToProfileProps } from "../services/auth-service/user-service/user.service.mappers";
-import { contentResponseToContentProps } from "../services/content-service/content-service/content.service.mappers";
 
 type HomeProps = {
   profile: ProfileProps;
@@ -36,12 +31,26 @@ const Home: NextPage<HomeProps> = ({ profile, contents = [] }) => {
   );
 };
 
+import { GetStaticProps } from "next";
+import { getContents } from "../services/api-service/content-service/content-service/content.service";
+import { getAuthUserByUsername } from "../services/api-service/auth-service/user-service/auth-user.service";
+import { contentResponseToContentProps } from "../services/api-service/content-service/content-service/content.service.mappers";
+
 export const getStaticProps: GetStaticProps = async (ctx) => {
   try {
-    const { result: userResponse } = await getAuthUserByUsername("sudo_von");
+    const { result: authUser } = await getAuthUserByUsername("sudo_von");
     const { data: contentResponses } = await getContents();
 
-    const profile = userResponseToProfileProps(userResponse);
+    const profile: ProfileProps = {
+      name: authUser.name,
+      details: authUser.details
+        ? {
+            quote: authUser.details.quote,
+            interest: authUser.details.interest,
+            position: authUser.details.position,
+          }
+        : null,
+    };
 
     const contents = contentResponses.map((contentResponse) =>
       contentResponseToContentProps(contentResponse)

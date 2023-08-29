@@ -6,7 +6,7 @@ import Banner from "../../../common/components/banner/banner";
 
 export type ProfileProps = {
   name: string;
-  details?: ProfileDetailsProps;
+  details: ProfileDetailsProps | null;
 };
 
 const Profile: FC<ProfileProps> = ({ name, details }) => {
