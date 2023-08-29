@@ -24,7 +24,7 @@ module.exports = {
         450: "#cc0000",
         500: "#b30000",
         550: "#990000",
-        600: "#800000",        
+        600: "#800000",
       },
       "slate": {
         50: "#f2f2f2",  // button-text-color
@@ -43,7 +43,7 @@ module.exports = {
         700: "#4d4d4d",
         750: "#404040",
         800: "#333333",
-        850: "#262626", // input text color, button-background 
+        850: "#262626", // input text color, button-background
         900: "#1a1a1a",
         950: "#0d0d0d", // button-background-hover
       },

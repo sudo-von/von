@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useRouter } from "next/router";
 import AnsweredQuestion, {
   AnsweredQuestionProps,
 } from "../answered-question/answered-question";
@@ -11,11 +10,9 @@ export type AnsweredQuestionListProps = {
 const AnsweredQuestionList: FC<AnsweredQuestionListProps> = ({
   answeredQuestions,
 }) => {
-  const { push } = useRouter();
   return (
     <div className="flex flex-col w-full gap-3.5">
       {answeredQuestions.map(({ id, answer, answeredAt, question }) => {
-        const handleOnClick = () => { push(`/ask/${id}`); };
         return (
           <AnsweredQuestion
             id={id}
@@ -23,7 +20,6 @@ const AnsweredQuestionList: FC<AnsweredQuestionListProps> = ({
             answer={answer}
             question={question}
             answeredAt={answeredAt}
-            handleOnClick={handleOnClick}
           />
         );
       })}

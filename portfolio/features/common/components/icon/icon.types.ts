@@ -1,4 +1,5 @@
-export type IconColor = 
+export type IconColor =
+  | "dark"
   | "error"
   | "normal"
   | "success";
