@@ -6,8 +6,7 @@ import FormHeader from "../flows/common/components/form/components/form-header/f
 import FormFooter from "../flows/common/components/form/components/form-footer/form-footer";
 
 const Signup: NextPage = () => {
-  const { account, error, handleOnChange, handleOnSubmit, loading } =
-    useSignup();
+  const { account, error, handleOnChange, handleOnSubmit, loading } = useSignup();
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">

@@ -5,10 +5,7 @@ import OutOfService from "../flows/common/components/out-of-service/out-of-servi
 const ServiceUnavailable: NextPage = () => {
   return (
     <CenteredLayout>
-      <OutOfService
-        title="503"
-        description="This page is under construction."
-      />
+      <OutOfService title="503" description="This page is under construction." />
     </CenteredLayout>
   );
 };

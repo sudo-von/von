@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import Link from "next/link";
 import Question from "../question/question";
-import Answer from "./components/answer/answer";
+import Answer from "../answer/answer";
 import Card from "../../../common/components/card/card";
 import AnsweredAt from "../answered-at/answered-at";
 

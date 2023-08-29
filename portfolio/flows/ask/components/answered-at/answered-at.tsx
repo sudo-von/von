@@ -2,7 +2,7 @@ import { FC } from "react";
 import { formatAnsweredAt } from "./answered-at.utils";
 import Typography from "../../../common/components/typography/typography";
 
-type AnsweredAtProps = {
+export type AnsweredAtProps = {
   answeredAt: Date;
 };
 

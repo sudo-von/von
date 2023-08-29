@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../common/components/typography/typography";
+import Typography from "../../../common/components/typography/typography";
 
 const Answer: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -7,7 +7,7 @@ const Answer: FC<PropsWithChildren> = ({ children }) => {
       color="dark"
       component="p"
       size="small"
-      spacing="normal"
+      spacing="wide"
       weight="light"
       whitespace="pre"
     >
