@@ -2,10 +2,10 @@ import { NextPage } from "next";
 import { GetStaticProps } from "next";
 import Content, {
   ContentProps,
-} from "../features/home/components/content/content";
+} from "../flows/home/components/content/content";
 import Profile, {
   ProfileProps,
-} from "../features/home/components/profile/profile";
+} from "../flows/home/components/profile/profile";
 import { getContents } from "../services/content-service/content-service/content.service";
 import { getAuthUserByUsername } from "../services/auth-service/user-service/auth-user.service";
 import { userResponseToProfileProps } from "../services/auth-service/user-service/user.service.mappers";

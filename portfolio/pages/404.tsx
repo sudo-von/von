@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import CenteredLayout from "../layouts/centered-layout/centered-layout";
-import OutOfService from "../features/common/components/out-of-service/out-of-service";
+import OutOfService from "../flows/common/components/out-of-service/out-of-service";
 
 const NotFound: NextPage = () => {
   return (

@@ -1,12 +1,13 @@
 import { NextPage } from "next";
-import Alert from "../features/common/components/alert/alert";
-import useSignin from "../features/signin/hooks/use-signin/use-signin";
-import SigninForm from "../features/signin/components/signin-form/signin-form";
-import FormHeader from "../features/common/components/form/components/form-header/form-header";
-import FormFooter from "../features/common/components/form/components/form-footer/form-footer";
+import Alert from "../flows/common/components/alert/alert";
+import useSignin from "../flows/signin/hooks/use-signin/use-signin";
+import SigninForm from "../flows/signin/components/signin-form/signin-form";
+import FormHeader from "../flows/common/components/form/components/form-header/form-header";
+import FormFooter from "../flows/common/components/form/components/form-footer/form-footer";
 
 const Signin: NextPage = () => {
-  const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();
+  const { credentials, error, handleOnChange, handleOnSubmit, loading } =
+    useSignin();
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">

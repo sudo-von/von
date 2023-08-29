@@ -1,12 +1,12 @@
 import { NextPage } from "next";
 import Profile, {
   ProfileProps,
-} from "../../features/ask/components/profile/profile";
-import Alert from "../../features/common/components/alert/alert";
-import useQuestion from "../../features/ask/hooks/use-question/use-question";
-import QuestionForm from "../../features/ask/components/question-form/question-form";
-import { AnsweredQuestionProps } from "../../features/ask/components/answered-question/answered-question";
-import AnsweredQuestionList from "../../features/ask/components/answered-question-list/answered-question-list";
+} from "../../flows/ask/components/profile/profile";
+import Alert from "../../flows/common/components/alert/alert";
+import useQuestion from "../../flows/ask/hooks/use-question/use-question";
+import QuestionForm from "../../flows/ask/components/question-form/question-form";
+import { AnsweredQuestionProps } from "../../flows/ask/components/answered-question/answered-question";
+import AnsweredQuestionList from "../../flows/ask/components/answered-question-list/answered-question-list";
 
 type AskProps = {
   profile: ProfileProps;

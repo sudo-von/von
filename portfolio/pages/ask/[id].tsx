@@ -77,12 +77,12 @@ import { GetServerSideProps } from "next";
 import { getAskAnsweredQuestionById } from "../../services/api-service/ask-service/ask-answered-question-service/ask-answered-question.service";
 
 import { ParsedUrlQuery } from "querystring";
-import Icon from "../../features/common/components/icon/icon";
-import Typography from "../../features/common/components/typography/typography";
+import Icon from "../../flows/common/components/icon/icon";
+import Typography from "../../flows/common/components/typography/typography";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import DetailedQuestion from "../../features/ask/components/detailed-question/detailed-question";
-import AnsweredAt from "../../features/ask/components/answered-at/answered-at";
+import DetailedQuestion from "../../flows/ask/components/detailed-question/detailed-question";
+import AnsweredAt from "../../flows/ask/components/answered-at/answered-at";
 
 type Params = ParsedUrlQuery & {
   id?: string;

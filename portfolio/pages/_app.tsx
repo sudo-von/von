@@ -2,10 +2,10 @@ import "../styles/globals.css";
 import { AppProps } from "next/app";
 import { Lexend } from "next/font/google";
 import { MDXProvider } from "@mdx-js/react";
-import Navbar from "../features/common/components/navbar/navbar";
+import Navbar from "../flows/common/components/navbar/navbar";
 import MarginLayout from "../layouts/margin-layout/margin-layout";
-import { publicRoutes } from "../features/common/components/navbar/navbar.routes";
-import AuthenticationProvider from "../features/authentication/providers/authentication-provider/authentication-provider";
+import { publicRoutes } from "../flows/common/components/navbar/navbar.routes";
+import AuthenticationProvider from "../flows/authentication/providers/authentication-provider/authentication-provider";
 
 const font = Lexend({ subsets: ["latin"] });
 

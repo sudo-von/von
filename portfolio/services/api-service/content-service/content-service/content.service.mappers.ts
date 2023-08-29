@@ -1,5 +1,5 @@
 import { ContentResponse } from "./content.service.responses";
-import { ContentProps } from "../../../features/home/components/content/content";
+import { ContentProps } from "../../../flows/home/components/content/content";
 
 export const contentResponseToContentProps = (
   contentResponse: ContentResponse
