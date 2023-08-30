@@ -9,7 +9,7 @@ export type ProfileProps = {
 
 const Profile: FC<ProfileProps> = ({ name, details }) => {
   return (
-    <div className="grid gap-6 mb-56 lg:mb-96 text-center lg:text-start">
+    <div className="grid gap-6 text-center lg:text-start">
       <Name>{name}</Name>
       {details && (
         <Details

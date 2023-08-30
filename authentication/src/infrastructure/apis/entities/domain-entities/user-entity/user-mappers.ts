@@ -20,7 +20,7 @@ const detailedSecureUserToResponse = (
   },
   social_networks: detailedSecureUser.socialNetworks.map((sn) => ({
     id: sn.id,
-    src: sn.src,
+    src: `http://localhost:3000/static/social-networks/${sn.src}`,
     url: sn.url,
     name: sn.name,
   })),
