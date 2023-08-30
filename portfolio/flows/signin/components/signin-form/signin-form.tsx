@@ -22,26 +22,26 @@ const SigninForm: FC<SigninFormProps> = ({
     <form autoComplete="off" className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
         id="email"
-        name="email"
-        type="email"
         label="Email"
-        value={email}
+        name="email"
         onChange={handleOnChange}
         placeholder="Enter your email"
         required
+        type="email"
+        value={email}
       />
       <PasswordInput
         id="password"
-        name="password"
-        type="password"
         label="Password"
-        value={password}
+        name="password"
         onChange={handleOnChange}
         placeholder="Enter your password"
         required
+        type="password"
+        value={password}
       />
       <div className="flex flex-col mt-4 mb-1.5">
-        <Button type="submit" disabled={loading} loading={loading}>
+        <Button disabled={loading} loading={loading} type="submit">
           {loading ? "Signing in..." : "Sign in"}
         </Button>
       </div>

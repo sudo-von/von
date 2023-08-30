@@ -22,46 +22,46 @@ const SignupForm: FC<SignupFormProps> = ({
     <form autoComplete="off" className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
         id="name"
-        name="name"
-        type="text"
         label="Name"
-        value={name}
+        name="name"
         onChange={handleOnChange}
         placeholder="Enter your name"
         required
+        type="text"
+        value={name}
       />
       <Input
         id="email"
-        name="email"
-        type="email"
         label="Email"
-        value={email}
+        name="email"
         onChange={handleOnChange}
         placeholder="Enter your email"
         required
+        type="email"
+        value={email}
       />
       <Input
         id="username"
-        name="username"
-        type="text"
         label="Username"
-        value={username}
+        name="username"
         onChange={handleOnChange}
         placeholder="Enter your username"
         required
+        type="text"
+        value={username}
       />
       <PasswordInput
         id="password"
-        name="password"
-        type="password"
         label="Password"
-        value={password}
+        name="password"
         onChange={handleOnChange}
         placeholder="Enter your password"
         required
+        type="password"
+        value={password}
       />
       <div className="flex flex-col mt-4 mb-1.5">
-        <Button type="submit" disabled={loading}>
+        <Button disabled={loading} loading={loading} type="submit">
           {loading ? "Signing up..." : "Sign up"}
         </Button>
       </div>
