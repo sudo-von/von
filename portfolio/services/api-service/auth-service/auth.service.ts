@@ -3,7 +3,7 @@ import {
   AuthAccountRequest,
   AuthCredentialsRequest,
 } from "./auth.service.requests";
-import { AuthUserAPIResponse } from "./user-service/auth-user.service.responses";
+import { AuthUserAPIResponse } from "../../../flows/authentication/services/user-service/user.service.responses";
 
 const authService = createAPIService({
   base: "authentication",

@@ -1,13 +1,12 @@
 import { NextPage } from "next";
-import Content, {
-  ContentProps,
-} from "../flows/home/components/content/content";
 import Profile, {
   ProfileProps,
 } from "../flows/home/components/profile/profile";
+import ContentList, {
+  ContentListProps,
+} from "../flows/home/components/content-list/content-list";
 
-type HomeProps = {
-  contents: ContentProps[];
+type HomeProps = ContentListProps & {
   profile: ProfileProps;
 };
 
@@ -22,45 +21,21 @@ const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
 };
 
 import { GetStaticProps } from "next";
+import { userToProfileProps } from "../flows/home/mappers/user-to-profile-props";
+import { contentToContentProps } from "../flows/home/mappers/content-to-content-props";
+import { getUserByUsername } from "../flows/authentication/services/user-service/user.service";
 import { getContents } from "../services/api-service/content-service/content-service/content.service";
-import { getAuthUserByUsername } from "../services/api-service/auth-service/user-service/auth-user.service";
-import { contentResponseToContentProps } from "../services/api-service/content-service/content-service/content.service.mappers";
-import ContentList from "../flows/home/components/content-list/content-list";
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  try {
-    const { result: authUser } = await getAuthUserByUsername("sudo_von");
-    const { data: contentResponses } = await getContents();
+  const { data: contents } = await getContents();
+  const { result: user } = await getUserByUsername("sudo_von");
 
-    const profile: ProfileProps = {
-      name: authUser.name,
-      details: authUser.details
-        ? {
-            quote: authUser.details.quote,
-            interest: authUser.details.interest,
-            position: authUser.details.position,
-          }
-        : null,
-    };
-
-    const contents = contentResponses.map((contentResponse) =>
-      contentResponseToContentProps(contentResponse)
-    );
-
-    return {
-      props: {
-        profile,
-        contents,
-      },
-    };
-  } catch (e) {
-    return {
-      props: {},
-      redirect: {
-        destination: "/500",
-      },
-    };
-  }
+  return {
+    props: {
+      contents: contents.map((content) => contentToContentProps(content)),
+      profile: userToProfileProps(user),
+    },
+  };
 };
 
 export default Home;

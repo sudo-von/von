@@ -5,8 +5,9 @@ const Title: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="dark"
-      component="h1"
-      size="large"
+      component="h4"
+      size="medium"
+      spacing="normal"
       weight="normal"
       whitespace="pre"
     >

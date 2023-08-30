@@ -8,15 +8,14 @@ export type ContentListProps = {
 const ContentList: FC<ContentListProps> = ({ contents = [] }) => {
   return (
     <>
-      {contents.map(({ media, title, subtitle, description }) => (
-        <div key={title} className="grid lg:grid-cols-2 gap-8 mb-56 lg:mb-96">
-          <Content
-            media={media}
-            title={title}
-            subtitle={subtitle}
-            description={description}
-          />
-        </div>
+      {contents.map(({ description, media, subtitle, title }) => (
+        <Content
+          key={title}
+          description={description}
+          media={media}
+          subtitle={subtitle}
+          title={title}
+        />
       ))}
     </>
   );

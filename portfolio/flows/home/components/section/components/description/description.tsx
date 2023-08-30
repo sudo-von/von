@@ -4,9 +4,10 @@ import Typography from "../../../../../common/components/typography/typography";
 const Description: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="dark"
+      color="normal"
       component="p"
-      size="normal"
+      size="small"
+      spacing="normal"
       weight="light"
       whitespace="pre"
     >

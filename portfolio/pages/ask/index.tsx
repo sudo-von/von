@@ -15,7 +15,14 @@ type AskProps = {
 
 const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
   const { avatar, details, metrics, name, username } = profile;
-  const { error, loading, handleOnChange, handleOnSubmit, questionForm, success } = useQuestion(username);
+  const {
+    error,
+    loading,
+    handleOnChange,
+    handleOnSubmit,
+    questionForm,
+    success,
+  } = useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -49,14 +56,15 @@ const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
 };
 
 import { GetServerSideProps } from "next";
-import { getAuthUserByUsername } from "../../services/api-service/auth-service/user-service/auth-user.service";
+import { getUserByUsername } from "../../flows/authentication/services/user-service/user.service";
 import { getAskUserByUsername } from "../../services/api-service/ask-service/ask-user-service/ask-user.service";
 import { getAskAnsweredQuestionListByUsername } from "../../services/api-service/ask-service/ask-answered-question-service/ask-answered-question.service";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: askUser } = await getAskUserByUsername("sudo_von");
-  const { result: authUser } = await getAuthUserByUsername("sudo_von");
-  const { result: askAnsweredQuestions } = await getAskAnsweredQuestionListByUsername("sudo_von");
+  const { result: authUser } = await getUserByUsername("sudo_von");
+  const { result: askAnsweredQuestions } =
+    await getAskAnsweredQuestionListByUsername("sudo_von");
 
   const profile: ProfileProps = {
     name: authUser.name,

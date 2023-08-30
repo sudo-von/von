@@ -1,6 +1,6 @@
 import createAPIService from "../../../api-service/api.service";
 import { AuthUserDetailsRequest } from "./auth-user-details.service.requests";
-import { AuthUserAPIResponse } from "../user-service/auth-user.service.responses";
+import { AuthUserAPIResponse } from "../../../../flows/authentication/services/user-service/user.service.responses";
 
 const authUserDetailsService = createAPIService({
   base: "authentication",

@@ -5,8 +5,9 @@ const Subtitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="dark"
-      component="h2"
-      size="medium"
+      component="h5"
+      size="normal"
+      spacing="normal"
       weight="light"
       whitespace="pre"
     >
