@@ -1,8 +1,8 @@
 import { FC } from "react";
 import Name from "./components/name/name";
 import Details, { DetailsProps } from "./components/details/details";
-import SocialNewtorkList from "../social-network-list/social-network-list";
-import { SocialNetworkProps } from "../social-network/social-network";
+import { SocialNetworkProps } from "./components/social-network/social-network";
+import SocialNewtorkList from "./components/social-network-list/social-network-list";
 
 export type UserProps = {
   details: DetailsProps | null;

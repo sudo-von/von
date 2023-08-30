@@ -7,9 +7,7 @@ const userService = createAPIService({
   version: 1,
 });
 
-export const getUserByUsername = async (
-  username: string
-): Promise<AuthUserAPIResponse> => {
+export const getUserByUsername = async (username: string): Promise<AuthUserAPIResponse> => {
   const query = `/username/${username}`;
   const { data } = await userService.get<AuthUserAPIResponse>(query);
   return data;

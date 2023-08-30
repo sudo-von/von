@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Anchor from "../../../common/components/anchor/anchor";
-import Vector, { VectorProps } from "../../../common/components/vector/vector";
+import Anchor from "../../../../../common/components/anchor/anchor";
+import Vector, { VectorProps } from "../../../../../common/components/vector/vector";
 
 export type SocialNetworkProps = VectorProps & {
   href: string;

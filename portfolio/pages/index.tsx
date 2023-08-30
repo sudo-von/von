@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import User, { UserProps } from "../flows/home/components/user/user";
+import { ContentProps } from "../flows/home/components/content/content";
 import ContentList, { ContentListProps } from "../flows/home/components/content-list/content-list";
+import { SocialNetworkProps } from "../flows/home/components/user/components/social-network/social-network";
 
 type HomeProps = ContentListProps & UserProps;
 
@@ -14,22 +16,71 @@ const Home: NextPage<HomeProps> = ({ contents = [], details, name, socialNetwork
 };
 
 import { GetStaticProps } from "next";
-import { userToProfileProps } from "../flows/home/mappers/user-to-profile-props";
-import { contentToContentProps } from "../flows/home/mappers/content-to-content-props";
 import { getUserByUsername } from "../flows/authentication/services/user-service/user.service";
 import { getContents } from "../services/api-service/content-service/content-service/content.service";
-import { socialNetworkToSocialNetworkProps } from "../flows/home/mappers/social-network-to-social-network-props";
 
-export const getStaticProps: GetStaticProps<HomeProps> = async (ctx) => {
-  const { data: contentList } = await getContents();
+export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
   const { result: user } = await getUserByUsername("sudo_von");
+  const { data: contentList } = await getContents();
 
-  const contents = contentList.map((content) => contentToContentProps(content));
-  const socialNetworks = user.social_networks.map((social_network) => socialNetworkToSocialNetworkProps(social_network));
-  const { details, name } = userToProfileProps(user);
+  const contents = contentList.map(({ attributes }) => {
+    const { description, media, subtitle, title } = attributes;
+    const { timelines, vectors, video } = media.data.attributes;
+
+    const timelinesMedia = timelines.data.map((t) => ({
+      company: t.attributes.company,
+      endDate: t.attributes.end_date,
+      position: t.attributes.position,
+      startDate: t.attributes.start_date,
+      description: t.attributes.description,
+      src: t.attributes.src.data.attributes.url,
+    }));
+
+    const vectorsMedia = vectors.data.map((v) => ({
+      alt: v.attributes.alt,
+      src: v.attributes.src.data.attributes.url,
+    }));
+
+    const videoMedia = video.data && {
+      src: video.data.attributes.url,
+      title: video.data.attributes.title,
+    };
+
+    const result: ContentProps = {
+      title,
+      subtitle,
+      description,
+      media: {
+        video: videoMedia,
+        vectors: vectorsMedia,
+        timelines: timelinesMedia,
+      },
+    };
+
+    return result;
+  });
+
+  const details = user.details ? {
+    interest: user.details.interest,
+    position: user.details.position,
+    quote: user.details.quote,
+  } : null;
+
+  const { name } = user;
+
+  const socialNetworks: SocialNetworkProps[] = user.social_networks.map((sn) => ({
+    alt: sn.name,
+    href: sn.url,
+    src: sn.src,
+  }));
 
   return {
-    props: { contents, details, name, socialNetworks },
+    props: {
+      contents,
+      details,
+      name,
+      socialNetworks,
+    },
   };
 };
 
