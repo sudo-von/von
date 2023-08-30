@@ -9,7 +9,7 @@ const Question: FC<PropsWithChildren> = ({ children }) => {
       size="small"
       spacing="normal"
       weight="normal"
-      whitespace="normal"
+      whitespace="pre"
     >
       “{children}”
     </Typography>

@@ -3,9 +3,9 @@ import { APIResponse } from "../../../../services/api-service/api.service.respon
 
 export type ProfileResponse = {
   id: string;
+  metrics: MetricsResponse;
   user_id: string;
   username: string;
-  metrics: MetricsResponse;
 };
 
 export type ProfileAPIResponse = APIResponse<ProfileResponse>;

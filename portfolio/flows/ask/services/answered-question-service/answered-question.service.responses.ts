@@ -1,10 +1,9 @@
 import { APIResponse } from "../../../../services/api-service/api.service.responses";
-import { AskAnswerResponse } from "../../../../services/api-service/ask-service/ask-answer-service/ask-answer.service.responses";
-import { AskQuestionResponse } from "../../../../services/api-service/ask-service/ask-question-service/ask-question.service.responses";
+import { AnswerResponse } from "../answer-service/answer.service.responses";
+import { QuestionResponse } from "../question-service/question.service.responses";
 
-
-export type AnsweredQuestionResponse = AskQuestionResponse & {
-  answer: AskAnswerResponse;
+export type AnsweredQuestionResponse = QuestionResponse & {
+  answer: AnswerResponse;
 };
 
 export type AnsweredQuestionAPIResponse = APIResponse<AnsweredQuestionResponse>;

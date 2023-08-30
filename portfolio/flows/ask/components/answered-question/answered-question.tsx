@@ -1,31 +1,31 @@
 import { FC, ReactNode } from "react";
-import Link from "next/link";
 import Answer from "./components/answer/answer";
 import Question from "./components/question/question";
 import Card from "../../../common/components/card/card";
 import AnsweredAt from "./components/answered-at/answered-at";
+import Hyperlink from "../../../common/components/hyperlink/hyperlink";
 
 export type AnsweredQuestionProps = {
-  id: string;
   answer: ReactNode;
   answeredAt: string;
+  id: string;
   question: ReactNode;
 };
 
 const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
-  id,
   answer,
-  question,
   answeredAt,
+  id,
+  question,
 }) => {
   return (
-    <Link id={id} href={`/ask/${id}`} scroll={false}>
+    <Hyperlink path={`/ask/${id}`}>
       <Card>
         <Question>{question}</Question>
         <AnsweredAt answeredAt={answeredAt} />
         <Answer>{answer}</Answer>
       </Card>
-    </Link>
+    </Hyperlink>
   );
 };
 

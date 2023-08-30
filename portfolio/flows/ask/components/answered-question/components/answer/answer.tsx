@@ -7,7 +7,7 @@ const Answer: FC<PropsWithChildren> = ({ children }) => {
       color="dark"
       component="p"
       size="small"
-      spacing="wide"
+      spacing="normal"
       weight="light"
       whitespace="pre"
     >

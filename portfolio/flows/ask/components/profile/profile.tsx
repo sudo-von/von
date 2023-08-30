@@ -12,7 +12,8 @@ export type ProfileProps = {
   username: string;
 };
 
-const Profile: FC<ProfileProps> = ({ name, avatar, details, metrics }) => {
+const Profile: FC<ProfileProps> = ({ avatar, details, metrics, name }) => {
+  const { totalAnswers, totalQuestions, totalViews } = metrics;
   return (
     <div className="flex flex-col lg:flex-row justify-start items-center gap-5">
       <Avatar alt="avatar" src={avatar} />
@@ -22,9 +23,9 @@ const Profile: FC<ProfileProps> = ({ name, avatar, details, metrics }) => {
           <Details interest={details.interest} position={details.position} />
         )}
         <Metrics
-          totalViews={metrics.totalViews}
-          totalAnswers={metrics.totalAnswers}
-          totalQuestions={metrics.totalQuestions}
+          totalAnswers={totalAnswers}
+          totalQuestions={totalQuestions}
+          totalViews={totalViews}
         />
       </div>
     </div>

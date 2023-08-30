@@ -17,10 +17,10 @@ const Ask: NextPage<AskProps> = ({ avatar, answeredQuestions, details, metrics, 
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
         <Profile
-          name={name}
           avatar={avatar}
           details={details}
           metrics={metrics}
+          name={name}
           username={username}
         />
         <QuestionForm
@@ -46,6 +46,7 @@ const Ask: NextPage<AskProps> = ({ avatar, answeredQuestions, details, metrics, 
 };
 
 import { GetServerSideProps } from "next";
+import { formatDate } from "../../services/date-service/date-service";
 import { getProfileByUsername } from "../../flows/ask/services/profile-service/profile.service";
 import { getUserByUsername } from "../../flows/authentication/services/user-service/user.service";
 import { getAnsweredQuestionListByUsername } from "../../flows/ask/services/answered-question-service/answered-question.service";
@@ -74,7 +75,7 @@ export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
         id: answeredQuestion.id,
         question: answeredQuestion.question,
         answer: answeredQuestion.answer.answer,
-        answeredAt: answeredQuestion.answer.answered_at,
+        answeredAt: formatDate(new Date(answeredQuestion.answer.answered_at)),
       })),
     },
   };
