@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import User, { UserProps } from "../flows/home/components/user/user";
 import { ContentProps } from "../flows/home/components/content/content";
 import ContentList, { ContentListProps } from "../flows/home/components/content-list/content-list";
-import { SocialNetworkProps } from "../flows/home/components/user/components/social-network/social-network";
 
 type HomeProps = ContentListProps & UserProps;
 
@@ -60,26 +59,20 @@ export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
     return result;
   });
 
-  const details = user.details ? {
-    interest: user.details.interest,
-    position: user.details.position,
-    quote: user.details.quote,
-  } : null;
-
-  const { name } = user;
-
-  const socialNetworks: SocialNetworkProps[] = user.social_networks.map((sn) => ({
-    alt: sn.name,
-    href: sn.url,
-    src: sn.src,
-  }));
-
   return {
     props: {
       contents,
-      details,
-      name,
-      socialNetworks,
+      details: user.details ? {
+        interest: user.details.interest,
+        position: user.details.position,
+        quote: user.details.quote,
+      } : null,
+      name: user.name,
+      socialNetworks: user.social_networks.map((sn) => ({
+        alt: sn.name,
+        href: sn.url,
+        src: sn.src,
+      })),
     },
   };
 };

@@ -6,8 +6,8 @@ import { QuestionForm } from "../../hooks/use-question/use-question.types";
 type QuestionFormProps = {
   loading: boolean;
   questionForm: QuestionForm;
-  handleOnSubmit: FormEventHandler<HTMLFormElement>;
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
+  handleOnSubmit: FormEventHandler<HTMLFormElement>;
 };
 
 const QuestionForm: FC<QuestionFormProps> = ({
@@ -21,18 +21,18 @@ const QuestionForm: FC<QuestionFormProps> = ({
     <form autoComplete="off" className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
         id="question"
-        name="question"
-        type="question"
-        label="Question"
-        hint={question.hint}
         error={question.error}
-        value={question.value}
+        hint={question.hint}
+        label="Question"
+        name="question"
         onChange={handleOnChange}
         placeholder="Enter your question"
         required
+        type="question"
+        value={question.value}
       />
       <div className="flex flex-col my-3">
-        <Button type="submit" disabled={loading} loading={loading}>
+        <Button disabled={loading} loading={loading} type="submit">
           {loading ? "Sending..." : "Send question"}
         </Button>
       </div>

@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
 import Link from "next/link";
-import Question from "../question/question";
-import Answer from "../answer/answer";
+import Answer from "./components/answer/answer";
+import Question from "./components/question/question";
 import Card from "../../../common/components/card/card";
-import AnsweredAt from "../answered-at/answered-at";
+import AnsweredAt from "./components/answered-at/answered-at";
 
 export type AnsweredQuestionProps = {
   id: string;

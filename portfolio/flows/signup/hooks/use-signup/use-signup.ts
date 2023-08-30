@@ -11,10 +11,10 @@ const useSignup = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [account, setAccount] = useState<Account>({
-    name: "",
     email: "",
-    username: "",
+    name: "",
     password: "",
+    username: "",
   });
 
   const { push } = useRouter();
@@ -32,10 +32,10 @@ const useSignup = () => {
       setLoading(true);
 
       await authSignup({
-        name: account.name,
         email: account.email,
-        username: account.username,
+        name: account.name,
         password: account.password,
+        username: account.username,
       });
 
       const token = await authLogin({
@@ -49,8 +49,8 @@ const useSignup = () => {
 
       dispatch({ type: "LOG_IN", payload: {
         id: payload.id,
-        name: payload.name,
         email: payload.email,
+        name: payload.name,
         username: payload.username,
       }});
 
@@ -63,11 +63,11 @@ const useSignup = () => {
   };
 
   return {
-    error,
     account,
+    error,
     loading,
-    handleOnSubmit,
     handleOnChange,
+    handleOnSubmit,
   };
 };
 

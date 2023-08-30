@@ -4,25 +4,15 @@ import Profile, {
 } from "../../flows/ask/components/profile/profile";
 import Alert from "../../flows/common/components/alert/alert";
 import useQuestion from "../../flows/ask/hooks/use-question/use-question";
+import AnsweredQuestionList, {
+  AnsweredQuestionListProps,
+} from "../../flows/ask/components/answered-question-list/answered-question-list";
 import QuestionForm from "../../flows/ask/components/question-form/question-form";
-import { AnsweredQuestionProps } from "../../flows/ask/components/answered-question/answered-question";
-import AnsweredQuestionList from "../../flows/ask/components/answered-question-list/answered-question-list";
 
-type AskProps = {
-  profile: ProfileProps;
-  answeredQuestions: AnsweredQuestionProps[];
-};
+type AskProps = ProfileProps & AnsweredQuestionListProps;
 
-const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
-  const { avatar, details, metrics, name, username } = profile;
-  const {
-    error,
-    loading,
-    handleOnChange,
-    handleOnSubmit,
-    questionForm,
-    success,
-  } = useQuestion(username);
+const Ask: NextPage<AskProps> = ({ avatar, answeredQuestions, details, metrics, name, username }) => {
+  const { error, loading, handleOnChange, handleOnSubmit, questionForm, success } = useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -56,41 +46,36 @@ const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
 };
 
 import { GetServerSideProps } from "next";
+import { getProfileByUsername } from "../../flows/ask/services/profile-service/profile.service";
 import { getUserByUsername } from "../../flows/authentication/services/user-service/user.service";
-import { getAskUserByUsername } from "../../services/api-service/ask-service/ask-user-service/ask-user.service";
-import { getAskAnsweredQuestionListByUsername } from "../../services/api-service/ask-service/ask-answered-question-service/ask-answered-question.service";
+import { getAnsweredQuestionListByUsername } from "../../flows/ask/services/answered-question-service/answered-question.service";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
-  const { result: askUser } = await getAskUserByUsername("sudo_von");
-  const { result: authUser } = await getUserByUsername("sudo_von");
-  const { result: askAnsweredQuestions } =
-    await getAskAnsweredQuestionListByUsername("sudo_von");
-
-  const profile: ProfileProps = {
-    name: authUser.name,
-    avatar: authUser.avatar || "/avatar/default-avatar.jpg",
-    username: authUser.username,
-    details: authUser.details || null,
-    metrics: {
-      totalViews: askUser.metrics.total_views,
-      totalAnswers: askUser.metrics.total_answers,
-      totalQuestions: askUser.metrics.total_questions,
-    },
-  };
-
-  const answeredQuestions: AnsweredQuestionProps[] = askAnsweredQuestions.map(
-    (answeredQuestion) => ({
-      id: answeredQuestion.id,
-      question: answeredQuestion.question,
-      answer: answeredQuestion.answer.answer,
-      answeredAt: answeredQuestion.answer.answered_at,
-    })
-  );
+  const { result: user } = await getUserByUsername("sudo_von");
+  const { result: profile } = await getProfileByUsername("sudo_von");
+  const { result: answeredQuestions } = await getAnsweredQuestionListByUsername("sudo_von");
 
   return {
     props: {
-      profile,
-      answeredQuestions,
+      avatar: user.avatar || "/avatar/default-avatar.jpg",
+      details: user.details ? {
+        interest: user.details.interest,
+        position: user.details.position,
+        quote: user.details.quote,
+      } : null,
+      metrics: {
+        totalViews: profile.metrics.total_views,
+        totalAnswers: profile.metrics.total_answers,
+        totalQuestions: profile.metrics.total_questions,
+      },
+      name: user.name,
+      username: user.username,
+      answeredQuestions: answeredQuestions.map((answeredQuestion) => ({
+        id: answeredQuestion.id,
+        question: answeredQuestion.question,
+        answer: answeredQuestion.answer.answer,
+        answeredAt: answeredQuestion.answer.answered_at,
+      })),
     },
   };
 };

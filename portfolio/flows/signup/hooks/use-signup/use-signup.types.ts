@@ -1,6 +1,6 @@
 export type Account = {
-  name: string;
   email: string;
-  username: string;
+  name: string;
   password: string;
+  username: string;
 };

@@ -39,8 +39,8 @@ const useSignin = () => {
 
       dispatch({ type: "LOG_IN", payload: {
         id: payload.id,
-        name: payload.name,
         email: payload.email,
+        name: payload.name,
         username: payload.username,
       }});
 
@@ -53,11 +53,11 @@ const useSignin = () => {
   };
 
   return {
+    credentials,
     error,
     loading,
-    credentials,
-    handleOnSubmit,
     handleOnChange,
+    handleOnSubmit,
   };
 };
 

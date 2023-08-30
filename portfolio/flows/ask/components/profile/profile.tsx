@@ -1,34 +1,27 @@
 import { FC } from "react";
-import ProfileDetails, {
-  ProfileDetailsProps,
-} from "./components/profile-details/profile-details";
-import ProfileMetrics, {
-  ProfileMetricsProps,
-} from "./components/profile-metrics/profile-metrics";
-import ProfileName from "./components/profile-name/profile-name";
-import ProfileAvatar from "./components/profile-picture/profile-picture";
+import Name from "./components/name/name";
+import Avatar from "./components/avatar/avatar";
+import Details, { DetailsProps } from "./components/details/details";
+import Metrics, { MetricsProps } from "./components/metrics/metrics";
 
 export type ProfileProps = {
-  name: string;
   avatar: string;
+  details: DetailsProps | null;
+  metrics: MetricsProps;
+  name: string;
   username: string;
-  metrics: ProfileMetricsProps;
-  details: ProfileDetailsProps | null;
 };
 
 const Profile: FC<ProfileProps> = ({ name, avatar, details, metrics }) => {
   return (
     <div className="flex flex-col lg:flex-row justify-start items-center gap-5">
-      <ProfileAvatar alt="profile-avatar" src={avatar} />
+      <Avatar alt="avatar" src={avatar} />
       <div className="flex flex-col justify-center items-center lg:items-start gap-2.5">
-        <ProfileName>{name}</ProfileName>
+        <Name>{name}</Name>
         {details && (
-          <ProfileDetails
-            interest={details.interest}
-            position={details.position}
-          />
+          <Details interest={details.interest} position={details.position} />
         )}
-        <ProfileMetrics
+        <Metrics
           totalViews={metrics.totalViews}
           totalAnswers={metrics.totalAnswers}
           totalQuestions={metrics.totalQuestions}

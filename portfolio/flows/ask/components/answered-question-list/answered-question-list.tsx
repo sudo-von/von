@@ -11,7 +11,7 @@ const AnsweredQuestionList: FC<AnsweredQuestionListProps> = ({
   answeredQuestions,
 }) => {
   return (
-    <div className="flex flex-col w-full gap-3.5">
+    <div className="flex flex-col gap-7 w-full">
       {answeredQuestions.map(({ id, answer, answeredAt, question }) => {
         return (
           <AnsweredQuestion
