@@ -21,8 +21,8 @@ const Signup: NextPage = () => {
           handleOnSubmit={handleOnSubmit}
         />
         <FormFooter
-          path="signin"
           heading="Sign in"
+          path="signin"
           subheading="Have an account?"
         />
         {error && (

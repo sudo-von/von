@@ -11,7 +11,7 @@ export type DetailsProps = {
 
 const Details: FC<DetailsProps> = ({ interest, position, quote }) => {
   return (
-    <section className="flex flex-col gap-6 justify-center text-center lg:text-start">
+    <section className="flex flex-col gap-6 text-center lg:text-start">
       <Position>{position}</Position>
       <Interest>{interest}</Interest>
       <Quote>{quote}</Quote>

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import Anchor from "../../../common/components/anchor/anchor";
 import Vector, { VectorProps } from "../../../common/components/vector/vector";
 
 export type SocialNetworkProps = VectorProps & {
@@ -7,9 +8,9 @@ export type SocialNetworkProps = VectorProps & {
 
 const SocialNetwork: FC<SocialNetworkProps> = ({ alt, href, src }) => {
   return (
-    <a href={href} target="_blank">
+    <Anchor href={href} target="_blank">
       <Vector alt={alt} src={src} />
-    </a>
+    </Anchor>
   );
 };
 

@@ -1,3 +1,9 @@
+export type DecodedToken = {
+  header: TokenHeader;
+  payload: TokenPayload;
+  signature: TokenSignature;
+};
+
 export type TokenHeader = {
   alg: string;
 };
@@ -12,9 +18,3 @@ export type TokenPayload = {
 };
 
 export type TokenSignature = string;
-
-export type DecodedToken = {
-  header: TokenHeader;
-  payload: TokenPayload;
-  signature: TokenSignature;
-};

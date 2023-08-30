@@ -15,14 +15,14 @@ const Signin: NextPage = () => {
           subheading="Sign in into your account"
         />
         <SigninForm
-          loading={loading}
           credentials={credentials}
+          loading={loading}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmit}
         />
         <FormFooter
-          path="signup"
           heading="Sign up"
+          path="signup"
           subheading="Don't have an account?"
         />
         {error && (

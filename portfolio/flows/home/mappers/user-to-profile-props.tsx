@@ -1,7 +1,7 @@
-import { ProfileProps } from "../components/profile/profile";
+import { UserProps } from "../components/user/user";
 import { AuthUserResponse } from "../../authentication/services/user-service/user.service.responses";
 
-export const userToProfileProps = (user: AuthUserResponse): ProfileProps => ({
+export const userToProfileProps = (user: AuthUserResponse): UserProps => ({
   name: user.name,
   details: user.details
     ? {
