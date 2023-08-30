@@ -19,7 +19,7 @@ const SignupForm: FC<SignupFormProps> = ({
 }) => {
   const { email, name, password, username } = account;
   return (
-    <form className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
+    <form autoComplete="off" className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
       <Input
         id="name"
         name="name"

@@ -38,7 +38,12 @@ export const getServerSideProps: GetServerSideProps<
   DetailedAskParams
 > = async ({ params }) => {
   if (!params || !params.id)
-    return { redirect: { destination: "/404", permanent: false } };
+    return {
+      redirect: {
+        destination: "/404",
+        permanent: false,
+      },
+    };
 
   const { result: askAnsweredQuestion } = await getAskAnsweredQuestionById(params.id);
 

@@ -7,26 +7,16 @@ import Profile, {
 } from "../flows/home/components/profile/profile";
 
 type HomeProps = {
-  profile: ProfileProps;
   contents: ContentProps[];
+  profile: ProfileProps;
 };
 
-const Home: NextPage<HomeProps> = ({ profile, contents = [] }) => {
+const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
+  const { details, name } = profile;
   return (
     <div className="flex flex-col gap-8 mt-48">
-      <div className="grid grid-cols-1 gap-8 mb-56 lg:mb-96 text-center lg:text-start">
-        <Profile name={profile.name} details={profile.details} />
-      </div>
-      {contents.map(({ media, title, subtitle, description }) => (
-        <div key={title} className="grid lg:grid-cols-2 gap-8 mb-56 lg:mb-96">
-          <Content
-            media={media}
-            title={title}
-            subtitle={subtitle}
-            description={description}
-          />
-        </div>
-      ))}
+      <Profile details={details} name={name} />
+      <ContentList contents={contents} />
     </div>
   );
 };
@@ -35,6 +25,7 @@ import { GetStaticProps } from "next";
 import { getContents } from "../services/api-service/content-service/content-service/content.service";
 import { getAuthUserByUsername } from "../services/api-service/auth-service/user-service/auth-user.service";
 import { contentResponseToContentProps } from "../services/api-service/content-service/content-service/content.service.mappers";
+import ContentList from "../flows/home/components/content-list/content-list";
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   try {

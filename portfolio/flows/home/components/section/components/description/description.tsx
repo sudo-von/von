@@ -1,10 +1,10 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../typography/typography";
+import Typography from "../../../../../common/components/typography/typography";
 
 const Description: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
-      color="neutral"
+      color="dark"
       component="p"
       size="normal"
       weight="light"

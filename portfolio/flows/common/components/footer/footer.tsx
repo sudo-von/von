@@ -6,7 +6,7 @@ import FooterCopyright from "./components/footer-copyright/footer-copyright";
 import FooterDescription from "./components/footer-description/footer-description";
 import { profile } from "console";
 import { user } from "../../../home/data/profile-data";
-import Title from "../title/title";
+import Title from "../../../home/components/section/components/title/title";
 import Subtitle from "../subtitle/subtitle";
 import Description from "../description/description";
 

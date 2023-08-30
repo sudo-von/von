@@ -1,26 +1,24 @@
-import { FC } from "react";
-import ProfileDetails, {
-  ProfileDetailsProps,
-} from "./profile-details/profile-details";
-import Banner from "../../../common/components/banner/banner";
+import { FC, ReactNode } from "react";
+import Name from "./components/name/name";
+import Details, { DetailsProps } from "./components/details/details";
 
 export type ProfileProps = {
-  name: string;
-  details: ProfileDetailsProps | null;
+  details: DetailsProps | null;
+  name: ReactNode;
 };
 
 const Profile: FC<ProfileProps> = ({ name, details }) => {
   return (
-    <>
-      <Banner>{name}</Banner>
+    <div className="grid gap-6 mb-56 lg:mb-96 text-center lg:text-start">
+      <Name>{name}</Name>
       {details && (
-        <ProfileDetails
+        <Details
           quote={details.quote}
           interest={details.interest}
           position={details.position}
         />
       )}
-    </>
+    </div>
   );
 };
 

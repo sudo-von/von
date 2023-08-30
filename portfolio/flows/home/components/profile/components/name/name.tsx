@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../common/components/typography/typography";
+import Typography from "../../../../../common/components/typography/typography";
 
-const Banner: FC<PropsWithChildren> = ({ children }) => {
+const Name: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="dark"
@@ -16,4 +16,4 @@ const Banner: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default Banner;
+export default Name;
