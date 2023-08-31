@@ -18,7 +18,7 @@ const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
   views,
 }) => {
   return (
-    <div className="flex flex-col justify-center items-start gap-5 mt-5 mb-7">
+    <div className="flex flex-col justify-center items-start gap-5 my-5">
       <Question>{question}</Question>
       <div className="flex flex-row gap-2.5">
         <AnsweredAt>{answeredAt}</AnsweredAt>

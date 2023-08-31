@@ -5,7 +5,7 @@ import { QuestionForm } from "./use-question.types";
 import { getQuestionHint } from "./use-question.utils";
 import { validateQuestionLength } from "./use-question.validations";
 import { APIError } from "../../../../services/api-service/api.service.responses";
-import { createAskQuestionByUsername } from "../../../../services/api-service/ask-service/ask-question-service/ask-question.service";
+import { createQuestionByUsername } from "../../services/question-service/question.service";
 
 const useQuestion = (username: string) => {
   const [error, setError] = useState("");
@@ -32,7 +32,7 @@ const useQuestion = (username: string) => {
       setSuccess("");
       setLoading(true);
 
-      await createAskQuestionByUsername(username, {
+      await createQuestionByUsername(username, {
         question: questionForm.question.value,
       });
 

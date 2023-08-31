@@ -13,7 +13,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ask/*": ["flows/ask/*"],
+      "@authentication/*": ["flows/authentication/*"],
+      "@common/*": ["flows/common/*"],
+      "@services/*": ["services/*"],
+      "@signin/*": ["flows/signin/*"],
+      "@signup/*": ["flows/signup/*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

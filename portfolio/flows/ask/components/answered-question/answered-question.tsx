@@ -22,7 +22,7 @@ const AnsweredQuestion: FC<AnsweredQuestionProps> = ({
     <Hyperlink path={`/ask/${id}`}>
       <Card>
         <Question>{question}</Question>
-        <AnsweredAt answeredAt={answeredAt} />
+        <AnsweredAt>{answeredAt}</AnsweredAt>
         <Answer>{answer}</Answer>
       </Card>
     </Hyperlink>

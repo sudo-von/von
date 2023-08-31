@@ -18,7 +18,7 @@ const QuestionForm: FC<QuestionFormProps> = ({
 }) => {
   const { question } = questionForm;
   return (
-    <form autoComplete="off" className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
+    <form autoComplete="off" className="flex flex-col gap-2.5 my-2.5" onSubmit={handleOnSubmit}>
       <Input
         id="question"
         error={question.error}
@@ -31,11 +31,9 @@ const QuestionForm: FC<QuestionFormProps> = ({
         type="question"
         value={question.value}
       />
-      <div className="flex flex-col my-3">
-        <Button disabled={loading} loading={loading} type="submit">
-          {loading ? "Sending..." : "Send question"}
-        </Button>
-      </div>
+      <Button disabled={loading} loading={loading} type="submit">
+        {loading ? "Sending..." : "Send question"}
+      </Button>
     </form>
   );
 };

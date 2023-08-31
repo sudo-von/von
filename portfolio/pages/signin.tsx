@@ -1,9 +1,9 @@
 import { NextPage } from "next";
-import Alert from "../flows/common/components/alert/alert";
-import useSignin from "../flows/signin/hooks/use-signin/use-signin";
-import SigninForm from "../flows/signin/components/signin-form/signin-form";
-import FormHeader from "../flows/common/components/form/components/form-header/form-header";
-import FormFooter from "../flows/common/components/form/components/form-footer/form-footer";
+import Alert from "@common/components/alert/alert";
+import useSignin from "@signin/hooks/use-signin/use-signin";
+import SigninForm from "@signin/components/signin-form/signin-form";
+import FormHeader from "@common/components/form/components/form-header/form-header";
+import FormFooter from "@common/components/form/components/form-footer/form-footer";
 
 const Signin: NextPage = () => {
   const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();

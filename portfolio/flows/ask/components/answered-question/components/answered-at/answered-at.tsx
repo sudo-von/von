@@ -1,11 +1,7 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import Typography from "../../../../../common/components/typography/typography";
 
-export type AnsweredAtProps = {
-  answeredAt: string;
-};
-
-const AnsweredAt: FC<AnsweredAtProps> = ({ answeredAt }) => {
+const AnsweredAt: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="normal"
@@ -15,7 +11,7 @@ const AnsweredAt: FC<AnsweredAtProps> = ({ answeredAt }) => {
       weight="light"
       whitespace="normal"
     >
-      {answeredAt}
+      {children}
     </Typography>
   );
 };
