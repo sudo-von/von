@@ -1,16 +1,16 @@
-import { APIResponse } from "../../../../services/api-service/api.service.responses";
-import { AuthAvatarResponse } from "../../../../services/api-service/auth-service/auth-avatar-service/auth-avatar.service.responses";
-import { AuthUserDetailsResponse } from "../../../../services/api-service/auth-service/auth-user-details-service/auth-user-details.service.responses";
-import { AuthSocialNetworkResponse } from "../../../../services/api-service/auth-service/auth-social-network-service/auth-social-network.service.responses";
+import { APIResponse } from "@services/api-service/api.service.responses";
+import { AvatarResponse } from "../avatar-service/avatar.service.responses";
+import { UserDetailsResponse } from "../user-details-service/user-details.service.responses";
+import { SocialNetworkResponse } from "../social-network-service/social-network.service.responses";
 
-export type AuthUserResponse = {
+export type UserResponse = {
   id: string;
   name: string;
   email: string;
   username: string;
-  avatar?: AuthAvatarResponse;
-  details?: AuthUserDetailsResponse;
-  social_networks: AuthSocialNetworkResponse[];
+  avatar?: AvatarResponse;
+  details?: UserDetailsResponse;
+  social_networks: SocialNetworkResponse[];
 };
 
-export type AuthUserAPIResponse = APIResponse<AuthUserResponse>;
+export type UserAPIResponse = APIResponse<UserResponse>;

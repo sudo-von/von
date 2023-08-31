@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useRouter } from "next/router";
-import { Account } from "./use-signup.types";
-import { setCookie } from "../../../../services/cookie-service/cookie.service";
-import { decodeToken } from "../../../../services/token-service/token.service";
-import { APIError } from "../../../../services/api-service/api.service.responses";
-import { authLogin, authSignup } from "../../../../services/api-service/auth-service/auth.service";
-import { AuthenticationContext } from "../../../authentication/contexts/authentication-context/authentication-context";
+import { Account } from "@signup/hooks/use-signup/use-signup.types";
+import { setCookie } from "@services/cookie-service/cookie.service";
+import { decodeToken } from "@services/token-service/token.service";
+import { APIError } from "@services/api-service/api.service.responses";
+import { authLogin, authSignup } from "@authentication/services/authentication-service/authentication.service";
+import { AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context";
 
 const useSignup = () => {
   const [error, setError] = useState("");

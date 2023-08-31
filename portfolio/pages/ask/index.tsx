@@ -13,7 +13,7 @@ type AskProps = {
 
 const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
   const { avatar, details, metrics, name, username } = profile;
-  const { error, loading, handleOnChange, handleOnSubmit, questionForm, success } = useQuestion(username);
+  const { error, handleOnChange, handleOnSubmit, loading, questionForm, success } = useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -25,10 +25,10 @@ const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
           username={username}
         />
         <QuestionForm
-          loading={loading}
           questionForm={questionForm}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmit}
+          loading={loading}
         />
         {error && (
           <div className="my-2.5">

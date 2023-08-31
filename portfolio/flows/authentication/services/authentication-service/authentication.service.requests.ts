@@ -1,8 +1,8 @@
 export type AuthAccountRequest = {
-  name: string;
   email: string;
-  username: string;
+  name: string;
   password: string;
+  username: string;
 };
 
 export type AuthCredentialsRequest = {

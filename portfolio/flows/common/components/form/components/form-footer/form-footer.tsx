@@ -5,14 +5,14 @@ import FormHeading from "../form-heading/form-heading";
 import FormSubheading from "../form-subheading/form-subheading";
 
 type FormFooterProps = {
-  path: string;
   heading: string;
+  path: string;
   subheading: string;
 };
 
 const FormFooter: FC<FormFooterProps> = ({ path, heading, subheading }) => {
   return (
-    <div className="flex flex-col text-center">
+    <div className="flex flex-col text-center mt-2.5">
       <FramedBox>
         <FormSubheading>{subheading}</FormSubheading>
       </FramedBox>

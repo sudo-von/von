@@ -16,9 +16,9 @@ const Signin: NextPage = () => {
         />
         <SigninForm
           credentials={credentials}
-          loading={loading}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmit}
+          loading={loading}
         />
         <FormFooter
           heading="Sign up"
@@ -26,7 +26,7 @@ const Signin: NextPage = () => {
           subheading="Don't have an account?"
         />
         {error && (
-          <div className="mt-5">
+          <div className="my-5">
             <Alert variant="error">{error}</Alert>
           </div>
         )}

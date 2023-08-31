@@ -1,25 +1,25 @@
 import { ChangeEventHandler, FC, FormEventHandler } from "react";
-import Input from "../../../common/components/input/input";
-import Button from "../../../common/components/button/button";
-import { Account } from "../../hooks/use-signup/use-signup.types";
-import PasswordInput from "../../../common/components/password-input/password-input";
+import Input from "@common/components/input/input";
+import Button from "@common/components/button/button";
+import { Account } from "@signup/hooks/use-signup/use-signup.types";
+import PasswordInput from "@common/components/password-input/password-input";
 
 type SignupFormProps = {
   account: Account;
-  loading: boolean;
   handleOnSubmit: FormEventHandler<HTMLFormElement>;
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
+  loading: boolean;
 };
 
 const SignupForm: FC<SignupFormProps> = ({
   account,
-  loading,
   handleOnChange,
   handleOnSubmit,
+  loading,
 }) => {
   const { email, name, password, username } = account;
   return (
-    <form autoComplete="off" className="flex flex-col gap-2.5 my-4" onSubmit={handleOnSubmit}>
+    <form autoComplete="off" className="flex flex-col gap-2.5 my-2.5" onSubmit={handleOnSubmit}>
       <Input
         id="name"
         label="Name"
@@ -60,7 +60,7 @@ const SignupForm: FC<SignupFormProps> = ({
         type="password"
         value={password}
       />
-      <div className="flex flex-col mt-4 mb-1.5">
+      <div className="flex flex-col mt-5">
         <Button disabled={loading} loading={loading} type="submit">
           {loading ? "Signing up..." : "Sign up"}
         </Button>

@@ -1,5 +1,5 @@
-import { AuthUserAPIResponse } from "./user.service.responses";
-import createAPIService from "../../../../services/api-service/api.service";
+import { UserAPIResponse } from "./user.service.responses";
+import createAPIService from "@services/api-service/api.service";
 
 const userService = createAPIService({
   base: "user",
@@ -7,8 +7,8 @@ const userService = createAPIService({
   version: 1,
 });
 
-export const getUserByUsername = async (username: string): Promise<AuthUserAPIResponse> => {
+export const getUserByUsername = async (username: string): Promise<UserAPIResponse> => {
   const query = `/username/${username}`;
-  const { data } = await userService.get<AuthUserAPIResponse>(query);
+  const { data } = await userService.get<UserAPIResponse>(query);
   return data;
 };

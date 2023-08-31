@@ -1,8 +1,6 @@
 import { NextPage } from "next";
 import PreviousPage from "@common/components/previous-page/previous-page";
-import AnsweredQuestion, {
-  AnsweredQuestionProps,
-} from "@ask/detailed-ask/components/answered-question/answered-question";
+import AnsweredQuestion, { AnsweredQuestionProps } from "@ask/detailed-ask/components/answered-question/answered-question";
 
 type DetailedAskProps = {
   answeredQuestion: AnsweredQuestionProps;

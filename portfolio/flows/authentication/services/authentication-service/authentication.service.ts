@@ -1,9 +1,9 @@
-import createAPIService from "../../api-service/api.service";
+import createAPIService from "@services/api-service/api.service";
 import {
   AuthAccountRequest,
   AuthCredentialsRequest,
-} from "./auth.service.requests";
-import { AuthUserAPIResponse } from "../../../flows/authentication/services/user-service/user.service.responses";
+} from "./authentication.service.requests";
+import { UserAPIResponse } from "../user-service/user.service.responses";
 
 const authService = createAPIService({
   base: "authentication",
@@ -21,7 +21,7 @@ export const authLogin = async (
 
 export const authSignup = async (
   account: AuthAccountRequest
-): Promise<AuthUserAPIResponse> => {
-  const { data } = await authService.post<AuthUserAPIResponse>("signup", account);
+): Promise<UserAPIResponse> => {
+  const { data } = await authService.post<UserAPIResponse>("signup", account);
   return data;
 };

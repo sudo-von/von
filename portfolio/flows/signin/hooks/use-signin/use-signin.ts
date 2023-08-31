@@ -1,15 +1,16 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useRouter } from "next/router";
-import { setCookie } from "../../../../services/cookie-service/cookie.service";
-import { decodeToken } from "../../../../services/token-service/token.service";
-import { APIError } from "../../../../services/api-service/api.service.responses";
-import { authLogin } from "../../../../services/api-service/auth-service/auth.service";
-import { AuthenticationContext } from "../../../authentication/contexts/authentication-context/authentication-context";
+import { setCookie } from "@services/cookie-service/cookie.service";
+import { decodeToken } from "@services/token-service/token.service";
+import { APIError } from "@services/api-service/api.service.responses";
+import { Credentials } from "@signin/hooks/use-signin/use-signin.types";
+import { authLogin } from "@authentication/services/authentication-service/authentication.service";
+import { AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context";
 
 const useSignin = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [credentials, setCredentials] = useState({
+  const [credentials, setCredentials] = useState<Credentials>({
     email: "",
     password: ""
   });
