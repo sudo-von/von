@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Typography from "../../../../../common/components/typography/typography";
-import { formatMetrics } from "../../../../../../services/metrics-service/metrics-service";
+import Typography from "@common/components/typography/typography";
+import { formatMetrics } from "@services/metrics-service/metrics-service";
 
 export type MetricsProps = {
   totalAnswers: number;
@@ -19,7 +19,7 @@ const Metrics: FC<MetricsProps> = ({
 
   return (
     <Typography
-      color="dark"
+      color="normal"
       component="small"
       size="small"
       spacing="normal"

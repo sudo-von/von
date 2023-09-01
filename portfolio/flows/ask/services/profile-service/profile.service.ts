@@ -1,5 +1,5 @@
-import { ProfileAPIResponse } from "./profile.service.responses";
-import createAPIService from "../../../../services/api-service/api.service";
+import createAPIService from "@services/api-service/api.service";
+import { ProfileAPIResponse } from "@ask/services/profile-service/profile.service.responses";
 
 const profileService = createAPIService({
   base: "user",

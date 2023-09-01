@@ -1,4 +1,4 @@
-import { APIResponse } from "../../../../services/api-service/api.service.responses";
+import { APIResponse } from "@services/api-service/api.service.responses";
 
 export type QuestionResponse = {
   asked_at: string;

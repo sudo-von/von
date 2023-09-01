@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Img, { ImgProps } from "../../../../../common/components/img/img";
+import Img, { ImgProps } from "@common/components/img/img";
 
 export type AvatarProps = Omit<ImgProps, "onClick" | "rounded">;
 

@@ -19,6 +19,7 @@
       "@ask/*": ["flows/ask/*"],
       "@authentication/*": ["flows/authentication/*"],
       "@common/*": ["flows/common/*"],
+      "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@signin/*": ["flows/signin/*"],
       "@signup/*": ["flows/signup/*"]

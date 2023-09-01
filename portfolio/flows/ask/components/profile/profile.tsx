@@ -1,8 +1,8 @@
 import { FC } from "react";
-import Name from "./components/name/name";
-import Avatar from "./components/avatar/avatar";
-import Details, { DetailsProps } from "./components/details/details";
-import Metrics, { MetricsProps } from "./components/metrics/metrics";
+import Name from "@ask/components/profile/components/name/name";
+import Avatar from "@ask/components/profile/components/avatar/avatar";
+import Details, { DetailsProps } from "@ask/components/profile/components/details/details";
+import Metrics, { MetricsProps } from "@ask/components/profile/components/metrics/metrics";
 
 export type ProfileProps = {
   avatar: string;

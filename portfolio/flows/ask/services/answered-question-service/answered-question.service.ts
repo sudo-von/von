@@ -1,8 +1,5 @@
-import {
-  AnsweredQuestionAPIResponse,
-  AnsweredQuestionListAPIResponse,
-} from "./answered-question.service.responses";
-import createAPIService from "../../../../services/api-service/api.service";
+import createAPIService from "@services/api-service/api.service";
+import { AnsweredQuestionAPIResponse, AnsweredQuestionListAPIResponse } from "@ask/services/answered-question-service/answered-question.service.responses";
 
 const answeredQuestionService = createAPIService({
   base: "answered-question",

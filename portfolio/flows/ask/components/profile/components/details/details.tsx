@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Interest from "../interest/interest";
-import Position from "../position/position";
+import Interest from "@ask/components/profile/components/interest/interest";
+import Position from "@ask/components/profile/components/position/position";
 
 export type DetailsProps = {
   interest: string;

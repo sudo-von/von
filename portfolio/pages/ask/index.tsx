@@ -25,18 +25,18 @@ const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
           username={username}
         />
         <QuestionForm
-          questionForm={questionForm}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmit}
           loading={loading}
+          questionForm={questionForm}
         />
         {error && (
-          <div className="my-2.5">
+          <div className="mt-5">
             <Alert variant="error">{error}</Alert>
           </div>
         )}
         {success && (
-          <div className="my-2.5">
+          <div className="mt-5">
             <Alert variant="success">{success}</Alert>
           </div>
         )}

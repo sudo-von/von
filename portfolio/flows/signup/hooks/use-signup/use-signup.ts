@@ -1,21 +1,16 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { useRouter } from "next/router";
-import { Account } from "@signup/hooks/use-signup/use-signup.types";
 import { setCookie } from "@services/cookie-service/cookie.service";
 import { decodeToken } from "@services/token-service/token.service";
 import { APIError } from "@services/api-service/api.service.responses";
+import { initialState } from "@signup/hooks/use-signup/use-signup.data";
 import { authLogin, authSignup } from "@authentication/services/authentication-service/authentication.service";
 import { AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context";
 
 const useSignup = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [account, setAccount] = useState<Account>({
-    email: "",
-    name: "",
-    password: "",
-    username: "",
-  });
+  const [account, setAccount] = useState(initialState);
 
   const { push } = useRouter();
   const { dispatch } = useContext(AuthenticationContext);

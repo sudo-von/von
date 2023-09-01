@@ -1,8 +1,8 @@
 import { FC } from "react";
-import Metric from "../metric/metric";
 import { AiFillEye } from "react-icons/ai";
-import Icon from "../../../../../../common/components/icon/icon";
-import { formatMetrics } from "../../../../../../../services/metrics-service/metrics-service";
+import Icon from "@common/components/icon/icon";
+import { formatMetrics } from "@services/metrics-service/metrics-service";
+import Metric from "@ask/ask-by-id/components/answered-question/components/metric/metric";
 
 export type ViewsProps = {
   views: number;

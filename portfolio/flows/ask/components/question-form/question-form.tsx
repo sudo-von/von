@@ -1,24 +1,24 @@
 import { ChangeEventHandler, FC, FormEventHandler } from "react";
-import Input from "../../../common/components/input/input";
-import Button from "../../../common/components/button/button";
-import { QuestionForm } from "../../hooks/use-question/use-question.types";
+import Input from "@common/components/input/input";
+import Button from "@common/components/button/button";
+import { QuestionForm } from "@ask/hooks/use-question/use-question.types";
 
 type QuestionFormProps = {
-  loading: boolean;
-  questionForm: QuestionForm;
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
   handleOnSubmit: FormEventHandler<HTMLFormElement>;
+  loading: boolean;
+  questionForm: QuestionForm;
 };
 
 const QuestionForm: FC<QuestionFormProps> = ({
-  loading,
-  questionForm,
   handleOnChange,
   handleOnSubmit,
+  loading,
+  questionForm,
 }) => {
   const { question } = questionForm;
   return (
-    <form autoComplete="off" className="flex flex-col gap-2.5 my-2.5" onSubmit={handleOnSubmit}>
+    <form autoComplete="off" className="flex flex-col gap-2.5 mt-2.5" onSubmit={handleOnSubmit}>
       <Input
         id="question"
         error={question.error}

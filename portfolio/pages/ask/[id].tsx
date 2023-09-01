@@ -1,12 +1,12 @@
 import { NextPage } from "next";
 import PreviousPage from "@common/components/previous-page/previous-page";
-import AnsweredQuestion, { AnsweredQuestionProps } from "@ask/detailed-ask/components/answered-question/answered-question";
+import AnsweredQuestion, { AnsweredQuestionProps } from "@ask/ask-by-id/components/answered-question/answered-question";
 
-type DetailedAskProps = {
+type AskByIdProps = {
   answeredQuestion: AnsweredQuestionProps;
 };
 
-const DetailedAsk: NextPage<DetailedAskProps> = ({ answeredQuestion }) => {
+const AskById: NextPage<AskByIdProps> = ({ answeredQuestion }) => {
   const { answer, answeredAt, question, views } = answeredQuestion;
   return (
     <div className="flex flex-col items-center mt-48">
@@ -27,13 +27,13 @@ import { GetServerSideProps } from "next";
 import { formatDate } from "@services/date-service/date-service";
 import { getAnsweredQuestionById } from "@ask/services/answered-question-service/answered-question.service";
 
-type DetailedAskParams = {
+type AskByIdParams = {
   id?: string;
 };
 
 export const getServerSideProps: GetServerSideProps<
-  DetailedAskProps,
-  DetailedAskParams
+  AskByIdProps,
+  AskByIdParams
 > = async ({ params }) => {
   if (!params || !params.id)
     return { redirect: { destination: "/404", permanent: false } };
@@ -52,4 +52,4 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-export default DetailedAsk;
+export default AskById;
