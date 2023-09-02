@@ -22,6 +22,7 @@
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@signin/*": ["flows/signin/*"],
+      "@signout/*": ["flows/signout/*"],
       "@signup/*": ["flows/signup/*"]
     }
   },

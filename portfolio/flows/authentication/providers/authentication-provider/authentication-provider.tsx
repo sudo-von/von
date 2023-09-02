@@ -1,15 +1,12 @@
 import { FC, PropsWithChildren, useEffect, useReducer } from "react";
-import { getCookie } from "../../../../services/cookie-service/cookie.service";
-import { AuthenticationContext } from "../../contexts/authentication-context/authentication-context";
-import { authenticationReducer } from "../../reducers/authentication-reducer/authentication-reducer";
-import { authenticationInitialState } from "../../contexts/authentication-context/authentication-context.data";
-import { decodeToken } from "../../../../services/token-service/token.service";
+import { getCookie } from "@services/cookie-service/cookie.service";
+import { decodeToken } from "@services/token-service/token.service";
+import { AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context";
+import { authenticationReducer } from "@authentication/reducers/authentication-reducer/authentication-reducer";
+import { initialState } from "@authentication/contexts/authentication-context/authentication-context.data";
 
 const AuthenticationProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [state, dispatch] = useReducer(
-    authenticationReducer,
-    authenticationInitialState
-  );
+  const [state, dispatch] = useReducer(authenticationReducer, initialState);
 
   useEffect(() => {
     const token = getCookie("token");

@@ -1,5 +1,5 @@
-import { UserAPIResponse } from "./user.service.responses";
 import createAPIService from "@services/api-service/api.service";
+import { UserAPIResponse } from "@authentication/services/user-service/user.service.responses";
 
 const userService = createAPIService({
   base: "user",

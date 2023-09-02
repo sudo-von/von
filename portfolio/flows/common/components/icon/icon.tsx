@@ -2,7 +2,7 @@ import { ElementType, FC } from "react";
 import { iconColor } from "./icon.data";
 import { IconColor } from "./icon.types";
 
-type IconProps = {
+export type IconProps = {
   color: IconColor;
   icon: ElementType;
   onClick?: VoidFunction;

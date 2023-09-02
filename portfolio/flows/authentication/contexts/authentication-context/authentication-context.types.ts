@@ -1,10 +1,8 @@
-import { AuthenticationDispatch } from "../../reducers/authentication-reducer/authentication-reducer.types";
+import { AuthenticationDispatch } from "@authentication/reducers/authentication-reducer/authentication-reducer.types";
 
-export type AuthenticationUser = {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
+export type AuthenticationContext = {
+  state: AuthenticationState;
+  dispatch: AuthenticationDispatch;
 };
 
 export type AuthenticationState = {
@@ -12,7 +10,9 @@ export type AuthenticationState = {
   user: AuthenticationUser | null;
 };
 
-export type AuthenticationContext = {
-  state: AuthenticationState;
-  dispatch: AuthenticationDispatch;
+export type AuthenticationUser = {
+  id: string;
+  name: string;
+  email: string;
+  username: string;
 };

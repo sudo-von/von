@@ -1,6 +1,4 @@
 import { createContext } from "react";
-import { authenticationInitialContext } from "./authentication-context.data";
+import { initialContext } from "@authentication/contexts/authentication-context/authentication-context.data";
 
-export const AuthenticationContext = createContext(
-  authenticationInitialContext
-);
+export const AuthenticationContext = createContext(initialContext);

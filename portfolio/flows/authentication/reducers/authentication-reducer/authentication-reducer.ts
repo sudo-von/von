@@ -1,5 +1,5 @@
-import { AuthenticationAction } from "./authentication-reducer.types";
-import { AuthenticationState } from "../../contexts/authentication-context/authentication-context.types";
+import { AuthenticationState } from "@authentication/contexts/authentication-context/authentication-context.types";
+import { AuthenticationAction } from "@authentication/reducers/authentication-reducer/authentication-reducer.types";
 
 export const authenticationReducer = (
   state: AuthenticationState,

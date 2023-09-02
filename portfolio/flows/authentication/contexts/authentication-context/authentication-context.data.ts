@@ -1,14 +1,11 @@
-import {
-  AuthenticationState,
-  AuthenticationContext,
-} from "./authentication-context.types";
+import { AuthenticationState, AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context.types";
 
-export const authenticationInitialState: AuthenticationState = {
+export const initialState: AuthenticationState = {
   isLoggedIn: false,
   user: null,
 };
 
-export const authenticationInitialContext: AuthenticationContext = {
-  state: authenticationInitialState,
+export const initialContext: AuthenticationContext = {
+  state: initialState,
   dispatch: () => {},
 };
