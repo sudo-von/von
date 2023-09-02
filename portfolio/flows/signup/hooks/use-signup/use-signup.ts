@@ -4,7 +4,7 @@ import { setCookie } from "@services/cookie-service/cookie.service";
 import { decodeToken } from "@services/token-service/token.service";
 import { APIError } from "@services/api-service/api.service.responses";
 import { initialState } from "@signup/hooks/use-signup/use-signup.data";
-import { authLogin, authSignup } from "@authentication/services/authentication-service/authentication.service";
+import { login, signup } from "@authentication/services/authentication-service/authentication.service";
 import { AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context";
 
 const useSignup = () => {
@@ -26,14 +26,14 @@ const useSignup = () => {
       setError("");
       setLoading(true);
 
-      await authSignup({
+      await signup({
         email: account.email,
         name: account.name,
         password: account.password,
         username: account.username,
       });
 
-      const token = await authLogin({
+      const token = await login({
         email: account.email,
         password: account.password,
       });

@@ -4,7 +4,7 @@ import { setCookie } from "@services/cookie-service/cookie.service";
 import { decodeToken } from "@services/token-service/token.service";
 import { APIError } from "@services/api-service/api.service.responses";
 import { initialState } from "@signin/hooks/use-signin/use-signin.data";
-import { authLogin } from "@authentication/services/authentication-service/authentication.service";
+import { login } from "@authentication/services/authentication-service/authentication.service";
 import { AuthenticationContext } from "@authentication/contexts/authentication-context/authentication-context";
 
 const useSignin = () => {
@@ -26,7 +26,7 @@ const useSignin = () => {
       setError("");
       setLoading(true);
 
-      const token = await authLogin({
+      const token = await login({
         email: credentials.email,
         password: credentials.password,
       });
@@ -42,7 +42,6 @@ const useSignin = () => {
         username: payload.username,
       }});
 
-      push('/ask');
     } catch (e) {
       setError((e as APIError).error);
     } finally {

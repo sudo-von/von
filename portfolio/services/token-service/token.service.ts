@@ -24,5 +24,6 @@ export const decodeToken = (encodedToken: string): DecodedToken => {
     payload: parsedPayload,
     signature: signatureSegment,
   };
+
   return decodedToken;
 };
