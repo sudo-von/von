@@ -10,7 +10,7 @@ const useSignout = () => {
   useEffect(() => {
     deleteCookie("token");
     dispatch({ type: "LOG_OUT" });
-    //push("/signin");
+    push("/signin");
   }, [dispatch, push]);
 
 };

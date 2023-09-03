@@ -1,7 +1,7 @@
 import { FC } from "react";
 import UnansweredQuestion, {
   UnansweredQuestionProps,
-} from "@ask/ask-admin/components/unanswered-question/unanswered-question";
+} from "@ask/ask-panel/components/unanswered-question/unanswered-question";
 
 export type UnansweredQuestionListProps = {
   unansweredQuestions: UnansweredQuestionProps[];
