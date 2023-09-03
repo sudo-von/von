@@ -3,7 +3,7 @@ import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import OutOfService from "@common/components/out-of-service/out-of-service";
 import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
 
-const PageUnavailable: NextPage = () => {
+const Unavailable: NextPage = () => {
   return (
     <MetaLayout title="Page unavailable" description="Oops, something went wrong.">
       <CenteredLayout>
@@ -13,4 +13,4 @@ const PageUnavailable: NextPage = () => {
   );
 };
 
-export default PageUnavailable;
+export default Unavailable;
