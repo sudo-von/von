@@ -1,13 +1,16 @@
 import { NextPage } from "next";
-import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
+import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import OutOfService from "@common/components/out-of-service/out-of-service";
+import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
 
-const ServiceUnavailable: NextPage = () => {
+const PageInProgress: NextPage = () => {
   return (
-    <CenteredLayout>
-      <OutOfService title="503" description="This page is under construction." />
-    </CenteredLayout>
+    <MetaLayout title="Page in progress" description="This page is under construction.">
+      <CenteredLayout>
+        <OutOfService title="503" description="This page is under construction." />
+      </CenteredLayout>
+    </MetaLayout>
   );
 };
 
-export default ServiceUnavailable;
+export default PageInProgress;

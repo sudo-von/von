@@ -1,15 +1,17 @@
 import { NextPage } from "next";
 import Alert from "@common/components/alert/alert";
 import useSignin from "@signin/hooks/use-signin/use-signin";
+import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import SigninForm from "@signin/components/signin-form/signin-form";
-import FormHeader from "@common/components/form/components/form-header/form-header";
+import ContainerLayout from "@common/layouts/container-layout/container-layout";
 import FormFooter from "@common/components/form/components/form-footer/form-footer";
+import FormHeader from "@common/components/form/components/form-header/form-header";
 
 const Signin: NextPage = () => {
   const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();
   return (
-    <div className="flex flex-col items-center mt-48">
-      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
+    <MetaLayout title="Sign in" description="Sign in into your account.">
+      <ContainerLayout>
         <FormHeader
           heading="Welcome back"
           subheading="Sign in into your account"
@@ -30,8 +32,8 @@ const Signin: NextPage = () => {
             <Alert variant="error">{error}</Alert>
           </div>
         )}
-      </div>
-    </div>
+      </ContainerLayout>
+    </MetaLayout>
   );
 };
 

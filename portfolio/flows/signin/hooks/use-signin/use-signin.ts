@@ -42,6 +42,7 @@ const useSignin = () => {
         username: payload.username,
       }});
 
+      push("/ask");
     } catch (e) {
       setError((e as APIError).error);
     } finally {
