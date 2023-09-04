@@ -1,25 +1,21 @@
 import { NextPage } from "next";
 import Tab from "@common/components/tab/tab";
-import useTab from "@ask/ask-panel/hooks/use-tab/use-tab";
+import useTab from "@ask-panel/hooks/use-tab/use-tab";
 import Profile, { ProfileProps } from "@ask/components/profile/profile";
 import TabHeader from "@common/components/tab/components/tab-header/tab-header";
 import ContainerLayout from "@common/layouts/container-layout/container-layout";
 import { AnsweredQuestionProps } from "@ask/components/answered-question/answered-question";
-import AnsweredQuestionList from "@ask/components/answered-question-list/answered-question-list";
-import { UnansweredQuestionProps } from "@ask/ask-panel/components/unanswered-question/unanswered-question";
-import UnansweredQuestionList from "@ask/ask-panel/components/unanswered-question-list/unanswered-question-list";
+import AnsweredQuestionList from "@ask-panel/components/answered-question-list/answered-question-list";
+import { UnansweredQuestionProps } from "@ask-panel/components/unanswered-question/unanswered-question";
+import UnansweredQuestionList from "@ask-panel/components/unanswered-question-list/unanswered-question-list";
 
-type PanelProps = {
+type AskPanelProps = {
   answeredQuestions: AnsweredQuestionProps[];
   profile: ProfileProps;
   unansweredQuestions: UnansweredQuestionProps[];
 };
 
-const Panel: NextPage<PanelProps> = ({
-  answeredQuestions,
-  profile,
-  unansweredQuestions,
-}) => {
+const AskPanel: NextPage<AskPanelProps> = ({ answeredQuestions, profile, unansweredQuestions }) => {
   const { avatar, details, metrics, name, username } = profile;
   const { handleAnswersTab, handleQuestionsTab, selectedTab } = useTab();
   return (
@@ -56,7 +52,7 @@ import { getUserByUsername } from "@authentication/services/user-service/user.se
 import { getAnsweredQuestionListByUsername } from "@ask/services/answered-question-service/answered-question.service";
 import { getUnansweredQuestionListByUsername } from "@ask/services/unanswered-question-service/unanswered-question.service";
 
-export const getServerSideProps: GetServerSideProps<PanelProps> = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps<AskPanelProps> = async ({ req }) => {
   const { token } = req.cookies;
   if (!token) return { redirect: { destination: "/403", permanent: false } };
 
@@ -67,6 +63,12 @@ export const getServerSideProps: GetServerSideProps<PanelProps> = async ({ req }
 
   return {
     props: {
+      answeredQuestions: answeredQuestionList.map((answeredQuestion) => ({
+        answer: answeredQuestion.answer.answer,
+        answeredAt: formatDate(new Date(answeredQuestion.answer.answered_at)),
+        id: answeredQuestion.id,
+        question: answeredQuestion.question,
+      })),
       profile: {
         avatar: user.avatar || "/avatar/default-avatar.jpg",
         details: user.details ? {
@@ -82,12 +84,6 @@ export const getServerSideProps: GetServerSideProps<PanelProps> = async ({ req }
         name: user.name,
         username: user.username,
       },
-      answeredQuestions: answeredQuestionList.map((answeredQuestion) => ({
-        answer: answeredQuestion.answer.answer,
-        answeredAt: formatDate(new Date(answeredQuestion.answer.answered_at)),
-        id: answeredQuestion.id,
-        question: answeredQuestion.question,
-      })),
       unansweredQuestions: unansweredQuestionList.map((unansweredQuestion) => ({
         askedAt: formatDate(new Date(unansweredQuestion.asked_at)),
         id: unansweredQuestion.id,
@@ -97,4 +93,4 @@ export const getServerSideProps: GetServerSideProps<PanelProps> = async ({ req }
   };
 };
 
-export default Panel;
+export default AskPanel;

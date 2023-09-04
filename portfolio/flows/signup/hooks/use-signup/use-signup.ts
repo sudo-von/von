@@ -60,9 +60,9 @@ const useSignup = () => {
   return {
     account,
     error,
-    loading,
     handleOnChange,
     handleOnSubmit,
+    loading,
   };
 };
 

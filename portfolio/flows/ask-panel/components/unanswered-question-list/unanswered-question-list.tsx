@@ -1,7 +1,8 @@
 import { FC } from "react";
+import Hyperlink from "@common/components/hyperlink/hyperlink";
 import UnansweredQuestion, {
   UnansweredQuestionProps,
-} from "@ask/ask-panel/components/unanswered-question/unanswered-question";
+} from "@ask-panel/components/unanswered-question/unanswered-question";
 
 export type UnansweredQuestionListProps = {
   unansweredQuestions: UnansweredQuestionProps[];
@@ -14,12 +15,9 @@ const UnansweredQuestionList: FC<UnansweredQuestionListProps> = ({
     <div className="flex flex-col gap-5 mt-5">
       {unansweredQuestions.map(({ askedAt, id, question }) => {
         return (
-          <UnansweredQuestion
-            askedAt={askedAt}
-            id={id}
-            key={id}
-            question={question}
-          />
+          <Hyperlink key={id} path={`/ask-panel/create/${id}`}>
+            <UnansweredQuestion askedAt={askedAt} id={id} question={question} />
+          </Hyperlink>
         );
       })}
     </div>

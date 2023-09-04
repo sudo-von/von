@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@ask/*": ["flows/ask/*"],
+      "@ask-panel/*": ["flows/ask-panel/*"],
       "@authentication/*": ["flows/authentication/*"],
       "@common/*": ["flows/common/*"],
       "@pages/*": ["pages/*"],

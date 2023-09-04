@@ -1,11 +1,18 @@
 import createAPIService from "@services/api-service/api.service";
-import { UnansweredQuestionListAPIResponse } from "@ask/services/unanswered-question-service/unanswered-question.service.responses";
+import { UnansweredQuestionAPIResponse, UnansweredQuestionListAPIResponse } from "@ask/services/unanswered-question-service/unanswered-question.service.responses";
 
 const unansweredQuestionService = createAPIService({
   base: "unanswered-question",
   port: 3001,
   version: 1,
 });
+
+export const getUnansweredQuestionById = async (
+  id: string
+): Promise<UnansweredQuestionAPIResponse> => {
+  const { data } = await unansweredQuestionService.get<UnansweredQuestionAPIResponse>(id);
+  return data;
+};
 
 export const getUnansweredQuestionListByUsername = async (
   username: string,

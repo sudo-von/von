@@ -53,9 +53,9 @@ const useSignin = () => {
   return {
     credentials,
     error,
-    loading,
     handleOnChange,
     handleOnSubmit,
+    loading,
   };
 };
 
