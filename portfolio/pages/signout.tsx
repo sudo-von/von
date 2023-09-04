@@ -8,7 +8,7 @@ import SignoutHeader from "@signout/components/signout-header/signout-header";
 const Signout: NextPage = () => {
   useSignout();
   return (
-    <MetaLayout description="Come back soon." title="Sign out">
+    <MetaLayout description="Come back soon." title="Sign out from sudo-von.com">
       <CenteredLayout>
         <div className="flex flex-col justify-center items-center gap-2.5">
           <Loader color="dark" />

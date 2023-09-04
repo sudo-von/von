@@ -10,7 +10,7 @@ import FormHeader from "@common/components/form/components/form-header/form-head
 const Signup: NextPage = () => {
   const { account, error, handleOnChange, handleOnSubmit, loading } = useSignup();
   return (
-    <MetaLayout description="Sign up for a new account." title="Sign up">
+    <MetaLayout description="Sign up for a new account." title="Sign up to sudo-von.com">
       <ContainerLayout>
         <FormHeader
           heading="Create an account"

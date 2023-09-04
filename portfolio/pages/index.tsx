@@ -15,7 +15,7 @@ const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
     <MetaLayout
       author={name}
       description="Meet a dedicated software developer pursuing their dream of moving to Canada."
-      keywords="JavaScript, TypeScript, React, Testing, Express, Node, Software Development"
+      keywords="JavaScript, TypeScript, React, Testing, Node, Express"
       title={name}
     >
       <div className="flex flex-col gap-8 mt-48">
@@ -37,7 +37,7 @@ import { getContentList } from "@home/services/content-service/content.service";
 import { getUserByUsername } from "@authentication/services/user-service/user.service";
 
 export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
-  const user = await getUserByUsername("sudo_von");
+  const { result: user } = await getUserByUsername("sudo_von");
   const { data: contentList } = await getContentList();
 
   return {
