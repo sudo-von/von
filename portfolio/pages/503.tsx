@@ -5,7 +5,7 @@ import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
 
 const InProgress: NextPage = () => {
   return (
-    <MetaLayout title="Page in progress" description="This page is under construction.">
+    <MetaLayout description="This page is under construction." title="Page in progress">
       <CenteredLayout>
         <OutOfService title="503" description="This page is under construction." />
       </CenteredLayout>

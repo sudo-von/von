@@ -5,7 +5,7 @@ import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
 
 const NotFound: NextPage = () => {
   return (
-    <MetaLayout title="Page not found" description="This page could not be found.">
+    <MetaLayout description="This page could not be found." title="Page not found">
       <CenteredLayout>
         <OutOfService title="404" description="This page could not be found." />
       </CenteredLayout>

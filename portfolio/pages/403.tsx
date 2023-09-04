@@ -5,7 +5,7 @@ import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
 
 const Forbidden: NextPage = () => {
   return (
-    <MetaLayout title="Page access forbidden" description="You are not authorized to view this page.">
+    <MetaLayout description="You are not authorized to view this page." title="Page access forbidden">
       <CenteredLayout>
         <OutOfService title="403" description="You are not authorized to view this page." />
       </CenteredLayout>

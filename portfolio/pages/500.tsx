@@ -5,7 +5,7 @@ import CenteredLayout from "@common/layouts/centered-layout/centered-layout";
 
 const Unavailable: NextPage = () => {
   return (
-    <MetaLayout title="Page unavailable" description="Oops, something went wrong.">
+    <MetaLayout description="Oops, something went wrong." title="Page unavailable">
       <CenteredLayout>
         <OutOfService title="500" description="Oops, something went wrong." />
       </CenteredLayout>

@@ -31,14 +31,14 @@ const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
 };
 
 import { GetStaticProps } from "next";
-import { toProfileProps } from "@home/components/profile/profile.mappers";
 import { toContentProps } from "@home/components/content/content.mappers";
+import { toProfileProps } from "@home/components/profile/profile.mappers";
 import { getContentList } from "@home/services/content-service/content.service";
 import { getUserByUsername } from "@authentication/services/user-service/user.service";
 
-export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
-  const { result: user } = await getUserByUsername("sudo_von");
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const { data: contentList } = await getContentList();
+  const { result: user } = await getUserByUsername("sudo_von");
 
   return {
     props: {
