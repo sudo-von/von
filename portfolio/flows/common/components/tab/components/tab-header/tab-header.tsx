@@ -14,17 +14,17 @@ const TabHeader: FC<TabHeaderProps> = ({
   onHandleClick,
   value,
 }) => {
-  const className = `flex-1 flex-grow-1 flex-shrink-1 flex-basis-0 justify-center items-center w-full cursor-pointer p-3 ${
-    value === index && "border-b border-slate-100"
+  const className = `flex-1 flex-grow-1 flex-shrink-1 flex-basis-0 text-center justify-center items-center w-full cursor-pointer p-2 ${
+    value === index && "bg-slate-850 rounded "
   }`;
   return (
     <div className={className} onClick={onHandleClick}>
       <Typography
-        color={value === index ? "dark" : "normal"}
-        component="h6"
+        color={value === index ? "light" : "dark"}
+        component="h5"
         size="normal"
         spacing="normal"
-        weight={value === index ? "normal" : "light"}
+        weight={value === index ? "normal" : "normal"}
         whitespace="normal"
       >
         {children}

@@ -15,7 +15,11 @@ type AskPanelProps = {
   unansweredQuestions: UnansweredQuestionProps[];
 };
 
-const AskPanel: NextPage<AskPanelProps> = ({ answeredQuestions, profile, unansweredQuestions }) => {
+const AskPanel: NextPage<AskPanelProps> = ({
+  answeredQuestions,
+  profile,
+  unansweredQuestions,
+}) => {
   const { avatar, details, metrics, name, username } = profile;
   const { handleAnswersTab, handleQuestionsTab, selectedTab } = useTab();
   return (
@@ -27,11 +31,19 @@ const AskPanel: NextPage<AskPanelProps> = ({ answeredQuestions, profile, unanswe
         name={name}
         username={username}
       />
-      <div className="flex flex-wrap text-center mt-5">
-        <TabHeader index={0} onHandleClick={handleQuestionsTab} value={selectedTab}>
+      <div className="flex flex-wrap mt-5 bg-slate-50 rounded p-2">
+        <TabHeader
+          index={0}
+          onHandleClick={handleQuestionsTab}
+          value={selectedTab}
+        >
           Questions
         </TabHeader>
-        <TabHeader index={1} onHandleClick={handleAnswersTab} value={selectedTab}>
+        <TabHeader
+          index={1}
+          onHandleClick={handleAnswersTab}
+          value={selectedTab}
+        >
           Answers
         </TabHeader>
       </div>
@@ -51,15 +63,22 @@ import { getProfileByUsername } from "@ask/services/profile-service/profile.serv
 import { getUserByUsername } from "@authentication/services/user-service/user.service";
 import { getAnsweredQuestionListByUsername } from "@ask/services/answered-question-service/answered-question.service";
 import { getUnansweredQuestionListByUsername } from "@ask/services/unanswered-question-service/unanswered-question.service";
+import useQuestion from "@ask/hooks/use-question/use-question";
+import QuestionForm from "@ask/components/question-form/question-form";
+import Alert from "@common/components/alert/alert";
 
-export const getServerSideProps: GetServerSideProps<AskPanelProps> = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps<AskPanelProps> = async ({
+  req,
+}) => {
   const { token } = req.cookies;
   if (!token) return { redirect: { destination: "/403", permanent: false } };
 
   const { result: user } = await getUserByUsername("sudo_von");
   const { result: profile } = await getProfileByUsername("sudo_von");
-  const { result: answeredQuestionList } = await getAnsweredQuestionListByUsername("sudo_von");
-  const { result: unansweredQuestionList } = await getUnansweredQuestionListByUsername("sudo_von", token);
+  const { result: answeredQuestionList } =
+    await getAnsweredQuestionListByUsername("sudo_von");
+  const { result: unansweredQuestionList } =
+    await getUnansweredQuestionListByUsername("sudo_von", token);
 
   return {
     props: {
@@ -71,11 +90,13 @@ export const getServerSideProps: GetServerSideProps<AskPanelProps> = async ({ re
       })),
       profile: {
         avatar: user.avatar || "/avatar/default-avatar.jpg",
-        details: user.details ? {
-          interest: user.details.interest,
-          position: user.details.position,
-          quote: user.details.quote,
-        } : null,
+        details: user.details
+          ? {
+              interest: user.details.interest,
+              position: user.details.position,
+              quote: user.details.quote,
+            }
+          : null,
         metrics: {
           totalAnswers: profile.metrics.total_answers,
           totalQuestions: profile.metrics.total_questions,

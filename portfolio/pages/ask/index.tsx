@@ -13,7 +13,14 @@ type AskProps = {
 
 const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
   const { avatar, details, metrics, name, username } = profile;
-  const { error, handleOnChange, handleOnSubmit, loading, questionForm, success } = useQuestion(username);
+  const {
+    error,
+    handleOnChange,
+    handleOnSubmit,
+    loading,
+    questionForm,
+    success,
+  } = useQuestion(username);
   return (
     <div className="flex flex-col items-center mt-48">
       <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -51,6 +58,7 @@ import { formatDate } from "@services/date-service/date-service";
 import { getProfileByUsername } from "@ask/services/profile-service/profile.service";
 import { getUserByUsername } from "@authentication/services/user-service/user.service";
 import { getAnsweredQuestionListByUsername } from "@ask/services/answered-question-service/answered-question.service";
+import { profileResponseToProps } from "@ask/services/profile-service/profile.service.mappers";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: user } = await getUserByUsername("sudo_von");
@@ -59,23 +67,7 @@ export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
 
   return {
     props: {
-      profile: {
-        avatar: user.avatar || "/avatar/default-avatar.jpg",
-        details: user.details
-          ? {
-              interest: user.details.interest,
-              position: user.details.position,
-              quote: user.details.quote,
-            }
-          : null,
-        metrics: {
-          totalViews: profile.metrics.total_views,
-          totalAnswers: profile.metrics.total_answers,
-          totalQuestions: profile.metrics.total_questions,
-        },
-        name: user.name,
-        username: user.username,
-      },
+      profile: profileResponseToProps(user, profile),
       answeredQuestions: answeredQuestionList.map((answeredQuestion) => ({
         id: answeredQuestion.id,
         question: answeredQuestion.question,

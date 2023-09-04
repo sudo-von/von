@@ -1,6 +1,6 @@
 import { NextPage } from "next";
-import ServiceUnavailable from "@pages/503";
+import InProgress from "@pages/503";
 
-const Blog: NextPage = () => <ServiceUnavailable />;
+const Blog: NextPage = () => <InProgress />;
 
 export default Blog;
