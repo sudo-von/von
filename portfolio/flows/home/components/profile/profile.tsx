@@ -4,13 +4,13 @@ import Details, { DetailsProps } from "./components/details/details";
 import { SocialNetworkProps } from "./components/social-network/social-network";
 import SocialNewtorkList from "./components/social-network-list/social-network-list";
 
-export type UserProps = {
+export type ProfileProps = {
   details: DetailsProps | null;
   name: string;
   socialNetworks: SocialNetworkProps[];
 };
 
-const User: FC<UserProps> = ({ details, name, socialNetworks = [] }) => {
+const Profile: FC<ProfileProps> = ({ details, name, socialNetworks = [] }) => {
   return (
     <div className="grid gap-6 text-center lg:text-start">
       <Name>{name}</Name>
@@ -26,4 +26,4 @@ const User: FC<UserProps> = ({ details, name, socialNetworks = [] }) => {
   );
 };
 
-export default User;
+export default Profile;

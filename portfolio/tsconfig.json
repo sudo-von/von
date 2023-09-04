@@ -20,6 +20,7 @@
       "@ask-panel/*": ["flows/ask-panel/*"],
       "@authentication/*": ["flows/authentication/*"],
       "@common/*": ["flows/common/*"],
+      "@home/*": ["flows/home/*"],
       "@pages/*": ["pages/*"],
       "@services/*": ["services/*"],
       "@signin/*": ["flows/signin/*"],

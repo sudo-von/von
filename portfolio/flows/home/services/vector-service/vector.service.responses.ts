@@ -1,8 +1,8 @@
-import { StrapiData } from "../strapi-service/strapi.service.responses";
+import { StrapiData } from "@home/services/strapi-service/strapi.service.responses";
 
 type VectorSrcAttributes = {
-  url: string;
   name: string;
+  url: string;
 };
 
 type VectorSrcData = StrapiData<VectorSrcAttributes>;

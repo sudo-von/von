@@ -1,7 +1,7 @@
-import { ContentProps } from "../../../../flows/home/components/content/content";
-import { ContentResponse } from "./content.service.responses";
+import { ContentProps } from "@home/components/content/content";
+import { ContentResponse } from "@home/services/content-service/content.service.responses";
 
-export const contentResponseToContentProps = (
+export const toContentProps = (
   contentResponse: ContentResponse
 ): ContentProps => {
   const { title, subtitle, description, media } = contentResponse.attributes;

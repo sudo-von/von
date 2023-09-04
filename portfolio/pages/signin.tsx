@@ -10,7 +10,7 @@ import FormHeader from "@common/components/form/components/form-header/form-head
 const Signin: NextPage = () => {
   const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();
   return (
-    <MetaLayout title="Sign in" description="Sign in into your account.">
+    <MetaLayout description="Sign in into your account." title="Sign in">
       <ContainerLayout>
         <FormHeader
           heading="Welcome back"

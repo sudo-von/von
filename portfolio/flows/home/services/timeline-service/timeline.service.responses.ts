@@ -1,8 +1,8 @@
-import { StrapiData } from "../strapi-service/strapi.service.responses";
+import { StrapiData } from "@home/services/strapi-service/strapi.service.responses";
 
 type TimelineSrcAttributes = {
-  url: string;
   name: string;
+  url: string;
 };
 
 type TimelineSrcData = StrapiData<TimelineSrcAttributes>;
@@ -13,11 +13,11 @@ type TimelineSrc = {
 
 type TimelineAttributes = {
   company: string;
-  position: string;
-  end_date: string;
-  start_date: string;
   description: string;
+  end_date: string;
+  position: string;
   src: TimelineSrc;
+  start_date: string;
 };
 
 type TimelineData = StrapiData<TimelineAttributes>;

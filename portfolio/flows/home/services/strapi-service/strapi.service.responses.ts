@@ -1,8 +1,8 @@
 export type StrapiPagination = {
   page: number;
-  total: number;
-  pageSize: number;
   pageCount: number;
+  pageSize: number;
+  total: number;
 };
 
 export type StrapiMeta = {
@@ -10,8 +10,8 @@ export type StrapiMeta = {
 };
 
 export type StrapiData<T> = {
-  id: number;
   attributes: T;
+  id: number;
 };
 
 export type StrapiAPIResponse<T> = {

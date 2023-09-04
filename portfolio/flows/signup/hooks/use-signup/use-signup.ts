@@ -43,13 +43,13 @@ const useSignup = () => {
       const { payload } = decodeToken(token);
 
       dispatch({ type: "LOG_IN", payload: {
-        id: payload.id,
         email: payload.email,
+        id: payload.id,
         name: payload.name,
         username: payload.username,
       }});
 
-      push("/ask");
+      push("/ask/panel");
     } catch (e) {
       setError((e as APIError).error);
     } finally {

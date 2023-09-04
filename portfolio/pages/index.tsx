@@ -1,78 +1,49 @@
 import { NextPage } from "next";
-import User, { UserProps } from "../flows/home/components/user/user";
-import { ContentProps } from "../flows/home/components/content/content";
-import ContentList, { ContentListProps } from "../flows/home/components/content-list/content-list";
+import { ContentProps } from "@home/components/content/content";
+import MetaLayout from "@common/layouts/meta-layout/meta-layout";
+import ContentList from "@home/components/content-list/content-list";
+import Profile, { ProfileProps } from "@home/components/profile/profile";
 
-type HomeProps = ContentListProps & UserProps;
+type HomeProps = {
+  contents: ContentProps[];
+  profile: ProfileProps;
+};
 
-const Home: NextPage<HomeProps> = ({ contents = [], details, name, socialNetworks = [] }) => {
+const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
+  const { details, name, socialNetworks } = profile;
   return (
-    <div className="flex flex-col gap-8 mt-48">
-      <User details={details} name={name} socialNetworks={socialNetworks} />
-      <ContentList contents={contents} />
-    </div>
+    <MetaLayout
+      author={name}
+      description="Meet a dedicated software developer pursuing their dream of moving to Canada."
+      keywords="JavaScript, TypeScript, React, Testing, Express, Node, Software Development"
+      title={name}
+    >
+      <div className="flex flex-col gap-8 mt-48">
+        <Profile
+          details={details}
+          name={name}
+          socialNetworks={socialNetworks}
+        />
+        <ContentList contents={contents} />
+      </div>
+    </MetaLayout>
   );
 };
 
 import { GetStaticProps } from "next";
-import { getUserByUsername } from "../flows/authentication/services/user-service/user.service";
-import { getContents } from "../services/api-service/content-service/content-service/content.service";
+import { toProfileProps } from "@home/components/profile/profile.mappers";
+import { toContentProps } from "@home/components/content/content.mappers";
+import { getContentList } from "@home/services/content-service/content.service";
+import { getUserByUsername } from "@authentication/services/user-service/user.service";
 
 export const getStaticProps: GetStaticProps<HomeProps> = async (_ctx) => {
-  const { result: user } = await getUserByUsername("sudo_von");
-  const { data: contentList } = await getContents();
-
-  const contents = contentList.map(({ attributes }) => {
-    const { description, media, subtitle, title } = attributes;
-    const { timelines, vectors, video } = media.data.attributes;
-
-    const timelinesMedia = timelines.data.map((t) => ({
-      company: t.attributes.company,
-      endDate: t.attributes.end_date,
-      position: t.attributes.position,
-      startDate: t.attributes.start_date,
-      description: t.attributes.description,
-      src: t.attributes.src.data.attributes.url,
-    }));
-
-    const vectorsMedia = vectors.data.map((v) => ({
-      alt: v.attributes.alt,
-      src: v.attributes.src.data.attributes.url,
-    }));
-
-    const videoMedia = video.data && {
-      src: video.data.attributes.url,
-      title: video.data.attributes.title,
-    };
-
-    const result: ContentProps = {
-      title,
-      subtitle,
-      description,
-      media: {
-        video: videoMedia,
-        vectors: vectorsMedia,
-        timelines: timelinesMedia,
-      },
-    };
-
-    return result;
-  });
+  const user = await getUserByUsername("sudo_von");
+  const { data: contentList } = await getContentList();
 
   return {
     props: {
-      contents,
-      details: user.details ? {
-        interest: user.details.interest,
-        position: user.details.position,
-        quote: user.details.quote,
-      } : null,
-      name: user.name,
-      socialNetworks: user.social_networks.map((sn) => ({
-        alt: sn.name,
-        href: sn.url,
-        src: sn.src,
-      })),
+      contents: contentList.map((c) => toContentProps(c)),
+      profile: toProfileProps(user),
     },
   };
 };

@@ -1,8 +1,8 @@
-import { StrapiData } from "../strapi-service/strapi.service.responses";
+import { StrapiData } from "@home/services/strapi-service/strapi.service.responses";
 
 type VideoAttributes = {
-  url: string;
   title: string;
+  url: string;
 };
 
 type VideoData = StrapiData<VideoAttributes>;
