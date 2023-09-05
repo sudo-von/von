@@ -20,7 +20,7 @@ type TimelineAttributes = {
   start_date: string;
 };
 
-type TimelineData = StrapiData<TimelineAttributes>;
+export type TimelineData = StrapiData<TimelineAttributes>;
 
 export type TimelinesResponse = {
   data: TimelineData[];

@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../../../common/components/typography/typography";
+import Typography from "@common/components/typography/typography";
 
 const Description: FC<PropsWithChildren> = ({ children }) => {
   return (

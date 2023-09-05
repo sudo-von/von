@@ -1,13 +1,7 @@
 import { FC } from "react";
-import MediaVideo, {
-  MediaVideoProps,
-} from "./components/media-video/media-video";
-import MediaVectorList, {
-  MediaVectorListProps,
-} from "./components/media-vector-list/media-vector-list";
-import MediaTimelineList, {
-  MediaTimelineListProps,
-} from "./components/media-timeline-list/media-timeline-list";
+import MediaVideo, { MediaVideoProps } from "@home/components/media/components/media-video/media-video";
+import MediaVectorList, { MediaVectorListProps } from "@home/components/media/components/media-vector-list/media-vector-list";
+import MediaTimelineList, { MediaTimelineListProps } from "@home/components/media/components/media-timeline-list/media-timeline-list";
 
 export type MediaProps = {
   media: MediaVideoProps | MediaVectorListProps | MediaTimelineListProps;

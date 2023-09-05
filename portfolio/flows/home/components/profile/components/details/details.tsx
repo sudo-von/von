@@ -1,7 +1,7 @@
 import { FC } from "react";
-import Quote from "../quote/quote";
-import Interest from "../interest/interest";
-import Position from "../position/position";
+import Quote from "@home/components/profile/components/quote/quote";
+import Interest from "@home/components/profile/components/interest/interest";
+import Position from "@home/components/profile/components/position/position";
 
 export type DetailsProps = {
   interest: string;
@@ -11,7 +11,7 @@ export type DetailsProps = {
 
 const Details: FC<DetailsProps> = ({ interest, position, quote }) => {
   return (
-    <section className="flex flex-col gap-6 text-center lg:text-start">
+    <section className="flex flex-col text-center lg:text-start gap-6">
       <Position>{position}</Position>
       <Interest>{interest}</Interest>
       <Quote>{quote}</Quote>

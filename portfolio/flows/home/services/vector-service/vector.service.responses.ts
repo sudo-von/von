@@ -16,7 +16,7 @@ type VectorAttributes = {
   src: VectorSrc;
 };
 
-type VectorData = StrapiData<VectorAttributes>;
+export type VectorData = StrapiData<VectorAttributes>;
 
 export type VectorsResponse = {
   data: VectorData[];

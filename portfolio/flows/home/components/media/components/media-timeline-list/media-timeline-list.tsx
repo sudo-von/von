@@ -1,33 +1,26 @@
 import { FC } from "react";
-import Timeline, {
-  TimelineProps,
-} from "../../../../../common/components/timeline/timeline";
+import Timeline, { TimelineProps } from "@common/components/timeline/timeline";
 
 export type MediaTimelineListProps = {
   timelines: TimelineProps[];
 };
 
 const MediaTimelineList: FC<MediaTimelineListProps> = ({ timelines }) => {
+  const baseSrc = "http://localhost:1337";
   return (
-    <ol className="flex flex-col w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mt-4 lg:mt-0 lg:gap-8 lg:relative lg:border-l lg:border-slate-100">
+    <ol className="flex flex-col w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mt-4 lg:mt-0 2xl:gap-8 lg:relative lg:border-l lg:border-slate-100">
       {timelines.map(
-        ({
-          src,
-          company,
-          endDate,
-          position: subtitle,
-          startDate,
-          description,
-        }) => (
-          <Timeline
-            src={`http://localhost:1337${src}`}
-            key={company}
-            company={company}
-            endDate={endDate}
-            position={subtitle}
-            startDate={startDate}
-            description={description}
-          />
+        ({ company, description, endDate, position, src, startDate }) => (
+          <li key={src}>
+            <Timeline
+              company={company}
+              description={description}
+              endDate={endDate}
+              position={position}
+              src={`${baseSrc}${src}`}
+              startDate={startDate}
+            />
+          </li>
         )
       )}
     </ol>

@@ -5,7 +5,7 @@ type VideoAttributes = {
   url: string;
 };
 
-type VideoData = StrapiData<VideoAttributes>;
+export type VideoData = StrapiData<VideoAttributes>;
 
 export type VideoResponse = {
   data?: VideoData;
