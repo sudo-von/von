@@ -7,7 +7,7 @@ const NotFound: NextPage = () => {
   return (
     <MetaLayout description="This page could not be found." title="Page not found">
       <CenteredLayout>
-        <OutOfService title="404" description="This page could not be found." />
+        <OutOfService description="This page could not be found." title="404" />
       </CenteredLayout>
     </MetaLayout>
   );

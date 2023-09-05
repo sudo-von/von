@@ -7,7 +7,7 @@ const Forbidden: NextPage = () => {
   return (
     <MetaLayout description="You are not authorized to view this page." title="Page access forbidden">
       <CenteredLayout>
-        <OutOfService title="403" description="You are not authorized to view this page." />
+        <OutOfService description="You are not authorized to view this page." title="403" />
       </CenteredLayout>
     </MetaLayout>
   );

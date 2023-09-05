@@ -7,7 +7,7 @@ const InProgress: NextPage = () => {
   return (
     <MetaLayout description="This page is under construction." title="Page in progress">
       <CenteredLayout>
-        <OutOfService title="503" description="This page is under construction." />
+        <OutOfService description="This page is under construction." title="503" />
       </CenteredLayout>
     </MetaLayout>
   );

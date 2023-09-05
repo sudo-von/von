@@ -7,7 +7,7 @@ const Unavailable: NextPage = () => {
   return (
     <MetaLayout description="Oops, something went wrong." title="Page unavailable">
       <CenteredLayout>
-        <OutOfService title="500" description="Oops, something went wrong." />
+        <OutOfService description="Oops, something went wrong." title="500" />
       </CenteredLayout>
     </MetaLayout>
   );
