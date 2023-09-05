@@ -10,10 +10,9 @@ type AlertProps = {
 };
 
 const Alert: FC<AlertProps> = ({ variant, children }) => {
-  const { icon, color } = alertVariants[variant];
+  const { color } = alertVariants[variant];
   return (
     <div className="flex justify-center items-center gap-2 p-2 border rounded text-center">
-      <Icon color={color} icon={icon} />
       <Typography color={color} component="p" size="small" weight="light">
         {children}
       </Typography>

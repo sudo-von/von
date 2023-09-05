@@ -3,7 +3,7 @@ import { ProfileResponse } from "@ask/services/profile-service/profile.service.r
 import { UserResponse } from "@authentication/services/user-service/user.service.responses";
 import { metricsResponseToProps } from "@ask/services/metrics-service/metrics.service.mappers";
 
-export const profileResponseToProps = (
+export const toProfileProps = (
   userResponse: UserResponse,
   profileResponse: ProfileResponse
 ): ProfileProps => ({

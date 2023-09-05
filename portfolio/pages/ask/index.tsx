@@ -1,8 +1,10 @@
 import { NextPage } from "next";
 import Alert from "@common/components/alert/alert";
 import useQuestion from "@ask/hooks/use-question/use-question";
+import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import QuestionForm from "@ask/components/question-form/question-form";
 import Profile, { ProfileProps } from "@ask/components/profile/profile";
+import ContainerLayout from "@common/layouts/container-layout/container-layout";
 import { AnsweredQuestionProps } from "@ask/components/answered-question/answered-question";
 import AnsweredQuestionList from "@ask/components/answered-question-list/answered-question-list";
 
@@ -13,17 +15,15 @@ type AskProps = {
 
 const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
   const { avatar, details, metrics, name, username } = profile;
-  const {
-    error,
-    handleOnChange,
-    handleOnSubmit,
-    loading,
-    questionForm,
-    success,
-  } = useQuestion(username);
+  const { error, handleOnChange, handleOnSubmit, loading, questionForm, success } = useQuestion(username);
   return (
-    <div className="flex flex-col items-center mt-48">
-      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
+    <MetaLayout
+      author={`${name} (@${username})`}
+      description="Discover a platform where you can ask questions and share your thoughts with a diverse community. "
+      keywords="Questions, Answers, Social interaction, Community engagement"
+      title={`${name} (@${username}) | Ask`}
+    >
+      <ContainerLayout>
         <Profile
           avatar={avatar}
           details={details}
@@ -48,17 +48,17 @@ const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
           </div>
         )}
         <AnsweredQuestionList answeredQuestions={answeredQuestions} />
-      </div>
-    </div>
+      </ContainerLayout>
+    </MetaLayout>
   );
 };
 
 import { GetServerSideProps } from "next";
-import { formatDate } from "@services/date-service/date-service";
+import { toProfileProps } from "@ask/components/profile/profile.mappers";
 import { getProfileByUsername } from "@ask/services/profile-service/profile.service";
 import { getUserByUsername } from "@authentication/services/user-service/user.service";
+import { toAnsweredQuestionProps } from "@ask/components/answered-question/answered-question.mappers";
 import { getAnsweredQuestionListByUsername } from "@ask/services/answered-question-service/answered-question.service";
-import { profileResponseToProps } from "@ask/services/profile-service/profile.service.mappers";
 
 export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
   const { result: user } = await getUserByUsername("sudo_von");
@@ -67,13 +67,8 @@ export const getServerSideProps: GetServerSideProps<AskProps> = async () => {
 
   return {
     props: {
-      profile: profileResponseToProps(user, profile),
-      answeredQuestions: answeredQuestionList.map((answeredQuestion) => ({
-        id: answeredQuestion.id,
-        question: answeredQuestion.question,
-        answer: answeredQuestion.answer.answer,
-        answeredAt: formatDate(new Date(answeredQuestion.answer.answered_at)),
-      })),
+      answeredQuestions: answeredQuestionList.map((aq) => toAnsweredQuestionProps(aq)),
+      profile: toProfileProps(user, profile),
     },
   };
 };
