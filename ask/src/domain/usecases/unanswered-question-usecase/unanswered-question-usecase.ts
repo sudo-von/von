@@ -20,6 +20,15 @@ abstract class UnansweredQuestionUsecase {
   ) {}
 
   /**
+   * Retrieves an unanswered question by question ID.
+   * @authentication Requires authentication to access this method.
+   * @param {string} id - The ID of the question.
+   * @returns {Promise<DetailedQuestion>} A promise with the detailed question.
+   */
+  abstract getUnansweredQuestionById: (id: string)
+  => Promise<DetailedQuestion>;
+
+  /**
    * Retrieves unanswered questions by username.
    * @authentication Requires authentication to access this method.
    * @param {string} username - The username of the user.

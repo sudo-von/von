@@ -11,6 +11,24 @@ import UnansweredQuestionUsecase from '../../../../../domain/usecases/unanswered
 class UnansweredQuestionController {
   constructor(private readonly unansweredQuestionUsecase: UnansweredQuestionUsecase) {}
 
+  getUnansweredQuestionById: RequestHandler = async (req, res, next) => {
+    try {
+      const { user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
+      const id = req.params.id.toLowerCase();
+
+      const question = await this.unansweredQuestionUsecase.getUnansweredQuestionById(id);
+
+      const questionResponse = detailedQuestionToResponse(question);
+
+      res.status(statusCode.OK).send({ result: questionResponse });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   getUnansweredQuestionsByUsername: RequestHandler = async (req, res, next) => {
     try {
       const { user } = req;

@@ -21,6 +21,7 @@ const configureUnansweredQuestionRouter = (
     userRepository,
   );
 
+  router.get('/:id', authenticationHandler, unansweredQuestionController.getUnansweredQuestionById);
   router.get('/username/:username', authenticationHandler, unansweredQuestionController.getUnansweredQuestionsByUsername);
 
   return router;
