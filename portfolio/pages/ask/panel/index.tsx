@@ -58,58 +58,30 @@ const AskPanel: NextPage<AskPanelProps> = ({
 };
 
 import { GetServerSideProps } from "next";
-import { formatDate } from "@services/date-service/date-service";
+import { toProfileProps } from "@ask/components/profile/profile.mappers";
 import { getProfileByUsername } from "@ask/services/profile-service/profile.service";
 import { getUserByUsername } from "@authentication/services/user-service/user.service";
+import { toAnsweredQuestionProps } from "@ask/components/answered-question/answered-question.mappers";
+import { toUnansweredQuestionProps } from "@ask-panel/components/unanswered-question/unanswered-question.mappers";
 import { getAnsweredQuestionListByUsername } from "@ask/services/answered-question-service/answered-question.service";
 import { getUnansweredQuestionListByUsername } from "@ask/services/unanswered-question-service/unanswered-question.service";
-import useQuestion from "@ask/hooks/use-question/use-question";
-import QuestionForm from "@ask/components/question-form/question-form";
-import Alert from "@common/components/alert/alert";
 
-export const getServerSideProps: GetServerSideProps<AskPanelProps> = async ({
-  req,
-}) => {
+export const getServerSideProps: GetServerSideProps<AskPanelProps> = async ({ req }) => {
   const { token } = req.cookies;
-  if (!token) return { redirect: { destination: "/403", permanent: false } };
+  if (!token) {
+    return { redirect: { destination: "/403", permanent: false } };
+  }
 
   const { result: user } = await getUserByUsername("sudo_von");
   const { result: profile } = await getProfileByUsername("sudo_von");
-  const { result: answeredQuestionList } =
-    await getAnsweredQuestionListByUsername("sudo_von");
-  const { result: unansweredQuestionList } =
-    await getUnansweredQuestionListByUsername("sudo_von", token);
+  const { result: answeredQuestionList } = await getAnsweredQuestionListByUsername("sudo_von");
+  const { result: unansweredQuestionList } = await getUnansweredQuestionListByUsername("sudo_von", token);
 
   return {
     props: {
-      answeredQuestions: answeredQuestionList.map((answeredQuestion) => ({
-        answer: answeredQuestion.answer.answer,
-        answeredAt: formatDate(new Date(answeredQuestion.answer.answered_at)),
-        id: answeredQuestion.id,
-        question: answeredQuestion.question,
-      })),
-      profile: {
-        avatar: user.avatar || "/avatar/default-avatar.jpg",
-        details: user.details
-          ? {
-              interest: user.details.interest,
-              position: user.details.position,
-              quote: user.details.quote,
-            }
-          : null,
-        metrics: {
-          totalAnswers: profile.metrics.total_answers,
-          totalQuestions: profile.metrics.total_questions,
-          totalViews: profile.metrics.total_views,
-        },
-        name: user.name,
-        username: user.username,
-      },
-      unansweredQuestions: unansweredQuestionList.map((unansweredQuestion) => ({
-        askedAt: formatDate(new Date(unansweredQuestion.asked_at)),
-        id: unansweredQuestion.id,
-        question: unansweredQuestion.question,
-      })),
+      answeredQuestions: answeredQuestionList.map((aq) => toAnsweredQuestionProps(aq)),
+      profile: toProfileProps(user, profile),
+      unansweredQuestions: unansweredQuestionList.map((uq) => toUnansweredQuestionProps(uq)),
     },
   };
 };
