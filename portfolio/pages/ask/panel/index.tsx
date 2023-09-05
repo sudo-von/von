@@ -32,18 +32,10 @@ const AskPanel: NextPage<AskPanelProps> = ({
         username={username}
       />
       <div className="flex flex-wrap mt-5 bg-slate-50 rounded p-2">
-        <TabHeader
-          index={0}
-          onHandleClick={handleQuestionsTab}
-          value={selectedTab}
-        >
+        <TabHeader index={0} onHandleClick={handleQuestionsTab} value={selectedTab}>
           Questions
         </TabHeader>
-        <TabHeader
-          index={1}
-          onHandleClick={handleAnswersTab}
-          value={selectedTab}
-        >
+        <TabHeader index={1} onHandleClick={handleAnswersTab} value={selectedTab}>
           Answers
         </TabHeader>
       </div>

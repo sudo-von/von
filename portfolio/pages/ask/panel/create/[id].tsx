@@ -1,56 +1,54 @@
 import { NextPage } from "next";
+import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import PreviousPage from "@common/components/previous-page/previous-page";
-import AnsweredQuestion, {
-} from "@ask/ask-by-id/components/answered-question/answered-question";
+import ContainerLayout from "@common/layouts/container-layout/container-layout";
+import UnansweredQuestion, { UnansweredQuestionProps } from "@ask-panel/create/components/unanswered-question/unanswered-question";
 
-type AskByIdProps = {
+type CreateAskByIdProps = {
   unansweredQuestion: UnansweredQuestionProps;
 };
 
-const AskById: NextPage<AskByIdProps> = ({ answeredQuestion }) => {
-  const { answer, answeredAt, question, views } = answeredQuestion;
+const CreateAskById: NextPage<CreateAskByIdProps> = ({ unansweredQuestion }) => {
+  const { askedAt, id, question } = unansweredQuestion;
   return (
-    <div className="flex flex-col items-center mt-48">
-      <div className="flex flex-col w-full sm:max-w-sm md:max-w-md lg:max-w-lg">
-        <PreviousPage page="/ask" />
+    <MetaLayout description={question} title={`Create answer | Ask`}>
+      <ContainerLayout>
+        <PreviousPage page="/ask/panel" />
         <UnansweredQuestion
-          answer={answer}
-          answeredAt={answeredAt}
+          askedAt={askedAt}
+          id={id}
           question={question}
-          views={views}
         />
-      </div>
-    </div>
+      </ContainerLayout>
+    </MetaLayout>
   );
 };
 
 import { GetServerSideProps } from "next";
-import { formatDate } from "@services/date-service/date-service";
 import { getUnansweredQuestionById } from "@ask/services/unanswered-question-service/unanswered-question.service";
-import UnansweredQuestion, { UnansweredQuestionProps } from "@ask-panel/components/unanswered-question/unanswered-question";
+import { toUnansweredQuestionProps } from "@ask/ask-panel/components/unanswered-question/unanswered-question.mappers";
 
-type AskByIdParams = {
+type CreateAskByIdParams = {
   id?: string;
 };
 
-export const getServerSideProps: GetServerSideProps<
-  AskByIdProps,
-  AskByIdParams
-> = async ({ params }) => {
-  if (!params || !params.id)
-    return { redirect: { destination: "/404", permanent: false } };
+export const getServerSideProps: GetServerSideProps<CreateAskByIdProps, CreateAskByIdParams> = async ({ params, req }) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return { redirect: { destination: "/403", permanent: false } };
+  }
 
-  const { result: unansweredQuestion } = await getUnansweredQuestionById(params.id);
+  if (!params || !params.id) {
+    return { redirect: { destination: "/404", permanent: false } };
+  }
+
+  const { result: unansweredQuestion } = await getUnansweredQuestionById(params.id, token);
 
   return {
     props: {
-      unansweredQuestion: {
-        views: answeredQuestion.views,
-        question: answeredQuestion.question,
-        : formatDate(new Date(answeredQuestion.answer.answered_at)),
-      },
+      unansweredQuestion: toUnansweredQuestionProps(unansweredQuestion),
     },
   };
 };
 
-export default AskById;
+export default CreateAskById;

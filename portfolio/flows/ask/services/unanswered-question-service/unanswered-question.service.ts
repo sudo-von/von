@@ -8,9 +8,14 @@ const unansweredQuestionService = createAPIService({
 });
 
 export const getUnansweredQuestionById = async (
-  id: string
+  id: string,
+  token: string,
 ): Promise<UnansweredQuestionAPIResponse> => {
-  const { data } = await unansweredQuestionService.get<UnansweredQuestionAPIResponse>(id);
+  const { data } = await unansweredQuestionService.get<UnansweredQuestionAPIResponse>(id, {
+    headers: {
+      Authorization: token,
+    }
+  });
   return data;
 };
 

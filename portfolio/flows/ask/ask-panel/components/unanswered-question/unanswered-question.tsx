@@ -6,7 +6,7 @@ import AskedAt from "@ask-panel/components/unanswered-question/components/asked-
 export type UnansweredQuestionProps = {
   askedAt: string;
   id: string;
-  question: ReactNode;
+  question: string;
 };
 
 const UnansweredQuestion: FC<UnansweredQuestionProps> = ({

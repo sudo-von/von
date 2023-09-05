@@ -15,7 +15,7 @@ const UnansweredQuestionList: FC<UnansweredQuestionListProps> = ({
     <div className="flex flex-col gap-5 mt-5">
       {unansweredQuestions.map(({ askedAt, id, question }) => {
         return (
-          <Hyperlink key={id} path={`/ask-panel/create/${id}`}>
+          <Hyperlink key={id} path={`/ask/panel/create/${id}`}>
             <UnansweredQuestion askedAt={askedAt} id={id} question={question} />
           </Hyperlink>
         );

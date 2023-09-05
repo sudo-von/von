@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import PreviousPage from "@common/components/previous-page/previous-page";
 import ContainerLayout from "@common/layouts/container-layout/container-layout";
-import AnsweredQuestion, { AnsweredQuestionProps } from "@ask/ask-by-id/components/answered-question/answered-question";
+import AnsweredQuestion, { AnsweredQuestionProps } from "@ask-by-id/components/answered-question/answered-question";
 
 type AskByIdProps = {
   answeredQuestion: AnsweredQuestionProps;
@@ -27,7 +27,7 @@ const AskById: NextPage<AskByIdProps> = ({ answeredQuestion }) => {
 
 import { GetServerSideProps } from "next";
 import { getAnsweredQuestionById } from "@ask/services/answered-question-service/answered-question.service";
-import { toAnsweredQuestionProps } from "@ask/ask-by-id/components/answered-question/answered-question.mappers";
+import { toAnsweredQuestionProps } from "@ask-by-id/components/answered-question/answered-question.mappers";
 
 type AskByIdParams = {
   id?: string;
