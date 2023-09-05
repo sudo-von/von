@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../typography/typography";
+import Typography from "@common/components/typography/typography";
 
-const FormSubheading: FC<PropsWithChildren> = ({ children }) => {
+const Subheading: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="normal"
@@ -16,4 +16,4 @@ const FormSubheading: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default FormSubheading;
+export default Subheading;

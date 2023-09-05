@@ -1,18 +1,18 @@
 import { NextPage } from "next";
 import Alert from "@common/components/alert/alert";
+import Footer from "@common/components/footer/footer";
+import Header from "@common/components/header/header";
 import useSignin from "@signin/hooks/use-signin/use-signin";
 import MetaLayout from "@common/layouts/meta-layout/meta-layout";
 import SigninForm from "@signin/components/signin-form/signin-form";
 import ContainerLayout from "@common/layouts/container-layout/container-layout";
-import FormFooter from "@common/components/form/components/form-footer/form-footer";
-import FormHeader from "@common/components/form/components/form-header/form-header";
 
 const Signin: NextPage = () => {
   const { credentials, error, handleOnChange, handleOnSubmit, loading } = useSignin();
   return (
     <MetaLayout description="Sign in into your account." title="Sign in to sudo-von.com">
       <ContainerLayout>
-        <FormHeader
+        <Header
           heading="Welcome back"
           subheading="Sign in into your account"
         />
@@ -22,7 +22,7 @@ const Signin: NextPage = () => {
           handleOnSubmit={handleOnSubmit}
           loading={loading}
         />
-        <FormFooter
+        <Footer
           heading="Sign up"
           path="signup"
           subheading="Don't have an account?"
