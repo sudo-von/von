@@ -6,7 +6,7 @@ export type MediaTimelineListProps = {
 };
 
 const MediaTimelineList: FC<MediaTimelineListProps> = ({ timelines }) => {
-  const baseSrc = "http://localhost:1337";
+  const baseSrc = "http://sudo-von:1337";
   return (
     <ol className="flex flex-col w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mt-4 lg:mt-0 2xl:gap-8 lg:relative lg:border-l lg:border-slate-100">
       {timelines.map(
