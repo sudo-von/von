@@ -1,4 +1,4 @@
-import questionRules from "./use-question.rules";
+import questionRules from "@ask/hooks/use-question/use-question.rules";
 
 export const validateQuestionLength = (question: string) => {
   const questionLength = question.trim().length;

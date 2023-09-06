@@ -1,11 +1,11 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { initialState } from "./use-question.data";
-import { QuestionForm } from "./use-question.types";
-import { getQuestionHint } from "./use-question.utils";
-import { validateQuestionLength } from "./use-question.validations";
-import { APIError } from "../../../../services/api-service/api.service.responses";
-import { createQuestionByUsername } from "../../services/question-service/question.service";
+import { APIError } from "@services/api-service/api.service.responses";
+import { initialState } from "@ask/hooks/use-question/use-question.data";
+import { QuestionForm } from "@ask/hooks/use-question/use-question.types";
+import { getQuestionHint } from "@ask/hooks/use-question/use-question.utils";
+import { validateQuestionLength } from "@ask/hooks/use-question/use-question.validations";
+import { createQuestionByUsername } from "@ask/services/question-service/question.service";
 
 const useQuestion = (username: string) => {
   const [error, setError] = useState("");
