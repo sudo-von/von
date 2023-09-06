@@ -1,15 +1,12 @@
 import { FC } from "react";
 import Typography from "@common/components/typography/typography";
-import { formatTimelineDate } from "@common/components/timeline/components/timeline-date/timeline-date.utils";
 
 type TimelineDateProps = {
-  endDate: Date;
-  startDate: Date;
+  endDate: string;
+  startDate: string;
 };
 
 const TimelineDate: FC<TimelineDateProps> = ({ endDate, startDate }) => {
-  const formatedEndDate = formatTimelineDate(endDate);
-  const formatedStartDate = formatTimelineDate(startDate);
   return (
     <Typography
       color="dark"
@@ -19,7 +16,7 @@ const TimelineDate: FC<TimelineDateProps> = ({ endDate, startDate }) => {
       weight="light"
       whitespace="pre"
     >
-      {formatedStartDate} - {formatedEndDate}
+      {startDate} - {endDate}
     </Typography>
   );
 };
