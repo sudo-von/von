@@ -14,7 +14,7 @@ const Metrics: FC<MetricsProps> = ({
   totalViews,
 }) => {
   const formatedViews = formatMetrics(totalViews, "View", "Views");
-  const formatedQuestions = formatMetrics(totalQuestions,"Question","Questions");
+  const formatedQuestions = formatMetrics(totalQuestions, "Question", "Questions");
   const formatedAnswers = formatMetrics(totalAnswers, "Answer", "Answers");
 
   return (

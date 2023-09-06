@@ -1,8 +1,6 @@
 import { FC } from "react";
-import AnsweredQuestion, {
-  AnsweredQuestionProps,
-} from "@ask/components/answered-question/answered-question";
 import Hyperlink from "@common/components/hyperlink/hyperlink";
+import AnsweredQuestion, { AnsweredQuestionProps } from "@ask/components/answered-question/answered-question";
 
 export type AnsweredQuestionListProps = {
   answeredQuestions: AnsweredQuestionProps[];

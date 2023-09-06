@@ -6,7 +6,7 @@ import Metrics, { MetricsProps } from "@ask/components/profile/components/metric
 
 export type ProfileProps = {
   avatar: string;
-  details: DetailsProps | null;
+  details?: DetailsProps;
   metrics: MetricsProps;
   name: string;
   username: string;

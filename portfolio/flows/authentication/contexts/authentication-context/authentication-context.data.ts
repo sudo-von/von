@@ -6,6 +6,6 @@ export const initialState: AuthenticationState = {
 };
 
 export const initialContext: AuthenticationContext = {
-  state: initialState,
   dispatch: () => {},
+  state: initialState,
 };
