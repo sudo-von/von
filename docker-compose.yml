@@ -75,6 +75,8 @@ services:
     env_file:
       - ./content/.env
     container_name: content
+    volumes:
+      - ./volumes/strapi/:/usr/src/api/strapi-app
     ports:
       - 1337:1337
     restart: on-failure:10
