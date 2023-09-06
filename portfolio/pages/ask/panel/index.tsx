@@ -4,6 +4,7 @@ import useTab from "@ask-panel/hooks/use-tab/use-tab";
 import Profile, { ProfileProps } from "@ask/components/profile/profile";
 import TabHeader from "@common/components/tab/components/tab-header/tab-header";
 import ContainerLayout from "@common/layouts/container-layout/container-layout";
+import TabContainer from "@common/components/tab/components/tab-container/tab-container";
 import { AnsweredQuestionProps } from "@ask/components/answered-question/answered-question";
 import AnsweredQuestionList from "@ask-panel/components/answered-question-list/answered-question-list";
 import { UnansweredQuestionProps } from "@ask-panel/components/unanswered-question/unanswered-question";
@@ -16,9 +17,9 @@ type AskPanelProps = {
 };
 
 const AskPanel: NextPage<AskPanelProps> = ({
-  answeredQuestions,
+  answeredQuestions = [],
   profile,
-  unansweredQuestions,
+  unansweredQuestions = [],
 }) => {
   const { avatar, details, metrics, name, username } = profile;
   const { handleAnswersTab, handleQuestionsTab, selectedTab } = useTab();
@@ -31,14 +32,14 @@ const AskPanel: NextPage<AskPanelProps> = ({
         name={name}
         username={username}
       />
-      <div className="flex flex-wrap mt-5 bg-slate-50 rounded p-2">
+      <TabContainer>
         <TabHeader index={0} onHandleClick={handleQuestionsTab} value={selectedTab}>
           Questions
         </TabHeader>
         <TabHeader index={1} onHandleClick={handleAnswersTab} value={selectedTab}>
           Answers
         </TabHeader>
-      </div>
+      </TabContainer>
       <Tab index={0} value={selectedTab}>
         <UnansweredQuestionList unansweredQuestions={unansweredQuestions} />
       </Tab>

@@ -13,7 +13,7 @@ type AskProps = {
   profile: ProfileProps;
 };
 
-const Ask: NextPage<AskProps> = ({ answeredQuestions, profile }) => {
+const Ask: NextPage<AskProps> = ({ answeredQuestions = [], profile }) => {
   const { avatar, details, metrics, name, username } = profile;
   const { error, handleOnChange, handleOnSubmit, loading, questionForm, success } = useQuestion(username);
   return (

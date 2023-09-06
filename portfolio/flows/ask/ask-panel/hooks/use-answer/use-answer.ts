@@ -6,7 +6,7 @@ import { handleInitialState } from "@ask-panel/hooks/use-answer/use-answer.data"
 import { validateAnswerLength } from "@ask-panel/hooks/use-answer/use-answer.validations";
 import { createAnswerByQuestionId, updateAnswerByQuestionId } from "@ask/services/answer-service/answer.service";
 
-const useAnswer = (id: string, answer: string) => {
+const useAnswer = (id: string, answer: string = "") => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);

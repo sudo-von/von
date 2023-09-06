@@ -1,7 +1,7 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import Card from "@common/components/card/card";
 import Question from "@ask/components/answered-question/components/question/question";
-import AskedAt from "@ask-panel/components/unanswered-question/components/asked-at/asked-at";
+import AnsweredAt from "@ask/components/answered-question/components/answered-at/answered-at";
 
 export type UnansweredQuestionProps = {
   askedAt: string;
@@ -16,7 +16,7 @@ const UnansweredQuestion: FC<UnansweredQuestionProps> = ({
   return (
     <Card>
       <Question>{question}</Question>
-      <AskedAt>{askedAt}</AskedAt>
+      <AnsweredAt>{askedAt}</AnsweredAt>
     </Card>
   );
 };

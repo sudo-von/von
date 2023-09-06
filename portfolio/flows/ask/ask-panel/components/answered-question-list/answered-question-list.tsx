@@ -15,7 +15,7 @@ const AnsweredQuestionList: FC<AnsweredQuestionListProps> = ({
     <div className="flex flex-col gap-5 mt-5">
       {answeredQuestions.map(({ id, answer, answeredAt, question }) => {
         return (
-          <Hyperlink key={id} path={`/ask/panel/update/${id}`}>
+          <Hyperlink key={id} path={`/ask/update-answer/${id}`}>
             <AnsweredQuestion
               answer={answer}
               answeredAt={answeredAt}
