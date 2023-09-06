@@ -12,7 +12,7 @@ const useAnswer = (id: string, answer: string = "") => {
   const [loading, setLoading] = useState(false);
   const [answerForm, setAnswerForm] = useState<AnswerForm>(handleInitialState(answer));
 
-  const { back } = useRouter();
+  const { replace } = useRouter();
 
   const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
@@ -34,7 +34,7 @@ const useAnswer = (id: string, answer: string = "") => {
         answer: answerForm.answer.value,
       });
 
-      back();
+      replace("/ask/panel");
     } catch (e) {
       setError((e as APIError).error);
     } finally {
@@ -53,7 +53,7 @@ const useAnswer = (id: string, answer: string = "") => {
         answer: answerForm.answer.value,
       });
 
-      back();
+      replace("/ask/panel");
     } catch (e) {
       setError((e as APIError).error);
     } finally {

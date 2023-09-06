@@ -9,7 +9,7 @@ const Card: FC<CardProps> = ({ children, onClick }) => {
   return (
     <div
       onClick={onClick}
-      className="flex flex-col hover:shadow cursor-pointer rounded border border-slate-100"
+      className="flex flex-col cursor-pointer rounded border border-slate-100 hover:shadow"
     >
       <div className="flex flex-col gap-2.5 p-5 break-all">{children}</div>
     </div>

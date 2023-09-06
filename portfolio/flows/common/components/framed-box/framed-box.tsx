@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import FramedBorder from "./components/framed-border/framed-border";
+import FramedBorder from "@common/components/framed-box/components/framed-border/framed-border";
 
 const FramedBox: FC<PropsWithChildren> = ({ children }) => {
   return (

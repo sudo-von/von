@@ -1,26 +1,26 @@
 import { FC } from "react";
-import TimelineDate from "./components/timeline-date/timeline-date";
-import TimelineImage from "./components/timeline-image/timeline-image";
-import TimelineCompany from "./components/timeline-company/timeline-company";
-import TimelinePosition from "./components/timeline-position/timeline-position";
-import TimelineDescription from "./components/timeline-description/timeline-description";
+import TimelineDate from "@common/components/timeline/components/timeline-date/timeline-date";
+import TimelineImage from "@common/components/timeline/components/timeline-image/timeline-image";
+import TimelineCompany from "@common/components/timeline/components/timeline-company/timeline-company";
+import TimelinePosition from "@common/components/timeline/components/timeline-position/timeline-position";
+import TimelineDescription from "@common/components/timeline/components/timeline-description/timeline-description";
 
 export type TimelineProps = {
-  src: string;
   company: string;
-  position: string;
   endDate: string;
-  startDate: string;
   description: string;
+  position: string;
+  src: string;
+  startDate: string;
 };
 
 const Timeline: FC<TimelineProps> = ({
-  src,
   company,
-  position,
   endDate,
-  startDate,
   description,
+  position,
+  src,
+  startDate,
 }) => {
   const castedEndDate = new Date(endDate);
   const castedStartDate = new Date(startDate);

@@ -1,6 +1,6 @@
 import { ElementType, FC } from "react";
-import { iconColor } from "./icon.data";
-import { IconColor } from "./icon.types";
+import { iconColor } from "@common/components/icon/icon.data";
+import { IconColor } from "@common/components/icon/icon.types";
 
 export type IconProps = {
   color: IconColor;

@@ -18,14 +18,14 @@ const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
       keywords="JavaScript, TypeScript, React, Testing, Node, Express"
       title={name}
     >
-      <div className="flex flex-col gap-8 mt-48">
+      <main className="flex flex-col gap-8 mt-48">
         <Profile
           details={details}
           name={name}
           socialNetworks={socialNetworks}
         />
         <ContentList contents={contents} />
-      </div>
+      </main>
     </MetaLayout>
   );
 };

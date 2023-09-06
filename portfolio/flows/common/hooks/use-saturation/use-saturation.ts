@@ -10,8 +10,8 @@ const useSaturation = <T extends HTMLElement>() => {
   };
 
   return {
-    ref,
     handleOnMouseEnter,
+    ref,
   };
 };
 

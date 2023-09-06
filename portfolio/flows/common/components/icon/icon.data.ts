@@ -1,4 +1,4 @@
-import { IconColor, IconOption } from "./icon.types";
+import { IconColor, IconOption } from "@common/components/icon/icon.types";
 
 export const iconColor: IconOption<IconColor> = {
   dark: "text-slate-850",

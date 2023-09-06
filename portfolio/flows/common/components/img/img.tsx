@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
-import { ImgOptions, ImgRounded } from "./img.types";
-import useSaturation from "../../hooks/useSaturation/useSaturation";
+import useSaturation from "@common/hooks/use-saturation/use-saturation";
+import { ImgOptions, ImgRounded } from "@common/components/img/img.types";
 
 export type ImgProps = {
   alt: string;

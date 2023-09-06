@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Title from "./components/title/title";
-import useSaturation from "../../hooks/useSaturation/useSaturation";
+import useSaturation from "../../hooks/use-saturation/use-saturation";
 
 export type VideoProps = {
   onMouseEnter?: VoidFunction;

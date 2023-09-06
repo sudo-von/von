@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image";
-import useSaturation from "../../hooks/useSaturation/useSaturation";
+import useSaturation from "../../hooks/use-saturation/use-saturation";
 
 export type VectorProps = {
   alt: string;
