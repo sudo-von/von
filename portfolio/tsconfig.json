@@ -17,8 +17,10 @@
     "baseUrl": ".",
     "paths": {
       "@ask/*": ["flows/ask/*"],
+      "@ask-answer-question/*": ["flows/ask/ask-answer-question/*"],
       "@ask-by-id/*": ["flows/ask/ask-by-id/*"],
       "@ask-panel/*": ["flows/ask/ask-panel/*"],
+      "@ask-update-answer/*": ["flows/ask/ask-update-answer/*"],
       "@authentication/*": ["flows/authentication/*"],
       "@common/*": ["flows/common/*"],
       "@home/*": ["flows/home/*"],

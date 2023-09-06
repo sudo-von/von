@@ -9,7 +9,7 @@ type AskByIdProps = {
 };
 
 const AskById: NextPage<AskByIdProps> = ({ answeredQuestion }) => {
-  const { answer, answeredAt, question, views } = answeredQuestion;
+  const { answer, answeredAt, id, question, views } = answeredQuestion;
   return (
     <MetaLayout description={answer} title={`${question} | Ask`}>
       <ContainerLayout>
@@ -17,6 +17,7 @@ const AskById: NextPage<AskByIdProps> = ({ answeredQuestion }) => {
         <AnsweredQuestion
           answer={answer}
           answeredAt={answeredAt}
+          id={id}
           question={question}
           views={views}
         />

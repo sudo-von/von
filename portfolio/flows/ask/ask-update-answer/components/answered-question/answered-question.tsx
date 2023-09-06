@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Views from "@ask-by-id/components/answered-question/components/views/views";
-import Question from "@ask/components/answered-question/components/question/question";
-import AnsweredAt from "@ask/ask-by-id/components/answered-question/components/answered-at/answered-at";
+import Question from "@ask-by-id/components/answered-question/components/question/question";
+import AnsweredAt from "@ask-by-id/components/answered-question/components/answered-at/answered-at";
 
 export type AnsweredQuestionProps = {
   answer: string;

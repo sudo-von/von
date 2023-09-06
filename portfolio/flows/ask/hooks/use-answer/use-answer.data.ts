@@ -1,5 +1,5 @@
-import { AnswerForm } from "@ask-panel/hooks/use-answer/use-answer.types";
-import { getAnswerHint } from "@ask-panel/hooks/use-answer/use-answer.utils";
+import { AnswerForm } from "@ask/hooks/use-answer/use-answer.types";
+import { getAnswerHint } from "@ask/hooks/use-answer/use-answer.utils";
 
 export const handleInitialState = (answer: string): AnswerForm => ({
   answer: {

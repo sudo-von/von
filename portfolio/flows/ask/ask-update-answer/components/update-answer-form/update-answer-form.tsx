@@ -1,16 +1,16 @@
 import { ChangeEventHandler, FC, FormEventHandler } from "react";
 import Input from "@common/components/input/input";
 import Button from "@common/components/button/button";
-import { AnswerForm } from "@ask/ask-panel/hooks/use-answer/use-answer.types";
+import { AnswerForm } from "@ask/hooks/use-answer/use-answer.types";
 
-type CreateAnswerFormProps = {
+type UpdateAnswerFormProps = {
   answerForm: AnswerForm;
   handleOnSubmit: FormEventHandler<HTMLFormElement>;
   handleOnChange: ChangeEventHandler<HTMLInputElement>;
   loading: boolean;
 };
 
-const CreateAnswerForm: FC<CreateAnswerFormProps> = ({
+const UpdateAnswerForm: FC<UpdateAnswerFormProps> = ({
   answerForm,
   handleOnChange,
   handleOnSubmit,
@@ -18,7 +18,7 @@ const CreateAnswerForm: FC<CreateAnswerFormProps> = ({
 }) => {
   const { answer } = answerForm;
   return (
-    <form autoComplete="off" className="flex flex-col gap-2.5 my-2.5" onSubmit={handleOnSubmit}>
+    <form autoComplete="off" className="flex flex-col gap-2.5" onSubmit={handleOnSubmit}>
       <Input
         id="answer"
         error={answer.error}
@@ -32,10 +32,10 @@ const CreateAnswerForm: FC<CreateAnswerFormProps> = ({
         value={answer.value}
       />
       <Button disabled={loading} loading={loading} type="submit">
-        {loading ? "Sending..." : "Send answer"}
+        {loading ? "Sending..." : "Update answer"}
       </Button>
     </form>
   );
 };
 
-export default CreateAnswerForm;
+export default UpdateAnswerForm;

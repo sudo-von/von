@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Question from "@ask/components/answered-question/components/question/question";
 import AskedAt from "@ask-panel/components/unanswered-question/components/asked-at/asked-at";
+import Question from "@ask-by-id/components/answered-question/components/question/question";
 
 export type UnansweredQuestionProps = {
   askedAt: string;

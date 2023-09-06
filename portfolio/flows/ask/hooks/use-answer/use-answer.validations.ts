@@ -1,4 +1,4 @@
-import answerRules from "@ask-panel/hooks/use-answer/use-answer.rules";
+import answerRules from "@ask/hooks/use-answer/use-answer.rules";
 
 export const validateAnswerLength = (answer: string) => {
   const answerLength = answer.trim().length;

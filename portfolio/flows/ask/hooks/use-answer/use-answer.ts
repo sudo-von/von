@@ -1,16 +1,18 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { AnswerForm } from "@ask/hooks/use-answer/use-answer.types";
 import { APIError } from "@services/api-service/api.service.responses";
-import { AnswerForm } from "@ask-panel/hooks/use-answer/use-answer.types";
-import { getAnswerHint } from "@ask-panel/hooks/use-answer/use-answer.utils";
-import { handleInitialState } from "@ask-panel/hooks/use-answer/use-answer.data";
-import { validateAnswerLength } from "@ask-panel/hooks/use-answer/use-answer.validations";
+import { getAnswerHint } from "@ask/hooks/use-answer/use-answer.utils";
+import { handleInitialState } from "@ask/hooks/use-answer/use-answer.data";
+import { validateAnswerLength } from "@ask/hooks/use-answer/use-answer.validations";
 import { createAnswerByQuestionId, updateAnswerByQuestionId } from "@ask/services/answer-service/answer.service";
 
 const useAnswer = (id: string, answer: string = "") => {
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
   const [answerForm, setAnswerForm] = useState<AnswerForm>(handleInitialState(answer));
+
+  const { back } = useRouter();
 
   const handleOnChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     const { value } = target;
@@ -26,14 +28,13 @@ const useAnswer = (id: string, answer: string = "") => {
 
     try {
       setError("");
-      setSuccess("");
       setLoading(true);
 
       await createAnswerByQuestionId(id, {
         answer: answerForm.answer.value,
       });
 
-      setSuccess("Answer created successfully!");
+      back();
     } catch (e) {
       setError((e as APIError).error);
     } finally {
@@ -46,14 +47,13 @@ const useAnswer = (id: string, answer: string = "") => {
 
     try {
       setError("");
-      setSuccess("");
       setLoading(true);
 
       await updateAnswerByQuestionId(id, {
         answer: answerForm.answer.value,
       });
 
-      setSuccess("Answer updated successfully!");
+      back();
     } catch (e) {
       setError((e as APIError).error);
     } finally {
@@ -62,7 +62,7 @@ const useAnswer = (id: string, answer: string = "") => {
   };
 
   useEffect(() => {
-    answerForm.answer.value ? setSuccess("") : setError("");
+    answerForm.answer.value === "" && setError("");
 
     const hint = getAnswerHint(answerForm.answer.value);
 
@@ -79,11 +79,10 @@ const useAnswer = (id: string, answer: string = "") => {
   return {
     answerForm,
     error,
-    loading,
-    success,
     handleOnChange,
     handleOnSubmitCreation,
     handleOnSubmitUpdate,
+    loading,
   };
 };
 

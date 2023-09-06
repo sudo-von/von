@@ -1,27 +1,25 @@
 import { NextPage } from "next";
 import Alert from "@common/components/alert/alert";
+import useAnswer from "@ask/hooks/use-answer/use-answer";
 import MetaLayout from "@common/layouts/meta-layout/meta-layout";
-import useAnswer from "@ask/ask-panel/hooks/use-answer/use-answer";
 import PreviousPage from "@common/components/previous-page/previous-page";
 import ContainerLayout from "@common/layouts/container-layout/container-layout";
-import CreateAnswerForm from "@ask/ask-panel/create/components/create-answer-form/create-answer-form";
-import UnansweredQuestion, { UnansweredQuestionProps } from "@ask-panel/create/components/unanswered-question/unanswered-question";
+import AnswerQuestionForm from "@ask-answer-question/components/answer-question-form/answer-question-form";
+import UnansweredQuestion, { UnansweredQuestionProps } from "@ask/ask-answer-question/components/unanswered-question/unanswered-question";
 
 type AnswerQuestionByIdProps = {
   unansweredQuestion: UnansweredQuestionProps;
 };
 
-const AnswerQuestionById: NextPage<AnswerQuestionByIdProps> = ({
-  unansweredQuestion,
-}) => {
+const AnswerQuestionById: NextPage<AnswerQuestionByIdProps> = ({ unansweredQuestion }) => {
   const { askedAt, id, question } = unansweredQuestion;
-  const { answerForm, error, handleOnChange, handleOnSubmitCreation, loading, success } = useAnswer(id);
+  const { answerForm, error, handleOnChange, handleOnSubmitCreation, loading } = useAnswer(id);
   return (
     <MetaLayout description={question} title="Answer question | Ask">
       <ContainerLayout>
         <PreviousPage page="/ask/panel" />
         <UnansweredQuestion askedAt={askedAt} id={id} question={question} />
-        <CreateAnswerForm
+        <AnswerQuestionForm
           answerForm={answerForm}
           handleOnChange={handleOnChange}
           handleOnSubmit={handleOnSubmitCreation}
@@ -30,11 +28,6 @@ const AnswerQuestionById: NextPage<AnswerQuestionByIdProps> = ({
         {error && (
           <div className="mt-5">
             <Alert variant="error">{error}</Alert>
-          </div>
-        )}
-        {success && (
-          <div className="mt-5">
-            <Alert variant="success">{success}</Alert>
           </div>
         )}
       </ContainerLayout>
@@ -60,7 +53,10 @@ export const getServerSideProps: GetServerSideProps<AnswerQuestionByIdProps, Ans
     return { redirect: { destination: "/404", permanent: false } };
   }
 
-  const { result: unansweredQuestion } = await getUnansweredQuestionById(params.id, token);
+  const { result: unansweredQuestion } = await getUnansweredQuestionById(
+    params.id,
+    token
+  );
 
   return {
     props: {

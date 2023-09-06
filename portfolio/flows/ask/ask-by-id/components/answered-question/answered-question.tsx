@@ -7,6 +7,7 @@ import AnsweredAt from "@ask-by-id/components/answered-question/components/answe
 export type AnsweredQuestionProps = {
   answer: string;
   answeredAt: string;
+  id: string;
   question: string;
   views: number;
 };
