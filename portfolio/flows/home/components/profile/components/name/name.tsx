@@ -6,7 +6,7 @@ const Name: FC<PropsWithChildren> = ({ children }) => {
     <Typography
       color="dark"
       component="h1"
-      size="huge"
+      size="large"
       spacing="normal"
       weight="bold"
       whitespace="pre"
