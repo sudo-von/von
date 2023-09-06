@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { MdDateRange } from "react-icons/md";
 import Icon from "@common/components/icon/icon";
-import Metric from "@ask/ask-by-id/components/answered-question/components/metric/metric";
+import Metric from "@ask-by-id/components/answered-question/components/metric/metric";
 
 const AnsweredAt: FC<PropsWithChildren> = ({ children }) => {
   return (

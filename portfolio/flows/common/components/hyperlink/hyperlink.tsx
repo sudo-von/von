@@ -2,9 +2,9 @@ import Link from "next/link";
 import { FC, ReactNode } from "react";
 
 export type HyperlinkProps = {
+  children: ReactNode;
   path: string;
   replace?: boolean;
-  children: ReactNode;
 };
 
 const Hyperlink: FC<HyperlinkProps> = ({ children, path, replace }) => {
