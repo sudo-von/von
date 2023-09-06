@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   # 📦 Message brokers.
   message_broker:
@@ -67,6 +67,16 @@ services:
     container_name: ask
     ports:
       - 3001:3001
+    restart: on-failure:10
+  content:
+    build:
+      context: ./content
+      dockerfile: Dockerfile
+    env_file:
+      - ./content/.env
+    container_name: content
+    ports:
+      - 1337:1337
     restart: on-failure:10
   daily-ask:
     build:
