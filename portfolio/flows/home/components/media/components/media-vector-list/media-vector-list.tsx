@@ -5,7 +5,7 @@ export type MediaVectorListProps = {
   vectors: MediaVectorProps[];
 };
 
-const baseSrc = "http://sudo-von:1337";
+const baseSrc = "http://sudo-von.com:1337";
 
 const MediaVectorList: FC<MediaVectorListProps> = ({ vectors }) => {
   return (

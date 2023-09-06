@@ -3,7 +3,7 @@ import { APIOptions } from "@services/api-service/api.service.responses";
 
 export const getAPIURL = ({ port, version, base }: APIOptions) => {
   const formatedVersion = version ? getAPIVersion(version) : "";
-  const formatedURL = `http://sudo-von:${port}/api/${formatedVersion}${base}`;
+  const formatedURL = `http://sudo-von.com:${port}/api/${formatedVersion}${base}`;
   return formatedURL;
 };
 
