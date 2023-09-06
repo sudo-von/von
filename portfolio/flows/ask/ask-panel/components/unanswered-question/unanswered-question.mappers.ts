@@ -1,4 +1,4 @@
-import { formatDate } from "@services/date-service/date-service";
+import { formatDate } from "@services/date-service/date.service";
 import { UnansweredQuestionProps } from "@ask-panel/components/unanswered-question/unanswered-question";
 import { UnansweredQuestionResponse } from "@ask/services/unanswered-question-service/unanswered-question.service.responses";
 

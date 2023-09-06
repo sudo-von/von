@@ -2,7 +2,7 @@ import {
   TokenHeader,
   DecodedToken,
   TokenPayload,
-} from "./token.service.types";
+} from "@services/token-service/token.service.types";
 
 export const decodeToken = (encodedToken: string): DecodedToken => {
   const token = encodedToken.split(" ").pop();

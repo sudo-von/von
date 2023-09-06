@@ -1,11 +1,11 @@
-import Typography from "@common/components/typography/typography";
 import { FC, ReactNode } from "react";
+import Typography from "@common/components/typography/typography";
 
 type TabHeaderProps = {
   children: ReactNode;
   index: number;
-  value: number;
   onHandleClick: VoidFunction;
+  value: number;
 };
 
 const TabHeader: FC<TabHeaderProps> = ({
@@ -14,17 +14,17 @@ const TabHeader: FC<TabHeaderProps> = ({
   onHandleClick,
   value,
 }) => {
-  const className = `flex-1 flex-grow-1 flex-shrink-1 flex-basis-0 text-center justify-center items-center w-full cursor-pointer p-2 ${
-    value === index && "bg-slate-850 rounded "
-  }`;
+  const isSelected = value === index;
+  const isSelectedClassName = isSelected ? "bg-slate-850 rounded" : "";
+  const className = `${isSelectedClassName} flex-1 flex-grow-1 flex-shrink-1 flex-basis-0 text-center justify-center items-center w-full cursor-pointer p-2`;
   return (
     <div className={className} onClick={onHandleClick}>
       <Typography
-        color={value === index ? "light" : "dark"}
+        color={isSelected ? "light" : "dark"}
         component="h5"
         size="normal"
         spacing="normal"
-        weight={value === index ? "normal" : "normal"}
+        weight="normal"
         whitespace="normal"
       >
         {children}

@@ -1,4 +1,4 @@
-import { formatDate } from "@services/date-service/date-service";
+import { formatDate } from "@services/date-service/date.service";
 import { AnsweredQuestionProps } from "@ask-by-id/components/answered-question/answered-question";
 import { AnsweredQuestionResponse } from "@ask/services/answered-question-service/answered-question.service.responses";
 

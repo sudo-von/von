@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
+import Icon from "@common/components/icon/icon";
 import { AiOutlineLoading } from "react-icons/ai";
-import Icon from "../../../icon/icon";
-import Typography from "../../../typography/typography";
+import Typography from "@common/components/typography/typography";
 
 export type ButtonContentProps = {
   loading?: boolean;

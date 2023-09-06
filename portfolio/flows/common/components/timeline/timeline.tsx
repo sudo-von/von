@@ -7,8 +7,8 @@ import TimelineDescription from "@common/components/timeline/components/timeline
 
 export type TimelineProps = {
   company: string;
-  endDate: string;
   description: string;
+  endDate: string;
   position: string;
   src: string;
   startDate: string;
@@ -16,8 +16,8 @@ export type TimelineProps = {
 
 const Timeline: FC<TimelineProps> = ({
   company,
-  endDate,
   description,
+  endDate,
   position,
   src,
   startDate,

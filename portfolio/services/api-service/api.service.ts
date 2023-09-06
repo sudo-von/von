@@ -1,7 +1,7 @@
 import axios from "axios";
-import { APIOptions } from "./api.service.responses";
-import { getAPIURL, setAPIRequestErrorInterceptor } from "./api.service.utils";
 import { getCookie } from "@services/cookie-service/cookie.service";
+import { APIOptions } from "@services/api-service/api.service.responses";
+import { getAPIURL, setAPIRequestErrorInterceptor } from "@services/api-service/api.service.utils";
 
 const createAPIService = ({ base, port, version }: APIOptions) => {
   const service = axios.create({
@@ -13,12 +13,7 @@ const createAPIService = ({ base, port, version }: APIOptions) => {
 
   service.interceptors.request.use((req) => {
     const token = getCookie("token");
-    console.log(token);
     if (!token) return req;
-    console.log(
-      "🚀 ~ file: api.service.tsx:17 ~ service.interceptors.request.use ~ token:",
-      token
-    );
 
     req.headers["Authorization"] = token;
 

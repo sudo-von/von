@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren } from "react";
-import Typography from "../../../typography/typography";
+import Typography from "@common/components/typography/typography";
 
-const Title: FC<PropsWithChildren> = ({ children }) => {
+const VideoTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Typography
       color="normal"
@@ -16,4 +16,4 @@ const Title: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default Title;
+export default VideoTitle;

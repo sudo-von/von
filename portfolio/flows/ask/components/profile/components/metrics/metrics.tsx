@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Typography from "@common/components/typography/typography";
-import { formatMetrics } from "@services/metrics-service/metrics-service";
+import { formatMetrics } from "@services/metrics-service/metrics.service";
 
 export type MetricsProps = {
   totalAnswers: number;

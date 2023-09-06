@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Title from "../../../home/components/section/components/title/title";
-import Description from "../../../home/components/section/components/description/description";
+import Title from "@home/components/section/components/title/title";
+import Description from "@home/components/section/components/description/description";
 
 type OutOfServiceProps = {
   description: string;

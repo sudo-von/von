@@ -1,19 +1,19 @@
 import { ReactNode } from "react";
 import {
+  typographySize,
+  typographyColor,
+  typographyWeight,
+  typographySpacing,
+  typographyWhitespace,
+} from "@common/components/typography/typography.data";
+import {
   TypographySize,
   TypographyColor,
   TypographyWeight,
   TypographySpacing,
   TypographyComponent,
   TypographyWhitespace,
-} from "./typography.types";
-import {
-  typographySize,
-  typographyColor,
-  typographyWeight,
-  typographySpacing,
-  typographyWhitespace,
-} from "./typography.data";
+} from "@common/components/typography/typography.types";
 
 export type TypographyProps = {
   children: ReactNode;

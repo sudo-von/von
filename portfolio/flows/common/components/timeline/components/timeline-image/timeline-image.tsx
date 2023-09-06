@@ -11,8 +11,8 @@ const TimelineImage: FC<TimelineImageProps> = ({ alt, src }) => {
     <Image
       fill
       alt={alt}
-      src={src}
       className="rounded-lg lg:rounded-full object-contain h-full w-full"
+      src={src}
     />
   );
 };

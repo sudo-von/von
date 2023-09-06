@@ -1,26 +1,33 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 import Image from "next/image";
-import useSaturation from "../../hooks/use-saturation/use-saturation";
 
 export type VectorProps = {
   alt: string;
+  isSaturated?: boolean;
   src: string;
   onClick?: VoidFunction;
+  onMouseEnter?: VoidFunction;
 };
 
-const Vector: FC<VectorProps> = ({ alt, src, onClick }) => {
-  const { ref, handleOnMouseEnter } = useSaturation<HTMLImageElement>();
-  return (
-    <Image
-      fill
-      alt={alt}
-      src={src}
-      ref={ref}
-      onClick={onClick}
-      onMouseEnter={handleOnMouseEnter}
-      className="rounded-lg object-contain h-full w-full cursor-pointer saturate-0 duration-1000 transition"
-    />
-  );
-};
+const Vector = forwardRef<HTMLImageElement, VectorProps>(
+  ({ alt, isSaturated, src, onClick, onMouseEnter }, ref) => {
+    const saturationClassName = isSaturated ? "duration-1000 transition saturate-0" : "";
+    const className = `${saturationClassName} rounded-lg object-contain h-full w-full cursor-pointer`;
+    return (
+      <Image
+        alt={alt}
+        className={className}
+        fill
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        ref={ref}
+        src={src}
+        title={alt}
+      />
+    );
+  }
+);
+
+Vector.displayName = "Vector";
 
 export default Vector;

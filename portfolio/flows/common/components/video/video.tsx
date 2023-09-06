@@ -1,30 +1,35 @@
-import { FC } from "react";
-import Title from "./components/title/title";
-import useSaturation from "../../hooks/use-saturation/use-saturation";
+import { forwardRef } from "react";
+import VideoTitle from "@common/components/video/components/video-title/video-title";
 
 export type VideoProps = {
+  isSaturated?: boolean;
   onMouseEnter?: VoidFunction;
   src: string;
   title: string;
 };
 
-const Video: FC<VideoProps> = ({ src, title }) => {
-  const { ref, handleOnMouseEnter } = useSaturation<HTMLIFrameElement>();
-  return (
-    <>
-      <iframe
-        ref={ref}
-        src={src}
-        title={title}
-        allowFullScreen
-        onMouseEnter={handleOnMouseEnter}
-        className="rounded-lg h-full w-full saturate-0 duration-1000 transition"
-      />
-      <div className="p-4 text-center">
-        <Title>{title}</Title>
-      </div>
-    </>
-  );
-};
+const Video = forwardRef<HTMLIFrameElement, VideoProps>(
+  ({ isSaturated, onMouseEnter, src, title }, ref) => {
+    const saturationClassName = isSaturated ? "duration-1000 transition saturate-0" : "";
+    const className = `${saturationClassName} rounded-lg h-full w-full`;
+    return (
+      <>
+        <iframe
+          allowFullScreen
+          className={className}
+          onMouseEnter={onMouseEnter}
+          ref={ref}
+          src={src}
+          title={title}
+        />
+        <div className="p-4 text-center">
+          <VideoTitle>{title}</VideoTitle>
+        </div>
+      </>
+    );
+  }
+);
+
+Video.displayName = "Video";
 
 export default Video;

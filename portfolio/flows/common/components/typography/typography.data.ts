@@ -5,7 +5,7 @@ import {
   TypographyOption,
   TypographySpacing,
   TypographyWhitespace,
-} from "./typography.types";
+} from "@common/components/typography/typography.types";
 
 export const typographyColor: TypographyOption<TypographyColor> = {
   dark: "text-slate-850",
