@@ -15,7 +15,7 @@ import UserDetailsUsecase from '../../domain/usecases/user-details-usecase/user-
 import validateUserDetailsReplacement from '../../domain/entities/user-details-entity/user-details-validations/replace-user-details-validations';
 
 class UserDetailsUsecaseApplication extends UserDetailsUsecase {
-  replaceUserDetailsByUsername = async (
+  replaceUserDetails = async (
     username: string,
     payload: ReplaceUserDetails,
   ): Promise<DetailedSecureUser> => {

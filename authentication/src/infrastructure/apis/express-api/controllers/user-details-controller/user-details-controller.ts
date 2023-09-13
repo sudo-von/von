@@ -22,7 +22,7 @@ class UserDetailsController {
 
       const payload = ReplaceUserDetailsRequest.parse(body);
 
-      const secureUser = await this.userDetailsUsecase.replaceUserDetailsByUsername(username, {
+      const secureUser = await this.userDetailsUsecase.replaceUserDetails(username, {
         quote: payload.quote,
         interest: payload.interest,
         position: payload.position,

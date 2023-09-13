@@ -24,21 +24,19 @@ abstract class UserUsecase {
   ) {}
 
   /**
-   * Retrieves a detailed secure user by username.
-   * @param {string} username - The username of the user to retrieve.
+   * Retrieves the detailed secure user entity.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract getUserByUsername: (username: string)
+  abstract getUser: ()
   => Promise<DetailedSecureUser>;
 
   /**
-   * Updates a user's information by username.
+   * Updates the information of the detailed secure user entity.
    * @authentication Requires authentication to access this method.
-   * @param {string} username - The username of the user to update.
    * @param {UpdateUser} payload - The data to update the user with.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract updateUserByUsername: (username: string, payload: UpdateUser)
+  abstract updateUser: (payload: UpdateUser)
   => Promise<DetailedSecureUser>;
 }
 

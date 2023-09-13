@@ -20,7 +20,7 @@ import validateSocialNetworkFileUpdate from '../../domain/entities/social-networ
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
 class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
-  createSocialNetworkFileByUsername = async (
+  createSocialNetworkFile = async (
     username: string,
     payload: CreateSocialNetworkFile,
   ): Promise<DetailedSecureUser> => {

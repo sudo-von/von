@@ -24,7 +24,7 @@ class AvatarController {
 
       const username = params.username.toLowerCase();
 
-      const secureUser = await this.avatarUsecase.replaceAvatarFileByUsername(username, {
+      const secureUser = await this.avatarUsecase.replaceAvatarFile(username, {
         size: file.size,
         buffer: file.buffer,
         mimetype: file.mimetype,

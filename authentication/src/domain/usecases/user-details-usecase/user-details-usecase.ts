@@ -19,13 +19,12 @@ abstract class UserDetailsUsecase {
   constructor(protected readonly userRepository: IUserRepository) {}
 
   /**
-   * Replaces a user's details by username.
+   * Replaces the details of the detailed secure user entity.
    * @authentication Requires authentication to access this method.
-   * @param {string} username - The username of the user to replace details for.
    * @param {ReplaceUserDetails} payload - The data to replace the user's details with.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract replaceUserDetailsByUsername: (username: string, payload: ReplaceUserDetails)
+  abstract replaceUserDetails: (payload: ReplaceUserDetails)
   => Promise<DetailedSecureUser>;
 }
 
