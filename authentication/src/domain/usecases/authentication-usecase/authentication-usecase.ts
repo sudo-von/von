@@ -31,11 +31,11 @@ abstract class AuthenticationUsecase {
   => Promise<DetailedSecureUser>;
 
   /**
-   * Logs in a user.
-   * @param {UserCredentials} credentials - The user login credentials.
+   * Signs in a user.
+   * @param {UserCredentials} credentials - The user credentials.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract login: (credentials: UserCredentials)
+  abstract signin: (credentials: UserCredentials)
   => Promise<DetailedSecureUser>;
 }
 

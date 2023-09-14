@@ -34,7 +34,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     return secureUser;
   };
 
-  login = async (
+  signin = async (
     credentials: UserCredentials,
   ): Promise<DetailedSecureUser> => {
     const user = await this.userRepository.getUser({ email: credentials.email });

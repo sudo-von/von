@@ -26,20 +26,20 @@ abstract class AvatarUsecase {
   ) {}
 
   /**
-   * Deletes the avatar file of the detailed secure user entity.
+   * Deletes the avatar of the detailed secure user entity.
    * @authentication Requires authentication to access this method.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract deleteAvatarFile: ()
+  abstract deleteAvatar: ()
   => Promise<DetailedSecureUser>;
 
   /**
-   * Replaces the avatar file of the detailed secure user entity.
+   * Replaces the avatar of the detailed secure user entity.
    * @authentication Requires authentication to access this method.
-   * @param {ReplaceAvatarFile} payload - The data to replace the avatar's file with.
+   * @param {ReplaceAvatarFile} payload - The data to replace the avatar with.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract replaceAvatarFile: (payload: ReplaceAvatarFile)
+  abstract replaceAvatar: (payload: ReplaceAvatarFile)
   => Promise<DetailedSecureUser>;
 }
 

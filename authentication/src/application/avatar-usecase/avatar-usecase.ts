@@ -16,7 +16,7 @@ import detailedUserToSecureUser from '../../domain/entities/user-entity/user-map
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
-  replaceAvatarFile = async (
+  replaceAvatar = async (
     username: string,
     payload: ReplaceAvatarFile,
   ): Promise<DetailedSecureUser> => {

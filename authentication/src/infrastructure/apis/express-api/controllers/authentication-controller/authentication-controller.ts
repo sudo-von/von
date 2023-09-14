@@ -25,7 +25,7 @@ class AuthenticationController {
     try {
       const payload = CreateUserCredentialsRequest.parse(req.body);
 
-      const secureUser = await this.authenticationUsecase.login({
+      const secureUser = await this.authenticationUsecase.signin({
         email: payload.email,
         password: payload.password,
       });
