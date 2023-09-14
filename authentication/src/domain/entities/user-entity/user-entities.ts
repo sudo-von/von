@@ -9,11 +9,11 @@ import {
 } from '../social-network-entity/social-network-entities';
 
 export type User = {
+  email: string;
   id: string;
   name: string;
-  email: string;
-  username: string;
   password: string;
+  username: string;
 };
 
 export type DetailedUser = User & {

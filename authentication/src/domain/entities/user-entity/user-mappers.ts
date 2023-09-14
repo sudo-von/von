@@ -4,13 +4,13 @@ import {
 } from './user-entities';
 
 const detailedUserToSecureUser = (user: DetailedUser): DetailedSecureUser => ({
-  id: user.id,
-  name: user.name,
-  email: user.email,
   avatar: user.avatar,
   details: user.details,
-  username: user.username,
+  email: user.email,
+  id: user.id,
+  name: user.name,
   socialNetworks: user.socialNetworks,
+  username: user.username,
 });
 
 export default detailedUserToSecureUser;
