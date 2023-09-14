@@ -13,11 +13,11 @@ import {
 } from './user-details-validations';
 
 const validateUserDetailsReplacement = (payload: ReplaceUserDetails) => {
-  const isInterestLengthValid = validateInterestLength(payload.interest);
-  if (!isInterestLengthValid) throw InvalidInterestLengthError;
-
   const isPositionLengthValid = validatePositionLength(payload.position);
   if (!isPositionLengthValid) throw InvalidPositionLengthError;
+
+  const isInterestLengthValid = validateInterestLength(payload.interest);
+  if (!isInterestLengthValid) throw InvalidInterestLengthError;
 
   const isQuoteLengthValid = validateQuoteLength(payload.quote);
   if (!isQuoteLengthValid) throw InvalidQuoteLengthError;

@@ -9,7 +9,8 @@ const generateFilename = (hash: string, mimetype: string): string => {
   const isFileMimetypeValid = validateFileMimetype(mimetype);
   if (!isFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
 
-  const filename = `${hash}.svg`;
+  const extension = 'svg';
+  const filename = `${hash}.${extension}`;
   return filename;
 };
 

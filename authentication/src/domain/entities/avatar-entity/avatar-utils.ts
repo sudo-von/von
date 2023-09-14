@@ -9,7 +9,8 @@ const generateFilename = (hash: string, mimetype: string): string => {
   const isFileMimetypeValid = validateFileMimetype(mimetype);
   if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
 
-  const filename = `${hash}.${mimetype.split('/').pop()}`;
+  const extension = mimetype.split('/').pop();
+  const filename = `${hash}.${extension}`;
   return filename;
 };
 
