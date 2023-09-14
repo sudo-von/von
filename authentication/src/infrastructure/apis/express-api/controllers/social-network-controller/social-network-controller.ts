@@ -31,7 +31,7 @@ class SocialNetworkController {
 
       const payload = CreateSocialNetworkRequest.parse(body);
 
-      const secureUser = await this.socialNetworksUsecase.createSocialNetworkFile(
+      const secureUser = await this.socialNetworksUsecase.createSocialNetwork(
         username,
         {
           name: payload.name,
@@ -64,7 +64,7 @@ class SocialNetworkController {
 
       const payload = CreateSocialNetworkRequest.parse(body);
 
-      const secureUser = await this.socialNetworksUsecase.updateSocialNetworkFileById(
+      const secureUser = await this.socialNetworksUsecase.updateSocialNetworkById(
         id,
         {
           name: payload.name,

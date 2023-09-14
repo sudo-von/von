@@ -27,31 +27,31 @@ abstract class SocialNetworkUsecase {
   ) {}
 
   /**
-   * Creates a social network file for the detailed secure user.
+   * Deletes a social network by its ID.
    * @authentication Requires authentication to access this method.
-   * @param {CreateSocialNetworkFile} payload - The data to create the social network's file with.
+   * @param {string} id - The ID of the social network to delete.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract createSocialNetworkFile: (payload: CreateSocialNetworkFile)
+  abstract deleteSocialNetworkById: (id: string)
   => Promise<DetailedSecureUser>;
 
   /**
-   * Deletes a social network file by its ID.
+   * Creates a social network for the detailed secure user.
    * @authentication Requires authentication to access this method.
-   * @param {string} id - The ID of the social network file to delete.
-   * @returns {Promise<void>} A promise that resolves when the social network file is deleted.
-   */
-  abstract deleteSocialNetworkFileById: (id: string)
-  => Promise<void>;
-
-  /**
-   * Updates a social network file by its ID.
-   * @authentication Requires authentication to access this method.
-   * @param {string} id - The ID of the social network file to update.
-   * @param {UpdateSocialNetworkFile} payload - The data to update the social network's file with.
+   * @param {CreateSocialNetworkFile} payload - The data to create the social network with.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract updateSocialNetworkFileById: (id: string, payload: UpdateSocialNetworkFile)
+  abstract createSocialNetwork: (payload: CreateSocialNetworkFile)
+  => Promise<DetailedSecureUser>;
+
+  /**
+   * Updates a social network by its ID.
+   * @authentication Requires authentication to access this method.
+   * @param {string} id - The ID of the social network to update.
+   * @param {UpdateSocialNetworkFile} payload - The data to update the social network with.
+   * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
+   */
+  abstract updateSocialNetworkById: (id: string, payload: UpdateSocialNetworkFile)
   => Promise<DetailedSecureUser>;
 }
 
