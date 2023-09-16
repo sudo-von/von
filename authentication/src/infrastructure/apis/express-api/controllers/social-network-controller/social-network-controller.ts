@@ -17,30 +17,23 @@ import SocialNetworkUsecase from '../../../../../domain/usecases/social-newtork-
 class SocialNetworkController {
   constructor(private readonly socialNetworksUsecase: SocialNetworkUsecase) {}
 
-  createSocialNetworkFileByUsername: RequestHandler = async (req, res, next) => {
+  createSocialNetwork: RequestHandler = async (req, res, next) => {
     try {
-      const {
-        body, file, params, user,
-      } = req;
+      const { body, file, user } = req;
 
       if (!user) throw UserPermissionDeniedServerError;
 
       if (!file) throw InvalidFileParameterServerError;
 
-      const username = params.username.toLowerCase();
-
       const payload = CreateSocialNetworkRequest.parse(body);
 
-      const secureUser = await this.socialNetworksUsecase.createSocialNetwork(
-        username,
-        {
-          name: payload.name,
-          url: payload.url,
-          size: file.size,
-          buffer: file.buffer,
-          mimetype: file.mimetype,
-        },
-      );
+      const secureUser = await this.socialNetworksUsecase.createSocialNetwork({
+        name: payload.name,
+        url: payload.url,
+        size: file.size,
+        buffer: file.buffer,
+        mimetype: file.mimetype,
+      });
 
       const secureUserResponse = detailedSecureUserToResponse(secureUser);
 
@@ -64,16 +57,33 @@ class SocialNetworkController {
 
       const payload = CreateSocialNetworkRequest.parse(body);
 
-      const secureUser = await this.socialNetworksUsecase.updateSocialNetworkById(
-        id,
-        {
-          name: payload.name,
-          url: payload.url,
-          size: file.size,
-          buffer: file.buffer,
-          mimetype: file.mimetype,
-        },
-      );
+      const secureUser = await this.socialNetworksUsecase.updateSocialNetworkById(id, {
+        name: payload.name,
+        url: payload.url,
+        size: file.size,
+        buffer: file.buffer,
+        mimetype: file.mimetype,
+      });
+
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
+
+      res.status(statusCodes.OK).send({ result: secureUserResponse });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  deleteSocialNetworkById: RequestHandler = async (req, res, next) => {
+    try {
+      const { file, params, user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
+      if (!file) throw InvalidFileParameterServerError;
+
+      const id = params.id.toLowerCase();
+
+      const secureUser = await this.socialNetworksUsecase.deleteSocialNetworkById(id);
 
       const secureUserResponse = detailedSecureUserToResponse(secureUser);
 

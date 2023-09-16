@@ -23,7 +23,8 @@ const configureAvatarRouter = (
 
   const handlers = [authenticationHandler, fileHandler];
 
-  router.put('/username/:username', handlers, avatarController.replaceAvatarFileByUsername);
+  router.put('/', handlers, avatarController.replaceAvatar);
+  router.delete('/', handlers, avatarController.deleteAvatar);
 
   return router;
 };

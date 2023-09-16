@@ -18,7 +18,7 @@ const configureUserDetailsRouter = (
 
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 
-  router.put('/username/:username', authenticationHandler, userDetailsController.replaceUserDetailsByUsername);
+  router.put('/', authenticationHandler, userDetailsController.replaceUserDetails);
 
   return router;
 };

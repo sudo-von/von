@@ -21,11 +21,9 @@ class UserController {
     private readonly updateUserProducer: AMQPBroker<UpdateUserBroker>,
   ) {}
 
-  getUserByUsername: RequestHandler = async (req, res, next) => {
+  getUser: RequestHandler = async (req, res, next) => {
     try {
-      const username = req.params.username.toLowerCase();
-
-      const secureUser = await this.userUsecase.getUserByUsername(username);
+      const secureUser = await this.userUsecase.getUser();
 
       const secureUserResponse = detailedSecureUserToResponse(secureUser);
 
@@ -35,17 +33,15 @@ class UserController {
     }
   };
 
-  updateUserByUsername: RequestHandler = async (req, res, next) => {
+  updateUser: RequestHandler = async (req, res, next) => {
     try {
-      const { body, user, params } = req;
+      const { body, user } = req;
 
       if (!user) throw UserPermissionDeniedServerError;
 
-      const username = params.username.toLowerCase();
-
       const payload = UpdateUserRequest.parse(body);
 
-      const secureUser = await this.userUsecase.updateUserByUsername(username, {
+      const secureUser = await this.userUsecase.updateUser({
         name: payload.name,
         email: payload.email,
         username: payload.username,

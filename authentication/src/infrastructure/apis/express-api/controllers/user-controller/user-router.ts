@@ -23,8 +23,8 @@ const configureUserRouter = (
 
   const authenticationHandler = authenticationMiddleware(tokenService, userRepository);
 
-  router.get('/username/:username', userController.getUserByUsername);
-  router.patch('/username/:username', authenticationHandler, userController.updateUserByUsername);
+  router.get('/', userController.getUser);
+  router.patch('/', authenticationHandler, userController.updateUser);
 
   return router;
 };

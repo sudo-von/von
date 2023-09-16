@@ -14,17 +14,33 @@ import detailedSecureUserToResponse from '../../../entities/domain-entities/user
 class AvatarController {
   constructor(private readonly avatarUsecase: AvatarUsecase) {}
 
-  replaceAvatarFileByUsername: RequestHandler = async (req, res, next) => {
+  deleteAvatar: RequestHandler = async (req, res, next) => {
     try {
-      const { file, user, params } = req;
+      const { file, user } = req;
 
       if (!user) throw UserPermissionDeniedServerError;
 
       if (!file) throw InvalidFileParameterServerError;
 
-      const username = params.username.toLowerCase();
+      const secureUser = await this.avatarUsecase.deleteAvatar();
 
-      const secureUser = await this.avatarUsecase.replaceAvatar(username, {
+      const secureUserResponse = detailedSecureUserToResponse(secureUser);
+
+      res.status(statusCodes.OK).send({ result: secureUserResponse });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  replaceAvatar: RequestHandler = async (req, res, next) => {
+    try {
+      const { file, user } = req;
+
+      if (!user) throw UserPermissionDeniedServerError;
+
+      if (!file) throw InvalidFileParameterServerError;
+
+      const secureUser = await this.avatarUsecase.replaceAvatar({
         size: file.size,
         buffer: file.buffer,
         mimetype: file.mimetype,

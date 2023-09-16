@@ -12,17 +12,15 @@ import ReplaceUserDetailsRequest from '../../../entities/domain-entities/user-de
 class UserDetailsController {
   constructor(private readonly userDetailsUsecase: UserDetailsUsecase) {}
 
-  replaceUserDetailsByUsername: RequestHandler = async (req, res, next) => {
+  replaceUserDetails: RequestHandler = async (req, res, next) => {
     try {
-      const { body, user, params } = req;
+      const { body, user } = req;
 
       if (!user) throw UserPermissionDeniedServerError;
 
-      const username = params.username.toLowerCase();
-
       const payload = ReplaceUserDetailsRequest.parse(body);
 
-      const secureUser = await this.userDetailsUsecase.replaceUserDetails(username, {
+      const secureUser = await this.userDetailsUsecase.replaceUserDetails({
         quote: payload.quote,
         interest: payload.interest,
         position: payload.position,

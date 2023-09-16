@@ -24,8 +24,9 @@ const configureSocialNetworkRouter = (
 
   const handlers = [authenticationHandler, fileHandler];
 
-  router.post('/username/:username', handlers, socialNetworkController.createSocialNetworkFileByUsername);
+  router.post('/', handlers, socialNetworkController.createSocialNetwork);
   router.patch('/:id', validateIdMiddleware, handlers, socialNetworkController.updateSocialNetworkFileById);
+  router.delete('/:id', validateIdMiddleware, handlers, socialNetworkController.deleteSocialNetworkById);
 
   return router;
 };
