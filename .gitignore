@@ -7,6 +7,7 @@ node_modules
 # Host volumes.
 volumes
 
-# Public files.
+# Assets.
 authentication/public/avatars
 authentication/public/social-networks
+!.gitkeep
