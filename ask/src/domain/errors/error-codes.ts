@@ -25,6 +25,6 @@ export type QuestionErrorCode =
 export type UserErrorCode =
 | 'INVALID_USERNAME_LENGTH'
 | 'SINGLE_USER_ONLY'
-| 'USER_NOT_FOUND'
+| 'NO_USER_CREATED_YET'
 | 'USER_PERMISSION_DENIED'
 | 'USER_UPDATE_FAILED';

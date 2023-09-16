@@ -27,7 +27,7 @@ export const SingleUserOnlyServerError = createServerErrorFactory({
 });
 
 export const UserNotFoundServerError = createServerErrorFactory({
-  code: 'USER_NOT_FOUND',
+  code: 'NO_USER_CREATED_YET',
   message: UserNotFoundError.message,
   statusCode: statusCode.NOT_FOUND,
 });
@@ -47,7 +47,7 @@ export const UserUpdateFailedServerError = createServerErrorFactory({
 export const userAPIErrors: Record<UserErrorCode, APIErrorFactory> = {
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
   SINGLE_USER_ONLY: SingleUserOnlyServerError,
-  USER_NOT_FOUND: UserNotFoundServerError,
+  NO_USER_CREATED_YET: UserNotFoundServerError,
   USER_PERMISSION_DENIED: UserPermissionDeniedServerError,
   USER_UPDATE_FAILED: UserUpdateFailedServerError,
 };

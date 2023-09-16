@@ -20,8 +20,7 @@ export type PasswordServiceErrorCode =
 | 'PASSWORD_SERVICE_FAILED_TO_HASH';
 
 export type SecurityServiceErrorCode =
-| 'SECURITY_SERVICE_FAILED_TO_HASH'
-| 'SECURITY_SERVICE_FAILED_TO_RANDOM_HASH';
+| 'SECURITY_SERVICE_FAILED_TO_HASH';
 
 export type TokenServiceErrorCode =
 | 'TOKEN_SERVICE_EXPIRED_TOKEN'

@@ -7,8 +7,8 @@ import {
   UserDomainErrorCode,
 } from '../../../../../domain/errors/error-codes';
 import {
-  NoUserCreatedYetError,
   SingleUserOnlyError,
+  NoUserCreatedYetError,
   UserUpdateFailedError,
   InvalidNameLengthError,
   InvalidCredentialsError,
@@ -48,16 +48,16 @@ export const InvalidUsernameLengthServerError = createServerErrorFactory({
   statusCode: statusCodes.BAD_REQUEST,
 });
 
+export const NoUserCreatedYetServerError = createServerErrorFactory({
+  code: 'NO_USER_CREATED_YET',
+  message: NoUserCreatedYetError.message,
+  statusCode: statusCodes.NOT_FOUND,
+});
+
 export const SingleUserOnlyServerError = createServerErrorFactory({
   code: 'SINGLE_USER_ONLY',
   message: SingleUserOnlyError.message,
   statusCode: statusCodes.CONFLICT,
-});
-
-export const UserNotFoundServerError = createServerErrorFactory({
-  code: 'USER_NOT_FOUND',
-  message: NoUserCreatedYetError.message,
-  statusCode: statusCodes.NOT_FOUND,
 });
 
 export const UserPermissionDeniedServerError = createServerErrorFactory({
@@ -79,7 +79,7 @@ export const userServerErrors: Record<UserDomainErrorCode, ServerErrorFactory> =
   INVALID_PASSWORD_LENGTH: InvalidPasswordLengthServerError,
   INVALID_USERNAME_LENGTH: InvalidUsernameLengthServerError,
   SINGLE_USER_ONLY: SingleUserOnlyServerError,
-  USER_NOT_FOUND: UserNotFoundServerError,
+  NO_USER_CREATED_YET: NoUserCreatedYetServerError,
   USER_PERMISSION_DENIED: UserPermissionDeniedServerError,
   USER_UPDATE_FAILED: UserUpdateFailedServerError,
 };

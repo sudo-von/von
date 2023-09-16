@@ -1,8 +1,8 @@
 import {
   UserDomainErrorCode,
   AvatarDomainErrorCode,
-  SocialNetworkDomainErrorCode,
   UserDetailsDomainErrorCode,
+  SocialNetworkDomainErrorCode,
 } from '../../../domain/errors/error-codes';
 import {
   FileServiceErrorCode,

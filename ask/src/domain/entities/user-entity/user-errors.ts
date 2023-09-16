@@ -14,7 +14,7 @@ export const SingleUserOnlyError = createDomainErrorFactory({
 });
 
 export const UserNotFoundError = createDomainErrorFactory({
-  code: 'USER_NOT_FOUND',
+  code: 'NO_USER_CREATED_YET',
   message: 'The requested user could not be found.',
 });
 

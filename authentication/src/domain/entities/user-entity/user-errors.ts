@@ -29,7 +29,7 @@ export const InvalidUsernameLengthError = createDomainErrorFactory({
 });
 
 export const NoUserCreatedYetError = createDomainErrorFactory({
-  code: 'NO_USER_CREATED',
+  code: 'NO_USER_CREATED_YET',
   message: 'There is no user created yet.',
 });
 

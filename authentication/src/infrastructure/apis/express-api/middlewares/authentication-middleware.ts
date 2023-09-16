@@ -4,7 +4,7 @@ import {
   NextFunction,
 } from 'express';
 import {
-  UserNotFoundServerError,
+  NoUserCreatedYetServerError,
 } from '../../entities/domain-entities/user-entity/user-errors';
 import TokenService from '../../../services/token-service/token-service';
 import {
@@ -38,8 +38,8 @@ const authenticationMiddleware = (
   try {
     const decodedToken = await tokenService.decodeToken(token);
 
-    const updatedUser = await userRepository.getUser({ id: decodedToken.id });
-    if (!updatedUser) return next(UserNotFoundServerError);
+    const updatedUser = await userRepository.getUser();
+    if (!updatedUser) return next(NoUserCreatedYetServerError);
 
     req.user = {
       id: decodedToken.id,

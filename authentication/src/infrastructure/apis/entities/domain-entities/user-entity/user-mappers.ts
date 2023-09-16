@@ -11,7 +11,7 @@ const detailedSecureUserToResponse = (
   id: detailedSecureUser.id,
   name: detailedSecureUser.name,
   email: detailedSecureUser.email,
-  avatar: detailedSecureUser.avatar ? `http://sudo-von.com:3000/static/avatars/${detailedSecureUser.avatar}` : undefined,
+  avatar: detailedSecureUser.avatar,
   username: detailedSecureUser.username,
   details: detailedSecureUser.details && {
     quote: detailedSecureUser.details.quote,
@@ -20,7 +20,7 @@ const detailedSecureUserToResponse = (
   },
   social_networks: detailedSecureUser.socialNetworks.map((sn) => ({
     id: sn.id,
-    src: `http://sudo-von.com:3000/static/social-networks/${sn.src}`,
+    src: sn.src,
     url: sn.url,
     name: sn.name,
   })),
