@@ -16,13 +16,28 @@ import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
+  deleteAvatar = async (): Promise<DetailedSecureUser> => {
+    const user = await this.userRepository.getUser();
+    if (!user) throw NoUserCreatedYetError;
+
+    if (user.avatar) {
+      const fileExists = await this.fileService.fileExists(user.avatar);
+      if (fileExists) await this.fileService.deleteFile(user.avatar);
+    }
+
+    const updatedUser = await this.userRepository.deleteAvatar();
+    if (!updatedUser) throw AvatarReplaceFailedError;
+
+    const secureUser = detailedToSecureUser(updatedUser);
+    return secureUser;
+  };
+
   replaceAvatar = async (
-    username: string,
     payload: ReplaceAvatarFile,
   ): Promise<DetailedSecureUser> => {
     validateAvatarFileReplacement(payload);
 
-    const user = await this.userRepository.getUser({ username });
+    const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
 
     if (user.avatar) {
@@ -38,7 +53,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const updatedUser = await this.userRepository.updateUser({
       avatar: secureFilename,
-    }, { username });
+    });
     if (!updatedUser) throw AvatarReplaceFailedError;
 
     const secureUser = detailedToSecureUser(updatedUser);

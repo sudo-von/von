@@ -3,6 +3,7 @@ import {
   CreateDetailedUser,
   PartialDetailedUser,
 } from '../../entities/user-entity/user-entities';
+import IAvatarRepository from '../avatar-repository/avatar-repository';
 import ISocialNetworkRepository from '../social-network-repository/social-network-repository';
 
 /**
@@ -48,8 +49,9 @@ interface IUserRepositoryWriter {
  * @extends {ISocialNetworkRepository}
  */
 interface IUserRepository extends
+  IAvatarRepository,
+  ISocialNetworkRepository,
   IUserRepositoryReader,
-  IUserRepositoryWriter,
-  ISocialNetworkRepository {}
+  IUserRepositoryWriter {}
 
 export default IUserRepository;

@@ -57,7 +57,6 @@ export interface ISocialNetworkRepositoryWriter {
  * Represents a combined social network repository interface,
  * combining both reader and writer capabilities.
  * @interface
- * @extends {IUserRepositoryReader}
  * @extends {ISocialNetworkRepositoryWriter}
  */
 interface ISocialNetworkRepository extends

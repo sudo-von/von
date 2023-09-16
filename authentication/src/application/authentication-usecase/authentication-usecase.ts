@@ -17,8 +17,8 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
   ): Promise<DetailedSecureUser> => {
     validateUserCreation(payload);
 
-    const users = await this.userRepository.getUsers();
-    if (users.length) throw SingleUserOnlyError;
+    const user = await this.userRepository.getUser();
+    if (user) throw SingleUserOnlyError;
 
     const hashedPassword = await this.passwordService.hashPassword(payload.password);
 
@@ -37,14 +37,14 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
   signin = async (
     credentials: UserCredentials,
   ): Promise<DetailedSecureUser> => {
-    const user = await this.userRepository.getUser({ email: credentials.email });
+    const user = await this.userRepository.getUser();
     if (!user) throw InvalidCredentialsError;
 
     const areCredentialsValid = await this.passwordService.comparePasswords(
       credentials.password,
       user.password,
     );
-    if (!areCredentialsValid) throw InvalidCredentialsError;
+    if (!areCredentialsValid || credentials.email !== user.email) throw InvalidCredentialsError;
 
     const secureUser = detailedToSecureUser(user);
     return secureUser;

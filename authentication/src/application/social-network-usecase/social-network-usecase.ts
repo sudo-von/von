@@ -44,7 +44,7 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
 
-    const hashedFilename = this.securityService.generateRandomHash('sha256');
+    const hashedFilename = this.securityService.generateDataHash(payload.name, 'sha256');
 
     const secureFilename = generateFilename(hashedFilename, payload.mimetype);
 
@@ -73,7 +73,7 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const fileExists = await this.fileService.fileExists(socialNetwork.src);
     if (fileExists) await this.fileService.deleteFile(socialNetwork.src);
 
-    const hashedFilename = this.securityService.generateRandomHash('sha256');
+    const hashedFilename = this.securityService.generateDataHash(payload.name, 'sha256');
 
     const secureFilename = generateFilename(hashedFilename, payload.mimetype);
 
