@@ -1,7 +1,4 @@
 import {
-  UserRepositoryFilters,
-} from './user-repository-filters';
-import {
   DetailedUser,
   CreateDetailedUser,
   PartialDetailedUser,
@@ -14,20 +11,11 @@ import ISocialNetworkRepository from '../social-network-repository/social-networ
  */
 interface IUserRepositoryReader {
   /**
-   * Retrieves a user with optional filters.
-   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
+   * Retrieves the detailed user.
    * @returns {Promise<DetailedUser | null>} A promise with the detailed user if found.
    */
-  getUser: (filters?: UserRepositoryFilters)
+  getUser: ()
   => Promise<DetailedUser | null>
-
-  /**
-   * Retrieves a list of users with optional filters.
-   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
-   * @returns {Promise<DetailedUser[]>} A promise with an array of detailed users.
-   */
-  getUsers: (filters?: UserRepositoryFilters)
-  => Promise<DetailedUser[]>;
 }
 
 /**
@@ -38,18 +26,17 @@ interface IUserRepositoryWriter {
   /**
    * Creates a new detailed user.
    * @param {CreateDetailedUser} payload - The payload for creating the detailed user.
-   * @returns {Promise<DetailedUser>} A promise resolving to the created detailed user.
+   * @returns {Promise<DetailedUser>} A promise with the created detailed user.
    */
   createUser: (payload: CreateDetailedUser)
   => Promise<DetailedUser>;
 
   /**
-   * Updates a user with optional filters.
+   * Updates the detailed user.
    * @param {PartialDetailedUser} payload - The partial data to update the user with.
-   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
    */
-  updateUser: (payload: PartialDetailedUser, filters?: UserRepositoryFilters)
+  updateUser: (payload: PartialDetailedUser)
   => Promise<DetailedUser | null>;
 }
 

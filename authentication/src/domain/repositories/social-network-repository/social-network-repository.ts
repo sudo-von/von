@@ -2,9 +2,6 @@ import {
   DetailedUser,
 } from '../../entities/user-entity/user-entities';
 import {
-  UserRepositoryFilters,
-} from '../user-repository/user-repository-filters';
-import {
   SocialNetwork,
   CreateSocialNetwork,
   PartialSocialNetwork,
@@ -18,7 +15,7 @@ export interface ISocialNetworkRepositoryReader {
   /**
    * Retrieves a social network object by its ID.
    * @param {string} id - The ID of the social network object to retrieve.
-   * @returns {Promise<SocialNetwork | null>} A promise with the detailed social network if found.
+   * @returns {Promise<SocialNetwork | null>} A promise with the social network if found.
    */
   getSocialNetworkById: (id: string)
   => Promise<SocialNetwork | null>
@@ -29,17 +26,25 @@ export interface ISocialNetworkRepositoryReader {
  * @interface
  */
 export interface ISocialNetworkRepositoryWriter {
+
   /**
-   * Creates a new social network entry for a user.
-   * @param {CreateSocialNetwork} payload - The data for the new social network entry.
-   * @param {UserRepositoryFilters} [filters] - Optional filters to apply.
+   * Deletes a social network entry by id.
+   * @param {string} id - The ID of the social network object to delete.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
    */
-  createSocialNetwork: (payload: CreateSocialNetwork, filters?: UserRepositoryFilters)
+  deleteSocialNetworkById: (id: string)
   => Promise<DetailedUser | null>;
 
   /**
-   * Updates a social network entry for a user.
+   * Creates a new social network entry for a user.
+   * @param {CreateSocialNetwork} payload - The data for the new social network entry.
+   * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
+   */
+  createSocialNetwork: (payload: CreateSocialNetwork)
+  => Promise<DetailedUser | null>;
+
+  /**
+   * Updates a social network entry by id.
    * @param {string} id - The ID of the social network object to update.
    * @param {PartialSocialNetwork} payload - The updated data for the social network entry.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.

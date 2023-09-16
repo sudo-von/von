@@ -1,6 +1,6 @@
 const avatarRules = {
   mimetype: {
-    ALLOWED_MIMETYPES: ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'],
+    ALLOWED_MIMETYPES: ['image/gif', 'image/jpeg', 'image/jpg', 'image/png'],
   },
   size: {
     MIN_BYTES: 100,
