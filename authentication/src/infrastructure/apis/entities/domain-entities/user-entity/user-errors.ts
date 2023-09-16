@@ -7,7 +7,7 @@ import {
   UserDomainErrorCode,
 } from '../../../../../domain/errors/error-codes';
 import {
-  UserNotFoundError,
+  NoUserCreatedError,
   SingleUserOnlyError,
   UserUpdateFailedError,
   InvalidNameLengthError,
@@ -56,7 +56,7 @@ export const SingleUserOnlyServerError = createServerErrorFactory({
 
 export const UserNotFoundServerError = createServerErrorFactory({
   code: 'USER_NOT_FOUND',
-  message: UserNotFoundError.message,
+  message: NoUserCreatedError.message,
   statusCode: statusCodes.NOT_FOUND,
 });
 

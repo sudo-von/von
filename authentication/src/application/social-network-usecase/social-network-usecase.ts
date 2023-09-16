@@ -1,5 +1,5 @@
 import {
-  UserNotFoundError,
+  NoUserCreatedError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedSecureUser,
@@ -27,7 +27,7 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     validateSocialNetworkFileCreation(payload);
 
     const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
+    if (!user) throw NoUserCreatedError;
 
     const hashedFilename = this.securityService.generateRandomHash('sha256');
 

@@ -1,5 +1,5 @@
 import {
-  UserNotFoundError,
+  NoUserCreatedError,
   UserUpdateFailedError,
   InvalidCredentialsError,
 } from '../../domain/entities/user-entity/user-errors';
@@ -16,7 +16,7 @@ class UserUsecaseApplication extends UserUsecase {
     username: string,
   ): Promise<DetailedSecureUser> => {
     const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
+    if (!user) throw NoUserCreatedError;
 
     const secureUser = detailedUserToSecureUser(user);
     return secureUser;
@@ -29,7 +29,7 @@ class UserUsecaseApplication extends UserUsecase {
     validateUserUpdate(payload);
 
     const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
+    if (!user) throw NoUserCreatedError;
 
     const areCredentialsValid = await this.passwordService.comparePasswords(
       payload.password,

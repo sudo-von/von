@@ -28,14 +28,14 @@ export const InvalidUsernameLengthError = createDomainErrorFactory({
   message: `Please provide a username that consists of ${userRules.username.MIN_LENGTH} to ${userRules.username.MAX_LENGTH} characters.`,
 });
 
+export const NoUserCreatedError = createDomainErrorFactory({
+  code: 'NO_USER_CREATED',
+  message: 'No user has been created yet.',
+});
+
 export const SingleUserOnlyError = createDomainErrorFactory({
   code: 'SINGLE_USER_ONLY',
   message: 'Only one user registration per application is permitted.',
-});
-
-export const UserNotFoundError = createDomainErrorFactory({
-  code: 'USER_NOT_FOUND',
-  message: 'The requested user could not be found.',
 });
 
 export const UserPermissionDeniedError = createDomainErrorFactory({

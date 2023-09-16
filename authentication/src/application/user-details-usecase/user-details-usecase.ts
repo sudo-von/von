@@ -1,5 +1,5 @@
 import {
-  UserNotFoundError,
+  NoUserCreatedError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedSecureUser,
@@ -22,7 +22,7 @@ class UserDetailsUsecaseApplication extends UserDetailsUsecase {
     validateUserDetailsReplacement(payload);
 
     const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
+    if (!user) throw NoUserCreatedError;
 
     const updatedUser = await this.userRepository.updateUser({
       details: {

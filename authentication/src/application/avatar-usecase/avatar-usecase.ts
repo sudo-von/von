@@ -1,5 +1,5 @@
 import {
-  UserNotFoundError,
+  NoUserCreatedError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedSecureUser,
@@ -23,7 +23,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     validateAvatarFileReplacement(payload);
 
     const user = await this.userRepository.getUser({ username });
-    if (!user) throw UserNotFoundError;
+    if (!user) throw NoUserCreatedError;
 
     if (user.avatar) {
       const fileExists = await this.fileService.fileExists(user.avatar);
