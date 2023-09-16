@@ -8,6 +8,7 @@ node_modules
 volumes
 
 # Assets.
-authentication/public/avatars
-authentication/public/social-networks
-!.gitkeep
+authentication/public/avatars/*
+authentication/public/social-networks/*
+!authentication/public/avatars/.gitkeep
+!authentication/public/social-networks/.gitkeep
