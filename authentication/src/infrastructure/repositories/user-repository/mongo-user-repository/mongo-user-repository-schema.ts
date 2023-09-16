@@ -5,6 +5,7 @@ import {
   UserRepositorySchema,
 } from '../../../../domain/repositories/user-repository/user-repository-schema';
 import userDetailsRepositorySchema from '../../user-details-repository/mongo-user-details-repository/mongo-user-details-repository-schema';
+import avatarRepositorySchema from '../../social-network-repository/avatar-repository/mongo-avatar-repository/mongo-avatar-repository-schema';
 import socialNetworkRepositorySchema from '../../social-network-repository/mongo-social-network-repository/mongo-social-network-repository-schema';
 
 const userRepositorySchema = new Schema<UserRepositorySchema>({
@@ -25,7 +26,7 @@ const userRepositorySchema = new Schema<UserRepositorySchema>({
     required: true,
   },
   avatar: {
-    type: String,
+    type: avatarRepositorySchema,
     required: false,
   },
   details: {

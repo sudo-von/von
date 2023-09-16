@@ -7,7 +7,6 @@ import {
  * @interface
  */
 export interface IAvatarRepositoryWriter {
-
   /**
    * Deletes the avatar entry.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
