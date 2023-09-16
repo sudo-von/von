@@ -7,7 +7,7 @@ import {
   UserCredentials,
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
-import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import AuthenticationUsecase from '../../domain/usecases/authentication-usecase/authentication-usecase';
 import validateUserCreation from '../../domain/entities/user-entity/user-validations/create-user-validations';
 
@@ -30,7 +30,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
       socialNetworks: [],
     });
 
-    const secureUser = detailedUserToSecureUser(createdUser);
+    const secureUser = detailedToSecureUser(createdUser);
     return secureUser;
   };
 
@@ -46,7 +46,7 @@ class AuthenticationUsecaseApplication extends AuthenticationUsecase {
     );
     if (!areCredentialsValid) throw InvalidCredentialsError;
 
-    const secureUser = detailedUserToSecureUser(user);
+    const secureUser = detailedToSecureUser(user);
     return secureUser;
   };
 }

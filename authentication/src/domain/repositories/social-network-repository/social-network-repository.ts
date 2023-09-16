@@ -13,8 +13,8 @@ import {
  */
 export interface ISocialNetworkRepositoryReader {
   /**
-   * Retrieves a social network object by its ID.
-   * @param {string} id - The ID of the social network object to retrieve.
+   * Retrieves a social network by its ID.
+   * @param {string} id - The ID of the social network to retrieve.
    * @returns {Promise<SocialNetwork | null>} A promise with the social network if found.
    */
   getSocialNetworkById: (id: string)
@@ -29,7 +29,7 @@ export interface ISocialNetworkRepositoryWriter {
 
   /**
    * Deletes a social network entry by id.
-   * @param {string} id - The ID of the social network object to delete.
+   * @param {string} id - The ID of the social network to delete.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
    */
   deleteSocialNetworkById: (id: string)
@@ -45,7 +45,7 @@ export interface ISocialNetworkRepositoryWriter {
 
   /**
    * Updates a social network entry by id.
-   * @param {string} id - The ID of the social network object to update.
+   * @param {string} id - The ID of the social network to update.
    * @param {PartialSocialNetwork} payload - The updated data for the social network entry.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
    */

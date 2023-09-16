@@ -1,5 +1,5 @@
 import {
-  NoUserCreatedError,
+  NoUserCreatedYetError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedSecureUser,
@@ -13,21 +13,36 @@ import {
   CreateSocialNetworkFile,
   UpdateSocialNetworkFile,
 } from '../../domain/entities/social-network-entity/social-network-entities';
-import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import generateFilename from '../../domain/entities/social-network-entity/social-network-utils';
 import SocialNetworkUsecase from '../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
 import validateSocialNetworkFileUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
 import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
 
 class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
+  deleteSocialNetworkById = async (
+    id: string,
+  ): Promise<DetailedSecureUser> => {
+    const socialNetwork = await this.userRepository.getSocialNetworkById(id);
+    if (!socialNetwork) throw SocialNetworkNotFoundError;
+
+    const fileExists = await this.fileService.fileExists(socialNetwork.src);
+    if (fileExists) await this.fileService.deleteFile(socialNetwork.src);
+
+    const updatedUser = await this.userRepository.deleteSocialNetworkById(id);
+    if (!updatedUser) throw SocialNetworkUpdateFailedError;
+
+    const secureUser = detailedToSecureUser(updatedUser);
+    return secureUser;
+  };
+
   createSocialNetwork = async (
-    username: string,
     payload: CreateSocialNetworkFile,
   ): Promise<DetailedSecureUser> => {
     validateSocialNetworkFileCreation(payload);
 
-    const user = await this.userRepository.getUser({ username });
-    if (!user) throw NoUserCreatedError;
+    const user = await this.userRepository.getUser();
+    if (!user) throw NoUserCreatedYetError;
 
     const hashedFilename = this.securityService.generateRandomHash('sha256');
 
@@ -39,10 +54,10 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
       url: payload.url,
       name: payload.name,
       src: secureFilename,
-    }, { username });
+    });
     if (!updatedUser) throw SocialNetworkCreateFailedError;
 
-    const secureUser = detailedUserToSecureUser(updatedUser);
+    const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
   };
 
@@ -71,7 +86,7 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     });
     if (!updatedUser) throw SocialNetworkUpdateFailedError;
 
-    const secureUser = detailedUserToSecureUser(updatedUser);
+    const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
   };
 }

@@ -28,9 +28,9 @@ export const InvalidUsernameLengthError = createDomainErrorFactory({
   message: `Please provide a username that consists of ${userRules.username.MIN_LENGTH} to ${userRules.username.MAX_LENGTH} characters.`,
 });
 
-export const NoUserCreatedError = createDomainErrorFactory({
+export const NoUserCreatedYetError = createDomainErrorFactory({
   code: 'NO_USER_CREATED',
-  message: 'No user has been created yet.',
+  message: 'There is no user created yet.',
 });
 
 export const SingleUserOnlyError = createDomainErrorFactory({

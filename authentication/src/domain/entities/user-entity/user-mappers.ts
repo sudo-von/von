@@ -3,7 +3,7 @@ import {
   DetailedSecureUser,
 } from './user-entities';
 
-const detailedUserToSecureUser = (user: DetailedUser): DetailedSecureUser => ({
+const detailedToSecureUser = (user: DetailedUser): DetailedSecureUser => ({
   id: user.id,
   name: user.name,
   email: user.email,
@@ -13,4 +13,4 @@ const detailedUserToSecureUser = (user: DetailedUser): DetailedSecureUser => ({
   socialNetworks: user.socialNetworks,
 });
 
-export default detailedUserToSecureUser;
+export default detailedToSecureUser;

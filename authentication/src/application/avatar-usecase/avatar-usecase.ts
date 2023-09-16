@@ -1,5 +1,5 @@
 import {
-  NoUserCreatedError,
+  NoUserCreatedYetError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedSecureUser,
@@ -12,7 +12,7 @@ import {
 } from '../../domain/entities/avatar-entity/avatar-entities';
 import AvatarUsecase from '../../domain/usecases/avatar-usecase/avatar-usecase';
 import generateFilename from '../../domain/entities/avatar-entity/avatar-utils';
-import detailedUserToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
@@ -23,7 +23,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     validateAvatarFileReplacement(payload);
 
     const user = await this.userRepository.getUser({ username });
-    if (!user) throw NoUserCreatedError;
+    if (!user) throw NoUserCreatedYetError;
 
     if (user.avatar) {
       const fileExists = await this.fileService.fileExists(user.avatar);
@@ -41,7 +41,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     }, { username });
     if (!updatedUser) throw AvatarReplaceFailedError;
 
-    const secureUser = detailedUserToSecureUser(updatedUser);
+    const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
   };
 }
