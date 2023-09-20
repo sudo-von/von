@@ -14,7 +14,7 @@ const Home: NextPage<HomeProps> = ({ contents = [], profile }) => {
   return (
     <MetaLayout
       author={name}
-      description="Meet a dedicated software developer pursuing their dream of moving to Canada."
+      description="Meet a dedicated software developer."
       keywords="JavaScript, TypeScript, React, Testing, Node, Express"
       title={name}
     >
