@@ -20,11 +20,6 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
 
-    if (user.avatar) {
-      const fileExists = await this.fileService.fileExists(user.avatar);
-      if (fileExists) await this.fileService.deleteFile(user.avatar);
-    }
-
     const updatedUser = await this.userRepository.deleteAvatar();
     if (!updatedUser) throw AvatarReplaceFailedError;
 
@@ -39,11 +34,6 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
-
-    if (user.avatar) {
-      const fileExists = await this.fileService.fileExists(user.avatar);
-      if (fileExists) await this.fileService.deleteFile(user.avatar);
-    }
 
     const hashedFilename = this.securityService.generateDataHash(user.username, 'sha256');
 

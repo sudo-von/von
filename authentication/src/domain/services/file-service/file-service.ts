@@ -7,7 +7,7 @@ abstract class FileService {
    * Creates an instance of FileService.
    * @param directory The directory where the files are contained.
    */
-  constructor(protected readonly directory: string) {}
+  constructor(protected readonly directory: string) { }
 
   /**
    * Retrieves the file path for a given filename.
@@ -15,15 +15,7 @@ abstract class FileService {
    * @returns {string} The file path for the provided filename.
    */
   abstract getFilePath: (filename: string)
-  => string;
-
-  /**
-   * Checks if a file with the provided filename exists.
-   * @param {string} filename - The name of the file to check.
-   * @returns {Promise<boolean>} A promise resolving to true if the file exists.
-   */
-  abstract fileExists: (filename: string)
-  => Promise<boolean>;
+    => string;
 
   /**
    * Deletes a file with the provided filename.
@@ -31,16 +23,16 @@ abstract class FileService {
    * @returns A promise resolving if the file has been successfully deleted.
    */
   abstract deleteFile: (filename: string)
-  => Promise<void>;
+    => Promise<void>;
 
   /**
    * Uploads a file provided as a data buffer.
    * @param filename The name of the file.
    * @param buffer The buffer containing the file data.
-   * @returns A promise resolving if the file has been successfully uploaded.
+   * @returns {Promise<string>} A promise with the URL of the uploaded file.
    */
   abstract uploadFile: (filename: string, buffer: Buffer)
-  => Promise<void>;
+    => Promise<string>;
 }
 
 export default FileService;

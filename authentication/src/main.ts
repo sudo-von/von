@@ -11,23 +11,27 @@ import configurePasswordManagerService from './infrastructure/config/configure-p
 import configureUserRouter from './infrastructure/apis/express-api/controllers/user-controller/user-router';
 import configureAvatarRouter from './infrastructure/apis/express-api/controllers/avatar-controller/avatar-router';
 import configureUserDetailsRouter from './infrastructure/apis/express-api/controllers/user-details-controller/user-details-router';
-import configureAuthenticationRouter from './infrastructure/apis/express-api/controllers/authentication-controller/authentication-router';
 import configureSocialNetworkRouter from './infrastructure/apis/express-api/controllers/social-network-controller/social-network-router';
+import configureAuthenticationRouter from './infrastructure/apis/express-api/controllers/authentication-controller/authentication-router';
 
 const loggerService = configureLoggerService();
 loggerService.info('📢 Logger service has been configured.');
 
 (async () => {
   try {
-  /* 🔐 Environment variables. */
+    /* 🔐 Environment variables. */
     const {
       SECRET_KEY,
       SERVER_PORT,
       DATABASE_URL,
+      AWS_S3_REGION,
+      AWS_S3_BUCKET,
       DATABASE_NAME,
       DATABASE_USERNAME,
       DATABASE_PASSWORD,
       MESSAGE_BROKER_URL,
+      AWS_S3_ACCESS_KEY_ID,
+      AWS_S3_SECRET_ACCESS_KEY,
     } = configureEnvironmentVariables();
     loggerService.info('🔐 Environment variables have been configured.');
 
@@ -46,7 +50,12 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       avatarFileService,
       socialNetworksFileService,
-    } = configureFileServices();
+    } = configureFileServices(
+      AWS_S3_REGION,
+      AWS_S3_BUCKET,
+      AWS_S3_ACCESS_KEY_ID,
+      AWS_S3_SECRET_ACCESS_KEY,
+    );
     loggerService.info('📂 File services have been configured.');
     const tokenService = configureTokenService(SECRET_KEY);
     loggerService.info('🔑 Token service has been configured.');
@@ -122,7 +131,7 @@ loggerService.info('📢 Logger service has been configured.');
       loggerService,
     );
   } catch (e) {
-    loggerService.error('There was an application error.', e as Error);
+    loggerService.error('There was a critical error.', e as Error);
     process.exit(1);
   }
 })();

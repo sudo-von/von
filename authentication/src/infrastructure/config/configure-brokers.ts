@@ -6,8 +6,11 @@ const configureBrokers = async (
   url: string,
   loggerService: LoggerService,
 ) => {
-  const createUserProducer = new AMQPCreateUserProducer(url, loggerService);
-  const updateUserProducer = new AMQPUpdateUserProducer(url, loggerService);
+
+  const host = `amqp://${url}`;
+
+  const createUserProducer = new AMQPCreateUserProducer(host, loggerService);
+  const updateUserProducer = new AMQPUpdateUserProducer(host, loggerService);
 
   await createUserProducer.connect();
   await updateUserProducer.connect();

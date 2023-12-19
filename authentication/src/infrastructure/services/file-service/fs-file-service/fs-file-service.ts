@@ -46,10 +46,11 @@ class FsFileService extends FileService {
   uploadFile = async (
     filename: string,
     buffer: Buffer,
-  ): Promise<void> => {
+  ): Promise<string> => {
     try {
       const path = this.getFilePath(filename);
       await writeFile(path, buffer, 'utf8');
+      return path;
     } catch (e) {
       const { name, message } = e as Error;
       if (name === 'ENOENT') {

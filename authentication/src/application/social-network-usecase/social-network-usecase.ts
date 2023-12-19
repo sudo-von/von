@@ -26,9 +26,6 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
-    const fileExists = await this.fileService.fileExists(socialNetwork.src);
-    if (fileExists) await this.fileService.deleteFile(socialNetwork.src);
-
     const updatedUser = await this.userRepository.deleteSocialNetworkById(id);
     if (!updatedUser) throw SocialNetworkUpdateFailedError;
 
@@ -69,9 +66,6 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
 
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
-
-    const fileExists = await this.fileService.fileExists(socialNetwork.src);
-    if (fileExists) await this.fileService.deleteFile(socialNetwork.src);
 
     const hashedFilename = this.securityService.generateDataHash(payload.name, 'sha256');
 
