@@ -8,9 +8,7 @@ const configureRepositories = async (
   DATABASE_PASSWORD: string,
 ) => {
   try {
-    const URI = `mongodb://${DATABASE_URL}`;
-
-    await mongoose.connect(URI, {
+    await mongoose.connect(DATABASE_URL, {
       dbName: DATABASE_NAME,
       user: DATABASE_USERNAME,
       pass: DATABASE_PASSWORD,

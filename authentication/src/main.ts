@@ -24,11 +24,11 @@ loggerService.info('📢 Logger service has been configured.');
       SECRET_KEY,
       SERVER_PORT,
       DATABASE_URL,
-      AWS_S3_REGION,
       AWS_S3_BUCKET,
+      AWS_S3_REGION,
       DATABASE_NAME,
-      DATABASE_USERNAME,
       DATABASE_PASSWORD,
+      DATABASE_USERNAME,
       MESSAGE_BROKER_URL,
       AWS_S3_ACCESS_KEY_ID,
       AWS_S3_SECRET_ACCESS_KEY,
@@ -51,8 +51,8 @@ loggerService.info('📢 Logger service has been configured.');
       avatarFileService,
       socialNetworksFileService,
     } = configureFileServices(
-      AWS_S3_REGION,
       AWS_S3_BUCKET,
+      AWS_S3_REGION,
       AWS_S3_ACCESS_KEY_ID,
       AWS_S3_SECRET_ACCESS_KEY,
     );
