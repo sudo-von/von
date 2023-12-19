@@ -1,8 +1,9 @@
 import avatarRules from '../avatar-rules';
 
 export const validateFileMimetype = (mimetype: string) => {
+  const formatedMimetype = mimetype.trim().toLowerCase();
   const { ALLOWED_MIMETYPES } = avatarRules.mimetype;
-  return ALLOWED_MIMETYPES.includes(mimetype.toLowerCase());
+  return ALLOWED_MIMETYPES.includes(formatedMimetype);
 };
 
 export const validateFileSize = (size: number) => {

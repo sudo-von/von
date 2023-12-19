@@ -4,7 +4,7 @@ const avatarRules = {
   },
   size: {
     MIN_BYTES: 100,
-    MAX_BYTES: 5_000_000,
+    MAX_BYTES: 1_000_000,
   },
 };
 
