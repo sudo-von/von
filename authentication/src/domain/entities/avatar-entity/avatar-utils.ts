@@ -7,8 +7,8 @@ import {
 } from './avatar-validations/avatar-validations';
 
 const generateFilename = (hash: string, mimetype: string): string => {
-  const formatedHash = hash.trim();
-  const formatedMimetype = mimetype.trim();
+  const formatedHash = hash.trim().toLowerCase();
+  const formatedMimetype = mimetype.trim().toLowerCase();
 
   const isFileMimetypeValid = validateFileMimetype(formatedMimetype);
   if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
