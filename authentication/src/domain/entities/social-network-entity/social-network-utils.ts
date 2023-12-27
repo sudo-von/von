@@ -7,15 +7,18 @@ import {
 } from './social-network-validations/social-network-validations';
 
 const generateFilename = (hash: string, mimetype: string): string => {
-  const isFileMimetypeValid = validateFileMimetype(mimetype);
+  const formatedHash = hash.trim();
+  const formatedMimetype = mimetype.trim();
+
+  const isFileMimetypeValid = validateFileMimetype(formatedMimetype);
   if (!isFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
 
-  const extension = mimetype.split('/').pop();
+  const extension = formatedMimetype.split('/').pop();
   if (!extension) throw InvalidSocialNetworkFileExtensionError;
 
   const formatedExtension = extension.replace('+xml', '');
 
-  const filename = `${hash}.${formatedExtension}`;
+  const filename = `${formatedHash}.${formatedExtension}`;
   return filename;
 };
 

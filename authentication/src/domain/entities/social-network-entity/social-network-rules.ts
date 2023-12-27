@@ -4,7 +4,7 @@ const socialNetworkRules = {
   },
   name: {
     MIN_LENGTH: 2,
-    MAX_LENGTH: 20,
+    MAX_LENGTH: 25,
   },
   size: {
     MIN_BYTES: 100,

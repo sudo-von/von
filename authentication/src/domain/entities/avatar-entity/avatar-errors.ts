@@ -13,7 +13,7 @@ export const AvatarReplaceFailedError = createDomainErrorFactory({
   message: 'The avatar you attempted to replace could not be replaced.',
 });
 
-export const InvalidAvatarFileExtensionTypeError = createDomainErrorFactory({
+export const InvalidAvatarFileExtensionError = createDomainErrorFactory({
   code: 'INVALID_AVATAR_FILE_EXTENSION',
   message: 'The MIME type provided for the avatar file is valid, but the extension is empty.',
 });

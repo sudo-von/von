@@ -1,19 +1,22 @@
 import {
   InvalidAvatarFileMimeTypeError,
-  InvalidAvatarFileExtensionTypeError,
+  InvalidAvatarFileExtensionError,
 } from './avatar-errors';
 import {
   validateFileMimetype,
 } from './avatar-validations/avatar-validations';
 
 const generateFilename = (hash: string, mimetype: string): string => {
-  const isFileMimetypeValid = validateFileMimetype(mimetype);
+  const formatedHash = hash.trim();
+  const formatedMimetype = mimetype.trim();
+
+  const isFileMimetypeValid = validateFileMimetype(formatedMimetype);
   if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
 
-  const extension = mimetype.split('/').pop();
-  if (!extension) throw InvalidAvatarFileExtensionTypeError;
+  const extension = formatedMimetype.split('/').pop();
+  if (!extension) throw InvalidAvatarFileExtensionError;
 
-  const filename = `${hash}.${extension}`;
+  const filename = `${formatedHash}.${extension}`;
   return filename;
 };
 
