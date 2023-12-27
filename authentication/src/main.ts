@@ -6,10 +6,10 @@ import configureFileServices from './infrastructure/config/configure-file-servic
 import configureTokenService from './infrastructure/config/configure-token-service';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configureSecurityService from './infrastructure/config/configure-security-service';
-import configureEnvironmentVariables from './infrastructure/config/configure-enviroment-variables';
 import configurePasswordManagerService from './infrastructure/config/configure-password-manager-service';
 import configureUserRouter from './infrastructure/apis/express-api/controllers/user-controller/user-router';
 import configureAvatarRouter from './infrastructure/apis/express-api/controllers/avatar-controller/avatar-router';
+import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables/configure-enviroment-variables';
 import configureUserDetailsRouter from './infrastructure/apis/express-api/controllers/user-details-controller/user-details-router';
 import configureSocialNetworkRouter from './infrastructure/apis/express-api/controllers/social-network-controller/social-network-router';
 import configureAuthenticationRouter from './infrastructure/apis/express-api/controllers/authentication-controller/authentication-router';
