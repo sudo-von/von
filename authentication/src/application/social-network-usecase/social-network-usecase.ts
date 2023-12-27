@@ -7,6 +7,7 @@ import {
 import {
   SocialNetworkNotFoundError,
   SocialNetworkCreateFailedError,
+  SocialNetworkDeleteFailedError,
   SocialNetworkUpdateFailedError,
 } from '../../domain/entities/social-network-entity/social-network-errors';
 import {
@@ -27,7 +28,7 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
     const updatedUser = await this.userRepository.deleteSocialNetworkById(id);
-    if (!updatedUser) throw SocialNetworkUpdateFailedError;
+    if (!updatedUser) throw SocialNetworkDeleteFailedError;
 
     const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
@@ -66,6 +67,8 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
 
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
+
+    await this.fileService.deleteFile(socialNetwork.src);
 
     const hashedFilename = this.securityService.generateDataHash(payload.name, 'sha256');
 

@@ -8,13 +8,21 @@ import {
 } from '../../../../../domain/errors/error-codes';
 import {
   SocialNetworkNotFoundError,
-  SocialNetworkUpdateFailedError,
   SocialNetworkCreateFailedError,
+  SocialNetworkDeleteFailedError,
+  SocialNetworkUpdateFailedError,
   InvalidSocialNetworkFileSizeError,
   InvalidSocialNetworkUrlLengthError,
   InvalidSocialNetworkNameLengthError,
   InvalidSocialNetworkFileMimeTypeError,
+  InvalidSocialNetworkFileExtensionError,
 } from '../../../../../domain/entities/social-network-entity/social-network-errors';
+
+export const InvalidSocialNetworkExtensionServerError = createServerErrorFactory({
+  code: 'INVALID_SOCIAL_NETWORK_FILE_EXTENSION',
+  message: InvalidSocialNetworkFileExtensionError.message,
+  statusCode: statusCodes.BAD_REQUEST,
+});
 
 export const InvalidSocialNetworkFileMimeTypeServerError = createServerErrorFactory({
   code: 'INVALID_SOCIAL_NETWORK_FILE_MIME_TYPE',
@@ -46,6 +54,12 @@ export const SocialNetworkCreateFailedServerError = createServerErrorFactory({
   statusCode: statusCodes.INTERNAL_SERVER_ERROR,
 });
 
+export const SocialNetworkDeleteFailedServerError = createServerErrorFactory({
+  code: 'SOCIAL_NETWORK_DELETE_FAILED',
+  message: SocialNetworkDeleteFailedError.message,
+  statusCode: statusCodes.INTERNAL_SERVER_ERROR,
+});
+
 export const SocialNetworkNotFoundServerError = createServerErrorFactory({
   code: 'SOCIAL_NETWORK_NOT_FOUND',
   message: SocialNetworkNotFoundError.message,
@@ -59,11 +73,13 @@ export const SocialNetworkUpdateFailedServerError = createServerErrorFactory({
 });
 
 export const socialNetworkServerErrors: Record<SocialNetworkDomainErrorCode, ServerErrorFactory> = {
+  INVALID_SOCIAL_NETWORK_FILE_EXTENSION: InvalidSocialNetworkExtensionServerError,
   INVALID_SOCIAL_NETWORK_FILE_MIME_TYPE: InvalidSocialNetworkFileMimeTypeServerError,
   INVALID_SOCIAL_NETWORK_FILE_SIZE: InvalidSocialNetworkFileSizeServerError,
   INVALID_SOCIAL_NETWORK_NAME_LENGTH: InvalidSocialNetworkNameLengthServerError,
   INVALID_SOCIAL_NETWORK_URL_LENGTH: InvalidSocialNetworkUrlLengthServerError,
   SOCIAL_NETWORK_CREATE_FAILED: SocialNetworkCreateFailedServerError,
+  SOCIAL_NETWORK_DELETE_FAILED: SocialNetworkDeleteFailedServerError,
   SOCIAL_NETWORK_NOT_FOUND: SocialNetworkNotFoundServerError,
   SOCIAL_NETWORK_UPDATE_FAILED: SocialNetworkUpdateFailedServerError,
 };

@@ -5,6 +5,8 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import {
+  NoAvatarStoredYetError,
+  AvatarDeleteFailedError,
   AvatarReplaceFailedError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
@@ -20,8 +22,12 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
 
+    if (!user.avatar) throw NoAvatarStoredYetError;
+
+    await this.fileService.deleteFile(user.avatar);
+
     const updatedUser = await this.userRepository.deleteAvatar();
-    if (!updatedUser) throw AvatarReplaceFailedError;
+    if (!updatedUser) throw AvatarDeleteFailedError;
 
     const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
@@ -34,6 +40,8 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
+
+    if (user.avatar) await this.fileService.deleteFile(user.avatar);
 
     const hashedFilename = this.securityService.generateDataHash(user.username, 'sha256');
 
