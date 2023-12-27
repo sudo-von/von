@@ -1,5 +1,6 @@
 import {
   InvalidSocialNetworkFileMimeTypeError,
+  InvalidSocialNetworkFileExtensionError,
 } from './social-network-errors';
 import {
   validateFileMimetype,
@@ -9,7 +10,12 @@ const generateFilename = (hash: string, mimetype: string): string => {
   const isFileMimetypeValid = validateFileMimetype(mimetype);
   if (!isFileMimetypeValid) throw InvalidSocialNetworkFileMimeTypeError;
 
-  const filename = `${hash}.svg`;
+  const extension = mimetype.split('/').pop();
+  if (!extension) throw InvalidSocialNetworkFileExtensionError;
+
+  const formatedExtension = extension.replace('+xml', '');
+
+  const filename = `${hash}.${formatedExtension}`;
   return filename;
 };
 

@@ -3,6 +3,11 @@ import {
 } from '../../errors/error-factory';
 import socialNetworkRules from './social-network-rules';
 
+export const InvalidSocialNetworkFileExtensionError = createDomainErrorFactory({
+  code: 'INVALID_SOCIAL_NETWORK_FILE_EXTENSION',
+  message: 'The MIME type provided for the social network file is valid, but the extension is empty.',
+});
+
 export const InvalidSocialNetworkFileMimeTypeError = createDomainErrorFactory({
   code: 'INVALID_SOCIAL_NETWORK_FILE_MIME_TYPE',
   message: `Please provide a social network file with one of the following MIME types: ${socialNetworkRules.mimetype.ALLOWED_MIMETYPES.join(', ')}.`,
