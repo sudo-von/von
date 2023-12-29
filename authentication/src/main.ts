@@ -21,46 +21,33 @@ loggerService.info('📢 Logger service has been configured.');
   try {
     /* 🔐 Environment variables. */
     const {
-      SECRET_KEY,
-      SERVER_PORT,
-      DATABASE_URL,
-      AWS_S3_BUCKET,
-      AWS_S3_REGION,
-      DATABASE_NAME,
-      DATABASE_PASSWORD,
-      DATABASE_USERNAME,
-      MESSAGE_BROKER_URL,
-      AWS_S3_ACCESS_KEY_ID,
-      AWS_S3_SECRET_ACCESS_KEY,
+      API_ENVIRONMENT_VARIABLES,
+      AWS_ENVIRONMENT_VARIABLES,
+      TOKEN_ENVIRONMENT_VARIABLES,
+      BROKER_ENVIRONMENT_VARIABLES,
+      REPOSITORY_ENVIRONMENT_VARIABLES,
     } = configureEnvironmentVariables();
     loggerService.info('🔐 Environment variables have been configured.');
 
     /* 💽 Repositories. */
     const {
       userRepository,
-    } = await configureRepositories(
-      DATABASE_URL,
-      DATABASE_NAME,
-      DATABASE_USERNAME,
-      DATABASE_PASSWORD,
-    );
+    } = await configureRepositories(REPOSITORY_ENVIRONMENT_VARIABLES);
     loggerService.info('💽 Repositories have been configured.');
 
     /* 🔧 Services. */
     const {
       avatarFileService,
       socialNetworksFileService,
-    } = configureFileServices(
-      AWS_S3_BUCKET,
-      AWS_S3_REGION,
-      AWS_S3_ACCESS_KEY_ID,
-      AWS_S3_SECRET_ACCESS_KEY,
-    );
+    } = configureFileServices(AWS_ENVIRONMENT_VARIABLES);
     loggerService.info('📂 File services have been configured.');
-    const tokenService = configureTokenService(SECRET_KEY);
+
+    const tokenService = configureTokenService(TOKEN_ENVIRONMENT_VARIABLES);
     loggerService.info('🔑 Token service has been configured.');
+
     const securityService = configureSecurityService();
     loggerService.info('🔒 Security service has been configured.');
+
     const passwordManagerService = configurePasswordManagerService();
     loggerService.info('🕵️‍♂️ Password manager service has been configured.');
 
@@ -84,7 +71,7 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       createUserProducer,
       updateUserProducer,
-    } = await configureBrokers(MESSAGE_BROKER_URL, loggerService);
+    } = await configureBrokers(BROKER_ENVIRONMENT_VARIABLES, loggerService);
     loggerService.info('📦 Message brokers have been configured.');
 
     /* 🔌 Routers. */
@@ -122,7 +109,7 @@ loggerService.info('📢 Logger service has been configured.');
 
     /* 🚀 Controllers. */
     await configureAPI(
-      SERVER_PORT,
+      API_ENVIRONMENT_VARIABLES,
       userRouter,
       avatarRouter,
       userDetailsRouter,

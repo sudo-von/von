@@ -1,13 +1,20 @@
 import mongoose from 'mongoose';
+import {
+  RepositoryEnvironmentVariables,
+} from './configure-environment-variables/configure-repository-environment-variables';
 import MongoUserRepository from '../repositories/user-repository/mongo-user-repository/mongo-user-repository';
 
 const configureRepositories = async (
-  DATABASE_URL: string,
-  DATABASE_NAME: string,
-  DATABASE_USERNAME: string,
-  DATABASE_PASSWORD: string,
+  repositoryEnvironmentVariables: RepositoryEnvironmentVariables,
 ) => {
   try {
+    const {
+      DATABASE_URL,
+      DATABASE_NAME,
+      DATABASE_USERNAME,
+      DATABASE_PASSWORD,
+    } = repositoryEnvironmentVariables;
+
     await mongoose.connect(DATABASE_URL, {
       dbName: DATABASE_NAME,
       user: DATABASE_USERNAME,

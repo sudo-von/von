@@ -1,48 +1,48 @@
 import dotenv from 'dotenv';
-import configureAWSEnvironmentVariables from './configure-aws-environment-variables';
-import configureBrokerEnvironmentVariables from './configure-broker-environment-variables';
-import configureServerEnvironmentVariables from './configure-server-environment-variables';
-import configureDatabaseEnvironmentVariables from './configure-database-environment-variables';
+import configureAPIEnvironmentVariables, {
+  APIEnvironmentVariables,
+} from './configure-api-environment-variables';
+import configureAWSEnvironmentVariables, {
+  AWSEnvironmentVariables,
+} from './configure-aws-environment-variables';
+import configureTokenEnvironmentVariables, {
+  TokenEnvironmentVariables,
+} from './configure-token-environment-variables';
+import configureBrokerEnvironmentVariables, {
+  BrokerEnvironmentVariables,
+} from './configure-broker-environment-variables';
+import configureRepositoryEnvironmentVariables, {
+  RepositoryEnvironmentVariables,
+} from './configure-repository-environment-variables';
 
-const configureEnvironmentVariables = () => {
+export type EnvironmentVariables = {
+  API_ENVIRONMENT_VARIABLES: APIEnvironmentVariables,
+  AWS_ENVIRONMENT_VARIABLES: AWSEnvironmentVariables,
+  TOKEN_ENVIRONMENT_VARIABLES: TokenEnvironmentVariables,
+  BROKER_ENVIRONMENT_VARIABLES: BrokerEnvironmentVariables,
+  REPOSITORY_ENVIRONMENT_VARIABLES: RepositoryEnvironmentVariables,
+};
+
+const configureEnvironmentVariables = (): EnvironmentVariables => {
   try {
     dotenv.config();
 
-    const {
-      AWS_S3_BUCKET,
-      AWS_S3_REGION,
-      AWS_S3_ACCESS_KEY_ID,
-      AWS_S3_SECRET_ACCESS_KEY,
-    } = configureAWSEnvironmentVariables();
+    const apiEnvironmentVariables = configureAPIEnvironmentVariables();
 
-    const {
-      MESSAGE_BROKER_URL,
-    } = configureBrokerEnvironmentVariables();
+    const awsEnvironmentVariables = configureAWSEnvironmentVariables();
 
-    const {
-      DATABASE_URL,
-      DATABASE_NAME,
-      DATABASE_PASSWORD,
-      DATABASE_USERNAME,
-    } = configureDatabaseEnvironmentVariables();
+    const tokenEnvironmentVariables = configureTokenEnvironmentVariables();
 
-    const {
-      SECRET_KEY,
-      SERVER_PORT,
-    } = configureServerEnvironmentVariables();
+    const brokerEnvironmentVariables = configureBrokerEnvironmentVariables();
+
+    const repositoryEnvironmentVariables = configureRepositoryEnvironmentVariables();
 
     return {
-      SECRET_KEY,
-      SERVER_PORT,
-      DATABASE_URL,
-      AWS_S3_BUCKET,
-      AWS_S3_REGION,
-      DATABASE_NAME,
-      DATABASE_PASSWORD,
-      DATABASE_USERNAME,
-      MESSAGE_BROKER_URL,
-      AWS_S3_ACCESS_KEY_ID,
-      AWS_S3_SECRET_ACCESS_KEY,
+      API_ENVIRONMENT_VARIABLES: apiEnvironmentVariables,
+      AWS_ENVIRONMENT_VARIABLES: awsEnvironmentVariables,
+      TOKEN_ENVIRONMENT_VARIABLES: tokenEnvironmentVariables,
+      BROKER_ENVIRONMENT_VARIABLES: brokerEnvironmentVariables,
+      REPOSITORY_ENVIRONMENT_VARIABLES: repositoryEnvironmentVariables,
     };
   } catch (e) {
     throw new Error(`An error occurred while configuring environment variables. ${(e as Error).message}`);

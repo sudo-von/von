@@ -1,4 +1,11 @@
-const configureDatabaseEnvironmentVariables = () => {
+export type RepositoryEnvironmentVariables = {
+  DATABASE_URL: string;
+  DATABASE_NAME: string;
+  DATABASE_PASSWORD: string;
+  DATABASE_USERNAME: string;
+};
+
+const configureRepositoryEnvironmentVariables = (): RepositoryEnvironmentVariables => {
   const {
     DATABASE_HOST,
     DATABASE_NAME,
@@ -27,4 +34,4 @@ const configureDatabaseEnvironmentVariables = () => {
   };
 };
 
-export default configureDatabaseEnvironmentVariables;
+export default configureRepositoryEnvironmentVariables;

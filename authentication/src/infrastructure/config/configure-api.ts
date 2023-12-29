@@ -15,10 +15,13 @@ import {
 } from 'swagger-ui-express';
 import 'express-async-errors';
 import LoggerService from '../services/logger-service/logger-service';
+import {
+  APIEnvironmentVariables,
+} from './configure-environment-variables/configure-api-environment-variables';
 import errorMiddleware from '../apis/express-api/middlewares/error-middleware';
 
 const configureAPI = async (
-  serverPort: number,
+  API_ENVIRONMENT_VARIABLES: APIEnvironmentVariables,
   userRouter: Router,
   avatarRouter: Router,
   userDetailsRouter: Router,
@@ -26,6 +29,10 @@ const configureAPI = async (
   authenticationRouter: Router,
   loggerService: LoggerService,
 ) => {
+  const {
+    API_PORT,
+  } = API_ENVIRONMENT_VARIABLES;
+
   const app = express();
 
   const publicPath = path.resolve('public');
@@ -53,8 +60,8 @@ const configureAPI = async (
 
   app.use(errorMiddleware(loggerService));
 
-  app.listen(serverPort, () => {
-    loggerService.info(`🚀 Server has been configured on port ${serverPort}.`);
+  app.listen(API_PORT, () => {
+    loggerService.info(`🚀 Server has been configured on port ${API_PORT}.`);
   });
 };
 

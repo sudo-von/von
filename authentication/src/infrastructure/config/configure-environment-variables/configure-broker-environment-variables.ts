@@ -1,4 +1,8 @@
-const configureBrokerEnvironmentVariables = () => {
+export type BrokerEnvironmentVariables = {
+  MESSAGE_BROKER_URL: string;
+};
+
+const configureBrokerEnvironmentVariables = (): BrokerEnvironmentVariables => {
   const {
     MESSAGE_BROKER_HOST,
     MESSAGE_BROKER_PORT,
