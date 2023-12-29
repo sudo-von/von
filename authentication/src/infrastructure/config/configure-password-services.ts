@@ -2,15 +2,19 @@ import IPasswordService from '../../domain/services/password-service/password-se
 import BcryptPasswordManagerService from '../services/password-service/bcrypt-password-manager-service/bcrypt-password-manager-service';
 
 type PasswordServices = {
-  passwordManagerService: IPasswordService;
+  passwordService: IPasswordService;
 };
 
 const configurePasswordServices = (): PasswordServices => {
-  const passwordManagerService = new BcryptPasswordManagerService();
+  try {
+    const passwordService = new BcryptPasswordManagerService();
 
-  return {
-    passwordManagerService,
-  };
+    return {
+      passwordService,
+    };
+  } catch (e) {
+    throw new Error(`An error occurred while configuring password services. ${(e as Error).message}`);
+  }
 };
 
 export default configurePasswordServices;

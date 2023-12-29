@@ -11,15 +11,19 @@ type TokenServices = {
 const configureTokenServices = (
   TOKEN_ENVIRONMENT_VARIABLES: TokenEnvironmentVariables,
 ): TokenServices => {
-  const {
-    SECRET_KEY,
-  } = TOKEN_ENVIRONMENT_VARIABLES;
+  try {
+    const {
+      SECRET_KEY,
+    } = TOKEN_ENVIRONMENT_VARIABLES;
 
-  const tokenService = new JoseTokenService(SECRET_KEY);
+    const tokenService = new JoseTokenService(SECRET_KEY);
 
-  return {
-    tokenService,
-  };
+    return {
+      tokenService,
+    };
+  } catch (e) {
+    throw new Error(`An error occurred while configuring token services. ${(e as Error).message}`);
+  }
 };
 
 export default configureTokenServices;

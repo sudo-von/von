@@ -1,10 +1,10 @@
 import configureAPI from './infrastructure/config/configure-api';
 import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
-import configureRepositories from './infrastructure/config/configure-repositories';
 import configureFileServices from './infrastructure/config/configure-file-services';
-import configureTokenServices from './infrastructure/config/configure-token-services';
+import configureRepositories from './infrastructure/config/configure-repositories';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
+import configureTokenServices from './infrastructure/config/configure-token-services';
 import configurePasswordServices from './infrastructure/config/configure-password-services';
 import configureSecurityServices from './infrastructure/config/configure-security-services';
 import configureUserRouter from './infrastructure/apis/express-api/controllers/user-controller/user-router';
@@ -49,9 +49,9 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔑 Token service has been configured.');
 
     const {
-      passwordManagerService,
+      passwordService,
     } = configurePasswordServices();
-    loggerService.info('🕵️‍♂️ Password manager service has been configured.');
+    loggerService.info('🕵️‍♂️ Password service has been configured.');
 
     const {
       securityService,
@@ -70,7 +70,7 @@ loggerService.info('📢 Logger service has been configured.');
       userRepository,
       securityService,
       socialNetworkFileService,
-      passwordManagerService,
+      passwordService,
     );
     loggerService.info('📖 Usecases have been configured.');
 

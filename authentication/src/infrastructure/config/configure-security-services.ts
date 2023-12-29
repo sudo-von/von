@@ -6,11 +6,15 @@ type SecurityServices = {
 };
 
 const configureSecurityServices = (): SecurityServices => {
-  const securityService = new CryptoSecurityService();
+  try {
+    const securityService = new CryptoSecurityService();
 
-  return {
-    securityService,
-  };
+    return {
+      securityService,
+    };
+  } catch (e) {
+    throw new Error(`An error occurred while configuring security services. ${(e as Error).message}`);
+  }
 };
 
 export default configureSecurityServices;
