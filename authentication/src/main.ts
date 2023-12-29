@@ -3,10 +3,10 @@ import configureBrokers from './infrastructure/config/configure-brokers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepositories from './infrastructure/config/configure-repositories';
 import configureFileServices from './infrastructure/config/configure-file-services';
-import configureTokenService from './infrastructure/config/configure-token-service';
+import configureTokenServices from './infrastructure/config/configure-token-services';
 import configureLoggerService from './infrastructure/config/configure-logger-service';
-import configureSecurityService from './infrastructure/config/configure-security-service';
-import configurePasswordManagerService from './infrastructure/config/configure-password-manager-service';
+import configurePasswordServices from './infrastructure/config/configure-password-services';
+import configureSecurityServices from './infrastructure/config/configure-security-services';
 import configureUserRouter from './infrastructure/apis/express-api/controllers/user-controller/user-router';
 import configureAvatarRouter from './infrastructure/apis/express-api/controllers/avatar-controller/avatar-router';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables/configure-enviroment-variables';
@@ -23,6 +23,7 @@ loggerService.info('📢 Logger service has been configured.');
     const {
       API_ENVIRONMENT_VARIABLES,
       AWS_ENVIRONMENT_VARIABLES,
+      FILE_ENVIRONMENT_VARIABLES,
       TOKEN_ENVIRONMENT_VARIABLES,
       BROKER_ENVIRONMENT_VARIABLES,
       REPOSITORY_ENVIRONMENT_VARIABLES,
@@ -38,18 +39,24 @@ loggerService.info('📢 Logger service has been configured.');
     /* 🔧 Services. */
     const {
       avatarFileService,
-      socialNetworksFileService,
-    } = configureFileServices(AWS_ENVIRONMENT_VARIABLES);
+      socialNetworkFileService,
+    } = configureFileServices(AWS_ENVIRONMENT_VARIABLES, FILE_ENVIRONMENT_VARIABLES);
     loggerService.info('📂 File services have been configured.');
 
-    const tokenService = configureTokenService(TOKEN_ENVIRONMENT_VARIABLES);
+    const {
+      tokenService,
+    } = configureTokenServices(TOKEN_ENVIRONMENT_VARIABLES);
     loggerService.info('🔑 Token service has been configured.');
 
-    const securityService = configureSecurityService();
-    loggerService.info('🔒 Security service has been configured.');
-
-    const passwordManagerService = configurePasswordManagerService();
+    const {
+      passwordManagerService,
+    } = configurePasswordServices();
     loggerService.info('🕵️‍♂️ Password manager service has been configured.');
+
+    const {
+      securityService,
+    } = configureSecurityServices();
+    loggerService.info('🔒 Security service has been configured.');
 
     /* 📖 Usecases. */
     const {
@@ -62,7 +69,7 @@ loggerService.info('📢 Logger service has been configured.');
       avatarFileService,
       userRepository,
       securityService,
-      socialNetworksFileService,
+      socialNetworkFileService,
       passwordManagerService,
     );
     loggerService.info('📖 Usecases have been configured.');

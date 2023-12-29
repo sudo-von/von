@@ -5,6 +5,9 @@ import configureAPIEnvironmentVariables, {
 import configureAWSEnvironmentVariables, {
   AWSEnvironmentVariables,
 } from './configure-aws-environment-variables';
+import configureFileEnvironmentVariables, {
+  FileEnvironmentVariables,
+} from './configure-file-environment-variables';
 import configureTokenEnvironmentVariables, {
   TokenEnvironmentVariables,
 } from './configure-token-environment-variables';
@@ -16,11 +19,12 @@ import configureRepositoryEnvironmentVariables, {
 } from './configure-repository-environment-variables';
 
 export type EnvironmentVariables = {
-  API_ENVIRONMENT_VARIABLES: APIEnvironmentVariables,
-  AWS_ENVIRONMENT_VARIABLES: AWSEnvironmentVariables,
-  TOKEN_ENVIRONMENT_VARIABLES: TokenEnvironmentVariables,
-  BROKER_ENVIRONMENT_VARIABLES: BrokerEnvironmentVariables,
-  REPOSITORY_ENVIRONMENT_VARIABLES: RepositoryEnvironmentVariables,
+  API_ENVIRONMENT_VARIABLES: APIEnvironmentVariables;
+  AWS_ENVIRONMENT_VARIABLES: AWSEnvironmentVariables;
+  FILE_ENVIRONMENT_VARIABLES: FileEnvironmentVariables;
+  TOKEN_ENVIRONMENT_VARIABLES: TokenEnvironmentVariables;
+  BROKER_ENVIRONMENT_VARIABLES: BrokerEnvironmentVariables;
+  REPOSITORY_ENVIRONMENT_VARIABLES: RepositoryEnvironmentVariables;
 };
 
 const configureEnvironmentVariables = (): EnvironmentVariables => {
@@ -31,6 +35,8 @@ const configureEnvironmentVariables = (): EnvironmentVariables => {
 
     const awsEnvironmentVariables = configureAWSEnvironmentVariables();
 
+    const fileEnvironmentVariables = configureFileEnvironmentVariables();
+
     const tokenEnvironmentVariables = configureTokenEnvironmentVariables();
 
     const brokerEnvironmentVariables = configureBrokerEnvironmentVariables();
@@ -40,6 +46,7 @@ const configureEnvironmentVariables = (): EnvironmentVariables => {
     return {
       API_ENVIRONMENT_VARIABLES: apiEnvironmentVariables,
       AWS_ENVIRONMENT_VARIABLES: awsEnvironmentVariables,
+      FILE_ENVIRONMENT_VARIABLES: fileEnvironmentVariables,
       TOKEN_ENVIRONMENT_VARIABLES: tokenEnvironmentVariables,
       BROKER_ENVIRONMENT_VARIABLES: brokerEnvironmentVariables,
       REPOSITORY_ENVIRONMENT_VARIABLES: repositoryEnvironmentVariables,

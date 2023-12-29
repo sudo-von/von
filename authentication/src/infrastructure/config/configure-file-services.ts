@@ -1,39 +1,57 @@
+import FileService from '../../domain/services/file-service/file-service';
 import {
   AWSEnvironmentVariables,
 } from './configure-environment-variables/configure-aws-environment-variables';
+import {
+  FileEnvironmentVariables,
+} from './configure-environment-variables/configure-file-environment-variables';
 import AWSS3Service from '../services/file-service/aws-s3-service/aws-s3-service';
 
-const configureFileServices = (AWS_ENVIRONMENT_VARIABLES: AWSEnvironmentVariables) => {
-  const {
-    AWS_S3_BUCKET,
-    AWS_S3_REGION,
-    AWS_S3_ACCESS_KEY_ID,
-    AWS_S3_SECRET_ACCESS_KEY,
-  } = AWS_ENVIRONMENT_VARIABLES;
+type FileServices = {
+  avatarFileService: FileService;
+  socialNetworkFileService: FileService;
+};
 
-  const avatarDirectory = 'public/avatars';
-  const socialNetworkDirectory = 'public/social-networks';
+const configureFileServices = (
+  AWS_ENVIRONMENT_VARIABLES: AWSEnvironmentVariables,
+  FILE_ENVIRONMENT_VARIABLES: FileEnvironmentVariables,
+): FileServices => {
+  try {
+    const {
+      AWS_S3_BUCKET,
+      AWS_S3_REGION,
+      AWS_S3_ACCESS_KEY_ID,
+      AWS_S3_SECRET_ACCESS_KEY,
+    } = AWS_ENVIRONMENT_VARIABLES;
 
-  const avatarFileService = new AWSS3Service(
-    avatarDirectory,
-    AWS_S3_BUCKET,
-    AWS_S3_SECRET_ACCESS_KEY,
-    AWS_S3_ACCESS_KEY_ID,
-    AWS_S3_REGION,
-  );
+    const {
+      AVATAR_DIRECTORY,
+      SOCIAL_NETWORK_DIRECTORY,
+    } = FILE_ENVIRONMENT_VARIABLES;
 
-  const socialNetworksFileService = new AWSS3Service(
-    socialNetworkDirectory,
-    AWS_S3_BUCKET,
-    AWS_S3_SECRET_ACCESS_KEY,
-    AWS_S3_ACCESS_KEY_ID,
-    AWS_S3_REGION,
-  );
+    const avatarFileService = new AWSS3Service(
+      AVATAR_DIRECTORY,
+      AWS_S3_BUCKET,
+      AWS_S3_SECRET_ACCESS_KEY,
+      AWS_S3_ACCESS_KEY_ID,
+      AWS_S3_REGION,
+    );
 
-  return {
-    avatarFileService,
-    socialNetworksFileService,
-  };
+    const socialNetworkFileService = new AWSS3Service(
+      SOCIAL_NETWORK_DIRECTORY,
+      AWS_S3_BUCKET,
+      AWS_S3_SECRET_ACCESS_KEY,
+      AWS_S3_ACCESS_KEY_ID,
+      AWS_S3_REGION,
+    );
+
+    return {
+      avatarFileService,
+      socialNetworkFileService,
+    };
+  } catch (e) {
+    throw new Error(`An error occurred while configuring file services. ${(e as Error).message}`);
+  }
 };
 
 export default configureFileServices;
