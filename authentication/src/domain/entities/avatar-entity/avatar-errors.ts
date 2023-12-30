@@ -25,7 +25,7 @@ export const InvalidAvatarFileExtensionError = createDomainErrorFactory({
 
 export const InvalidAvatarFileMimeTypeError = createDomainErrorFactory({
   code: 'INVALID_AVATAR_FILE_MIME_TYPE',
-  message: `Please provide an avatar file with one of the following MIME types: ${avatarRules.mimetype.ALLOWED_MIMETYPES.join(', ')}.`,
+  message: `Please provide an avatar file with one of the following MIME types: ${avatarRules.mimeType.ALLOWED_MIME_TYPES.join(', ')}.`,
 });
 
 export const InvalidAvatarFileSizeError = createDomainErrorFactory({

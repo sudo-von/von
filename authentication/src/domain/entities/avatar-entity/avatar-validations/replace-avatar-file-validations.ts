@@ -7,11 +7,11 @@ import {
 } from '../avatar-entities';
 import {
   validateFileSize,
-  validateFileMimetype,
+  validateFileMimeType,
 } from './avatar-validations';
 
 const validateAvatarFileReplacement = (payload: ReplaceAvatarFile) => {
-  const isFileMimetypeValid = validateFileMimetype(payload.mimetype);
+  const isFileMimetypeValid = validateFileMimeType(payload.mimetype);
   if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
 
   const isFileSizeValid = validateFileSize(payload.size);

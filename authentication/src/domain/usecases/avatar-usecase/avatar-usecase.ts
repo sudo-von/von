@@ -41,6 +41,16 @@ abstract class AvatarUsecase {
    */
   abstract replaceAvatar: (payload: ReplaceAvatarFile)
   => Promise<DetailedSecureUser>;
+
+  /**
+   * Generates a filename for an avatar based on the provided hash and mimetype.
+   * @authentication Requires authentication to access this method.
+   * @param {string} hash - The hash used to create the filename.
+   * @param {string} mimetype - The mimetype of the avatar file.
+   * @returns {string} The generated avatar filename.
+   */
+  abstract generateFilename: (hash: string, mimetype: string)
+  => string;
 }
 
 export default AvatarUsecase;

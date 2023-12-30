@@ -15,7 +15,7 @@ abstract class FileService {
    * @returns {string} The file path for the provided filename.
    */
   abstract getFilePath: (filename: string)
-    => string;
+  => string;
 
   /**
    * Deletes a file with the provided filename.
@@ -23,16 +23,16 @@ abstract class FileService {
    * @returns A promise resolving if the file has been successfully deleted.
    */
   abstract deleteFile: (filename: string)
-    => Promise<void>;
+  => Promise<void>;
 
   /**
    * Uploads a file provided as a data buffer.
    * @param filename The name of the file.
    * @param buffer The buffer containing the file data.
-   * @returns {Promise<string>} A promise with the URL of the uploaded file.
+   * @returns {Promise<string>} A promise with the path of the uploaded file.
    */
   abstract uploadFile: (filename: string, buffer: Buffer)
-    => Promise<string>;
+  => Promise<string>;
 }
 
 export default FileService;

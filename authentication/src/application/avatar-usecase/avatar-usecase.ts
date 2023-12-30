@@ -6,18 +6,34 @@ import {
 } from '../../domain/entities/user-entity/user-entities';
 import {
   NoAvatarStoredYetError,
+  AvatarCreateFailedError,
   AvatarDeleteFailedError,
   AvatarReplaceFailedError,
+  InvalidAvatarFileMimeTypeError,
+  InvalidAvatarFileExtensionError,
 } from '../../domain/entities/avatar-entity/avatar-errors';
 import {
   ReplaceAvatarFile,
 } from '../../domain/entities/avatar-entity/avatar-entities';
 import AvatarUsecase from '../../domain/usecases/avatar-usecase/avatar-usecase';
-import generateFilename from '../../domain/entities/avatar-entity/avatar-utils';
 import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers';
+import {
+  validateFileMimeType,
+} from '../../domain/entities/avatar-entity/avatar-validations/avatar-validations';
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
+  generateFilename = (hash: string, mimetype: string): string => {
+    const isFileMimetypeValid = validateFileMimeType(mimetype);
+    if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
+
+    const extension = mimetype.split('/').pop();
+    if (!extension) throw InvalidAvatarFileExtensionError;
+
+    const filename = `${hash}.${extension}`;
+    return filename;
+  };
+
   deleteAvatar = async (): Promise<DetailedSecureUser> => {
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
@@ -33,9 +49,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     return secureUser;
   };
 
-  replaceAvatar = async (
-    payload: ReplaceAvatarFile,
-  ): Promise<DetailedSecureUser> => {
+  replaceAvatar = async (payload: ReplaceAvatarFile): Promise<DetailedSecureUser> => {
     validateAvatarFileReplacement(payload);
 
     const user = await this.userRepository.getUser();
@@ -45,14 +59,12 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const hashedFilename = this.securityService.generateDataHash(user.username, 'sha256');
 
-    const secureFilename = generateFilename(hashedFilename, payload.mimetype);
+    const secureFilename = this.generateFilename(hashedFilename, payload.mimetype);
 
-    await this.fileService.uploadFile(secureFilename, payload.buffer);
+    const avatar = await this.fileService.uploadFile(secureFilename, payload.buffer);
 
-    const updatedUser = await this.userRepository.updateUser({
-      avatar: secureFilename,
-    });
-    if (!updatedUser) throw AvatarReplaceFailedError;
+    const updatedUser = await this.userRepository.updateUser({ avatar });
+    if (!updatedUser) throw user.avatar ? AvatarReplaceFailedError : AvatarCreateFailedError;
 
     const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
