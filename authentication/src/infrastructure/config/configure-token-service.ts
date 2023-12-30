@@ -4,13 +4,9 @@ import {
 } from './configure-environment-variables/configure-token-environment-variables';
 import JoseTokenService from '../services/token-service/jose-token-service/jose-token-service';
 
-type TokenServices = {
-  tokenService: TokenService;
-};
-
-const configureTokenServices = (
+const configureTokenService = (
   TOKEN_ENVIRONMENT_VARIABLES: TokenEnvironmentVariables,
-): TokenServices => {
+): TokenService => {
   try {
     const {
       SECRET_KEY,
@@ -18,12 +14,10 @@ const configureTokenServices = (
 
     const tokenService = new JoseTokenService(SECRET_KEY);
 
-    return {
-      tokenService,
-    };
+    return tokenService;
   } catch (e) {
-    throw new Error(`An error occurred while configuring token services. ${(e as Error).message}`);
+    throw new Error(`An error occurred while configuring the token service. ${(e as Error).message}`);
   }
 };
 
-export default configureTokenServices;
+export default configureTokenService;

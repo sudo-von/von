@@ -1,3 +1,4 @@
+import Broker from '../brokers/broker';
 import LoggerService from '../services/logger-service/logger-service';
 import {
   BrokerEnvironmentVariables,
@@ -5,24 +6,39 @@ import {
 import AMQPCreateUserProducer from '../brokers/amqp-broker/amqp-producers/amqp-create-user-producer';
 import AMQPUpdateUserProducer from '../brokers/amqp-broker/amqp-producers/amqp-update-user-producer';
 
-const configureBrokers = async (
-  BROKER_ENVIRONMENT_VARIABLES: BrokerEnvironmentVariables,
-  loggerService: LoggerService,
-) => {
-  const {
-    MESSAGE_BROKER_URL,
-  } = BROKER_ENVIRONMENT_VARIABLES;
+export type ConfigureBrokers = {
+  loggerService: LoggerService;
+  BROKER_ENVIRONMENT_VARIABLES: BrokerEnvironmentVariables;
+};
 
-  const createUserProducer = new AMQPCreateUserProducer(MESSAGE_BROKER_URL, loggerService);
-  const updateUserProducer = new AMQPUpdateUserProducer(MESSAGE_BROKER_URL, loggerService);
+/* TO-DO: Use a better type instead of any. Refactor required. */
+export type Brokers = {
+  createUserProducer: Broker<any>;
+  updateUserProducer: Broker<any>;
+};
 
-  await createUserProducer.connect();
-  await updateUserProducer.connect();
+const configureBrokers = async ({
+  loggerService,
+  BROKER_ENVIRONMENT_VARIABLES,
+}: ConfigureBrokers): Promise<Brokers> => {
+  try {
+    const {
+      MESSAGE_BROKER_URL,
+    } = BROKER_ENVIRONMENT_VARIABLES;
 
-  return {
-    createUserProducer,
-    updateUserProducer,
-  };
+    const createUserProducer = new AMQPCreateUserProducer(MESSAGE_BROKER_URL, loggerService);
+    const updateUserProducer = new AMQPUpdateUserProducer(MESSAGE_BROKER_URL, loggerService);
+
+    await createUserProducer.connect();
+    await updateUserProducer.connect();
+
+    return {
+      createUserProducer,
+      updateUserProducer,
+    };
+  } catch (e) {
+    throw new Error(`An error occurred while configuring the brokers. ${(e as Error).message}`);
+  }
 };
 
 export default configureBrokers;

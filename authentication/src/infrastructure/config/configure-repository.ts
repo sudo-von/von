@@ -5,13 +5,9 @@ import {
 import IUserRepository from '../../domain/repositories/user-repository/user-repository';
 import MongoUserRepository from '../repositories/user-repository/mongo-user-repository/mongo-user-repository';
 
-export type Repositories = {
-  userRepository: IUserRepository;
-};
-
-const configureRepositories = async (
+const configureRepository = async (
   REPOSITORY_ENVIRONMENT_VARIABLES: RepositoryEnvironmentVariables,
-): Promise<Repositories> => {
+): Promise<IUserRepository> => {
   try {
     const {
       DATABASE_URL,
@@ -28,12 +24,10 @@ const configureRepositories = async (
 
     const userRepository = new MongoUserRepository();
 
-    return {
-      userRepository,
-    };
+    return userRepository;
   } catch (e) {
-    throw new Error(`An error occurred while configuring repositories. ${(e as Error).message}`);
+    throw new Error(`An error occurred while configuring the repository. ${(e as Error).message}`);
   }
 };
 
-export default configureRepositories;
+export default configureRepository;

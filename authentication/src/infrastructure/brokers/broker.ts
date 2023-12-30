@@ -36,7 +36,7 @@ abstract class Broker<T> {
    * @param {T} data - The incoming data.
    * @returns {Promise<void>} A promise that resolves when the message is processed.
    */
-  abstract onMessage: (data: T)
+  abstract onMessage: (_data: T)
   => Promise<void>;
 
   /**

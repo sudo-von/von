@@ -7,7 +7,7 @@ import {
 } from './configure-environment-variables/configure-file-environment-variables';
 import AWSS3Service from '../services/file-service/aws-s3-service/aws-s3-service';
 
-type FileServices = {
+export type FileServices = {
   avatarFileService: FileService;
   socialNetworkFileService: FileService;
 };
@@ -50,7 +50,7 @@ const configureFileServices = (
       socialNetworkFileService,
     };
   } catch (e) {
-    throw new Error(`An error occurred while configuring file services. ${(e as Error).message}`);
+    throw new Error(`An error occurred while configuring the file services. ${(e as Error).message}`);
   }
 };
 

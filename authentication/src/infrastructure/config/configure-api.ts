@@ -4,9 +4,6 @@ import {
 import {
   parse,
 } from 'yaml';
-import express, {
-  Router,
-} from 'express';
 import cors from 'cors';
 import path from 'path';
 import {
@@ -14,21 +11,33 @@ import {
   setup,
 } from 'swagger-ui-express';
 import 'express-async-errors';
+import express from 'express';
 import LoggerService from '../services/logger-service/logger-service';
 import {
   APIEnvironmentVariables,
 } from './configure-environment-variables/configure-api-environment-variables';
 import errorMiddleware from '../apis/express-api/middlewares/error-middleware';
+import { Routers } from './configure-routers';
 
-const configureAPI = async (
-  API_ENVIRONMENT_VARIABLES: APIEnvironmentVariables,
-  userRouter: Router,
-  avatarRouter: Router,
-  userDetailsRouter: Router,
-  socialNetworkRouter: Router,
-  authenticationRouter: Router,
-  loggerService: LoggerService,
-) => {
+export type ConfigureAPI = {
+  routers: Routers;
+  loggerService: LoggerService;
+  API_ENVIRONMENT_VARIABLES: APIEnvironmentVariables;
+};
+
+const configureAPI = async ({
+  routers,
+  loggerService,
+  API_ENVIRONMENT_VARIABLES,
+}: ConfigureAPI) => {
+  const {
+    userRouter,
+    avatarRouter,
+    userDetailsRouter,
+    socialNetworkRouter,
+    authenticationRouter,
+  } = routers;
+
   const {
     API_PORT,
   } = API_ENVIRONMENT_VARIABLES;

@@ -52,7 +52,7 @@ const configureEnvironmentVariables = (): EnvironmentVariables => {
       REPOSITORY_ENVIRONMENT_VARIABLES: repositoryEnvironmentVariables,
     };
   } catch (e) {
-    throw new Error(`An error occurred while configuring environment variables. ${(e as Error).message}`);
+    throw new Error(`An error occurred while configuring the environment variables. ${(e as Error).message}`);
   }
 };
 
