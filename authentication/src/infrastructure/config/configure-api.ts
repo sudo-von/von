@@ -70,7 +70,7 @@ const configureAPI = async ({
   app.use(errorMiddleware(loggerService));
 
   app.listen(API_PORT, () => {
-    loggerService.info(`🚀 Server has been configured on port ${API_PORT}.`);
+    loggerService.info(`🚀 API has been configured on port ${API_PORT}.`);
   });
 };
 

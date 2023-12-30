@@ -62,9 +62,10 @@ loggerService.info('📢 Logger service has been configured.');
     loggerService.info('🔌 Routers have been configured.');
 
     /* 🚀 Controllers. */
-    await configureAPI({ routers, loggerService, API_ENVIRONMENT_VARIABLES });
+    await configureAPI({
+      routers, loggerService, API_ENVIRONMENT_VARIABLES,
+    });
   } catch (e) {
-    loggerService.error('There was a critical error.', e as Error);
-    process.exit(1);
+    throw new Error(`There was a critical error. ${(e as Error).message}`);
   }
 })();
