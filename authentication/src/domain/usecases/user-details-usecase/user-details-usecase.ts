@@ -2,7 +2,7 @@ import {
   DetailedSecureUser,
 } from '../../entities/user-entity/user-entities';
 import {
-  ReplaceUserDetails,
+  ReplacePartialUserDetails,
 } from '../../entities/user-details-entity/user-details-entities';
 import IUserRepository from '../../repositories/user-repository/user-repository';
 
@@ -19,12 +19,12 @@ abstract class UserDetailsUsecase {
   constructor(protected readonly userRepository: IUserRepository) {}
 
   /**
-   * Replaces the details of the detailed secure user entity.
+   * Replaces the partial details of the detailed secure user entity.
    * @authentication Requires authentication to access this method.
-   * @param {ReplaceUserDetails} payload - The data to replace the user's details with.
+   * @param {ReplacePartialUserDetails} payload - The data to replace the user's details with.
    * @returns {Promise<DetailedSecureUser>} A promise with the detailed secure user.
    */
-  abstract replaceUserDetails: (payload: ReplaceUserDetails)
+  abstract replacePartialUserDetails: (payload: ReplacePartialUserDetails)
   => Promise<DetailedSecureUser>;
 }
 

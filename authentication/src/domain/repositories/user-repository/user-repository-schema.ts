@@ -2,7 +2,7 @@ import {
   AvatarRepositorySchema,
 } from '../avatar-repository/avatar-repository-schema';
 import {
-  UserDetailsRepositorySchema,
+  PartialUserDetailsRepositorySchema,
 } from '../user-details-repository/user-details-repository-schema';
 import {
   SocialNetworkRepositorySchema,
@@ -15,6 +15,6 @@ export type UserRepositorySchema = {
   username: string;
   password: string;
   avatar?: AvatarRepositorySchema;
-  details?: UserDetailsRepositorySchema;
+  details?: PartialUserDetailsRepositorySchema;
   social_networks: SocialNetworkRepositorySchema[];
 };

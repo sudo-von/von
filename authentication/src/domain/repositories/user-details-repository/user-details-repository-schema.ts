@@ -3,3 +3,5 @@ export type UserDetailsRepositorySchema = {
   interest: string;
   position: string;
 };
+
+export type PartialUserDetailsRepositorySchema = Partial<UserDetailsRepositorySchema>;

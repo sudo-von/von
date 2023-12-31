@@ -2,7 +2,7 @@ import {
   Avatar,
 } from '../avatar-entity/avatar-entities';
 import {
-  UserDetails,
+  PartialUserDetails,
 } from '../user-details-entity/user-details-entities';
 import {
   SocialNetwork,
@@ -18,7 +18,7 @@ export type User = {
 
 export type DetailedUser = User & {
   avatar?: Avatar;
-  details?: UserDetails;
+  details?: PartialUserDetails;
   socialNetworks: SocialNetwork[];
 };
 

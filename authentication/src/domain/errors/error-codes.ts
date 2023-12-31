@@ -22,6 +22,7 @@ export type UserDetailsDomainErrorCode =
   | 'INVALID_INTEREST_LENGTH'
   | 'INVALID_POSITION_LENGTH'
   | 'INVALID_QUOTE_LENGTH'
+  | 'USER_DETAILS_CREATE_FAILED'
   | 'USER_DETAILS_REPLACE_FAILED';
 
 export type UserDomainErrorCode =

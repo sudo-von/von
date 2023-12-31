@@ -1,1 +1,1 @@
-export type AvatarRepositorySchema = string;
+export type AvatarRepositorySchema = string | undefined;

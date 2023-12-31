@@ -4,4 +4,6 @@ export type UserDetails = {
   position: string;
 };
 
-export type ReplaceUserDetails = UserDetails;
+export type PartialUserDetails = Partial<UserDetails>;
+
+export type ReplacePartialUserDetails = PartialUserDetails;

@@ -18,6 +18,11 @@ export const InvalidQuoteLengthError = createDomainErrorFactory({
   message: `Please provide a quote that consists of ${userDetailsRules.quote.MIN_LENGTH} to ${userDetailsRules.quote.MAX_LENGTH} characters.`,
 });
 
+export const UserDetailsCreateFailedError = createDomainErrorFactory({
+  code: 'USER_DETAILS_CREATE_FAILED',
+  message: 'The user details you attempted to create could not be created.',
+});
+
 export const UserDetailsReplaceFailedError = createDomainErrorFactory({
   code: 'USER_DETAILS_REPLACE_FAILED',
   message: 'The user details you attempted to replace could not be replaced.',

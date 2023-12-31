@@ -5,20 +5,21 @@ import {
   DetailedSecureUser,
 } from '../../domain/entities/user-entity/user-entities';
 import {
+  UserDetailsCreateFailedError,
   UserDetailsReplaceFailedError,
 } from '../../domain/entities/user-details-entity/user-details-errors';
 import {
-  ReplaceUserDetails,
+  ReplacePartialUserDetails,
 } from '../../domain/entities/user-details-entity/user-details-entities';
 import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers';
 import UserDetailsUsecase from '../../domain/usecases/user-details-usecase/user-details-usecase';
-import validateUserDetailsReplacement from '../../domain/entities/user-details-entity/user-details-validations/replace-user-details-validations';
+import validatePartialUserDetailsReplacement from '../../domain/entities/user-details-entity/user-details-validations/replace-partial-user-details-validations';
 
 class UserDetailsUsecaseApplication extends UserDetailsUsecase {
-  replaceUserDetails = async (
-    payload: ReplaceUserDetails,
+  replacePartialUserDetails = async (
+    payload: ReplacePartialUserDetails,
   ): Promise<DetailedSecureUser> => {
-    validateUserDetailsReplacement(payload);
+    validatePartialUserDetailsReplacement(payload);
 
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
@@ -30,7 +31,7 @@ class UserDetailsUsecaseApplication extends UserDetailsUsecase {
         position: payload.position,
       },
     });
-    if (!updatedUser) throw UserDetailsReplaceFailedError;
+    if (!updatedUser) throw user.details ? UserDetailsReplaceFailedError : UserDetailsCreateFailedError;
 
     const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;

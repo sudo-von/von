@@ -2,10 +2,10 @@ import {
   Schema,
 } from 'mongoose';
 import {
-  UserDetailsRepositorySchema,
+  PartialUserDetailsRepositorySchema,
 } from '../../../../domain/repositories/user-details-repository/user-details-repository-schema';
 
-const userDetailsRepositorySchema = new Schema<UserDetailsRepositorySchema>({
+const userDetailsRepositorySchema = new Schema<PartialUserDetailsRepositorySchema>({
   quote: {
     type: String,
     required: true,

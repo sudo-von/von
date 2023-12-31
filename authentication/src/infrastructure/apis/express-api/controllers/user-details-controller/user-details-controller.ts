@@ -10,7 +10,7 @@ import UserDetailsUsecase from '../../../../../domain/usecases/user-details-usec
 import ReplaceUserDetailsRequest from '../../../entities/domain-entities/user-details-entity/user-details-request-entities';
 
 class UserDetailsController {
-  constructor(private readonly userDetailsUsecase: UserDetailsUsecase) {}
+  constructor(private readonly userDetailsUsecase: UserDetailsUsecase) { }
 
   replaceUserDetails: RequestHandler = async (req, res, next) => {
     try {
@@ -20,7 +20,7 @@ class UserDetailsController {
 
       const payload = ReplaceUserDetailsRequest.parse(body);
 
-      const secureUser = await this.userDetailsUsecase.replaceUserDetails({
+      const secureUser = await this.userDetailsUsecase.replacePartialUserDetails({
         quote: payload.quote,
         interest: payload.interest,
         position: payload.position,
