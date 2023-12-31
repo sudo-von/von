@@ -12,7 +12,7 @@ import AvatarUsecase from '../../../../../domain/usecases/avatar-usecase/avatar-
 import detailedSecureUserToResponse from '../../../entities/domain-entities/user-entity/user-mappers';
 
 class AvatarController {
-  constructor(private readonly avatarUsecase: AvatarUsecase) {}
+  constructor(private readonly avatarUsecase: AvatarUsecase) { }
 
   deleteAvatar: RequestHandler = async (req, res, next) => {
     try {
@@ -43,7 +43,7 @@ class AvatarController {
       const secureUser = await this.avatarUsecase.replaceAvatar({
         size: file.size,
         buffer: file.buffer,
-        mimetype: file.mimetype,
+        mimeType: file.mimetype,
       });
 
       const secureUserResponse = detailedSecureUserToResponse(secureUser);

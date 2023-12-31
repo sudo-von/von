@@ -23,14 +23,17 @@ import {
 import validateAvatarFileReplacement from '../../domain/entities/avatar-entity/avatar-validations/replace-avatar-file-validations';
 
 class AvatarUsecaseApplication extends AvatarUsecase {
-  generateFilename = (hash: string, mimetype: string): string => {
-    const isFileMimetypeValid = validateFileMimeType(mimetype);
-    if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
+  generateFilename = (hash: string, mimeType: string): string => {
+    const formattedHash = hash.trim().toLowerCase();
+    const formattedMimeType = mimeType.trim().toLowerCase();
 
-    const extension = mimetype.split('/').pop();
-    if (!extension) throw InvalidAvatarFileExtensionError;
+    const isFileMimeTypeValid = validateFileMimeType(formattedMimeType);
+    if (!isFileMimeTypeValid) throw InvalidAvatarFileMimeTypeError;
 
-    const filename = `${hash}.${extension}`;
+    const formattedExtension = formattedMimeType.split('/').pop();
+    if (!formattedExtension) throw InvalidAvatarFileExtensionError;
+
+    const filename = `${formattedHash}.${formattedExtension}`;
     return filename;
   };
 
@@ -59,7 +62,7 @@ class AvatarUsecaseApplication extends AvatarUsecase {
 
     const hashedFilename = this.securityService.generateDataHash(user.username, 'sha256');
 
-    const secureFilename = this.generateFilename(hashedFilename, payload.mimetype);
+    const secureFilename = this.generateFilename(hashedFilename, payload.mimeType);
 
     const avatar = await this.fileService.uploadFile(secureFilename, payload.buffer);
 

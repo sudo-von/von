@@ -3,7 +3,7 @@ export type Avatar = string;
 export type AvatarFile = {
   size: number;
   buffer: Buffer;
-  mimetype: string;
+  mimeType: string;
 };
 
 export type ReplaceAvatarFile = AvatarFile;
