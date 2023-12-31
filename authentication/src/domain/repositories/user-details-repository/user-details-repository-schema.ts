@@ -1,7 +1,5 @@
-export type UserDetailsRepositorySchema = {
+export type UserDetailsRepositorySchema = Partial<{
   quote: string;
   interest: string;
   position: string;
-};
-
-export type PartialUserDetailsRepositorySchema = Partial<UserDetailsRepositorySchema>;
+}>;

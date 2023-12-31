@@ -17,20 +17,14 @@ const validatePartialUserDetailsReplacement = (payload: ReplacePartialUserDetail
   const interest = payload.interest ? payload.interest.trim() : '';
   const quote = payload.quote ? payload.quote.trim() : '';
 
-  if (position) {
-    const isPositionLengthValid = validatePositionLength(position);
-    if (!isPositionLengthValid) throw InvalidPositionLengthError;
-  }
+  const isPositionLengthValid = validatePositionLength(position);
+  if (!isPositionLengthValid) throw InvalidPositionLengthError;
 
-  if (interest) {
-    const isInterestLengthValid = validateInterestLength(interest);
-    if (!isInterestLengthValid) throw InvalidInterestLengthError;
-  }
+  const isInterestLengthValid = validateInterestLength(interest);
+  if (!isInterestLengthValid) throw InvalidInterestLengthError;
 
-  if (quote) {
-    const isQuoteLengthValid = validateQuoteLength(quote);
-    if (!isQuoteLengthValid) throw InvalidQuoteLengthError;
-  }
+  const isQuoteLengthValid = validateQuoteLength(quote);
+  if (!isQuoteLengthValid) throw InvalidQuoteLengthError;
 };
 
 export default validatePartialUserDetailsReplacement;
