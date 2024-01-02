@@ -1,20 +1,21 @@
 import configureAPI from './infrastructure/config/configure-api';
+import configureLogger from './infrastructure/config/configure-logger';
 import configureBrokers from './infrastructure/config/configure-brokers';
 import configureRouters from './infrastructure/config/configure-routers';
 import configureUsecases from './infrastructure/config/configure-usecases';
 import configureRepository from './infrastructure/config/configure-repository';
 import configureFileServices from './infrastructure/config/configure-file-services';
 import configureTokenService from './infrastructure/config/configure-token-service';
-import configureLoggerService from './infrastructure/config/configure-logger-service';
 import configurePasswordService from './infrastructure/config/configure-password-service';
 import configureSecurityService from './infrastructure/config/configure-security-service';
 import configureEnvironmentVariables from './infrastructure/config/configure-environment-variables/configure-enviroment-variables';
 
-const loggerService = configureLoggerService();
-loggerService.info('📢 Logger service has been configured.');
-
 (async () => {
   try {
+    /* 📊 Loggers. */
+    const loggerService = configureLogger();
+    loggerService.info('📊 Logger has been configured.');
+
     /* 🔐 Environment variables. */
     const {
       API_ENVIRONMENT_VARIABLES,
