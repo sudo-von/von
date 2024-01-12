@@ -21,9 +21,17 @@ abstract class FileService {
    * Deletes a file with the provided filename.
    * @param filename The name of the file to be deleted.
    * @returns A promise resolving if the file has been successfully deleted.
-   */
+  */
   abstract deleteFile: (filename: string)
   => Promise<void>;
+
+  /**
+   * Checks if the avatar file exists.
+   * @param {string} filename - The name of the file.
+   * @returns {Promise<boolean>} A promise resolving if the file exists.
+  */
+  abstract checkIfFileExists: (filename: string)
+  => Promise<boolean>;
 
   /**
    * Uploads a file provided as a data buffer.

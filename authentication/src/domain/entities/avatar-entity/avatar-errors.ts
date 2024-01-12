@@ -20,7 +20,7 @@ export const AvatarReplaceFailedError = createDomainErrorFactory({
 
 export const InvalidAvatarFileExtensionError = createDomainErrorFactory({
   code: 'INVALID_AVATAR_FILE_EXTENSION',
-  message: 'The MIME type provided for the avatar file is valid, but the extension is empty.',
+  message: 'The MIME type provided is valid, but the extension is empty.',
 });
 
 export const InvalidAvatarFileMimeTypeError = createDomainErrorFactory({

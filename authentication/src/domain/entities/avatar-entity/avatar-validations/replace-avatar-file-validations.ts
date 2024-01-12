@@ -11,9 +11,9 @@ import {
 } from './avatar-validations';
 
 const validateAvatarFileReplacement = (payload: ReplaceAvatarFile) => {
-  const mimeType = payload.mimeType.trim().toLowerCase();
+  const formattedMimeType = payload.mimeType.trim().toLowerCase();
 
-  const isFileMimetypeValid = validateFileMimeType(mimeType);
+  const isFileMimetypeValid = validateFileMimeType(formattedMimeType);
   if (!isFileMimetypeValid) throw InvalidAvatarFileMimeTypeError;
 
   const isFileSizeValid = validateFileSize(payload.size);

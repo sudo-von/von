@@ -46,25 +46,34 @@ import configureEnvironmentVariables from './infrastructure/config/configure-env
 
     /* 📦 Message brokers. */
     const brokers = await configureBrokers({
-      loggerService, BROKER_ENVIRONMENT_VARIABLES,
+      loggerService,
+      BROKER_ENVIRONMENT_VARIABLES,
     });
     loggerService.info('📦 Message brokers have been configured.');
 
     /* 📖 Usecases. */
     const usecases = configureUsecases({
-      fileServices, repository, passwordService, securityService,
+      fileServices,
+      passwordService,
+      repository,
+      securityService,
     });
     loggerService.info('📖 Usecases have been configured.');
 
     /* 🔌 Routers. */
     const routers = configureRouters({
-      brokers, usecases, repository, tokenService,
+      brokers,
+      repository,
+      tokenService,
+      usecases,
     });
     loggerService.info('🔌 Routers have been configured.');
 
     /* 🚀 Controllers. */
     await configureAPI({
-      routers, loggerService, API_ENVIRONMENT_VARIABLES,
+      routers,
+      loggerService,
+      API_ENVIRONMENT_VARIABLES,
     });
   } catch (e) {
     throw new Error(`There was a critical error. ${(e as Error).message}`);
