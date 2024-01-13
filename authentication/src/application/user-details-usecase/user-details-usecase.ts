@@ -19,13 +19,13 @@ class UserDetailsUsecaseApplication extends UserDetailsUsecase {
   replacePartialUserDetails = async (
     payload: ReplacePartialUserDetails,
   ): Promise<DetailedSecureUser> => {
+    validatePartialUserDetailsReplacement(payload);
+
     const replacePartialUserDetails: ReplacePartialUserDetails = {};
 
-    if (payload.quote !== undefined && payload.quote !== null) replacePartialUserDetails.quote = payload.quote.trim();
-    if (payload.interest !== undefined && payload.interest !== null) replacePartialUserDetails.interest = payload.interest.trim();
-    if (payload.position !== undefined && payload.position !== null) replacePartialUserDetails.position = payload.position.trim();
-
-    validatePartialUserDetailsReplacement(replacePartialUserDetails);
+    if (payload.quote) replacePartialUserDetails.quote = payload.quote.trim();
+    if (payload.interest) replacePartialUserDetails.interest = payload.interest.trim();
+    if (payload.position) replacePartialUserDetails.position = payload.position.trim();
 
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;

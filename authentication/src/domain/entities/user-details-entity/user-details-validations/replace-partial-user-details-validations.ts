@@ -13,17 +13,17 @@ import {
 } from './user-details-validations';
 
 const validatePartialUserDetailsReplacement = (payload: ReplacePartialUserDetails) => {
-  const position = payload.position ? payload.position.trim() : '';
-  const interest = payload.interest ? payload.interest.trim() : '';
-  const quote = payload.quote ? payload.quote.trim() : '';
+  const formattedPosition = payload.position ? payload.position.trim() : '';
+  const formattedInterest = payload.interest ? payload.interest.trim() : '';
+  const formattedQuote = payload.quote ? payload.quote.trim() : '';
 
-  const isPositionLengthValid = validatePositionLength(position);
+  const isPositionLengthValid = validatePositionLength(formattedPosition);
   if (!isPositionLengthValid) throw InvalidPositionLengthError;
 
-  const isInterestLengthValid = validateInterestLength(interest);
+  const isInterestLengthValid = validateInterestLength(formattedInterest);
   if (!isInterestLengthValid) throw InvalidInterestLengthError;
 
-  const isQuoteLengthValid = validateQuoteLength(quote);
+  const isQuoteLengthValid = validateQuoteLength(formattedQuote);
   if (!isQuoteLengthValid) throw InvalidQuoteLengthError;
 };
 
