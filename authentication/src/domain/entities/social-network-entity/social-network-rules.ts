@@ -1,14 +1,7 @@
 const socialNetworkRules = {
-  mimetype: {
-    ALLOWED_MIMETYPES: ['image/svg+xml'],
-  },
   name: {
     MIN_LENGTH: 2,
-    MAX_LENGTH: 25,
-  },
-  size: {
-    MIN_BYTES: 100,
-    MAX_BYTES: 1_000_000,
+    MAX_LENGTH: 50,
   },
   url: {
     MIN_LENGTH: 3,

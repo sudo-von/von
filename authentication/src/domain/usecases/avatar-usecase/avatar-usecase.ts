@@ -15,12 +15,12 @@ import IUserRepository from '../../repositories/user-repository/user-repository'
 abstract class AvatarUsecase {
   /**
    * Creates an instance of AvatarUsecase.
-   * @param {FileService} avatarFileService - The file service.
+   * @param {FileService} fileService - The file service.
    * @param {IUserRepository} userRepository - The user repository.
    * @param {ISecurityService} securityService - The security service.
    */
   constructor(
-    protected readonly avatarFileService: FileService,
+    protected readonly fileService: FileService,
     protected readonly userRepository: IUserRepository,
     protected readonly securityService: ISecurityService,
   ) {}

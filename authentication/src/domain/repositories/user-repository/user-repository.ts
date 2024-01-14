@@ -44,14 +44,15 @@ interface IUserRepositoryWriter {
 /**
  * Represents a combined user repository interface, combining both reader and writer capabilities.
  * @interface
+ * @extends {IAvatarRepository}
  * @extends {IUserRepositoryReader}
  * @extends {IUserRepositoryWriter}
  * @extends {ISocialNetworkRepository}
  */
 interface IUserRepository extends
   IAvatarRepository,
-  ISocialNetworkRepository,
   IUserRepositoryReader,
-  IUserRepositoryWriter {}
+  IUserRepositoryWriter,
+  ISocialNetworkRepository {}
 
 export default IUserRepository;
