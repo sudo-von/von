@@ -2,9 +2,9 @@ import {
   DetailedUser,
 } from '../../entities/user-entity/user-entities';
 import {
-  SocialNetwork,
-  CreateSocialNetwork,
-  PartialSocialNetwork,
+  DetailedSocialNetwork,
+  CreateDetailedSocialNetwork,
+  PartialDetailedSocialNetwork,
 } from '../../entities/social-network-entity/social-network-entities';
 
 /**
@@ -13,12 +13,12 @@ import {
  */
 export interface ISocialNetworkRepositoryReader {
   /**
-   * Retrieves a social network by its ID.
-   * @param {string} id - The ID of the social network to retrieve.
-   * @returns {Promise<SocialNetwork | null>} A promise with the social network if found.
+   * Retrieves a detailed social network by its ID.
+   * @param {string} id - The ID of the detailed social network to retrieve.
+   * @returns {Promise<DetailedSocialNetwork | null>} A promise with the detailed social network if found.
    */
   getSocialNetworkById: (id: string)
-  => Promise<SocialNetwork | null>
+  => Promise<DetailedSocialNetwork | null>
 }
 
 /**
@@ -46,10 +46,10 @@ export interface ISocialNetworkRepositoryWriter {
   /**
    * Updates a social network entry by id.
    * @param {string} id - The ID of the social network to update.
-   * @param {PartialSocialNetwork} payload - The updated data for the social network entry.
+   * @param {PartialDetailedSocialNetwork} payload - The updated data for the social network entry.
    * @returns {Promise<DetailedUser | null>} A promise with the updated detailed user if found.
    */
-  updateSocialNetworkById: (id: string, payload: PartialSocialNetwork)
+  updateSocialNetworkById: (id: string, payload: PartialDetailedSocialNetwork)
   => Promise<DetailedUser | null>;
 }
 
@@ -61,6 +61,6 @@ export interface ISocialNetworkRepositoryWriter {
  */
 interface ISocialNetworkRepository extends
   ISocialNetworkRepositoryReader,
-  ISocialNetworkRepositoryWriter {}
+  ISocialNetworkRepositoryWriter { }
 
 export default ISocialNetworkRepository;

@@ -5,7 +5,7 @@ import {
   PartialUserDetails,
 } from '../user-details-entity/user-details-entities';
 import {
-  SocialNetwork,
+  DetailedSocialNetwork,
 } from '../social-network-entity/social-network-entities';
 
 export type User = {
@@ -19,7 +19,7 @@ export type User = {
 export type DetailedUser = User & {
   avatar?: Avatar;
   details?: PartialUserDetails;
-  socialNetworks: SocialNetwork[];
+  socialNetworks: DetailedSocialNetwork[];
 };
 
 export type CreateUser = Omit<User, 'id'>;

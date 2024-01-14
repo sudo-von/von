@@ -1,5 +1,6 @@
 import {
   NoUserCreatedYetError,
+  UserUpdateFailedError,
 } from '../../domain/entities/user-entity/user-errors';
 import {
   DetailedSecureUser,
@@ -11,49 +12,54 @@ import {
   SocialNetworkUpdateFailedError,
 } from '../../domain/entities/social-network-entity/social-network-errors';
 import {
-  CreateSocialNetworkFile,
-  UpdateSocialNetworkFile,
+  DetailedSocialNetwork,
+  CreateSocialNetwork,
+  UpdateSocialNetwork,
 } from '../../domain/entities/social-network-entity/social-network-entities';
 import detailedToSecureUser from '../../domain/entities/user-entity/user-mappers';
-import generateFilename from '../../domain/entities/social-network-entity/social-network-utils';
 import SocialNetworkUsecase from '../../domain/usecases/social-newtork-usecase/social-newtork-usecase';
-import validateSocialNetworkFileUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-file-validations';
-import validateSocialNetworkFileCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-file-validations';
+import validateSocialNetworkUpdate from '../../domain/entities/social-network-entity/social-network-validations/update-social-network-validations';
+import validateSocialNetworkCreation from '../../domain/entities/social-network-entity/social-network-validations/create-social-network-validations';
 
 class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
-  deleteSocialNetworkById = async (
-    id: string,
-  ): Promise<DetailedSecureUser> => {
+  deleteSocialNetworkById = async (id: string): Promise<DetailedSecureUser> => {
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;
 
-    const updatedUser = await this.userRepository.deleteSocialNetworkById(id);
-    if (!updatedUser) throw SocialNetworkDeleteFailedError;
+    const userWithSocialNetworkDeleted = await this.userRepository.deleteSocialNetworkById(id);
+    if (!userWithSocialNetworkDeleted) throw SocialNetworkDeleteFailedError;
+
+    const socialNetworks: DetailedSocialNetwork[] = userWithSocialNetworkDeleted.socialNetworks.map((sn, order) => ({
+      id: sn.id,
+      url: sn.url,
+      name: sn.name,
+      order,
+    }));
+
+    const updatedUser = await this.userRepository.updateUser({
+      socialNetworks,
+    });
+    if (!updatedUser) throw UserUpdateFailedError;
 
     const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
   };
 
-  createSocialNetwork = async (
-    payload: CreateSocialNetworkFile,
-  ): Promise<DetailedSecureUser> => {
-    validateSocialNetworkFileCreation(payload);
+  createSocialNetwork = async (payload: CreateSocialNetwork): Promise<DetailedSecureUser> => {
+    validateSocialNetworkCreation(payload);
 
     const user = await this.userRepository.getUser();
     if (!user) throw NoUserCreatedYetError;
 
-    const hashedFilename = this.securityService.generateDataHash(payload.name, 'sha256');
-
-    const secureFilename = generateFilename(hashedFilename, payload.mimetype);
-
-    await this.fileService.uploadFile(secureFilename, payload.buffer);
-
     const updatedUser = await this.userRepository.createSocialNetwork({
       url: payload.url,
       name: payload.name,
-      src: secureFilename,
+      order: user.socialNetworks.length + 1,
     });
     if (!updatedUser) throw SocialNetworkCreateFailedError;
+
+    const { socialNetworks } = user;
+    socialNetworks.splice(payload.order, 0, payload);
 
     const secureUser = detailedToSecureUser(updatedUser);
     return secureUser;
@@ -61,9 +67,9 @@ class SocialNetworkUsecaseApplication extends SocialNetworkUsecase {
 
   updateSocialNetworkById = async (
     id: string,
-    payload: UpdateSocialNetworkFile,
+    payload: UpdateSocialNetwork,
   ): Promise<DetailedSecureUser> => {
-    validateSocialNetworkFileUpdate(payload);
+    validateSocialNetworkUpdate(payload);
 
     const socialNetwork = await this.userRepository.getSocialNetworkById(id);
     if (!socialNetwork) throw SocialNetworkNotFoundError;

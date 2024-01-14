@@ -1,5 +1,5 @@
 import {
-  SocialNetwork,
+  DetailedSocialNetwork,
 } from '../../../../domain/entities/social-network-entity/social-network-entities';
 import {
   SocialNetworkRepositorySchema,
@@ -7,7 +7,7 @@ import {
 
 const socialNetworkDocumentToSocialNetwork = (
   document: SocialNetworkRepositorySchema,
-): SocialNetwork => ({
+): DetailedSocialNetwork => ({
   id: document.id,
   src: document.src,
   url: document.url,

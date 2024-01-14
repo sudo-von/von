@@ -5,9 +5,9 @@ import {
 } from '../../../../domain/entities/user-entity/user-entities';
 import userDocumentToUser from './mongo-user-repository-mapper';
 import {
-  SocialNetwork,
+  DetailedSocialNetwork,
   CreateSocialNetwork,
-  PartialSocialNetwork,
+  PartialDetailedSocialNetwork,
 } from '../../../../domain/entities/social-network-entity/social-network-entities';
 import IUserRepository from '../../../../domain/repositories/user-repository/user-repository';
 
@@ -54,7 +54,7 @@ class MongoUserRepository implements IUserRepository {
 
   getSocialNetworkById = async (
     id: string,
-  ): Promise<SocialNetwork | null> => {
+  ): Promise<DetailedSocialNetwork | null> => {
     const userDocument = await UserModel.findOne({
       'social_networks._id': id,
     });
@@ -84,7 +84,7 @@ class MongoUserRepository implements IUserRepository {
 
   updateSocialNetworkById = async (
     id: string,
-    payload: PartialSocialNetwork,
+    payload: PartialDetailedSocialNetwork,
   ): Promise<DetailedUser | null> => {
     const updatedUser = await UserModel.findOneAndUpdate({
       'social_networks._id': id,
