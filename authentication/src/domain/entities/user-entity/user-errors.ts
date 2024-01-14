@@ -13,6 +13,11 @@ export const InvalidEmailLengthError = createDomainErrorFactory({
   message: `Please provide an email that consists of ${userRules.email.MIN_LENGTH} to ${userRules.email.MAX_LENGTH} characters.`,
 });
 
+export const InvalidNameError = createDomainErrorFactory({
+  code: 'INVALID_NAME',
+  message: 'Please provide a name that consists of only letters.',
+});
+
 export const InvalidNameLengthError = createDomainErrorFactory({
   code: 'INVALID_NAME_LENGTH',
   message: `Please provide a name that consists of ${userRules.name.MIN_LENGTH} to ${userRules.name.MAX_LENGTH} characters.`,
@@ -21,6 +26,11 @@ export const InvalidNameLengthError = createDomainErrorFactory({
 export const InvalidPasswordLengthError = createDomainErrorFactory({
   code: 'INVALID_PASSWORD_LENGTH',
   message: `Please provide a password that consists of ${userRules.password.MIN_LENGTH} to ${userRules.password.MAX_LENGTH} characters.`,
+});
+
+export const InvalidUsernameError = createDomainErrorFactory({
+  code: 'INVALID_USERNAME',
+  message: 'Please provide a username that consists of only letters, numbers and underscores.',
 });
 
 export const InvalidUsernameLengthError = createDomainErrorFactory({

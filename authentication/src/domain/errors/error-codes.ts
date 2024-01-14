@@ -28,8 +28,10 @@ export type UserDetailsDomainErrorCode =
 export type UserDomainErrorCode =
   | 'INVALID_CREDENTIALS'
   | 'INVALID_EMAIL_LENGTH'
+  | 'INVALID_NAME'
   | 'INVALID_NAME_LENGTH'
   | 'INVALID_PASSWORD_LENGTH'
+  | 'INVALID_USERNAME'
   | 'INVALID_USERNAME_LENGTH'
   | 'NO_USER_CREATED_YET'
   | 'SINGLE_USER_ONLY'
