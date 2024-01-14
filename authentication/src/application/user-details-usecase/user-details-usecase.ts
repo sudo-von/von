@@ -16,9 +16,7 @@ import UserDetailsUsecase from '../../domain/usecases/user-details-usecase/user-
 import validatePartialUserDetailsReplacement from '../../domain/entities/user-details-entity/user-details-validations/replace-partial-user-details-validations';
 
 class UserDetailsUsecaseApplication extends UserDetailsUsecase {
-  replacePartialUserDetails = async (
-    payload: ReplacePartialUserDetails,
-  ): Promise<DetailedSecureUser> => {
+  replacePartialUserDetails = async (payload: ReplacePartialUserDetails): Promise<DetailedSecureUser> => {
     validatePartialUserDetailsReplacement(payload);
 
     const replacePartialUserDetails: ReplacePartialUserDetails = {};
