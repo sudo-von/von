@@ -1,4 +1,6 @@
 import {
+  InvalidNameError,
+  InvalidUsernameError,
   InvalidNameLengthError,
   InvalidEmailLengthError,
   InvalidUsernameLengthError,
@@ -7,19 +9,31 @@ import {
   UpdateUser,
 } from '../user-entities';
 import {
+  validateName,
+  validateUsername,
   validateNameLength,
   validateEmailLength,
   validateUsernameLength,
 } from './user-validations';
 
 const validateUserUpdate = (payload: UpdateUser) => {
-  const isNameLengthValid = validateNameLength(payload.name);
+  const formattedName = payload.name.trim();
+  const formattedEmail = payload.email.trim();
+  const formattedUsername = payload.username.trim();
+
+  const isNameValid = validateName(formattedName);
+  if (!isNameValid) throw InvalidNameError;
+
+  const isNameLengthValid = validateNameLength(formattedName);
   if (!isNameLengthValid) throw InvalidNameLengthError;
 
-  const isEmailLengthValid = validateEmailLength(payload.email);
+  const isEmailLengthValid = validateEmailLength(formattedEmail);
   if (!isEmailLengthValid) throw InvalidEmailLengthError;
 
-  const isUsernameLengthValid = validateUsernameLength(payload.username);
+  const isUsernameValid = validateUsername(formattedUsername);
+  if (!isUsernameValid) throw InvalidUsernameError;
+
+  const isUsernameLengthValid = validateUsernameLength(formattedUsername);
   if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
 };
 

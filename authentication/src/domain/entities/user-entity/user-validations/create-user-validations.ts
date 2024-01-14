@@ -1,4 +1,6 @@
 import {
+  InvalidNameError,
+  InvalidUsernameError,
   InvalidNameLengthError,
   InvalidEmailLengthError,
   InvalidPasswordLengthError,
@@ -8,6 +10,8 @@ import {
   CreateUser,
 } from '../user-entities';
 import {
+  validateName,
+  validateUsername,
   validateNameLength,
   validateEmailLength,
   validatePasswordLength,
@@ -15,16 +19,27 @@ import {
 } from './user-validations';
 
 const validateUserCreation = (payload: CreateUser) => {
-  const isNameLengthValid = validateNameLength(payload.name);
+  const formattedName = payload.name.trim();
+  const formattedEmail = payload.email.trim();
+  const formattedUsername = payload.username.trim();
+  const formattedPassword = payload.password.trim();
+
+  const isNameValid = validateName(formattedName);
+  if (!isNameValid) throw InvalidNameError;
+
+  const isNameLengthValid = validateNameLength(formattedName);
   if (!isNameLengthValid) throw InvalidNameLengthError;
 
-  const isEmailLengthValid = validateEmailLength(payload.email);
+  const isEmailLengthValid = validateEmailLength(formattedEmail);
   if (!isEmailLengthValid) throw InvalidEmailLengthError;
 
-  const isUsernameLengthValid = validateUsernameLength(payload.username);
+  const isUsernameValid = validateUsername(formattedUsername);
+  if (!isUsernameValid) throw InvalidUsernameError;
+
+  const isUsernameLengthValid = validateUsernameLength(formattedUsername);
   if (!isUsernameLengthValid) throw InvalidUsernameLengthError;
 
-  const isPasswordLengthValid = validatePasswordLength(payload.password);
+  const isPasswordLengthValid = validatePasswordLength(formattedPassword);
   if (!isPasswordLengthValid) throw InvalidPasswordLengthError;
 };
 
