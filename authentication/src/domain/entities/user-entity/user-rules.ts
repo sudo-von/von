@@ -6,6 +6,7 @@ const userRules = {
   name: {
     MIN_LENGTH: 3,
     MAX_LENGTH: 30,
+    REG_EXP: /^[a-zA-Z]+$/,
   },
   password: {
     MIN_LENGTH: 10,
@@ -14,6 +15,7 @@ const userRules = {
   username: {
     MIN_LENGTH: 3,
     MAX_LENGTH: 12,
+    REG_EXP: /^[a-zA-Z0-9_]+$/,
   },
 };
 
