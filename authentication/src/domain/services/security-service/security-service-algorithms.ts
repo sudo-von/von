@@ -1,2 +1,2 @@
 export type Algorithms =
-| 'sha256';
+  | 'sha256';
