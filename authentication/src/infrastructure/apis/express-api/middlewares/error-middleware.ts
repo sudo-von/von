@@ -12,7 +12,7 @@ import {
 } from '../../errors/server-error-factory';
 import {
   DomainErrorCode,
-} from '../../../../domain/errors/error-codes';
+} from '../../../../domain/entities/error-entity/error-codes';
 import {
   InternalServerError,
   RequiredFieldServerError,
@@ -21,7 +21,7 @@ import {
 } from '../../entities/api-entities/api-errors';
 import {
   DomainErrorFactory,
-} from '../../../../domain/errors/error-factory';
+} from '../../../../domain/entities/error-entity/error-entities';
 import {
   ServiceErrorCode,
 } from '../../../services/errors/service-error-codes';

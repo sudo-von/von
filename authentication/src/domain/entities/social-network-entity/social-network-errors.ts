@@ -1,6 +1,6 @@
 import {
   createDomainErrorFactory,
-} from '../../errors/error-factory';
+} from '../error-entity/error-entities';
 import socialNetworkRules from './social-network-rules';
 
 export const InvalidSocialNetworkNameLengthError = createDomainErrorFactory({

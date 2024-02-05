@@ -5,7 +5,7 @@ import {
 } from '../../../errors/server-error-factory';
 import {
   UserDomainErrorCode,
-} from '../../../../../domain/errors/error-codes';
+} from '../../../../../domain/entities/error-entity/error-codes';
 import {
   SingleUserOnlyError,
   NoUserCreatedYetError,

@@ -1,11 +1,16 @@
 import {
   createDomainErrorFactory,
-} from '../../errors/error-factory';
+} from '../error-entity/error-entities';
 import userRules from './user-rules';
 
 export const InvalidCredentialsError = createDomainErrorFactory({
   code: 'INVALID_CREDENTIALS',
   message: 'Please verify your credentials and try again.',
+});
+
+export const InvalidEmailError = createDomainErrorFactory({
+  code: 'INVALID_EMAIL',
+  message: 'Please provide a valid email address. It should follow the standard format, such as user@example.com.',
 });
 
 export const InvalidEmailLengthError = createDomainErrorFactory({

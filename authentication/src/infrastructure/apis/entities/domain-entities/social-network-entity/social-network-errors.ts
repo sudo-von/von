@@ -5,7 +5,7 @@ import {
 } from '../../../errors/server-error-factory';
 import {
   SocialNetworkDomainErrorCode,
-} from '../../../../../domain/errors/error-codes';
+} from '../../../../../domain/entities/error-entity/error-codes';
 import {
   SocialNetworkNotFoundError,
   SocialNetworkCreateFailedError,

@@ -1,6 +1,6 @@
 import {
   createDomainErrorFactory,
-} from '../../errors/error-factory';
+} from '../error-entity/error-entities';
 import avatarRules from './avatar-rules';
 
 export const AvatarCreateFailedError = createDomainErrorFactory({
@@ -16,11 +16,6 @@ export const AvatarDeleteFailedError = createDomainErrorFactory({
 export const AvatarReplaceFailedError = createDomainErrorFactory({
   code: 'AVATAR_REPLACE_FAILED',
   message: 'The avatar you attempted to replace could not be replaced.',
-});
-
-export const InvalidAvatarFileExtensionError = createDomainErrorFactory({
-  code: 'INVALID_AVATAR_FILE_EXTENSION',
-  message: 'The MIME type provided is valid, but the extension is empty.',
 });
 
 export const InvalidAvatarFileMimeTypeError = createDomainErrorFactory({

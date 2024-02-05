@@ -48,7 +48,6 @@ class AvatarUsecaseApplication extends AvatarUsecase {
     if (!isFileMimeTypeValid) throw InvalidAvatarFileMimeTypeError;
 
     const formattedExtension = formattedMimeType.split('/').pop();
-    if (!formattedExtension) throw InvalidAvatarFileExtensionError;
 
     const filename = `${formattedHash}.${formattedExtension}`;
     return filename;

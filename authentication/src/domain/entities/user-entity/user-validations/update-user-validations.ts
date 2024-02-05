@@ -1,5 +1,6 @@
 import {
   InvalidNameError,
+  InvalidEmailError,
   InvalidUsernameError,
   InvalidNameLengthError,
   InvalidEmailLengthError,
@@ -10,6 +11,7 @@ import {
 } from '../user-entities';
 import {
   validateName,
+  validateEmail,
   validateUsername,
   validateNameLength,
   validateEmailLength,
@@ -26,6 +28,9 @@ const validateUserUpdate = (payload: UpdateUser) => {
 
   const isNameLengthValid = validateNameLength(formattedName);
   if (!isNameLengthValid) throw InvalidNameLengthError;
+
+  const isEmailValid = validateEmail(formattedEmail);
+  if (!isEmailValid) throw InvalidEmailError;
 
   const isEmailLengthValid = validateEmailLength(formattedEmail);
   if (!isEmailLengthValid) throw InvalidEmailLengthError;

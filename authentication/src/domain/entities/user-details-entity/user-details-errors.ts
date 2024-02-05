@@ -1,6 +1,6 @@
 import {
   createDomainErrorFactory,
-} from '../../errors/error-factory';
+} from '../error-entity/error-entities';
 import userDetailsRules from './user-details-rules';
 
 export const InvalidInterestLengthError = createDomainErrorFactory({

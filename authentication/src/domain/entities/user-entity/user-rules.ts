@@ -2,6 +2,7 @@ const userRules = {
   email: {
     MIN_LENGTH: 3,
     MAX_LENGTH: 250,
+    REG_EXP: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
   },
   name: {
     MIN_LENGTH: 3,
@@ -15,7 +16,7 @@ const userRules = {
   username: {
     MIN_LENGTH: 3,
     MAX_LENGTH: 12,
-    REG_EXP: /^[a-zA-Z0-9_]+$/,
+    REG_EXP: /^[a-zA-Z0-9_-]+$/,
   },
 };
 

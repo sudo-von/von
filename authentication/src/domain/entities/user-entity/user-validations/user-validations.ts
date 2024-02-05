@@ -1,5 +1,11 @@
 import userRules from '../user-rules';
 
+export const validateEmail = (email: string) => {
+  const formattedEmail = email.trim();
+  const { REG_EXP } = userRules.email;
+  return REG_EXP.test(formattedEmail);
+};
+
 export const validateEmailLength = (email: string) => {
   const emailLength = email.trim().length;
   const { MIN_LENGTH, MAX_LENGTH } = userRules.email;
